@@ -1,0 +1,88 @@
+{
+    "menu": [
+        {
+            "id": 1,
+            "title": "About",
+            "slug": "about",
+            "type": "normal"
+        },
+        {
+            "id": 2,
+            "title": "Academics",
+            "slug": "academics",
+            "type": "mega",
+            "megaMenuId": "academics",
+            "children": [
+                {
+                    "campus": "Main Campus - Wardha",
+                    "items": [
+                        {
+                            "id": "jnmc",
+                            "title": "Jawaharlal Nehru Medical College",
+                            "slug": "jnmc",
+                            "image": "/img/jnmc.jpg",
+                            "description": "Established in 1990, JNMC, Wardha is a premier centre for medical education, clinical excellence, and healthcare innovation."
+                        },
+                        {
+                            "id": "spdc",
+                            "title": "Sharad Pawar Dental College and Hospital",
+                            "slug": "spdc",
+                            "image": "/img/spdc.jpg",
+                            "description": "A leading dental institution providing comprehensive dental education, advanced clinical training, and exceptional patient care services."
+                        },
+                        {
+                            "id": "mgac",
+                            "title": "Mahatma Gandhi Ayurvedic College Hospital and Research Centre",
+                            "slug": "mgac",
+                            "image": "/img/mgac.jpg",
+                            "description": "Dedicated to preserving and advancing traditional Ayurvedic medicine through education, research, and holistic healthcare practices."
+                        }
+                    ]
+                },
+                {
+                    "campus": "Off Campus - Nagpur",
+                    "items": [
+                        {
+                            "id": "dmmc",
+                            "title": "Datta Meghe Medical College",
+                            "slug": "dmmc",
+                            "image": "/img/dmmc.jpg",
+                            "description": "Modern medical education facility in Nagpur with comprehensive healthcare training and research capabilities."
+                        },
+                        {
+                            "id": "smhh",
+                            "title": "Shalinitai Meghe Homeopathy Hospital College and Research Centre",
+                            "slug": "smhh",
+                            "image": "/img/smhh.jpg",
+                            "description": "Specialized homeopathic education and treatment center promoting alternative medicine and holistic healing approaches."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "title": "Research",
+            "slug": "research",
+            "type": "normal"
+        },
+        {
+            "id": 4,
+            "title": "Hospitals",
+            "slug": "hospitals",
+            "type": "normal"
+        },
+        {
+            "id": 5,
+            "title": "IQAC",
+            "slug": "iqac",
+            "type": "normal"
+        },
+        {
+            "id": 6,
+            "title": "Global Connects",
+            "slug": "global",
+            "type": "normal"
+        }
+    ]
+}

@@ -1,0 +1,49 @@
+@reference "tailwindcss";
+
+/* optional but recommended */
+@layer components {
+
+    .navbar {
+        @apply fixed w-full bg-white top-0 z-[999] shadow-sm h-[100px];
+    }
+
+    .navbar-inner {
+        @apply flex justify-between items-center px-6 h-full;
+    }
+
+    .navbar-logo {
+        @apply w-[200px];
+    }
+
+    .navbar-desktop {
+        @apply hidden lg:flex flex-col items-end w-full h-full;
+    }
+
+    .navbar-top-links {
+        @apply flex gap-2 text-sm text-gray-600 mb-2 mt-auto;
+    }
+
+    .top-links {
+        @apply border-r last:border-0 hover:underline pr-2;
+    }
+
+    .navbar-main {
+        @apply flex gap-10 text-lg text-[#1f3c88] mt-auto;
+    }
+
+    .nav-link {
+        @apply pb-1 border-b-4 border-transparent hover:border-[#ff4f37];
+    }
+
+    .nav-link-active {
+        @apply border-[#ff4f37];
+    }
+
+    .mobile-btn {
+        @apply lg:hidden;
+    }
+
+    .mobile-menu {
+        @apply lg:hidden bg-[#1f3c88] text-white p-6 space-y-4;
+    }
+}

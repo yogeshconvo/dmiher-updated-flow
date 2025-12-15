@@ -1,0 +1,878 @@
+{
+    "page-data": [
+        {
+            "slug": "mgac",
+            "title": "MGAC",
+            "sections": [
+                {
+                    "section_id": "hero_section",
+                    "data": {
+                        "topbar": {
+                            "admissions_text": "Admissions open for 2025-26",
+                            "primary_cta_text": "MBBS NEET 2025 Admissions",
+                            "primary_cta_section_id": "jnmc-announcements",
+                            "apply_now_url": "https://dmiher-apply.mastersofterp.com/ApplicationLandingPage/Index/DMIHER",
+                            "phone_label": "+91 8888040999",
+                            "phone_number": "+918888040999"
+                        },
+                        "slides": [
+                            {
+                                "img": "",
+                                "title": "FORGING LEADERS IN \n MEDICINE [[#E1CD67]] SINCE 1990[[/#E1CD67]]",
+                                "highlight": "250 MBBS Seats | 205 PG Seats | 10 Super-Speciality Programs",
+                                "textPosition": "left"
+                            },
+                            {
+                                "img": "",
+                                "title": "EMPOWERING STUDENTS \n [[#E1CD67]] TO LEAD BREAKTHROUGHS [[/#E1CD67]]",
+                                "highlight": "Cutting-Edge Campus | Student-Centered Success | Next-Gen Learning",
+                                "textPosition": "left"
+                            },
+                            {
+                                "img": "",
+                                "title": "[[#E1CD67]] IMMERSIVE MEDICAL [[/#E1CD67]] \n TRAINING. ADVANCING \n CLINICAL RESEARCH & CARE",
+                                "highlight": "Certified Skill Labs | Interdisciplinary Innovation",
+                                "textPosition": "left"
+                            },
+                            {
+                                "img": "",
+                                "title": "STATE OF ART [[#E1CD67]] LEARNING  [[/#E1CD67]]",
+                                "highlight": "Innovative, Learner-centric Teaching methodologies",
+                                "textPosition": "left"
+                            },
+                            {
+                                "img": "",
+                                "title": "SHAPING MEDICAL MINDS WITH [[#E1CD67]] MODERNITY AND MEANING [[/#E1CD67]]",
+                                "highlight": "Mannequins | Simulation wards | Virtual dissection",
+                                "textPosition": "left"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "holistic_infrastructure_section",
+                    "data": {
+                        "heading": "HOLISTIC LEARNING AND INFRASTRUCTURE",
+                        "items": [
+                            {
+                                "id": 0,
+                                "label": "Teaching–Learning Facilities",
+                                "content": "Air-conditioned lecture theatres with audio-visual aids and live procedure broadcasts, Largest tertiary care hospital with attached super-specialty centre.",
+                                "image_key": "holistic_1"
+                            },
+                            {
+                                "id": 1,
+                                "label": "Teaching Learning Methodologies",
+                                "content": "Dedicated AETCOM sessions, Structured self-directed learning (SSDL) modules, Flipped classrooms, Integrated modules, Family Adoption Program, Induction programs, Get Set Go, PG training facilities including advanced modular OTs, Skill training sessions. Teachers training programme for capacity building by Medical Education Unit and NMC Nodal Centre for Faculty development.",
+                                "image_key": "holistic_6"
+                            },
+                            {
+                                "id": 2,
+                                "label": "Technology-Enabled Digital Learning",
+                                "content": "LMS with resource sharing, quizzes, assignments.",
+                                "image_key": "holistic_2"
+                            },
+                            {
+                                "id": 3,
+                                "label": "Laboratory & Hospital Facilities",
+                                "content": "Histology, Haematology, Histopathology, Biochemistry, Microbiology labs, OSPE/OSCE ward for skill training & assessment, CRL with high-end equipment and integrated research.",
+                                "image_key": "holistic_3"
+                            },
+                            {
+                                "id": 4,
+                                "label": "Advanced Teaching, Museum & Skilllab",
+                                "content": "“Jigyasa” digital museum (15,000+ sq. ft.), QR-coded, self-learning hub, “Anukriti” Simulation Centre with high-fidelity mannequins, AHA & National Board accreditation, Mayo Clinic-backed Standardized Patient Program (SPP), Cadaveric skill lab with soft-embalmed specimens, Wet lab for basic to advanced surgical skills.",
+                                "image_key": "holistic_4"
+                            },
+                            {
+                                "id": 5,
+                                "label": "Library Facilities",
+                                "content": "Fully air-conditioned central resource, Books, journals for all departments, Subscriptions: Access Medicine, UpToDate, Royal Society of Medicine, BMJ, Digital library with 100+ computers and Wi-Fi.",
+                                "image_key": "holistic_5"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "info_section",
+                    "data": {
+                        "title": "Mahatma Gandhi Ayurved College, Hospital, and Research Centre (MGACH & RC)",
+                        "tagline": "Blending Ancient Wisdom with Modern Evidence",
+                        "highlight_color": "#F04E30",
+                        "intro_paragraphs": [
+                            "Ranked 6th Nationwide, Grade “A” by MARBISM for National Commission for Indian System of Medicine, Ministry of AYUSH, Govt. of India.",
+                            "Founded in 2007 to honour Mahatma Gandhi’s ideals of self-care, ethical healing, and community service, MGACH&RC, Salod (H), Wardha, blends Ayurveda wisdom with real-world practice. Students gain hands-on learning in a NABH-accredited 372 beded hospital..."
+                        ],
+                        "more_paragraphs": [
+                            "Research at this center is actively pursued through national and international collaborations..."
+                        ]
+                    }
+                },
+                {
+                    "section_id": "programs_section",
+                    "data": {
+                        "heading": "OUR PROGRAMS",
+                        "programs": [
+                            {
+                                "name": "BAMS (Bachelor of Ayurvedic Medicine and Surgery)",
+                                "category": "UG"
+                            },
+                            {
+                                "name": "M.D. (Samhita Siddhant)",
+                                "category": "PG"
+                            },
+                            {
+                                "name": "PhD in Ayurveda",
+                                "category": "PhD"
+                            },
+                            {
+                                "name": "Certificate in Panchakarma Therapy",
+                                "category": "Certifications"
+                            }
+                        ],
+                        "disclosures_heading": "MANDATORY DISCLOSURES",
+                        "disclosures_link_text": "Check all Mandatory Disclosures",
+                        "disclosures_cta_text": "Click Here",
+                        "disclosures_url": "/mgac/mandatory-disclosure"
+                    }
+                },
+                {
+                    "section_id": "hospital_section",
+                    "data": {
+                        "heading": "Mahatma Gandhi Ayurveda Hospital",
+                        "paragraphs": [
+                            "The 372-bed, NABH-accredited first Ayurveda hospital in Central India is committed to delivering exceptional care...",
+                            "Specialty OPDs cover a wide range of disciplines including ENT, eye care, detoxification...",
+                            "Traditional Kriya Kalpa therapies such as Aschotana and Tarpan support natural healing..."
+                        ],
+                        "images": [
+                            "/assets/MGAC/1.jpg",
+                            "/assets/MGAC/2.jpg",
+                            "/assets/MGAC/3.jpg",
+                            "/assets/MGAC/4.jpg"
+                        ]
+                    }
+                },
+                {
+                    "section_id": "deans_message_section",
+                    "data": {
+                        "heading": "DEAN’S MESSAGE",
+                        "dean_name": "Dr. (Mrs.) Sonali Choudhari Deshmukh",
+                        "designation_lines": [
+                            "Dean, JNMC & AVBRH, DMIHER",
+                            "MBBS, MD, MPhil (HPE), FAIMER (IFI, Philadelphia)"
+                        ],
+                        "email": "dean.jnmc@dmiher.edu.in",
+                        "paragraphs": [
+                            "Jawaharlal Nehru Medical College & Acharya Vinoba Bhave Rural Hospital, established in 1990 under the Datta Meghe Institute of Higher Education and Research (Deemed to be University), Wardha, stands as a premier institution for medical education, research, and healthcare services. Ranked 23rd nationally, we offer MBBS (250 seats), postgraduate, super-specialty, paramedical, and PhD programs, all accredited with NAAC ‘A++’.",
+                            "Our innovations include ‘Anukruti’, a state-of-the-art Simulation Centre, ‘Jigyasa’, a central integrated museum, and early adoption of NEP 2020. As a nodal centre for faculty development, we integrate cutting-edge teaching methodologies and host national and international conferences. Through robust community partnerships, we adopt villages to extend healthcare services.",
+                            "We are home to the region’s largest tertiary care hospital, a Super-specialty centre, and a dedicated Cancer hospital, offering a comprehensive range of services, including robotic surgery, oncology, cardiology, nephrology, neurology, neurosurgery, urology, gastroenterology, interventional radiology, and transplant facilities. With a strong focus on research and quality education, we remain dedicated to innovation and compassionate healthcare and community well-being."
+                        ],
+                        "cta_label": "Key Officials",
+                        "cta_url": "/jnmc/deans-message"
+                    }
+                },
+                {
+                    "section_id": "medical_education_unit",
+                    "data": {
+                        "heading": "MEDICAL EDUCATION UNIT, JNMC, WARDHA",
+                        "background_image": "/images/jnmc/moe.jpeg",
+                        "paragraphs": [
+                            "The Medical Education Unit (MEU) at Jawaharlal Nehru Medical College, Wardha, is the in-house body of faculty representatives from Pre-Clinical, Para-Clinical and Clinical subjects, who plays a pivotal role in ensuring the quality of medical education by focusing on implementation, monitoring and evaluation of faculty training, curriculum revision, development of learning resource material, innovation in instructional tools and assessment.",
+                            "The MEU aims to equip medical educators with advanced teaching methodologies and pedagogical skills, ensuring the delivery of effective and contemporary medical education, a standardized approach to medical education across institutions and continuous improvement of educational practices and policies within the institution."
+                        ],
+                        "cta_label": "Know more",
+                        "cta_url": "/jnmc/medical-education-unit"
+                    }
+                }
+            ]
+        },
+        {
+            "slug": "jnmc",
+            "title": "JNMC",
+            "sections": [
+                {
+                    "section_id": "hero_section",
+                    "data": {
+                        "topbar": {
+                            "admissions_text": "Admissions open for 2025-26",
+                            "primary_cta_text": "MBBS NEET 2025 Admissions",
+                            "primary_cta_section_id": "jnmc-announcements",
+                            "apply_now_url": "https://dmiher-apply.mastersofterp.com/ApplicationLandingPage/Index/DMIHER",
+                            "phone_label": "+91 8888040999",
+                            "phone_number": "+918888040999"
+                        },
+                        "slides": [
+                            {
+                                "img": "",
+                                "title": "FORGING LEADERS IN \n MEDICINE [[#E1CD67]] SINCE 1990[[/#E1CD67]]",
+                                "highlight": "250 MBBS Seats | 205 PG Seats | 10 Super-Speciality Programs",
+                                "textPosition": "left"
+                            },
+                            {
+                                "img": "",
+                                "title": "EMPOWERING STUDENTS \n [[#E1CD67]] TO LEAD BREAKTHROUGHS [[/#E1CD67]]",
+                                "highlight": "Cutting-Edge Campus | Student-Centered Success | Next-Gen Learning",
+                                "textPosition": "left"
+                            },
+                            {
+                                "img": "",
+                                "title": "[[#E1CD67]] IMMERSIVE MEDICAL [[/#E1CD67]] \n TRAINING. ADVANCING \n CLINICAL RESEARCH & CARE",
+                                "highlight": "Certified Skill Labs | Interdisciplinary Innovation",
+                                "textPosition": "left"
+                            },
+                            {
+                                "img": "",
+                                "title": "STATE OF ART [[#E1CD67]] LEARNING  [[/#E1CD67]]",
+                                "highlight": "Innovative, Learner-centric Teaching methodologies",
+                                "textPosition": "left"
+                            },
+                            {
+                                "img": "",
+                                "title": "SHAPING MEDICAL MINDS WITH [[#E1CD67]] MODERNITY AND MEANING [[/#E1CD67]]",
+                                "highlight": "Mannequins | Simulation wards | Virtual dissection",
+                                "textPosition": "left"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "info_section",
+                    "data": {
+                        "title": "Jawaharlal Nehru Medical College",
+                        "tagline": "Excellence in Medical Education",
+                        "highlight_color": "#004aad",
+                        "intro_paragraphs": [
+                            "JNMC is a leading medical institute focused on evidence-based learning and compassionate care.",
+                            "With modern infrastructure, simulation labs, and experienced faculty, students receive holistic clinical exposure."
+                        ],
+                        "more_paragraphs": [
+                            "The institute actively participates in national and international research projects..."
+                        ]
+                    }
+                },
+                {
+                    "section_id": "holistic_infrastructure_section",
+                    "data": {
+                        "heading": "HOLISTIC LEARNING AND INFRASTRUCTURE",
+                        "items": [
+                            {
+                                "id": 0,
+                                "label": "Teaching–Learning Facilities",
+                                "content": "Air-conditioned lecture theatres with audio-visual aids and live procedure broadcasts, Largest tertiary care hospital with attached super-specialty centre.",
+                                "image_key": "holistic_1"
+                            },
+                            {
+                                "id": 1,
+                                "label": "Teaching Learning Methodologies",
+                                "content": "Dedicated AETCOM sessions, Structured self-directed learning (SSDL) modules, Flipped classrooms, Integrated modules, Family Adoption Program, Induction programs, Get Set Go, PG training facilities including advanced modular OTs, Skill training sessions. Teachers training programme for capacity building by Medical Education Unit and NMC Nodal Centre for Faculty development.",
+                                "image_key": "holistic_6"
+                            },
+                            {
+                                "id": 2,
+                                "label": "Technology-Enabled Digital Learning",
+                                "content": "LMS with resource sharing, quizzes, assignments.",
+                                "image_key": "holistic_2"
+                            },
+                            {
+                                "id": 3,
+                                "label": "Laboratory & Hospital Facilities",
+                                "content": "Histology, Haematology, Histopathology, Biochemistry, Microbiology labs, OSPE/OSCE ward for skill training & assessment, CRL with high-end equipment and integrated research.",
+                                "image_key": "holistic_3"
+                            },
+                            {
+                                "id": 4,
+                                "label": "Advanced Teaching, Museum & Skilllab",
+                                "content": "“Jigyasa” digital museum (15,000+ sq. ft.), QR-coded, self-learning hub, “Anukriti” Simulation Centre with high-fidelity mannequins, AHA & National Board accreditation, Mayo Clinic-backed Standardized Patient Program (SPP), Cadaveric skill lab with soft-embalmed specimens, Wet lab for basic to advanced surgical skills.",
+                                "image_key": "holistic_4"
+                            },
+                            {
+                                "id": 5,
+                                "label": "Library Facilities",
+                                "content": "Fully air-conditioned central resource, Books, journals for all departments, Subscriptions: Access Medicine, UpToDate, Royal Society of Medicine, BMJ, Digital library with 100+ computers and Wi-Fi.",
+                                "image_key": "holistic_5"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "departments",
+                    "data": {
+                        "heading": "OUR DEPARTMENTS",
+                        "chunk_config": {
+                            "desktop": 8,
+                            "tablet": 6,
+                            "mobile": 6
+                        },
+                        "departments": [
+                            {
+                                "id": 1,
+                                "title": "Anatomy",
+                                "tabId": "anatomy",
+                                "image": "http://localhost:3000/images/jnmc/departments/1.png"
+                            },
+                            {
+                                "id": 2,
+                                "title": "Anesthesiology",
+                                "tabId": "anaesthesiology",
+                                "image": "http://localhost:3000/images/jnmc/departments/2.png"
+                            },
+                            {
+                                "id": 3,
+                                "title": "Biochemistry",
+                                "tabId": "biochemistry",
+                                "image": "http://localhost:3000/images/jnmc/departments/3.png"
+                            },
+                            {
+                                "id": 4,
+                                "title": "Dermatology",
+                                "tabId": "dermatology",
+                                "image": "http://localhost:3000/images/jnmc/departments/4.png"
+                            },
+                            {
+                                "id": 5,
+                                "title": "Cardiology",
+                                "tabId": "cardiology",
+                                "image": "http://localhost:3000/images/jnmc/departments/5.png"
+                            },
+                            {
+                                "id": 6,
+                                "title": "Critical Care Medicine",
+                                "tabId": "critical_care",
+                                "image": "http://localhost:3000/images/jnmc/departments/6.png"
+                            },
+                            {
+                                "id": 7,
+                                "title": "Interventional Radiology",
+                                "tabId": "interventional_radiology",
+                                "image": "http://localhost:3000/images/jnmc/departments/7.png"
+                            },
+                            {
+                                "id": 8,
+                                "title": "Medical Gastroenterology",
+                                "tabId": "gastroenterology",
+                                "image": "http://localhost:3000/images/jnmc/departments/8.png"
+                            },
+                            {
+                                "id": 9,
+                                "title": "Medical Oncology",
+                                "tabId": "medical_oncology",
+                                "image": "http://localhost:3000/images/jnmc/departments/9.png"
+                            },
+                            {
+                                "id": 10,
+                                "title": "Neonatology",
+                                "tabId": "neonatology",
+                                "image": "http://localhost:3000/images/jnmc/departments/10.png"
+                            },
+                            {
+                                "id": 11,
+                                "title": "Neurology",
+                                "tabId": "neurology",
+                                "image": "http://localhost:3000/images/jnmc/departments/11.png"
+                            },
+                            {
+                                "id": 12,
+                                "title": "Nephrology",
+                                "tabId": "nephrology",
+                                "image": "http://localhost:3000/images/jnmc/departments/12.png"
+                            },
+                            {
+                                "id": 13,
+                                "title": "Emergency Medicine",
+                                "tabId": "emergency_medicine",
+                                "image": "http://localhost:3000/images/jnmc/departments/13.png"
+                            },
+                            {
+                                "id": 14,
+                                "title": "ENT Otorhinolaryngology",
+                                "tabId": "ent",
+                                "image": "http://localhost:3000/images/jnmc/departments/14.png"
+                            },
+                            {
+                                "id": 15,
+                                "title": "Forensic Medicine & Toxicology",
+                                "tabId": "forensic_medicine",
+                                "image": "http://localhost:3000/images/jnmc/departments/15.png"
+                            },
+                            {
+                                "id": 16,
+                                "title": "General Medicine",
+                                "tabId": "medicine",
+                                "image": "http://localhost:3000/images/jnmc/departments/16.png"
+                            },
+                            {
+                                "id": 17,
+                                "title": "General Surgery",
+                                "tabId": "general_surgery",
+                                "image": "http://localhost:3000/images/jnmc/departments/17.png"
+                            },
+                            {
+                                "id": 18,
+                                "title": "Orthopaedics",
+                                "tabId": "orthopaedics",
+                                "image": "http://localhost:3000/images/jnmc/departments/18.png"
+                            },
+                            {
+                                "id": 19,
+                                "title": "Paediatrics",
+                                "tabId": "paediatrics",
+                                "image": "http://localhost:3000/images/jnmc/departments/19.png"
+                            },
+                            {
+                                "id": 20,
+                                "title": "Pathology",
+                                "tabId": "pathology",
+                                "image": "http://localhost:3000/images/jnmc/departments/20.png"
+                            },
+                            {
+                                "id": 21,
+                                "title": "Pharmacology",
+                                "tabId": "pharmacology",
+                                "image": "http://localhost:3000/images/jnmc/departments/21.png"
+                            },
+                            {
+                                "id": 22,
+                                "title": "Physiology",
+                                "tabId": "physiology",
+                                "image": "http://localhost:3000/images/jnmc/departments/22.png"
+                            },
+                            {
+                                "id": 23,
+                                "title": "Psychiatry",
+                                "tabId": "psychiatry",
+                                "image": "http://localhost:3000/images/jnmc/departments/23.png"
+                            },
+                            {
+                                "id": 24,
+                                "title": "Radiodiagnosis",
+                                "tabId": "radio_diagnosis",
+                                "image": "http://localhost:3000/images/jnmc/departments/24.png"
+                            },
+                            {
+                                "id": 25,
+                                "title": "Respiratory Medicine",
+                                "tabId": "respiratory_medicine",
+                                "image": "http://localhost:3000/images/jnmc/departments/25.png"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "slug": "yogesh",
+            "title": "yogibaba",
+            "sections": [
+                {
+                    "section_id": "programs_section",
+                    "data": {
+                        "heading": "CHAI",
+                        "programs": [
+                            {
+                                "name": "General Nursing",
+                                "category": "UG"
+                            },
+                            {
+                                "name": "M.Sc. Nursing",
+                                "category": "PG"
+                            }
+                        ],
+                        "disclosures_heading": "MANDATORY DISCLOSURES",
+                        "disclosures_link_text": "View Mandatory Disclosures",
+                        "disclosures_cta_text": "Click Here",
+                        "disclosures_url": "/smhh/mandatory-disclosure"
+                    }
+                }
+            ]
+        }
+    ],
+    "menu": [
+        {
+            "id": 1,
+            "type": "topLinks",
+            "title": "Admissions",
+            "slug": "/admissions"
+        },
+        {
+            "id": 2,
+            "type": "topLinks",
+            "title": "Announcements",
+            "slug": "/Announcements"
+        },
+        {
+            "id": 2,
+            "type": "topLinks",
+            "title": "Contact Us",
+            "slug": "/contactus"
+        },
+        {
+            "id": 3,
+            "type": "normal",
+            "title": "About",
+            "slug": "/about"
+        },
+        {
+            "id": 4,
+            "type": "normal",
+            "title": "COE",
+            "slug": "/coe"
+        },
+        {
+            "id": 5,
+            "type": "megaMenu",
+            "title": "Academics",
+            "children": [
+                {
+                    "campus": "Main Campus - Wardha",
+                    "items": [
+                        {
+                            "id": "jnmc",
+                            "title": "JNMC",
+                            "slug": "/jnmc",
+                            "image": "/images/jnmc.jpg",
+                            "description": "Premier medical institute"
+                        },
+                        {
+                            "id": "jnmc",
+                            "title": "JNMC",
+                            "slug": "/jnmc",
+                            "image": "/images/jnmc.jpg",
+                            "description": "Premier medical institute"
+                        }
+                    ]
+                },
+                {
+                    "campus": "Off Campus - Nagpur",
+                    "items": [
+                        {
+                            "id": "dmmc",
+                            "title": "DMMC",
+                            "slug": "/dmmc",
+                            "image": "/images/dmmc.jpg",
+                            "description": "Medical College Nagpur"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "type": "normal",
+            "title": "Programs",
+            "slug": "/programs"
+        },
+        {
+            "id": 7,
+            "type": "normal",
+            "title": "IQAC",
+            "slug": "/IQAC"
+        },
+        {
+            "id": 8,
+            "type": "normal",
+            "title": "Hospitals",
+            "slug": "/hospitals"
+        },
+        {
+            "id": 8,
+            "type": "normal",
+            "title": "Global",
+            "slug": "/global"
+        }
+    ],
+    "footer": {
+        "logo": "/assets/nav-logo-tran.png",
+        "address": {
+            "title": "Registrar",
+            "lines": [
+                "Datta Meghe Institute of Higher Education & Research",
+                "(Deemed to be University), Sawangi (Meghe)",
+                "Wardha - 442107 Maharashtra"
+            ],
+            "contact": "(07152) - 287701, 287702, 287703, 287704, 287705, 287706, (07152) - 304000",
+            "email": "registrar@dmiher.edu.in"
+        },
+        "socials": [
+            {
+                "name": "Instagram",
+                "icon": "instagram",
+                "url": "https://www.instagram.com/dmiheruniversity"
+            },
+            {
+                "name": "Facebook",
+                "icon": "facebook",
+                "url": "https://www.facebook.com/dmiherduwardha"
+            },
+            {
+                "name": "LinkedIn",
+                "icon": "linkedin",
+                "url": "https://www.linkedin.com/company/dmimsu/posts/?feedView=all"
+            },
+            {
+                "name": "YouTube",
+                "icon": "youtube",
+                "url": "https://www.youtube.com/channel/UCDVjybdsfkn6e5UtaSA8-Dw"
+            }
+        ],
+        "sections": [
+            {
+                "id": "programs",
+                "title": "Programs",
+                "links": [
+                    {
+                        "text": "Medicine",
+                        "url": "/programs/medicine-streams"
+                    },
+                    {
+                        "text": "Dental",
+                        "url": "/programs/dental-streams"
+                    },
+                    {
+                        "text": "Ayurveda",
+                        "url": "/programs/ayurveda-streams"
+                    },
+                    {
+                        "text": "Homeopathy",
+                        "url": "/programs/homeopathy-streams"
+                    },
+                    {
+                        "text": "Nursing",
+                        "url": "/programs/nursing-streams"
+                    },
+                    {
+                        "text": "Physiotherapy",
+                        "url": "/programs/physiotherapy-streams"
+                    },
+                    {
+                        "text": "Allied Health Sciences",
+                        "url": "/programs/ahs-streams"
+                    },
+                    {
+                        "text": "Engineering",
+                        "url": "/programs/feat-streams"
+                    },
+                    {
+                        "text": "Commerce & Management",
+                        "url": "/programs/commerce-management-streams"
+                    },
+                    {
+                        "text": "Liberal Arts",
+                        "url": "/programs"
+                    },
+                    {
+                        "text": "Online Programs",
+                        "url": "/programs/online-streams"
+                    }
+                ]
+            },
+            {
+                "id": "colleges",
+                "title": "Colleges",
+                "groups": [
+                    {
+                        "groupTitle": "Main Campus - Wardha",
+                        "links": [
+                            {
+                                "text": "Jawaharlal Nehru Medical College",
+                                "url": "/jnmc"
+                            },
+                            {
+                                "text": "Sharad Pawar Dental College And Hospital",
+                                "url": "/spdc"
+                            },
+                            {
+                                "text": "Mahatma Gandhi Ayurvedic College Hospital And Research Centre",
+                                "url": "/MGAC"
+                            },
+                            {
+                                "text": "Ravi Nair Physiotherapy College",
+                                "url": "/rnpc"
+                            },
+                            {
+                                "text": "Datta Meghe College Of Pharmacy",
+                                "url": "/dmcp"
+                            },
+                            {
+                                "text": "Faculty Of Engineering And Technology",
+                                "url": "/feat"
+                            },
+                            {
+                                "text": "Smt Radhikabai Meghe Memorial College Of Nursing",
+                                "url": "/SRMMCON"
+                            },
+                            {
+                                "text": "Shalinitai Meghe College Of Nursing",
+                                "url": "/SMCON-W"
+                            },
+                            {
+                                "text": "School Of Allied Health Sciences",
+                                "url": "/sahs"
+                            },
+                            {
+                                "text": "School Of Allied Sciences",
+                                "url": "/sas"
+                            },
+                            {
+                                "text": "Centre For Distance And Online Education",
+                                "url": "/cdoe"
+                            }
+                        ]
+                    },
+                    {
+                        "groupTitle": "Off Campus - Wanadongri, Nagpur",
+                        "links": [
+                            {
+                                "text": "Datta Meghe Medical College",
+                                "url": "/dmmc"
+                            },
+                            {
+                                "text": "Shalinitai Meghe Homeopathy Hospital College And Research Centre",
+                                "url": "/smhh"
+                            },
+                            {
+                                "text": "Shalinitai Meghe College Of Nursing",
+                                "url": "/SMCON-N"
+                            },
+                            {
+                                "text": "School Of Allied Health Sciences",
+                                "url": "/sahs"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "important-links",
+                "title": "Important Links",
+                "links": [
+                    {
+                        "text": "NAAC",
+                        "url": "/naac-ssr"
+                    },
+                    {
+                        "text": "Staff Mental Health and Wellness Centre",
+                        "url": "/staff-mental-health-and-wellness-centre"
+                    },
+                    {
+                        "text": "Grievance Redressal",
+                        "url": "/students-section/students-grievance-cell"
+                    },
+                    {
+                        "text": "Sexual Harassment Complaint Portal",
+                        "url": "/sexual-harassment-complaint-portal"
+                    },
+                    {
+                        "text": "Caste Discrimination Complaint Portal",
+                        "url": "/caste-discrimination-complaint-portal"
+                    },
+                    {
+                        "text": "Anti Ragging Measures",
+                        "url": "/students-section/anti-ragging-cell"
+                    },
+                    {
+                        "text": "Expression of Interest",
+                        "url": "/expression-of-interest"
+                    },
+                    {
+                        "text": "Code of Conduct",
+                        "url": "/code-of-conduct"
+                    },
+                    {
+                        "text": "Academic Bank of Credits",
+                        "url": "https://www.abc.gov.in/"
+                    },
+                    {
+                        "text": "Digilocker NAD Portal",
+                        "url": "https://www.digilocker.gov.in/"
+                    },
+                    {
+                        "text": "National Scholarship Portal",
+                        "url": "https://scholarships.gov.in/home"
+                    }
+                ]
+            },
+            {
+                "id": "terms",
+                "title": "Terms & Conditions",
+                "links": [
+                    {
+                        "text": "Disclaimer",
+                        "url": "/disclaimer"
+                    },
+                    {
+                        "text": "Privacy Policy for Students",
+                        "url": "/privacy-policies"
+                    },
+                    {
+                        "text": "Apply for Tender and EOI",
+                        "url": "http://137.97.64.12:8997/tender/frmOnGoingContract.aspx"
+                    },
+                    {
+                        "text": "Apply for Transcript",
+                        "url": "https://alumni.dmimsu.edu.in/home.dz"
+                    },
+                    {
+                        "text": "e-Tender",
+                        "url": "/e-tender"
+                    },
+                    {
+                        "text": "Terms and Conditions for Online Payments",
+                        "url": "/terms-and-conditions-for-online-payments"
+                    }
+                ]
+            }
+        ],
+        "quickLinks": [
+            {
+                "text": "Hospitals",
+                "url": "/hospitals"
+            },
+            {
+                "text": "Admissions",
+                "url": "/admissions"
+            },
+            {
+                "text": "Research",
+                "url": "/research"
+            },
+            {
+                "text": "Announcements",
+                "url": "/announcements"
+            },
+            {
+                "text": "Global",
+                "url": "/global"
+            },
+            {
+                "text": "Campus Life",
+                "url": "/campus-facilities"
+            },
+            {
+                "text": "Contact Us",
+                "url": "/contactus"
+            },
+            {
+                "text": "About",
+                "url": "/about"
+            },
+            {
+                "text": "IQAC",
+                "url": "/IQAC"
+            },
+            {
+                "text": "Alumni",
+                "url": "/alumni"
+            },
+            {
+                "text": "Controller of Examinations",
+                "url": "/coe"
+            },
+            {
+                "text": "Student Life",
+                "url": "/studentlife"
+            }
+        ],
+        "copyright": "© 2025 Datta Meghe Institute of Higher Education & Research. All rights reserved."
+    }
+}

@@ -1,0 +1,67 @@
+@reference "tailwindcss";
+
+@layer components {
+
+    /* COMMON */
+    .footer {
+        @apply bg-[#132F5C] text-white px-6 py-10 text-sm;
+    }
+
+    .footer-logo {
+        @apply w-48 mb-4;
+    }
+
+    .footer-logo-mobile {
+        @apply w-52 mb-6;
+    }
+
+    .footer-title {
+        @apply text-yellow-400 mb-2 border-b border-gray-500;
+    }
+
+    .footer-title-mobile {
+        @apply text-yellow-400 border-t pt-4;
+    }
+
+    .footer-bottom {
+        @apply text-center text-gray-400 text-xs mt-10;
+    }
+
+    /* DESKTOP */
+    .footer-desktop {
+        @apply hidden md:block;
+    }
+
+    .footer-grid {
+        @apply max-w-7xl mx-auto grid md:grid-cols-4 gap-8;
+    }
+
+    .footer-address-title {
+        @apply text-yellow-400 mt-4;
+    }
+
+    .footer-socials {
+        @apply flex gap-4 mt-4;
+    }
+
+    /* MOBILE */
+    .footer-mobile {
+        @apply md:hidden;
+    }
+
+    .footer-quick-links {
+        @apply grid grid-cols-2 gap-2 text-yellow-400 text-lg mb-6;
+    }
+
+    .footer-socials-mobile {
+        @apply flex gap-6 mt-8 text-3xl;
+    }
+
+    .footer-address-mobile {
+        @apply mt-6;
+    }
+
+    .footer-visitor {
+        @apply flex justify-center items-center mt-2;
+    }
+}
