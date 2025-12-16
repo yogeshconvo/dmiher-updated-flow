@@ -485,6 +485,383 @@
                     }
                 }
             ]
+        },
+       
+        {
+            "slug": "home",
+            "title": "Home",
+            "sections": [
+                {
+                    "section_id": "hero_home_section",
+                    "data": {
+                        "topbar": {
+                            "admissions_text": "Admissions open for 2025-26",
+                            "primary_cta_text": "MBBS NEET 2025 Admissions",
+                            "primary_cta_section_id": "jnmc-announcements",
+                            "apply_now_url": "https://dmiher-apply.mastersofterp.com/ApplicationLandingPage/Index/DMIHER",
+                            "phone_label": "+91 8888040999",
+                            "phone_number": "+918888040999"
+                        },
+                        "slides": [
+                            {
+                                "img": "",
+                                "title": "FORGING LEADERS IN \n MEDICINE [[#E1CD67]] SINCE 1990[[/#E1CD67]]",
+                                "highlight": "250 MBBS Seats | 205 PG Seats | 10 Super-Speciality Programs",
+                                "textPosition": "left"
+                            },
+                            {
+                                "img": "",
+                                "title": "EMPOWERING STUDENTS \n [[#E1CD67]] TO LEAD BREAKTHROUGHS [[/#E1CD67]]",
+                                "highlight": "Cutting-Edge Campus | Student-Centered Success | Next-Gen Learning",
+                                "textPosition": "left"
+                            },
+                            {
+                                "img": "",
+                                "title": "[[#E1CD67]] IMMERSIVE MEDICAL [[/#E1CD67]] \n TRAINING. ADVANCING \n CLINICAL RESEARCH & CARE",
+                                "highlight": "Certified Skill Labs | Interdisciplinary Innovation",
+                                "textPosition": "left"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "home_info_section",
+                    "data": {
+                        "backgroundImg": "/assets/Group302.png",
+                        "title": "STEP INTO THE WORLD OF EVIDENCE-DRIVEN, COMPETENCY-BASED LEARNING.",
+                        "intro_paragraphs": [
+                            "Founded in 1990 and recognized as a Deemed-to-be-University in 2005, DMIHER is a dynamic hub of multidisciplinary learning. With exceptional faculty, state-of-the-art facilities, and an industry-aligned curriculum, it fuels innovation, research, and a vibrant campus life— shaping future leaders ready to make an impact."
+                        ],
+                        "stats": [
+                            {
+                                "number": "2",
+                                "label": "Campuses"
+                            },
+                            {
+                                "number": "270+",
+                                "label": "Acres"
+                            },
+                            {
+                                "number": "275+",
+                                "label": "Programs"
+                            },
+                            {
+                                "number": "1000+",
+                                "label": "Faculty members"
+                            },
+                            {
+                                "number": "3200+",
+                                "label": "Hospital Beds"
+                            },
+                            {
+                                "number": "75+",
+                                "label": "Research & Innovation Labs"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "home_programs_section",
+                    "data": {
+                        "title": "PROGRAMS",
+                        "background_color": "#0a2b5a",
+                        "program_icon": "/assets/Programs/programicon.png",
+                        "programs": [
+                            {
+                                "name": "Medicine",
+                                "image": "/assets/Programs/program1.jpg",
+                                "path": "/programs/medicine-streams"
+                            },
+                            {
+                                "name": "Dentistry",
+                                "image": "/assets/Programs/program2.jpg",
+                                "path": "/programs/dental-streams"
+                            },
+                            {
+                                "name": "Commerce &\nManagement",
+                                "image": "/assets/Programs/program10.jpg",
+                                "path": "/programs/commerce-management-streams"
+                            },
+                            {
+                                "name": "Hospital\nAdministration",
+                                "image": "/assets/Programs/program15.jpg",
+                                "path": "/programs"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "home_ResearchInnovation_section",
+                    "data": {
+                        "title": "Research & Innovation",
+                        "image": "/assets/RI.png",
+                        "view_more": {
+                            "label": "Know more about Research >",
+                            "link": "/research"
+                        },
+                        "stats": [
+                            {
+                                "icon": "/assets/RI/researchicon1.png",
+                                "alt": "Publications",
+                                "value": "17500+",
+                                "label": "Publications"
+                            },
+                            {
+                                "icon": "/assets/RI/researchicon2.png",
+                                "alt": "Grants",
+                                "value": "12500+",
+                                "label": "lakhs INR in research grants"
+                            },
+                            {
+                                "icon": "/assets/RI/researchicon3.png",
+                                "alt": "Patents",
+                                "value": "130+",
+                                "label": "Patents\ngranted"
+                            },
+                            {
+                                "icon": "/assets/RI/researchicon4.png",
+                                "alt": "Collaborations",
+                                "value": "100+",
+                                "label": "Research\nCollaborations"
+                            },
+                            {
+                                "icon": "/assets/RI/researchicon5.png",
+                                "alt": "Consortia",
+                                "value": "15+",
+                                "label": "Global\nconsortia"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "home_BULLETIN_section",
+                    "data": {
+                        "title": "THE BULLETIN",
+                        "tabs": [
+                            "News",
+                            "Events",
+                            "Career"
+                        ],
+                        "items_per_page": 4,
+                        "content": {
+                            "News": [
+                                {
+                                    "title": "CME Invitation organised by Department of Anesthesiology",
+                                    "date": "27th July 2025",
+                                    "college": "Jawaharlal Nehru Medical College, Wardha",
+                                    "url": "/docs/news/cme-flyer.pdf"
+                                },
+                                {
+                                    "title": "DMIHER conducted its 16th Convocation Ceremony",
+                                    "date": "6th May 2025"
+                                }
+                            ],
+                            "Events": [
+                                {
+                                    "title": "Cyber Security Workshop, FEAT",
+                                    "date": "30th September 2025",
+                                    "url": "/docs/events/cyber-security.pdf"
+                                },
+                                {
+                                    "title": "National Workshop on Nursing Skills",
+                                    "date": "1st – 3rd August 2025"
+                                }
+                            ],
+                            "Career": [
+                                {
+                                    "title": "Recruitment of Faculty Post – FEAT",
+                                    "url": "/docs/career/faculty-recruitment.pdf"
+                                },
+                                {
+                                    "title": "Advertisement for Vacancies in Research Projects",
+                                    "url": "/docs/career/research-vacancy.pdf"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "section_id": "home_ANNOUNCEMENTS_section",
+                    "data": {
+                        "title": "IMPORTANT ANNOUNCEMENTS",
+                        "items_per_page": 4,
+                        "categories": [
+                            "Admissions 2025-26",
+                            "University",
+                            "Examination",
+                            "Result"
+                        ],
+                        "announcements": {
+                            "Admissions 2025-26": [
+                                {
+                                    "title": "Admission Notification for Academic Year 2025–26",
+                                    "date": "July 2025",
+                                    "url": "/docs/admissions/admission-notification.pdf"
+                                },
+                                {
+                                    "title": "Online Application Process for UG & PG Programs",
+                                    "date": "June 2025"
+                                }
+                            ],
+                            "University": [
+                                {
+                                    "title": "University Academic Calendar 2025–26",
+                                    "date": "May 2025",
+                                    "url": "/docs/university/academic-calendar.pdf"
+                                },
+                                {
+                                    "title": "Notice regarding University Holiday List",
+                                    "date": "April 2025"
+                                }
+                            ],
+                            "Examination": [
+                                {
+                                    "title": "Examination Schedule – Summer 2025",
+                                    "date": "August 2025",
+                                    "url": "/docs/exam/exam-schedule.pdf"
+                                },
+                                {
+                                    "title": "Guidelines for Online Examination",
+                                    "date": "July 2025"
+                                }
+                            ],
+                            "Result": [
+                                {
+                                    "title": "Result Declaration – MBBS Phase II",
+                                    "date": "September 2025",
+                                    "url": "/docs/results/mbbs-phase2.pdf"
+                                },
+                                {
+                                    "title": "Result Notice – Nursing Programs",
+                                    "date": "August 2025"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "section_id": "home_testimonial_section",
+                    "data": {
+                        "title": "TESTIMONIALS",
+                        "tabs": [
+                            "Alumni",
+                            "Parents",
+                            "Students"
+                        ],
+                        "testimonials": {
+                            "Students": [
+                                {
+                                    "name": "Ms. Saniya Saratkar",
+                                    "designation": "B.Tech 2017 | Specialization - AIDS",
+                                    "institute": "FEAT",
+                                    "videoId": "8VMIhPv9cJI",
+                                    "thumbnail": "/assets/TestimonialHome/student.png"
+                                }
+                            ],
+                            "Parents": [
+                                {
+                                    "name": "Dr. Rohit Kumar Gupta",
+                                    "designation": "Father of Ms. Niddhi Gupta, MBBS 2024 | DMMC",
+                                    "extra": "Scientist ‘G’, Vikram Sarabhai Space Centre, ISRO, Kerala",
+                                    "videoId": "4Y1F8TzGTLo",
+                                    "thumbnail": "/assets/TestimonialHome/Parents.png"
+                                }
+                            ],
+                            "Alumni": [
+                                {
+                                    "name": "Dr. Shivam Om Mittal",
+                                    "designation": "MBBS 2005 | JNMC",
+                                    "extra": "Cleveland Clinic Abu Dhabi",
+                                    "videoId": "Enu5EdCqMtg",
+                                    "thumbnail": "/assets/TestimonialHome/Alumini.png"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "slug": "about",
+            "title": "About",
+            "sections": [
+                {
+                    "section_id": "hero_home_section",
+                    "data": {
+                        "topbar": {
+                            "admissions_text": "Admissions open for 2025-26",
+                            "primary_cta_text": "MBBS NEET 2025 Admissions",
+                            "primary_cta_section_id": "jnmc-announcements",
+                            "apply_now_url": "https://dmiher-apply.mastersofterp.com/ApplicationLandingPage/Index/DMIHER",
+                            "phone_label": "+91 8888040999",
+                            "phone_number": "+918888040999"
+                        },
+                        "slides": [
+                            {
+                                "img": "",
+                                "title": "FORGING LEADERS IN \n MEDICINE [[#E1CD67]] SINCE 1990[[/#E1CD67]]",
+                                "highlight": "250 MBBS Seats | 205 PG Seats | 10 Super-Speciality Programs",
+                                "textPosition": "left"
+                            },
+                            {
+                                "img": "",
+                                "title": "EMPOWERING STUDENTS \n [[#E1CD67]] TO LEAD BREAKTHROUGHS [[/#E1CD67]]",
+                                "highlight": "Cutting-Edge Campus | Student-Centered Success | Next-Gen Learning",
+                                "textPosition": "left"
+                            },
+                            {
+                                "img": "",
+                                "title": "[[#E1CD67]] IMMERSIVE MEDICAL [[/#E1CD67]] \n TRAINING. ADVANCING \n CLINICAL RESEARCH & CARE",
+                                "highlight": "Certified Skill Labs | Interdisciplinary Innovation",
+                                "textPosition": "left"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "About_Excellence_Section",
+                    "data": {
+                        "title": "A Legacy of Excellence. A Vision for the Future.",
+                        "intro": "The Datta Meghe Institute of Higher Education and Research (DMIHER), formerly Datta Meghe Institute of Medical Sciences (DMIMS), is an institution on a dynamic growth path. Recognized as a Deemed University by the University Grants Commission (UGC) in 2005, DMIHER has expanded beyond its foundational roots in medical education, emerging as a thriving center for multidisciplinary learning.",
+                        "highlight": {
+                            "title": "Evidence Based Education",
+                            "subtitle": "(Substantiated With Educational Theories And Principles)"
+                        },
+                        "pillars": [
+                            {
+                                "title": "Integrated",
+                                "color": "text-orange-500",
+                                "desc": "Sharing, Nesting, Co-relation, Integrated, Museum SISA, IDCD"
+                            },
+                            {
+                                "title": "Value Based",
+                                "color": "text-blue-500",
+                                "desc": "AETCOM, Value education, Yoga"
+                            },
+                            {
+                                "title": "Self-directed",
+                                "color": "text-[#58595B]",
+                                "desc": "Structured SDL, PBL, mPBL, Flipped classrooms, Student portfolios"
+                            },
+                            {
+                                "title": "Technology Driven",
+                                "color": "text-red-500",
+                                "desc": "Simulations, Standardised LRMs, LMS, E-portfolios, e-Learning resources, MOOCs – RSM, Coursera, SWAYAM"
+                            },
+                            {
+                                "title": "Patient Centric",
+                                "color": "text-purple-700",
+                                "desc": "ECE, Student clerkship method of clinical training, Evidence based journal club"
+                            },
+                            {
+                                "title": "Community/ Industry Oriented",
+                                "color": "text-orange-500",
+                                "desc": "Comprehensive health care program, Industry integrated programs"
+                            }
+                        ]
+                    }
+                }
+            ]
         }
     ],
     "menu": [
@@ -579,6 +956,12 @@
             "type": "normal",
             "title": "Global",
             "slug": "/global"
+        },
+        {
+            "id": 9,
+            "type": "normal",
+            "title": "Home",
+            "slug": "/home"
         }
     ],
     "footer": {
