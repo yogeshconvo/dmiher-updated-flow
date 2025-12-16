@@ -486,7 +486,6 @@
                 }
             ]
         },
-       
         {
             "slug": "home",
             "title": "Home",
@@ -859,6 +858,473 @@
                                 "desc": "Comprehensive health care program, Industry integrated programs"
                             }
                         ]
+                    }
+                },
+                {
+                    "section_id": "about_VisionMission_Section",
+                    "data": {
+                        "vision": {
+                            "title": "Vision",
+                            "content_mobile": "To emerge as the global centre of excellence in the best evidence based higher education encompassing a quality centric, innovative and interdisciplinary approach, generating refutative research and offering effective and affordable health care for the benefit of mankind",
+                            "content_desktop": [
+                                "To emerge as the global centre of",
+                                "excellence in the best evidence based",
+                                "higher education encompassing a quality",
+                                "centric, innovative and interdisciplinary",
+                                "approach, generating refutative research",
+                                "and offering effective and affordable health",
+                                "care for the benefit of the mankind"
+                            ]
+                        },
+                        "mission": {
+                            "title": "Mission",
+                            "points": [
+                                "DMIHER shall develop competent, confident, concerned, compassionate and globally relevant professionals by quality, learner, community and evidence centric ‘competency-based model’ of higher education with a value orientation, through all its constituent units.",
+                                "It shall foster a conducive milieu for interdisciplinary research practices generating consequential and meaningful outcomes for the nation in general and the region in particular.",
+                                "It shall deliver comprehensive quality health care services to the rural, needy, marginalized and underprivileged populace.",
+                                "This shall be achieved through appropriate collaborative linkages and a proactive, transparent and accountable decentralized governance system."
+                            ]
+                        }
+                    }
+                },
+                {
+                    "section_id": "about_CoreValues_section",
+                    "data": {
+                        "title": "CORE VALUES",
+                        "values": [
+                            {
+                                "number": "1",
+                                "title": "Purpose-Driven Excellence",
+                                "description": "We pursue excellence with clarity of purpose—grounded in evidence, inspired by impact.",
+                                "image": "purpose"
+                            },
+                            {
+                                "number": "2",
+                                "title": "Compassion with Competence",
+                                "description": "We nurture professionals who blend knowledge with empathy, serving humanity with heart and skill.",
+                                "image": "compassion"
+                            },
+                            {
+                                "number": "3",
+                                "title": "Integrity in Innovation",
+                                "description": "We lead with curiosity and act with conscience—ensuring our innovations uphold ethics and elevate society.",
+                                "image": "innovation"
+                            },
+                            {
+                                "number": "4",
+                                "title": "Collaboration for Impact",
+                                "description": "We break silos and build bridges—across disciplines, communities, and borders—to multiply our contribution.",
+                                "image": "collaboration"
+                            },
+                            {
+                                "number": "5",
+                                "title": "Equity in Access and Action",
+                                "description": "We believe progress must be inclusive. From rural healthcare to global research, we act where we are needed most.",
+                                "image": "equity"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "AboutGrid_section",
+                    "data": {
+                        "gridItems": [
+                            {
+                                "title": "Chancellor’s\nMessage",
+                                "image": "AG1",
+                                "url": "Chancellor-message"
+                            },
+                            {
+                                "title": "Sponsoring\nTrust",
+                                "image": "AG2",
+                                "url": "sponsoring-trust"
+                            },
+                            {
+                                "title": "Leadership",
+                                "image": "AG3",
+                                "url": "key-functionaries"
+                            },
+                            {
+                                "title": "Governance",
+                                "image": "AG4",
+                                "url": "Governance"
+                            },
+                            {
+                                "title": "Internal Quality\nAssurance Cell",
+                                "image": "AG7",
+                                "url": "/IQAC"
+                            },
+                            {
+                                "title": "Centres of\nExcellence",
+                                "image": "AG5",
+                                "url": "center-of-excellence"
+                            },
+                            {
+                                "title": "Institutional Social\nResponsibility",
+                                "image": "AG6",
+                                "url": "InstitutionalSocialResponsibility"
+                            },
+                            {
+                                "title": "Mandatory\nDisclosure",
+                                "image": "AG8",
+                                "url": "Mandatory-Disclosure"
+                            }
+                        ],
+                        "ctaText": "Click on the buttons below to explore more about our facilities and student welfare initiatives.",
+                        "ctaButtons": [
+                            {
+                                "label": "Autonomous Cells",
+                                "url": "/about/Autonomous-Cells"
+                            },
+                            {
+                                "label": "Controller of Examination",
+                                "url": "/coe"
+                            },
+                            {
+                                "label": "Campus Life",
+                                "url": "/campus-facilities"
+                            },
+                            {
+                                "label": "Alumni",
+                                "url": "/alumni"
+                            }
+                        ],
+                        "bottomButtons": [
+                            {
+                                "label": "Sports Facilities",
+                                "url": "/about/sports_facilities"
+                            },
+                            {
+                                "label": "NCC / NSS Details",
+                                "url": "/students-section/students-welfare-cell"
+                            },
+                            {
+                                "label": "Hostel Details",
+                                "url": "/about/Hostel-details"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "about_Committees_Section",
+                    "data": {
+                        "title": "Committees",
+                        "inclusiveTitle": "Inclusive Cells & Facilities",
+                        "committees": [
+                            {
+                                "name": "Executive Council",
+                                "link": "/about/governance/executive",
+                                "icon": "Users"
+                            },
+                            {
+                                "name": "Academic Council",
+                                "link": "/about/governance/academic",
+                                "icon": "GraduationCap"
+                            },
+                            {
+                                "name": "Advisory Board",
+                                "link": "/about/governance/advisory",
+                                "icon": "BookOpenCheck"
+                            },
+                            {
+                                "name": "Finance Committee",
+                                "link": "/about/governance/finance",
+                                "icon": "Wallet"
+                            }
+                        ],
+                        "inclusiveFacilities": [
+                            {
+                                "name": "Socio-Economically Disadvantaged Groups Cell (SEDG)",
+                                "link": "/students-section/equal-opportunity-cell",
+                                "icon": "Users"
+                            },
+                            {
+                                "name": "Facilities for differently-abled (e.g., barrier-free environment)",
+                                "link": "https://naac.dmiher.edu.in/fdata/wl/?id=xqR1lL5zDkQj9SNXnP7LrJi0AYaAKfm7",
+                                "icon": "Accessibility"
+                            },
+                            {
+                                "name": "Internal Complaint Committee",
+                                "link": "/students-section/complaint-committee",
+                                "icon": "ShieldAlert"
+                            },
+                            {
+                                "name": "Equal Opportunity Cell",
+                                "link": "/students-section/equal-opportunity-cell",
+                                "icon": "Scale"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "about_DMIHERJourney_section",
+                    "data": {
+                        "title": "DMIHER'S TRANSFORMATIVE JOURNEY",
+                        "backgroundImage": "DMSaheb",
+                        "timeline": [
+                            {
+                                "year": "1988",
+                                "color": "orange",
+                                "content": "Registered under Bombay Public Trust Act, Reg. No. 1260 (N), dated 17.06.1988."
+                            },
+                            {
+                                "year": "1990",
+                                "color": "red",
+                                "content": "Jawaharlal Nehru Medical College established — the foundation of DMIHER’s legacy in medical education."
+                            },
+                            {
+                                "year": "1991",
+                                "color": "green",
+                                "content": "Sharad Pawar Dental College established, expanding into dental sciences."
+                            },
+                            {
+                                "year": "2005",
+                                "color": "yellow",
+                                "content": "Declared a Deemed to be University by Ministry of HRD, Govt. of India (Notification No. F.9-48.2004-U.3, dated 24th May 2005)."
+                            },
+                            {
+                                "year": "2007",
+                                "color": "blue",
+                                "content": "Completed NAAC 1st Cycle Accreditation. Mahatma Gandhi Ayurvedic College added as a constituent unit."
+                            },
+                            {
+                                "year": "2008–2012",
+                                "color": "orange",
+                                "content": "Further expansion with SRMMCON Nursing College and Ravi Nair Physiotherapy College."
+                            },
+                            {
+                                "year": "2013",
+                                "color": "red",
+                                "content": "Awarded ‘A’ Grade by Ministry of HRD. Completed NAAC 2nd Cycle Accreditation."
+                            },
+                            {
+                                "year": "2017",
+                                "color": "green",
+                                "content": "Achieved NAAC 3rd Cycle with A+ Grade and CGPA of 3.53/4. Allied Health Sciences College established."
+                            },
+                            {
+                                "year": "2019",
+                                "color": "yellow",
+                                "content": "Datta Meghe College of Pharmacy added to strengthen pharmaceutical research."
+                            },
+                            {
+                                "year": "2020",
+                                "color": "blue",
+                                "content": "Datta Meghe Medical College established as an off-campus center."
+                            },
+                            {
+                                "year": "2021–2022",
+                                "color": "orange",
+                                "content": "FEAT Engineering College launched. Centre for Distance and Online Education established."
+                            },
+                            {
+                                "year": "2023–2024",
+                                "color": "red",
+                                "content": "Achieved NAAC 4th Cycle A++ Accreditation with CGPA 3.78/4 — highest among Health Science Universities in India."
+                            },
+                            {
+                                "year": "2025",
+                                "color": "yellow",
+                                "content": "Started Shalinitai Meghe Homeopathy Hospital College and Research Centre."
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "about_OneHealth_section",
+                    "data": {
+                        "title": "ONE HEALTH",
+                        "legend": [
+                            {
+                                "color": "bg-green-600",
+                                "label": "Techno Health - Clinical Engineering, AI, Biotechnology"
+                            },
+                            {
+                                "color": "bg-lime-500",
+                                "label": "Apprenticeship Embedded, Work Integrated, B Voc"
+                            },
+                            {
+                                "color": "bg-sky-400",
+                                "label": "Health Management, ODL Online"
+                            },
+                            {
+                                "color": "bg-blue-800",
+                                "label": "Value System"
+                            }
+                        ],
+                        "rows": [
+                            "Engineering",
+                            "Management",
+                            "Arts & Humanity",
+                            "Skill Development"
+                        ],
+                        "columns": [
+                            "Core Medicine",
+                            "Paramedics",
+                            "Indian System",
+                            "One Health"
+                        ],
+                        "grid": [
+                            [
+                                "bg-[#39B54A]",
+                                null,
+                                "bg-[#96BF58]",
+                                "bg-[#96BF58]"
+                            ],
+                            [
+                                "bg-[#96BF58]",
+                                "bg-[#96BF58]",
+                                "bg-[#39B54A]",
+                                "bg-[#96BF58]"
+                            ],
+                            [
+                                "bg-[#5CADCA]",
+                                null,
+                                "bg-[#5CADCA]",
+                                "bg-[#96BF58]"
+                            ],
+                            [
+                                null,
+                                "bg-[#366DA4]",
+                                null,
+                                "bg-[#96BF58]"
+                            ]
+                        ]
+                    }
+                },
+                {
+                    "section_id": "about_HolisticLearningPage",
+                    "data": {
+                        "title": "Holistic Learning at DMIHER (DU)",
+                        "subtitle": "5 Dimensions of Holistic Learning",
+                        "dimensions": [
+                            {
+                                "id": 1,
+                                "title": "Expert Faculty",
+                                "desc": "Learn from leaders in medicine, research, and education.",
+                                "image": "HolisticLearning/1.jpeg"
+                            },
+                            {
+                                "id": 2,
+                                "title": "Inclusive Campus Life",
+                                "desc": "A diverse, dynamic community that inspires growth and belonging.",
+                                "image": "HolisticLearning/2.png"
+                            },
+                            {
+                                "id": 3,
+                                "title": "Advanced Infrastructure",
+                                "desc": "World-class labs, smart classrooms, and modern learning spaces.",
+                                "image": "HolisticLearning/3.png"
+                            },
+                            {
+                                "id": 4,
+                                "title": "Research-Driven Environment",
+                                "desc": "Dive into discovery with strong mentorship and active projects.",
+                                "image": "HolisticLearning/4.png"
+                            },
+                            {
+                                "id": 5,
+                                "title": "Career-Ready Curriculum",
+                                "desc": "Industry-aligned programs designed for real-world success.",
+                                "image": "HolisticLearning/5.png"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "about_SDGSection",
+                    "data": {
+                        "heading": "SDG",
+                        "sdg_wheel_image": "SDGs.png",
+                        "sdg_logo": "SG.png",
+                        "sdg_cards": [
+                            {
+                                "title": "SDG 3",
+                                "subtitle": "Good health & well being",
+                                "color": "green",
+                                "rank": "3rd amongst the Indian Universities and at 15th position in the world"
+                            },
+                            {
+                                "title": "SDG 4",
+                                "subtitle": "Quality education: Band 101-200",
+                                "color": "red",
+                                "rank": "4th amongst the Indian universities in the medicine and dentistry and 7th amongst the Indian universities"
+                            },
+                            {
+                                "title": "SDG 5",
+                                "subtitle": "Gender equality: Band 101-200",
+                                "color": "red",
+                                "rank": "4th amongst the Indian universities in the medicine and dentistry and 4th amongst the Indian universities"
+                            },
+                            {
+                                "title": "Overall Impact",
+                                "subtitle": "Band 401-600",
+                                "color": "blue",
+                                "rank": "6th amongst the Indian universities in the medicine and dentistry and 15th amongst the Indian universities"
+                            }
+                        ],
+                        "footer_left": {
+                            "score": "401-600",
+                            "text": "Datta Meghe Institute of Higher Education & Research (Deemed to be university) India."
+                        },
+                        "rating_boxes": [
+                            {
+                                "number": "3",
+                                "value": "90.6",
+                                "color": "#4caf50"
+                            },
+                            {
+                                "number": "5",
+                                "value": "63.1-68.2",
+                                "color": "#f44336"
+                            },
+                            {
+                                "number": "4",
+                                "value": "69.3-74.7",
+                                "color": "#e53935"
+                            },
+                            {
+                                "number": "17",
+                                "value": "36.9-52.8",
+                                "color": "#1e3a5f"
+                            }
+                        ],
+                        "footer_note": "69.9-75.7",
+                        "view_more_link": "/iqac/sustainable-development-goals",
+                        "view_more_label": "Visit SDG to Know More"
+                    }
+                },
+                {
+                    "section_id": "about_Gallery_section",
+                    "data": {
+                        "title": "GALLERY",
+                        "tabs_order": [
+                            "campus",
+                            "research",
+                            "university"
+                        ],
+                        "tabs_labels": {
+                            "campus": "Campus Life",
+                            "research": "Research",
+                            "university": "University events"
+                        },
+                        "images": {
+                            "campus": [
+                                "CampusLife/1.webp",
+                                "CampusLife/2.webp",
+                                "CampusLife/3.webp"
+                            ],
+                            "research": [
+                                "Research/1.webp",
+                                "Research/2.webp",
+                                "Research/3.webp"
+                            ],
+                            "university": [
+                                "UniversityEvents/1.webp",
+                                "UniversityEvents/2.webp",
+                                "UniversityEvents/3.webp"
+                            ]
+                        }
                     }
                 }
             ]
