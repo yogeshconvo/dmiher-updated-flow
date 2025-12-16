@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/oswald": "^5.2.8",
     "@tailwindcss/vite": "^4.1.17",
     "axios": "^1.13.2",
     "lucide-react": "^0.553.0",

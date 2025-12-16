@@ -9,7 +9,8 @@ const Navbar = () => {
   const [menuData, setMenuData] = useState([]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showMegaMenu, setShowMegaMenu] = useState(null);
-  const [activeMegaItem, setActiveMegaItem] = useState(null);
+  const [openSection, setOpenSection] = useState(null);
+  const [openSubSection, setOpenSubSection] = useState(null);
 
   // Fetch Menu
   useEffect(() => {
@@ -22,124 +23,7 @@ const Navbar = () => {
   const topLinks = menuData.filter((item) => item.type === "topLinks");
 
   return (
-    // <div className="fixed w-full bg-white top-0 z-[999] shadow-sm h-[100px]">
-    //   <div className="flex justify-between items-center px-6 h-full">
-    //     {/* LOGO */}
-    //     <Link to="/">
-    //       <img src="#" alt="logo" className="w-[200px]" />
-    //     </Link>
 
-    //     {/* DESKTOP */}
-    //     <div className="hidden lg:flex flex-col items-end w-full h-full">
-    //       {/* TOP LINKS */}
-    //       <div className="flex gap-4 text-sm text-gray-600 mb-2 mt-auto">
-    //         {topLinks.map((link) => (
-    //           <Link key={link.id} to={link.slug} className="hover:underline">
-    //             {link.title}
-    //           </Link>
-    //         ))}
-    //       </div>
-
-    //       {/* MAIN NAV */}
-    //       <div className="flex gap-10 text-lg text-[#1f3c88] mt-auto">
-    //         {menuData
-    //           .filter((item) => item.type !== "topLinks")
-    //           .map((item) => {
-    //             // NORMAL LINK
-    //             if (item.type === "normal") {
-    //               return (
-    //                 <NavLink
-    //                   key={item.id}
-    //                   to={item.slug}
-    //                   className={({ isActive }) =>
-    //                     `pb-1 border-b-4 ${
-    //                       isActive
-    //                         ? "border-[#ff4f37]"
-    //                         : "border-transparent hover:border-[#ff4f37]"
-    //                     }`
-    //                   }
-    //                 >
-    //                   {item.title}
-    //                 </NavLink>
-    //               );
-    //             }
-
-    //             // MEGA MENU
-    //             if (item.type === "megaMenu") {
-    //               return (
-    //                 <div
-    //                   key={item.id}
-    //                   className="relative"
-    //                   onMouseEnter={() => {
-    //                     setShowMegaMenu(item.id);
-    //                     setActiveMegaItem(null);
-    //                   }}
-    //                   onMouseLeave={() => {
-    //                     setShowMegaMenu(null);
-    //                     setActiveMegaItem(null);
-    //                   }}
-    //                 >
-    //                   <button className="pb-1 border-b-4 border-transparent hover:border-[#ff4f37]">
-    //                     {item.title}
-    //                   </button>
-
-    //                   {showMegaMenu === item.id && (
-    //                     <MegaMenu
-    //                       sections={item.children}
-    //                       hoveredItem={activeMegaItem}
-    //                       setHoveredItem={setActiveMegaItem}
-    //                     />
-    //                   )}
-    //                 </div>
-    //               );
-    //             }
-
-    //             return null;
-    //           })}
-    //       </div>
-    //     </div>
-
-    //     {/* MOBILE MENU BUTTON */}
-    //     <button
-    //       className="lg:hidden"
-    //       onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-    //     >
-    //       {mobileMenuOpen ? <X /> : <Menu />}
-    //     </button>
-    //   </div>
-
-    //   {/* MOBILE MENU */}
-    //   {mobileMenuOpen && (
-    //     <div className="lg:hidden bg-[#1f3c88] text-white p-6 space-y-4">
-    //       {menuData
-    //         .filter((item) => item.type !== "topLinks")
-    //         .map((item) => (
-    //           <Link
-    //             key={item.id}
-    //             to={item.slug || "#"}
-    //             onClick={() => setMobileMenuOpen(false)}
-    //             className="block border-b pb-2"
-    //           >
-    //             {item.title}
-    //           </Link>
-    //         ))}
-
-    //       {/* TOP LINKS (MOBILE BOTTOM) */}
-    //       <div className="pt-4 border-t border-white/30 space-y-2">
-    //         {topLinks.map((link) => (
-    //           <Link
-    //             key={link.id}
-    //             to={link.slug}
-    //             className="block text-sm opacity-80"
-    //             onClick={() => setMobileMenuOpen(false)}
-    //           >
-    //             {link.title}
-    //           </Link>
-    //         ))}
-    //       </div>
-    //     </div>
-    //   )}
-    // </div>
     <div className="navbar">
       <div className="navbar-inner">
         {/* LOGO */}
@@ -179,7 +63,7 @@ const Navbar = () => {
                   return (
                     <div
                       key={item.id}
-                      className="relative"
+                      className=""
                       onMouseEnter={() => setShowMegaMenu(item.id)}
                       onMouseLeave={() => setShowMegaMenu(null)}
                     >
@@ -207,27 +91,94 @@ const Navbar = () => {
 
         {/* MOBILE MENU */}
         {mobileMenuOpen && (
-          <div className="mobile-menu">
-            {menuData
-              .filter((item) => item.type !== "topLinks")
-              .map((item) => (
-                <Link
-                  key={item.id}
-                  to={item.slug || "#"}
-                  className="mobile-link"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.title}
-                </Link>
-              ))}
+          <div className="mobile-menu-full ">
+            {/* CLOSE */}
+            <button
+              className="mobile-close-btn "
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <X size={28} />
+            </button>
+            <div className="mobile-content-container">
+              {menuData
+                .filter((item) => item.type !== "topLinks")
+                .map((item) => {
+                  const isMega = item.type === "megaMenu";
 
-            <div className="mobile-top-links">
+                  return (
+                    <div key={item.id} className="mobile-section">
+                      {/* MAIN HEADING */}
+                      {isMega ? (
+                        <button
+                          className="mobile-heading-btn-mega font-oswald-medium"
+                          onClick={() => {
+                            setOpenSection(
+                              openSection === item.id ? null : item.id
+                            );
+                            setOpenSubSection(null);
+                          }}
+                        >
+                          {item.title}
+                        </button>
+                      ) : (
+                        <Link
+                          to={item.slug}
+                          className="mobile-heading-btn font-oswald-medium"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {item.title}
+                        </Link>
+                      )}
+                      {/* MEGA MENU CONTENT */}
+                      {isMega && openSection === item.id && (
+                        <div className="pl-4 mt-3 space-y-3">
+                          {item.children?.map((campusObj, index) => (
+                            <div key={index}>
+                              {/* CAMPUS */}
+                              <button
+                                className="mobile-sub-heading"
+                                onClick={() =>
+                                  setOpenSubSection(
+                                    openSubSection === campusObj.campus
+                                      ? null
+                                      : campusObj.campus
+                                  )
+                                }
+                              >
+                                {campusObj.campus}
+                              </button>
+
+                              {/* COLLEGES */}
+                              {openSubSection === campusObj.campus && (
+                                <div className="pl-4 mt-2 space-y-1">
+                                  {campusObj.items?.map((college) => (
+                                    <Link
+                                      key={college.id}
+                                      to={college.slug}
+                                      className="mobile-link"
+                                      onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                      {college.title}
+                                    </Link>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+            </div>
+            {/* TOP LINKS (MOBILE) */}
+            <div className="mobile-bottom-links">
               {topLinks.map((link) => (
                 <Link
                   key={link.id}
                   to={link.slug}
-                  className="block text-sm opacity-80"
                   onClick={() => setMobileMenuOpen(false)}
+                  className="mobile-link"
                 >
                   {link.title}
                 </Link>

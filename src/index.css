@@ -1,5 +1,23 @@
 @import "tailwindcss";
 
+@import "@fontsource/oswald/300.css";
+@import "@fontsource/oswald/500.css";
+@import "@fontsource/oswald/700.css";
+
 .container {
     @apply max-w-7xl mx-auto;
+}
+
+.font-oswald-medium {
+    font-family: "Oswald", sans-serif;
+}
+
+.oswald-medium {
+    font-family: "Oswald", sans-serif;
+    font-weight: 500;
+}
+
+.oswald-light {
+    font-family: "Oswald", sans-serif;
+    font-weight: 500;
 }
