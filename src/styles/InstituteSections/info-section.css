@@ -1,0 +1,100 @@
+@reference "tailwindcss";
+
+/* ================= WRAPPER ================= */
+.info-section {
+    @apply py-12;
+}
+
+/* ================= TITLE ================= */
+.info-title {
+    @apply flex flex-wrap items-center justify-center text-[#F04E30] text-3xl tracking-wider uppercase mb-6 text-center;
+}
+
+@screen sm {
+    .info-title {
+        @apply justify-between;
+    }
+}
+
+.info-title-line {
+    @apply hidden sm:block flex-grow border-t;
+}
+
+/* 
+@screen sm {
+    .info-title-line {
+        @apply block;
+    }
+} */
+
+.info-title-text {
+    @apply px-4 whitespace-normal;
+}
+
+@screen sm {
+    .info-title-text {
+        @apply text-lg;
+    }
+}
+
+@screen md {
+    .info-title-text {
+        @apply text-xl;
+    }
+}
+
+@screen xl {
+    .info-title-text {
+        @apply text-3xl;
+    }
+}
+
+/* ================= CONTENT SECTION ================= */
+.info-content {
+    @apply bg-white text-center text-sm mx-auto max-w-7xl px-2;
+}
+
+@screen sm {
+    .info-content {
+        @apply px-4;
+    }
+}
+
+/* ================= TAGLINE ================= */
+.info-tagline {
+    @apply text-2xl font-[500] text-[#58595B] leading-snug mb-6;
+}
+
+@screen sm {
+    .info-tagline {
+        @apply text-3xl;
+    }
+}
+
+@screen md {
+    .info-tagline {
+        @apply text-4xl;
+    }
+}
+
+/* ================= PARAGRAPHS ================= */
+.info-text-wrapper {
+    @apply text-[#58595B] font-[Arial] tracking-wide max-w-4xl mx-auto;
+}
+
+.info-paragraph {
+    @apply mb-4;
+}
+
+/* ================= BUTTONS ================= */
+.info-btn {
+    @apply mt-2 mb-4 px-6 py-2 text-white rounded font-semibold transition;
+}
+
+.info-btn-more {
+    @apply bg-[#F04E30] hover:bg-[#d13d22];
+}
+
+.info-btn-less {
+    @apply bg-[#f47660] hover:bg-[#d13d22];
+}

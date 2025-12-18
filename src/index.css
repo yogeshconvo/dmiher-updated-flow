@@ -3,6 +3,7 @@
 @import "@fontsource/oswald/300.css";
 @import "@fontsource/oswald/500.css";
 @import "@fontsource/oswald/700.css";
+/* @import "../styles/InstituteSections/Banner.css"; */
 
 .container {
     @apply max-w-7xl mx-auto;
@@ -20,4 +21,13 @@
 .oswald-light {
     font-family: "Oswald", sans-serif;
     font-weight: 500;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Oswald", sans-serif;
 }

@@ -11,16 +11,20 @@
         @apply w-48 mb-4;
     }
 
+    .footer-list-group {
+        @apply space-y-1 ml-4 list-disc;
+    }
+
     .footer-logo-mobile {
         @apply w-52 mb-6;
     }
 
     .footer-title {
-        @apply text-yellow-400 mb-2 border-b border-gray-500;
+        @apply text-yellow-400 text-xl mb-2 border-b border-gray-500;
     }
 
     .footer-title-mobile {
-        @apply text-yellow-400 border-t pt-4;
+        @apply text-yellow-400 text-xl border-t pt-2 border-gray-300;
     }
 
     .footer-bottom {
@@ -33,11 +37,11 @@
     }
 
     .footer-grid {
-        @apply max-w-7xl mx-auto grid md:grid-cols-4 gap-8;
+        @apply max-w-7xl mx-auto grid md:grid-cols-4 gap-5;
     }
 
     .footer-address-title {
-        @apply text-yellow-400 mt-4;
+        @apply text-xl text-yellow-400 mt-4;
     }
 
     .footer-socials {
@@ -50,7 +54,7 @@
     }
 
     .footer-quick-links {
-        @apply grid grid-cols-2 gap-2 text-yellow-400 text-lg mb-6;
+        @apply grid grid-cols-1 md:grid-cols-2 gap-2 text-yellow-400 text-lg mb-6;
     }
 
     .footer-socials-mobile {
@@ -63,5 +67,9 @@
 
     .footer-visitor {
         @apply flex justify-center items-center mt-2;
+    }
+
+    .links {
+        @apply mt-1;
     }
 }

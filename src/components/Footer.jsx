@@ -7,7 +7,7 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import "../styles/footer.css";
-// import VisitorCounter from "../Services/VisitorCounter"; // ✅ IMPORTANT
+// import VisitorCounter from "../Services/VisitorCounter";
 
 const iconMap = {
   instagram: FaInstagram,
@@ -37,7 +37,21 @@ const Footer = () => {
       </div>
     );
   }
+  const sectionPairs = [];
+  for (let i = 0; i < footer.sections.length; i += 2) {
+    sectionPairs.push(footer.sections.slice(i, i + 2));
+  }
 
+  const mobileOrder = [
+   "quick-links",
+  "programs",
+  "colleges",
+  "important-links",
+  "terms",
+  ]
+  const mobileSections = mobileOrder.map((id) => footer.sections.find((s) => s.id === id)).filter(Boolean);
+  
+  
   return (
     <>
       {/* ================= DESKTOP FOOTER ================= */}
@@ -63,11 +77,12 @@ const Footer = () => {
               ))}
             </p>
 
-            <p className="footer-address-title">CONTACT</p>
+            <p className="footer-address-title font-oswald-medium">CONTACT</p>
             <p>{footer.address?.contact}</p>
 
-            <p className="footer-address-title">E MAIL</p>
+            <p className="footer-address-title font-oswald-medium">E MAIL</p>
             <p>{footer.address?.email}</p>
+
 
             <div className="footer-socials">
               {footer.socials?.map((s) => {
@@ -79,28 +94,76 @@ const Footer = () => {
                 );
               })}
             </div>
+      
           </div>
 
-          {/* SECTIONS */}
-          {footer.sections?.map((section) => (
-            <div key={section.id}>
-              <h3 className="footer-title">{section.title}</h3>
+          {/* COLUMNS 2+ (same sections as mobile) */}
+{sectionPairs.map((pair, colIndex) => (
+  <div key={colIndex} className="space-y-6">
+    {pair.map((section) => (
+      <div key={section.id}>
+        <h3 className="footer-title font-oswald-medium">
+          {section.title}
+        </h3>
 
-              {section.links?.map((link) =>
-                link.url.startsWith("/") ? (
-                  <p key={link.text}>
-                    <Link to={link.url}>{link.text}</Link>
-                  </p>
-                ) : (
-                  <p key={link.text}>
-                    <a href={link.url} target="_blank" rel="noreferrer">
-                      {link.text}
-                    </a>
-                  </p>
-                )
-              )}
+        {/* GROUPS */}
+        {section.groups?.length ? (
+          section.groups.map((g) => (
+            <div key={g.groupTitle} className="footer-group">
+              <p className="footer-group-title">{g.groupTitle}</p>
+              
+              <ul className="footer-list-group">
+                {g.links.map((link) => (
+                  <li key={link.text} className="links">
+                    
+                    {link.url.startsWith("/") ? (
+                      <Link to={link.url}>{link.text}</Link>
+                    ) : (
+                      <a href={link.url} target="_blank" rel="noreferrer">
+                        {link.text}
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
             </div>
-          ))}
+          ))
+        ) : (
+          <>
+            {/* NORMAL LINKS */}
+            {section.type !== "quickLinks" && (
+              <ul className="footer-list">
+                {section.links?.map((link) => (
+                  <li key={link.text} className="links">
+                    {link.url.startsWith("/") ? (
+                      <Link to={link.url}>{link.text}</Link>
+                    ) : (
+                      <a href={link.url} target="_blank" rel="noreferrer">
+                        {link.text}
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {/* QUICK LINKS */}
+            {section.type === "quickLinks" && (
+              <div className="footer-quick-links font-oswald-medium">
+                {section.links?.map((link) => (
+                  <Link key={link.text} to={link.url}>
+                    {link.text}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    ))}
+  </div>
+))}
+
         </div>
 
         <p className="footer-bottom">{footer.copyright}</p>
@@ -111,66 +174,123 @@ const Footer = () => {
       </footer>
 
       {/* ================= MOBILE FOOTER ================= */}
-      <footer className="footer footer-mobile">
-        <img
-          src={footer.logo}
-          alt="Logo"
-          className="footer-logo-mobile"
-          onError={(e) => (e.target.style.display = "none")}
-        />
+   <footer className="footer footer-mobile">
+  <img
+    src={footer.logo}
+    alt="Logo"
+    className="footer-logo-mobile"
+    onError={(e) => (e.target.style.display = "none")}
+  />
 
-        <div className="footer-quick-links">
-          {footer.quickLinks?.map((link) => (
-            <Link key={link.text} to={link.url}>
-              {link.text}
-            </Link>
-          ))}
-        </div>
 
-        {footer.sections?.map((section) => (
-          <div key={section.id} className="mt-6">
-            <h3 className="footer-title-mobile">{section.title}</h3>
+    {/* ================= MOBILE FOOTER SECTIONS ================= */}
+<div className="mt-6">
+  {/* FIRST 2 SECTIONS SIDE BY SIDE */}
+  <div className="flex gap-4">
+    {mobileSections.slice(0, 2).map((section,idx) => (
+      <div key={section.id} className="w-1/2">
+        {
+          idx=== 1 && (  <h3 className="footer-title-mobile font-oswald-medium">{section.title}</h3>)
 
-            {section.links?.map((link) =>
-              link.url.startsWith("/") ? (
-                <p key={link.text}>
+        }
+     
+        {section.type === "quickLinks" ? (
+          <div className="footer-quick-links font-oswald-medium">
+            {section.links?.map((link) => (
+              <Link key={link.text} to={link.url}>
+                {link.text}
+              </Link>
+            ))}
+          </div>
+        ) : (
+          section.links?.map((link) =>
+            link.url.startsWith("/") ? (
+              <p key={link.text}>
+                <Link to={link.url}>{link.text}</Link>
+              </p>
+            ) : (
+              <p key={link.text}>
+                <a href={link.url} target="_blank" rel="noreferrer">
+                  {link.text}
+                </a>
+              </p>
+            )
+          )
+        )}
+      </div>
+    ))}
+  </div>
+
+  {/* REMAINING SECTIONS NORMAL STACK */}
+ {mobileSections.slice(2).map((section) => (
+  <div key={section.id} className="mt-6">
+    <h3 className="footer-title-mobile font-oswald-medium">{section.title}</h3>
+
+    {/* GROUPS */}
+    {section.groups?.length ? (
+      section.groups.map((g) => (
+        <div key={g.groupTitle} className="footer-group">
+          <p className="footer-group-title">{g.groupTitle}</p>
+
+          <ul className="footer-list-group">
+            {g.links.map((link) => (
+              <li key={link.text} className="links">
+                {link.url.startsWith("/") ? (
                   <Link to={link.url}>{link.text}</Link>
-                </p>
-              ) : (
-                <p key={link.text}>
+                ) : (
                   <a href={link.url} target="_blank" rel="noreferrer">
                     {link.text}
                   </a>
-                </p>
-              )
-            )}
-          </div>
-        ))}
-
-        <div className="footer-socials-mobile">
-          {footer.socials?.map((s) => {
-            const Icon = iconMap[s.icon];
-            return (
-              <a key={s.icon} href={s.url} target="_blank" rel="noreferrer">
-                <Icon />
-              </a>
-            );
-          })}
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
+      ))
+    ) : (
+      /* NORMAL LINKS */
+      section.links?.map((link) =>
+        link.url.startsWith("/") ? (
+          <p key={link.text}>
+            <Link to={link.url}>{link.text}</Link>
+          </p>
+        ) : (
+          <p key={link.text}>
+            <a href={link.url} target="_blank" rel="noreferrer">
+              {link.text}
+            </a>
+          </p>
+        )
+      )
+    )}
+  </div>
+))}
 
-        <div className="footer-address-mobile">
-          <p className="text-yellow-400">ADDRESS</p>
-          {footer.address?.lines?.map((line, i) => (
-            <p key={i}>{line}</p>
-          ))}
-        </div>
+</div>
 
-        <p className="footer-bottom mt-8">{footer.copyright}</p>
 
-        <div className="footer-visitor">
-          <span className="text-gray-400 mr-2">Visitor Counter :</span>
-        </div>
-      </footer>
+
+  <div className="footer-socials-mobile">
+    {footer.socials?.map((s) => {
+      const Icon = iconMap[s.icon];
+      return (
+        <a key={s.icon} href={s.url} target="_blank" rel="noreferrer">
+          <Icon />
+        </a>
+      );
+    })}
+  </div>
+
+  <div className="footer-address-mobile">
+    <p className="text-yellow-400">ADDRESS</p>
+    {footer.address?.lines?.map((line, i) => (
+      <p key={i}>{line}</p>
+    ))}
+  </div>
+
+  <p className="footer-bottom mt-8">{footer.copyright}</p>
+</footer>
+
     </>
   );
 };

@@ -1,0 +1,92 @@
+@reference "tailwindcss";
+
+/* ================= SECTION WRAPPER ================= */
+.holistic-section {
+    @apply py-20 bg-white;
+}
+
+/* ================= LAYOUT ================= */
+.holistic-layout {
+    @apply flex flex-col md:flex-row md:gap-8 items-start justify-center;
+}
+
+/* @screen lg {
+    .holistic-layout {
+        @apply ;
+    }
+} */
+
+/* ================= TEXT COLUMN ================= */
+.holistic-text {
+    @apply w-full min-w-[300px];
+}
+
+/* ================= HEADING ================= */
+.holistic-heading {
+    @apply text-3xl font-[500] text-[#707070] mb-8 tracking-wider;
+}
+
+@screen md {
+    .holistic-heading {
+        @apply text-4xl;
+    }
+}
+
+.holistic-heading-line {
+    @apply w-16 border-[#F04E30] mb-4 border-t-4;
+}
+
+@screen sm {
+    .holistic-heading-line {
+        @apply w-20;
+    }
+}
+
+/* ================= LIST ================= */
+.holistic-list {
+    @apply max-h-[500px] overflow-y-auto pr-2;
+}
+
+.holistic-item {
+    @apply mb-2 pb-2 border-b border-gray-500;
+}
+
+.holistic-item:last-child {
+    border-bottom: 0;
+}
+
+/* ================= ITEM TEXT ================= */
+.holistic-item-label {
+    @apply text-lg cursor-pointer transition;
+}
+
+.holistic-item-label-active {
+    @apply font-bold;
+}
+
+.holistic-item-label-inactive {
+    @apply text-[#58595B];
+}
+
+.holistic-item-content {
+    @apply text-sm text-[#707070];
+}
+
+/* ================= IMAGE / PLACEHOLDER ================= */
+.holistic-image-wrapper {
+    @apply w-full min-w-[315px] mt-8 md:mt-20;
+}
+
+.holistic-image-box {
+    @apply w-full h-[500px] rounded-md overflow-hidden shadow-lg flex items-center justify-center bg-gray-200 text-gray-600 text-sm text-center px-4;
+}
+
+@screen md {
+    .holistic-image-box {
+        @apply mt-32;
+    }
+}
+
+.holistic-placeholder-title {
+    @apply font-semibold mb-2;
+}

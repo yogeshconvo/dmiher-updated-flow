@@ -13,6 +13,7 @@ function Page({ page }) {
         <section key={sec.slug}>
           {sec.html && <div dangerouslySetInnerHTML={{ __html: sec.html }} />}
 
+          
           {sec.content && !sec.html && <p>{sec.content}</p>}
         </section>
       ))}

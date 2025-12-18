@@ -21,31 +21,22 @@
                                 "title": "FORGING LEADERS IN \n MEDICINE [[#E1CD67]] SINCE 1990[[/#E1CD67]]",
                                 "highlight": "250 MBBS Seats | 205 PG Seats | 10 Super-Speciality Programs",
                                 "textPosition": "left"
-                            },
-                            {
-                                "img": "",
-                                "title": "EMPOWERING STUDENTS \n [[#E1CD67]] TO LEAD BREAKTHROUGHS [[/#E1CD67]]",
-                                "highlight": "Cutting-Edge Campus | Student-Centered Success | Next-Gen Learning",
-                                "textPosition": "left"
-                            },
-                            {
-                                "img": "",
-                                "title": "[[#E1CD67]] IMMERSIVE MEDICAL [[/#E1CD67]] \n TRAINING. ADVANCING \n CLINICAL RESEARCH & CARE",
-                                "highlight": "Certified Skill Labs | Interdisciplinary Innovation",
-                                "textPosition": "left"
-                            },
-                            {
-                                "img": "",
-                                "title": "STATE OF ART [[#E1CD67]] LEARNING  [[/#E1CD67]]",
-                                "highlight": "Innovative, Learner-centric Teaching methodologies",
-                                "textPosition": "left"
-                            },
-                            {
-                                "img": "",
-                                "title": "SHAPING MEDICAL MINDS WITH [[#E1CD67]] MODERNITY AND MEANING [[/#E1CD67]]",
-                                "highlight": "Mannequins | Simulation wards | Virtual dissection",
-                                "textPosition": "left"
                             }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "info_section",
+                    "data": {
+                        "title": "Mahatma Gandhi Ayurved College, Hospital, and Research Centre (MGACH & RC)",
+                        "tagline": "Blending Ancient Wisdom with Modern Evidence",
+                        "highlight_color": "#F04E30",
+                        "intro_paragraphs": [
+                            "Ranked 6th Nationwide, Grade “A” by MARBISM for National Commission for Indian System of Medicine, Ministry of AYUSH, Govt. of India.",
+                            "Founded in 2007 to honour Mahatma Gandhi’s ideals of self-care, ethical healing, and community service, MGACH&RC, Salod (H), Wardha, blends Ayurveda wisdom with real-world practice. Students gain hands-on learning in a NABH-accredited 372 beded hospital..."
+                        ],
+                        "more_paragraphs": [
+                            "Research at this center is actively pursued through national and international collaborations..."
                         ]
                     }
                 },
@@ -90,21 +81,6 @@
                                 "content": "Fully air-conditioned central resource, Books, journals for all departments, Subscriptions: Access Medicine, UpToDate, Royal Society of Medicine, BMJ, Digital library with 100+ computers and Wi-Fi.",
                                 "image_key": "holistic_5"
                             }
-                        ]
-                    }
-                },
-                {
-                    "section_id": "info_section",
-                    "data": {
-                        "title": "Mahatma Gandhi Ayurved College, Hospital, and Research Centre (MGACH & RC)",
-                        "tagline": "Blending Ancient Wisdom with Modern Evidence",
-                        "highlight_color": "#F04E30",
-                        "intro_paragraphs": [
-                            "Ranked 6th Nationwide, Grade “A” by MARBISM for National Commission for Indian System of Medicine, Ministry of AYUSH, Govt. of India.",
-                            "Founded in 2007 to honour Mahatma Gandhi’s ideals of self-care, ethical healing, and community service, MGACH&RC, Salod (H), Wardha, blends Ayurveda wisdom with real-world practice. Students gain hands-on learning in a NABH-accredited 372 beded hospital..."
-                        ],
-                        "more_paragraphs": [
-                            "Research at this center is actively pursued through national and international collaborations..."
                         ]
                     }
                 },
@@ -1516,6 +1492,36 @@
                 ]
             },
             {
+                "id": "terms",
+                "title": "Terms & Conditions",
+                "links": [
+                    {
+                        "text": "Disclaimer",
+                        "url": "/disclaimer"
+                    },
+                    {
+                        "text": "Privacy Policy for Students",
+                        "url": "/privacy-policies"
+                    },
+                    {
+                        "text": "Apply for Tender and EOI",
+                        "url": "http://137.97.64.12:8997/tender/frmOnGoingContract.aspx"
+                    },
+                    {
+                        "text": "Apply for Transcript",
+                        "url": "https://alumni.dmimsu.edu.in/home.dz"
+                    },
+                    {
+                        "text": "e-Tender",
+                        "url": "/e-tender"
+                    },
+                    {
+                        "text": "Terms and Conditions for Online Payments",
+                        "url": "/terms-and-conditions-for-online-payments"
+                    }
+                ]
+            },
+            {
                 "id": "colleges",
                 "title": "Colleges",
                 "groups": [
@@ -1592,6 +1598,61 @@
                 ]
             },
             {
+                "id": "quick-links",
+                "title": "Quick Links",
+                "type": "quickLinks",
+                "links": [
+                    {
+                        "text": "Hospitals",
+                        "url": "/hospitals"
+                    },
+                    {
+                        "text": "Admissions",
+                        "url": "/admissions"
+                    },
+                    {
+                        "text": "Research",
+                        "url": "/research"
+                    },
+                    {
+                        "text": "Announcements",
+                        "url": "/announcements"
+                    },
+                    {
+                        "text": "Global",
+                        "url": "/global"
+                    },
+                    {
+                        "text": "Campus Life",
+                        "url": "/campus-facilities"
+                    },
+                    {
+                        "text": "Contact Us",
+                        "url": "/contactus"
+                    },
+                    {
+                        "text": "About",
+                        "url": "/about"
+                    },
+                    {
+                        "text": "IQAC",
+                        "url": "/IQAC"
+                    },
+                    {
+                        "text": "Alumni",
+                        "url": "/alumni"
+                    },
+                    {
+                        "text": "Controller of Examinations",
+                        "url": "/coe"
+                    },
+                    {
+                        "text": "Student Life",
+                        "url": "/studentlife"
+                    }
+                ]
+            },
+            {
                 "id": "important-links",
                 "title": "Important Links",
                 "links": [
@@ -1640,86 +1701,6 @@
                         "url": "https://scholarships.gov.in/home"
                     }
                 ]
-            },
-            {
-                "id": "terms",
-                "title": "Terms & Conditions",
-                "links": [
-                    {
-                        "text": "Disclaimer",
-                        "url": "/disclaimer"
-                    },
-                    {
-                        "text": "Privacy Policy for Students",
-                        "url": "/privacy-policies"
-                    },
-                    {
-                        "text": "Apply for Tender and EOI",
-                        "url": "http://137.97.64.12:8997/tender/frmOnGoingContract.aspx"
-                    },
-                    {
-                        "text": "Apply for Transcript",
-                        "url": "https://alumni.dmimsu.edu.in/home.dz"
-                    },
-                    {
-                        "text": "e-Tender",
-                        "url": "/e-tender"
-                    },
-                    {
-                        "text": "Terms and Conditions for Online Payments",
-                        "url": "/terms-and-conditions-for-online-payments"
-                    }
-                ]
-            }
-        ],
-        "quickLinks": [
-            {
-                "text": "Hospitals",
-                "url": "/hospitals"
-            },
-            {
-                "text": "Admissions",
-                "url": "/admissions"
-            },
-            {
-                "text": "Research",
-                "url": "/research"
-            },
-            {
-                "text": "Announcements",
-                "url": "/announcements"
-            },
-            {
-                "text": "Global",
-                "url": "/global"
-            },
-            {
-                "text": "Campus Life",
-                "url": "/campus-facilities"
-            },
-            {
-                "text": "Contact Us",
-                "url": "/contactus"
-            },
-            {
-                "text": "About",
-                "url": "/about"
-            },
-            {
-                "text": "IQAC",
-                "url": "/IQAC"
-            },
-            {
-                "text": "Alumni",
-                "url": "/alumni"
-            },
-            {
-                "text": "Controller of Examinations",
-                "url": "/coe"
-            },
-            {
-                "text": "Student Life",
-                "url": "/studentlife"
             }
         ],
         "copyright": "© 2025 Datta Meghe Institute of Higher Education & Research. All rights reserved."
