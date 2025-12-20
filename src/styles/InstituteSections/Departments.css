@@ -1,0 +1,92 @@
+@reference "tailwindcss";
+
+/* ================= SECTION ================= */
+.departments-section {
+    @apply py-20 bg-white;
+}
+
+/* ================= HEADING ================= */
+.departments-heading {
+    @apply text-3xl mb-10 text-[#707070];
+}
+
+@media (min-width: 640px) {
+    .departments-heading {
+        @apply text-4xl;
+    }
+}
+
+.departments-heading-line {
+    @apply w-20 border-[#F04E30] mb-2 border-t-4;
+}
+
+/* ================= NAV BUTTONS ================= */
+.departments-nav {
+    @apply flex gap-2 justify-end mb-4;
+}
+
+.departments-nav-btn {
+    @apply border p-2 rounded-full;
+}
+
+.departments-nav-btn-disabled {
+    @apply opacity-50 cursor-not-allowed;
+}
+
+.departments-nav-btn-active {
+    @apply hover:bg-gray-100;
+}
+
+/* ================= CARD ================= */
+.department-card-wrapper {
+    @apply p-1 cursor-pointer;
+}
+
+.department-card {
+    @apply relative rounded-lg overflow-hidden shadow-md transition-transform duration-200;
+}
+
+.department-card-hover {
+    @apply hover:scale-105;
+}
+
+.department-card-height {
+    @apply h-28;
+}
+
+@media (min-width: 768px) {
+    .department-card-height {
+        @apply h-40;
+    }
+}
+
+.department-card-overlay {
+    @apply absolute inset-0 flex items-center justify-center bg-black/30 px-2;
+}
+
+.department-card-title {
+    @apply text-white text-sm text-center;
+}
+
+@media (min-width: 768px) {
+    .department-card-title {
+        @apply text-xl;
+    }
+}
+
+/* ================= GRID ================= */
+.departments-grid {
+    @apply grid grid-cols-2;
+}
+
+@media (min-width: 768px) {
+    .departments-grid {
+        @apply grid-cols-3 p-5;
+    }
+}
+
+@media (min-width: 1024px) {
+    .departments-grid {
+        @apply grid-cols-4;
+    }
+}

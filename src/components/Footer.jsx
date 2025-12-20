@@ -29,7 +29,7 @@ const Footer = () => {
       .catch((err) => console.error("Footer API Error:", err));
   }, []);
 
-  // LOADING STATE (VERY IMPORTANT)
+
   if (!footer) {
     return (
       <div className="bg-[#132F5C] text-white text-center p-6">

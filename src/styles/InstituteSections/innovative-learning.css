@@ -1,0 +1,63 @@
+@reference "tailwindcss";
+
+/* ================= SECTION ================= */
+.innovative-section {
+    @apply bg-white py-20 relative overflow-hidden;
+}
+
+/* ================= HEADINGS ================= */
+.innovative-heading {
+    @apply text-3xl text-[#707070] font-semibold mb-2 text-start;
+}
+
+.innovative-subheading {
+    @apply text-2xl text-[#58595B] font-light mb-8;
+}
+
+/* ================= NAV ================= */
+.innovative-nav-btn {
+    @apply absolute z-10 p-2 bg-white rounded-full shadow transition-transform;
+}
+
+.innovative-nav-btn:hover {
+    transform: scale(1.1);
+}
+
+.innovative-nav-prev {
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.innovative-nav-next {
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* ================= CARD ================= */
+.innovative-card-wrapper {
+    @apply px-2;
+}
+
+.innovative-card {
+    @apply relative w-full h-[500px] rounded-xl overflow-hidden shadow-lg;
+}
+
+.innovative-card-image {
+    @apply w-full h-full object-cover transition-transform;
+}
+
+.innovative-card:hover .innovative-card-image {
+    transform: scale(1.05);
+}
+
+.innovative-card-overlay {
+    @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 text-white p-4 h-28 flex flex-col;
+}
+
+.innovative-card-text {
+    @apply text-sm mt-1 leading-snug overflow-hidden text-ellipsis line-clamp-4;
+    font-family: Arial, sans-serif;
+    font-weight: 400;
+}

@@ -1,29 +1,43 @@
+import React from "react";
+import "../styles/InstituteSections/Hospital-section.css";
+
 function HospitalSection({ data }) {
-  const { heading, paragraphs, images } = data || {};
+  const { heading, paragraphs = [], images = [] } = data || {};
+
   return (
-    <div className="bg-[#fefaf3] py-14">
+    <div className="hospital-section">
       <div className="container gap-12 items-center justify-center">
-        <div className="mb-6">
-          <h2 className="text-3xl md:text-4xl text-[#707070] uppercase mb-2 font-oswald-medium  tracking-tight leading-tight">
-            <span className="block border-t-4 border-[#F04E30] w-20 sm:w-24 mb-2"></span>
+        {/* HEADING */}
+        <div className="hospital-heading-wrapper">
+          <h2 className="hospital-heading">
+            <span className="hospital-heading-line"></span>
             {heading}
           </h2>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          <div className="w-full pb-6 lg:pb-10 basis-[40%]">
+        {/* CONTENT */}
+        <div className="hospital-layout">
+          {/* TEXT */}
+          <div className="hospital-text">
             {paragraphs.map((p, i) => (
-              <p
-                key={i}
-                className="text-[#58595B] text-base font-oswald font-[400] pb-2 tracking-normal"
-              >
+              <p key={i} className="hospital-paragraph">
                 {p}
               </p>
             ))}
           </div>
 
+          {/* IMAGE PLACEHOLDER */}
           {images.length > 0 && (
-            <div className="relative w-full lg:w-auto basis-[60%]"></div>
+            <div className="hospital-image-wrapper">
+              <div className="hospital-image-placeholder">
+                <div>
+                  <p className="hospital-placeholder-title">
+                    Hospital Infrastructure
+                  </p>
+                  <p>Image placeholder (no image configured)</p>
+                </div>
+              </div>
+            </div>
           )}
         </div>
       </div>

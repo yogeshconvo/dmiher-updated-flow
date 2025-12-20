@@ -1,20 +1,20 @@
 @reference "tailwindcss";
 
-/* ================= SECTION WRAPPER ================= */
+
 .holistic-section {
     @apply py-20 bg-white;
 }
 
 /* ================= LAYOUT ================= */
 .holistic-layout {
-    @apply flex flex-col md:flex-row md:gap-8 items-start justify-center;
+    @apply flex flex-col items-start justify-center;
 }
 
-/* @screen lg {
+@media (min-width: 768px) {
     .holistic-layout {
-        @apply ;
+        @apply flex-row gap-8;
     }
-} */
+}
 
 /* ================= TEXT COLUMN ================= */
 .holistic-text {
@@ -26,7 +26,7 @@
     @apply text-3xl font-[500] text-[#707070] mb-8 tracking-wider;
 }
 
-@screen md {
+@media (min-width: 768px) {
     .holistic-heading {
         @apply text-4xl;
     }
@@ -36,7 +36,7 @@
     @apply w-16 border-[#F04E30] mb-4 border-t-4;
 }
 
-@screen sm {
+@media (min-width: 640px) {
     .holistic-heading-line {
         @apply w-20;
     }
@@ -74,14 +74,20 @@
 
 /* ================= IMAGE / PLACEHOLDER ================= */
 .holistic-image-wrapper {
-    @apply w-full min-w-[315px] mt-8 md:mt-20;
+    @apply w-full min-w-[315px] mt-8;
+}
+
+@media (min-width: 768px) {
+    /* .holistic-image-wrapper {
+        @apply mt-20;
+    } */
 }
 
 .holistic-image-box {
     @apply w-full h-[500px] rounded-md overflow-hidden shadow-lg flex items-center justify-center bg-gray-200 text-gray-600 text-sm text-center px-4;
 }
 
-@screen md {
+@media (min-width: 768px) {
     .holistic-image-box {
         @apply mt-32;
     }

@@ -41,6 +41,25 @@
                     }
                 },
                 {
+                    "section_id": "deans_message_section",
+                    "data": {
+                        "heading": "DEAN’S MESSAGE",
+                        "dean_name": "Dr. (Mrs.) Sonali Choudhari Deshmukh",
+                        "designation_lines": [
+                            "Dean, JNMC & AVBRH, DMIHER",
+                            "MBBS, MD, MPhil (HPE), FAIMER (IFI, Philadelphia)"
+                        ],
+                        "email": "dean.jnmc@dmiher.edu.in",
+                        "paragraphs": [
+                            "Jawaharlal Nehru Medical College & Acharya Vinoba Bhave Rural Hospital, established in 1990 under the Datta Meghe Institute of Higher Education and Research (Deemed to be University), Wardha, stands as a premier institution for medical education, research, and healthcare services. Ranked 23rd nationally, we offer MBBS (250 seats), postgraduate, super-specialty, paramedical, and PhD programs, all accredited with NAAC ‘A++’.",
+                            "Our innovations include ‘Anukruti’, a state-of-the-art Simulation Centre, ‘Jigyasa’, a central integrated museum, and early adoption of NEP 2020. As a nodal centre for faculty development, we integrate cutting-edge teaching methodologies and host national and international conferences. Through robust community partnerships, we adopt villages to extend healthcare services.",
+                            "We are home to the region’s largest tertiary care hospital, a Super-specialty centre, and a dedicated Cancer hospital, offering a comprehensive range of services, including robotic surgery, oncology, cardiology, nephrology, neurology, neurosurgery, urology, gastroenterology, interventional radiology, and transplant facilities. With a strong focus on research and quality education, we remain dedicated to innovation and compassionate healthcare and community well-being."
+                        ],
+                        "cta_label": "Key Officials",
+                        "cta_url": "/jnmc/deans-message"
+                    }
+                },
+                {
                     "section_id": "holistic_infrastructure_section",
                     "data": {
                         "heading": "HOLISTIC LEARNING AND INFRASTRUCTURE",
@@ -113,11 +132,176 @@
                     }
                 },
                 {
+                    "section_id": "departments",
+                    "data": {
+                        "heading": "OUR DEPARTMENTS",
+                        "chunk_config": {
+                            "desktop": 8,
+                            "tablet": 6,
+                            "mobile": 6
+                        },
+                        "departments": [
+                            {
+                                "id": 1,
+                                "title": "Anatomy",
+                                "tabId": "anatomy",
+                                "image": "http://localhost:3000/images/jnmc/departments/1.png"
+                            },
+                            {
+                                "id": 2,
+                                "title": "Anesthesiology",
+                                "tabId": "anaesthesiology",
+                                "image": "http://localhost:3000/images/jnmc/departments/2.png"
+                            },
+                            {
+                                "id": 3,
+                                "title": "Biochemistry",
+                                "tabId": "biochemistry",
+                                "image": "http://localhost:3000/images/jnmc/departments/3.png"
+                            },
+                            {
+                                "id": 4,
+                                "title": "Dermatology",
+                                "tabId": "dermatology",
+                                "image": "http://localhost:3000/images/jnmc/departments/4.png"
+                            },
+                            {
+                                "id": 5,
+                                "title": "Cardiology",
+                                "tabId": "cardiology",
+                                "image": "http://localhost:3000/images/jnmc/departments/5.png"
+                            },
+                            {
+                                "id": 6,
+                                "title": "Critical Care Medicine",
+                                "tabId": "critical_care",
+                                "image": "http://localhost:3000/images/jnmc/departments/6.png"
+                            },
+                            {
+                                "id": 7,
+                                "title": "Interventional Radiology",
+                                "tabId": "interventional_radiology",
+                                "image": "http://localhost:3000/images/jnmc/departments/7.png"
+                            },
+                            {
+                                "id": 8,
+                                "title": "Medical Gastroenterology",
+                                "tabId": "gastroenterology",
+                                "image": "http://localhost:3000/images/jnmc/departments/8.png"
+                            },
+                            {
+                                "id": 9,
+                                "title": "Medical Oncology",
+                                "tabId": "medical_oncology",
+                                "image": "http://localhost:3000/images/jnmc/departments/9.png"
+                            },
+                            {
+                                "id": 10,
+                                "title": "Neonatology",
+                                "tabId": "neonatology",
+                                "image": "http://localhost:3000/images/jnmc/departments/10.png"
+                            },
+                            {
+                                "id": 11,
+                                "title": "Neurology",
+                                "tabId": "neurology",
+                                "image": "http://localhost:3000/images/jnmc/departments/11.png"
+                            },
+                            {
+                                "id": 12,
+                                "title": "Nephrology",
+                                "tabId": "nephrology",
+                                "image": "http://localhost:3000/images/jnmc/departments/12.png"
+                            },
+                            {
+                                "id": 13,
+                                "title": "Emergency Medicine",
+                                "tabId": "emergency_medicine",
+                                "image": "http://localhost:3000/images/jnmc/departments/13.png"
+                            },
+                            {
+                                "id": 14,
+                                "title": "ENT Otorhinolaryngology",
+                                "tabId": "ent",
+                                "image": "http://localhost:3000/images/jnmc/departments/14.png"
+                            },
+                            {
+                                "id": 15,
+                                "title": "Forensic Medicine & Toxicology",
+                                "tabId": "forensic_medicine",
+                                "image": "http://localhost:3000/images/jnmc/departments/15.png"
+                            },
+                            {
+                                "id": 16,
+                                "title": "General Medicine",
+                                "tabId": "medicine",
+                                "image": "http://localhost:3000/images/jnmc/departments/16.png"
+                            },
+                            {
+                                "id": 17,
+                                "title": "General Surgery",
+                                "tabId": "general_surgery",
+                                "image": "http://localhost:3000/images/jnmc/departments/17.png"
+                            },
+                            {
+                                "id": 18,
+                                "title": "Orthopaedics",
+                                "tabId": "orthopaedics",
+                                "image": "http://localhost:3000/images/jnmc/departments/18.png"
+                            },
+                            {
+                                "id": 19,
+                                "title": "Paediatrics",
+                                "tabId": "paediatrics",
+                                "image": "http://localhost:3000/images/jnmc/departments/19.png"
+                            },
+                            {
+                                "id": 20,
+                                "title": "Pathology",
+                                "tabId": "pathology",
+                                "image": "http://localhost:3000/images/jnmc/departments/20.png"
+                            },
+                            {
+                                "id": 21,
+                                "title": "Pharmacology",
+                                "tabId": "pharmacology",
+                                "image": "http://localhost:3000/images/jnmc/departments/21.png"
+                            },
+                            {
+                                "id": 22,
+                                "title": "Physiology",
+                                "tabId": "physiology",
+                                "image": "http://localhost:3000/images/jnmc/departments/22.png"
+                            },
+                            {
+                                "id": 23,
+                                "title": "Psychiatry",
+                                "tabId": "psychiatry",
+                                "image": "http://localhost:3000/images/jnmc/departments/23.png"
+                            },
+                            {
+                                "id": 24,
+                                "title": "Radiodiagnosis",
+                                "tabId": "radio_diagnosis",
+                                "image": "http://localhost:3000/images/jnmc/departments/24.png"
+                            },
+                            {
+                                "id": 25,
+                                "title": "Respiratory Medicine",
+                                "tabId": "respiratory_medicine",
+                                "image": "http://localhost:3000/images/jnmc/departments/25.png"
+                            }
+                        ]
+                    }
+                },
+                {
                     "section_id": "hospital_section",
                     "data": {
                         "heading": "Mahatma Gandhi Ayurveda Hospital",
                         "paragraphs": [
                             "The 372-bed, NABH-accredited first Ayurveda hospital in Central India is committed to delivering exceptional care...",
+                            "Specialty OPDs cover a wide range of disciplines including ENT, eye care, detoxification...",
+                            "Specialty OPDs cover a wide range of disciplines including ENT, eye care, detoxification...",
                             "Specialty OPDs cover a wide range of disciplines including ENT, eye care, detoxification...",
                             "Traditional Kriya Kalpa therapies such as Aschotana and Tarpan support natural healing..."
                         ],
@@ -127,25 +311,6 @@
                             "/assets/MGAC/3.jpg",
                             "/assets/MGAC/4.jpg"
                         ]
-                    }
-                },
-                {
-                    "section_id": "deans_message_section",
-                    "data": {
-                        "heading": "DEAN’S MESSAGE",
-                        "dean_name": "Dr. (Mrs.) Sonali Choudhari Deshmukh",
-                        "designation_lines": [
-                            "Dean, JNMC & AVBRH, DMIHER",
-                            "MBBS, MD, MPhil (HPE), FAIMER (IFI, Philadelphia)"
-                        ],
-                        "email": "dean.jnmc@dmiher.edu.in",
-                        "paragraphs": [
-                            "Jawaharlal Nehru Medical College & Acharya Vinoba Bhave Rural Hospital, established in 1990 under the Datta Meghe Institute of Higher Education and Research (Deemed to be University), Wardha, stands as a premier institution for medical education, research, and healthcare services. Ranked 23rd nationally, we offer MBBS (250 seats), postgraduate, super-specialty, paramedical, and PhD programs, all accredited with NAAC ‘A++’.",
-                            "Our innovations include ‘Anukruti’, a state-of-the-art Simulation Centre, ‘Jigyasa’, a central integrated museum, and early adoption of NEP 2020. As a nodal centre for faculty development, we integrate cutting-edge teaching methodologies and host national and international conferences. Through robust community partnerships, we adopt villages to extend healthcare services.",
-                            "We are home to the region’s largest tertiary care hospital, a Super-specialty centre, and a dedicated Cancer hospital, offering a comprehensive range of services, including robotic surgery, oncology, cardiology, nephrology, neurology, neurosurgery, urology, gastroenterology, interventional radiology, and transplant facilities. With a strong focus on research and quality education, we remain dedicated to innovation and compassionate healthcare and community well-being."
-                        ],
-                        "cta_label": "Key Officials",
-                        "cta_url": "/jnmc/deans-message"
                     }
                 },
                 {
@@ -159,6 +324,207 @@
                         ],
                         "cta_label": "Know more",
                         "cta_url": "/jnmc/medical-education-unit"
+                    }
+                },
+                {
+                    "section_id": "innovative_learning_section",
+                    "data": {
+                        "heading": "Innovative, Learner-Centric Teaching Methodologies",
+                        "subheading": "Nurturing critical thinkers and compassionate clinicians",
+                        "cards": [
+                            {
+                                "description": "Simulated Learning with mannequin and task stations, Anatomage, Lap mentors, BLS & ACLS by American Heart Association",
+                                "image": "/assets/JNMC/InnovativeLearning/1.jpeg"
+                            },
+                            {
+                                "description": "Integrated teaching, Early clinical exposure, Inter-department Case discussions, Clinico-pathologic conference, OSPE-OSCE",
+                                "image": "/assets/JNMC/InnovativeLearning/2.jpeg"
+                            },
+                            {
+                                "description": "Research opportunities for all learners, ICMR STS, Innovation cell, Biomedical Engineering and Technology Innovation Centre (BETIC), E-YUVA Fellowship under BIRAC",
+                                "image": "/assets/JNMC/InnovativeLearning/3.jpg"
+                            },
+                            {
+                                "description": "Standardised Patient Program (SPP) Case-based learning (Master Clinic) in collaboration with Weill Cornell Medicine, USA",
+                                "image": "/assets/JNMC/InnovativeLearning/4.jpeg"
+                            },
+                            {
+                                "description": "Bioethics Unit under International Chair in Bioethics, AETCOM, Get Set Go",
+                                "image": "/assets/JNMC/InnovativeLearning/5.png"
+                            },
+                            {
+                                "description": "Mentoring by national and international Adjunct Faculty",
+                                "image": "/assets/JNMC/InnovativeLearning/6.png"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "research_collaboration",
+                    "data": {
+                        "heading": "RESEARCH & COLLABORATIONS",
+                        "intro_paragraphs": [
+                            "Driven by a team of highly qualified and experienced faculty, JNMC upholds a rich legacy of teaching excellence and a strong track record of research contributions.",
+                            "Faculty have published extensively in prestigious journals, including The Lancet, BMJ, Frontiers, Nature, and more.",
+                            "Three faculties are in the list of the world’s top 2% scientists released by Stanford University (Elsevier’s Scopus database).",
+                            "The institution’s contributions include books, copyrights, and patents advancing medical science."
+                        ],
+                        "highlight_points": [
+                            "Dr. Zahir Quazi",
+                            "Dr. Abhay Gaidhane",
+                            "Dr. Mahalaque Nazli Khatib"
+                        ],
+                        "stats": [
+                            {
+                                "icon": "/assets/JNMC/icon1.png",
+                                "value": "24 Granted, 30 Filed",
+                                "label": "Patents"
+                            },
+                            {
+                                "icon": "/assets/JNMC/icon2.png",
+                                "value": "400+",
+                                "label": "Copyrights"
+                            },
+                            {
+                                "icon": "/assets/JNMC/icon3.png",
+                                "value": "10,000+",
+                                "label": "Total Research Publications"
+                            },
+                            {
+                                "icon": "/assets/JNMC/icon4.png",
+                                "value": "41,000+",
+                                "label": "Citations"
+                            }
+                        ],
+                        "institutional_metrics": {
+                            "h_index": 60,
+                            "articles_2024": "1246 Articles (82 in Q1 & Q2)"
+                        },
+                        "research_collaboration": "",
+                        "educational_research": ""
+                    }
+                },
+                {
+                    "section_id": "global_opportunities",
+                    "data": {
+                        "heading": "Global Opportunities",
+                        "description": "JNMC empowers students to become globally competent healthcare leaders through partnerships with institutions like, Weill Cornell Medicine (USA), Johns Hopkins University (USA), University of Sydney (Australia), Kazan University (Russia), Caribbean School of Medicine, and Ross University. Opportunities include international conferences, student exchange programs, clinical immersions at Cleveland Clinic (Abu Dhabi) and Imperial College (UK), and participation in global signature courses like the Standardized Patient Program and case-based Master Clinics (Weill Cornell). These experiences equip students with world-class medical knowledge, cross-cultural competence, and lifelong global networks.",
+                        "image": "/assets/JNMC/GlobalOpportunities/IMG.jpeg",
+                        "logos": [
+                            {
+                                "src": "/assets/JNMC/GlobalOpportunities/1.png",
+                                "alt": "University of Nevada"
+                            },
+                            {
+                                "src": "/assets/JNMC/GlobalOpportunities/2.jpeg",
+                                "alt": "UC Berkeley"
+                            },
+                            {
+                                "src": "/assets/JNMC/GlobalOpportunities/3.jpeg",
+                                "alt": "University of Sydney"
+                            },
+                            {
+                                "src": "/assets/JNMC/GlobalOpportunities/4.png",
+                                "alt": "University of Wollongong"
+                            },
+                            {
+                                "src": "/assets/JNMC/GlobalOpportunities/5.png",
+                                "alt": "Yeshiva University"
+                            },
+                            {
+                                "src": "/assets/JNMC/GlobalOpportunities/6.png",
+                                "alt": "University of Deusto"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "gallery",
+                    "data": {
+                        "title": "STUDENT LIFE",
+                        "description": "JNMC offers a vibrant student life with a diverse mix of academic, cultural, and social activities ...",
+                        "images": [
+                            {
+                                "title": "Dance Club",
+                                "image": "/assets/JNMC/StudentLife/Dance Club.JPG"
+                            },
+                            {
+                                "title": "Events",
+                                "image": "/assets/JNMC/StudentLife/EVENTS 1.JPG"
+                            },
+                            {
+                                "title": "GFC 5",
+                                "image": "/assets/JNMC/StudentLife/GFC 5.jpeg"
+                            },
+                            {
+                                "title": "Guest Lecture",
+                                "image": "/assets/JNMC/StudentLife/Guest Lecture.jpg"
+                            },
+                            {
+                                "title": "Literature Club",
+                                "image": "/assets/JNMC/StudentLife/literature club 2.jpg"
+                            },
+                            {
+                                "title": "Pride Parade",
+                                "image": "/assets/JNMC/StudentLife/pride parade girl up.jpg"
+                            },
+                            {
+                                "title": "Social Welfare Club",
+                                "image": "/assets/JNMC/StudentLife/Social Welfare Club.JPG"
+                            },
+                            {
+                                "title": "Sports Club",
+                                "image": "/assets/JNMC/StudentLife/Sports Club.jpg"
+                            },
+                            {
+                                "title": "Theatre Club",
+                                "image": "/assets/JNMC/StudentLife/Theatre Club.JPG"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "testimonials",
+                    "data": {
+                        "heading": "TESTIMONIALS",
+                        "tabs": [
+                            "Students",
+                            "Parents",
+                            "Alumni"
+                        ],
+                        "testimonials": {
+                            "Students": [
+                                {
+                                    "name": "Dr. Arya Bhagwat",
+                                    "year": "MBBS | 2021",
+                                    "img": "/assets/JNMC/Testimonial/S1.jpg",
+                                    "text": "The institute JN Medical College has truly provided me with a homely environment..."
+                                },
+                                {
+                                    "name": "Dr. Prakhar Shrivastava",
+                                    "year": "MBBS | 2022",
+                                    "img": "/assets/JNMC/Testimonial/S2.jpg",
+                                    "text": "The Jawaharlal Nehru Medical College provides an exceptional educational experience..."
+                                }
+                            ],
+                            "Parents": [
+                                {
+                                    "name": "Mr. Debasis Chakrabarty",
+                                    "year": "Parent of Debarun Chakraborty",
+                                    "img": "/assets/JNMC/Testimonial/P1.jpg",
+                                    "text": "I am truly grateful to Datta Meghe Institute..."
+                                }
+                            ],
+                            "Alumni": [
+                                {
+                                    "name": "Dr. Ruchi Mishra",
+                                    "year": "MBBS, MD",
+                                    "img": "/assets/JNMC/Testimonial/A2.png",
+                                    "text": "Healing goes beyond medicine...",
+                                    "extra": "- Certified Clinical Hypnotherapist, UK"
+                                }
+                            ]
+                        }
                     }
                 }
             ]

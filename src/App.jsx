@@ -29,7 +29,7 @@ function PageView({ pages }) {
             <section
               id={sec.section_id}
               key={sec.section_id || index}
-              style={{ marginTop: "100px" }}
+              // style={{ marginTop: "100px" }}
             >
               <SectionComponent data={sec.data} />
             </section>

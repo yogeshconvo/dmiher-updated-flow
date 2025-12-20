@@ -1,60 +1,60 @@
 @reference "tailwindcss";
 
-/* ================= WRAPPER ================= */
+/* ================= INFO SECTION ================= */
 .info-section {
     @apply py-12;
 }
 
-/* ================= TITLE ================= */
+/* ================= INFO TITLE ================= */
 .info-title {
     @apply flex flex-wrap items-center justify-center text-[#F04E30] text-3xl tracking-wider uppercase mb-6 text-center;
 }
 
-@screen sm {
+@media (min-width: 640px) {
     .info-title {
         @apply justify-between;
     }
 }
 
 .info-title-line {
-    @apply hidden sm:block flex-grow border-t;
+    @apply hidden flex-grow border-t;
+    margin: 0;
 }
 
-/* 
-@screen sm {
+@media (min-width: 640px) {
     .info-title-line {
         @apply block;
     }
-} */
-
-.info-title-text {
-    @apply px-4 whitespace-normal;
 }
 
-@screen sm {
+.info-title-text {
+    @apply px-4 whitespace-normal text-sm;
+}
+
+@media (min-width: 640px) {
     .info-title-text {
         @apply text-lg;
     }
 }
 
-@screen md {
+@media (min-width: 768px) {
     .info-title-text {
         @apply text-xl;
     }
 }
 
-@screen xl {
+@media (min-width: 1280px) {
     .info-title-text {
         @apply text-3xl;
     }
 }
 
-/* ================= CONTENT SECTION ================= */
+/* ================= INFO CONTENT ================= */
 .info-content {
     @apply bg-white text-center text-sm mx-auto max-w-7xl px-2;
 }
 
-@screen sm {
+@media (min-width: 640px) {
     .info-content {
         @apply px-4;
     }
@@ -65,13 +65,13 @@
     @apply text-2xl font-[500] text-[#58595B] leading-snug mb-6;
 }
 
-@screen sm {
+@media (min-width: 640px) {
     .info-tagline {
         @apply text-3xl;
     }
 }
 
-@screen md {
+@media (min-width: 768px) {
     .info-tagline {
         @apply text-4xl;
     }
@@ -88,7 +88,7 @@
 
 /* ================= BUTTONS ================= */
 .info-btn {
-    @apply mt-2 mb-4 px-6 py-2 text-white rounded font-semibold transition;
+    @apply mt-2 mb-4 px-6 py-2 text-white rounded font-semibold transition-colors duration-200;
 }
 
 .info-btn-more {

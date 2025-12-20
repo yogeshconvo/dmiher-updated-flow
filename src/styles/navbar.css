@@ -3,7 +3,7 @@
 @layer components {
 
     .navbar {
-        @apply fixed w-full bg-white top-0 z-[999] px-0 lg:px-15 shadow-sm h-[100px];
+        @apply relative w-full bg-white top-0 z-[999] px-0 lg:px-15 shadow-sm h-[100px];
     }
 
     .navbar-inner {

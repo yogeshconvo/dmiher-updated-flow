@@ -6,11 +6,12 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import "swiper/css";
 import "swiper/css/pagination";
+import "../styles/InstituteSections/Departments.css";
 
 /* ================= CARD ================= */
 const DepartmentCard = ({ image, title, tabId }) => {
   const navigate = useNavigate();
-  const { slug } = useParams(); // 🔥 page slug from App router
+  const { slug } = useParams();
 
   const handleClick = () => {
     if (tabId) {
@@ -19,17 +20,20 @@ const DepartmentCard = ({ image, title, tabId }) => {
   };
 
   return (
-    <div onClick={handleClick} className="p-1 cursor-pointer">
+    <div
+      className="department-card-wrapper"
+      onClick={handleClick}
+    >
       <div
-        className="relative h-28 md:h-40 rounded-lg overflow-hidden shadow-md hover:scale-105 transition"
+        className="department-card department-card-hover department-card-height"
         style={{
           backgroundImage: `url(${image})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute inset-0 flex items-center justify-center bg-black/30 px-2">
-          <h3 className="text-white text-sm md:text-xl text-center">{title}</h3>
+        <div className="department-card-overlay">
+          <h3 className="department-card-title">{title}</h3>
         </div>
       </div>
     </div>
@@ -74,25 +78,24 @@ const Departments = ({ data }) => {
 
   if (!departments.length) return null;
 
-  /* ================= UI ================= */
   return (
-    <div className="py-20 bg-white">
+    <div className="departments-section">
       <div className="container">
-        <h2 className="text-3xl sm:text-4xl font-oswald-medium mb-10 text-[#707070]">
-          <hr className="w-20 border-[#F04E30] mb-2 border-t-4" />
+        <h2 className="departments-heading">
+          <hr className="departments-heading-line" />
           {data.heading || "OUR DEPARTMENTS"}
         </h2>
 
         <div className="relative">
           {/* NAV */}
-          <div className="flex gap-2 justify-end mb-4">
+          <div className="departments-nav">
             <button
               onClick={() => swiperRef.current?.slidePrev()}
               disabled={currentSlide === 0}
-              className={`border p-2 rounded-full ${
+              className={`departments-nav-btn ${
                 currentSlide === 0
-                  ? "opacity-50 cursor-not-allowed"
-                  : "hover:bg-gray-100"
+                  ? "departments-nav-btn-disabled"
+                  : "departments-nav-btn-active"
               }`}
             >
               <ArrowLeft size={20} />
@@ -101,10 +104,10 @@ const Departments = ({ data }) => {
             <button
               onClick={() => swiperRef.current?.slideNext()}
               disabled={currentSlide === slides.length - 1}
-              className={`border p-2 rounded-full ${
+              className={`departments-nav-btn ${
                 currentSlide === slides.length - 1
-                  ? "opacity-50 cursor-not-allowed"
-                  : "hover:bg-gray-100"
+                  ? "departments-nav-btn-disabled"
+                  : "departments-nav-btn-active"
               }`}
             >
               <ArrowRight size={20} />
@@ -122,7 +125,7 @@ const Departments = ({ data }) => {
           >
             {slides.map((slide, index) => (
               <SwiperSlide key={index}>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:p-5">
+                <div className="departments-grid">
                   {slide.map((item) => (
                     <DepartmentCard
                       key={item.id}

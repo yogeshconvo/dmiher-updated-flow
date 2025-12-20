@@ -31,3 +31,54 @@ h5,
 h6 {
     font-family: "Oswald", sans-serif;
 }
+
+.clip-path-message {
+    clip-path: polygon(0 23%,
+            100% 23%,
+            100% 75%,
+            100% 75%,
+            100% 100%,
+            82% 75%,
+            0% 75%);
+    width: 180px;
+    /* Increased from 154px */
+    height: 115px;
+    /* Increased from 98px */
+    background: #f04e30;
+    box-sizing: border-box;
+    display: block;
+    position: relative;
+}
+
+.clip-path-message .clip-path-message-inner {
+    position: absolute;
+    clip-path: polygon(0 23%,
+            100% 23%,
+            100% 75%,
+            100% 75%,
+            100% 100%,
+            82% 75%,
+            0% 75%);
+    left: 3px;
+    top: 4px;
+    width: 174px;
+    /* Increased proportionally */
+    height: 105px;
+    /* Increased proportionally */
+    background: white;
+    box-sizing: border-box;
+    display: block;
+}
+
+.clip-path-message .clip-path-message-inner span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #707070;
+    text-align: center;
+    padding: 0 8px;
+    /* Optional: adds some breathing room */
+    font-size: 15px;
+    /* Optional: slightly increase font */
+}

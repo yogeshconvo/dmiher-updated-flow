@@ -1,0 +1,93 @@
+@reference "tailwindcss";
+
+/* ================= SECTION ================= */
+.deans-section {
+    @apply bg-[#0C2C5B] text-white py-10;
+}
+
+@media (min-width: 768px) {
+    .deans-section {
+        @apply py-20;
+    }
+}
+
+/* ================= HEADING ================= */
+.deans-heading {
+    @apply text-3xl mb-10;
+}
+
+@media (min-width: 768px) {
+    .deans-heading {
+        @apply text-4xl;
+    }
+}
+
+.deans-heading-line {
+    @apply border-t-4 border-[#EE4B2B] w-20 mb-2;
+}
+
+/* ================= LAYOUT ================= */
+.deans-layout {
+    @apply flex flex-col gap-10 items-center;
+}
+
+@media (min-width: 1024px) {
+    .deans-layout {
+        @apply flex-row items-start text-left;
+    }
+}
+
+/* ================= IMAGE SECTION ================= */
+.deans-image-wrapper {
+    @apply flex-shrink-0;
+}
+
+.deans-image {
+    @apply rounded-lg w-[300px] h-[300px] object-cover mb-4 mx-auto;
+}
+
+@media (min-width: 768px) {
+    .deans-image {
+        @apply w-[370px];
+    }
+}
+
+@media (min-width: 1024px) {
+    .deans-image {
+        @apply mx-0;
+    }
+}
+
+/* ================= DEAN INFO ================= */
+.deans-info {
+    @apply text-[#E1CD67] leading-relaxed;
+}
+
+/* max-sm → max-width: 639px */
+@media (max-width: 639px) {
+    .deans-info {
+        @apply mt-4;
+    }
+}
+
+.deans-name {
+    @apply text-[#E1CD67] font-bold;
+}
+
+.deans-email {
+    @apply text-[#E1CD67];
+}
+
+/* ================= MESSAGE ================= */
+.deans-message {
+    @apply tracking-wide font-sans text-[16px] leading-6 text-[#FFFFFF] pr-5 font-[400];
+}
+
+.deans-paragraph {
+    @apply mb-4;
+}
+
+/* ================= CTA ================= */
+.deans-cta {
+    @apply mb-4 inline-block px-5 py-2 bg-[#F04E30] text-white rounded font-semibold transition-colors duration-200 hover:bg-[#d13d22];
+}
