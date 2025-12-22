@@ -14,12 +14,6 @@
     @apply text-3xl font-[500] text-[#707070] mb-4 uppercase relative;
 }
 
-@media (min-width: 640px) {
-    .global-heading {
-        @apply text-4xl;
-    }
-}
-
 .global-heading-line {
     @apply block border-t-4 border-[#F04E30] w-16 mb-4;
 }
@@ -33,11 +27,7 @@
     @apply hidden w-full gap-4 items-center;
 }
 
-@media (min-width: 640px) {
-    .global-desktop {
-        @apply flex;
-    }
-}
+
 
 .global-image-wrapper {
     @apply w-[40%];
@@ -72,12 +62,6 @@
     @apply block px-4;
 }
 
-@media (min-width: 640px) {
-    .global-mobile {
-        @apply hidden;
-    }
-}
-
 .global-mobile-image {
     @apply mb-4;
 }
@@ -93,3 +77,4 @@
 .global-mobile-logo-img {
     @apply object-contain w-24 h-20;
 }
+

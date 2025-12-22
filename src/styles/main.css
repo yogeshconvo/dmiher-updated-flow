@@ -1,0 +1,10 @@
+@reference "tailwindcss";
+
+/* Tailwind base */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Your custom styles */
+@import "./InstitutesSections.css";
+@import "./Responsive.css";

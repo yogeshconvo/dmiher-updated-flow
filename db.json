@@ -41,6 +41,43 @@
                     }
                 },
                 {
+                    "section_id": "why_choose",
+                    "data": {
+                        "heading": "WHY CHOOSE US ?",
+                        "cards": [
+                            {
+                                "theme": "orange",
+                                "title": "UGC-Entitled Degrees, Academic Rigor, Recognition & Advantage",
+                                "points": [
+                                    "DMIHER (NAAC A++, NIRF Rank 42 to 49)",
+                                    "Apprenticeship-embedded and flexible online formats",
+                                    "Freedom to pursue online and offline programs simultaneously"
+                                ]
+                            },
+                            {
+                                "theme": "lightBlue",
+                                "title": "Corporate Work-Integrated Programs",
+                                "subtitle": "Designed for working professionals and enterprise partners"
+                            },
+                            {
+                                "theme": "navy",
+                                "title": "24×7 LMS Access",
+                                "subtitle": "Includes Coursera, MOOCs, SWAYAM, 100+ ISBN-aligned books and more"
+                            },
+                            {
+                                "theme": "white",
+                                "title": "Industry-Ready Curriculum",
+                                "subtitle": "Integrated tools: Power BI, Advanced Excel, AI, ML, Python, Data Science & more"
+                            },
+                            {
+                                "theme": "blue",
+                                "title": "Affordable Fee Structure",
+                                "subtitle": "Quality education made accessible for all"
+                            }
+                        ]
+                    }
+                },
+                {
                     "section_id": "deans_message_section",
                     "data": {
                         "heading": "DEAN’S MESSAGE",
@@ -129,6 +166,70 @@
                         "disclosures_link_text": "Check all Mandatory Disclosures",
                         "disclosures_cta_text": "Click Here",
                         "disclosures_url": "/mgac/mandatory-disclosure"
+                    }
+                },
+                {
+                    "section_id": "programs_announcements",
+                    "data": {
+                        "heading": "Announcements",
+                        "buttons": [
+                            {
+                                "type": "pg",
+                                "label": "PG (MD/MS) Admissions – 2025"
+                            },
+                            {
+                                "type": "ug",
+                                "label": "UG (MBBS) Admissions – 2025"
+                            }
+                        ],
+                        "pg_docs": [
+                            {
+                                "name": "PG (MD/MS) – Docs needed 2025–26",
+                                "link": "/assets/JNMC/Doc/PG JNMC MD_MS Requirement of documents at the time of admissions 2025 - 26.pdf"
+                            },
+                            {
+                                "name": "PG (MD/MS) – Fees (2025–26)",
+                                "link": "/assets/JNMC/Doc/PG JNMC MD_MS Tution fees for session 2025-26.pdf"
+                            },
+                            {
+                                "name": "Hostel fees for MD MS 2025–26",
+                                "link": "/assets/JNMC/Doc/Final Course fees for MD MS 2025-26.pdf"
+                            }
+                        ],
+                        "ug_docs": [
+                            {
+                                "name": "MBBS Fee Structure 2025–26",
+                                "link": "/assets/JNMC/Doc/Fees Structure UG 2025-26 MBBS Wardha.PDF"
+                            },
+                            {
+                                "name": "Hostel Fees – MBBS JNMC (2025)",
+                                "link": "/assets/JNMC/Doc/JNMC_Hostel Charges.pdf"
+                            },
+                            {
+                                "name": "Payment Details For MBBS",
+                                "link": "/assets/JNMC/Doc/HDFC Bank details 1427.pdf"
+                            },
+                            {
+                                "name": "Certificate of Medical Fitness Format",
+                                "link": "/assets/JNMC/Doc/Certificate of Medical Fitness Format.PDF"
+                            },
+                            {
+                                "name": "Checklist – Documents for Admission",
+                                "link": "/assets/JNMC/Doc/Cheklist-Requirement of Documents for Admission.pdf"
+                            },
+                            {
+                                "name": "Affidavit Format",
+                                "link": "/assets/JNMC/Doc/Affidavit Format.docx"
+                            },
+                            {
+                                "name": "UG MBBS-BDS Application Form – 2025",
+                                "link": "/assets/JNMC/Doc/UG-MBBS-BDS Student application SOP..pdf"
+                            },
+                            {
+                                "name": "Apply for MBBS Admission",
+                                "link": "https://dmiher-apply.mastersofterp.com/ApplicationLandingPage/Index/DMIHER"
+                            }
+                        ]
                     }
                 },
                 {
@@ -434,6 +535,57 @@
                             {
                                 "src": "/assets/JNMC/GlobalOpportunities/6.png",
                                 "alt": "University of Deusto"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "quick_links",
+                    "data": {
+                        "buttons": [
+                            {
+                                "label": "Simulation lab",
+                                "to": "/sel-sc"
+                            },
+                            {
+                                "label": "Museum",
+                                "to": "/museum"
+                            },
+                            {
+                                "label": "Cadaveric & Wet Lab",
+                                "to": "/cadaveric-wet-lab"
+                            },
+                            {
+                                "label": "NMC Nodal Centre for FDP",
+                                "to": "/jnmc/nodal-jnmc"
+                            },
+                            {
+                                "label": "School of Higher Education and Research",
+                                "to": "/SHER"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "placements",
+                    "data": {
+                        "heading": "HIGHER EDUCATION AND PLACEMENT (NATIONAL & INTERNATIONAL)",
+                        "description": "Jawaharlal Nehru Medical College (JNMC) shapes healthcare leaders who excel in higher education and global healthcare careers. Backed by state-of-the-art facilities and global collaborations, JNMC graduates become clinicians, educators, and researchers at national and international centres of excellence.",
+                        "highlights": [
+                            {
+                                "text": "Propelling students into higher education and global healthcare careers.",
+                                "highlight": "Propelling students",
+                                "color": "#F04E30"
+                            },
+                            {
+                                "text": "80% MBBS students placed, 28% advancing into higher studies.",
+                                "highlight": "80% MBBS students placed",
+                                "color": "#269BFF"
+                            },
+                            {
+                                "text": "100% MD/MS placements - 14% selection into super-specialty courses, PhDs, postdoctoral research, and fellowships.",
+                                "highlight": "14% selection into super-specialty courses, PhDs, postdoctoral research, and fellowships.",
+                                "color": "#102B64"
                             }
                         ]
                     }

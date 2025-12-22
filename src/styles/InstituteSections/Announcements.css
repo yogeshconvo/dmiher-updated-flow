@@ -1,0 +1,79 @@
+@reference "tailwindcss";
+
+/* ================= SECTION ================= */
+.announce-section {
+    @apply py-10;
+}
+
+/* ================= HEADING ================= */
+.announce-heading {
+    @apply text-3xl uppercase text-[#707070] tracking-wider mb-8;
+}
+
+@media (min-width: 768px) {
+    .announce-heading {
+        @apply text-4xl;
+    }
+}
+
+.announce-heading-line {
+    @apply w-16 border-[#F04E30] mb-4 border-t-4;
+}
+
+@media (min-width: 640px) {
+    .announce-heading-line {
+        @apply w-20;
+    }
+}
+
+/* ================= BUTTON GRID ================= */
+.announce-grid {
+    @apply grid grid-cols-1 gap-5 max-w-2xl mx-auto justify-center;
+}
+
+@media (min-width: 640px) {
+    .announce-grid {
+        @apply grid-cols-2;
+    }
+}
+
+/* ================= CARD BUTTON ================= */
+.announce-btn {
+    @apply flex items-center gap-4 p-5 rounded-2xl bg-white shadow-md border border-gray-200 transition-all duration-300 text-left w-full max-w-sm;
+}
+
+.announce-btn:hover {
+    @apply shadow-xl bg-[#fef7f6];
+}
+
+.announce-btn-text {
+    @apply text-gray-800 font-medium text-lg leading-snug;
+}
+
+@media (min-width: 768px) {
+    .announce-btn-text {
+        @apply text-xl;
+    }
+}
+
+/* ================= POPUP GRID ================= */
+.announce-popup-grid {
+    @apply grid gap-3;
+}
+
+.announce-popup-grid-2 {
+    @apply grid-cols-2;
+}
+
+/* ================= POPUP ITEM ================= */
+.announce-doc {
+    @apply flex items-center justify-center gap-2 w-full h-[60px] text-base font-medium text-white bg-[#102B64] rounded transition-colors;
+}
+
+.announce-doc:hover {
+    @apply bg-[#F04E30];
+}
+
+.announce-doc-single {
+    @apply col-span-2 max-w-xs mx-auto;
+}

@@ -1,0 +1,82 @@
+@reference "tailwindcss";
+
+/* ================= CARD ================= */
+.mandatory-card {
+    @apply flex items-start gap-4 p-6 rounded-2xl bg-white shadow-md border border-gray-200 transition-all duration-300 w-full;
+}
+
+.mandatory-card:hover {
+    @apply shadow-xl bg-[#fef7f6];
+}
+
+@media (min-width: 768px) {
+    .mandatory-card {
+        width: 45%;
+    }
+}
+
+/* ================= ICON ================= */
+.mandatory-icon-wrap {
+    @apply bg-[#F04E30]/10 text-[#F04E30] rounded-full p-3;
+}
+
+.mandatory-icon {
+    @apply w-6 h-6;
+}
+
+/* ================= TEXT ================= */
+.mandatory-title {
+    @apply text-gray-800 font-medium text-[20px] mt-1 leading-snug;
+}
+
+/* ================= POPUP GRID ================= */
+.popup-grid {
+    @apply grid gap-4;
+}
+
+.popup-grid-2 {
+    @apply grid-cols-2;
+}
+
+/* ================= POPUP FILE ================= */
+.popup-file {
+    @apply flex items-center justify-center gap-2 w-full h-[60px] text-base font-medium text-white bg-[#102B64] rounded transition-colors;
+}
+
+.popup-file:hover {
+    @apply bg-[#F04E30];
+}
+
+.popup-single {
+    @apply col-span-2 mx-auto max-w-[300px];
+}
+
+/* ================= POPUP IMAGE ================= */
+.popup-image-card {
+    @apply w-full rounded-lg overflow-hidden shadow flex flex-col items-center p-3;
+}
+
+.popup-image {
+    @apply w-full max-h-[100px] object-contain;
+}
+
+.popup-image-label {
+    @apply mt-2 text-sm text-gray-700 text-center;
+}
+
+/* ================= MODAL ================= */
+.popup-backdrop {
+    @apply fixed inset-0 mt-[100px] bg-black/50 backdrop-blur-sm flex items-center justify-center z-50;
+}
+
+.popup-modal {
+    @apply bg-white p-6 m-4 rounded-lg shadow-lg w-full max-w-2xl relative;
+}
+
+.popup-close {
+    @apply absolute top-2 right-2 text-gray-500 hover:text-black text-2xl;
+}
+
+.popup-title {
+    @apply text-xl text-red-500 text-center font-semibold mb-4;
+}

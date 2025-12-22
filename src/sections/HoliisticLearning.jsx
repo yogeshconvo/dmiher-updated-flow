@@ -68,7 +68,7 @@
 
 // export default HolisticInfrastructureSection;
 import React, { useState, useRef } from "react";
-import "../styles/InstituteSections/InfrastructureSection.css";
+// import "../styles/InstituteSections/InfrastructureSection.css";
 
 function HolisticInfrastructureSection({ data }) {
   const { heading, items = [] } = data || {};

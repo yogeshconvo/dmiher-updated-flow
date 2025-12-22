@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import "swiper/css";
 import "swiper/css/pagination";
-import "../styles/InstituteSections/Departments.css";
+// import "../styles/InstituteSections/Departments.css";
 
 /* ================= CARD ================= */
 const DepartmentCard = ({ image, title, tabId }) => {

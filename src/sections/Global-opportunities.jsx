@@ -1,5 +1,5 @@
 import { SwiperSlide } from "swiper/react";
-import "../styles/InstituteSections/global_opportunities.css";
+// import "../styles/InstituteSections/global_opportunities.css";
 
 export default function GlobalOpportunities({ data }) {
   const { heading, description, image, logos = [] } = data || {};

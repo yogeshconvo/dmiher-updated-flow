@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
-import "../styles/InstituteSections/Banner.css";
+// import "../styles/InstituteSections/Banner.css";
 
 function Hero({ data, slug }) {
   if (!data) return null;

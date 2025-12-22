@@ -30,6 +30,10 @@ import Collabaration from "./Collaboration";
 import GlobalOpportunities from "./Global-opportunities";
 import Testimonial from "./Testimonial";
 import StudentLife from "./StudentLife";
+import ButtonSection from "./ButtonSection";
+import Placements from "./Placements";
+import ProgramsAnnouncements from "./ProgramsAnnouncements";
+import WhyChoose from "./WhyChoseSlider";
 
 export const SECTION_COMPONENTS = {
     hero_section: HeroSection,
@@ -45,6 +49,10 @@ export const SECTION_COMPONENTS = {
     global_opportunities: GlobalOpportunities,
     testimonials: Testimonial,
     gallery: StudentLife,
+    quick_links: ButtonSection,
+    placements: Placements,
+    programs_announcements: ProgramsAnnouncements,
+    why_choose: WhyChoose,
 
     // Non-institute
     hero_home_section: HomeHero,

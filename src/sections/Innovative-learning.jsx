@@ -5,7 +5,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import "swiper/css";
 import "swiper/css/navigation";
-import "../styles/InstituteSections/innovative-learning.css";
+// import "../styles/InstituteSections/innovative-learning.css";
 
 export default function InnovativeLearning({ data }) {
   const { heading, subheading, cards = [] } = data || {};

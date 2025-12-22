@@ -1,0 +1,233 @@
+@reference "tailwindcss";
+
+/* ================= INFO SECTION ================= */
+@media (min-width: 640px) {
+    .info-title {
+        @apply justify-between;
+    }
+
+    .info-title-line {
+        @apply block;
+    }
+
+    .info-title-text {
+        @apply text-lg;
+    }
+
+    .info-content {
+        @apply px-4;
+    }
+
+    .info-tagline {
+        @apply text-3xl;
+    }
+}
+
+@media (min-width: 768px) {
+    .info-title-text {
+        @apply text-xl;
+    }
+
+    .info-tagline {
+        @apply text-4xl;
+    }
+}
+
+@media (min-width: 1280px) {
+    .info-title-text {
+        @apply text-3xl;
+    }
+}
+
+/* ================= DEANS ================= */
+@media (min-width: 768px) {
+    .deans-section {
+        @apply py-20;
+    }
+
+    .deans-heading {
+        @apply text-4xl;
+    }
+
+    .deans-image {
+        @apply w-[370px];
+    }
+}
+
+@media (min-width: 1024px) {
+    .deans-layout {
+        @apply flex-row items-start text-left;
+    }
+
+    .deans-image {
+        @apply mx-0;
+    }
+}
+
+@media (max-width: 639px) {
+    .deans-info {
+        @apply mt-4;
+    }
+}
+
+/* ================= HOLISTIC ================= */
+@media (min-width: 768px) {
+    .holistic-layout {
+        @apply flex-row gap-8;
+    }
+
+    .holistic-heading {
+        @apply text-4xl;
+    }
+
+    .holistic-image-box {
+        @apply mt-32;
+    }
+}
+
+/* ================= COLLAB ================= */
+@media (min-width: 1024px) {
+    .collab-layout {
+        grid-template-columns: 36% 60%;
+    }
+}
+
+@media (min-width: 768px) {
+    .collab-heading {
+        @apply text-4xl;
+    }
+}
+
+@media (min-width: 768px) {
+    .collab-stats-grid {
+        @apply grid grid-cols-3;
+    }
+}
+
+/* ================= GLOBAL ================= */
+@media (min-width: 640px) {
+    .global-heading {
+        @apply text-4xl;
+    }
+
+    .global-desktop {
+        @apply flex;
+    }
+
+    .global-mobile {
+        @apply hidden;
+    }
+}
+
+/* ================= PLACEMENTS ================= */
+@media (min-width: 768px) {
+    .placements-grid {
+        @apply grid-cols-3;
+    }
+}
+
+/* 
+@media (min-width: 640px) {
+    .global-heading {
+        @apply text-4xl;
+    }
+}
+
+@media (min-width: 640px) {
+    .global-desktop {
+        @apply flex;
+    }
+}
+
+@media (min-width: 640px) {
+    .global-mobile {
+        @apply hidden;
+    }
+} */
+
+/* ================= HOSPITAL ================= */
+@media (min-width: 768px) {
+    .hospital-heading {
+        @apply text-4xl;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hospital-layout {
+        @apply flex-row;
+    }
+
+    .hospital-text {
+        @apply pb-10 basis-[40%];
+    }
+
+    .hospital-image-wrapper {
+        @apply basis-[60%];
+    }
+}
+
+/* ================= DEPARTMENTS ================= */
+@media (min-width: 768px) {
+    .departments-grid {
+        @apply grid-cols-3;
+    }
+
+}
+
+@media (min-width: 1024px) {
+    .departments-grid {
+        @apply grid-cols-4;
+    }
+}
+
+@media (max-width: 639px) {
+    .departments-grid {
+        @apply grid-cols-2;
+    }
+}
+
+/* @media (max-width: 425px) {
+    .departments-grid {
+        @apply grid-cols-1;
+    }
+} */
+
+/* ================= TESTIMONIAL ================= */
+@media (max-width: 639px) {
+    .testimonial-slide {
+        @apply flex-col;
+    }
+}
+
+/* ================= BUTTONS ================= */
+@media (min-width: 640px) {
+    .button-grid {
+        @apply grid-cols-2;
+    }
+}
+
+@media (min-width: 640px) {
+    .button-item {
+        @apply text-2xl;
+    }
+}
+
+@media (min-width: 768px) {
+    .button-section {
+        @apply pt-10;
+    }
+}
+
+@media (min-width: 640px) {
+    .button-grid>.button-item:nth-last-child(1):nth-child(odd) {
+        grid-column: 1 / -1;
+        justify-self: center;
+        max-width: 50%;
+    }
+}
+
+@media (min-width: 640px) {
+    .button-center {
+        @apply text-2xl w-auto;
+    }
+}

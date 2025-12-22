@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/InstituteSections/Hospital-section.css";
+// import "../styles/InstituteSections/Hospital-section.css";
 
 function HospitalSection({ data }) {
   const { heading, paragraphs = [], images = [] } = data || {};
