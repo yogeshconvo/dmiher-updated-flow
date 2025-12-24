@@ -6,7 +6,7 @@
 /* @import "../styles/InstituteSections/Banner.css"; */
 
 .container {
-    @apply max-w-7xl mx-auto;
+    @apply max-w-7xl mx-auto px-5;
 }
 
 .font-oswald-medium {

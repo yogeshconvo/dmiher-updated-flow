@@ -13,8 +13,8 @@ const Testimonial  = ({ data }) => {
   return (
     <div className="testimonial-section">
       <div className="container">
-        <h2 className="testimonial-heading">
-          <hr className="testimonial-heading-line" />
+        <h2 className="heading">
+          <hr className="heading-line" />
           {heading}
         </h2>
 

@@ -81,9 +81,9 @@ const Departments = ({ data }) => {
   return (
     <div className="departments-section">
       <div className="container">
-        <h2 className="departments-heading">
-          <hr className="departments-heading-line" />
-          {data.heading || "OUR DEPARTMENTS"}
+        <h2 className="heading">
+          <hr className="heading-line" />
+          {data.heading }
         </h2>
 
         <div className="relative">

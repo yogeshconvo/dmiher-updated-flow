@@ -17,7 +17,7 @@
                         },
                         "slides": [
                             {
-                                "img": "",
+                                "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
                                 "title": "FORGING LEADERS IN \n MEDICINE [[#E1CD67]] SINCE 1990[[/#E1CD67]]",
                                 "highlight": "250 MBBS Seats | 205 PG Seats | 10 Super-Speciality Programs",
                                 "textPosition": "left"
@@ -82,6 +82,7 @@
                     "data": {
                         "heading": "DEAN’S MESSAGE",
                         "dean_name": "Dr. (Mrs.) Sonali Choudhari Deshmukh",
+                        "dean_image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
                         "designation_lines": [
                             "Dean, JNMC & AVBRH, DMIHER",
                             "MBBS, MD, MPhil (HPE), FAIMER (IFI, Philadelphia)"
@@ -105,37 +106,37 @@
                                 "id": 0,
                                 "label": "Teaching–Learning Facilities",
                                 "content": "Air-conditioned lecture theatres with audio-visual aids and live procedure broadcasts, Largest tertiary care hospital with attached super-specialty centre.",
-                                "image_key": "holistic_1"
+                                "image_key": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "id": 1,
                                 "label": "Teaching Learning Methodologies",
                                 "content": "Dedicated AETCOM sessions, Structured self-directed learning (SSDL) modules, Flipped classrooms, Integrated modules, Family Adoption Program, Induction programs, Get Set Go, PG training facilities including advanced modular OTs, Skill training sessions. Teachers training programme for capacity building by Medical Education Unit and NMC Nodal Centre for Faculty development.",
-                                "image_key": "holistic_6"
+                                "image_key": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "id": 2,
                                 "label": "Technology-Enabled Digital Learning",
                                 "content": "LMS with resource sharing, quizzes, assignments.",
-                                "image_key": "holistic_2"
+                                "image_key": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "id": 3,
                                 "label": "Laboratory & Hospital Facilities",
                                 "content": "Histology, Haematology, Histopathology, Biochemistry, Microbiology labs, OSPE/OSCE ward for skill training & assessment, CRL with high-end equipment and integrated research.",
-                                "image_key": "holistic_3"
+                                "image_key": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "id": 4,
                                 "label": "Advanced Teaching, Museum & Skilllab",
                                 "content": "“Jigyasa” digital museum (15,000+ sq. ft.), QR-coded, self-learning hub, “Anukriti” Simulation Centre with high-fidelity mannequins, AHA & National Board accreditation, Mayo Clinic-backed Standardized Patient Program (SPP), Cadaveric skill lab with soft-embalmed specimens, Wet lab for basic to advanced surgical skills.",
-                                "image_key": "holistic_4"
+                                "image_key": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "id": 5,
                                 "label": "Library Facilities",
                                 "content": "Fully air-conditioned central resource, Books, journals for all departments, Subscriptions: Access Medicine, UpToDate, Royal Society of Medicine, BMJ, Digital library with 100+ computers and Wi-Fi.",
-                                "image_key": "holistic_5"
+                                "image_key": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             }
                         ]
                     }
@@ -246,103 +247,103 @@
                                 "id": 1,
                                 "title": "Anatomy",
                                 "tabId": "anatomy",
-                                "image": "http://localhost:3000/images/jnmc/departments/1.png"
+                                "image": "https://i.ytimg.com/vi/LPe56fezmoo/maxresdefault.jpg"
                             },
                             {
                                 "id": 2,
                                 "title": "Anesthesiology",
                                 "tabId": "anaesthesiology",
-                                "image": "http://localhost:3000/images/jnmc/departments/2.png"
+                                "image": "https://i.ytimg.com/vi/LPe56fezmoo/maxresdefault.jpg"
                             },
                             {
                                 "id": 3,
                                 "title": "Biochemistry",
                                 "tabId": "biochemistry",
-                                "image": "http://localhost:3000/images/jnmc/departments/3.png"
+                                "image": "https://i.ytimg.com/vi/LPe56fezmoo/maxresdefault.jpg"
                             },
                             {
                                 "id": 4,
                                 "title": "Dermatology",
                                 "tabId": "dermatology",
-                                "image": "http://localhost:3000/images/jnmc/departments/4.png"
+                                "image": "https://i.ytimg.com/vi/LPe56fezmoo/maxresdefault.jpg"
                             },
                             {
                                 "id": 5,
                                 "title": "Cardiology",
                                 "tabId": "cardiology",
-                                "image": "http://localhost:3000/images/jnmc/departments/5.png"
+                                "image": "https://i.ytimg.com/vi/LPe56fezmoo/maxresdefault.jpg"
                             },
                             {
                                 "id": 6,
                                 "title": "Critical Care Medicine",
                                 "tabId": "critical_care",
-                                "image": "http://localhost:3000/images/jnmc/departments/6.png"
+                                "image": "https://i.ytimg.com/vi/LPe56fezmoo/maxresdefault.jpg"
                             },
                             {
                                 "id": 7,
                                 "title": "Interventional Radiology",
                                 "tabId": "interventional_radiology",
-                                "image": "http://localhost:3000/images/jnmc/departments/7.png"
+                                "image": "https://i.ytimg.com/vi/LPe56fezmoo/maxresdefault.jpg"
                             },
                             {
                                 "id": 8,
                                 "title": "Medical Gastroenterology",
                                 "tabId": "gastroenterology",
-                                "image": "http://localhost:3000/images/jnmc/departments/8.png"
+                                "image": "https://i.ytimg.com/vi/LPe56fezmoo/maxresdefault.jpg"
                             },
                             {
                                 "id": 9,
                                 "title": "Medical Oncology",
                                 "tabId": "medical_oncology",
-                                "image": "http://localhost:3000/images/jnmc/departments/9.png"
+                                "image": "https://i.ytimg.com/vi/LPe56fezmoo/maxresdefault.jpg"
                             },
                             {
                                 "id": 10,
                                 "title": "Neonatology",
                                 "tabId": "neonatology",
-                                "image": "http://localhost:3000/images/jnmc/departments/10.png"
+                                "image": "https://i.ytimg.com/vi/LPe56fezmoo/maxresdefault.jpg"
                             },
                             {
                                 "id": 11,
                                 "title": "Neurology",
                                 "tabId": "neurology",
-                                "image": "http://localhost:3000/images/jnmc/departments/11.png"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "id": 12,
                                 "title": "Nephrology",
                                 "tabId": "nephrology",
-                                "image": "http://localhost:3000/images/jnmc/departments/12.png"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "id": 13,
                                 "title": "Emergency Medicine",
                                 "tabId": "emergency_medicine",
-                                "image": "http://localhost:3000/images/jnmc/departments/13.png"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "id": 14,
                                 "title": "ENT Otorhinolaryngology",
                                 "tabId": "ent",
-                                "image": "http://localhost:3000/images/jnmc/departments/14.png"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "id": 15,
                                 "title": "Forensic Medicine & Toxicology",
                                 "tabId": "forensic_medicine",
-                                "image": "http://localhost:3000/images/jnmc/departments/15.png"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "id": 16,
                                 "title": "General Medicine",
                                 "tabId": "medicine",
-                                "image": "http://localhost:3000/images/jnmc/departments/16.png"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "id": 17,
                                 "title": "General Surgery",
                                 "tabId": "general_surgery",
-                                "image": "http://localhost:3000/images/jnmc/departments/17.png"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "id": 18,
@@ -396,29 +397,10 @@
                     }
                 },
                 {
-                    "section_id": "hospital_section",
-                    "data": {
-                        "heading": "Mahatma Gandhi Ayurveda Hospital",
-                        "paragraphs": [
-                            "The 372-bed, NABH-accredited first Ayurveda hospital in Central India is committed to delivering exceptional care...",
-                            "Specialty OPDs cover a wide range of disciplines including ENT, eye care, detoxification...",
-                            "Specialty OPDs cover a wide range of disciplines including ENT, eye care, detoxification...",
-                            "Specialty OPDs cover a wide range of disciplines including ENT, eye care, detoxification...",
-                            "Traditional Kriya Kalpa therapies such as Aschotana and Tarpan support natural healing..."
-                        ],
-                        "images": [
-                            "/assets/MGAC/1.jpg",
-                            "/assets/MGAC/2.jpg",
-                            "/assets/MGAC/3.jpg",
-                            "/assets/MGAC/4.jpg"
-                        ]
-                    }
-                },
-                {
                     "section_id": "medical_education_unit",
                     "data": {
                         "heading": "MEDICAL EDUCATION UNIT, JNMC, WARDHA",
-                        "background_image": "/images/jnmc/moe.jpeg",
+                        "background_image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
                         "paragraphs": [
                             "The Medical Education Unit (MEU) at Jawaharlal Nehru Medical College, Wardha, is the in-house body of faculty representatives from Pre-Clinical, Para-Clinical and Clinical subjects, who plays a pivotal role in ensuring the quality of medical education by focusing on implementation, monitoring and evaluation of faculty training, curriculum revision, development of learning resource material, innovation in instructional tools and assessment.",
                             "The MEU aims to equip medical educators with advanced teaching methodologies and pedagogical skills, ensuring the delivery of effective and contemporary medical education, a standardized approach to medical education across institutions and continuous improvement of educational practices and policies within the institution."
@@ -435,27 +417,27 @@
                         "cards": [
                             {
                                 "description": "Simulated Learning with mannequin and task stations, Anatomage, Lap mentors, BLS & ACLS by American Heart Association",
-                                "image": "/assets/JNMC/InnovativeLearning/1.jpeg"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "description": "Integrated teaching, Early clinical exposure, Inter-department Case discussions, Clinico-pathologic conference, OSPE-OSCE",
-                                "image": "/assets/JNMC/InnovativeLearning/2.jpeg"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "description": "Research opportunities for all learners, ICMR STS, Innovation cell, Biomedical Engineering and Technology Innovation Centre (BETIC), E-YUVA Fellowship under BIRAC",
-                                "image": "/assets/JNMC/InnovativeLearning/3.jpg"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "description": "Standardised Patient Program (SPP) Case-based learning (Master Clinic) in collaboration with Weill Cornell Medicine, USA",
-                                "image": "/assets/JNMC/InnovativeLearning/4.jpeg"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "description": "Bioethics Unit under International Chair in Bioethics, AETCOM, Get Set Go",
-                                "image": "/assets/JNMC/InnovativeLearning/5.png"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "description": "Mentoring by national and international Adjunct Faculty",
-                                "image": "/assets/JNMC/InnovativeLearning/6.png"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             }
                         ]
                     }
@@ -594,45 +576,68 @@
                     "section_id": "gallery",
                     "data": {
                         "title": "STUDENT LIFE",
-                        "description": "JNMC offers a vibrant student life with a diverse mix of academic, cultural, and social activities ...",
+                        "description": "Jawaharlal Nehru Medical College (JNMC) shapes healthcare leaders who excel in higher education and global healthcare careers. Backed by state-of-the-art facilities and global collaborations, JNMC graduates become clinicians, educators, and researchers at national and international centres of excellence.",
                         "images": [
                             {
                                 "title": "Dance Club",
-                                "image": "/assets/JNMC/StudentLife/Dance Club.JPG"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "title": "Events",
-                                "image": "/assets/JNMC/StudentLife/EVENTS 1.JPG"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "title": "GFC 5",
-                                "image": "/assets/JNMC/StudentLife/GFC 5.jpeg"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "title": "Guest Lecture",
-                                "image": "/assets/JNMC/StudentLife/Guest Lecture.jpg"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "title": "Literature Club",
-                                "image": "/assets/JNMC/StudentLife/literature club 2.jpg"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "title": "Pride Parade",
-                                "image": "/assets/JNMC/StudentLife/pride parade girl up.jpg"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "title": "Social Welfare Club",
-                                "image": "/assets/JNMC/StudentLife/Social Welfare Club.JPG"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "title": "Sports Club",
-                                "image": "/assets/JNMC/StudentLife/Sports Club.jpg"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             },
                             {
                                 "title": "Theatre Club",
-                                "image": "/assets/JNMC/StudentLife/Theatre Club.JPG"
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             }
                         ]
+                    }
+                },
+                {
+                    "section_id": "hospital_section",
+                    "data": {
+                        "heading": "ACHARYA VINOBA BHAVE RURAL HOSPITAL",
+                        "subtitle": "A Hub Of Quality Care",
+                        "description": "Jawaharlal Nehru Medical College & Acharya Vinoba Bhave Rural Hospital, established in 1990 under the Datta Meghe Institute of Higher Education and Research (Deemed to be University), Wardha, stands as a premier institution for medical education, research, and healthcare services. Ranked 23rd nationally, we offer MBBS (250 seats), postgraduate, super-specialty, paramedical, and PhD programs, all accredited with NAAC ‘A++’.",
+                        "stats": [
+                            "30+ Specialities",
+                            "1500+ Beds",
+                            "50 Lac+ Lives Touched",
+                            "5 Lac+ Complex Surgeries Performed",
+                            "Robotic Surgery with Advanced Cancer Care",
+                            "State of the Art Facility"
+                        ],
+                        "images": [
+                            "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
+                            "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
+                            "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                        ],
+                        "cta_url": "https://www.avbrhsawangimeghe.com/",
+                        "cta_label": "Know more about Acharya Vinoba Bhave Rural Hospital"
                     }
                 },
                 {
@@ -649,30 +654,30 @@
                                 {
                                     "name": "Dr. Arya Bhagwat",
                                     "year": "MBBS | 2021",
-                                    "img": "/assets/JNMC/Testimonial/S1.jpg",
-                                    "text": "The institute JN Medical College has truly provided me with a homely environment..."
+                                    "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
+                                    "text": "The institute JN Medical College has truly provided me with a homely environment.Jigyasa” digital museum (15,000+ sq. ft.), QR-coded, self-learning hub, “Anukriti” Simulation Centre with high-fidelity mannequins, AHA & National Board accreditation, Mayo Clinic-backed Standardized Patient Program (SPP), Cadaveric skill lab with soft-embalmed specimens, Wet lab for basic to advanced surgical skills.."
                                 },
                                 {
                                     "name": "Dr. Prakhar Shrivastava",
                                     "year": "MBBS | 2022",
-                                    "img": "/assets/JNMC/Testimonial/S2.jpg",
-                                    "text": "The Jawaharlal Nehru Medical College provides an exceptional educational experience..."
+                                    "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
+                                    "text": "The Jawaharlal Nehru Medical College provides an exceptional educational experience.Jigyasa” digital museum (15,000+ sq. ft.), QR-coded, self-learning hub, “Anukriti” Simulation Centre with high-fidelity mannequins, AHA & National Board accreditation, Mayo Clinic-backed Standardized Patient Program (SPP), Cadaveric skill lab with soft-embalmed specimens, Wet lab for basic to advanced surgical skills.."
                                 }
                             ],
                             "Parents": [
                                 {
                                     "name": "Mr. Debasis Chakrabarty",
                                     "year": "Parent of Debarun Chakraborty",
-                                    "img": "/assets/JNMC/Testimonial/P1.jpg",
-                                    "text": "I am truly grateful to Datta Meghe Institute..."
+                                    "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
+                                    "text": "I am truly grateful to Datta Meghe Institute..Jigyasa” digital museum (15,000+ sq. ft.), QR-coded, self-learning hub, “Anukriti” Simulation Centre with high-fidelity mannequins, AHA & National Board accreditation, Mayo Clinic-backed Standardized Patient Program (SPP), Cadaveric skill lab with soft-embalmed specimens, Wet lab for basic to advanced surgical skills."
                                 }
                             ],
                             "Alumni": [
                                 {
                                     "name": "Dr. Ruchi Mishra",
                                     "year": "MBBS, MD",
-                                    "img": "/assets/JNMC/Testimonial/A2.png",
-                                    "text": "Healing goes beyond medicine...",
+                                    "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
+                                    "text": "Healing goes beyond medicine...Jigyasa” digital museum (15,000+ sq. ft.), QR-coded, self-learning hub, “Anukriti” Simulation Centre with high-fidelity mannequins, AHA & National Board accreditation, Mayo Clinic-backed Standardized Patient Program (SPP), Cadaveric skill lab with soft-embalmed specimens, Wet lab for basic to advanced surgical skillsJigyasa” digital museum (15,000+ sq. ft.), QR-coded, self-learning hub, “Anukriti” Simulation Centre with high-fidelity mannequins, AHA & National Board accreditation, Mayo Clinic-backed Standardized Patient Program (SPP), Cadaveric skill lab with soft-embalmed specimens, Wet lab for basic to advanced surgical skills",
                                     "extra": "- Certified Clinical Hypnotherapist, UK"
                                 }
                             ]
@@ -1925,7 +1930,7 @@
         }
     ],
     "footer": {
-        "logo": "/assets/nav-logo-tran.png",
+        "logo": "https://dmiher.edu.in/dmiher-uat/assets/nav-logo-tran-C1AqwlSJ.png",
         "address": {
             "title": "Registrar",
             "lines": [

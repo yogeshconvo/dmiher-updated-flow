@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FileText } from "lucide-react";
 import { PopupModal } from "../components/UI/CardMandatoryDisclosure";
-import "../styles/InstituteSections/Announcements.css";
+// import "../styles/InstituteSections/Announcements.css";
 
 const ProgramsAnnouncements = ({ data }) => {
   const { heading, buttons = [], pg_docs = [], ug_docs = [] } = data || {};
@@ -14,8 +14,8 @@ const ProgramsAnnouncements = ({ data }) => {
   return (
     <>
       <section className="announce-section container">
-        <h2 className="announce-heading">
-          <hr className="announce-heading-line" />
+     <h2 className="heading">
+              <hr className="heading-line" />
           {heading}
         </h2>
 

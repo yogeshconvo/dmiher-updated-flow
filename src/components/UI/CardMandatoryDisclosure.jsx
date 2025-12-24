@@ -104,7 +104,7 @@ function PopupGrid({ items = [] }) {
               }`}
             >
               <img
-                src={item.image || item.link}
+                src={item.image}
                 alt={item.name}
                 className="popup-image"
               />

@@ -116,11 +116,15 @@ function Hero({ data, slug }) {
       }}
     >
       {/* Background */}
-      {slide.img ? (
-        <img src={slide.img} alt="" className="hero-bg-img" />
-      ) : (
-        <div className="hero-bg-fallback" />
-      )}
+   {slide.img ? (
+  <img
+    src={slide.img}
+    alt="Hero Banner"
+    className="hero-bg-img"
+  />
+) : (
+  <div className="hero-bg-fallback" />
+)}
 
       {/* Overlay */}
       {![2, 3].includes(idx) && <div className="hero-overlay" />}

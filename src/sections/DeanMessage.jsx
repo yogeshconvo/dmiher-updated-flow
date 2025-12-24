@@ -9,6 +9,7 @@ const DeansMessage = ({ data }) => {
     dean_name,
     designation_lines = [],
     email,
+    dean_image,
     paragraphs = [],
     cta_label,
     cta_url,
@@ -26,6 +27,7 @@ const DeansMessage = ({ data }) => {
           {/* IMAGE + NAME */}
           <div className="deans-image-wrapper">
             <img
+              src={dean_image}
               alt={dean_name}
               className="deans-image"
             />
@@ -57,7 +59,7 @@ const DeansMessage = ({ data }) => {
             ))}
 
             {cta_label && cta_url && (
-              <Link to={cta_url} className="deans-cta">
+              <Link to={cta_url} className="cta">
                 {cta_label}
               </Link>
             )}

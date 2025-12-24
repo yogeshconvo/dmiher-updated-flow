@@ -26,8 +26,9 @@ const Collabaration = ({ data }) => {
       <div className="container collab-layout ">
         {/* LEFT */}
         <div>
-          <div className="collab-bar"></div>
-          <h2 className="collab-heading">{heading}</h2>
+   <hr className="heading-line" />
+          <h2 className="heading">{heading}
+          </h2>
 
           {intro_paragraphs.map((p, i) => (
             <p key={i} className="collab-text">{p}</p>

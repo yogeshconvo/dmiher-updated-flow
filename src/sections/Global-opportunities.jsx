@@ -9,8 +9,8 @@ export default function GlobalOpportunities({ data }) {
       <div className="container font-[Arial]">
         {/* HEADER */}
         <div className="global-header">
-          <h2 className="global-heading">
-            <span className="global-heading-line"></span>
+            <h2 className="heading">
+              <hr className="heading-line" />
             {heading}
           </h2>
           <p className="global-description">{description}</p>

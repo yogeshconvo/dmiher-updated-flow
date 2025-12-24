@@ -7,8 +7,8 @@ export default function PlacementsJNMC({ data }) {
   return (
     <section className="placements-section">
       <div className="container">
-        <h2 className="placements-heading">
-          <hr className="placements-heading-line" />
+         <h2 className="heading">
+              <hr className="heading-line" />
           {heading}
         </h2>
 

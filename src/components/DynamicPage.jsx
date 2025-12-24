@@ -1,4 +1,3 @@
-// src/components/DynamicPage.jsx
 import { useParams } from "react-router-dom";
 import Page from "./Page";
 

@@ -25,7 +25,7 @@ import OneHealth from "../sections/non-institute/About/OneHealth"
 import HolisticLearningPage from "../sections/non-institute/About/HolisticLearningPage"
 import SDGSection from "../sections/non-institute/About/SDGSection"
 import Gallery from "../sections/non-institute/About/Gallery"
-import InnovativeLearning from "./innovative-learning";
+import InnovativeLearning from "./Innovative-learning";
 import Collabaration from "./Collaboration";
 import GlobalOpportunities from "./Global-opportunities";
 import Testimonial from "./Testimonial";

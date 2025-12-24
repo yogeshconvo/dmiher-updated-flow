@@ -4,6 +4,7 @@ import { Routes, Route, useParams } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { SECTION_COMPONENTS } from "./sections";
+import { usePages } from "./hooks/usePages";
 
 const API_URL = "http://localhost:3000/page-data";
 
@@ -39,58 +40,24 @@ function PageView({ pages }) {
     </div>
   );
 }
-
 function App() {
-  const [pages, setPages] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const { data: pages = [], isLoading, error } = usePages();
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        setLoading(true);
-        setError("");
-
-        const res = await fetch(API_URL);
-        if (!res.ok) throw new Error("API error: " + res.status);
-
-        const data = await res.json();
-        console.log("API response:", data);
-
-        // --- if API returns an array directly (json-server /page-data) ---
-        if (!Array.isArray(data)) {
-          throw new Error("API did not return an array");
-        }
-        setPages(data);
-      } catch (err) {
-        console.error(err);
-        setError(err.message || "something went wrong");
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchData();
-  }, []);
-
-  if (loading) return <div>loading...</div>;
-  if (error) return <div>error: {error}</div>;
-  if (!pages || pages.length === 0) return <div>no data</div>;
-
-  const defaultSlug = pages[0].slug;
+  if (isLoading) return <div>loading...</div>;
+  if (error) return <div>error</div>;
+  if (!pages.length) return <div>no data</div>;
 
   return (
     <>
       <Navbar />
       <Routes>
-        {/* home → first page */}
         <Route path="/" element={<PageView pages={pages} />} />
-        {/* dynamic → same renderer, but with slug */}
         <Route path="/:slug" element={<PageView pages={pages} />} />
-      </Routes>{" "}
+      </Routes>
       <Footer />
     </>
   );
 }
+
 
 export default App;

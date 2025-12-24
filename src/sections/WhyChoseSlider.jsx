@@ -33,10 +33,10 @@ const WhyChoose = ({ data }) => {
   return (
     <div ref={sectionRef} className="feature-section">
       <div className="container">
-        <h3 className="feature-heading">
-          <div className="feature-heading-line"></div>
+         <h2 className="heading">
+              <hr className="heading-line" />
           {heading}
-        </h3>
+        </h2>
 
         <div className="feature-slider-wrapper">
           {startSwiper && (

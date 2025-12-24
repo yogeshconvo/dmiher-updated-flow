@@ -13,23 +13,14 @@
     .info-title-text {
         @apply text-lg;
     }
-
-    .info-content {
-        @apply px-4;
-    }
-
-    .info-tagline {
-        @apply text-3xl;
-    }
 }
+
+
+
 
 @media (min-width: 768px) {
     .info-title-text {
         @apply text-xl;
-    }
-
-    .info-tagline {
-        @apply text-4xl;
     }
 }
 
@@ -39,30 +30,62 @@
     }
 }
 
-/* ================= DEANS ================= */
+
+@media (min-width: 640px) {
+    .info-content {
+        @apply px-4;
+    }
+}
+
+
+
+
+@media (min-width: 640px) {
+    .info-tagline {
+        @apply text-3xl;
+    }
+}
+
+@media (min-width: 768px) {
+    .info-tagline {
+        @apply text-4xl;
+    }
+}
+
+
+@media (min-width: 768px) {
+    .deans-heading {
+        @apply text-4xl;
+    }
+}
+
 @media (min-width: 768px) {
     .deans-section {
         @apply py-20;
     }
+}
 
-    .deans-heading {
-        @apply text-4xl;
+
+@media (min-width: 1024px) {
+    .deans-layout {
+        @apply flex-row items-start text-left;
     }
+}
 
+@media (min-width: 768px) {
     .deans-image {
         @apply w-[370px];
     }
 }
 
 @media (min-width: 1024px) {
-    .deans-layout {
-        @apply flex-row items-start text-left;
-    }
-
     .deans-image {
         @apply mx-0;
     }
 }
+
+
+
 
 @media (max-width: 639px) {
     .deans-info {
@@ -81,7 +104,7 @@
     }
 
     .holistic-image-box {
-        @apply mt-32;
+        @apply mt-10;
     }
 }
 
@@ -126,6 +149,27 @@
     }
 }
 
+@media (min-width: 768px) {
+    .placements-item {
+        @apply border-r-1 border-[#707070] last:border-r-0;
+    }
+}
+
+/* Feature */
+@media (min-width: 768px) {
+    .feature-heading {
+        @apply text-4xl;
+    }
+}
+
+
+
+@media (min-width: 640px) {
+    .feature-heading-line {
+        @apply w-20;
+    }
+}
+
 /* 
 @media (min-width: 640px) {
     .global-heading {
@@ -146,33 +190,61 @@
 } */
 
 /* ================= HOSPITAL ================= */
+
+@media (min-width: 1024px) {
+    .hospital-layout {
+        @apply flex-row items-start;
+    }
+}
+
+/* ================= LEFT CONTENT ================= */
+@media (min-width: 1024px) {
+    .hospital-content {
+        @apply basis-[40%];
+    }
+}
+
+/* ================= HEADING ================= */
 @media (min-width: 768px) {
     .hospital-heading {
         @apply text-4xl;
     }
 }
 
-@media (min-width: 1024px) {
-    .hospital-layout {
-        @apply flex-row;
-    }
-
-    .hospital-text {
-        @apply pb-10 basis-[40%];
-    }
-
-    .hospital-image-wrapper {
-        @apply basis-[60%];
+@media (min-width: 640px) {
+    .hospital-heading-line {
+        @apply w-20;
     }
 }
 
-/* ================= DEPARTMENTS ================= */
+
+@media (min-width: 768px) {
+    .hospital-cta {
+        @apply text-[15px];
+    }
+}
+
+@media (min-width: 1024px) {
+    .hospital-slider {
+        @apply basis-[60%] mt-32;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hospital-slide-image {
+        @apply h-[500px];
+    }
+}
+
+
 @media (min-width: 768px) {
     .departments-grid {
         @apply grid-cols-3;
     }
 
 }
+
+
 
 @media (min-width: 1024px) {
     .departments-grid {
@@ -182,24 +254,22 @@
 
 @media (max-width: 639px) {
     .departments-grid {
-        @apply grid-cols-2;
+        @apply grid-cols-2 px-0 gap-1;
+    }
+
+    .department-card-height {
+        @apply h-[100px]
     }
 }
-
-/* @media (max-width: 425px) {
-    .departments-grid {
-        @apply grid-cols-1;
-    }
-} */
 
 /* ================= TESTIMONIAL ================= */
-@media (max-width: 639px) {
+
+@media (min-width: 768px) {
     .testimonial-slide {
-        @apply flex-col;
+        @apply flex-row items-start text-left;
     }
 }
 
-/* ================= BUTTONS ================= */
 @media (min-width: 640px) {
     .button-grid {
         @apply grid-cols-2;
@@ -229,5 +299,30 @@
 @media (min-width: 640px) {
     .button-center {
         @apply text-2xl w-auto;
+    }
+}
+
+/* ================= ANNOUNCEMENTS ================= */
+@media (min-width: 640px) {
+    .announce-grid {
+        @apply grid-cols-2;
+    }
+}
+
+@media (min-width: 768px) {
+    .announce-btn-text {
+        @apply text-xl;
+    }
+}
+
+@media (min-width: 640px) {
+    .announce-heading-line {
+        @apply w-20;
+    }
+}
+
+@media (min-width: 768px) {
+    .announce-heading {
+        @apply text-4xl;
     }
 }

@@ -1,41 +1,318 @@
 {
+    "page-data": [
+        {
+            "slug": "mgac",
+            "title": "MGAC",
+            "sections": [
+                {
+                    "section_id": "hero_section",
+                    "data": {
+                        "topbar": {
+                            "admissions_text": "Admissions open for 2025-26",
+                            "primary_cta_text": "MBBS NEET 2025 Admissions",
+                            "primary_cta_section_id": "jnmc-announcements",
+                            "apply_now_url": "https://dmiher-apply.mastersofterp.com/ApplicationLandingPage/Index/DMIHER",
+                            "phone_label": "+91 8888040999",
+                            "phone_number": "+918888040999"
+                        },
+                        "slides": [
+                            {
+                                "img": "https://picsum.photos/1600/800?medical",
+                                "title": "FORGING LEADERS IN \n MEDICINE [[#E1CD67]] SINCE 1990[[/#E1CD67]]",
+                                "highlight": "250 MBBS Seats | 205 PG Seats | 10 Super-Speciality Programs",
+                                "textPosition": "left"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "info_section",
+                    "data": {
+                        "title": "Mahatma Gandhi Ayurved College, Hospital, and Research Centre (MGACH & RC)",
+                        "tagline": "Blending Ancient Wisdom with Modern Evidence",
+                        "highlight_color": "#F04E30",
+                        "intro_paragraphs": [
+                            "Ranked 6th Nationwide, Grade “A” by MARBISM for National Commission for Indian System of Medicine, Ministry of AYUSH, Govt. of India.",
+                            "Founded in 2007 to honour Mahatma Gandhi’s ideals of self-care, ethical healing, and community service."
+                        ],
+                        "more_paragraphs": [
+                            "Research at this center is actively pursued through national and international collaborations."
+                        ]
+                    }
+                },
+                {
+                    "section_id": "holistic_infrastructure_section",
+                    "data": {
+                        "heading": "HOLISTIC LEARNING AND INFRASTRUCTURE",
+                        "items": [
+                            {
+                                "id": 0,
+                                "label": "Teaching–Learning Facilities",
+                                "content": "Air-conditioned lecture theatres with audio-visual aids.",
+                                "image_key": "https://picsum.photos/800/600?education"
+                            },
+                            {
+                                "id": 1,
+                                "label": "Teaching Learning Methodologies",
+                                "content": "Flipped classrooms, SSDL modules, PG training facilities.",
+                                "image_key": "https://picsum.photos/800/600?training"
+                            },
+                            {
+                                "id": 2,
+                                "label": "Technology-Enabled Digital Learning",
+                                "content": "LMS with quizzes, assignments and resources.",
+                                "image_key": "https://picsum.photos/800/600?technology"
+                            },
+                            {
+                                "id": 3,
+                                "label": "Laboratory & Hospital Facilities",
+                                "content": "Advanced labs with integrated research facilities.",
+                                "image_key": "https://picsum.photos/800/600?laboratory"
+                            },
+                            {
+                                "id": 4,
+                                "label": "Advanced Teaching & Skill Lab",
+                                "content": "Simulation centre and digital museum.",
+                                "image_key": "https://picsum.photos/800/600?simulation"
+                            },
+                            {
+                                "id": 5,
+                                "label": "Library Facilities",
+                                "content": "Digital library, journals, Wi-Fi enabled campus.",
+                                "image_key": "https://picsum.photos/800/600?library"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "departments",
+                    "data": {
+                        "heading": "OUR DEPARTMENTS",
+                        "chunk_config": {
+                            "desktop": 8,
+                            "tablet": 6,
+                            "mobile": 6
+                        },
+                        "departments": [
+                            {
+                                "id": 1,
+                                "title": "Anatomy",
+                                "tabId": "anatomy",
+                                "image": "https://picsum.photos/400/400?medical"
+                            },
+                            {
+                                "id": 2,
+                                "title": "Anesthesiology",
+                                "tabId": "anaesthesiology",
+                                "image": "https://picsum.photos/400/400?doctor"
+                            },
+                            {
+                                "id": 3,
+                                "title": "Biochemistry",
+                                "tabId": "biochemistry",
+                                "image": "https://picsum.photos/400/400?lab"
+                            },
+                            {
+                                "id": 4,
+                                "title": "Dermatology",
+                                "tabId": "dermatology",
+                                "image": "https://picsum.photos/400/400?health"
+                            },
+                            {
+                                "id": 5,
+                                "title": "Cardiology",
+                                "tabId": "cardiology",
+                                "image": "https://picsum.photos/400/400?hospital"
+                            },
+                            {
+                                "id": 6,
+                                "title": "Critical Care",
+                                "tabId": "critical_care",
+                                "image": "https://picsum.photos/400/400?icu"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "medical_education_unit",
+                    "data": {
+                        "heading": "MEDICAL EDUCATION UNIT, JNMC, WARDHA",
+                        "background_image": "https://picsum.photos/1600/900?classroom",
+                        "paragraphs": [
+                            "The Medical Education Unit focuses on faculty training and curriculum development.",
+                            "Ensuring contemporary and effective medical education."
+                        ],
+                        "cta_label": "Know more",
+                        "cta_url": "/jnmc/medical-education-unit"
+                    }
+                },
+                {
+                    "section_id": "innovative_learning_section",
+                    "data": {
+                        "heading": "Innovative Teaching Methodologies",
+                        "subheading": "Learner-centric education",
+                        "cards": [
+                            {
+                                "description": "Simulation-based learning",
+                                "image": "https://picsum.photos/600/400?training"
+                            },
+                            {
+                                "description": "Integrated teaching",
+                                "image": "https://picsum.photos/600/400?students"
+                            },
+                            {
+                                "description": "Research exposure",
+                                "image": "https://picsum.photos/600/400?research"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "global_opportunities",
+                    "data": {
+                        "heading": "Global Opportunities",
+                        "description": "International exposure through collaborations.",
+                        "image": "https://picsum.photos/1200/700?university",
+                        "logos": [
+                            {
+                                "src": "https://via.placeholder.com/150x80?text=Logo",
+                                "alt": "Global Partner"
+                            },
+                            {
+                                "src": "https://via.placeholder.com/150x80?text=Logo",
+                                "alt": "Global Partner"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "gallery",
+                    "data": {
+                        "title": "STUDENT LIFE",
+                        "description": "Campus activities and student culture.",
+                        "images": [
+                            {
+                                "title": "Events",
+                                "image": "https://picsum.photos/600/400?campus"
+                            },
+                            {
+                                "title": "Sports",
+                                "image": "https://picsum.photos/600/400?sports"
+                            },
+                            {
+                                "title": "Clubs",
+                                "image": "https://picsum.photos/600/400?students"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "hospital_section",
+                    "data": {
+                        "heading": "ACHARYA VINOBA BHAVE RURAL HOSPITAL",
+                        "subtitle": "A Hub Of Quality Care",
+                        "description": "Advanced tertiary care hospital.",
+                        "images": [
+                            "https://picsum.photos/1200/800?hospital",
+                            "https://picsum.photos/1200/800?clinic",
+                            "https://picsum.photos/1200/800?medical"
+                        ],
+                        "cta_url": "https://www.avbrhsawangimeghe.com/",
+                        "cta_label": "Know more"
+                    }
+                },
+                {
+                    "section_id": "testimonials",
+                    "data": {
+                        "heading": "TESTIMONIALS",
+                        "tabs": [
+                            "Students",
+                            "Parents",
+                            "Alumni"
+                        ],
+                        "testimonials": {
+                            "Students": [
+                                {
+                                    "name": "Dr. Arya Bhagwat",
+                                    "year": "MBBS | 2021",
+                                    "img": "https://picsum.photos/300/300?person",
+                                    "text": "Excellent learning environment."
+                                }
+                            ],
+                            "Parents": [
+                                {
+                                    "name": "Mr. Debasis Chakrabarty",
+                                    "year": "Parent",
+                                    "img": "https://picsum.photos/300/300?face",
+                                    "text": "Great institution."
+                                }
+                            ],
+                            "Alumni": [
+                                {
+                                    "name": "Dr. Ruchi Mishra",
+                                    "year": "MBBS, MD",
+                                    "img": "https://picsum.photos/300/300?portrait",
+                                    "text": "A place of growth."
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ],
     "menu": [
         {
             "id": 1,
-            "title": "About",
-            "slug": "about",
-            "type": "normal"
+            "type": "topLinks",
+            "title": "Admissions",
+            "slug": "/admissions"
         },
         {
             "id": 2,
+            "type": "topLinks",
+            "title": "Announcements",
+            "slug": "/Announcements"
+        },
+        {
+            "id": 2,
+            "type": "topLinks",
+            "title": "Contact Us",
+            "slug": "/contactus"
+        },
+        {
+            "id": 3,
+            "type": "normal",
+            "title": "About",
+            "slug": "/about"
+        },
+        {
+            "id": 4,
+            "type": "normal",
+            "title": "COE",
+            "slug": "/coe"
+        },
+        {
+            "id": 5,
+            "type": "megaMenu",
             "title": "Academics",
-            "slug": "academics",
-            "type": "mega",
-            "megaMenuId": "academics",
             "children": [
                 {
                     "campus": "Main Campus - Wardha",
                     "items": [
                         {
                             "id": "jnmc",
-                            "title": "Jawaharlal Nehru Medical College",
-                            "slug": "jnmc",
-                            "image": "/img/jnmc.jpg",
-                            "description": "Established in 1990, JNMC, Wardha is a premier centre for medical education, clinical excellence, and healthcare innovation."
+                            "title": "JNMC",
+                            "slug": "/jnmc",
+                            "image": "/images/jnmc.jpg",
+                            "description": "Premier medical institute"
                         },
                         {
-                            "id": "spdc",
-                            "title": "Sharad Pawar Dental College and Hospital",
-                            "slug": "spdc",
-                            "image": "/img/spdc.jpg",
-                            "description": "A leading dental institution providing comprehensive dental education, advanced clinical training, and exceptional patient care services."
-                        },
-                        {
-                            "id": "mgac",
-                            "title": "Mahatma Gandhi Ayurvedic College Hospital and Research Centre",
-                            "slug": "mgac",
-                            "image": "/img/mgac.jpg",
-                            "description": "Dedicated to preserving and advancing traditional Ayurvedic medicine through education, research, and holistic healthcare practices."
+                            "id": "jnmc",
+                            "title": "JNMC",
+                            "slug": "/jnmc",
+                            "image": "/images/jnmc.jpg",
+                            "description": "Premier medical institute"
                         }
                     ]
                 },
@@ -44,45 +321,343 @@
                     "items": [
                         {
                             "id": "dmmc",
-                            "title": "Datta Meghe Medical College",
-                            "slug": "dmmc",
-                            "image": "/img/dmmc.jpg",
-                            "description": "Modern medical education facility in Nagpur with comprehensive healthcare training and research capabilities."
-                        },
-                        {
-                            "id": "smhh",
-                            "title": "Shalinitai Meghe Homeopathy Hospital College and Research Centre",
-                            "slug": "smhh",
-                            "image": "/img/smhh.jpg",
-                            "description": "Specialized homeopathic education and treatment center promoting alternative medicine and holistic healing approaches."
+                            "title": "DMMC",
+                            "slug": "/dmmc",
+                            "image": "/images/dmmc.jpg",
+                            "description": "Medical College Nagpur"
                         }
                     ]
                 }
             ]
         },
         {
-            "id": 3,
-            "title": "Research",
-            "slug": "research",
-            "type": "normal"
-        },
-        {
-            "id": 4,
-            "title": "Hospitals",
-            "slug": "hospitals",
-            "type": "normal"
-        },
-        {
-            "id": 5,
-            "title": "IQAC",
-            "slug": "iqac",
-            "type": "normal"
-        },
-        {
             "id": 6,
-            "title": "Global Connects",
-            "slug": "global",
-            "type": "normal"
+            "type": "normal",
+            "title": "Programs",
+            "slug": "/programs"
+        },
+        {
+            "id": 7,
+            "type": "normal",
+            "title": "IQAC",
+            "slug": "/IQAC"
+        },
+        {
+            "id": 8,
+            "type": "normal",
+            "title": "Hospitals",
+            "slug": "/hospitals"
+        },
+        {
+            "id": 8,
+            "type": "normal",
+            "title": "Global",
+            "slug": "/global"
+        },
+        {
+            "id": 9,
+            "type": "normal",
+            "title": "Home",
+            "slug": "/home"
         }
-    ]
+    ],
+    "footer": {
+        "logo": "/assets/nav-logo-tran.png",
+        "address": {
+            "title": "Registrar",
+            "lines": [
+                "Datta Meghe Institute of Higher Education & Research",
+                "(Deemed to be University), Sawangi (Meghe)",
+                "Wardha - 442107 Maharashtra"
+            ],
+            "contact": "(07152) - 287701, 287702, 287703, 287704, 287705, 287706, (07152) - 304000",
+            "email": "registrar@dmiher.edu.in"
+        },
+        "socials": [
+            {
+                "name": "Instagram",
+                "icon": "instagram",
+                "url": "https://www.instagram.com/dmiheruniversity"
+            },
+            {
+                "name": "Facebook",
+                "icon": "facebook",
+                "url": "https://www.facebook.com/dmiherduwardha"
+            },
+            {
+                "name": "LinkedIn",
+                "icon": "linkedin",
+                "url": "https://www.linkedin.com/company/dmimsu/posts/?feedView=all"
+            },
+            {
+                "name": "YouTube",
+                "icon": "youtube",
+                "url": "https://www.youtube.com/channel/UCDVjybdsfkn6e5UtaSA8-Dw"
+            }
+        ],
+        "sections": [
+            {
+                "id": "programs",
+                "title": "Programs",
+                "links": [
+                    {
+                        "text": "Medicine",
+                        "url": "/programs/medicine-streams"
+                    },
+                    {
+                        "text": "Dental",
+                        "url": "/programs/dental-streams"
+                    },
+                    {
+                        "text": "Ayurveda",
+                        "url": "/programs/ayurveda-streams"
+                    },
+                    {
+                        "text": "Homeopathy",
+                        "url": "/programs/homeopathy-streams"
+                    },
+                    {
+                        "text": "Nursing",
+                        "url": "/programs/nursing-streams"
+                    },
+                    {
+                        "text": "Physiotherapy",
+                        "url": "/programs/physiotherapy-streams"
+                    },
+                    {
+                        "text": "Allied Health Sciences",
+                        "url": "/programs/ahs-streams"
+                    },
+                    {
+                        "text": "Engineering",
+                        "url": "/programs/feat-streams"
+                    },
+                    {
+                        "text": "Commerce & Management",
+                        "url": "/programs/commerce-management-streams"
+                    },
+                    {
+                        "text": "Liberal Arts",
+                        "url": "/programs"
+                    },
+                    {
+                        "text": "Online Programs",
+                        "url": "/programs/online-streams"
+                    }
+                ]
+            },
+            {
+                "id": "terms",
+                "title": "Terms & Conditions",
+                "links": [
+                    {
+                        "text": "Disclaimer",
+                        "url": "/disclaimer"
+                    },
+                    {
+                        "text": "Privacy Policy for Students",
+                        "url": "/privacy-policies"
+                    },
+                    {
+                        "text": "Apply for Tender and EOI",
+                        "url": "http://137.97.64.12:8997/tender/frmOnGoingContract.aspx"
+                    },
+                    {
+                        "text": "Apply for Transcript",
+                        "url": "https://alumni.dmimsu.edu.in/home.dz"
+                    },
+                    {
+                        "text": "e-Tender",
+                        "url": "/e-tender"
+                    },
+                    {
+                        "text": "Terms and Conditions for Online Payments",
+                        "url": "/terms-and-conditions-for-online-payments"
+                    }
+                ]
+            },
+            {
+                "id": "colleges",
+                "title": "Colleges",
+                "groups": [
+                    {
+                        "groupTitle": "Main Campus - Wardha",
+                        "links": [
+                            {
+                                "text": "Jawaharlal Nehru Medical College",
+                                "url": "/jnmc"
+                            },
+                            {
+                                "text": "Sharad Pawar Dental College And Hospital",
+                                "url": "/spdc"
+                            },
+                            {
+                                "text": "Mahatma Gandhi Ayurvedic College Hospital And Research Centre",
+                                "url": "/MGAC"
+                            },
+                            {
+                                "text": "Ravi Nair Physiotherapy College",
+                                "url": "/rnpc"
+                            },
+                            {
+                                "text": "Datta Meghe College Of Pharmacy",
+                                "url": "/dmcp"
+                            },
+                            {
+                                "text": "Faculty Of Engineering And Technology",
+                                "url": "/feat"
+                            },
+                            {
+                                "text": "Smt Radhikabai Meghe Memorial College Of Nursing",
+                                "url": "/SRMMCON"
+                            },
+                            {
+                                "text": "Shalinitai Meghe College Of Nursing",
+                                "url": "/SMCON-W"
+                            },
+                            {
+                                "text": "School Of Allied Health Sciences",
+                                "url": "/sahs"
+                            },
+                            {
+                                "text": "School Of Allied Sciences",
+                                "url": "/sas"
+                            },
+                            {
+                                "text": "Centre For Distance And Online Education",
+                                "url": "/cdoe"
+                            }
+                        ]
+                    },
+                    {
+                        "groupTitle": "Off Campus - Wanadongri, Nagpur",
+                        "links": [
+                            {
+                                "text": "Datta Meghe Medical College",
+                                "url": "/dmmc"
+                            },
+                            {
+                                "text": "Shalinitai Meghe Homeopathy Hospital College And Research Centre",
+                                "url": "/smhh"
+                            },
+                            {
+                                "text": "Shalinitai Meghe College Of Nursing",
+                                "url": "/SMCON-N"
+                            },
+                            {
+                                "text": "School Of Allied Health Sciences",
+                                "url": "/sahs"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": "quick-links",
+                "title": "Quick Links",
+                "type": "quickLinks",
+                "links": [
+                    {
+                        "text": "Hospitals",
+                        "url": "/hospitals"
+                    },
+                    {
+                        "text": "Admissions",
+                        "url": "/admissions"
+                    },
+                    {
+                        "text": "Research",
+                        "url": "/research"
+                    },
+                    {
+                        "text": "Announcements",
+                        "url": "/announcements"
+                    },
+                    {
+                        "text": "Global",
+                        "url": "/global"
+                    },
+                    {
+                        "text": "Campus Life",
+                        "url": "/campus-facilities"
+                    },
+                    {
+                        "text": "Contact Us",
+                        "url": "/contactus"
+                    },
+                    {
+                        "text": "About",
+                        "url": "/about"
+                    },
+                    {
+                        "text": "IQAC",
+                        "url": "/IQAC"
+                    },
+                    {
+                        "text": "Alumni",
+                        "url": "/alumni"
+                    },
+                    {
+                        "text": "Controller of Examinations",
+                        "url": "/coe"
+                    },
+                    {
+                        "text": "Student Life",
+                        "url": "/studentlife"
+                    }
+                ]
+            },
+            {
+                "id": "important-links",
+                "title": "Important Links",
+                "links": [
+                    {
+                        "text": "NAAC",
+                        "url": "/naac-ssr"
+                    },
+                    {
+                        "text": "Staff Mental Health and Wellness Centre",
+                        "url": "/staff-mental-health-and-wellness-centre"
+                    },
+                    {
+                        "text": "Grievance Redressal",
+                        "url": "/students-section/students-grievance-cell"
+                    },
+                    {
+                        "text": "Sexual Harassment Complaint Portal",
+                        "url": "/sexual-harassment-complaint-portal"
+                    },
+                    {
+                        "text": "Caste Discrimination Complaint Portal",
+                        "url": "/caste-discrimination-complaint-portal"
+                    },
+                    {
+                        "text": "Anti Ragging Measures",
+                        "url": "/students-section/anti-ragging-cell"
+                    },
+                    {
+                        "text": "Expression of Interest",
+                        "url": "/expression-of-interest"
+                    },
+                    {
+                        "text": "Code of Conduct",
+                        "url": "/code-of-conduct"
+                    },
+                    {
+                        "text": "Academic Bank of Credits",
+                        "url": "https://www.abc.gov.in/"
+                    },
+                    {
+                        "text": "Digilocker NAD Portal",
+                        "url": "https://www.digilocker.gov.in/"
+                    },
+                    {
+                        "text": "National Scholarship Portal",
+                        "url": "https://scholarships.gov.in/home"
+                    }
+                ]
+            }
+        ],
+        "copyright": "© 2025 Datta Meghe Institute of Higher Education & Research. All rights reserved."
+    }
 }

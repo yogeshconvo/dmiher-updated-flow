@@ -1,48 +1,83 @@
 import React from "react";
-// import "../styles/InstituteSections/Hospital-section.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation } from "swiper/modules";
 
-function HospitalSection({ data }) {
-  const { heading, paragraphs = [], images = [] } = data || {};
+import "swiper/css";
+import "swiper/css/autoplay";
+import "swiper/css/navigation";
+
+// import ViewMoreButton from "../../components/UI/ViewMore";
+// import "../../styles/hospital-highlight.css";
+
+const HospitalHighlight = ({ data }) => {
+  if (!data) return null;
+
+  const {
+    heading,
+    subtitle,
+    description,
+    stats = [],
+    images = [],
+    cta_url,
+    cta_label,
+  } = data;
 
   return (
-    <div className="hospital-section">
-      <div className="container gap-12 items-center justify-center">
-        {/* HEADING */}
-        <div className="hospital-heading-wrapper">
-          <h2 className="hospital-heading">
-            <span className="hospital-heading-line"></span>
+    <section className="hospital-section">
+      <div className="container hospital-layout">
+        {/* LEFT CONTENT */}
+        <div className="hospital-content">
+           <h2 className="heading">
+              <hr className="heading-line" />
             {heading}
           </h2>
-        </div>
 
-        {/* CONTENT */}
-        <div className="hospital-layout">
-          {/* TEXT */}
-          <div className="hospital-text">
-            {paragraphs.map((p, i) => (
-              <p key={i} className="hospital-paragraph">
-                {p}
-              </p>
+          {subtitle && (
+            <h4 className="hospital-subtitle">{subtitle}</h4>
+          )}
+
+          <p className="hospital-description">{description}</p>
+
+          <ul className="hospital-list">
+            {stats.map((item, idx) => (
+              <li key={idx} className="hospital-list-item">
+                {item}
+              </li>
             ))}
-          </div>
+          </ul>
 
-          {/* IMAGE PLACEHOLDER */}
-          {images.length > 0 && (
-            <div className="hospital-image-wrapper">
-              <div className="hospital-image-placeholder">
-                <div>
-                  <p className="hospital-placeholder-title">
-                    Hospital Infrastructure
-                  </p>
-                  <p>Image placeholder (no image configured)</p>
-                </div>
-              </div>
+          {cta_url && (
+            <div className="cta">
+              {/* <ViewMoreButton href={cta_url} label={cta_label} /> */}
+              <p>{cta_label}</p>
             </div>
           )}
         </div>
-      </div>
-    </div>
-  );
-}
 
-export default HospitalSection;
+        {/* RIGHT SLIDER */}
+        <div className="hospital-slider custom-swiper-nav">
+          <Swiper
+            spaceBetween={30}
+            slidesPerView={1}
+            loop
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
+            navigation
+            modules={[Autoplay, Navigation]}
+          >
+            {images.map((img, index) => (
+              <SwiperSlide key={index}>
+                <img
+                  src={img}
+                  alt={`Hospital ${index + 1}`}
+                  className="hospital-slide-image"
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default HospitalHighlight;

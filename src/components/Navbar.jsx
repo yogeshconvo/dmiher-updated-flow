@@ -28,7 +28,7 @@ const Navbar = () => {
       <div className="navbar-inner">
         {/* LOGO */}
         <Link to="/">
-          <img src="#" alt="logo" className="navbar-logo" />
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuXZdE9ghv5B13jBGysqw_Lfw6x2YquReHJA&s" alt="logo" className="navbar-logo" />
         </Link>
 
         {/* DESKTOP */}

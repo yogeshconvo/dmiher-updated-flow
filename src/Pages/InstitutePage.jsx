@@ -19,6 +19,8 @@ function InstitutePage({ institutes }) {
           <Comp
             key={sec.section_id + "-" + idx}
             data={sec.data}
+            institute={institute}
+            // classname="px-5"
             instituteSlug={institute.slug}
           />
         );

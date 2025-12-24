@@ -1,5 +1,20 @@
 @reference "tailwindcss";
 
+/* Common Components */
+
+.heading {
+    @apply text-3xl text-4xl font-[500] text-[#707070] mb-2 uppercase tracking-wider;
+}
+
+.heading-line {
+    @apply w-16 w-20 border-[#F04E30] mb-2 border-t-4;
+}
+
+.cta {
+    @apply mb-4 inline-block px-5 py-2 bg-[#F04E30] text-white rounded font-semibold transition-colors duration-200 hover:bg-[#d13d22];
+}
+
+/*  */
 .hero-topbar {
     @apply w-full bg-[#E1CD67] text-gray-600 text-[11px] sm:text-sm px-3 py-1 flex flex-col sm:flex-row sm:justify-between sm:items-center z-50 gap-y-2;
 }
@@ -91,12 +106,23 @@
     @apply relative w-full h-[80dvh] md:h-[calc(86dvh-10px)] overflow-hidden;
 }
 
+
+
+
 .hero-slide {
-    @apply w-full h-full relative;
+    @apply absolute inset-0 w-full h-full;
 }
 
 .hero-bg-img {
-    @apply absolute inset-0 w-full h-full object-cover;
+    @apply absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat;
+}
+
+.hero-bg-fallback {
+    @apply absolute inset-0 bg-black;
+}
+
+.hero-bg-img {
+    @apply absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat;
 }
 
 .hero-bg-fallback {
@@ -127,30 +153,65 @@
     @apply text-base sm:text-xl mt-3 font-[400] whitespace-pre-line;
 }
 
-
+/* ================= INFO SECTION ================= */
 .info-section {
     @apply py-12;
 }
 
+
 .info-title {
     @apply flex flex-wrap items-center justify-center text-[#F04E30] text-3xl tracking-wider uppercase mb-6 text-center;
+}
+
+.info-title-text {
+    @apply px-4 whitespace-normal text-sm;
+}
+
+.info-title-line {
+    @apply hidden flex-grow border-t;
+    margin: 0;
 }
 
 .info-content {
     @apply bg-white text-center text-sm mx-auto max-w-7xl px-2;
 }
 
-.info-tagline {
-    @apply text-2xl font-[500] text-[#58595B] leading-snug mb-6;
-}
-
 .info-text-wrapper {
     @apply text-[#58595B] font-[Arial] tracking-wide max-w-4xl mx-auto;
 }
 
+.info-paragraph {
+    @apply mb-4;
+}
 
+.info-btn {
+    @apply mt-2 mb-4 px-6 py-2 text-white rounded font-semibold transition-colors duration-200;
+}
+
+.info-btn-more {
+    @apply bg-[#F04E30] hover:bg-[#d13d22];
+}
+
+.info-btn-less {
+    @apply bg-[#f47660] hover:bg-[#d13d22];
+}
+
+.info-tagline {
+    @apply text-2xl font-[500] text-[#58595B] leading-snug mb-6;
+}
+
+/* ================= DEANS ================= */
+/* ================= SECTION ================= */
 .deans-section {
     @apply bg-[#0C2C5B] text-white py-10;
+}
+
+.deans-heading-line {
+    @apply border-t-4 border-[#EE4B2B] w-20 mb-2;
+}
+
+.deans-info {
+    @apply text-[#E1CD67] leading-relaxed;
 }
 
 .deans-heading {
@@ -161,9 +222,31 @@
     @apply flex flex-col gap-10 items-center;
 }
 
+.deans-image-wrapper {
+    @apply flex-shrink-0;
+}
+
 .deans-image {
     @apply rounded-lg w-[300px] h-[300px] object-cover mb-4 mx-auto;
 }
+
+.deans-name {
+    @apply text-[#E1CD67] font-bold;
+}
+
+.deans-email {
+    @apply text-[#E1CD67];
+}
+
+/* ================= MESSAGE ================= */
+.deans-message {
+    @apply tracking-wide font-sans text-[16px] leading-6 text-[#FFFFFF] pr-5 font-[400];
+}
+
+.deans-paragraph {
+    @apply mb-4;
+}
+
 
 /* ================= HOLISTIC ================= */
 .holistic-section {
@@ -178,13 +261,7 @@
     @apply w-full min-w-[300px];
 }
 
-.holistic-heading {
-    @apply text-3xl font-[500] text-[#707070] mb-8 tracking-wider;
-}
 
-.holistic-heading-line {
-    @apply w-16 border-[#F04E30] mb-4 border-t-4;
-}
 
 .holistic-list {
     @apply max-h-[500px] overflow-y-auto pr-2;
@@ -231,13 +308,6 @@
     @apply py-20 bg-white;
 }
 
-.departments-heading {
-    @apply text-3xl mb-10 text-[#707070];
-}
-
-.departments-heading-line {
-    @apply w-20 border-[#F04E30] mb-2 border-t-4;
-}
 
 .departments-nav {
     @apply flex gap-2 justify-end mb-4;
@@ -288,13 +358,6 @@
     @apply bg-[#FAF8F0] py-20;
 }
 
-.placements-heading {
-    @apply text-3xl font-[500] text-[#707070] mb-3;
-}
-
-.placements-heading-line {
-    @apply w-16 border-[#F04E30] border-t-4 mb-3;
-}
 
 .placements-description {
     @apply text-base text-gray-500 font-[400] max-w-3xl;
@@ -317,20 +380,13 @@
     @apply py-10 bg-[#F4F4F4];
 }
 
-.testimonial-heading {
-    @apply text-4xl font-medium text-gray-500 mb-4;
-}
-
-.testimonial-heading-line {
-    @apply border-red-500 border-2 w-12 mb-2;
-}
 
 .testimonial-tabs {
-    @apply flex justify-center gap-4 flex-wrap text-center;
+    @apply flex justify-center gap-4 mb-5 flex-wrap text-center;
 }
 
 .testimonial-tab {
-    @apply px-3 py-1 text-base transition-all text-gray-500 hover:text-gray-700;
+    @apply px-3 py-2 text-base transition-all text-gray-500 hover:text-gray-700;
 }
 
 .testimonial-tab-active {
@@ -346,7 +402,7 @@
 }
 
 .testimonial-slide {
-    @apply gap-12 min-h-[316px];
+    @apply flex flex-col gap-10 items-center text-center;
 }
 
 .testimonial-avatar {
@@ -381,23 +437,7 @@
     @apply text-[#707070] text-center py-16;
 }
 
-/* ================= HOSPITAL ================= */
-.hospital-section {
-    @apply bg-[#fefaf3] py-14;
-}
-
-.hospital-heading {
-    @apply text-3xl text-[#707070] uppercase mb-2 tracking-tight leading-tight;
-}
-
 /* ================= COLLAB ================= */
-.collab-section {
-    @apply py-20 bg-sky-50;
-}
-
-.collab-heading {
-    @apply text-3xl text-[#707070] uppercase leading-tight;
-}
 
 /* ================= GLOBAL ================= */
 .global-section {
@@ -408,13 +448,7 @@
     @apply mb-8;
 }
 
-.global-heading {
-    @apply text-3xl font-[500] text-[#707070] mb-4 uppercase relative;
-}
 
-.global-heading-line {
-    @apply block border-t-4 border-[#F04E30] w-16 mb-4;
-}
 
 .global-description {
     @apply text-gray-600 text-sm max-w-5xl tracking-normal leading-relaxed;
@@ -474,30 +508,6 @@
     @apply object-contain w-24 h-20;
 }
 
-/*    ================= PLACEMENTS ================= */
-.placements-section {
-    @apply bg-[#FAF8F0] py-20;
-}
-
-/* ================= HEADER ================= */
-.placements-heading {
-    @apply text-3xl font-[500] text-[#707070] mb-3;
-}
-
-.placements-heading-line {
-    @apply w-16 border-[#F04E30] border-t-4 mb-3;
-}
-
-.placements-description {
-    @apply text-base text-gray-500 font-[400] max-w-3xl;
-}
-
-/* ================= GRID ================= */
-.placements-grid {
-    @apply max-w-7xl mx-auto mt-10 grid grid-cols-1 gap-6;
-}
-
-
 /* ================= BUTTONS ================= */
 .button-section {
     @apply bg-white pb-20 px-5;
@@ -542,13 +552,7 @@
 
 
 /* ================= LEFT CONTENT ================= */
-.collab-bar {
-    @apply h-1 w-16 bg-[#e8502e] mb-3;
-}
 
-.collab-heading {
-    @apply text-3xl text-[#707070] uppercase leading-tight;
-}
 
 .collab-text {
     @apply mt-2 text-[#707070] font-[Arial];
@@ -601,29 +605,10 @@
 
 /* ================= SECTION ================= */
 .feature-section {
-    @apply pt-10 px-5 bg-[#FAFAF6] flex justify-center;
+    @apply pt-10 bg-[#FAFAF6] flex justify-center;
 }
 
 /* ================= HEADING ================= */
-.feature-heading {
-    @apply text-3xl font-[500] text-[#707070] tracking-wider mb-8;
-}
-
-@media (min-width: 768px) {
-    .feature-heading {
-        @apply text-4xl;
-    }
-}
-
-.feature-heading-line {
-    @apply w-16 border-[#F04E30] mb-4 border-t-4;
-}
-
-@media (min-width: 640px) {
-    .feature-heading-line {
-        @apply w-20;
-    }
-}
 
 /* ================= SLIDER ================= */
 .feature-slider-wrapper {
@@ -680,4 +665,211 @@
 /* ================= PAGINATION ================= */
 .feature-pagination {
     @apply flex justify-center mt-6;
+}
+
+/* ================= HOSPITAL ================= */
+
+.hospital-section {
+    @apply bg-[#122E5E]/10 py-20;
+}
+
+.hospital-layout {
+    @apply flex flex-col gap-10 items-center;
+}
+
+
+.hospital-content {
+    @apply w-full;
+}
+
+
+.hospital-subtitle {
+    @apply font-[Arial] text-[26px] text-[#58595B] font-light;
+}
+
+.hospital-description {
+    @apply text-gray-500 text-sm font-[400] mb-2;
+}
+
+.hospital-list {
+    @apply text-lg text-gray-500 space-y-1 mb-1;
+}
+
+.hospital-list-item {
+    @apply border-b pb-2;
+}
+
+
+.hospital-slider {
+    @apply w-full mt-10 rounded-lg overflow-hidden relative;
+}
+
+.hospital-slide-image {
+    @apply w-full h-[350px] object-cover rounded-lg;
+}
+
+/* ================= SWIPER NAV ================= */
+.custom-swiper-nav .swiper-button-next,
+.custom-swiper-nav .swiper-button-prev {
+    @apply w-[30px] h-[30px] rounded-full bg-black/40;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.custom-swiper-nav .swiper-button-next::after,
+.custom-swiper-nav .swiper-button-prev::after {
+    font-size: 16px;
+    color: white;
+}
+
+.custom-swiper-nav .swiper-button-next {
+    right: 10px;
+}
+
+.custom-swiper-nav .swiper-button-prev {
+    left: 10px;
+}
+
+
+/* ================= INNOVATIVE ================= */
+.innovative-section {
+    @apply bg-white py-20 relative overflow-hidden;
+}
+
+.innovative-heading {
+    @apply text-3xl text-[#707070] font-semibold mb-2 text-start;
+}
+
+.innovative-subheading {
+    @apply text-2xl text-[#58595B] font-light mb-8;
+}
+
+.innovative-nav-btn {
+    @apply absolute z-10 p-2 bg-white rounded-full shadow transition-transform;
+}
+
+.innovative-nav-btn:hover {
+    transform: scale(1.1);
+}
+
+.innovative-nav-prev {
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.innovative-nav-next {
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* ================= CARD ================= */
+.innovative-card-wrapper {
+    @apply px-2;
+}
+
+.innovative-card {
+    @apply relative w-full h-[500px] rounded-xl overflow-hidden shadow-lg;
+}
+
+.innovative-card-image {
+    @apply w-full h-full object-cover transition-transform;
+}
+
+.innovative-card:hover .innovative-card-image {
+    transform: scale(1.05);
+}
+
+.innovative-card-overlay {
+    @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 text-white p-4 h-28 flex flex-col;
+}
+
+.innovative-card-text {
+    @apply text-sm mt-1 leading-snug overflow-hidden text-ellipsis line-clamp-4;
+    font-family: Arial, sans-serif;
+    font-weight: 400;
+}
+
+/* Education unit */
+
+.education-section {
+    @apply relative bg-cover bg-center bg-no-repeat;
+}
+
+.education-section::before {
+    content: "";
+    @apply absolute inset-0 bg-cover bg-center bg-no-repeat;
+    background-image: var(--edu-bg);
+    z-index: 0;
+}
+
+.education-overlay {
+    @apply absolute inset-0 bg-gradient-to-l from-black/70 via-black/50 to-black/30 z-10;
+}
+
+
+.education-content {
+    @apply relative z-20 font-[Arial] py-16;
+}
+
+
+.education-heading {
+    @apply text-3xl md:text-4xl font-[500] tracking-wider text-white mb-4;
+}
+
+.education-heading-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-4 border-t-4;
+}
+
+
+.education-paragraph {
+    @apply text-white text-base max-w-5xl tracking-normal leading-relaxed mb-6;
+}
+
+
+/* ================= ANNOUNCEMENTS ================= */
+
+
+
+.announce-heading-line {
+    @apply w-16 border-[#F04E30] mb-4 border-t-4;
+}
+
+
+
+.announce-grid {
+    @apply grid grid-cols-1 gap-5 max-w-2xl mx-auto justify-center;
+}
+
+.announce-btn {
+    @apply flex items-center gap-4 p-5 rounded-2xl bg-white shadow-md border border-gray-200 transition-all duration-300 text-left w-full max-w-sm;
+}
+
+.announce-btn:hover {
+    @apply shadow-xl bg-[#fef7f6];
+}
+
+.announce-btn-text {
+    @apply text-gray-800 font-medium text-lg leading-snug;
+}
+
+.announce-popup-grid {
+    @apply grid gap-3;
+}
+
+.announce-popup-grid-2 {
+    @apply grid-cols-2;
+}
+
+.announce-doc {
+    @apply flex items-center justify-center gap-2 w-full h-[60px] text-base font-medium text-white bg-[#102B64] rounded transition-colors;
+}
+
+.announce-doc:hover {
+    @apply bg-[#F04E30];
+}
+
+.announce-doc-single {
+    @apply col-span-2 max-w-xs mx-auto;
 }
