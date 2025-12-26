@@ -6,7 +6,7 @@ import {
   FaLinkedinIn,
   FaYoutube,
 } from "react-icons/fa";
-import "../styles/footer.css";
+import "../styles/components/footer.css";
 // import VisitorCounter from "../Services/VisitorCounter";
 
 const iconMap = {

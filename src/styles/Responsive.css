@@ -326,3 +326,98 @@
         @apply text-4xl;
     }
 }
+
+
+/* Main Page Sections Responsive  */
+@media (min-width: 768px) {
+    .research-grid {
+        @apply grid grid-cols-3;
+    }
+
+    .research-mobile {
+        @apply hidden;
+    }
+
+    .research-icon {
+        @apply mx-0;
+    }
+}
+
+/* ================= RESEARCH ECHOSYSTEM ================= */
+@media (min-width: 768px) {
+    .reco-layout {
+        @apply grid-cols-10;
+    }
+
+    .reco-image-wrapper {
+        @apply col-span-7 justify-start order-1;
+    }
+
+    .reco-content {
+        @apply col-span-3 mt-0 order-2;
+    }
+
+    .reco-heading {
+        @apply text-4xl;
+    }
+
+    .reco-heading-line {
+        @apply w-20;
+    }
+}
+
+/* ================= THE EDGE ================= */
+@media (min-width: 768px) {
+    .edge-title {
+        @apply text-4xl;
+    }
+
+    .edge-title-line {
+        @apply w-20;
+    }
+
+    .edge-card-title {
+        @apply text-base;
+    }
+
+    .edge-card-desc {
+        @apply text-sm;
+    }
+}
+
+/* ================= RESEARCH OPPORTUNITIES ================= */
+@media (min-width: 768px) {
+    .research-op-heading {
+        @apply text-4xl;
+    }
+
+    .research-op-line {
+        @apply w-20;
+    }
+}
+
+/* ================= SDG RESEARCH ================= */
+@media (min-width: 768px) {
+    .sdg-heading {
+        @apply text-4xl;
+    }
+
+    .sdg-line {
+        @apply w-20;
+    }
+
+    .sdg-title {
+        @apply text-2xl;
+    }
+}
+
+/* ================= FUNDED PROJECTS ================= */
+@media (min-width: 768px) {
+    .funded-heading {
+        @apply text-4xl;
+    }
+
+    .funded-line {
+        @apply w-20;
+    }
+}

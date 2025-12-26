@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import MegaMenu from "./NavbarMegaMenu";
-import "../styles/navbar.css";
+import "../styles/components/navbar.css";
 // import logo from "../../assets/nav-logo.png";
 
 const Navbar = () => {

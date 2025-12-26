@@ -85,6 +85,227 @@
                     }
                 },
                 {
+                    "section_id": "hero_home_section",
+                    "data": {
+                        "topbar": {
+                            "admissions_text": "Admissions open for 2025-26",
+                            "primary_cta_text": "MBBS NEET 2025 Admissions",
+                            "primary_cta_section_id": "jnmc-announcements",
+                            "apply_now_url": "https://dmiher-apply.mastersofterp.com/ApplicationLandingPage/Index/DMIHER",
+                            "phone_label": "+91 8888040999",
+                            "phone_number": "+918888040999"
+                        },
+                        "slides": [
+                            {
+                                "img": "",
+                                "title": "FORGING LEADERS IN \n MEDICINE [[#E1CD67]] SINCE 1990[[/#E1CD67]]",
+                                "highlight": "250 MBBS Seats | 205 PG Seats | 10 Super-Speciality Programs",
+                                "textPosition": "left"
+                            },
+                            {
+                                "img": "",
+                                "title": "EMPOWERING STUDENTS \n [[#E1CD67]] TO LEAD BREAKTHROUGHS [[/#E1CD67]]",
+                                "highlight": "Cutting-Edge Campus | Student-Centered Success | Next-Gen Learning",
+                                "textPosition": "left"
+                            },
+                            {
+                                "img": "",
+                                "title": "[[#E1CD67]] IMMERSIVE MEDICAL [[/#E1CD67]] \n TRAINING. ADVANCING \n CLINICAL RESEARCH & CARE",
+                                "highlight": "Certified Skill Labs | Interdisciplinary Innovation",
+                                "textPosition": "left"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "About_Excellence_Section",
+                    "data": {
+                        "title": "A Legacy of Excellence. A Vision for the Future.",
+                        "intro": "The Datta Meghe Institute of Higher Education and Research (DMIHER), formerly Datta Meghe Institute of Medical Sciences (DMIMS), is an institution on a dynamic growth path. Recognized as a Deemed University by the University Grants Commission (UGC) in 2005, DMIHER has expanded beyond its foundational roots in medical education, emerging as a thriving center for multidisciplinary learning.",
+                        "highlight": {
+                            "title": "Evidence Based Education",
+                            "subtitle": "(Substantiated With Educational Theories And Principles)"
+                        },
+                        "pillars": [
+                            {
+                                "title": "Integrated",
+                                "color": "text-orange-500",
+                                "desc": "Sharing, Nesting, Co-relation, Integrated, Museum SISA, IDCD"
+                            },
+                            {
+                                "title": "Value Based",
+                                "color": "text-blue-500",
+                                "desc": "AETCOM, Value education, Yoga"
+                            },
+                            {
+                                "title": "Self-directed",
+                                "color": "text-[#58595B]",
+                                "desc": "Structured SDL, PBL, mPBL, Flipped classrooms, Student portfolios"
+                            },
+                            {
+                                "title": "Technology Driven",
+                                "color": "text-red-500",
+                                "desc": "Simulations, Standardised LRMs, LMS, E-portfolios, e-Learning resources, MOOCs – RSM, Coursera, SWAYAM"
+                            },
+                            {
+                                "title": "Patient Centric",
+                                "color": "text-purple-700",
+                                "desc": "ECE, Student clerkship method of clinical training, Evidence based journal club"
+                            },
+                            {
+                                "title": "Community/ Industry Oriented",
+                                "color": "text-orange-500",
+                                "desc": "Comprehensive health care program, Industry integrated programs"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "about_VisionMission_Section",
+                    "data": {
+                        "vision": {
+                            "title": "Vision",
+                            "content_mobile": "To emerge as the global centre of excellence in the best evidence based higher education encompassing a quality centric, innovative and interdisciplinary approach, generating refutative research and offering effective and affordable health care for the benefit of mankind",
+                            "content_desktop": [
+                                "To emerge as the global centre of",
+                                "excellence in the best evidence based",
+                                "higher education encompassing a quality",
+                                "centric, innovative and interdisciplinary",
+                                "approach, generating refutative research",
+                                "and offering effective and affordable health",
+                                "care for the benefit of the mankind"
+                            ]
+                        },
+                        "mission": {
+                            "title": "Mission",
+                            "points": [
+                                "DMIHER shall develop competent, confident, concerned, compassionate and globally relevant professionals by quality, learner, community and evidence centric ‘competency-based model’ of higher education with a value orientation, through all its constituent units.",
+                                "It shall foster a conducive milieu for interdisciplinary research practices generating consequential and meaningful outcomes for the nation in general and the region in particular.",
+                                "It shall deliver comprehensive quality health care services to the rural, needy, marginalized and underprivileged populace.",
+                                "This shall be achieved through appropriate collaborative linkages and a proactive, transparent and accountable decentralized governance system."
+                            ]
+                        }
+                    }
+                },
+                {
+                    "section_id": "about_CoreValues_section",
+                    "data": {
+                        "title": "CORE VALUES",
+                        "values": [
+                            {
+                                "number": "1",
+                                "title": "Purpose-Driven Excellence",
+                                "description": "We pursue excellence with clarity of purpose—grounded in evidence, inspired by impact.",
+                                "image": "purpose"
+                            },
+                            {
+                                "number": "2",
+                                "title": "Compassion with Competence",
+                                "description": "We nurture professionals who blend knowledge with empathy, serving humanity with heart and skill.",
+                                "image": "compassion"
+                            },
+                            {
+                                "number": "3",
+                                "title": "Integrity in Innovation",
+                                "description": "We lead with curiosity and act with conscience—ensuring our innovations uphold ethics and elevate society.",
+                                "image": "innovation"
+                            },
+                            {
+                                "number": "4",
+                                "title": "Collaboration for Impact",
+                                "description": "We break silos and build bridges—across disciplines, communities, and borders—to multiply our contribution.",
+                                "image": "collaboration"
+                            },
+                            {
+                                "number": "5",
+                                "title": "Equity in Access and Action",
+                                "description": "We believe progress must be inclusive. From rural healthcare to global research, we act where we are needed most.",
+                                "image": "equity"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "AboutGrid_section",
+                    "data": {
+                        "gridItems": [
+                            {
+                                "title": "Chancellor’s\nMessage",
+                                "image": "AG1",
+                                "url": "Chancellor-message"
+                            },
+                            {
+                                "title": "Sponsoring\nTrust",
+                                "image": "AG2",
+                                "url": "sponsoring-trust"
+                            },
+                            {
+                                "title": "Leadership",
+                                "image": "AG3",
+                                "url": "key-functionaries"
+                            },
+                            {
+                                "title": "Governance",
+                                "image": "AG4",
+                                "url": "Governance"
+                            },
+                            {
+                                "title": "Internal Quality\nAssurance Cell",
+                                "image": "AG7",
+                                "url": "/IQAC"
+                            },
+                            {
+                                "title": "Centres of\nExcellence",
+                                "image": "AG5",
+                                "url": "center-of-excellence"
+                            },
+                            {
+                                "title": "Institutional Social\nResponsibility",
+                                "image": "AG6",
+                                "url": "InstitutionalSocialResponsibility"
+                            },
+                            {
+                                "title": "Mandatory\nDisclosure",
+                                "image": "AG8",
+                                "url": "Mandatory-Disclosure"
+                            }
+                        ],
+                        "ctaText": "Click on the buttons below to explore more about our facilities and student welfare initiatives.",
+                        "ctaButtons": [
+                            {
+                                "label": "Autonomous Cells",
+                                "url": "/about/Autonomous-Cells"
+                            },
+                            {
+                                "label": "Controller of Examination",
+                                "url": "/coe"
+                            },
+                            {
+                                "label": "Campus Life",
+                                "url": "/campus-facilities"
+                            },
+                            {
+                                "label": "Alumni",
+                                "url": "/alumni"
+                            }
+                        ],
+                        "bottomButtons": [
+                            {
+                                "label": "Sports Facilities",
+                                "url": "/about/sports_facilities"
+                            },
+                            {
+                                "label": "NCC / NSS Details",
+                                "url": "/students-section/students-welfare-cell"
+                            },
+                            {
+                                "label": "Hostel Details",
+                                "url": "/about/Hostel-details"
+                            }
+                        ]
+                    }
+                }
+                {
                     "section_id": "departments",
                     "data": {
                         "heading": "OUR DEPARTMENTS",

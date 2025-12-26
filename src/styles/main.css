@@ -6,6 +6,7 @@
 @tailwind utilities;
 
 /* Your custom styles */
+@import "./subpages/programs.css";
+@import "./mainpagesections.css";
 @import "./InstitutesSections.css";
 @import "./Responsive.css";
-

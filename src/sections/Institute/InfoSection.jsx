@@ -15,7 +15,7 @@ function InfoSection({ data }) {
   return (
     <div className="info-section">
       {/* TITLE */}
-      <h2 className="info-title">
+      {/* <h2 className="info-title">
         <hr
           className="info-title-line"
           style={{ borderColor: "highlight_color" }}
@@ -29,7 +29,25 @@ function InfoSection({ data }) {
           className="info-title-line"
           style={{ borderColor: highlight_color }}
         />
-      </h2>
+      </h2> */}
+
+      {title && (
+        <h2 className="info-title">
+          <hr
+            className="info-title-line"
+            style={{ borderColor: "highlight_color" }}
+          />
+
+          <span className="info-title-text">
+            {title}
+          </span>
+
+          <hr
+            className="info-title-line"
+            style={{ borderColor: highlight_color }}
+          />
+        </h2>
+      )}
 
       {/* CONTENT */}
       <section className="info-content">

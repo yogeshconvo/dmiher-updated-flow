@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FileText } from "lucide-react";
-import { PopupModal } from "../components/UI/CardMandatoryDisclosure";
+import { PopupModal } from "../../components/UI/CardMandatoryDisclosure";
 // import "../styles/InstituteSections/Announcements.css";
 
 const ProgramsAnnouncements = ({ data }) => {

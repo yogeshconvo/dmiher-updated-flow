@@ -1,4 +1,4 @@
-import { GalleryWithPopup } from "../components/GalleryWithPopup";
+import { GalleryWithPopup } from "../../components/GalleryWithPopup";
 
 function StudentLife({ data }) {
   return <GalleryWithPopup data={data} />;

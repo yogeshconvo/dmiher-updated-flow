@@ -14,7 +14,31 @@
     @apply mb-4 inline-block px-5 py-2 bg-[#F04E30] text-white rounded font-semibold transition-colors duration-200 hover:bg-[#d13d22];
 }
 
-/*  */
+.popup-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm;
+}
+
+.popup-modal {
+    @apply bg-white rounded-lg shadow-lg relative outline-none inline-block p-4;
+}
+
+.popup-close {
+    @apply absolute top-2 right-2 text-gray-500 text-2xl cursor-pointer transition-colors;
+}
+
+.popup-close:hover {
+    @apply text-black;
+}
+
+.popup-title {
+    @apply text-xl text-red-500 text-center font-semibold mb-4;
+}
+
+.popup-content {
+    @apply w-full;
+}
+
+/* Hero */
 .hero-topbar {
     @apply w-full bg-[#E1CD67] text-gray-600 text-[11px] sm:text-sm px-3 py-1 flex flex-col sm:flex-row sm:justify-between sm:items-center z-50 gap-y-2;
 }

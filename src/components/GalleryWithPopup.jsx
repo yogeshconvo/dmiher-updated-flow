@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight, X } from "lucide-react";
 
 import "swiper/css";
 import "swiper/css/navigation";
-import "../styles/gallery.css";
+import "../styles/components/gallery.css";
 
 export function GalleryWithPopup({ data }) {
   const { title, description, images = [] } = data || {};

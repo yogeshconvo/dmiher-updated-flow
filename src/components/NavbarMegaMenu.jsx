@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "../styles/navbar.css";
+import "../styles/components/navbar.css";
 
 const MegaMenu = ({ sections, hoveredItem, setHoveredItem }) => {
   return (

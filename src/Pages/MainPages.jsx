@@ -1,7 +1,7 @@
 // src/pages/InstitutePage.jsx
 import { useParams } from "react-router-dom";
-import { SECTION_COMPONENTS } from "../sections/Institute";
-// import { SECTION_COMPONENTS } from "../sections/MainPageSections";
+// import { SECTION_COMPONENTS } from "../sections/Institute";
+import { SECTION_COMPONENTS } from "../sections/MainPageSections";
 
 function InstitutePage({ institutes }) {
   const { slug } = useParams();

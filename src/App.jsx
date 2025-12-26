@@ -1,51 +1,57 @@
 // src/App.jsx
-import { useEffect, useState } from "react";
 import { Routes, Route, useParams } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import { SECTION_COMPONENTS } from "./sections";
+
+import { SECTION_COMPONENTS as InstituteSections } from "./sections/Institute";
+import { SECTION_COMPONENTS as MainPageSections } from "./sections/MainPageSections";
 import { usePages } from "./hooks/usePages";
 
-const API_URL = "http://localhost:3000/page-data";
+// 🔥 merge all section components
+const SECTION_COMPONENTS = {
+  ...InstituteSections,
+  ...MainPageSections,
+};
 
-// this component renders one page (home or /:slug)
+// renders a single page (home or slug)
 function PageView({ pages }) {
   const { slug } = useParams();
 
-  // if slug present, find that page, else use first page as default
-  const page = slug ? pages.find((p) => p.slug === slug) : pages[0];
+  const page = slug
+    ? pages.find((p) => p.slug === slug)
+    : pages[0];
 
-  if (!page) return <div>page not found</div>;
+  if (!page) return <div>Page not found</div>;
 
   return (
-    <div>
-      <main style={{ padding: "" }}>
-        {page.sections?.map((sec, index) => {
-          const SectionComponent = SECTION_COMPONENTS[sec.section_id];
+    <main>
+      {page.sections?.map((sec, index) => {
+        const SectionComponent =
+          SECTION_COMPONENTS[sec.section_id];
 
-          // if no component for this section_id, skip
-          if (!SectionComponent) return null;
-
-          return (
-            <section
-              id={sec.section_id}
-              key={sec.section_id || index}
-              // style={{ marginTop: "100px" }}
-            >
-              <SectionComponent data={sec.data} />
-            </section>
+        if (!SectionComponent) {
+          console.warn(
+            `No component for section_id: ${sec.section_id}`
           );
-        })}
-      </main>
-    </div>
+          return null;
+        }
+
+        return (
+          <section id={sec.section_id} key={sec.section_id || index}>
+            <SectionComponent data={sec.data} />
+          </section>
+        );
+      })}
+    </main>
   );
 }
+
 function App() {
   const { data: pages = [], isLoading, error } = usePages();
 
-  if (isLoading) return <div>loading...</div>;
-  if (error) return <div>error</div>;
-  if (!pages.length) return <div>no data</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading pages</div>;
+  if (!pages.length) return <div>No data</div>;
 
   return (
     <>
@@ -58,6 +64,5 @@ function App() {
     </>
   );
 }
-
 
 export default App;
