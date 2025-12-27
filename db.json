@@ -1,6 +1,65 @@
 {
     "page-data": [
         {
+            "slug": "global",
+            "title": "Global",
+            "sections": [
+                {
+                    "section_id": "global_alliances",
+                    "data": {
+                        "heading": "GLOBAL ALLIANCES, UNBOUNDED POSSIBILITIES",
+                        "description": "Our network of global partnerships connects DMIHER with leading institutions and organizations worldwide, fostering innovation, knowledge exchange, and transformative collaborations. These relationships empower students, faculty, and researchers to drive positive change on a global scale.",
+                        "background_image": "/images/alliances/mask.png",
+                        "logos": [
+                            "/images/alliances/alliance2.png",
+                            "/images/alliances/alliance4.png",
+                            "/images/alliances/alliance5.png",
+                            "/images/alliances/alliance6.png",
+                            "/images/alliances/alliance7.png",
+                            "/images/alliances/alliance8.png",
+                            "/images/alliances/alliance9.png",
+                            "/images/alliances/alliance10.png",
+                            "/images/alliances/alliance11.png",
+                            "/images/alliances/alliance12.png",
+                            "/images/alliances/alliance13.png",
+                            "/images/alliances/alliance14.png",
+                            "/images/alliances/alliance15.png",
+                            "/images/alliances/alliance17.png",
+                            "/images/alliances/alliance18.png",
+                            "/images/alliances/alliance19.png"
+                        ],
+                        "center_logo": "/images/alliances/alliance20.png"
+                    }
+                },
+                {
+                    "section_id": "alliances_global",
+                    "data": {
+                        "heading": "GLOBAL ALLIANCES, UNBOUNDED POSSIBILITIES",
+                        "description": "Our network of global partnerships connects DMIHER with leading institutions and organizations worldwide, fostering innovation, knowledge exchange, and transformative collaborations. These relationships empower students, faculty, and researchers to drive positive change on a global scale.",
+                        "background_image": "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png",
+                        "logos": [
+                            "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png",
+                            "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png",
+                            "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png",
+                            "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png",
+                            "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png",
+                            "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png",
+                            "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png",
+                            "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png",
+                            "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png",
+                            "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png",
+                            "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png",
+                            "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png",
+                            "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png",
+                            "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png",
+                            "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png"
+                        ],
+                        "center_logo": "/images/alliances/alliance20.png"
+                    }
+                }
+            ]
+        },
+        {
             "slug": "research",
             "title": "Research",
             "sections": [

@@ -322,3 +322,119 @@
 .funded-icon {
     @apply w-12 h-12 object-contain mt-2;
 }
+
+
+/* ================= ALLIANCES GLOBAL ================= */
+
+.alliances-section {
+    @apply relative py-16 bg-cover bg-no-repeat;
+}
+
+.alliances-section::after {
+    content: "";
+    @apply absolute inset-0 w-full h-full bg-black/5 -z-10;
+}
+
+.alliances-heading {
+    @apply text-3xl font-[500] tracking-normal text-[#707070] mb-4;
+}
+
+.alliances-heading-line {
+    @apply border-t-4 border-[#EE4B2B] w-20 mb-2;
+}
+
+.alliances-text {
+    @apply max-w-xl text-[#58595B];
+}
+
+.alliances-list {
+    @apply grid justify-center gap-4 mt-6 grid-cols-2;
+}
+
+.alliance-item {
+    @apply cursor-pointer transition-transform;
+}
+
+.alliance-item:hover {
+    @apply scale-105;
+}
+
+.alliance-image {
+    @apply w-full h-auto object-contain;
+}
+
+.alliance-center {
+    @apply flex justify-center mt-3;
+}
+
+.alliance-center-image {
+    @apply h-[70px] object-contain transition-transform;
+}
+
+.alliance-center-image:hover {
+    @apply scale-105;
+}
+
+/* ================= ENQUIRY GLOBAL ================= */
+.enquiry-section {
+    @apply bg-[#f1f1f1] py-16;
+}
+
+/* ================= HEADING ================= */
+.enquiry-heading {
+    @apply text-3xl font-[500] text-[#707070] mb-10;
+}
+
+.enquiry-heading-line {
+    @apply block border-t-4 border-[#F04E30] w-24 mb-2;
+}
+
+/* ================= CARD GRID ================= */
+.enquiry-grid {
+    @apply flex flex-wrap justify-center gap-6;
+}
+
+/* ================= CARD ================= */
+.enquiry-card {
+    @apply flex items-start gap-4 p-6 rounded-2xl bg-white shadow-md border border-gray-200 cursor-pointer transition-colors;
+}
+
+.enquiry-card:hover {
+    @apply bg-[#fef7f6];
+}
+
+/* ================= ICON ================= */
+.enquiry-icon-wrap {
+    @apply bg-[#F04E30]/10 text-[#F04E30] rounded-full p-3;
+}
+
+.enquiry-icon {
+    @apply w-6 h-6;
+}
+
+/* ================= TEXT ================= */
+.enquiry-text {
+    @apply text-gray-800 font-medium text-[18px] leading-snug;
+}
+
+/* ================= MODAL ================= */
+.enquiry-modal-overlay {
+    @apply fixed inset-0 z-[9999] bg-black/50 flex items-center justify-center p-4;
+}
+
+.enquiry-modal {
+    @apply bg-white rounded-lg p-4 max-w-md w-full relative;
+}
+
+.enquiry-modal-close {
+    @apply absolute top-3 right-3 text-2xl text-gray-600 hover:text-black;
+}
+
+.enquiry-modal-title {
+    @apply text-xl font-semibold mb-4 text-[#F04E30];
+}
+
+/* ================= FORM ================= */
+.npf-container {
+    @apply w-full;
+}

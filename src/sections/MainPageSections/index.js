@@ -24,14 +24,13 @@ import FundedResearchProjects from "./FundedResearchProjects"
 import ResearchOpportunities from "./ResearchOpportunities"
 
 import HomeInfo from "../Institute/InfoSection"
+import AlliancesGlobal from "./AlliancesGlobal"
 export const SECTION_COMPONENTS = {
 
     // Non-institute
     hero_section: HeroSection,
     info_section: HomeInfo,
-
     home_programs_section: HomePrograms,
-    //home_ResearchInnovation_section: ResearchInnovation,
     home_BULLETIN_section: HomeBulletin,
     home_ANNOUNCEMENTS_section: HomeANNOUNCEMENTS,
     home_testimonial_section: HomeTestimonial,
@@ -52,6 +51,6 @@ export const SECTION_COMPONENTS = {
     sdg_research: SDGResearchContributions,
     funded_projects: FundedResearchProjects,
     ResearchOpportunities: ResearchOpportunities,
-
+    alliances_global: AlliancesGlobal,
 
 };

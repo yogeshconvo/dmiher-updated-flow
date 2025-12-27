@@ -421,3 +421,33 @@
         @apply w-20;
     }
 }
+
+/* ================= ALLIANCES ================= */
+@media (min-width: 768px) {
+    .alliances-heading {
+        @apply text-4xl;
+    }
+
+    .alliances-list {
+        @apply grid-cols-3;
+    }
+}
+
+@media (min-width: 1280px) {
+    .alliances-list {
+        @apply grid-cols-4;
+    }
+}
+
+/* ================= ENQUIRY GLOBAL ================= */
+@media (min-width: 640px) {
+    .enquiry-card {
+        @apply w-[45%];
+    }
+}
+
+@media (min-width: 768px) {
+    .enquiry-card {
+        @apply w-[30%];
+    }
+}
