@@ -14,7 +14,7 @@ const Navbar = () => {
 
   // Fetch Menu
   useEffect(() => {
-    fetch("http://localhost:3000/menu")
+    fetch("https://json-new-sever.onrender.com/menu")
       .then((res) => res.json())
       .then((data) => setMenuData(data))
       .catch(console.error);

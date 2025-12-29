@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { FileText } from "lucide-react";
 import { Link } from "react-router";
 
-import "../../styles/enquiry-global-main.css";
-import "../../styles/enquiry-global-responsive.css";
+// import "../../styles/enquiry-global-main.css";
+// import "../../styles/enquiry-global-responsive.css";
 
 /* ================= NoPaperForm ================= */
 const NoPaperFormWidget = () => {
@@ -27,50 +27,52 @@ const NoPaperFormWidget = () => {
   );
 };
 
-/* ================= Enquiry Global ================= */
-const EnquiryGlobal = () => {
+const EnquiryGlobal = ({ data }) => {
   const [showModal, setShowModal] = useState(false);
-
-  const links = [
-    {
-      title: "Expression of Interest form for international universities",
-      path: "/global-connects/expression-of-interest-form",
-    },
-    {
-      title: "Admission enquiry form",
-      path: "popup",
-    },
-    {
-      title: "Outward Opportunities application form",
-      path: "/global-connects/student-exchange-applicationForm",
-    },
-    {
-      title: "Faculty Opportunities application form",
-      path: "/global-connects/faculty-exchange-applicationForm",
-    },
-  ];
+  const links = data?.links ?? [];
 
   return (
     <section className="enquiry-section">
       <div className="container">
         <h2 className="enquiry-heading">
           <span className="enquiry-heading-line" />
-          ENQUIRY
+          {data?.title}
         </h2>
 
         <div className="enquiry-grid">
-          {links.map((link, idx) =>
-            link.path === "popup" ? (
-              <div
+          {links.map((link, idx) => {
+            const isExternal =
+              link.path?.startsWith("http") ||
+              link.path?.endsWith(".pdf");
+
+            if (link.path === "popup") {
+              return (
+                <div
+                  key={idx}
+                  className="enquiry-card"
+                  onClick={() => setShowModal(true)}
+                >
+                  <div className="enquiry-icon-wrap">
+                    <FileText className="enquiry-icon" />
+                  </div>
+                  <div className="enquiry-text">{link.title}</div>
+                </div>
+              );
+            }
+
+            return isExternal ? (
+              <a
                 key={idx}
+                href={link.path}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="enquiry-card"
-                onClick={() => setShowModal(true)}
               >
                 <div className="enquiry-icon-wrap">
                   <FileText className="enquiry-icon" />
                 </div>
                 <div className="enquiry-text">{link.title}</div>
-              </div>
+              </a>
             ) : (
               <Link key={idx} to={link.path} className="enquiry-card">
                 <div className="enquiry-icon-wrap">
@@ -78,22 +80,23 @@ const EnquiryGlobal = () => {
                 </div>
                 <div className="enquiry-text">{link.title}</div>
               </Link>
-            )
-          )}
+            );
+          })}
         </div>
       </div>
 
       {showModal && (
         <div
           className="enquiry-modal-overlay"
-          role="dialog"
-          aria-modal="true"
+          onClick={() => setShowModal(false)}
         >
-          <div className="enquiry-modal">
+          <div
+            className="enquiry-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               className="enquiry-modal-close"
               onClick={() => setShowModal(false)}
-              aria-label="Close"
             >
               &times;
             </button>

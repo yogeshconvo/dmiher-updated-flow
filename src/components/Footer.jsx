@@ -20,7 +20,7 @@ const Footer = () => {
   const [footer, setFooter] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/footer")
+    fetch("https://json-new-sever.onrender.com/footer")
       .then((res) => res.json())
       .then((data) => {
         console.log("FOOTER API =>", data);

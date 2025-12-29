@@ -68,8 +68,6 @@
     @apply text-xl ml-1;
 }
 
-
-
 .hero-mobile {
     @apply flex flex-col items-center gap-y-2 mt-1 lg:hidden;
 }
@@ -89,8 +87,6 @@
 .hero-mobile-phone {
     @apply w-full flex justify-center items-center uppercase rounded-[10px] font-[500] text-sm hover:bg-[#F04E30] bg-[#102B64] text-white px-2 py-2;
 }
-
-
 
 .btn-primary {
     background: linear-gradient(90deg, #005bbb, #0099ff);
@@ -124,14 +120,9 @@
     }
 }
 
-
-
 .hero-swiper-wrapper {
     @apply relative w-full h-[80dvh] md:h-[calc(86dvh-10px)] overflow-hidden;
 }
-
-
-
 
 .hero-slide {
     @apply absolute inset-0 w-full h-full;
@@ -170,18 +161,17 @@
 }
 
 .hero-title {
-    @apply text-3xl md:text-[42px] text-white font-medium leading-snug whitespace-pre-line;
+    @apply text-3xl md:text-[42px] text-white font-medium uppercase leading-snug whitespace-pre-line;
 }
 
 .hero-highlight {
-    @apply text-base sm:text-xl mt-3 font-[400] whitespace-pre-line;
+    @apply text-3xl md:text-[42px] text-[#E1CD67] font-medium uppercase leading-snug whitespace-pre-line;
 }
 
 /* ================= INFO SECTION ================= */
 .info-section {
     @apply py-12;
 }
-
 
 .info-title {
     @apply flex flex-wrap items-center justify-center text-[#F04E30] text-3xl tracking-wider uppercase mb-6 text-center;
@@ -225,7 +215,6 @@
 }
 
 /* ================= DEANS ================= */
-/* ================= SECTION ================= */
 .deans-section {
     @apply bg-[#0C2C5B] text-white py-10;
 }
@@ -271,7 +260,6 @@
     @apply mb-4;
 }
 
-
 /* ================= HOLISTIC ================= */
 .holistic-section {
     @apply py-20 bg-white;
@@ -284,8 +272,6 @@
 .holistic-text {
     @apply w-full min-w-[300px];
 }
-
-
 
 .holistic-list {
     @apply max-h-[500px] overflow-y-auto pr-2;
@@ -331,7 +317,6 @@
 .departments-section {
     @apply py-20 bg-white;
 }
-
 
 .departments-nav {
     @apply flex gap-2 justify-end mb-4;
@@ -461,8 +446,6 @@
     @apply text-[#707070] text-center py-16;
 }
 
-/* ================= COLLAB ================= */
-
 /* ================= GLOBAL ================= */
 .global-section {
     @apply bg-white py-20;
@@ -472,13 +455,10 @@
     @apply mb-8;
 }
 
-
-
 .global-description {
     @apply text-gray-600 text-sm max-w-5xl tracking-normal leading-relaxed;
 }
 
-/* ================= DESKTOP LAYOUT ================= */
 .global-desktop {
     @apply hidden w-full gap-4 items-center;
 }
@@ -511,7 +491,6 @@
     @apply object-contain w-full h-full;
 }
 
-/* ================= MOBILE ================= */
 .global-mobile {
     @apply block px-4;
 }
@@ -574,10 +553,6 @@
     @apply grid gap-6;
 }
 
-
-/* ================= LEFT CONTENT ================= */
-
-
 .collab-text {
     @apply mt-2 text-[#707070] font-[Arial];
 }
@@ -586,7 +561,6 @@
     @apply text-blue-900 font-[Arial] mt-1;
 }
 
-/* ================= STATS ================= */
 .collab-stats-grid {
     @apply hidden mt-15 py-8 gap-4;
 }
@@ -625,21 +599,15 @@
     @apply text-gray-200 text-4xl font-light hover:text-red-400;
 }
 
-
-
 /* ================= SECTION ================= */
 .feature-section {
     @apply pt-10 bg-[#FAFAF6] flex justify-center;
 }
 
-/* ================= HEADING ================= */
-
-/* ================= SLIDER ================= */
 .feature-slider-wrapper {
     @apply w-full mx-auto max-w-6xl pb-16;
 }
 
-/* ================= CARD ================= */
 .feature-card {
     @apply w-[250px] h-[320px] mx-auto p-4 rounded-xl shadow-md flex flex-col justify-between;
 }
@@ -665,7 +633,6 @@
     @apply bg-[#269BFF] text-white;
 }
 
-/* ================= TEXT ================= */
 .feature-title {
     @apply font-[500] text-xl;
 }
@@ -686,13 +653,7 @@
     @apply text-[#707070] text-[15px];
 }
 
-/* ================= PAGINATION ================= */
-.feature-pagination {
-    @apply flex justify-center mt-6;
-}
-
 /* ================= HOSPITAL ================= */
-
 .hospital-section {
     @apply bg-[#122E5E]/10 py-20;
 }
@@ -701,11 +662,9 @@
     @apply flex flex-col gap-10 items-center;
 }
 
-
 .hospital-content {
     @apply w-full;
 }
-
 
 .hospital-subtitle {
     @apply font-[Arial] text-[26px] text-[#58595B] font-light;
@@ -722,7 +681,6 @@
 .hospital-list-item {
     @apply border-b pb-2;
 }
-
 
 .hospital-slider {
     @apply w-full mt-10 rounded-lg overflow-hidden relative;
@@ -753,7 +711,6 @@
 .custom-swiper-nav .swiper-button-prev {
     left: 10px;
 }
-
 
 /* ================= INNOVATIVE ================= */
 .innovative-section {
@@ -837,7 +794,6 @@
     @apply relative z-20 font-[Arial] py-16;
 }
 
-
 .education-heading {
     @apply text-3xl md:text-4xl font-[500] tracking-wider text-white mb-4;
 }
@@ -846,21 +802,14 @@
     @apply w-16 sm:w-20 border-[#F04E30] mb-4 border-t-4;
 }
 
-
 .education-paragraph {
     @apply text-white text-base max-w-5xl tracking-normal leading-relaxed mb-6;
 }
 
-
 /* ================= ANNOUNCEMENTS ================= */
-
-
-
 .announce-heading-line {
     @apply w-16 border-[#F04E30] mb-4 border-t-4;
 }
-
-
 
 .announce-grid {
     @apply grid grid-cols-1 gap-5 max-w-2xl mx-auto justify-center;

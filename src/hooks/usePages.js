@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-const API_URL = "http://localhost:3000/page-data";
+const API_URL = "https://json-new-sever.onrender.com/page-data";
 
 const fetchPages = async () => {
     const res = await fetch(API_URL);

@@ -32,6 +32,7 @@ function Hero({ data, slug }) {
   return (
     <>
       {/* TOP BAR */}
+      {topbar && (
       <div className="hero-topbar">
         <span className="hero-admission-text">
           {topbar.admissions_text}
@@ -68,7 +69,8 @@ function Hero({ data, slug }) {
               </button>
             </a>
           )}
-        </div>
+          </div>
+     
 
         {/* Mobile */}
         <div className="hero-mobile">
@@ -103,7 +105,7 @@ function Hero({ data, slug }) {
           </div>
         </div>
       </div>
-
+ )}
     
    {/* SLIDER (ONE DIRECTION) */}
 <div className="hero-swiper-wrapper relative overflow-hidden">
@@ -138,9 +140,11 @@ function Hero({ data, slug }) {
         }`}
       >
         <h1 className="hero-title">{slide.title}</h1>
+        <h1 className="hero-highlight">{slide.highlight}</h1>
 
-        {slide.highlight && (
-          <p className="hero-highlight">{slide.highlight}</p>
+
+        {slide.paragraph && (
+          <p className="hero-paragraph">{slide.paragraph}</p>
         )}
       </div>
     </div>

@@ -42,23 +42,6 @@
     @apply space-y-3 text-[17px] font-normal text-gray-700 text-left;
 }
 
-/* ================= CUSTOM DOTS ================= */
-.research-dots {
-    @apply flex justify-center mt-6 space-x-2;
-}
-
-.research-dot {
-    @apply w-3 h-3 cursor-pointer;
-}
-
-.research-dot-inner {
-    @apply w-3 h-3 rounded-full bg-gray-300;
-}
-
-.research-dot-active {
-    @apply bg-[#bbbbbb];
-}
-
 /* ===================== RESEARCH ECHOSYSTEM ===================== */
 .reco-section {
     @apply bg-gray-100 py-10 mx-auto;
@@ -79,7 +62,6 @@
 .reco-content {
     @apply mt-6 order-1;
 }
-
 
 .reco-subheading {
     @apply text-xl font-semibold text-[#707070] mb-3;
@@ -102,7 +84,9 @@
     @apply bg-white py-10 text-[#707070] font-sans;
 }
 
-
+.edge-header {
+    @apply mb-2;
+}
 
 .edge-subtitle {
     @apply text-2xl font-[400] mt-2;
@@ -112,7 +96,6 @@
     @apply text-sm text-gray-600 mt-1;
 }
 
-/* ================= CARD ================= */
 .edge-card {
     @apply relative rounded-lg overflow-hidden shadow-md cursor-pointer h-full;
 }
@@ -164,23 +147,6 @@
 
 .edge-close-btn {
     @apply absolute top-5 right-5 z-20 text-white bg-black/50 hover:bg-black/70 rounded-full text-lg font-bold w-10 h-10 flex items-center justify-center;
-}
-
-/* ================= DOTS ================= */
-.edge-dots {
-    @apply mt-6 flex justify-center gap-2;
-}
-
-.edge-dot {
-    @apply w-4 h-4 rounded-full transition-all duration-300;
-}
-
-.edge-dot-active {
-    @apply bg-gray-500;
-}
-
-.edge-dot-inactive {
-    @apply bg-gray-200;
 }
 
 /* ================= SWIPER NAV ================= */
@@ -256,12 +222,10 @@
     @apply bg-[#e9f4fc] py-6;
 }
 
-/* ================= LAYOUT ================= */
 .sdg-layout {
     @apply max-w-7xl mx-auto px-5 flex flex-col md:flex-row gap-10;
 }
 
-/* ================= LEFT ================= */
 .sdg-left {
     @apply w-full md:w-1/5 py-6;
 }
@@ -270,7 +234,6 @@
     @apply text-xl text-[#707070] leading-snug mt-4;
 }
 
-/* ================= RIGHT ================= */
 .sdg-right {
     @apply w-full md:w-4/5 flex justify-center;
 }
@@ -288,7 +251,6 @@
     @apply text-[#707070] max-w-3xl mb-4;
 }
 
-/* ================= GRID ================= */
 .funded-grid {
     @apply hidden md:grid md:grid-cols-8 border-2 border-gray-300;
 }
@@ -314,9 +276,12 @@
     @apply text-gray-400;
 }
 
-/* ================= INFO ================= */
 .funded-info {
     @apply flex flex-col items-center h-60;
+}
+
+.funded-theme {
+    @apply text-blue-900 font-semibold pb-1;
 }
 
 .funded-icon {
@@ -380,7 +345,7 @@
     @apply bg-[#f1f1f1] py-16;
 }
 
-/* ================= HEADING ================= */
+
 .enquiry-heading {
     @apply text-3xl font-[500] text-[#707070] mb-10;
 }
@@ -389,12 +354,11 @@
     @apply block border-t-4 border-[#F04E30] w-24 mb-2;
 }
 
-/* ================= CARD GRID ================= */
+
 .enquiry-grid {
     @apply flex flex-wrap justify-center gap-6;
 }
 
-/* ================= CARD ================= */
 .enquiry-card {
     @apply flex items-start gap-4 p-6 rounded-2xl bg-white shadow-md border border-gray-200 cursor-pointer transition-colors;
 }
@@ -403,7 +367,6 @@
     @apply bg-[#fef7f6];
 }
 
-/* ================= ICON ================= */
 .enquiry-icon-wrap {
     @apply bg-[#F04E30]/10 text-[#F04E30] rounded-full p-3;
 }
@@ -412,12 +375,10 @@
     @apply w-6 h-6;
 }
 
-/* ================= TEXT ================= */
 .enquiry-text {
     @apply text-gray-800 font-medium text-[18px] leading-snug;
 }
 
-/* ================= MODAL ================= */
 .enquiry-modal-overlay {
     @apply fixed inset-0 z-[9999] bg-black/50 flex items-center justify-center p-4;
 }
@@ -434,7 +395,338 @@
     @apply text-xl font-semibold mb-4 text-[#F04E30];
 }
 
-/* ================= FORM ================= */
 .npf-container {
     @apply w-full;
+}
+
+/* ================= IQAC Functional units ================= */
+.functional-section {
+    @apply bg-gray-100 py-16 font-[Arial] text-[#58595B];
+}
+
+
+
+.functional-heading span {
+    @apply block;
+}
+
+.functional-description {
+    @apply mt-4 max-w-3xl text-sm text-[#58595B];
+}
+
+.functional-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-sm;
+}
+
+.functional-card {
+    @apply pr-1;
+}
+
+.functional-card:not(:last-child) {
+    @apply md:border-r;
+}
+
+.functional-card-header {
+    @apply flex items-center mb-2;
+}
+
+.functional-number {
+    @apply h-12 w-12 rounded-full flex items-center justify-center text-3xl font-[500] text-white mr-2;
+}
+
+.functional-title {
+    @apply font-[500] text-xl pb-3;
+}
+
+.functional-number.blue {
+    @apply bg-blue-600 text-white;
+}
+
+.functional-number.orange {
+    @apply bg-orange-500 text-white;
+}
+
+.functional-number.blue-dark {
+    @apply bg-blue-800 text-white;
+}
+
+.functional-number.red {
+    @apply bg-red-600 text-white;
+}
+
+.functional-title.blue {
+    @apply text-blue-600;
+}
+
+.functional-title.orange {
+    @apply text-orange-500;
+}
+
+.functional-title.blue-dark {
+    @apply text-blue-800;
+}
+
+.functional-title.red {
+    @apply text-red-600;
+}
+
+.functional-list {
+    @apply list-disc pl-5 space-y-1 mb-2;
+}
+
+.functional-subtitle {
+    @apply font-semibold mt-3;
+}
+
+.functional-initiative-list {
+    @apply list-disc pl-5;
+}
+
+/* ================= IQAC Buttons ================= */
+.iqac-section {
+    @apply bg-[#eaf3fb] py-16 px-4 font-[Arial];
+}
+
+.iqac-buttons-wrapper {
+    @apply mx-auto text-center space-y-4;
+}
+
+.iqac-btn-row {
+    @apply flex flex-wrap justify-center gap-4;
+}
+
+.iqac-btn {
+    @apply py-3 w-[320px] text-white text-sm rounded shadow-md bg-[#0f2c5c] transition-all duration-200 transform;
+}
+
+.iqac-btn:hover {
+    @apply scale-105 bg-[#f04e30];
+}
+
+/* ================= REPORTS ================= */
+.iqac-reports {
+    @apply mt-16 text-left;
+}
+
+.iqac-reports-title {
+    @apply text-[#0f2c5c] text-xl font-bold mb-2 ml-10;
+}
+
+.iqac-report-list {
+    @apply mt-5 flex flex-col gap-4;
+}
+
+.iqac-report-item {
+    @apply flex items-center gap-2 bg-sky-200 text-[#F04E30] px-6 py-3 w-[150px] rounded-md shadow-md transition;
+}
+
+.iqac-report-item:hover {
+    @apply bg-[#F04E30] text-white scale-105;
+}
+
+/* ================= ABOUT  ================= */
+.about-grid-section {
+    @apply pt-10 px-4 mx-auto mt-10 mb-10 max-w-5xl;
+}
+
+.about-grid {
+    @apply grid grid-cols-2 gap-3;
+}
+
+.about-grid-card {
+    @apply relative h-28 w-full rounded-xl overflow-hidden shadow-md transition-transform hover:scale-105;
+}
+
+.about-grid-overlay {
+    @apply absolute inset-0 flex items-center justify-center bg-black/20 px-2 text-center;
+}
+
+.about-grid-title {
+    @apply text-white whitespace-pre-line text-sm font-medium leading-tight;
+}
+
+/* ================= BUTTONS ================= */
+.about-btn {
+    @apply px-6 py-2 rounded-full text-white bg-[#102B64] font-semibold transition-all hover:scale-105 hover:bg-[#F04E30] shadow-md text-center;
+}
+
+/* ================= COMMITTEES ================= */
+.committees-section {
+    @apply bg-[#FAFAF6] py-16 px-4;
+}
+
+.committees-title {
+    @apply text-3xl font-[500] text-[#707070] uppercase mb-5 tracking-wide;
+}
+
+.committees-underline {
+    @apply w-16 border-[#F04E30] mb-2 border-t-4;
+}
+
+.committees-grid {
+    @apply grid grid-cols-1 gap-6 mb-8;
+}
+
+.committee-card {
+    @apply flex items-start gap-4 p-6 rounded-2xl bg-white shadow-md border border-gray-200 transition-all duration-300 hover:shadow-xl hover:bg-[#fef7f6];
+}
+
+.committee-icon {
+    @apply bg-[#F04E30]/10 text-[#F04E30] rounded-full p-3;
+}
+
+.committee-name {
+    @apply text-gray-800 font-medium text-[20px] mt-2 leading-snug;
+}
+
+/* ================= CORE VALUES ================= */
+.core-values-section {
+    @apply bg-gray-100 py-12;
+}
+
+.core-values-header {
+    @apply flex justify-between mb-8;
+}
+
+.core-values-title {
+    @apply text-3xl font-[500] text-[#707070];
+}
+
+.core-values-slide {
+    @apply flex items-start w-full p-4 h-full;
+}
+
+.core-values-number {
+    @apply flex-shrink-0 w-10 h-10 rounded-full bg-[#58595B] opacity-40 text-white flex items-center justify-center text-xl mr-4;
+}
+
+.core-values-desc {
+    @apply text-xs leading-relaxed;
+}
+
+/* ================= EXCELLENCE ================= */
+.excellence-wrapper {
+    @apply max-w-6xl mx-auto px-4 pt-12 text-center bg-white text-[#707070];
+}
+
+.excellence-title {
+    @apply text-3xl font-[600] uppercase leading-tight p-2;
+}
+
+.excellence-intro {
+    @apply mt-4 font-[500] max-w-2xl mx-auto text-gray-600;
+}
+
+.excellence-highlight {
+    @apply mt-4 pt-5 pb-5;
+}
+
+.excellence-highlight-title {
+    @apply text-2xl font-bold text-[#122E5E];
+}
+
+.excellence-highlight-sub {
+    @apply text-[15px] text-[#122E5E] mt-1 font-[500];
+}
+
+.excellence-grid {
+    @apply grid grid-cols-1 w-4/5 mx-auto;
+}
+
+.excellence-card {
+    @apply p-4 h-full flex flex-col items-center border-t border-[#58595B];
+}
+
+.excellence-card-title {
+    @apply font-bold mb-2 text-xl;
+}
+
+.excellence-card-desc {
+    @apply text-xs text-[#58595B] text-center;
+}
+
+/* ================= PROGRAMS ================= */
+.programs-section {
+    @apply py-10;
+}
+
+.programs-grid {
+    @apply grid grid-cols-2 gap-x-[15px] gap-y-4;
+}
+
+.program-card {
+    @apply bg-[#F4F4F4] rounded-b-xl overflow-hidden flex flex-col transition-shadow duration-300;
+}
+
+.program-card:hover {
+    @apply shadow-lg;
+}
+
+.program-image {
+    @apply w-full h-36 object-cover;
+}
+
+.program-content {
+    @apply flex-grow flex flex-col justify-between;
+}
+
+.program-title {
+    @apply text-xl px-3 py-3 text-[#0a2b5a];
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.program-icon-wrapper {
+    @apply flex justify-start px-3 pb-3;
+}
+
+.program-icon {
+    @apply w-10 h-10 object-contain;
+}
+
+/* ================= IMPORTANT CONTACTS ================= */
+
+.important-contacts-section {
+    @apply w-full py-14 bg-gray-100;
+}
+
+
+.important-contacts-heading {
+    @apply text-3xl font-[500] text-[#707070] mb-4 uppercase;
+}
+
+.important-contacts-heading-line {
+    @apply w-16 h-2 border-[#F04E30] mb-2 border-t-4;
+}
+
+
+.important-contacts-phone {
+    @apply bg-[#F04E30] text-white py-2 px-5 mb-8 flex items-center justify-center font-semibold text-base cursor-pointer;
+}
+
+.important-contacts-grid {
+    @apply flex flex-wrap justify-center gap-6;
+}
+
+.important-contact-card {
+    @apply border border-gray-300 bg-gray-100;
+}
+
+.important-contact-title {
+    @apply px-5 py-3 border-b border-gray-300;
+}
+
+.important-contact-title-text {
+    @apply text-[#F04E30] font-semibold text-sm leading-snug;
+}
+
+.important-contact-body {
+    @apply px-4 py-3;
+}
+
+.important-contact-text {
+    @apply text-sm text-[#707070];
+}
+
+.important-contact-label {
+    @apply font-bold text-[#707070];
 }

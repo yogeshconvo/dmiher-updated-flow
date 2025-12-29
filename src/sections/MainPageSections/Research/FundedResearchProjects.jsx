@@ -11,7 +11,7 @@ const colorMap = {
 const FundedResearchProjects = ({ data }) => {
   if (!data) return null;
 
-  const { heading, description, projects } = data;
+  const { heading, description, projects, thematic } = data;
 
   return (
     <section className="funded-section">
@@ -22,11 +22,10 @@ const FundedResearchProjects = ({ data }) => {
         </h2>
 
         <p className="funded-desc">{description}</p>
+        <p className="funded-theme">{thematic}</p>
 
         {/* DESKTOP GRID */}
         <div className="funded-grid">
-    
-
           {projects.map((p, idx) => (
             <div key={idx} className="funded-cell funded-info">
               <div className="funded-title">
@@ -36,10 +35,12 @@ const FundedResearchProjects = ({ data }) => {
               </p>
                 <p className="funded-label ">{p.label}</p></div>
               </div>
-              <p className="font-semibold text-sm">{p.title}</p>
+              <div className="funded-padding">
+              <p className="font-semibold">{p.title}</p>
               {p.subtitle && (
                 <p className="text-xs text-gray-500">{p.subtitle}</p>
               )}
+              </div>
               <img
                 src={p.icon}
                 alt={p.title}

@@ -16,7 +16,7 @@ function AlliancesGlobal({ data }) {
   return (
     <section
       className="alliances-section"
-      style={{ backgroundImage: `url(${background_image})` }}
+      style={{ backgroundImage: `url(${background_image})` ,backgroundSize: "cover", backgroundPosition: "center" }}
     >
       <div className="container">
         <h2 className="alliances-heading">

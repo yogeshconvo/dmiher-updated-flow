@@ -3,13 +3,13 @@ import { Routes, Route, useParams } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
-import { SECTION_COMPONENTS as InstituteSections } from "./sections/Institute";
+// import { SECTION_COMPONENTS as InstituteSections } from "./sections/Institute";
 import { SECTION_COMPONENTS as MainPageSections } from "./sections/MainPageSections";
 import { usePages } from "./hooks/usePages";
 
 // 🔥 merge all section components
 const SECTION_COMPONENTS = {
-  ...InstituteSections,
+  // ...InstituteSections,
   ...MainPageSections,
 };
 

@@ -5,7 +5,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Your custom styles */
+/* Custom styles */
 @import "./subpages/programs.css";
 @import "./mainpagesections.css";
 @import "./InstitutesSections.css";

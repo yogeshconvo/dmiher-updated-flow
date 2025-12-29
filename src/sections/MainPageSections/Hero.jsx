@@ -5,8 +5,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Link } from "react-router";
 
-// if you already have parseTitle imported somewhere, keep that.
-// const parseTitle = (title = "") => title;
 
 function Hero({ data, slug = "Home" }) {
   if (!data) return null;
