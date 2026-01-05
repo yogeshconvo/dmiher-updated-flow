@@ -20,7 +20,8 @@ const Footer = () => {
   const [footer, setFooter] = useState(null);
 
   useEffect(() => {
-    fetch("https://json-new-sever.onrender.com/footer")
+    fetch("http://localhost:3000/footer")
+      // fetch("https://json-new-sever.onrender.com/footer")
       .then((res) => res.json())
       .then((data) => {
         console.log("FOOTER API =>", data);
@@ -28,7 +29,6 @@ const Footer = () => {
       })
       .catch((err) => console.error("Footer API Error:", err));
   }, []);
-
 
   if (!footer) {
     return (
@@ -43,15 +43,16 @@ const Footer = () => {
   }
 
   const mobileOrder = [
-   "quick-links",
-  "programs",
-  "colleges",
-  "important-links",
-  "terms",
-  ]
-  const mobileSections = mobileOrder.map((id) => footer.sections.find((s) => s.id === id)).filter(Boolean);
-  
-  
+    "quick-links",
+    "programs",
+    "colleges",
+    "important-links",
+    "terms",
+  ];
+  const mobileSections = mobileOrder
+    .map((id) => footer.sections.find((s) => s.id === id))
+    .filter(Boolean);
+
   return (
     <>
       {/* ================= DESKTOP FOOTER ================= */}
@@ -83,7 +84,6 @@ const Footer = () => {
             <p className="footer-address-title font-oswald-medium">E MAIL</p>
             <p>{footer.address?.email}</p>
 
-
             <div className="footer-socials">
               {footer.socials?.map((s) => {
                 const Icon = iconMap[s.icon];
@@ -94,76 +94,81 @@ const Footer = () => {
                 );
               })}
             </div>
-      
           </div>
 
           {/* COLUMNS 2+ (same sections as mobile) */}
-{sectionPairs.map((pair, colIndex) => (
-  <div key={colIndex} className="space-y-6">
-    {pair.map((section) => (
-      <div key={section.id}>
-        <h3 className="footer-title font-oswald-medium">
-          {section.title}
-        </h3>
+          {sectionPairs.map((pair, colIndex) => (
+            <div key={colIndex} className="space-y-6">
+              {pair.map((section) => (
+                <div key={section.id}>
+                  <h3 className="footer-title font-oswald-medium">
+                    {section.title}
+                  </h3>
 
-        {/* GROUPS */}
-        {section.groups?.length ? (
-          section.groups.map((g) => (
-            <div key={g.groupTitle} className="footer-group">
-              <p className="footer-group-title">{g.groupTitle}</p>
-              
-              <ul className="footer-list-group">
-                {g.links.map((link) => (
-                  <li key={link.text} className="links">
-                    
-                    {link.url.startsWith("/") ? (
-                      <Link to={link.url}>{link.text}</Link>
-                    ) : (
-                      <a href={link.url} target="_blank" rel="noreferrer">
-                        {link.text}
-                      </a>
-                    )}
-                  </li>
-                ))}
-              </ul>
+                  {/* GROUPS */}
+                  {section.groups?.length ? (
+                    section.groups.map((g) => (
+                      <div key={g.groupTitle} className="footer-group">
+                        <p className="footer-group-title">{g.groupTitle}</p>
+
+                        <ul className="footer-list-group">
+                          {g.links.map((link) => (
+                            <li key={link.text} className="links">
+                              {link.url.startsWith("/") ? (
+                                <Link to={link.url}>{link.text}</Link>
+                              ) : (
+                                <a
+                                  href={link.url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  {link.text}
+                                </a>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))
+                  ) : (
+                    <>
+                      {/* NORMAL LINKS */}
+                      {section.type !== "quickLinks" && (
+                        <ul className="footer-list">
+                          {section.links?.map((link) => (
+                            <li key={link.text} className="links">
+                              {link.url.startsWith("/") ? (
+                                <Link to={link.url}>{link.text}</Link>
+                              ) : (
+                                <a
+                                  href={link.url}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  {link.text}
+                                </a>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+
+                      {/* QUICK LINKS */}
+                      {section.type === "quickLinks" && (
+                        <div className="footer-quick-links font-oswald-medium">
+                          {section.links?.map((link) => (
+                            <Link key={link.text} to={link.url}>
+                              {link.text}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              ))}
             </div>
-          ))
-        ) : (
-          <>
-            {/* NORMAL LINKS */}
-            {section.type !== "quickLinks" && (
-              <ul className="footer-list">
-                {section.links?.map((link) => (
-                  <li key={link.text} className="links">
-                    {link.url.startsWith("/") ? (
-                      <Link to={link.url}>{link.text}</Link>
-                    ) : (
-                      <a href={link.url} target="_blank" rel="noreferrer">
-                        {link.text}
-                      </a>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            )}
-
-            {/* QUICK LINKS */}
-            {section.type === "quickLinks" && (
-              <div className="footer-quick-links font-oswald-medium">
-                {section.links?.map((link) => (
-                  <Link key={link.text} to={link.url}>
-                    {link.text}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </>
-        )}
-      </div>
-    ))}
-  </div>
-))}
-
+          ))}
         </div>
 
         <p className="footer-bottom">{footer.copyright}</p>
@@ -174,123 +179,123 @@ const Footer = () => {
       </footer>
 
       {/* ================= MOBILE FOOTER ================= */}
-   <footer className="footer footer-mobile">
-  <img
-    src={footer.logo}
-    alt="Logo"
-    className="footer-logo-mobile"
-    onError={(e) => (e.target.style.display = "none")}
-  />
+      <footer className="footer footer-mobile">
+        <img
+          src={footer.logo}
+          alt="Logo"
+          className="footer-logo-mobile"
+          onError={(e) => (e.target.style.display = "none")}
+        />
 
+        {/* ================= MOBILE FOOTER SECTIONS ================= */}
+        <div className="mt-6">
+          {/* FIRST 2 SECTIONS SIDE BY SIDE */}
+          <div className="flex gap-4">
+            {mobileSections.slice(0, 2).map((section, idx) => (
+              <div key={section.id} className="w-1/2">
+                {idx === 1 && (
+                  <h3 className="footer-title-mobile font-oswald-medium">
+                    {section.title}
+                  </h3>
+                )}
 
-    {/* ================= MOBILE FOOTER SECTIONS ================= */}
-<div className="mt-6">
-  {/* FIRST 2 SECTIONS SIDE BY SIDE */}
-  <div className="flex gap-4">
-    {mobileSections.slice(0, 2).map((section,idx) => (
-      <div key={section.id} className="w-1/2">
-        {
-          idx=== 1 && (  <h3 className="footer-title-mobile font-oswald-medium">{section.title}</h3>)
-
-        }
-     
-        {section.type === "quickLinks" ? (
-          <div className="footer-quick-links font-oswald-medium">
-            {section.links?.map((link) => (
-              <Link key={link.text} to={link.url}>
-                {link.text}
-              </Link>
+                {section.type === "quickLinks" ? (
+                  <div className="footer-quick-links font-oswald-medium">
+                    {section.links?.map((link) => (
+                      <Link key={link.text} to={link.url}>
+                        {link.text}
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  section.links?.map((link) =>
+                    link.url.startsWith("/") ? (
+                      <p key={link.text}>
+                        <Link to={link.url}>{link.text}</Link>
+                      </p>
+                    ) : (
+                      <p key={link.text}>
+                        <a href={link.url} target="_blank" rel="noreferrer">
+                          {link.text}
+                        </a>
+                      </p>
+                    )
+                  )
+                )}
+              </div>
             ))}
           </div>
-        ) : (
-          section.links?.map((link) =>
-            link.url.startsWith("/") ? (
-              <p key={link.text}>
-                <Link to={link.url}>{link.text}</Link>
-              </p>
-            ) : (
-              <p key={link.text}>
-                <a href={link.url} target="_blank" rel="noreferrer">
-                  {link.text}
-                </a>
-              </p>
-            )
-          )
-        )}
-      </div>
-    ))}
-  </div>
 
-  {/* REMAINING SECTIONS NORMAL STACK */}
- {mobileSections.slice(2).map((section) => (
-  <div key={section.id} className="mt-6">
-    <h3 className="footer-title-mobile font-oswald-medium">{section.title}</h3>
+          {/* REMAINING SECTIONS NORMAL STACK */}
+          {mobileSections.slice(2).map((section) => (
+            <div key={section.id} className="mt-6">
+              <h3 className="footer-title-mobile font-oswald-medium">
+                {section.title}
+              </h3>
 
-    {/* GROUPS */}
-    {section.groups?.length ? (
-      section.groups.map((g) => (
-        <div key={g.groupTitle} className="footer-group">
-          <p className="footer-group-title">{g.groupTitle}</p>
+              {/* GROUPS */}
+              {section.groups?.length
+                ? section.groups.map((g) => (
+                    <div key={g.groupTitle} className="footer-group">
+                      <p className="footer-group-title">{g.groupTitle}</p>
 
-          <ul className="footer-list-group">
-            {g.links.map((link) => (
-              <li key={link.text} className="links">
-                {link.url.startsWith("/") ? (
-                  <Link to={link.url}>{link.text}</Link>
-                ) : (
-                  <a href={link.url} target="_blank" rel="noreferrer">
-                    {link.text}
-                  </a>
-                )}
-              </li>
-            ))}
-          </ul>
+                      <ul className="footer-list-group">
+                        {g.links.map((link) => (
+                          <li key={link.text} className="links">
+                            {link.url.startsWith("/") ? (
+                              <Link to={link.url}>{link.text}</Link>
+                            ) : (
+                              <a
+                                href={link.url}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
+                                {link.text}
+                              </a>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))
+                : /* NORMAL LINKS */
+                  section.links?.map((link) =>
+                    link.url.startsWith("/") ? (
+                      <p key={link.text}>
+                        <Link to={link.url}>{link.text}</Link>
+                      </p>
+                    ) : (
+                      <p key={link.text}>
+                        <a href={link.url} target="_blank" rel="noreferrer">
+                          {link.text}
+                        </a>
+                      </p>
+                    )
+                  )}
+            </div>
+          ))}
         </div>
-      ))
-    ) : (
-      /* NORMAL LINKS */
-      section.links?.map((link) =>
-        link.url.startsWith("/") ? (
-          <p key={link.text}>
-            <Link to={link.url}>{link.text}</Link>
-          </p>
-        ) : (
-          <p key={link.text}>
-            <a href={link.url} target="_blank" rel="noreferrer">
-              {link.text}
-            </a>
-          </p>
-        )
-      )
-    )}
-  </div>
-))}
 
-</div>
+        <div className="footer-socials-mobile">
+          {footer.socials?.map((s) => {
+            const Icon = iconMap[s.icon];
+            return (
+              <a key={s.icon} href={s.url} target="_blank" rel="noreferrer">
+                <Icon />
+              </a>
+            );
+          })}
+        </div>
 
+        <div className="footer-address-mobile">
+          <p className="text-yellow-400">ADDRESS</p>
+          {footer.address?.lines?.map((line, i) => (
+            <p key={i}>{line}</p>
+          ))}
+        </div>
 
-
-  <div className="footer-socials-mobile">
-    {footer.socials?.map((s) => {
-      const Icon = iconMap[s.icon];
-      return (
-        <a key={s.icon} href={s.url} target="_blank" rel="noreferrer">
-          <Icon />
-        </a>
-      );
-    })}
-  </div>
-
-  <div className="footer-address-mobile">
-    <p className="text-yellow-400">ADDRESS</p>
-    {footer.address?.lines?.map((line, i) => (
-      <p key={i}>{line}</p>
-    ))}
-  </div>
-
-  <p className="footer-bottom mt-8">{footer.copyright}</p>
-</footer>
-
+        <p className="footer-bottom mt-8">{footer.copyright}</p>
+      </footer>
     </>
   );
 };

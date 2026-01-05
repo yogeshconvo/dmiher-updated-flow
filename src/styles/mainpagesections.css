@@ -1,5 +1,101 @@
 @reference "tailwindcss";
 
+/* ================= Home Page Sections ================= */
+.arrow-controls {
+    @apply flex justify-end gap-3 mt-6;
+}
+
+/* ===== ANNOUNCEMENTS ===== */
+.announcements-section {
+    @apply py-10 bg-white;
+}
+
+.announcement-categories {
+    @apply flex justify-center gap-3 mt-6;
+}
+
+.announcement-grid {
+    @apply grid grid-cols-4 gap-4 mt-8;
+}
+
+.announcement-item {
+    @apply border-r pr-3 last:border-0;
+}
+
+.announcement-item a,
+.announcement-item h3 {
+    @apply text-xl text-[#707070];
+}
+
+.date {
+    @apply text-sm text-[#269BFF] mt-1;
+}
+
+/* ===== BULLETIN ===== */
+.bulletin-section {
+    @apply py-10 bg-gray-200;
+}
+
+.bulletin-tabs {
+    @apply flex justify-center gap-3 mt-6;
+}
+
+.tab-btn {
+    @apply text-xl text-gray-500 border-r-2 pr-3 last:border-0;
+}
+
+.tab-btn.active {
+    @apply underline;
+}
+
+.bulletin-grid {
+    @apply grid grid-cols-4 gap-4 mt-8;
+}
+
+.bulletin-item {
+    @apply border-r pr-3 last:border-0 text-[#707070];
+}
+
+.college {
+    @apply text-sm italic text-gray-600;
+}
+
+/* ===== TESTIMONIAL ===== */
+.testimonial-section {
+    @apply py-12 bg-[#f4f4f4];
+}
+
+.testimonial-tabs {
+    @apply flex justify-center gap-4 mb-8 flex-wrap;
+}
+
+.testimonial-content {
+    @apply flex flex-col items-center;
+}
+
+.video-box {
+    @apply relative w-[470px] h-[280px] rounded-xl overflow-hidden shadow-lg cursor-pointer;
+}
+
+.video-box img {
+    @apply w-full h-full object-cover;
+}
+
+.video-box svg {
+    @apply absolute inset-0 m-auto text-white;
+}
+
+.testimonial-text {
+    @apply w-[460px] mt-4;
+}
+
+.name {
+    @apply text-lg font-semibold text-gray-800;
+}
+
+.extra {
+    @apply font-medium;
+}
 
 .research-section {
     @apply bg-[#fbf7e6] text-gray-800 py-16;

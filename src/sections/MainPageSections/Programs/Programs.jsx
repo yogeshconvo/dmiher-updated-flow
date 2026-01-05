@@ -5,9 +5,7 @@ import { Link } from "react-router";
 // import "../../styles/programs-responsive.css";
 
 const ProgramsComponent = ({data}) => {
-  const [programs, setPrograms] = useState([]);
-  const [heading, setHeading] = useState("PROGRAMS");
-  const [loading, setLoading] = useState(true);
+
 
 //   useEffect(() => {
 //     fetch("/api/programs") // 🔁 your real API
@@ -35,8 +33,8 @@ const ProgramsComponent = ({data}) => {
       <div className="container">
         {/* Heading */}
         <div className="programs-heading-wrapper">
-          <div className="programs-heading-line" />
-          <h2 className="programs-heading">{data.heading}</h2>
+          <div className="heading-line" />
+          <h2 className="heading">{heading}</h2>
         </div>
 
         {/* Grid */}

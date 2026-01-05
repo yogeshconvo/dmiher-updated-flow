@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function HomeInfo({ data }) {
+function HomeSteps({ data }) {
   const {
     backgroundImg,
     title,
@@ -51,4 +51,4 @@ function HomeInfo({ data }) {
   );
 }
 
-export default HomeInfo;
+export default HomeSteps;

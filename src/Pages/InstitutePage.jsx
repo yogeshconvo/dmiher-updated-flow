@@ -1,32 +1,77 @@
-// src/pages/InstitutePage.jsx
 import { useParams } from "react-router-dom";
-import { SECTION_COMPONENTS } from "../sections/Institute";
-// import { SECTION_COMPONENTS } from "../sections/MainPageSections";
+import { Helmet } from "react-helmet-async";
+
+import { SECTION_COMPONENTS as INSTITUTE_SECTIONS } from "../sections/Institute";
+import { SECTION_COMPONENTS as MAIN_SECTIONS } from "../sections/MainPageSections";
+
+const SECTION_COMPONENTS = {
+  ...INSTITUTE_SECTIONS,
+  ...MAIN_SECTIONS,
+};
 
 function InstitutePage({ institutes }) {
   const { slug } = useParams();
 
   const institute = institutes.find((inst) => inst.slug === slug);
 
-  if (!institute) return <div>Institute not found</div>;
+  if (!institute) {
+    return (
+      <>
+        <Helmet>
+          <title>Institute Not Found</title>
+          <meta name="robots" content="noindex" />
+        </Helmet>
+        <div>Institute not found</div>
+      </>
+    );
+  }
+
+  const {
+    meta = {},
+  } = institute;
+
+  const {
+    title = institute.name || "Institute Page",
+    keywords = "",
+    description = "",
+  } = meta;
 
   return (
-    <div>
-      {institute.sections.map((sec, idx) => {
-        const Comp = SECTION_COMPONENTS[sec.section_id];
-        if (!Comp) return null;
+    <>
+      {/* ================= SEO META TAGS ================= */}
+      <Helmet>
+        <title>{title}</title>
 
-        return (
-          <Comp
-            key={sec.section_id + "-" + idx}
-            data={sec.data}
-            institute={institute}
-            // classname="px-5"
-            instituteSlug={institute.slug}
-          />
-        );
-      })}
-    </div>
+        {description && (
+          <meta name="description" content={description} />
+        )}
+
+        {keywords && (
+          <meta name="keywords" content={keywords} />
+        )}
+
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+      </Helmet>
+
+      {/* ================= PAGE CONTENT ================= */}
+      <div>
+        {institute.sections.map((sec, idx) => {
+          const Comp = SECTION_COMPONENTS[sec.section_id];
+          if (!Comp) return null;
+
+          return (
+            <Comp
+              key={sec.section_id + "-" + idx}
+              data={sec.data}
+              institute={institute}
+              instituteSlug={institute.slug}
+            />
+          );
+        })}
+      </div>
+    </>
   );
 }
 

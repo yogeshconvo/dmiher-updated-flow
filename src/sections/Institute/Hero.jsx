@@ -31,84 +31,88 @@ function Hero({ data, slug }) {
 
   return (
     <>
-      {/* TOP BAR */}
-      {topbar && (
-      <div className="hero-topbar">
-        <span className="hero-admission-text">
-          {topbar.admissions_text}
-        </span>
 
-        {/* Desktop */}
-        <div className="hero-desktop-actions">
-          {topbar.primary_cta_text && (
-            <button
-              onClick={handleScrollToSection}
-              className="hero-primary-btn btn-primary"
-            >
-              {topbar.primary_cta_text}
-            </button>
-          )}
+      {topbar?.enabled &&
+        <div className={`hero-topbar`}>
+          <span className="hero-admission-text">
+            {topbar.admissions_text}
+          </span>
 
-          {topbar.apply_now_url && (
-            <a
-              href={topbar.apply_now_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero-apply-btn"
-            >
-              APPLY NOW
-            </a>
-          )}
-
-          {topbar.phone_number && (
-            <a href={`tel:${topbar.phone_number}`}>
-              <button className="hero-phone-btn">
-                <span className="hero-phone-text">
-                  {topbar.phone_label || topbar.phone_number}
-                </span>
+          {/* Desktop */}
+          <div className="hero-desktop-actions">
+            {topbar.primary_cta_text && (
+              <button
+                onClick={handleScrollToSection}
+                className="hero-primary-btn btn-primary"
+              >
+                {topbar.primary_cta_text}
               </button>
-            </a>
-          )}
-          </div>
-     
+            )}
 
-        {/* Mobile */}
-        <div className="hero-mobile">
-          {topbar.primary_cta_text && (
-            <Link
-              to={`/${slug}#${primarySectionId}`}
-              className="hero-mobile-primary btn-primary"
-            >
-              {topbar.primary_cta_text}
-            </Link>
-          )}
-
-          <div className="hero-mobile-actions">
             {topbar.apply_now_url && (
               <a
                 href={topbar.apply_now_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hero-mobile-apply"
+                className="hero-apply-btn"
               >
                 APPLY NOW
               </a>
             )}
 
             {topbar.phone_number && (
-              <a href={`tel:${topbar.phone_number}`} className="w-full">
-                <button className="hero-mobile-phone">
-                  {topbar.phone_label || topbar.phone_number}
+              <a href={`tel:${topbar.phone_number}`}>
+                <button className="hero-phone-btn">
+                  <span className="hero-phone-text">
+                    {topbar.phone_label || topbar.phone_number}
+                  </span>
                 </button>
               </a>
             )}
           </div>
+     
+
+          {/* Mobile */}
+          <div className="hero-mobile">
+            {topbar.primary_cta_text && (
+              <Link
+                to={`/${slug}#${primarySectionId}`}
+                className="hero-mobile-primary btn-primary"
+              >
+                {topbar.primary_cta_text}
+              </Link>
+            )}
+
+            <div className="hero-mobile-actions">
+              {topbar.apply_now_url && (
+                <a
+                  href={topbar.apply_now_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hero-mobile-apply"
+                >
+                  APPLY NOW
+                </a>
+              )}
+
+              {topbar.phone_number && (
+                <a href={`tel:${topbar.phone_number}`} className="w-full">
+                  <button className="hero-mobile-phone">
+                    {topbar.phone_label || topbar.phone_number}
+                  </button>
+                </a>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
- )}
+      }
     
    {/* SLIDER (ONE DIRECTION) */}
-<div className="hero-swiper-wrapper relative overflow-hidden">
+<div className={`hero-swiper-wrapper    ${
+  topbar?.enabled
+    ? "h-[80dvh] md:h-[calc(86dvh-10px)]"
+    : "h-[90dvh] md:h-[calc(96dvh-10px)]"
+} overflow-hidden`}>
   {slides.map((slide, idx) => (
     <div
       key={idx}

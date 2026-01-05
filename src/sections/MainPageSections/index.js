@@ -32,6 +32,7 @@ import ImportantContacts from "./Programs/ImportantContacts"
 import EnquiryGlobal from "./Global/EnquiryGlobal"
 import StudentLife from "../Institute/StudentLife"
 import WhyChoose from "../Institute/WhyChoseSlider"
+import HomeSteps from "./HomeSteps"
 export const SECTION_COMPONENTS = {
 
     // Common Sections
@@ -88,11 +89,12 @@ export const SECTION_COMPONENTS = {
     ResearchOpportunities: ResearchOpportunities,
 
     // Extra hai abhi
-    home_programs_section: HomePrograms,
+    programs_section: HomePrograms,
+    home_steps_section: HomeSteps,
     home_BULLETIN_section: HomeBulletin,
     home_ANNOUNCEMENTS_section: HomeANNOUNCEMENTS,
     home_testimonial_section: HomeTestimonial,
 
-
+    // home_research_section: HomeResearch,
 
 };

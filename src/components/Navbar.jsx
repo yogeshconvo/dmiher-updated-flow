@@ -14,7 +14,8 @@ const Navbar = () => {
 
   // Fetch Menu
   useEffect(() => {
-    fetch("https://json-new-sever.onrender.com/menu")
+    fetch("http://localhost:3000/menu")
+    // fetch("https://json-new-sever.onrender.com/menu")
       .then((res) => res.json())
       .then((data) => setMenuData(data))
       .catch(console.error);
@@ -23,12 +24,15 @@ const Navbar = () => {
   const topLinks = menuData.filter((item) => item.type === "topLinks");
 
   return (
-
     <div className="navbar">
       <div className="navbar-inner">
         {/* LOGO */}
         <Link to="/">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuXZdE9ghv5B13jBGysqw_Lfw6x2YquReHJA&s" alt="logo" className="navbar-logo" />
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuXZdE9ghv5B13jBGysqw_Lfw6x2YquReHJA&s"
+            alt="logo"
+            className="navbar-logo"
+          />
         </Link>
 
         {/* DESKTOP */}

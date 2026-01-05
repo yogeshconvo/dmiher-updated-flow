@@ -1,4 +1,301 @@
 @reference "tailwindcss";
+
+/* =================Common Components Responsive Styles ================= */
+@media (max-width: 640px) {
+    .heading {
+        @apply text-2xl;
+    }
+
+}
+
+/* ================= Main Page Sections Responsive ================= */
+
+
+/* ===========Home Page Sections ============ */
+@media (max-width: 1024px) {
+
+    .announcement-grid,
+    .bulletin-grid {
+        @apply grid-cols-2;
+    }
+}
+
+@media (max-width: 640px) {
+
+    .announcement-grid,
+    .bulletin-grid {
+        @apply grid-cols-1;
+    }
+
+    .bulletin-item {
+        @apply border-b border-r-0;
+    }
+
+    .video-box {
+        @apply w-[320px] h-[220px];
+    }
+
+    .testimonial-text {
+        @apply w-[320px];
+    }
+
+    .section-title {
+        @apply text-2xl;
+    }
+
+    .tab-btn {
+        @apply text-sm;
+    }
+
+    .announcement-item {
+        @apply h-[100px] border-0;
+    }
+}
+
+/* ================= RESEARCH GRID ================= */
+@media (min-width: 768px) {
+    .research-grid {
+        @apply grid grid-cols-3;
+    }
+
+    .research-mobile {
+        @apply hidden;
+    }
+
+    .research-icon {
+        @apply mx-0;
+    }
+}
+
+/* ================= RESEARCH ECHOSYSTEM ================= */
+@media (min-width: 768px) {
+    .reco-layout {
+        @apply grid-cols-10;
+    }
+
+    .reco-image-wrapper {
+        @apply col-span-7 justify-start order-1;
+    }
+
+    .reco-content {
+        @apply col-span-3 mt-0 order-2;
+    }
+}
+
+/* ================= THE EDGE ================= */
+@media (min-width: 768px) {
+    .edge-title {
+        @apply text-4xl;
+    }
+
+    .edge-title-line {
+        @apply w-20;
+    }
+
+    .edge-card-title {
+        @apply text-base;
+    }
+
+    .edge-card-desc {
+        @apply text-sm;
+    }
+}
+
+/* ================= SDG RESEARCH ================= */
+@media (min-width: 768px) {
+    .sdg-title {
+        @apply text-2xl;
+    }
+}
+
+/* ================= FUNDED PROJECTS ================= */
+@media (min-width: 768px) {
+    .funded-line {
+        @apply w-20;
+    }
+}
+
+/* ================= ALLIANCES ================= */
+@media (min-width: 768px) {
+    .alliances-heading {
+        @apply text-4xl;
+    }
+
+    .alliances-list {
+        @apply grid-cols-3;
+    }
+}
+
+@media (min-width: 1280px) {
+    .alliances-list {
+        @apply grid-cols-4;
+    }
+}
+
+/* ================= ENQUIRY GLOBAL ================= */
+@media (min-width: 640px) {
+    .enquiry-card {
+        @apply w-[45%];
+    }
+}
+
+@media (min-width: 768px) {
+    .enquiry-card {
+        @apply w-[30%];
+    }
+}
+
+/* ================= IQAC Functional Units ================= */
+@media (min-width: 640px) {
+    .functional-heading {
+        @apply text-4xl;
+    }
+
+    .functional-description {
+        @apply text-base;
+    }
+}
+
+@media (max-width: 767px) {
+    .functional-card {
+        @apply border-none;
+    }
+
+    .functional-title {
+        @apply text-lg;
+    }
+
+    .functional-number {
+        @apply text-2xl h-10 w-10;
+    }
+}
+
+/* ================= IQAC Buttons ================= */
+@media (min-width: 768px) {
+    .iqac-heading {
+        @apply text-4xl;
+    }
+
+    .iqac-btn {
+        @apply text-base;
+    }
+}
+
+/* ================= ABOUT ================= */
+@media (min-width: 640px) {
+    .about-grid-section {
+        @apply px-6;
+    }
+
+    .about-grid {
+        @apply grid-cols-2;
+    }
+
+    .about-grid-title {
+        @apply text-base;
+    }
+}
+
+@media (min-width: 768px) {
+    .about-grid-section {
+        @apply px-20;
+    }
+
+    .about-grid {
+        @apply grid-cols-4;
+    }
+
+    .about-grid-card {
+        @apply h-36;
+    }
+
+    .about-grid-title {
+        @apply text-lg;
+    }
+}
+
+/* ================= COMMITTEES ================= */
+@media (min-width: 640px) {
+    .committees-grid {
+        @apply grid-cols-2;
+    }
+}
+
+/* ================= CORE VALUES ================= */
+@media (min-width: 768px) {
+    .core-values-title {
+        @apply text-4xl;
+    }
+
+    .core-values-number {
+        @apply w-14 h-14 text-4xl;
+    }
+
+}
+
+/* ================= EXCELLENCE ================= */
+@media (min-width: 640px) {
+    .excellence-grid {
+        @apply grid-cols-2;
+    }
+}
+
+@media (min-width: 768px) {
+    .excellence-wrapper {
+        @apply px-20;
+    }
+
+    .excellence-grid {
+        @apply grid-cols-3 w-full;
+    }
+}
+
+@media (min-width: 1024px) {
+    .excellence-grid {
+        @apply grid-cols-6;
+    }
+}
+
+/* ================= PROGRAMS ================= */
+@media (min-width: 640px) {
+    .program-image {
+        @apply h-50;
+    }
+
+    .program-title {
+        @apply p-5 pb-10;
+    }
+
+    .program-icon {
+        @apply w-12 h-12;
+    }
+}
+
+@media (min-width: 768px) {
+    .programs-grid {
+        @apply grid-cols-4 gap-y-6;
+    }
+
+}
+
+/* ================= IMPORTANT CONTACTS ================= */
+
+@media (min-width: 768px) {
+    .important-contacts-phone {
+        @apply text-xl;
+    }
+}
+
+@media (min-width: 768px) {
+    .important-contacts-grid {
+        @apply grid grid-cols-4 gap-6;
+    }
+}
+
+
+
+
+
 /* ===========Institutes Sections=========== */
 
 /* ================= INFO SECTION ================= */
@@ -89,9 +386,6 @@
         @apply flex-row gap-8;
     }
 
-    .holistic-heading {
-        @apply text-4xl;
-    }
 
     .holistic-image-box {
         @apply mt-10;
@@ -105,11 +399,7 @@
     }
 }
 
-@media (min-width: 768px) {
-    .collab-heading {
-        @apply text-4xl;
-    }
-}
+
 
 @media (min-width: 768px) {
     .collab-stats-grid {
@@ -119,9 +409,6 @@
 
 /* ================= GLOBAL ================= */
 @media (min-width: 640px) {
-    .global-heading {
-        @apply text-4xl;
-    }
 
     .global-desktop {
         @apply flex;
@@ -145,21 +432,6 @@
     }
 }
 
-/* ================= FEATURE ================= */
-@media (min-width: 768px) {
-    .feature-heading {
-        @apply text-4xl;
-    }
-}
-
-
-
-@media (min-width: 640px) {
-    .feature-heading-line {
-        @apply w-20;
-    }
-}
-
 /* ================= HOSPITAL ================= */
 
 @media (min-width: 1024px) {
@@ -171,18 +443,6 @@
 @media (min-width: 1024px) {
     .hospital-content {
         @apply basis-[40%];
-    }
-}
-
-@media (min-width: 768px) {
-    .hospital-heading {
-        @apply text-4xl;
-    }
-}
-
-@media (min-width: 640px) {
-    .hospital-heading-line {
-        @apply w-20;
     }
 }
 
@@ -279,302 +539,5 @@
 @media (min-width: 768px) {
     .announce-btn-text {
         @apply text-xl;
-    }
-}
-
-@media (min-width: 640px) {
-    .announce-heading-line {
-        @apply w-20;
-    }
-}
-
-@media (min-width: 768px) {
-    .announce-heading {
-        @apply text-4xl;
-    }
-}
-
-
-/* ================= Main Page Sections Responsive ================= */
-/* ================= RESEARCH GRID ================= */
-@media (min-width: 768px) {
-    .research-grid {
-        @apply grid grid-cols-3;
-    }
-
-    .research-mobile {
-        @apply hidden;
-    }
-
-    .research-icon {
-        @apply mx-0;
-    }
-}
-
-/* ================= RESEARCH ECHOSYSTEM ================= */
-@media (min-width: 768px) {
-    .reco-layout {
-        @apply grid-cols-10;
-    }
-
-    .reco-image-wrapper {
-        @apply col-span-7 justify-start order-1;
-    }
-
-    .reco-content {
-        @apply col-span-3 mt-0 order-2;
-    }
-
-    .reco-heading {
-        @apply text-4xl;
-    }
-
-    .reco-heading-line {
-        @apply w-20;
-    }
-}
-
-/* ================= THE EDGE ================= */
-@media (min-width: 768px) {
-    .edge-title {
-        @apply text-4xl;
-    }
-
-    .edge-title-line {
-        @apply w-20;
-    }
-
-    .edge-card-title {
-        @apply text-base;
-    }
-
-    .edge-card-desc {
-        @apply text-sm;
-    }
-}
-
-/* ================= RESEARCH OPPORTUNITIES ================= */
-@media (min-width: 768px) {
-    .research-op-heading {
-        @apply text-4xl;
-    }
-
-    .research-op-line {
-        @apply w-20;
-    }
-}
-
-/* ================= SDG RESEARCH ================= */
-@media (min-width: 768px) {
-    .sdg-heading {
-        @apply text-4xl;
-    }
-
-    .sdg-line {
-        @apply w-20;
-    }
-
-    .sdg-title {
-        @apply text-2xl;
-    }
-}
-
-/* ================= FUNDED PROJECTS ================= */
-@media (min-width: 768px) {
-    .funded-heading {
-        @apply text-4xl;
-    }
-
-    .funded-line {
-        @apply w-20;
-    }
-}
-
-/* ================= ALLIANCES ================= */
-@media (min-width: 768px) {
-    .alliances-heading {
-        @apply text-4xl;
-    }
-
-    .alliances-list {
-        @apply grid-cols-3;
-    }
-}
-
-@media (min-width: 1280px) {
-    .alliances-list {
-        @apply grid-cols-4;
-    }
-}
-
-/* ================= ENQUIRY GLOBAL ================= */
-@media (min-width: 640px) {
-    .enquiry-card {
-        @apply w-[45%];
-    }
-}
-
-@media (min-width: 768px) {
-    .enquiry-card {
-        @apply w-[30%];
-    }
-}
-
-/* ================= IQAC Functional Units ================= */
-@media (min-width: 640px) {
-    .functional-heading {
-        @apply text-4xl;
-    }
-
-    .functional-description {
-        @apply text-base;
-    }
-}
-
-@media (max-width: 767px) {
-    .functional-card {
-        @apply border-none;
-    }
-
-    .functional-title {
-        @apply text-lg;
-    }
-
-    .functional-number {
-        @apply text-2xl h-10 w-10;
-    }
-}
-
-/* ================= IQAC Buttons ================= */
-@media (min-width: 768px) {
-    .iqac-heading {
-        @apply text-4xl;
-    }
-
-    .iqac-btn {
-        @apply text-base;
-    }
-}
-
-/* ================= ABOUT ================= */
-/* ================= ABOUT GRID ================= */
-@media (min-width: 640px) {
-    .about-grid-section {
-        @apply px-6;
-    }
-
-    .about-grid {
-        @apply grid-cols-2;
-    }
-
-    .about-grid-title {
-        @apply text-base;
-    }
-}
-
-@media (min-width: 768px) {
-    .about-grid-section {
-        @apply px-20;
-    }
-
-    .about-grid {
-        @apply grid-cols-4;
-    }
-
-    .about-grid-card {
-        @apply h-36;
-    }
-
-    .about-grid-title {
-        @apply text-lg;
-    }
-}
-
-/* ================= COMMITTEES ================= */
-@media (min-width: 640px) {
-    .committees-grid {
-        @apply grid-cols-2;
-    }
-}
-
-/* ================= CORE VALUES ================= */
-@media (min-width: 768px) {
-    .core-values-title {
-        @apply text-4xl;
-    }
-
-    .core-values-number {
-        @apply w-14 h-14 text-4xl;
-    }
-
-    .core-values-heading {
-        @apply text-xl;
-    }
-}
-
-/* ================= EXCELLENCE ================= */
-@media (min-width: 640px) {
-    .excellence-grid {
-        @apply grid-cols-2;
-    }
-}
-
-@media (min-width: 768px) {
-    .excellence-wrapper {
-        @apply px-20;
-    }
-
-    .excellence-grid {
-        @apply grid-cols-3 w-full;
-    }
-}
-
-@media (min-width: 1024px) {
-    .excellence-grid {
-        @apply grid-cols-6;
-    }
-}
-
-/* ================= PROGRAMS ================= */
-@media (min-width: 640px) {
-    .program-image {
-        @apply h-50;
-    }
-
-    .program-title {
-        @apply p-5 pb-10;
-    }
-
-    .program-icon {
-        @apply w-12 h-12;
-    }
-}
-
-@media (min-width: 768px) {
-    .programs-grid {
-        @apply grid-cols-4 gap-y-6;
-    }
-
-    .programs-heading {
-        @apply text-4xl;
-    }
-}
-
-/* ================= IMPORTANT CONTACTS ================= */
-@media (min-width: 768px) {
-    .important-contacts-heading {
-        @apply text-4xl;
-    }
-}
-
-@media (min-width: 768px) {
-    .important-contacts-phone {
-        @apply text-xl;
-    }
-}
-
-@media (min-width: 768px) {
-    .important-contacts-grid {
-        @apply grid grid-cols-4 gap-6;
     }
 }

@@ -1,6 +1,408 @@
 {
     "page-data": [
         {
+            "slug": "/",
+            "title": "Home",
+            "sections": [
+                {
+                    "section_id": "hero_section",
+                    "data": {
+                        "topbar": {
+                            "enabled": true,
+                            "admissions_text": "Admissions open for 2025-26",
+                            "primary_cta_text": "MBBS NEET 2025 Admissions",
+                            "primary_cta_section_id": "jnmc-announcements",
+                            "apply_now_url": "https://dmiher-apply.mastersofterp.com/ApplicationLandingPage/Index/DMIHER",
+                            "phone_label": "+91 8888040999",
+                            "phone_number": "+918888040999"
+                        },
+                        "slides": [
+                            {
+                                "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRZ4ulijkewmN5-N_0FDqfd19dUvPCgOgR2w&s",
+                                "title": "FORGING LEADERS IN MEDICINE SINCE 1990",
+                                "highlight": "250 MBBS Seats | 205 PG Seats | 10 Super-Speciality Programs",
+                                "textPosition": "right"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "home_steps_section",
+                    "data": {
+                        "backgroundImg": "/assets/Group302.png",
+                        "title": "STEP INTO THE WORLD OF EVIDENCE-DRIVEN, COMPETENCY-BASED LEARNING.",
+                        "intro_paragraphs": [
+                            "Founded in 1990 and recognized as a Deemed-to-be-University in 2005, DMIHER is a dynamic hub of multidisciplinary learning. With exceptional faculty, state-of-the-art facilities, and an industry-aligned curriculum, it fuels innovation, research, and a vibrant campus life— shaping future leaders ready to make an impact."
+                        ],
+                        "stats": [
+                            {
+                                "number": "2",
+                                "label": "Campuses"
+                            },
+                            {
+                                "number": "270+",
+                                "label": "Acres"
+                            },
+                            {
+                                "number": "275+",
+                                "label": "Programs"
+                            },
+                            {
+                                "number": "1000+",
+                                "label": "Faculty members"
+                            },
+                            {
+                                "number": "3200+",
+                                "label": "Hospital Beds"
+                            },
+                            {
+                                "number": "75+",
+                                "label": "Research & Innovation Labs"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "programs_section",
+                    "data": {
+                        "title": "PROGRAMS",
+                        "background_color": "#0a2b5a",
+                        "program_icon": "/assets/Programs/programicon.png",
+                        "programs": [
+                            {
+                                "id": 1,
+                                "name": "Bachelor of Science in Computer Science",
+                                "slug": "/programs/computer-science",
+                                "image": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp",
+                                "icon": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp"
+                            },
+                            {
+                                "id": 2,
+                                "name": "Bachelor of Science in Computer Science",
+                                "slug": "/programs/computer-science",
+                                "image": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp",
+                                "icon": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp"
+                            },
+                            {
+                                "id": 3,
+                                "name": "Bachelor of Science in Computer Science",
+                                "slug": "/programs/computer-science",
+                                "image": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp",
+                                "icon": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp"
+                            },
+                            {
+                                "id": 4,
+                                "name": "Bachelor of Science in Computer Science",
+                                "slug": "/programs/computer-science",
+                                "image": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp",
+                                "icon": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp"
+                            },
+                            {
+                                "id": 5,
+                                "name": "Bachelor of Science in Computer Science",
+                                "slug": "/programs/computer-science",
+                                "image": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp",
+                                "icon": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp"
+                            },
+                            {
+                                "id": 6,
+                                "name": "Bachelor of Science in Computer Science",
+                                "slug": "/programs/computer-science",
+                                "image": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp",
+                                "icon": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp"
+                            },
+                            {
+                                "id": 7,
+                                "name": "Bachelor of Science in Computer Science",
+                                "slug": "/programs/computer-science",
+                                "image": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp",
+                                "icon": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp"
+                            },
+                            {
+                                "id": 8,
+                                "name": "Bachelor of Science in Computer Science",
+                                "slug": "/programs/computer-science",
+                                "image": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp",
+                                "icon": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp"
+                            },
+                            {
+                                "id": 9,
+                                "name": "Bachelor of Science in Computer Science",
+                                "slug": "/programs/computer-science",
+                                "image": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp",
+                                "icon": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp"
+                            },
+                            {
+                                "id": 10,
+                                "name": "Bachelor of Science in Computer Science",
+                                "slug": "/programs/computer-science",
+                                "image": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp",
+                                "icon": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp"
+                            },
+                            {
+                                "id": 11,
+                                "name": "Bachelor of Science in Computer Science",
+                                "slug": "/programs/computer-science",
+                                "image": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp",
+                                "icon": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp"
+                            },
+                            {
+                                "id": 12,
+                                "name": "Bachelor of Science in Computer Science",
+                                "slug": "/programs/computer-science",
+                                "image": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp",
+                                "icon": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp"
+                            },
+                            {
+                                "id": 13,
+                                "name": "Bachelor of Science in Computer Science",
+                                "slug": "/programs/computer-science",
+                                "image": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp",
+                                "icon": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp"
+                            },
+                            {
+                                "id": 14,
+                                "name": "Bachelor of Science in Computer Science",
+                                "slug": "/programs/computer-science",
+                                "image": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp",
+                                "icon": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp"
+                            },
+                            {
+                                "id": 15,
+                                "name": "Bachelor of Science in Computer Science",
+                                "slug": "/programs/computer-science",
+                                "image": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp",
+                                "icon": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp"
+                            },
+                            {
+                                "id": 16,
+                                "name": "Bachelor of Science in Computer Science",
+                                "slug": "/programs/computer-science",
+                                "image": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp",
+                                "icon": "https://jecrcuniversity.edu.in/wp-content/uploads/2023/02/7-THINGS-TO-MAKE-STUDENTS-LIFE-EASIER.jpg.webp"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "home_research_section",
+                    "data": {
+                        "title": "Research & Innovation",
+                        "image": "/assets/RI.png",
+                        "view_more": {
+                            "label": "Know more about Research >",
+                            "link": "/research"
+                        },
+                        "stats": [
+                            {
+                                "icon": "/assets/RI/researchicon1.png",
+                                "alt": "Publications",
+                                "value": "17500+",
+                                "label": "Publications"
+                            },
+                            {
+                                "icon": "/assets/RI/researchicon2.png",
+                                "alt": "Grants",
+                                "value": "12500+",
+                                "label": "lakhs INR in research grants"
+                            },
+                            {
+                                "icon": "/assets/RI/researchicon3.png",
+                                "alt": "Patents",
+                                "value": "130+",
+                                "label": "Patents\ngranted"
+                            },
+                            {
+                                "icon": "/assets/RI/researchicon4.png",
+                                "alt": "Collaborations",
+                                "value": "100+",
+                                "label": "Research\nCollaborations"
+                            },
+                            {
+                                "icon": "/assets/RI/researchicon5.png",
+                                "alt": "Consortia",
+                                "value": "15+",
+                                "label": "Global\nconsortia"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "home_BULLETIN_section",
+                    "data": {
+                        "title": "THE BULLETIN",
+                        "tabs": [
+                            "News",
+                            "Events",
+                            "Career"
+                        ],
+                        "items_per_page": 4,
+                        "content": {
+                            "News": [
+                                {
+                                    "title": "CME Invitation organised by Department of Anesthesiology and Pain Management (DAPM), Jawaharlal Nehru Medical College, Wardha, Maharashtra.by Department of Anesthesiology and Pain Management (DAPM), Jawaharlal Nehru Medical College, Wardha, Maharashtra. ",
+                                    "date": "27th July 2025",
+                                    "college": "Jawaharlal Nehru Medical College, Wardha",
+                                    "url": "/docs/news/cme-flyer.pdf"
+                                },
+                                {
+                                    "title": "DMIHER conducted its 16th Convocation Ceremony on 6th May 2025 at Jawaharlal Nehru Medical College, Wardha, Maharashtra. ",
+                                    "date": "6th May 2025"
+                                },
+                                {
+                                    "title": "CME Invitation organised by Department of Anesthesiology and Pain Management (DAPM), Jawaharlal Nehru Medical College, Wardha, Maharashtra.by Department of Anesthesiology and Pain Management (DAPM), Jawaharlal Nehru Medical College, Wardha, Maharashtra. ",
+                                    "date": "27th July 2025",
+                                    "college": "Jawaharlal Nehru Medical College, Wardha",
+                                    "url": "/docs/news/cme-flyer.pdf"
+                                },
+                                {
+                                    "title": "DMIHER conducted its 16th Convocation Ceremony on 6th May 2025 at Jawaharlal Nehru Medical College, Wardha, Maharashtra. ",
+                                    "date": "6th May 2025"
+                                }
+                            ],
+                            "Events": [
+                                {
+                                    "title": "Cyber Security Workshop, FEAT",
+                                    "date": "30th September 2025",
+                                    "url": "/docs/events/cyber-security.pdf"
+                                },
+                                {
+                                    "title": "National Workshop on Nursing Skills conducted by Department of Nursing, Jawaharlal Nehru Medical College, Wardha, Maharashtra.",
+                                    "date": "1st – 3rd August 2025"
+                                },
+                                {
+                                    "title": "Cyber Security Workshop, FEAT",
+                                    "date": "30th September 2025",
+                                    "url": "/docs/events/cyber-security.pdf"
+                                },
+                                {
+                                    "title": "National Workshop on Nursing Skills conducted by Department of Nursing, Jawaharlal Nehru Medical College, Wardha, Maharashtra.",
+                                    "date": "1st – 3rd August 2025"
+                                }
+                            ],
+                            "Career": [
+                                {
+                                    "title": "Recruitment of Faculty Post – FEAT conducted by Department of Nursing, Jawaharlal Nehru Medical College, Wardha, Maharashtra.",
+                                    "url": "/docs/career/faculty-recruitment.pdf"
+                                },
+                                {
+                                    "title": "Advertisement for Vacancies in Research Projects conducted by Department of Nursing, Jawaharlal Nehru Medical College, Wardha, Maharashtra.",
+                                    "url": "/docs/career/research-vacancy.pdf"
+                                },
+                                {
+                                    "title": "Recruitment of Faculty Post – FEAT conducted by Department of Nursing, Jawaharlal Nehru Medical College, Wardha, Maharashtra.",
+                                    "url": "/docs/career/faculty-recruitment.pdf"
+                                },
+                                {
+                                    "title": "Advertisement for Vacancies in Research Projects conducted by Department of Nursing, Jawaharlal Nehru Medical College, Wardha, Maharashtra.",
+                                    "url": "/docs/career/research-vacancy.pdf"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "section_id": "home_ANNOUNCEMENTS_section",
+                    "data": {
+                        "title": "IMPORTANT ANNOUNCEMENTS",
+                        "items_per_page": 4,
+                        "categories": [
+                            "Admissions 2025-26",
+                            "University",
+                            "Examination",
+                            "Result"
+                        ],
+                        "announcements": {
+                            "Admissions 2025-26": [
+                                {
+                                    "title": "Admission Notification for Academic Year 2025–26",
+                                    "date": "July 2025",
+                                    "url": "/docs/admissions/admission-notification.pdf"
+                                },
+                                {
+                                    "title": "Online Application Process for UG & PG Programs",
+                                    "date": "June 2025"
+                                }
+                            ],
+                            "University": [
+                                {
+                                    "title": "University Academic Calendar 2025–26",
+                                    "date": "May 2025",
+                                    "url": "/docs/university/academic-calendar.pdf"
+                                },
+                                {
+                                    "title": "Notice regarding University Holiday List",
+                                    "date": "April 2025"
+                                }
+                            ],
+                            "Examination": [
+                                {
+                                    "title": "Examination Schedule – Summer 2025",
+                                    "date": "August 2025",
+                                    "url": "/docs/exam/exam-schedule.pdf"
+                                },
+                                {
+                                    "title": "Guidelines for Online Examination",
+                                    "date": "July 2025"
+                                }
+                            ],
+                            "Result": [
+                                {
+                                    "title": "Result Declaration – MBBS Phase II",
+                                    "date": "September 2025",
+                                    "url": "/docs/results/mbbs-phase2.pdf"
+                                },
+                                {
+                                    "title": "Result Notice – Nursing Programs",
+                                    "date": "August 2025"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "section_id": "home_testimonial_section",
+                    "data": {
+                        "title": "TESTIMONIALS",
+                        "tabs": [
+                            "Alumni",
+                            "Parents",
+                            "Students"
+                        ],
+                        "testimonials": {
+                            "Students": [
+                                {
+                                    "name": "Ms. Saniya Saratkar",
+                                    "designation": "B.Tech 2017 | Specialization - AIDS",
+                                    "institute": "FEAT",
+                                    "videoId": "8VMIhPv9cJI",
+                                    "thumbnail": "/assets/TestimonialHome/student.png"
+                                }
+                            ],
+                            "Parents": [
+                                {
+                                    "name": "Dr. Rohit Kumar Gupta",
+                                    "designation": "Father of Ms. Niddhi Gupta, MBBS 2024 | DMMC",
+                                    "extra": "Scientist ‘G’, Vikram Sarabhai Space Centre, ISRO, Kerala",
+                                    "videoId": "4Y1F8TzGTLo",
+                                    "thumbnail": "/assets/TestimonialHome/Parents.png"
+                                }
+                            ],
+                            "Alumni": [
+                                {
+                                    "name": "Dr. Shivam Om Mittal",
+                                    "designation": "MBBS 2005 | JNMC",
+                                    "extra": "Cleveland Clinic Abu Dhabi",
+                                    "videoId": "Enu5EdCqMtg",
+                                    "thumbnail": "/assets/TestimonialHome/Alumini.png"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
             "slug": "about",
             "title": "About",
             "sections": [
@@ -8,27 +410,21 @@
                     "section_id": "hero_section",
                     "data": {
                         "topbar": {
-                            "admissions_text": "",
-                            "primary_cta_text": "",
-                            "primary_cta_section_id": "",
-                            "apply_now_url": "",
-                            "phone_label": "",
-                            "phone_number": ""
+                            "enabled": false,
+                            "admissions_text": "Admissions open for 2025-26",
+                            "primary_cta_text": "MBBS NEET 2025 Admissions",
+                            "primary_cta_section_id": "jnmc-announcements",
+                            "apply_now_url": "https://dmiher-apply.mastersofterp.com/ApplicationLandingPage/Index/DMIHER",
+                            "phone_label": "+918888040999",
+                            "phone_number": "+918888040999"
                         },
                         "slides": [
                             {
-                                "img": "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png",
-                                "title": "Expanding the horizonsn",
-                                "highlight": " of medical education",
-                                "paragraph": "",
+                                "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
+                                "title": "FORGING LEADERS IN ",
+                                "highlight": "MEDICINE SINCE 1990",
+                                "paragraph": "250 MBBS Seats | 205 PG Seats | 10 Super-Speciality Programs",
                                 "textPosition": "left"
-                            },
-                            {
-                                "img": "https://images.shiksha.com/mediadata/images/1534755295phpwx8DDL.png",
-                                "title": "of medical education",
-                                "highlight": " Expanding the horizons",
-                                "paragraph": "",
-                                "textPosition": "right"
                             }
                         ]
                     }
@@ -1574,6 +1970,699 @@
                                 "path": "/global-connects/faculty-exchange-applicationForm"
                             }
                         ]
+                    }
+                }
+            ]
+        },
+        {
+            "slug": "jnmc",
+            "title": "JNMC",
+            "meta": {
+                "title": "JNMC Wardha | Medical College",
+                "keywords": "JNMC, Medical College, Wardha, MBBS",
+                "description": "Jawaharlal Nehru Medical College, Wardha is a premier medical institute."
+            },
+            "sections": [
+                {
+                    "section_id": "hero_section",
+                    "data": {
+                        "topbar": {
+                            "enabled": true,
+                            "admissions_text": "Admissions open for 2025-26",
+                            "primary_cta_text": "MBBS NEET 2025 Admissions",
+                            "primary_cta_section_id": "jnmc-announcements",
+                            "apply_now_url": "https://dmiher-apply.mastersofterp.com/ApplicationLandingPage/Index/DMIHER",
+                            "phone_label": "+918888040999",
+                            "phone_number": "+918888040999"
+                        },
+                        "slides": [
+                            {
+                                "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
+                                "title": "FORGING LEADERS IN ",
+                                "highlight": "MEDICINE SINCE 1990",
+                                "paragraph": "250 MBBS Seats | 205 PG Seats | 10 Super-Speciality Programs",
+                                "textPosition": "left"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "info_section",
+                    "data": {
+                        "title": "Jawaharlal Nehru Medical College",
+                        "tagline": "A Learning Ecosystem That Shapes Who You Become",
+                        "highlight_color": "#F04E30",
+                        "intro_paragraphs": [
+                            "Jawaharlal Nehru Medical College (JNMC) is a premier medical education institution in India, offering MBBS, PG, and Super Speciality programs. Established in 2007, JNMC is committed to providing quality education and training to students in the field of medicine. The college is located in the heart of the city of Indore, Madhya Pradesh, India. The college is affiliated with the University of Rajasthan, Jaipur, and is accredited by the Medical Council of India (MCI). The college is also accredited by the National Accreditation Board for Higher Education (NABHE) and the Commission on Accreditation of Medical Education Programs (COAMED).",
+                            "JNMC offers a wide range of programs, including MBBS, PG, and Super Speciality programs. The college is also accredited by the National Accreditation Board for Higher Education (NABHE) and the Commission on Accreditation of Medical Education Programs (COAMED)."
+                        ],
+                        "more_paragraphs": [
+                            "JNMC is committed to providing quality education and training to students in the field of medicine. The college is located in the heart of the city of Indore, Madhya Pradesh, India. The college is affiliated with the University of Rajasthan, Jaipur, and is accredited by the Medical Council of India (MCI). The college is also accredited by the National Accreditation Board for Higher Education (NABHE) and the Commission on Accreditation of Medical Education Programs (COAMED)."
+                        ]
+                    }
+                },
+                {
+                    "section_id": "why_choose",
+                    "data": {
+                        "heading": "WHY CHOOSE US ?",
+                        "cards": [
+                            {
+                                "theme": "orange",
+                                "title": "UGC-Entitled Degrees, Academic Rigor, Recognition & Advantage",
+                                "points": [
+                                    "DMIHER (NAAC A++, NIRF Rank 42 to 49)",
+                                    "Apprenticeship-embedded and flexible online formats",
+                                    "Freedom to pursue online and offline programs simultaneously"
+                                ]
+                            },
+                            {
+                                "theme": "lightBlue",
+                                "title": "Corporate Work-Integrated Programs",
+                                "subtitle": "Designed for working professionals and enterprise partners"
+                            },
+                            {
+                                "theme": "navy",
+                                "title": "24×7 LMS Access",
+                                "subtitle": "Includes Coursera, MOOCs, SWAYAM, 100+ ISBN-aligned books and more"
+                            },
+                            {
+                                "theme": "white",
+                                "title": "Industry-Ready Curriculum",
+                                "subtitle": "Integrated tools: Power BI, Advanced Excel, AI, ML, Python, Data Science & more"
+                            },
+                            {
+                                "theme": "blue",
+                                "title": "Affordable Fee Structure",
+                                "subtitle": "Quality education made accessible for all"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "deans_message_section",
+                    "data": {
+                        "heading": "DEAN’S MESSAGE",
+                        "dean_name": "Dr. (Mrs.) Sonali Choudhari Deshmukh",
+                        "dean_image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
+                        "designation_lines": [
+                            "Dean, JNMC & AVBRH, DMIHER",
+                            "MBBS, MD, MPhil (HPE), FAIMER (IFI, Philadelphia)"
+                        ],
+                        "email": "dean.jnmc@dmiher.edu.in",
+                        "paragraphs": [
+                            "Jawaharlal Nehru Medical College & Acharya Vinoba Bhave Rural Hospital, established in 1990 under the Datta Meghe Institute of Higher Education and Research (Deemed to be University), Wardha, stands as a premier institution for medical education, research, and healthcare services. Ranked 23rd nationally, we offer MBBS (250 seats), postgraduate, super-specialty, paramedical, and PhD programs, all accredited with NAAC ‘A++’.",
+                            "Our innovations include ‘Anukruti’, a state-of-the-art Simulation Centre, ‘Jigyasa’, a central integrated museum, and early adoption of NEP 2020. As a nodal centre for faculty development, we integrate cutting-edge teaching methodologies and host national and international conferences. Through robust community partnerships, we adopt villages to extend healthcare services.",
+                            "We are home to the region’s largest tertiary care hospital, a Super-specialty centre, and a dedicated Cancer hospital, offering a comprehensive range of services, including robotic surgery, oncology, cardiology, nephrology, neurology, neurosurgery, urology, gastroenterology, interventional radiology, and transplant facilities. With a strong focus on research and quality education, we remain dedicated to innovation and compassionate healthcare and community well-being."
+                        ],
+                        "cta_label": "Key Officials",
+                        "cta_url": "/jnmc/deans-message"
+                    }
+                },
+                {
+                    "section_id": "holistic_infrastructure_section",
+                    "data": {
+                        "heading": "HOLISTIC LEARNING AND INFRASTRUCTURE",
+                        "items": [
+                            {
+                                "id": 0,
+                                "label": "Teaching–Learning Facilities",
+                                "content": "Air-conditioned lecture theatres with audio-visual aids and live procedure broadcasts, Largest tertiary care hospital with attached super-specialty centre.",
+                                "image_key": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "id": 1,
+                                "label": "Teaching Learning Methodologies",
+                                "content": "Dedicated AETCOM sessions, Structured self-directed learning (SSDL) modules, Flipped classrooms, Integrated modules, Family Adoption Program, Induction programs, Get Set Go, PG training facilities including advanced modular OTs, Skill training sessions. Teachers training programme for capacity building by Medical Education Unit and NMC Nodal Centre for Faculty development.",
+                                "image_key": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "id": 2,
+                                "label": "Technology-Enabled Digital Learning",
+                                "content": "LMS with resource sharing, quizzes, assignments.",
+                                "image_key": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "id": 3,
+                                "label": "Laboratory & Hospital Facilities",
+                                "content": "Histology, Haematology, Histopathology, Biochemistry, Microbiology labs, OSPE/OSCE ward for skill training & assessment, CRL with high-end equipment and integrated research.",
+                                "image_key": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "id": 4,
+                                "label": "Advanced Teaching, Museum & Skilllab",
+                                "content": "“Jigyasa” digital museum (15,000+ sq. ft.), QR-coded, self-learning hub, “Anukriti” Simulation Centre with high-fidelity mannequins, AHA & National Board accreditation, Mayo Clinic-backed Standardized Patient Program (SPP), Cadaveric skill lab with soft-embalmed specimens, Wet lab for basic to advanced surgical skills.",
+                                "image_key": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "id": 5,
+                                "label": "Library Facilities",
+                                "content": "Fully air-conditioned central resource, Books, journals for all departments, Subscriptions: Access Medicine, UpToDate, Royal Society of Medicine, BMJ, Digital library with 100+ computers and Wi-Fi.",
+                                "image_key": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "institute_programs_section",
+                    "data": {
+                        "heading": "OUR PROGRAMS",
+                        "programs": [
+                            {
+                                "name": "BAMS (Bachelor of Ayurvedic Medicine and Surgery)",
+                                "category": "UG"
+                            },
+                            {
+                                "name": "M.D. (Samhita Siddhant)",
+                                "category": "PG"
+                            },
+                            {
+                                "name": "PhD in Ayurveda",
+                                "category": "PhD"
+                            },
+                            {
+                                "name": "Certificate in Panchakarma Therapy",
+                                "category": "Certifications"
+                            }
+                        ],
+                        "disclosures_heading": "MANDATORY DISCLOSURES",
+                        "disclosures_link_text": "Check all Mandatory Disclosures",
+                        "disclosures_cta_text": "Click Here",
+                        "disclosures_url": "/mgac/mandatory-disclosure"
+                    }
+                },
+                {
+                    "section_id": "programs_announcements",
+                    "data": {
+                        "heading": "Announcements",
+                        "buttons": [
+                            {
+                                "type": "pg",
+                                "label": "PG (MD/MS) Admissions – 2025"
+                            },
+                            {
+                                "type": "ug",
+                                "label": "UG (MBBS) Admissions – 2025"
+                            }
+                        ],
+                        "pg_docs": [
+                            {
+                                "name": "PG (MD/MS) – Docs needed 2025–26",
+                                "link": "/assets/JNMC/Doc/PG JNMC MD_MS Requirement of documents at the time of admissions 2025 - 26.pdf"
+                            },
+                            {
+                                "name": "PG (MD/MS) – Fees (2025–26)",
+                                "link": "/assets/JNMC/Doc/PG JNMC MD_MS Tution fees for session 2025-26.pdf"
+                            },
+                            {
+                                "name": "Hostel fees for MD MS 2025–26",
+                                "link": "/assets/JNMC/Doc/Final Course fees for MD MS 2025-26.pdf"
+                            }
+                        ],
+                        "ug_docs": [
+                            {
+                                "name": "MBBS Fee Structure 2025–26",
+                                "link": "/assets/JNMC/Doc/Fees Structure UG 2025-26 MBBS Wardha.PDF"
+                            },
+                            {
+                                "name": "Hostel Fees – MBBS JNMC (2025)",
+                                "link": "/assets/JNMC/Doc/JNMC_Hostel Charges.pdf"
+                            },
+                            {
+                                "name": "Payment Details For MBBS",
+                                "link": "/assets/JNMC/Doc/HDFC Bank details 1427.pdf"
+                            },
+                            {
+                                "name": "Certificate of Medical Fitness Format",
+                                "link": "/assets/JNMC/Doc/Certificate of Medical Fitness Format.PDF"
+                            },
+                            {
+                                "name": "Checklist – Documents for Admission",
+                                "link": "/assets/JNMC/Doc/Cheklist-Requirement of Documents for Admission.pdf"
+                            },
+                            {
+                                "name": "Affidavit Format",
+                                "link": "/assets/JNMC/Doc/Affidavit Format.docx"
+                            },
+                            {
+                                "name": "UG MBBS-BDS Application Form – 2025",
+                                "link": "/assets/JNMC/Doc/UG-MBBS-BDS Student application SOP..pdf"
+                            },
+                            {
+                                "name": "Apply for MBBS Admission",
+                                "link": "https://dmiher-apply.mastersofterp.com/ApplicationLandingPage/Index/DMIHER"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "departments",
+                    "data": {
+                        "heading": "OUR DEPARTMENTS",
+                        "chunk_config": {
+                            "desktop": 8,
+                            "tablet": 6,
+                            "mobile": 6
+                        },
+                        "departments": [
+                            {
+                                "id": 1,
+                                "title": "Anatomy",
+                                "tabId": "anatomy",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 2,
+                                "title": "Anesthesiology",
+                                "tabId": "anaesthesiology",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 3,
+                                "title": "Biochemistry",
+                                "tabId": "biochemistry",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 4,
+                                "title": "Dermatology",
+                                "tabId": "dermatology",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 5,
+                                "title": "Cardiology",
+                                "tabId": "cardiology",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 6,
+                                "title": "Critical Care Medicine",
+                                "tabId": "critical_care",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 7,
+                                "title": "Interventional Radiology",
+                                "tabId": "interventional_radiology",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 8,
+                                "title": "Medical Gastroenterology",
+                                "tabId": "gastroenterology",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 9,
+                                "title": "Medical Oncology",
+                                "tabId": "medical_oncology",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 10,
+                                "title": "Neonatology",
+                                "tabId": "neonatology",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 11,
+                                "title": "Neurology",
+                                "tabId": "neurology",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 12,
+                                "title": "Nephrology",
+                                "tabId": "nephrology",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 13,
+                                "title": "Emergency Medicine",
+                                "tabId": "emergency_medicine",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 14,
+                                "title": "ENT Otorhinolaryngology",
+                                "tabId": "ent",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 15,
+                                "title": "Forensic Medicine & Toxicology",
+                                "tabId": "forensic_medicine",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 16,
+                                "title": "General Medicine",
+                                "tabId": "medicine",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 17,
+                                "title": "General Surgery",
+                                "tabId": "general_surgery",
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "id": 18,
+                                "title": "Orthopaedics",
+                                "tabId": "orthopaedics",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 19,
+                                "title": "Paediatrics",
+                                "tabId": "paediatrics",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 20,
+                                "title": "Pathology",
+                                "tabId": "pathology",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 21,
+                                "title": "Pharmacology",
+                                "tabId": "pharmacology",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 22,
+                                "title": "Physiology",
+                                "tabId": "physiology",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 23,
+                                "title": "Psychiatry",
+                                "tabId": "psychiatry",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 24,
+                                "title": "Radiodiagnosis",
+                                "tabId": "radio_diagnosis",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            },
+                            {
+                                "id": 25,
+                                "title": "Respiratory Medicine",
+                                "tabId": "respiratory_medicine",
+                                "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "medical_education_unit",
+                    "data": {
+                        "heading": "MEDICAL EDUCATION UNIT, JNMC, WARDHA",
+                        "background_image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
+                        "paragraphs": [
+                            "The Medical Education Unit (MEU) at Jawaharlal Nehru Medical College, Wardha, is the in-house body of faculty representatives from Pre-Clinical, Para-Clinical and Clinical subjects, who plays a pivotal role in ensuring the quality of medical education by focusing on implementation, monitoring and evaluation of faculty training, curriculum revision, development of learning resource material, innovation in instructional tools and assessment.",
+                            "The MEU aims to equip medical educators with advanced teaching methodologies and pedagogical skills, ensuring the delivery of effective and contemporary medical education, a standardized approach to medical education across institutions and continuous improvement of educational practices and policies within the institution."
+                        ],
+                        "cta_label": "Know more",
+                        "cta_url": "/jnmc/medical-education-unit"
+                    }
+                },
+                {
+                    "section_id": "innovative_learning_section",
+                    "data": {
+                        "heading": "Innovative, Learner-Centric Teaching Methodologies",
+                        "subheading": "Nurturing critical thinkers and compassionate clinicians",
+                        "cards": [
+                            {
+                                "description": "Simulated Learning with mannequin and task stations, Anatomage, Lap mentors, BLS & ACLS by American Heart Association",
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "description": "Integrated teaching, Early clinical exposure, Inter-department Case discussions, Clinico-pathologic conference, OSPE-OSCE",
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "description": "Research opportunities for all learners, ICMR STS, Innovation cell, Biomedical Engineering and Technology Innovation Centre (BETIC), E-YUVA Fellowship under BIRAC",
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "description": "Standardised Patient Program (SPP) Case-based learning (Master Clinic) in collaboration with Weill Cornell Medicine, USA",
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "description": "Bioethics Unit under International Chair in Bioethics, AETCOM, Get Set Go",
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "description": "Mentoring by national and international Adjunct Faculty",
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "research_collaboration",
+                    "data": {
+                        "heading": "RESEARCH & COLLABORATIONS",
+                        "intro_paragraphs": [
+                            "Driven by a team of highly qualified and experienced faculty, JNMC upholds a rich legacy of teaching excellence and a strong track record of research contributions.",
+                            "Faculty have published extensively in prestigious journals, including The Lancet, BMJ, Frontiers, Nature, and more.",
+                            "Three faculties are in the list of the world’s top 2% scientists released by Stanford University (Elsevier’s Scopus database).",
+                            "The institution’s contributions include books, copyrights, and patents advancing medical science."
+                        ],
+                        "highlight_points": [
+                            "Dr. Zahir Quazi",
+                            "Dr. Abhay Gaidhane",
+                            "Dr. Mahalaque Nazli Khatib"
+                        ],
+                        "stats": [
+                            {
+                                "icon": "/assets/JNMC/icon1.png",
+                                "value": "24 Granted, 30 Filed",
+                                "label": "Patents"
+                            },
+                            {
+                                "icon": "/assets/JNMC/icon2.png",
+                                "value": "400+",
+                                "label": "Copyrights"
+                            },
+                            {
+                                "icon": "/assets/JNMC/icon3.png",
+                                "value": "10,000+",
+                                "label": "Total Research Publications"
+                            },
+                            {
+                                "icon": "/assets/JNMC/icon4.png",
+                                "value": "41,000+",
+                                "label": "Citations"
+                            }
+                        ],
+                        "institutional_metrics": {
+                            "h_index": 60,
+                            "articles_2024": "1246 Articles (82 in Q1 & Q2)"
+                        },
+                        "research_collaboration": "",
+                        "educational_research": ""
+                    }
+                },
+                {
+                    "section_id": "global_opportunities",
+                    "data": {
+                        "heading": "Global Opportunities",
+                        "description": "JNMC empowers students to become globally competent healthcare leaders through partnerships with institutions like, Weill Cornell Medicine (USA), Johns Hopkins University (USA), University of Sydney (Australia), Kazan University (Russia), Caribbean School of Medicine, and Ross University. Opportunities include international conferences, student exchange programs, clinical immersions at Cleveland Clinic (Abu Dhabi) and Imperial College (UK), and participation in global signature courses like the Standardized Patient Program and case-based Master Clinics (Weill Cornell). These experiences equip students with world-class medical knowledge, cross-cultural competence, and lifelong global networks.",
+                        "image": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80",
+                        "logos": [
+                            {
+                                "src": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80",
+                                "alt": "University of Nevada"
+                            },
+                            {
+                                "src": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80",
+                                "alt": "UC Berkeley"
+                            },
+                            {
+                                "src": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80",
+                                "alt": "University of Sydney"
+                            },
+                            {
+                                "src": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80",
+                                "alt": "University of Wollongong"
+                            },
+                            {
+                                "src": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80",
+                                "alt": "Yeshiva University"
+                            },
+                            {
+                                "src": "https://img.freepik.com/free-vector/dark-blue-gradient-background_78370-2078.jpg?semt=ais_hybrid&w=740&q=80",
+                                "alt": "University of Deusto"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "quick_links",
+                    "data": {
+                        "buttons": [
+                            {
+                                "label": "Simulation lab",
+                                "to": "/sel-sc"
+                            },
+                            {
+                                "label": "Museum",
+                                "to": "/museum"
+                            },
+                            {
+                                "label": "Cadaveric & Wet Lab",
+                                "to": "/cadaveric-wet-lab"
+                            },
+                            {
+                                "label": "NMC Nodal Centre for FDP",
+                                "to": "/jnmc/nodal-jnmc"
+                            },
+                            {
+                                "label": "School of Higher Education and Research",
+                                "to": "/SHER"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "hospital_section",
+                    "data": {
+                        "heading": "ACHARYA VINOBA BHAVE RURAL HOSPITAL",
+                        "subtitle": "A Hub Of Quality Care",
+                        "description": "Jawaharlal Nehru Medical College & Acharya Vinoba Bhave Rural Hospital, established in 1990 under the Datta Meghe Institute of Higher Education and Research (Deemed to be University), Wardha, stands as a premier institution for medical education, research, and healthcare services. Ranked 23rd nationally, we offer MBBS (250 seats), postgraduate, super-specialty, paramedical, and PhD programs, all accredited with NAAC ‘A++’.",
+                        "stats": [
+                            "30+ Specialities",
+                            "1500+ Beds",
+                            "50 Lac+ Lives Touched",
+                            "5 Lac+ Complex Surgeries Performed",
+                            "Robotic Surgery with Advanced Cancer Care",
+                            "State of the Art Facility"
+                        ],
+                        "images": [
+                            "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
+                            "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
+                            "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                        ],
+                        "cta_url": "https://www.avbrhsawangimeghe.com/",
+                        "cta_label": "Know more about Acharya Vinoba Bhave Rural Hospital"
+                    }
+                },
+                {
+                    "section_id": "placements",
+                    "data": {
+                        "heading": "HIGHER EDUCATION AND PLACEMENT (NATIONAL & INTERNATIONAL)",
+                        "description": "Jawaharlal Nehru Medical College (JNMC) shapes healthcare leaders who excel in higher education and global healthcare careers. Backed by state-of-the-art facilities and global collaborations, JNMC graduates become clinicians, educators, and researchers at national and international centres of excellence.",
+                        "highlights": [
+                            {
+                                "text": "Propelling students into higher education and global healthcare careers.",
+                                "highlight": "Propelling students",
+                                "color": "#F04E30"
+                            },
+                            {
+                                "text": "80% MBBS students placed, 28% advancing into higher studies.",
+                                "highlight": "80% MBBS students placed",
+                                "color": "#269BFF"
+                            },
+                            {
+                                "text": "100% MD/MS placements - 14% selection into super-specialty courses, PhDs, postdoctoral research, and fellowships.",
+                                "highlight": "14% selection into super-specialty courses, PhDs, postdoctoral research, and fellowships.",
+                                "color": "#102B64"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "gallery",
+                    "data": {
+                        "title": "STUDENT LIFE",
+                        "description": "Jawaharlal Nehru Medical College (JNMC) shapes healthcare leaders who excel in higher education and global healthcare careers. Backed by state-of-the-art facilities and global collaborations, JNMC graduates become clinicians, educators, and researchers at national and international centres of excellence.",
+                        "images": [
+                            {
+                                "title": "Dance Club",
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "title": "Events",
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "title": "GFC 5",
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "title": "Guest Lecture",
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "title": "Literature Club",
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "title": "Pride Parade",
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "title": "Social Welfare Club",
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "title": "Sports Club",
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "title": "Theatre Club",
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "section_id": "testimonial",
+                    "data": {
+                        "heading": "TESTIMONIALS",
+                        "tabs": [
+                            "Students",
+                            "Parents",
+                            "Alumni"
+                        ],
+                        "testimonials": {
+                            "Students": [
+                                {
+                                    "name": "Dr. Arya Bhagwat",
+                                    "year": "MBBS | 2021",
+                                    "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
+                                    "text": "The institute JN Medical College has truly provided me with a homely environment.Jigyasa” digital museum (15,000+ sq. ft.), QR-coded, self-learning hub, “Anukriti” Simulation Centre with high-fidelity mannequins, AHA & National Board accreditation, Mayo Clinic-backed Standardized Patient Program (SPP), Cadaveric skill lab with soft-embalmed specimens, Wet lab for basic to advanced surgical skills.."
+                                },
+                                {
+                                    "name": "Dr. Prakhar Shrivastava",
+                                    "year": "MBBS | 2022",
+                                    "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
+                                    "text": "The Jawaharlal Nehru Medical College provides an exceptional educational experience.Jigyasa” digital museum (15,000+ sq. ft.), QR-coded, self-learning hub, “Anukriti” Simulation Centre with high-fidelity mannequins, AHA & National Board accreditation, Mayo Clinic-backed Standardized Patient Program (SPP), Cadaveric skill lab with soft-embalmed specimens, Wet lab for basic to advanced surgical skills.."
+                                }
+                            ],
+                            "Parents": [
+                                {
+                                    "name": "Mr. Debasis Chakrabarty",
+                                    "year": "Parent of Debarun Chakraborty",
+                                    "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
+                                    "text": "I am truly grateful to Datta Meghe Institute..Jigyasa” digital museum (15,000+ sq. ft.), QR-coded, self-learning hub, “Anukriti” Simulation Centre with high-fidelity mannequins, AHA & National Board accreditation, Mayo Clinic-backed Standardized Patient Program (SPP), Cadaveric skill lab with soft-embalmed specimens, Wet lab for basic to advanced surgical skills."
+                                }
+                            ],
+                            "Alumni": [
+                                {
+                                    "name": "Dr. Ruchi Mishra",
+                                    "year": "MBBS, MD",
+                                    "img": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw",
+                                    "text": "Healing goes beyond medicine...Jigyasa” digital museum (15,000+ sq. ft.), QR-coded, self-learning hub, “Anukriti” Simulation Centre with high-fidelity mannequins, AHA & National Board accreditation, Mayo Clinic-backed Standardized Patient Program (SPP), Cadaveric skill lab with soft-embalmed specimens, Wet lab for basic to advanced surgical skillsJigyasa” digital museum (15,000+ sq. ft.), QR-coded, self-learning hub, “Anukriti” Simulation Centre with high-fidelity mannequins, AHA & National Board accreditation, Mayo Clinic-backed Standardized Patient Program (SPP), Cadaveric skill lab with soft-embalmed specimens, Wet lab for basic to advanced surgical skills",
+                                    "extra": "- Certified Clinical Hypnotherapist, UK"
+                                }
+                            ]
+                        }
                     }
                 }
             ]
