@@ -899,79 +899,6 @@
                     }
                 },
                 {
-                    "section_id": "departments_section",
-                    "data": {
-                        "title": "JAWAHARLAL NEHRU MEDICAL COLLEGE (JNMC)",
-                        "subtitle": "Excellence in Medical Education & Research",
-                        "departments": [
-                            {
-                                "id": 1,
-                                "key": "anatomy",
-                                "name": "Department of Anatomy",
-                                "info": "The Department of Anatomy provides a strong foundation in the structural organization of the human body through modern teaching methodologies.",
-                                "hod": [
-                                    {
-                                        "name": "Dr. A. B. Sharma",
-                                        "designation": "Professor & Head of Department",
-                                        "qualification": "MBBS, MS (Anatomy)",
-                                        "image": "https://example.com/images/hod/anatomy.jpg"
-                                    }
-                                ],
-                                "staff": [
-                                    {
-                                        "name": "Dr. X Y",
-                                        "designation": "Associate Professor"
-                                    },
-                                    {
-                                        "name": "Dr. Z W",
-                                        "designation": "Assistant Professor"
-                                    }
-                                ],
-                                "usp": [
-                                    "Well-equipped dissection halls",
-                                    "Digital anatomy learning tools",
-                                    "Experienced and dedicated faculty",
-                                    "Strong research orientation"
-                                ],
-                                "gallery": [
-                                    "https://example.com/images/anatomy/1.jpg",
-                                    "https://example.com/images/anatomy/2.jpg",
-                                    "https://example.com/images/anatomy/3.jpg"
-                                ]
-                            },
-                            {
-                                "id": 2,
-                                "key": "physiology",
-                                "name": "Department of Physiology",
-                                "info": "The Department of Physiology focuses on understanding normal functions of the human body using integrated teaching approaches.",
-                                "hod": [
-                                    {
-                                        "name": "Dr. P. Q. Patil",
-                                        "designation": "Professor & Head of Department",
-                                        "qualification": "MBBS, MD (Physiology)",
-                                        "image": "https://example.com/images/hod/physiology.jpg"
-                                    }
-                                ],
-                                "staff": [
-                                    {
-                                        "name": "Dr. L M",
-                                        "designation": "Associate Professor"
-                                    }
-                                ],
-                                "usp": [
-                                    "Advanced physiology laboratories",
-                                    "Student-centric learning",
-                                    "Clinical correlation emphasis"
-                                ],
-                                "gallery": [
-                                    "https://example.com/images/physiology/1.jpg",
-                                    "https://example.com/images/physiology/2.jpg"
-                                ]
-                            }
-                        ]
-                    }
-                },
-                {
                     "section_id": "info_section",
                     "data": {
                         "tagline": "A Learning Ecosystem That Shapes Who You Become",
@@ -2220,7 +2147,7 @@
                         "disclosures_heading": "MANDATORY DISCLOSURES",
                         "disclosures_link_text": "Check all Mandatory Disclosures",
                         "disclosures_cta_text": "Click Here",
-                        "disclosures_url": "/mgac/mandatory-disclosure"
+                        "disclosures_url": "/jnmc/mandatoryDisclore"
                     }
                 },
                 {
@@ -3133,5 +3060,225 @@
             }
         ],
         "copyright": "© 2025 Datta Meghe Institute of Higher Education & Research. All rights reserved."
-    }
+    },
+    "subpages": [
+        {
+            "slug": "/jnmc/transcript",
+            "sections": [
+                {
+                    "section_id": "transcript_subpage",
+                    "data": {
+                        "title": "Transcript Courses",
+                        "departments": [
+                            {
+                                "name": "Department of Artificial Intelligence and Data Science",
+                                "courses": [
+                                    {
+                                        "id": 1,
+                                        "sem": "I/II",
+                                        "name": "Learn Embeddings and Vector Databases",
+                                        "platform": "Coursera",
+                                        "university": "Scrimba",
+                                        "days": "2",
+                                        "mode": "Online",
+                                        "credits": "Value Added"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "sem": "I/II",
+                                        "name": "Visualizing Data & Communicating Results in R with RStudio",
+                                        "platform": "Coursera",
+                                        "university": "Codio",
+                                        "days": "9",
+                                        "mode": "Online",
+                                        "credits": "Value Added"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "slug": "/jnmc/departments",
+            "sections": [
+                {
+                    "section_id": "departments_section",
+                    "data": {
+                        "title": "JAWAHARLAL NEHRU MEDICAL COLLEGE (JNMC)",
+                        "subtitle": "Excellence in Medical Education & Research",
+                        "departments": [
+                            {
+                                "id": 1,
+                                "key": "anatomy",
+                                "name": "Department of Anatomy",
+                                "info": "The Department of Anatomy provides a strong foundation in the structural organization of the human body.",
+                                "hod": [
+                                    {
+                                        "name": "Dr. A. B. Sharma",
+                                        "designation": "Professor & Head of Department",
+                                        "qualification": "MBBS, MS (Anatomy)",
+                                        "image": "https://example.com/images/hod/anatomy.jpg"
+                                    }
+                                ],
+                                "staff": [
+                                    {
+                                        "name": "Dr. X Y",
+                                        "designation": "Associate Professor"
+                                    }
+                                ],
+                                "usp": [
+                                    "Well-equipped dissection halls",
+                                    "Digital anatomy learning tools",
+                                    "Experienced faculty"
+                                ],
+                                "gallery": [
+                                    "https://example.com/images/anatomy/1.jpg"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "slug": "/jnmc/programs",
+            "sections": [
+                {
+                    "section_id": "programs_subpage",
+                    "data": {
+                        "tabs": [
+                            {
+                                "id": "undergraduate",
+                                "label": "Undergraduate",
+                                "icon": "GraduationCap"
+                            },
+                            {
+                                "id": "postgraduate",
+                                "label": "Postgraduate",
+                                "icon": "Book"
+                            },
+                            {
+                                "id": "diploma",
+                                "label": "Diploma",
+                                "icon": "Award"
+                            },
+                            {
+                                "id": "certificate",
+                                "label": "Certificate",
+                                "icon": "Users"
+                            }
+                        ],
+                        "programs": [
+                            {
+                                "id": "btech-cse",
+                                "category": "undergraduate",
+                                "title": "B.Tech Computer Science",
+                                "duration": "4 Years",
+                                "description": "Comprehensive program covering algorithms, AI, and software engineering."
+                            },
+                            {
+                                "id": "mtech-ai",
+                                "category": "postgraduate",
+                                "title": "M.Tech Artificial Intelligence",
+                                "duration": "2 Years",
+                                "description": "Advanced studies in machine learning and deep learning."
+                            }
+                        ],
+                        "apply_label": "Apply Now",
+                        "popup_title": "Apply for Admission",
+                        "nopaperform_id": "1234567890",
+                        "search_placeholder": "Search programs..."
+                    }
+                }
+            ]
+        },
+        {
+            "slug": "/jnmc/mandatoryDisclore",
+            "sections": [
+                {
+                    "section_id": "mandatoryDisclore_subpage",
+                    "data": {
+                        "title": "Mandatory Disclosures",
+                        "background": "#FAFAF6",
+                        "items": [
+                            {
+                                "name": "Academic Calendar",
+                                "link": "/academic-calendar-mendatory-disclosure",
+                                "icon": "CalendarDays",
+                                "type": "internal"
+                            },
+                            {
+                                "name": "Annual Report",
+                                "link": "/annual-report-mendatory-disclosure",
+                                "icon": "FileText",
+                                "type": "internal"
+                            },
+                            {
+                                "name": "Environment Clearance (MPCB)",
+                                "link": "https://www.dmiher.edu.in/uploads/topics/16466317684273.pdf",
+                                "icon": "Leaf",
+                                "type": "pdf"
+                            },
+                            {
+                                "name": "Act and Statutes or MoA",
+                                "link": "https://www.dmiher.edu.in/frontEnd/pages/page/images/pdf/Annual-Report/MOA%20DMIHERD%20DU.pdf",
+                                "icon": "BookOpen",
+                                "type": "pdf"
+                            },
+                            {
+                                "name": "e-Samadhan (UGC)",
+                                "link": "https://samadhaan.ugc.ac.in/",
+                                "icon": "Link2",
+                                "type": "external"
+                            },
+                            {
+                                "name": "Academic Bank of Credits (ABC)",
+                                "link": "https://www.abc.gov.in/",
+                                "icon": "Link2",
+                                "type": "external"
+                            },
+                            {
+                                "name": "National Scholarship Portal",
+                                "link": "https://scholarships.gov.in/",
+                                "icon": "Link2",
+                                "type": "external"
+                            },
+                            {
+                                "name": "Annual Accounts & Audit Reports",
+                                "link": "/audit-report-and-balance-sheet",
+                                "icon": "BadgeDollarSign",
+                                "type": "internal"
+                            },
+                            {
+                                "name": "Statutes / Ordinances for Academics / Examinations",
+                                "link": "",
+                                "icon": "ScrollText",
+                                "type": "disabled"
+                            },
+                            {
+                                "name": "Grievance Redressal",
+                                "link": "/students-section/students-grievance-cell",
+                                "icon": "Megaphone",
+                                "type": "internal"
+                            },
+                            {
+                                "name": "Student Charter",
+                                "link": "students_charter.pdf",
+                                "icon": "UserCheck",
+                                "type": "pdf"
+                            },
+                            {
+                                "name": "Fee Refund Policy",
+                                "link": "Refund-Policy-2024-25.pdf",
+                                "icon": "RotateCcw",
+                                "type": "pdf"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
 }

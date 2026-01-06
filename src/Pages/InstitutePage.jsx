@@ -26,9 +26,7 @@ function InstitutePage({ institutes }) {
     );
   }
 
-  const {
-    meta = {},
-  } = institute;
+  const { meta = {} } = institute;
 
   const {
     title = institute.name || "Institute Page",
@@ -38,24 +36,18 @@ function InstitutePage({ institutes }) {
 
   return (
     <>
-      {/* ================= SEO META TAGS ================= */}
       <Helmet>
         <title>{title}</title>
 
-        {description && (
-          <meta name="description" content={description} />
-        )}
+        {description && <meta name="description" content={description} />}
 
-        {keywords && (
-          <meta name="keywords" content={keywords} />
-        )}
+        {keywords && <meta name="keywords" content={keywords} />}
 
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
       </Helmet>
 
-      {/* ================= PAGE CONTENT ================= */}
       <div>
         {institute.sections.map((sec, idx) => {
           const Comp = SECTION_COMPONENTS[sec.section_id];

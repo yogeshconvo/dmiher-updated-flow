@@ -1,20 +1,17 @@
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
-import { SECTION_COMPONENTS as INSTITUTE_SECTIONS } from "../sections/Institute";
-import { SECTION_COMPONENTS as MAIN_SECTIONS } from "../sections/MainPageSections";
+import { SECTION_COMPONENTS as Programs_sub_pages } from "../sections/Subpages"
 
 const SECTION_COMPONENTS = {
-  ...INSTITUTE_SECTIONS,
-  ...MAIN_SECTIONS,
+  ...Programs_sub_pages
 };
 
-function MainPages({ institutes }) {
+function Subpages({ institutes }) {
   const { slug } = useParams();
 
   const institute = institutes.find((inst) => inst.slug === slug);
 
-  /* ================= NOT FOUND ================= */
   if (!institute) {
     return (
       <>
@@ -27,7 +24,6 @@ function MainPages({ institutes }) {
     );
   }
 
-  /* ================= META DATA ================= */
   const { meta = {}, name } = institute;
 
   const metaTitle = meta.title || `${name} | Official Website`;
@@ -48,11 +44,10 @@ function MainPages({ institutes }) {
         <meta property="og:description" content={metaDescription} />
         <meta property="og:type" content="website" />
 
-        {/* Optional but good
         <link
           rel="canonical"
           href={`${window.location.origin}/institute/${slug}`}
-        /> */}
+        />
       </Helmet>
 
       <div>
@@ -74,4 +69,4 @@ function MainPages({ institutes }) {
   );
 }
 
-export default MainPages;
+export default Subpages;

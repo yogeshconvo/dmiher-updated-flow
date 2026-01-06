@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import "../../styles/main.css";
-import "../../styles/responsive.css";
+// import "../../styles/main.css";
+// import "../../styles/responsive.css";
 
 function Departments({ data }) {
   const { deptKey } = useParams();

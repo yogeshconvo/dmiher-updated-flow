@@ -7,7 +7,9 @@
 
 /* Custom styles */
 @import "./subpages/programs.css";
+@import "./subpages/departments.css";
 @import "./mainpagesections.css";
 @import "./InstitutesSections.css";
 @import "./Responsive.css";
-@import "./subpages/departments.css";
+@import "./subpages/transcript.css";
+@import "./subpages/CardMandatoryDisclosure.css";

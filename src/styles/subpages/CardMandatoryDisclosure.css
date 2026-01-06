@@ -1,0 +1,151 @@
+.mandatory-card {
+    @apply flex items-start gap-4 p-6 w-full rounded-2xl bg-white border border-gray-200 shadow-md transition-all duration-300 hover:shadow-xl hover:bg-[#fef7f6];
+}
+
+.mandatory-card.clickable {
+    @apply cursor-pointer;
+}
+
+.card-icon-wrapper {
+    @apply bg-[#F04E30]/10 text-[#F04E30] rounded-full p-3;
+}
+
+.card-icon {
+    @apply w-6 h-6;
+}
+
+.card-title {
+    @apply text-gray-800 font-medium text-[20px] leading-snug mt-1;
+}
+
+/* POPUP */
+.popup-overlay {
+    @apply fixed inset-0 mt-[100px] bg-black/50 backdrop-blur-sm flex items-center justify-center z-50;
+}
+
+.popup-container {
+    @apply bg-white p-6 m-4 rounded-lg shadow-lg w-full max-w-2xl relative;
+}
+
+.popup-close {
+    @apply absolute top-2 right-2 text-gray-500 text-2xl hover:text-black;
+}
+
+.popup-title {
+    @apply text-xl font-semibold text-center text-red-500 mb-4;
+}
+
+/* GRID */
+.popup-grid {
+    @apply grid gap-4;
+}
+
+.popup-grid.one-col {
+    @apply grid-cols-1;
+}
+
+.popup-grid.two-cols {
+    @apply grid-cols-2;
+}
+
+.popup-grid .span-full {
+    @apply col-span-2 mx-auto max-w-[300px];
+}
+
+/* IMAGE CARD */
+.popup-image-card {
+    @apply w-full rounded-lg overflow-hidden shadow flex flex-col items-center p-3;
+}
+
+.popup-image-card img {
+    @apply w-full max-h-[100px] object-contain;
+}
+
+.popup-image-title {
+    @apply mt-2 text-sm text-gray-700 text-center;
+}
+
+/* LINK CARD */
+.popup-link-card {
+    @apply flex items-center justify-center gap-2 w-full h-[60px] text-base font-medium text-white bg-[#102B64] rounded transition hover:bg-[#F04E30];
+}
+
+.popup-link-icon {
+    @apply w-5 h-5;
+}
+
+.popup-link-text {
+    @apply truncate capitalize;
+}
+
+.popup-empty {
+    @apply text-gray-600 text-center col-span-full;
+}
+
+@media (min-width: 768px) {
+    .mandatory-card {
+        @apply w-[45%];
+    }
+}
+
+
+/* Mandatory Disclosure */
+/* ================= SECTION ================= */
+.mandatory-section {
+    @apply bg-[#FAFAF6] py-12;
+}
+
+.mandatory-container {
+    @apply container mx-auto;
+}
+
+/* ================= HEADING ================= */
+.mandatory-heading {
+    @apply text-3xl font-[500] text-[#707070] uppercase mb-5 tracking-wide pt-5 pb-5;
+}
+
+.mandatory-heading-line {
+    @apply w-16 border-[#F04E30] mb-2 border-t-4;
+}
+
+/* ================= GRID ================= */
+.mandatory-grid {
+    @apply flex flex-wrap justify-between gap-y-6 max-w-6xl mx-auto;
+}
+
+/* ================= CARD ================= */
+.disclosure-card {
+    @apply flex items-start gap-4 p-6 rounded-2xl bg-white border border-gray-200 shadow-md transition-all duration-300 hover:shadow-xl hover:bg-[#fef7f6];
+}
+
+.disclosure-card.disabled {
+    @apply cursor-default;
+}
+
+/* ================= ICON ================= */
+.disclosure-icon-wrapper {
+    @apply bg-[#F04E30]/10 text-[#F04E30] rounded-full p-3 flex items-center justify-center;
+}
+
+.disclosure-icon-wrapper svg {
+    @apply w-6 h-6;
+}
+
+/* ================= TEXT ================= */
+.disclosure-title {
+    @apply text-gray-800 font-medium text-[20px] leading-snug mt-2;
+}
+
+@media (min-width: 768px) {
+    .mandatory-heading {
+        @apply text-4xl;
+    }
+
+    .mandatory-heading-line {
+        @apply w-20;
+    }
+
+    .disclosure-card {
+        @apply w-[45%];
+    }
+}

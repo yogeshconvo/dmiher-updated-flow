@@ -15,7 +15,8 @@ const DepartmentCard = ({ image, title, tabId }) => {
 
   const handleClick = () => {
     if (tabId) {
-      navigate(`/${slug}/departments/${tabId}`);
+      navigate(`/${slug}/departments`);
+      // navigate(`/${slug}/departments/${tabId}`);
     }
   };
 

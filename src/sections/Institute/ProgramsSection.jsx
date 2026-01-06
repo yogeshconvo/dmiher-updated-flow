@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function ProgramsSection({ data }) {
   const {
@@ -9,6 +9,7 @@ function ProgramsSection({ data }) {
     disclosures_cta_text,
     disclosures_url,
   } = data || {};
+  const instituteSlug = useLocation().pathname.split("/")[1];
 
   return (
     <div className="w-full flex justify-center py-20">
@@ -26,6 +27,7 @@ function ProgramsSection({ data }) {
               className="clip-path-message group cursor-pointer"
             >
               <Link
+                to={`/${instituteSlug}/programs`}
               // to={`/${instituteSlug}/programs/${encodeURIComponent(
               //   program.category
               // )}`}
@@ -49,9 +51,10 @@ function ProgramsSection({ data }) {
                 className="clip-path-message group cursor-pointer"
               >
                 <Link
-                //   to={`/${instituteSlug}/programs/${encodeURIComponent(
-                //     program.category
-                //   )}`}
+                  // to={`/${instituteSlug}/programs/${encodeURIComponent(
+                  //   program.category
+                  // )}`}
+                  to={`/${instituteSlug}/programs`}
                 >
                   <span className="clip-path-message-inner">
                     <span className="text-center break-words block w-[180px]">
