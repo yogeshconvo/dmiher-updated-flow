@@ -899,6 +899,79 @@
                     }
                 },
                 {
+                    "section_id": "departments_section",
+                    "data": {
+                        "title": "JAWAHARLAL NEHRU MEDICAL COLLEGE (JNMC)",
+                        "subtitle": "Excellence in Medical Education & Research",
+                        "departments": [
+                            {
+                                "id": 1,
+                                "key": "anatomy",
+                                "name": "Department of Anatomy",
+                                "info": "The Department of Anatomy provides a strong foundation in the structural organization of the human body through modern teaching methodologies.",
+                                "hod": [
+                                    {
+                                        "name": "Dr. A. B. Sharma",
+                                        "designation": "Professor & Head of Department",
+                                        "qualification": "MBBS, MS (Anatomy)",
+                                        "image": "https://example.com/images/hod/anatomy.jpg"
+                                    }
+                                ],
+                                "staff": [
+                                    {
+                                        "name": "Dr. X Y",
+                                        "designation": "Associate Professor"
+                                    },
+                                    {
+                                        "name": "Dr. Z W",
+                                        "designation": "Assistant Professor"
+                                    }
+                                ],
+                                "usp": [
+                                    "Well-equipped dissection halls",
+                                    "Digital anatomy learning tools",
+                                    "Experienced and dedicated faculty",
+                                    "Strong research orientation"
+                                ],
+                                "gallery": [
+                                    "https://example.com/images/anatomy/1.jpg",
+                                    "https://example.com/images/anatomy/2.jpg",
+                                    "https://example.com/images/anatomy/3.jpg"
+                                ]
+                            },
+                            {
+                                "id": 2,
+                                "key": "physiology",
+                                "name": "Department of Physiology",
+                                "info": "The Department of Physiology focuses on understanding normal functions of the human body using integrated teaching approaches.",
+                                "hod": [
+                                    {
+                                        "name": "Dr. P. Q. Patil",
+                                        "designation": "Professor & Head of Department",
+                                        "qualification": "MBBS, MD (Physiology)",
+                                        "image": "https://example.com/images/hod/physiology.jpg"
+                                    }
+                                ],
+                                "staff": [
+                                    {
+                                        "name": "Dr. L M",
+                                        "designation": "Associate Professor"
+                                    }
+                                ],
+                                "usp": [
+                                    "Advanced physiology laboratories",
+                                    "Student-centric learning",
+                                    "Clinical correlation emphasis"
+                                ],
+                                "gallery": [
+                                    "https://example.com/images/physiology/1.jpg",
+                                    "https://example.com/images/physiology/2.jpg"
+                                ]
+                            }
+                        ]
+                    }
+                },
+                {
                     "section_id": "info_section",
                     "data": {
                         "tagline": "A Learning Ecosystem That Shapes Who You Become",

@@ -1,0 +1,109 @@
+@reference "tailwindcss";
+
+/* ================= PAGE ================= */
+.page-wrapper {
+    @apply min-h-screen bg-gray-50;
+}
+
+/* ================= HEADER ================= */
+.jnmc-header {
+    @apply bg-[#102B64] text-white py-8;
+}
+
+.jnmc-header-title {
+    @apply text-4xl font-bold mb-2 text-center;
+}
+
+.jnmc-header-subtitle {
+    @apply text-xl opacity-90 text-center;
+}
+
+/* ================= CONTAINER ================= */
+.container {
+    @apply max-w-7xl mx-auto px-4 py-8;
+}
+
+/* ================= DEPARTMENT HEADER ================= */
+.department-header {
+    @apply bg-[#102B64] text-white rounded-xl shadow-lg p-8 text-center;
+}
+
+.department-header-title {
+    @apply text-3xl font-bold;
+}
+
+.department-header-info {
+    @apply text-lg opacity-90 max-w-4xl mx-auto;
+}
+
+/* ================= SECTION CARD ================= */
+.section-card {
+    @apply bg-white rounded-xl shadow-lg p-8;
+}
+
+.section-title {
+    @apply text-2xl font-bold text-gray-800 mb-6 text-center;
+}
+
+/* ================= HOD ================= */
+.hod-wrapper {
+    @apply flex flex-col gap-6;
+}
+
+.hod-card {
+    @apply flex flex-col md:flex-row items-center gap-6;
+}
+
+.hod-image {
+    @apply w-44 h-52 rounded-full object-cover shadow-lg;
+}
+
+.hod-name {
+    @apply text-xl font-bold text-gray-800 mb-2;
+}
+
+.hod-designation {
+    @apply text-[#F04E30] font-semibold mb-2;
+}
+
+.hod-qualification {
+    @apply text-gray-600;
+}
+
+/* ================= STAFF TABLE ================= */
+.staff-table {
+    @apply w-full;
+}
+
+.staff-table thead tr {
+    @apply border-b-2 border-gray-200;
+}
+
+.staff-table th {
+    @apply text-left py-3 px-4 font-semibold text-gray-800;
+}
+
+.staff-table td {
+    @apply py-3 px-4;
+}
+
+.staff-row {
+    @apply border-b border-gray-100 hover:bg-gray-50 transition-colors;
+}
+
+/* ================= USP ================= */
+.usp-grid {
+    @apply grid md:grid-cols-2 gap-4;
+}
+
+.usp-item {
+    @apply flex items-start p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors;
+}
+
+.usp-index {
+    @apply w-6 h-6 bg-[#F04E30] text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5;
+}
+
+.usp-text {
+    @apply text-gray-700 leading-relaxed;
+}
