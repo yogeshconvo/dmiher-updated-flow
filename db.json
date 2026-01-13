@@ -1718,6 +1718,18 @@
                             }
                         ]
                     }
+                },
+                {
+                    "section_id": "headwithpara_section",
+                    "data": {
+                        "title2": "CIQA",
+                        "extra_button": [
+                            {
+                                "title": "CIQA Report",
+                                "path": "/global-connects/international-centres"
+                            }
+                        ]
+                    }
                 }
             ]
         },
@@ -1971,6 +1983,26 @@
                             }
                         ]
                     }
+                },
+                {
+                    "section_id": "headwithpara_section",
+                    "data": {
+                        "title": "International Centres",
+                        "description": "Our specialized centres provide students, faculty, and healthcare professionals with global learning opportunities, advanced research platforms, and immersive experiences that align with international standards.",
+                        "centres": [
+                            "International Centre For Student Immersive Learning",
+                            "International Centre For Case-Based Learning",
+                            "International Centre For Standardized Patient Program",
+                            "International Centre For Simulation Education And Research",
+                            "International Centre For Blended Learning And Continuous Professional Development",
+                            "International Centre For Clinical Research Training",
+                            "International Centre For Life Support Education And Research",
+                            "International Centre For Students Mentorships",
+                            "Centre Of Excellence In Blockchain Technology In Health Care",
+                            "Centre For Excellence In Entrepreneurship",
+                            "International Centre For Teleconsultation Education & Services"
+                        ]
+                    }
                 }
             ]
         },
@@ -2093,7 +2125,7 @@
                                 "id": 1,
                                 "label": "Teaching Learning Methodologies",
                                 "content": "Dedicated AETCOM sessions, Structured self-directed learning (SSDL) modules, Flipped classrooms, Integrated modules, Family Adoption Program, Induction programs, Get Set Go, PG training facilities including advanced modular OTs, Skill training sessions. Teachers training programme for capacity building by Medical Education Unit and NMC Nodal Centre for Faculty development.",
-                                "image_key": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                                "image_key": ""
                             },
                             {
                                 "id": 2,
@@ -2378,6 +2410,51 @@
                     }
                 },
                 {
+                    "section_id": "research_collaboration",
+                    "data": {
+                        "heading": "RESEARCH & COLLABORATIONS",
+                        "intro_paragraphs": [
+                            "Driven by a team of highly qualified and experienced faculty, JNMC upholds a rich legacy of teaching excellence and a strong track record of research contributions.",
+                            "Faculty have published extensively in prestigious journals, including The Lancet, BMJ, Frontiers, Nature, and more.",
+                            "Three faculties are in the list of the world’s top 2% scientists released by Stanford University (Elsevier’s Scopus database).",
+                            "The institution’s contributions include books, copyrights, and patents advancing medical science."
+                        ],
+                        "highlight_points": [
+                            "Dr. Zahir Quazi",
+                            "Dr. Abhay Gaidhane",
+                            "Dr. Mahalaque Nazli Khatib"
+                        ],
+                        "stats": [
+                            {
+                                "icon": "/assets/JNMC/icon1.png",
+                                "value": "24 Granted, 30 Filed",
+                                "label": "Patents"
+                            },
+                            {
+                                "icon": "/assets/JNMC/icon2.png",
+                                "value": "400+",
+                                "label": "Copyrights"
+                            },
+                            {
+                                "icon": "/assets/JNMC/icon3.png",
+                                "value": "10,000+",
+                                "label": "Total Research Publications"
+                            },
+                            {
+                                "icon": "/assets/JNMC/icon4.png",
+                                "value": "41,000+",
+                                "label": "Citations"
+                            }
+                        ],
+                        "institutional_metrics": {
+                            "h_index": 60,
+                            "articles_2024": "1246 Articles (82 in Q1 & Q2)"
+                        },
+                        "research_collaboration": "",
+                        "educational_research": ""
+                    }
+                },
+                {
                     "section_id": "medical_education_unit",
                     "data": {
                         "heading": "MEDICAL EDUCATION UNIT, JNMC, WARDHA",
@@ -2421,51 +2498,6 @@
                                 "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
                             }
                         ]
-                    }
-                },
-                {
-                    "section_id": "research_collaboration",
-                    "data": {
-                        "heading": "RESEARCH & COLLABORATIONS",
-                        "intro_paragraphs": [
-                            "Driven by a team of highly qualified and experienced faculty, JNMC upholds a rich legacy of teaching excellence and a strong track record of research contributions.",
-                            "Faculty have published extensively in prestigious journals, including The Lancet, BMJ, Frontiers, Nature, and more.",
-                            "Three faculties are in the list of the world’s top 2% scientists released by Stanford University (Elsevier’s Scopus database).",
-                            "The institution’s contributions include books, copyrights, and patents advancing medical science."
-                        ],
-                        "highlight_points": [
-                            "Dr. Zahir Quazi",
-                            "Dr. Abhay Gaidhane",
-                            "Dr. Mahalaque Nazli Khatib"
-                        ],
-                        "stats": [
-                            {
-                                "icon": "/assets/JNMC/icon1.png",
-                                "value": "24 Granted, 30 Filed",
-                                "label": "Patents"
-                            },
-                            {
-                                "icon": "/assets/JNMC/icon2.png",
-                                "value": "400+",
-                                "label": "Copyrights"
-                            },
-                            {
-                                "icon": "/assets/JNMC/icon3.png",
-                                "value": "10,000+",
-                                "label": "Total Research Publications"
-                            },
-                            {
-                                "icon": "/assets/JNMC/icon4.png",
-                                "value": "41,000+",
-                                "label": "Citations"
-                            }
-                        ],
-                        "institutional_metrics": {
-                            "h_index": 60,
-                            "articles_2024": "1246 Articles (82 in Q1 & Q2)"
-                        },
-                        "research_collaboration": "",
-                        "educational_research": ""
                     }
                 },
                 {
@@ -2703,17 +2735,31 @@
                     "items": [
                         {
                             "id": "jnmc",
-                            "title": "JNMC",
+                            "title": "Jawaharlal Nehru Medical College",
                             "slug": "/jnmc",
                             "image": "/images/jnmc.jpg",
                             "description": "Premier medical institute"
                         },
                         {
-                            "id": "jnmc",
-                            "title": "JNMC",
-                            "slug": "/jnmc",
-                            "image": "/images/jnmc.jpg",
-                            "description": "Premier medical institute"
+                            "id": "mgac",
+                            "title": "Mahatma Gandhi Ayurvedic College Hospital And Research Centre",
+                            "slug": "/mgac",
+                            "image": "/images/mgac.jpg",
+                            "description": "Medical College Nagpur"
+                        },
+                        {
+                            "id": "spdc",
+                            "title": "Sharad Pawar Dental College And Hospital",
+                            "slug": "/spdc",
+                            "image": "/images/spdc.jpg",
+                            "description": "Medical College Nagpur"
+                        },
+                        {
+                            "id": "rnpc",
+                            "title": "Ravi Nair Physiotherapy College",
+                            "slug": "/rnpc",
+                            "image": "/images/rnpc.jpg",
+                            "description": "Medical College Nagpur"
                         }
                     ]
                 },
@@ -3136,6 +3182,62 @@
                                 "gallery": [
                                     "https://example.com/images/anatomy/1.jpg"
                                 ]
+                            },
+                            {
+                                "id": 2,
+                                "key": "Bonatomy",
+                                "name": "Department of Anatomy",
+                                "info": "The Department of Anatomy provides a strong foundation in the structural organization of the human body.",
+                                "hod": [
+                                    {
+                                        "name": "Dr. A. B. Sharma",
+                                        "designation": "Professor & Head of Department",
+                                        "qualification": "MBBS, MS (Anatomy)",
+                                        "image": "https://example.com/images/hod/anatomy.jpg"
+                                    }
+                                ],
+                                "staff": [
+                                    {
+                                        "name": "Dr. X Y",
+                                        "designation": "Associate Professor"
+                                    }
+                                ],
+                                "usp": [
+                                    "Well-equipped dissection halls",
+                                    "Digital anatomy learning tools",
+                                    "Experienced faculty"
+                                ],
+                                "gallery": [
+                                    "https://example.com/images/anatomy/1.jpg"
+                                ]
+                            },
+                            {
+                                "id": 3,
+                                "key": "Tonacology",
+                                "name": "Department of Tonacology",
+                                "info": "The Department of Tonacology provides a strong foundation in the structural organization of the human body.",
+                                "hod": [
+                                    {
+                                        "name": "Dr. A. B. Sharma",
+                                        "designation": "Professor & Head of Department",
+                                        "qualification": "MBBS, MS (Anatomy)",
+                                        "image": "https://example.com/images/hod/anatomy.jpg"
+                                    }
+                                ],
+                                "staff": [
+                                    {
+                                        "name": "Dr. X Y",
+                                        "designation": "Associate Professor"
+                                    }
+                                ],
+                                "usp": [
+                                    "Well-equipped dissection halls",
+                                    "Digital anatomy learning tools",
+                                    "Experienced faculty"
+                                ],
+                                "gallery": [
+                                    "https://example.com/images/anatomy/1.jpg"
+                                ]
                             }
                         ]
                     }
@@ -3175,12 +3277,16 @@
                                 "id": "btech-cse",
                                 "category": "undergraduate",
                                 "title": "B.Tech Computer Science",
+                                "collegeName": "Jawaharlal Nehru Medical College",
+                                "eligibility": "10+2 with Physics, Chemistry, and Biology",
                                 "duration": "4 Years",
                                 "description": "Comprehensive program covering algorithms, AI, and software engineering."
                             },
                             {
                                 "id": "mtech-ai",
                                 "category": "postgraduate",
+                                "collegeName": "Jawaharlal Nehru Medical College",
+                                "eligibility": "10+2 with Physics, Chemistry, and Biology",
                                 "title": "M.Tech Artificial Intelligence",
                                 "duration": "2 Years",
                                 "description": "Advanced studies in machine learning and deep learning."
@@ -3274,6 +3380,183 @@
                                 "link": "Refund-Policy-2024-25.pdf",
                                 "icon": "RotateCcw",
                                 "type": "pdf"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "slug": "/jnmc/deans-message",
+            "sections": [
+                {
+                    "section_id": "dean_know_more",
+                    "data": {
+                        "heading": "Dean’s Message",
+                        "dean": {
+                            "name": "Dr. (Mrs.) Sonali Choudhari Deshmukh",
+                            "designation": "Dean, JNMC & AVBRH, DMIHER",
+                            "qualifications": "MBBS, MD, MPhil (HPE), FAIMER (IFI, Philadelphia)",
+                            "email": "dean.jnmc@dmiher.edu.in",
+                            "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                        },
+                        "message": [
+                            "Jawaharlal Nehru Medical College & Acharya Vinoba Bhave Rural Hospital, established in 1990 under the Datta Meghe Institute of Higher Education and Research (Deemed to be University), Wardha, stands as a premier institution for medical education, research, and healthcare services. Ranked 23rd nationally, we offer MBBS (250 seats), postgraduate, super-specialty, paramedical, and PhD programs, all accredited with NAAC ‘A++’.",
+                            "Our innovations include ‘Anukruti’, a state-of-the-art Simulation Centre, ‘Jigyasa’, a central integrated museum, and early adoption of NEP 2020. As a nodal centre for faculty development, we integrate cutting-edge teaching methodologies and host national and international conferences.",
+                            "We are home to the region’s largest tertiary care hospital, a Super-specialty centre, and a dedicated Cancer hospital, offering services including robotic surgery, oncology, cardiology, nephrology, neurology, neurosurgery, urology, gastroenterology, interventional radiology, and transplant facilities."
+                        ],
+                        "managementTeam": [
+                            {
+                                "name": "Dr. Vaishali Paunikar",
+                                "designation": "Dean Academics, Faculty of Medicine",
+                                "qualification": "MBBS, MD (Physiology)",
+                                "email": "deanacademicsjnmc@dmiher.edu.in",
+                                "image": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwk21whws03RvLs3C1blx-Z2ZlvXJvz3d2qr57cqLm2SDZvlxo-ZJCXvaOhb9NqZPrdNicmDdoN50dVGZjLc2e0FozrZTJcx_RF6Oiax0nbm1qq9MIlHqPwnKCZTCz_OZZyDuoC=s680-w680-h510-rw"
+                            },
+                            {
+                                "name": "Dr. Abhay Mudey",
+                                "designation": "Medical Superintendent, AVBRH",
+                                "qualification": "MBBS, MD, DPH, PhD (Community Medicine)",
+                                "email": "msavbrh@dmiher.edu.in",
+                                "image": "/assets/Micro-img/Institute/JNMC/NewHODImages/AbhayGaidhane.jpg"
+                            },
+                            {
+                                "name": "Dr. Chandrashekhar Mahakalkar",
+                                "designation": "Director, DMIHER Hospitals, Wardha",
+                                "qualification": "MBBS, MS, FACRSI, DHM, MPhil (HPE)",
+                                "email": "directorhospitals@dmiher.edu.in",
+                                "image": "/assets/Micro-img/JNMC/d1.jpg"
+                            },
+                            {
+                                "name": "Dr. Jayant Vagha",
+                                "designation": "PG Mentor, JNMC & AVBRH",
+                                "qualification": "MBBS, MD, MA, MHPE",
+                                "email": "pgdirectorjnmc@dmiher.edu.in",
+                                "image": "/assets/Micro-img/JNMC/d3.jpg"
+                            },
+                            {
+                                "name": "Dr. Samarth Shukla",
+                                "designation": "Vice Dean (Academics)",
+                                "qualification": "MBBS, DPB, DNB, MD (Pathology), MNAMS, PhD",
+                                "email": "vicedeanjnmc@dmiher.edu.in",
+                                "image": "/assets/Micro-img/JNMC/d4.jpg"
+                            },
+                            {
+                                "name": "Dr. Vaibhav Anjankar",
+                                "designation": "Vice Dean (Administration)",
+                                "qualification": "MBBS, MD",
+                                "email": "vicedeanadminjnmc@dmiher.edu.in",
+                                "image": "/assets/Micro-img/JNMC/d5.jpg"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "slug": "/IQAC/accreditations-recognitions",
+            "sections": [
+                {
+                    "section_id": "accreditations_recognitions",
+                    "data": {
+                        "heading": "Accreditations & Recognitions",
+                        "categories": [
+                            "All",
+                            "International",
+                            "National"
+                        ],
+                        "internationalCertificates": [
+                            {
+                                "id": "int-1",
+                                "title": "Times Higher Education Asia Ranking 2025",
+                                "image": "/assets/Micro-img/certificate/times-ranking.jpg",
+                                "url": "/assets/Micro-img/certificate/times-ranking.jpg",
+                                "year": "2025",
+                                "organization": "Times Higher Education",
+                                "description": "Recognized for excellence in education and research.",
+                                "category": "International"
+                            },
+                            {
+                                "id": "int-2",
+                                "title": "Times Higher Education World University Ranking 2026",
+                                "image": "/assets/Micro-img/certificate/WR.jpeg",
+                                "url": "/assets/Micro-img/certificate/WR.jpeg",
+                                "year": "2026",
+                                "organization": "Times Higher Education",
+                                "description": "Global recognition for academic excellence.",
+                                "category": "International"
+                            },
+                            {
+                                "id": "int-3",
+                                "title": "Times Higher Education Impact Rankings 2025",
+                                "image": "/assets/Micro-img/certificate/times-ranking.png",
+                                "url": "/assets/Micro-img/certificate/times-ranking.png",
+                                "year": "2025",
+                                "organization": "Times Higher Education",
+                                "description": "Recognition for social and sustainable impact.",
+                                "category": "International"
+                            },
+                            {
+                                "id": "int-4",
+                                "title": "American Heart Association (AHA) Accredited Training Centre",
+                                "image": "/assets/Micro-img/certificate/AHA.jpeg",
+                                "url": "/assets/Micro-img/certificate/AHA.pdf",
+                                "year": null,
+                                "organization": "American Heart Association",
+                                "description": "International training centre for emergency life support.",
+                                "category": "International"
+                            }
+                        ],
+                        "nationalCertificates": [
+                            {
+                                "id": "nat-1",
+                                "title": "SDG Accord Certificate",
+                                "image": "/assets/Micro-img/certificate/SDG Accord certificate.png",
+                                "url": "/assets/Micro-img/certificate/SDG Accord certificate.png",
+                                "year": null,
+                                "organization": "SDG Accord",
+                                "description": "Commitment to sustainable development goals.",
+                                "category": "National"
+                            },
+                            {
+                                "id": "nat-2",
+                                "title": "FICCI Excellence in Institutional Social Responsibility",
+                                "image": "/assets/Micro-img/certificate/FICCI 'Excellence in Institutional Social Responsibility.jpeg",
+                                "url": "/assets/Micro-img/certificate/FICCI 'Excellence in Institutional Social Responsibility.jpeg",
+                                "year": null,
+                                "organization": "FICCI",
+                                "description": "Recognition for outstanding social responsibility.",
+                                "category": "National"
+                            },
+                            {
+                                "id": "nat-3",
+                                "title": "NAAC Accreditation Certificate",
+                                "image": "/assets/Micro-img/certificate/a-grade.jpg",
+                                "url": "/IQAC/accreditations-recognitions/naac",
+                                "year": null,
+                                "organization": "NAAC",
+                                "description": "Accredited with highest academic standards.",
+                                "category": "National"
+                            },
+                            {
+                                "id": "nat-4",
+                                "title": "NIRF Ranking 2025",
+                                "image": "/assets/Micro-img/certificate/nirf-ranking-2024.png",
+                                "url": "/IQAC/accreditations-recognitions/nirf",
+                                "year": "2025",
+                                "organization": "Ministry of Education, Government of India",
+                                "description": "Recognized among top institutions in India.",
+                                "category": "National"
+                            },
+                            {
+                                "id": "nat-5",
+                                "title": "QS I-GAUGE IOH Certificate",
+                                "image": "/assets/Micro-img/certificate/QS.png",
+                                "url": "/IQAC/accreditations-recognitions/qsi",
+                                "year": null,
+                                "organization": "QS I-GAUGE",
+                                "description": "Quality assurance in higher education.",
+                                "category": "National"
                             }
                         ]
                     }

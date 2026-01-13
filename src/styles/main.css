@@ -6,10 +6,13 @@
 @tailwind utilities;
 
 /* Custom styles */
-@import "./subpages/programs.css";
-@import "./subpages/departments.css";
+/* @import "./subpages/programs.css"; */
+/* @import "./subpages/departments.css"; */
 @import "./mainpagesections.css";
 @import "./InstitutesSections.css";
 @import "./Responsive.css";
-@import "./subpages/transcript.css";
-@import "./subpages/CardMandatoryDisclosure.css";
+/* @import "./subpages/transcript.css"; */
+/* @import "./subpages/CardMandatoryDisclosure.css"; */
+/* @import "./subpages/dean-know-more.css"; */
+/* @import "./subpages/accreditations_recognitions.css"; */
+@import "./subpages/main-subpages.css";

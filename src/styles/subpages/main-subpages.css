@@ -1,0 +1,654 @@
+/* In This File We Write All The CSS For Subpages */
+
+/* ================= MANDATORY DISCLOSURE ================= */
+.mandatory-card {
+    @apply flex items-start gap-4 p-6 w-full rounded-2xl bg-white border border-gray-200 shadow-md transition-all duration-300 hover:shadow-xl hover:bg-[#fef7f6];
+}
+
+.mandatory-card.clickable {
+    @apply cursor-pointer;
+}
+
+.card-icon-wrapper {
+    @apply bg-[#F04E30]/10 text-[#F04E30] rounded-full p-3;
+}
+
+.card-icon {
+    @apply w-6 h-6;
+}
+
+.card-title {
+    @apply text-gray-800 font-medium text-[20px] leading-snug mt-1;
+}
+
+/* POPUP */
+.popup-overlay {
+    @apply fixed inset-0 mt-[100px] bg-black/50 backdrop-blur-sm flex items-center justify-center z-50;
+}
+
+.popup-container {
+    @apply bg-white p-6 m-4 rounded-lg shadow-lg w-full max-w-2xl relative;
+}
+
+.popup-close {
+    @apply absolute top-2 right-2 text-gray-500 text-2xl hover:text-black;
+}
+
+.popup-title {
+    @apply text-xl font-semibold text-center text-red-500 mb-4;
+}
+
+.popup-grid {
+    @apply grid gap-4;
+}
+
+.popup-grid.one-col {
+    @apply grid-cols-1;
+}
+
+.popup-grid.two-cols {
+    @apply grid-cols-2;
+}
+
+.popup-grid .span-full {
+    @apply col-span-2 mx-auto max-w-[300px];
+}
+
+.popup-image-card {
+    @apply w-full rounded-lg overflow-hidden shadow flex flex-col items-center p-3;
+}
+
+.popup-image-card img {
+    @apply w-full max-h-[100px] object-contain;
+}
+
+.popup-image-title {
+    @apply mt-2 text-sm text-gray-700 text-center;
+}
+
+.popup-link-card {
+    @apply flex items-center justify-center gap-2 w-full h-[60px] text-base font-medium text-white bg-[#102B64] rounded transition hover:bg-[#F04E30];
+}
+
+.popup-link-icon {
+    @apply w-5 h-5;
+}
+
+.popup-link-text {
+    @apply truncate capitalize;
+}
+
+.popup-empty {
+    @apply text-gray-600 text-center col-span-full;
+}
+
+@media (min-width: 768px) {
+    .mandatory-card {
+        @apply w-[45%];
+    }
+}
+
+
+/* Mandatory Disclosure */
+/* ================= SECTION ================= */
+.mandatory-section {
+    @apply bg-[#FAFAF6] py-12;
+}
+
+.mandatory-container {
+    @apply container mx-auto;
+}
+
+.mandatory-grid {
+    @apply flex flex-wrap justify-between gap-y-6 max-w-6xl mx-auto;
+}
+
+.disclosure-card {
+    @apply flex items-start gap-4 p-6 rounded-2xl bg-white border border-gray-200 shadow-md transition-all duration-300 hover:shadow-xl hover:bg-[#fef7f6];
+}
+
+.disclosure-card.disabled {
+    @apply cursor-default;
+}
+
+.disclosure-icon-wrapper {
+    @apply bg-[#F04E30]/10 text-[#F04E30] rounded-full p-3 flex items-center justify-center;
+}
+
+.disclosure-icon-wrapper svg {
+    @apply w-6 h-6;
+}
+
+.disclosure-title {
+    @apply text-gray-800 font-medium text-[20px] leading-snug mt-2;
+}
+
+@media (min-width: 768px) {
+    .mandatory-heading {
+        @apply text-4xl;
+    }
+
+    .mandatory-heading-line {
+        @apply w-20;
+    }
+
+    .disclosure-card {
+        @apply w-[45%];
+    }
+}
+
+/* ================= DEPARTMENTS ================= */
+
+.page-wrapper {
+    @apply min-h-screen bg-gray-50;
+}
+
+.jnmc-header {
+    @apply bg-[#102B64] text-white py-8;
+}
+
+.jnmc-header-title {
+    @apply text-4xl font-bold mb-2 text-center;
+}
+
+.jnmc-header-subtitle {
+    @apply text-xl opacity-90 text-center;
+}
+
+.container {
+    @apply max-w-7xl mx-auto px-4 py-8;
+}
+
+.department-header {
+    @apply bg-[#102B64] text-white rounded-xl shadow-lg p-8 text-center;
+}
+
+.department-header-title {
+    @apply text-3xl font-bold;
+}
+
+.department-header-info {
+    @apply text-lg opacity-90 max-w-4xl mx-auto;
+}
+
+.section-card {
+    @apply bg-white rounded-xl shadow-lg p-8;
+}
+
+.section-title {
+    @apply text-2xl font-bold text-gray-800 mb-6 text-center;
+}
+
+.hod-wrapper {
+    @apply flex flex-col gap-6;
+}
+
+.hod-card {
+    @apply flex flex-col md:flex-row items-center gap-6;
+}
+
+.hod-image {
+    @apply w-44 h-52 rounded-full object-cover shadow-lg;
+}
+
+.hod-name {
+    @apply text-xl font-bold text-gray-800 mb-2;
+}
+
+.hod-designation {
+    @apply text-[#F04E30] font-semibold mb-2;
+}
+
+.hod-qualification {
+    @apply text-gray-600;
+}
+
+.staff-table {
+    @apply w-full;
+}
+
+.staff-table thead tr {
+    @apply border-b-2 border-gray-200;
+}
+
+.staff-table th {
+    @apply text-left py-3 px-4 font-semibold text-gray-800;
+}
+
+.staff-table td {
+    @apply py-3 px-4;
+}
+
+.staff-row {
+    @apply border-b border-gray-100 hover:bg-gray-50 transition-colors;
+}
+
+.usp-grid {
+    @apply grid md:grid-cols-2 gap-4;
+}
+
+.usp-item {
+    @apply flex items-start p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors;
+}
+
+.usp-index {
+    @apply w-6 h-6 bg-[#F04E30] text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5;
+}
+
+.usp-text {
+    @apply text-gray-700 leading-relaxed;
+}
+
+/* ================= Programs ================= */
+.streams-wrapper {
+    @apply py-8;
+}
+
+.streams-search {
+    @apply mb-8 relative;
+}
+
+.streams-search-input {
+    @apply w-full pl-10 pr-12 py-3 border border-gray-300 rounded-full shadow-sm text-base;
+}
+
+.streams-search-icon {
+    @apply absolute left-3 top-1/2 -translate-y-1/2 text-gray-400;
+}
+
+.streams-clear-btn {
+    @apply absolute right-3 top-1/2 -translate-y-1/2 text-gray-400;
+}
+
+.streams-tabs {
+    @apply mb-6 bg-white rounded-2xl p-2 border border-gray-100 shadow-sm;
+}
+
+.streams-tabs-grid {
+    @apply hidden sm:grid gap-2 relative;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+}
+
+.stream-card {
+    @apply min-h-[300px] flex flex-col justify-around gap-3;
+}
+
+
+.stream-card-eligibility {
+    @apply bg-gray-50 rounded-lg p-2.5 sm:p-3;
+}
+
+.stream-card-eligibility-text {
+    @apply text-xs sm:text-sm text-gray-600 leading-snug font-[Arial];
+}
+
+.stream-card-badge {
+    @apply text-sm bg-blue-100 text-blue-700 px-3 py-2 rounded-xl;
+}
+
+.stream-card-badge-duration {
+    @apply text-sm font-semibold bg-blue-100 text-blue-800 px-3 py-1 rounded-full;
+}
+
+.stream-card-badge-text {
+    @apply text-sm font-semibold bg-blue-100 text-blue-800 px-3 py-1 rounded-xl;
+}
+
+.streams-tab-indicator {
+    @apply absolute inset-y-0 bg-[#F04E30] rounded-xl transition-all;
+}
+
+.streams-tab {
+    @apply relative z-10 flex flex-col items-center justify-center py-3 rounded-xl transition-all;
+}
+
+.streams-tab-active {
+    @apply text-white;
+}
+
+.streams-tab-inactive {
+    @apply text-gray-600;
+}
+
+.streams-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
+}
+
+.stream-card {
+    @apply bg-white rounded-2xl border border-gray-100 p-6 shadow-sm transition-all;
+}
+
+.stream-card:hover {
+    @apply shadow-xl -translate-y-1;
+}
+
+.stream-card-title {
+    @apply font-semibold text-lg text-gray-800;
+}
+
+.stream-card-desc {
+    @apply text-sm text-gray-600 font-[Arial];
+}
+
+.stream-apply-btn {
+    @apply w-full mt-auto bg-[#F04E30] text-white py-3 rounded-lg transition-all;
+}
+
+.stream-apply-btn:hover {
+    @apply bg-[#102B64];
+}
+
+/* ================= Transcripts  ================= */
+
+.transcript-page {
+    @apply min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100;
+}
+
+.transcript-header {
+    @apply bg-[#102B64] py-10 text-center shadow-lg;
+}
+
+.transcript-title {
+    @apply text-4xl font-bold text-white;
+}
+
+.transcript-content {
+    @apply max-w-7xl mx-auto px-6 py-16;
+}
+
+.department-dropdown {
+    @apply relative mb-10;
+}
+
+.dropdown-button {
+    @apply w-full sm:w-[520px] bg-white border border-gray-300 rounded-lg px-4 py-3 flex items-center justify-between shadow-sm hover:shadow-md transition;
+}
+
+.dropdown-icon {
+    @apply w-5 h-5 transition-transform;
+}
+
+.dropdown-icon.open {
+    @apply rotate-180;
+}
+
+.dropdown-list {
+    @apply absolute z-10 mt-2 w-full sm:w-[520px] bg-white border border-gray-300 rounded-lg shadow-lg;
+}
+
+.dropdown-item {
+    @apply w-full px-4 py-3 text-left hover:bg-gray-50 transition;
+}
+
+.courses-section {
+    @apply mb-20;
+}
+
+.courses-wrapper {
+    @apply bg-white rounded-3xl shadow-2xl border border-gray-100 p-10;
+}
+
+.courses-grid {
+    @apply grid gap-8;
+}
+
+.course-card {
+    @apply bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl;
+}
+
+.course-card-header {
+    @apply bg-[#102B64] p-6 text-white;
+}
+
+.course-header-left {
+    @apply flex items-center gap-4;
+}
+
+.course-header-icon {
+    @apply bg-white/20 p-3 rounded-full;
+}
+
+.course-number {
+    @apply text-sm opacity-90;
+}
+
+.course-sem {
+    @apply text-xs opacity-75;
+}
+
+.course-card-body {
+    @apply p-6;
+}
+
+.course-title {
+    @apply text-xl font-bold text-gray-800 mb-3 transition hover:text-[#F04E30];
+}
+
+.course-university {
+    @apply flex items-start gap-3 mb-4;
+}
+
+.university-icon {
+    @apply bg-[#F04E30]/10 p-2 rounded-lg;
+}
+
+.university-icon svg {
+    @apply w-4 h-4 text-[#F04E30];
+}
+
+.powered-by {
+    @apply text-sm text-gray-500;
+}
+
+.course-meta {
+    @apply inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full text-sm font-medium text-gray-700;
+}
+
+.course-meta svg {
+    @apply w-3 h-3 text-[#F04E30];
+}
+
+@media (min-width: 768px) {
+    .courses-grid {
+        @apply grid-cols-2;
+    }
+}
+
+@media (max-width: 767px) {
+    .transcript-title {
+        @apply text-3xl;
+    }
+
+    .courses-wrapper {
+        @apply p-6;
+    }
+}
+
+/* ================= Accordion and Rankings ================= */
+
+.accreditation-section {
+    @apply bg-gray-50 py-12;
+}
+
+.accreditation-container {
+    @apply max-w-7xl mx-auto px-4;
+}
+
+.accreditation-tabs {
+    @apply flex flex-wrap justify-center gap-4 mb-10;
+}
+
+.accreditation-tab {
+    @apply px-6 py-2 rounded-full font-semibold bg-white text-gray-700 shadow-md transition hover:bg-[#102B64] hover:text-white;
+}
+
+.accreditation-tab.active {
+    @apply bg-[#F04E30] text-white scale-105 shadow-lg;
+}
+
+
+.accreditation-grid {
+    @apply grid gap-8;
+}
+
+.accreditation-card {
+    @apply bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2;
+}
+
+.card-image-wrapper {
+    @apply relative;
+}
+
+.card-image-wrapper img {
+    @apply w-full h-48 object-contain;
+}
+
+.preview-btn {
+    @apply absolute bottom-4 right-4 bg-[#F04E30] text-white p-2 rounded-full hover:bg-[#102B64];
+}
+
+.badge {
+    @apply absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold text-white;
+}
+
+.badge.international {
+    @apply bg-blue-500;
+}
+
+.badge.national {
+    @apply bg-green-500;
+}
+
+.card-body {
+    @apply p-5 flex flex-col h-[260px];
+}
+
+.card-body h3 {
+    @apply font-bold text-lg text-gray-800 mb-2;
+}
+
+.card-body .year {
+    @apply text-sm font-bold text-[#F04E30] mb-2;
+}
+
+.card-body p {
+    @apply text-sm text-gray-600 mb-4;
+}
+
+.view-btn {
+    @apply mt-auto bg-gray-100 text-gray-700 py-2 rounded-lg text-center hover:bg-[#F04E30] hover:text-white transition;
+}
+
+.accreditation-modal {
+    @apply fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4;
+}
+
+.modal-content {
+    @apply bg-white rounded-xl max-w-xl w-full p-5 relative;
+}
+
+.modal-content img {
+    @apply w-full h-64 object-contain mb-4;
+}
+
+.modal-close {
+    @apply absolute top-4 right-4 bg-white p-2 rounded-full shadow hover:bg-gray-100;
+}
+
+.modal-btn {
+    @apply mt-4 inline-block bg-[#F04E30] text-white px-5 py-2 rounded-lg hover:bg-[#102B64];
+}
+
+@media (min-width: 640px) {
+    .accreditation-grid {
+        @apply grid-cols-2;
+    }
+}
+
+@media (min-width: 768px) {
+    .accreditation-grid {
+        @apply grid-cols-3;
+    }
+}
+
+@media (min-width: 1024px) {
+    .accreditation-grid {
+        @apply grid-cols-4;
+    }
+}
+
+/* ================= Dean Know More ================= */
+
+.knowmore-dean-layout {
+    @apply flex flex-col gap-10 items-center text-left;
+}
+
+.knowmore-dean-profile {
+    @apply flex-shrink-0;
+}
+
+.knowmore-dean-image {
+    @apply rounded-lg h-[300px] object-cover mb-4;
+}
+
+.knowmore-dean-info {
+    @apply text-[#707070] leading-relaxed;
+}
+
+.knowmore-dean-name {
+    @apply font-bold;
+}
+
+.knowmore-dean-message {
+    @apply text-[16px] leading-6 tracking-wide text-[#707060] pr-5 font-[400];
+}
+
+.knowmore-dean-message p {
+    @apply mb-4;
+}
+
+.knowmore-team-wrapper {
+    @apply my-8;
+}
+
+.knowmore-team-grid {
+    @apply grid grid-cols-1 gap-8;
+}
+
+.knowmore-team-card {
+    @apply border border-gray-300 rounded-sm shadow-sm pb-2 flex flex-col items-center text-center hover:shadow-md transition-shadow duration-200 cursor-pointer;
+}
+
+.knowmore-team-image {
+    @apply w-full h-full object-cover object-top mb-4;
+}
+
+.knowmore-team-name {
+    @apply text-blue-800 font-semibold text-lg mb-1;
+}
+
+.knowmore-team-designation,
+.knowmore-team-qualification {
+    @apply text-sm font-medium text-gray-600 px-2 mb-1;
+}
+
+.knowmore-team-email {
+    @apply text-xs px-2 text-gray-500;
+}
+
+@media (min-width: 1024px) {
+    .knowmore-dean-layout {
+        @apply flex-row items-start;
+    }
+
+    .knowmore-team-grid {
+        @apply grid-cols-3;
+    }
+}
+
+@media (max-width: 767px) {
+    .knowmore-team-grid {
+        @apply grid-cols-1;
+    }
+}

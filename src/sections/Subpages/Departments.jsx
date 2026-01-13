@@ -1,30 +1,55 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import DropdownButton from "../../components/UI/DropDownButton";
 
 // import "../../styles/main.css";
 // import "../../styles/responsive.css";
 
 function Departments({ data }) {
   const { deptKey } = useParams();
+  const navigate = useNavigate();
 
   const { title, subtitle, departments = [] } = data || {};
 
   const [selectedDepartment, setSelectedDepartment] = useState(
-    deptKey || departments?.[0]?.key
+   ""
   );
 
-  useEffect(() => {
-    if (deptKey) {
-      setSelectedDepartment(deptKey);
-    }
-  }, [deptKey]);
+  // useEffect(() => {
+  //   if (deptKey) {
+  //     setSelectedDepartment(deptKey);
+  //   }
+  // }, [deptKey]);
 
-  const currentDept = departments.find(
-    (dept) => dept.key === selectedDepartment
-  );
+  // const currentDept = departments.find(
+  //   (dept) => dept.key === selectedDepartment
+  // );
+const options = departments.map((dept) => ({
+  key: dept.key,
+  name: dept.name,
+}));
 
+useEffect(() => {
+  if (deptKey) {
+    setSelectedDepartment(deptKey);
+  } else if (departments.length > 0) {
+    setSelectedDepartment(departments[0].key);
+  }
+}, [deptKey, departments]);
+
+const handleDepartmentChange = (key) => {
+  setSelectedDepartment("");
+  // navigate(`/jnmc/departments/${key}`);
+};
+
+const currentDept = departments.find(
+  (dept) => dept.key === selectedDepartment
+);
   if (!currentDept) return null;
-
+  console.log(currentDept);
+  console.log(selectedDepartment);
+  console.log(deptKey);
+  
   return (
     <div className="page-wrapper">
       {/* ================= HEADER ================= */}
@@ -33,14 +58,21 @@ function Departments({ data }) {
         <p className="jnmc-header-subtitle">{subtitle}</p>
       </header>
 
+   <DropdownButton
+        options={options}
+        selectedKey={selectedDepartment}
+        // onChange={handleDepartmentChange}
+        placeholder="Select Department"
+        className="mb-8"
+        />
       <div className="container">
-        {/* ================= DEPARTMENT HEADER ================= */}
+ 
         <div className="department-header">
           <h2 className="department-header-title">{currentDept.name}</h2>
           <p className="department-header-info">{currentDept.info}</p>
         </div>
-
-        {/* ================= HOD ================= */}
+        <h2>Test Comment</h2>
+     
         {currentDept.hod?.length > 0 && (
           <div className="section-card mt-8">
             <h3 className="section-title">Head of Department</h3>
@@ -70,7 +102,6 @@ function Departments({ data }) {
           </div>
         )}
 
-        {/* ================= STAFF ================= */}
         {currentDept.staff?.length > 0 && (
           <div className="section-card mt-8">
             <h3 className="section-title">Department Staff</h3>
@@ -101,7 +132,6 @@ function Departments({ data }) {
           </div>
         )}
 
-        {/* ================= USP ================= */}
         {currentDept.usp?.length > 0 && (
           <div className="section-card mt-8">
             <h3 className="section-title">

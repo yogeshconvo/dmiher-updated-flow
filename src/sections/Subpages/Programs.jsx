@@ -82,53 +82,60 @@ const Programs = ({ data }) => {
         </div>
 
         {/* TABS */}
-        <div className="streams-tabs">
-          <div className="streams-tabs-grid">
-            <div
-              className="streams-tab-indicator"
-              style={{
-                left: `${activeTabIndex * 25}%`,
-                width: "25%",
-              }}
-            />
-            {tabs.map((tab, index) => {
-              const Icon = iconMap[tab.icon];
-              const active = tab.id === activeTab;
+       <div className="streams-tabs">
+  <div className="streams-tabs-grid">
+    <div
+      className="streams-tab-indicator"
+      style={{
+        left: `${activeTabIndex * (100 / tabs.length)}%`,
+        width: `${100 / tabs.length}%`,
+      }}
+    />
 
-              return (
-                <button
-                  key={tab.id}
-                  className={`streams-tab ${
-                    active
-                      ? "streams-tab-active"
-                      : "streams-tab-inactive"
-                  }`}
-                  onClick={() => {
-                    setActiveTab(tab.id);
-                    setActiveTabIndex(index);
-                  }}
-                >
-                  <Icon size={20} />
-                  <span>{tab.label}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
+    {tabs.map((tab, index) => {
+      const Icon = iconMap[tab.icon];
+      const active = tab.id === activeTab;
 
+      return (
+        <button
+          key={tab.id}
+          className={`streams-tab ${
+            active ? "streams-tab-active" : "streams-tab-inactive"
+          }`}
+          onClick={() => {
+            setActiveTab(tab.id);
+            setActiveTabIndex(index);
+          }}
+        >
+          <Icon size={20} />
+          <span>{tab.label}</span>
+        </button>
+      );
+    })}
+  </div>
+</div>
+
+ 
         {/* PROGRAMS */}
         <div className="streams-grid">
           {filteredPrograms.map((p) => (
             <div key={p.id} className="stream-card">
               <div className="flex justify-between mb-2">
-                <h3 className="stream-card-title">{p.title}</h3>
-                <span className="stream-card-badge">
+                <p className="stream-card-title">{p.title}</p>
+                <span className="stream-card-badge-duration">
                   {p.duration}
                 </span>
+              
+
               </div>
-
+ 
               <p className="stream-card-desc">{p.description}</p>
-
+ <div className="stream-card-badge">
+                 <p className="stream-card-badge-text">{p.collegeName}</p>
+                </div>
+                <div className="stream-card-eligibility">
+                 <p className="stream-card-eligibility-text">Eligibility: <br />{p.eligibility}</p>
+                </div>
               <button
                 className="stream-apply-btn"
                 onClick={() => setShowModal(true)}

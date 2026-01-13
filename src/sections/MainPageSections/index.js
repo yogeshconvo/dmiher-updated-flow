@@ -33,6 +33,7 @@ import EnquiryGlobal from "./Global/EnquiryGlobal"
 import StudentLife from "../Institute/StudentLife"
 import WhyChoose from "../Institute/WhyChoseSlider"
 import HomeSteps from "./HomeSteps"
+import HeadwithPara from "./Global/HeadwithPara"
 export const SECTION_COMPONENTS = {
 
     // Common Sections
@@ -78,6 +79,7 @@ export const SECTION_COMPONENTS = {
     //Global
     enquiry_global: EnquiryGlobal,
     global_alliances: AlliancesGlobal,
+    headwithpara_section: HeadwithPara,
 
     // Research Section
     research_highlights: ResearchHighlights,

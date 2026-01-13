@@ -1,68 +1,57 @@
 import { useState } from "react";
-// import "../styles/InstituteSections/info-section.css";
 
 function InfoSection({ data }) {
-  const {
-    title,
-    tagline,
-    highlight_color,
-    intro_paragraphs = [],
-    more_paragraphs = [],
-  } = data || {};
+  if (!data) return null;
+
+  const basic = data.basic || {};
+  const introParagraphs = Array.isArray(data.intro_paragraphs)
+    ? data.intro_paragraphs
+    : [];
+  const moreParagraphs = Array.isArray(data.view_more_paragraphs)
+    ? data.view_more_paragraphs
+    : [];
+
+  const { title, tagline, highlight_color } = basic;
 
   const [showMore, setShowMore] = useState(false);
 
   return (
     <div className="info-section">
-      {/* TITLE */}
-      {/* <h2 className="info-title">
-        <hr
-          className="info-title-line"
-          style={{ borderColor: "highlight_color" }}
-        />
-
-        <span className="info-title-text">
-          {title}
-        </span>
-
-        <hr
-          className="info-title-line"
-          style={{ borderColor: highlight_color }}
-        />
-      </h2> */}
-
+      {/* ================= TITLE ================= */}
       {title && (
         <h2 className="info-title">
           <hr
             className="info-title-line"
-            style={{ borderColor: "highlight_color" }}
+            style={{ borderColor: highlight_color || "#ccc" }}
           />
 
-          <span className="info-title-text">
-            {title}
-          </span>
+          <span className="info-title-text">{title}</span>
 
           <hr
             className="info-title-line"
-            style={{ borderColor: highlight_color }}
+            style={{ borderColor: highlight_color || "#ccc" }}
           />
         </h2>
       )}
 
-      {/* CONTENT */}
+      {/* ================= CONTENT ================= */}
       <section className="info-content">
-        <h1 className="info-tagline">
-          {tagline?.toUpperCase()}
-        </h1>
+        {tagline && (
+          <h1 className="info-tagline">
+            {tagline.toUpperCase()}
+          </h1>
+        )}
 
         <div className="info-text-wrapper">
-          {intro_paragraphs.map((p, i) => (
+          {/* Intro paragraphs */}
+          {introParagraphs.map((p, i) => (
             <p key={i} className="info-paragraph">
-              {p}
+              {p.text}
             </p>
           ))}
 
-          {!showMore && more_paragraphs.length > 0 && (
+          {/* View More */}
+          {!showMore && moreParagraphs.length > 0 && (
             <button
               className="info-btn info-btn-more"
               onClick={() => setShowMore(true)}
@@ -71,14 +60,16 @@ function InfoSection({ data }) {
             </button>
           )}
 
+          {/* Extra paragraphs */}
           {showMore &&
-            more_paragraphs.map((p, i) => (
+            moreParagraphs.map((p, i) => (
               <p key={i} className="info-paragraph">
-                {p}
+                {p.text}
               </p>
             ))}
 
-          {showMore && more_paragraphs.length > 0 && (
+          {/* View Less */}
+          {showMore && moreParagraphs.length > 0 && (
             <button
               className="info-btn info-btn-less"
               onClick={() => setShowMore(false)}

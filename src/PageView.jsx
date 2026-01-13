@@ -15,11 +15,13 @@ function PageView({ pages = [], subpages = [] }) {
   let resolvedPage = null;
 
 
-  if (!slug && !college && !page) {
-    resolvedPage = pages.find((p) => p.slug === "/");
-  }
+if (!slug && !college && !page) {
+  resolvedPage = pages[0]; // default page
+}
 
-
+  console.log(pages)
+  console.log(subpages)
+  
   if (!resolvedPage && college && page) {
     const fullSlug = `/${college}/${page}`;
     resolvedPage = subpages.find(

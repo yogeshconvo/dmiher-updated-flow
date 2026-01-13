@@ -14,19 +14,20 @@ import ButtonSection from "./ButtonSection"
 import Placements from "./Placements"
 import ProgramsAnnouncements from "./ProgramsAnnouncements"
 import WhyChoose from "./WhyChoseSlider"
+import HolisticInfrastructureSection from "./HoliisticLearning"
 
 export const SECTION_COMPONENTS = {
 
     // Common Sections
     hero_section: HeroSection,
-    info_section: InfoSection,
+    institute_info: InfoSection,
     institute_programs_section: ProgramsSection,
     hospital_section: HospitalSection,
     deans_message_section: DeansMessage,
     education_unit: EducationUnit,
     departments: departments,
     innovative_learning: InnovativeLearning,
-    collaboration: Collabaration,
+    research_collaboration: Collabaration,
     global_opportunities: GlobalOpportunities,
     testimonial: Testimonial,
     student_life: StudentLife,
@@ -35,6 +36,6 @@ export const SECTION_COMPONENTS = {
     programs_announcements: ProgramsAnnouncements,
     why_choose: WhyChoose,
     // deans_message_section: deans_message_section,
-
+    holistic_infrastructure_section: HolisticInfrastructureSection,
 
 };
