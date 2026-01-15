@@ -27,15 +27,15 @@ export const SECTION_COMPONENTS = {
     education_unit: EducationUnit,
     departments: departments,
     innovative_learning: InnovativeLearning,
-    research_collaboration: Collabaration,
+    research_collaborations: Collabaration,
     global_opportunities: GlobalOpportunities,
     testimonial: Testimonial,
-    student_life: StudentLife,
+    student_gallery: StudentLife,
     button_section: ButtonSection,
     placements: Placements,
     programs_announcements: ProgramsAnnouncements,
     why_choose: WhyChoose,
     // deans_message_section: deans_message_section,
-    holistic_infrastructure_section: HolisticInfrastructureSection,
+    holistic_learning_Section: HolisticInfrastructureSection,
 
 };

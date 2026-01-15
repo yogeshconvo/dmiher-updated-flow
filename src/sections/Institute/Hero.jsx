@@ -216,7 +216,7 @@ function Hero({ data, slug }) {
   return (
     <>
       {/* ================= TOP BAR ================= */}
-      {topbar?.enabled && (
+      {topbar && (
         <div className="hero-topbar">
           <span className="hero-admission-text">
             {topbar.admissions_text}

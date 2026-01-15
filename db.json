@@ -3562,6 +3562,169 @@
                     }
                 }
             ]
+        },
+        {
+            "slug": "/new-micro/programs",
+            "sections": [
+                {
+                    "section_id": "section_1",
+                    "data": [
+                        {
+                            "title": "Programs Offered",
+                            "content_flow": [
+                                {
+                                    "type": "heading",
+                                    "value": "Introduction"
+                                },
+                                {
+                                    "type": "table",
+                                    "value": [
+                                        [
+                                            "Department",
+                                            "Seats",
+                                            "Duration"
+                                        ],
+                                        [
+                                            "MBBS",
+                                            "250",
+                                            "5.5 Years"
+                                        ],
+                                        [
+                                            "MD",
+                                            "120",
+                                            "3 Years"
+                                        ],
+                                        [
+                                            "MS",
+                                            "85",
+                                            "3 Years"
+                                        ]
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "value": "<p>This is an introductory paragraph with <strong>HTML support</strong>.</p>"
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "value": "<p>This is an introductory paragraph with <strong>HTML support</strong>.</p>"
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "value": "<p>This is an introductory paragraph with <strong>HTML support</strong>.</p>"
+                                },
+                                {
+                                    "type": "table",
+                                    "value": [
+                                        [
+                                            "Department",
+                                            "Seats",
+                                            "Duration"
+                                        ],
+                                        [
+                                            "MBBS",
+                                            "250",
+                                            "5.5 Years"
+                                        ],
+                                        [
+                                            "MD",
+                                            "120",
+                                            "3 Years"
+                                        ],
+                                        [
+                                            "MS",
+                                            "85",
+                                            "3 Years"
+                                        ]
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "value": "<p>This is an introductory paragraph with <strong>HTML support</strong>.</p>"
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "value": "<p>This is an introductory paragraph with <strong>HTML support</strong>.</p>"
+                                },
+                                {
+                                    "type": "table",
+                                    "value": [
+                                        [
+                                            "Department",
+                                            "Seats",
+                                            "Duration",
+                                            "Eligibility",
+                                            "Fee"
+                                        ],
+                                        [
+                                            "MBBS",
+                                            "250",
+                                            "5.5 Years",
+                                            "10+2",
+                                            "100000"
+                                        ],
+                                        [
+                                            "MD",
+                                            "120",
+                                            "3 Years",
+                                            "10+2",
+                                            "100000"
+                                        ],
+                                        [
+                                            "MS",
+                                            "85",
+                                            "3 Years",
+                                            "10+2",
+                                            "100000"
+                                        ]
+                                    ]
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "value": "<p>This is an introductory paragraph with <strong>HTML support</strong>.</p>"
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "value": "<p>This is an introductory paragraph with <strong>HTML support</strong>.</p>"
+                                },
+                                {
+                                    "type": "table",
+                                    "value": [
+                                        [
+                                            "Department",
+                                            "Seats",
+                                            "Duration"
+                                        ],
+                                        [
+                                            "MBBS",
+                                            "250",
+                                            "5.5 Years"
+                                        ],
+                                        [
+                                            "MD",
+                                            "120",
+                                            "3 Years"
+                                        ],
+                                        [
+                                            "MS",
+                                            "85",
+                                            "3 Years"
+                                        ]
+                                    ]
+                                },
+                                {
+                                    "type": "image",
+                                    "value": "https://via.placeholder.com/900x450"
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "value": "<p>Content after image works perfectly.</p>"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
