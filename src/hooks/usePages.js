@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-const API_URL = "http://127.0.0.1:8000/api/pages";
+const API_URL = "http://127.0.0.1:8000/api/pages/jnmc";
 // const API_URL = "https://json-new-sever.onrender.com/page-data";
 
 const fetchPages = async () => {
@@ -9,6 +9,7 @@ const fetchPages = async () => {
 
     const data = await res.json();
     return [data];
+
 };
 
 export const usePages = () =>

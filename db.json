@@ -3454,109 +3454,72 @@
             ]
         },
         {
-            "slug": "/IQAC/accreditations-recognitions",
+            "slug": "/jnmc/electives-offered",
             "sections": [
                 {
-                    "section_id": "accreditations_recognitions",
+                    "section_id": "electives_offered",
                     "data": {
-                        "heading": "Accreditations & Recognitions",
-                        "categories": [
-                            "All",
-                            "International",
-                            "National"
-                        ],
-                        "internationalCertificates": [
+                        "title": "Electives Program",
+                        "departments": [
                             {
-                                "id": "int-1",
-                                "title": "Times Higher Education Asia Ranking 2025",
-                                "image": "/assets/Micro-img/certificate/times-ranking.jpg",
-                                "url": "/assets/Micro-img/certificate/times-ranking.jpg",
-                                "year": "2025",
-                                "organization": "Times Higher Education",
-                                "description": "Recognized for excellence in education and research.",
-                                "category": "International"
+                                "id": "ai-ds",
+                                "name": "Department of Artificial Intelligence and Data Science",
+                                "electives": [
+                                    {
+                                        "srNo": 1,
+                                        "semester": "III",
+                                        "name": "Elective - Data Interface for Sustainable Healthcare System",
+                                        "icon": "BookOpen"
+                                    },
+                                    {
+                                        "srNo": 2,
+                                        "semester": "III",
+                                        "name": "Elective - Content and Structure of the Health Record",
+                                        "icon": "BookOpen"
+                                    },
+                                    {
+                                        "srNo": 3,
+                                        "semester": "III",
+                                        "name": "Elective - Virtual Reality and Psychotherapy",
+                                        "icon": "BookOpen"
+                                    }
+                                ]
                             },
                             {
-                                "id": "int-2",
-                                "title": "Times Higher Education World University Ranking 2026",
-                                "image": "/assets/Micro-img/certificate/WR.jpeg",
-                                "url": "/assets/Micro-img/certificate/WR.jpeg",
-                                "year": "2026",
-                                "organization": "Times Higher Education",
-                                "description": "Global recognition for academic excellence.",
-                                "category": "International"
+                                "id": "ai-ml",
+                                "name": "Department of Artificial Intelligence and Machine Learning",
+                                "electives": [
+                                    {
+                                        "srNo": 1,
+                                        "semester": "III",
+                                        "name": "Elective - Introduction of AI in Healthcare",
+                                        "icon": "BookOpen"
+                                    },
+                                    {
+                                        "srNo": 2,
+                                        "semester": "III",
+                                        "name": "Elective - Introduction of AI in Oral Healthcare",
+                                        "icon": "BookOpen"
+                                    }
+                                ]
                             },
                             {
-                                "id": "int-3",
-                                "title": "Times Higher Education Impact Rankings 2025",
-                                "image": "/assets/Micro-img/certificate/times-ranking.png",
-                                "url": "/assets/Micro-img/certificate/times-ranking.png",
-                                "year": "2025",
-                                "organization": "Times Higher Education",
-                                "description": "Recognition for social and sustainable impact.",
-                                "category": "International"
-                            },
-                            {
-                                "id": "int-4",
-                                "title": "American Heart Association (AHA) Accredited Training Centre",
-                                "image": "/assets/Micro-img/certificate/AHA.jpeg",
-                                "url": "/assets/Micro-img/certificate/AHA.pdf",
-                                "year": null,
-                                "organization": "American Heart Association",
-                                "description": "International training centre for emergency life support.",
-                                "category": "International"
-                            }
-                        ],
-                        "nationalCertificates": [
-                            {
-                                "id": "nat-1",
-                                "title": "SDG Accord Certificate",
-                                "image": "/assets/Micro-img/certificate/SDG Accord certificate.png",
-                                "url": "/assets/Micro-img/certificate/SDG Accord certificate.png",
-                                "year": null,
-                                "organization": "SDG Accord",
-                                "description": "Commitment to sustainable development goals.",
-                                "category": "National"
-                            },
-                            {
-                                "id": "nat-2",
-                                "title": "FICCI Excellence in Institutional Social Responsibility",
-                                "image": "/assets/Micro-img/certificate/FICCI 'Excellence in Institutional Social Responsibility.jpeg",
-                                "url": "/assets/Micro-img/certificate/FICCI 'Excellence in Institutional Social Responsibility.jpeg",
-                                "year": null,
-                                "organization": "FICCI",
-                                "description": "Recognition for outstanding social responsibility.",
-                                "category": "National"
-                            },
-                            {
-                                "id": "nat-3",
-                                "title": "NAAC Accreditation Certificate",
-                                "image": "/assets/Micro-img/certificate/a-grade.jpg",
-                                "url": "/IQAC/accreditations-recognitions/naac",
-                                "year": null,
-                                "organization": "NAAC",
-                                "description": "Accredited with highest academic standards.",
-                                "category": "National"
-                            },
-                            {
-                                "id": "nat-4",
-                                "title": "NIRF Ranking 2025",
-                                "image": "/assets/Micro-img/certificate/nirf-ranking-2024.png",
-                                "url": "/IQAC/accreditations-recognitions/nirf",
-                                "year": "2025",
-                                "organization": "Ministry of Education, Government of India",
-                                "description": "Recognized among top institutions in India.",
-                                "category": "National"
-                            },
-                            {
-                                "id": "nat-5",
-                                "title": "QS I-GAUGE IOH Certificate",
-                                "image": "/assets/Micro-img/certificate/QS.png",
-                                "url": "/IQAC/accreditations-recognitions/qsi",
-                                "year": null,
-                                "organization": "QS I-GAUGE",
-                                "description": "Quality assurance in higher education.",
-                                "category": "National"
+                                "id": "cs-design",
+                                "name": "Department of Computer Science and Design",
+                                "electives": [
+                                    {
+                                        "srNo": 1,
+                                        "semester": "III",
+                                        "name": "Elective - Introduction to Artificial Intelligence in Healthcare",
+                                        "icon": "BookOpen"
+                                    },
+                                    {
+                                        "srNo": 2,
+                                        "semester": "III",
+                                        "name": "Elective - Data Mining",
+                                        "icon": "BookOpen"
+                                    }
+                                ]
                             }
                         ]
                     }
@@ -3570,155 +3533,100 @@
                     "section_id": "section_1",
                     "data": [
                         {
-                            "title": "Programs Offered",
+                            "title": "Training and Placement cell",
                             "content_flow": [
                                 {
                                     "type": "heading",
-                                    "value": "Introduction"
+                                    "value": "Preamble"
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "value": "<p>The Training & Placement Cell at DMIHER (DU) plays a pivotal role in shaping students' careers and enhancing their employability. As a dedicated center for career development, the cell is committed to equipping students with the necessary skills, knowledge, and exposure to excel in competitive professional environments. <br/>With a proactive approach, the Placement Cell works year-round to understand industry demands, establish strong collaborations with hospitals, corporations, and organizations, and facilitate seamless recruitment opportunities. The cell also provides career guidance, clarifies career pathways, and offers structured training programs to enrich students' practical experience and professional growth. By fostering industry connections and aligning student aspirations with market needs, the Training & Placement Cell serves as a bridge between academia and the professional world, ensuring that graduates are well-prepared to contribute effectively to their respective fields.</p>"
+                                },
+                                {
+                                    "type": "heading",
+                                    "value": "Objectives :"
+                                },
+                                {
+                                    "type": "paragraph",
+                                    "value": "<p>To provide career guidance and support to students to help them make informed career choices.<br/>To organize career fairs and placement drives to connect students with potential employers.<br/>To conduct mock interviews and career counseling sessions to prepare students for the job market.<br/>To develop and maintain a database of potential employers and job opportunities.<br/>To provide career development resources and materials to students.<br/>To promote career awareness and prepare students for the job market.</p>"
+                                },
+                                {
+                                    "type": "heading",
+                                    "value": "COMPOSITION OF THE TRAINING AND PLACEMENT CELL"
                                 },
                                 {
                                     "type": "table",
-                                    "value": [
-                                        [
-                                            "Department",
-                                            "Seats",
-                                            "Duration"
+                                    "value": {
+                                        "thead": [
+                                            "SN.",
+                                            "Name and Designation",
+                                            "Post Held",
+                                            "Mail id"
                                         ],
-                                        [
-                                            "MBBS",
-                                            "250",
-                                            "5.5 Years"
-                                        ],
-                                        [
-                                            "MD",
-                                            "120",
-                                            "3 Years"
-                                        ],
-                                        [
-                                            "MS",
-                                            "85",
-                                            "3 Years"
+                                        "tbody": [
+                                            [
+                                                "1",
+                                                "Dr. K.T.V. Reddy",
+                                                "Director- (Training & Placement), DMIHER (DU)",
+                                                "director.tpo@dmiher.edu.in"
+                                            ],
+                                            [
+                                                "2",
+                                                "Mr. Nitesh T Mankar",
+                                                "Deputy Director- (Training & Placement), DMIHER (DU)",
+                                                "nitesh.mankar@dmiher.edu.in"
+                                            ],
+                                            [
+                                                "3",
+                                                "Mr. Yash Naik",
+                                                "Training & Placement Executive, DMIHER (DU)",
+                                                "yashnaik@dmiher.edu.in"
+                                            ],
+                                            [
+                                                "4",
+                                                "Dr. Vivek Chakole",
+                                                "T&P Coordinator, JNMC",
+                                                "vivek.chakole@dmiher.edu.in"
+                                            ]
                                         ]
-                                    ]
+                                    }
+                                },
+                                {
+                                    "type": "heading",
+                                    "value": "Contact Details"
                                 },
                                 {
                                     "type": "paragraph",
-                                    "value": "<p>This is an introductory paragraph with <strong>HTML support</strong>.</p>"
+                                    "value": "<p>Mr. Nitesh T Mankar</p>"
                                 },
                                 {
                                     "type": "paragraph",
-                                    "value": "<p>This is an introductory paragraph with <strong>HTML support</strong>.</p>"
+                                    "value": "<p>Deputy Director-(Training & Placement), DMIHER (DU)</p>"
                                 },
                                 {
                                     "type": "paragraph",
-                                    "value": "<p>This is an introductory paragraph with <strong>HTML support</strong>.</p>"
-                                },
-                                {
-                                    "type": "table",
-                                    "value": [
-                                        [
-                                            "Department",
-                                            "Seats",
-                                            "Duration"
-                                        ],
-                                        [
-                                            "MBBS",
-                                            "250",
-                                            "5.5 Years"
-                                        ],
-                                        [
-                                            "MD",
-                                            "120",
-                                            "3 Years"
-                                        ],
-                                        [
-                                            "MS",
-                                            "85",
-                                            "3 Years"
-                                        ]
-                                    ]
+                                    "value": "<p>nitesh.mankar@dmiher.edu.in</p>"
                                 },
                                 {
                                     "type": "paragraph",
-                                    "value": "<p>This is an introductory paragraph with <strong>HTML support</strong>.</p>"
+                                    "value": "<p>Contact No: 9923147991</p>"
                                 },
                                 {
                                     "type": "paragraph",
-                                    "value": "<p>This is an introductory paragraph with <strong>HTML support</strong>.</p>"
-                                },
-                                {
-                                    "type": "table",
-                                    "value": [
-                                        [
-                                            "Department",
-                                            "Seats",
-                                            "Duration",
-                                            "Eligibility",
-                                            "Fee"
-                                        ],
-                                        [
-                                            "MBBS",
-                                            "250",
-                                            "5.5 Years",
-                                            "10+2",
-                                            "100000"
-                                        ],
-                                        [
-                                            "MD",
-                                            "120",
-                                            "3 Years",
-                                            "10+2",
-                                            "100000"
-                                        ],
-                                        [
-                                            "MS",
-                                            "85",
-                                            "3 Years",
-                                            "10+2",
-                                            "100000"
-                                        ]
-                                    ]
+                                    "value": "<p>Mr. Yash Naik</p>"
                                 },
                                 {
                                     "type": "paragraph",
-                                    "value": "<p>This is an introductory paragraph with <strong>HTML support</strong>.</p>"
+                                    "value": "<p>Training & Placement Executive</p>"
                                 },
                                 {
                                     "type": "paragraph",
-                                    "value": "<p>This is an introductory paragraph with <strong>HTML support</strong>.</p>"
-                                },
-                                {
-                                    "type": "table",
-                                    "value": [
-                                        [
-                                            "Department",
-                                            "Seats",
-                                            "Duration"
-                                        ],
-                                        [
-                                            "MBBS",
-                                            "250",
-                                            "5.5 Years"
-                                        ],
-                                        [
-                                            "MD",
-                                            "120",
-                                            "3 Years"
-                                        ],
-                                        [
-                                            "MS",
-                                            "85",
-                                            "3 Years"
-                                        ]
-                                    ]
-                                },
-                                {
-                                    "type": "image",
-                                    "value": "https://via.placeholder.com/900x450"
+                                    "value": "<p>yashnaik@dmiher.edu.in</p>"
                                 },
                                 {
                                     "type": "paragraph",
-                                    "value": "<p>Content after image works perfectly.</p>"
+                                    "value": "<p>Contact No: 7410199555</p>"
                                 }
                             ]
                         }

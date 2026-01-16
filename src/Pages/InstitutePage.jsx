@@ -8,6 +8,9 @@ const SECTION_COMPONENTS = {
   ...INSTITUTE_SECTIONS,
   ...MAIN_SECTIONS,
 };
+const [metaTitle, setMetaTitle] = useState("");
+const [metaDescription, setMetaDescription] = useState("");
+const [metaKeywords, setMetaKeywords] = useState("");
 
 function InstitutePage({ institutes }) {
   const { slug } = useParams();

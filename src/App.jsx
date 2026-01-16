@@ -10,6 +10,7 @@ import { usePages } from "./hooks/usePages";
 import { useSubpages } from "./hooks/useSubpages";
 import PageView from "./PageView";
 import ScrollToTop from "./components/ScrollToTop";
+import KnowMore from "./sections/Subpages/DeanKnowMore";
 
 
 
@@ -58,7 +59,13 @@ function App() {
         subpages={subpages}
       />
     }
-  />
+        />
+         <Route
+         path="know-more"
+         element={
+          <KnowMore />
+         }
+         />
 
   {/* TWO LEVEL: /jnmc/transcript */}
   <Route

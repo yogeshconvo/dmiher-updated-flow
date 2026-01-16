@@ -7,6 +7,7 @@ import MandatoryDisclosures from "./MD";
 import DeanKnowMore from "./DeanKnowMore";
 import AccreditationsRecognitions from "./UniquePages/AccreditationsRecognitions";
 import MainMicropage from "../Micropages/Main-micropage";
+import ElectivesOfferedFEAT from "./ElectiveOffered";
 
 export const SECTION_COMPONENTS = {
 
@@ -16,6 +17,13 @@ export const SECTION_COMPONENTS = {
     mandatoryDisclore_subpage: MandatoryDisclosures,
     dean_know_more: DeanKnowMore,
     accreditations_recognitions: AccreditationsRecognitions,
+    electives_offered: ElectivesOfferedFEAT,
+
+
+
+
+
+
     section_1: MainMicropage,
 
 

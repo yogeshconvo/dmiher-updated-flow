@@ -34,7 +34,7 @@ export const SECTION_COMPONENTS = {
     button_section: ButtonSection,
     placements: Placements,
     programs_announcements: ProgramsAnnouncements,
-    why_choose: WhyChoose,
+    why_choose_jnmc: WhyChoose,
     // deans_message_section: deans_message_section,
     holistic_learning_Section: HolisticInfrastructureSection,
 

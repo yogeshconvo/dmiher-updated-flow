@@ -1,89 +1,79 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
+import { Pagination, Autoplay } from "swiper/modules";
 
 import "swiper/css";
-import "swiper/css/autoplay";
 import "swiper/css/pagination";
-// import "../styles/feature-slider.css";
-
-const themeMap = {
-  orange: "feature-orange",
-  lightBlue: "feature-lightBlue",
-  navy: "feature-navy",
-  white: "feature-white",
-  blue: "feature-blue",
-};
+import "swiper/css/autoplay";
 
 const WhyChoose = ({ data }) => {
-  const { heading, cards = [] } = data || {};
-  const sectionRef = useRef(null);
-  const [startSwiper, setStartSwiper] = useState(false);
+  const cards = data?.cards || [];
+  const heading = data?.header?.heading;
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => entry.isIntersecting && setStartSwiper(true),
-      { threshold: 0.3 }
-    );
-
-    sectionRef.current && observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+  if (!cards.length) return null;
 
   return (
-    <div ref={sectionRef} className="feature-section">
+    <div className="feature-section">
       <div className="container">
-         <h2 className="heading">
-              <hr className="heading-line" />
-          {heading}
-        </h2>
+        {heading && (
+          <h2 className="heading">
+            <hr className="heading-line" />
+            {heading}
+          </h2>
+        )}
 
         <div className="feature-slider-wrapper">
-          {startSwiper && (
-            <Swiper
-              modules={[Autoplay, Pagination]}
-              autoplay={{ delay: 3000, disableOnInteraction: false }}
-              pagination={{
-                clickable: true,
-                el: ".feature-pagination",
-              }}
-              loop
-              centeredSlides
-              breakpoints={{
-                640: { slidesPerView: 2, centeredSlides: false },
-                1024: { slidesPerView: 4, centeredSlides: false },
-              }}
-            >
-              {cards.map((card, index) => (
-                <SwiperSlide key={index}>
-                  <div
-                    className={`feature-card ${themeMap[card.theme]}`}
+          <Swiper
+            modules={[Pagination, Autoplay]}
+            pagination={{
+              clickable: true,
+            }}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            loop
+            spaceBetween={20}
+            breakpoints={{
+              0: {
+                slidesPerView: 1,
+              },
+              640: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 4,
+              },
+            }}
+          >
+            {cards.map((card, index) => (
+              <SwiperSlide
+                key={`${index}-${card.title}`}   
+                virtualIndex={index}
+              >
+                <div
+                  className="feature-card"
+                  style={{ backgroundColor: card.bg_color }}
+                >
+                  <h3
+                    className="feature-title"
+                    style={{ color: card.title_color }}
                   >
-                    <div>
-                      <p className="feature-title">{card.title}</p>
-                      {card.subtitle && (
-                        <p className="feature-subtitle">
-                          {card.subtitle}
-                        </p>
-                      )}
-                    </div>
+                    {card.title}
+                  </h3>
 
-                    {card.points && (
-                      <div>
-                        {card.points.map((p, i) => (
-                          <p key={i} className="feature-subtitle">
-                            {p}
-                          </p>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          )}
-
-          <div className="feature-pagination" />
+                  {card.description || card.desc && (
+                    <p
+                      className="feature-subtitle"
+                      style={{ color: card.desc_color }}
+                    >
+                      {card.description || card.desc}
+                    </p>
+                  )}
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
     </div>

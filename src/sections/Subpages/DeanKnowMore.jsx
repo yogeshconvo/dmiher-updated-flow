@@ -1,7 +1,46 @@
 import React from "react";
+import { useState, useEffect } from "react";
 
-function KnowMore({ data }) {
-  if (!data) return null;
+
+function KnowMore() {
+const [data, setData] = useState(null);
+
+useEffect(() => {
+  const fetchApiData = async () => {
+ try {
+   const res = await fetch("http://127.0.0.1:8000/api/page-sections/18/micro-pages");
+   const data = await res.json();
+  const page = data.micro_pages[0];
+  
+   const formattedData = {
+     heading: page.title,
+     dean: {
+       name: page.content.leader.name,
+       designation: page.content.leader.designation,
+       qualifications: page.content.leader.designation,
+       email: page.content.leader.email,
+       image: "/images/dean.jpg" 
+     },
+     message: page.content.description.map(item => item.text),
+     managementTeam: page.content.officials.map(member => ({
+       name: member.name,
+       designation: member.designation,
+       qualification: "",
+       email: member.email,
+       image: "/images/team.jpg"
+     }))
+   };
+   setData(formattedData);
+ } catch (error) {
+ console.log(error);
+ }
+  };
+  fetchApiData();
+}, []);
+
+if (!data) return null;
+
+  // if (!data) return null;
 
   const {heading, dean, message, managementTeam } = data;
 

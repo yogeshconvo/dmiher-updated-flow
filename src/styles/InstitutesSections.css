@@ -609,48 +609,19 @@
 }
 
 .feature-card {
-    @apply w-[250px] h-[320px] mx-auto p-4 rounded-xl shadow-md flex flex-col justify-between;
+    @apply w-[250px] h-[320px] mx-auto p-4 rounded-xl shadow-md flex flex-col justify-center;
 }
 
-/* ================= THEMES ================= */
-.feature-orange {
-    @apply bg-[#F7941D]/90 text-white;
-}
 
-.feature-lightBlue {
-    @apply bg-[#E3F2FD];
-}
 
-.feature-navy {
-    @apply bg-[#122E5E] text-white;
-}
 
-.feature-white {
-    @apply bg-white;
-}
-
-.feature-blue {
-    @apply bg-[#269BFF] text-white;
-}
 
 .feature-title {
-    @apply font-[500] text-xl;
-}
-
-.feature-title-xl {
-    @apply text-4xl;
-}
-
-.feature-title-xxl {
-    @apply text-5xl text-[#E1CD67];
+    @apply font-medium text-xl text-center;
 }
 
 .feature-subtitle {
     @apply text-sm mt-2;
-}
-
-.feature-muted {
-    @apply text-[#707070] text-[15px];
 }
 
 /* ================= HOSPITAL ================= */

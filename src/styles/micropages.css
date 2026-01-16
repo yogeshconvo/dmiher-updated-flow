@@ -1,0 +1,54 @@
+@reference "tailwindcss";
+
+
+.micropage-wrapper {
+    @apply bg-white py-10;
+}
+
+.micropage-container {
+    @apply container max-w-6xl mx-auto;
+}
+
+.micropage-title {
+    @apply text-3xl uppercase tracking-wide text-[#707070] mb-8 font-[500];
+}
+
+.micropage-title-line {
+    @apply w-16 border-[#F04E30] mb-3 border-t-4;
+}
+
+.micropage-heading {
+    @apply text-xl font-semibold text-[#545454] mt-10 mb-4;
+}
+
+.micropage-paragraph {
+    @apply text-[15px] text-[#545454] mb-4 leading-relaxed;
+}
+
+.micropage-image-wrapper {
+    @apply my-8 flex justify-center;
+}
+
+.micropage-image {
+    @apply rounded-xl shadow-md max-w-full;
+}
+
+.micropage-table-wrapper {
+    @apply my-8 overflow-x-auto rounded-lg;
+}
+
+.micropage-table {
+    @apply min-w-full text-left text-base text-gray-700 border border-gray-200 rounded-lg;
+}
+
+.micropage-th {
+    @apply bg-[#facc15] text-black font-semibold px-4 py-3 border border-gray-200;
+}
+
+.micropage-tr {
+    @apply hover:bg-gray-50;
+}
+
+.micropage-td {
+    @apply px-4 py-3 border border-gray-200;
+}

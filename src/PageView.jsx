@@ -16,7 +16,7 @@ function PageView({ pages = [], subpages = [] }) {
 
 
 if (!slug && !college && !page) {
-  resolvedPage = pages[0]; // default page
+  resolvedPage = pages[0]; 
 }
 
   console.log(pages)
