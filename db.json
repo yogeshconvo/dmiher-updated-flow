@@ -3527,6 +3527,152 @@
             ]
         },
         {
+            "slug": "/jnmc/transcript-1",
+            "sections": [
+                {
+                    "section_id": "transcript_subpage",
+                    "data": {
+                        "title": "Transcript",
+                        "top_ui": {
+                            "type": "dropdown"
+                        },
+                        "departments": [
+                            {
+                                "id": "ai-ds",
+                                "name": "Department of Artificial Intelligence and Data Science",
+                                "electives": [
+                                    {
+                                        "srNo": 1,
+                                        "semester": "III",
+                                        "name": "Elective - Data Interface for Sustainable Healthcare System",
+                                        "icon": "BookOpen"
+                                    },
+                                    {
+                                        "srNo": 2,
+                                        "semester": "III",
+                                        "name": "Elective - Content and Structure of the Health Record",
+                                        "icon": "BookOpen"
+                                    },
+                                    {
+                                        "srNo": 3,
+                                        "semester": "III",
+                                        "name": "Elective - Virtual Reality and Psychotherapy",
+                                        "icon": "BookOpen"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "ai-ml",
+                                "name": "Department of Artificial Intelligence and Machine Learning",
+                                "electives": [
+                                    {
+                                        "srNo": 1,
+                                        "semester": "III",
+                                        "name": "Elective - Introduction of AI in Healthcare",
+                                        "icon": "BookOpen"
+                                    },
+                                    {
+                                        "srNo": 2,
+                                        "semester": "III",
+                                        "name": "Elective - Introduction of AI in Oral Healthcare",
+                                        "icon": "BookOpen"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "slug": "/jnmc/transcript-2",
+            "sections": [
+                {
+                    "section_id": "transcript_subpage",
+                    "data": {
+                        "title": "Transcript",
+                        "top_ui": {
+                            "type": "category",
+                            "title": "Course Categories",
+                            "subtitle": "Specialized training across multiple medical disciplines",
+                            "categories": [
+                                "Artificial Intelligence",
+                                "Machine Learning"
+                            ]
+                        },
+                        "departments": [
+                            {
+                                "id": "ai-ds",
+                                "name": "Department of Artificial Intelligence and Data Science",
+                                "category": "Artificial Intelligence",
+                                "electives": [
+                                    {
+                                        "srNo": 1,
+                                        "semester": "III",
+                                        "name": "Elective - Data Interface for Sustainable Healthcare System"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "ai-ml",
+                                "name": "Department of Artificial Intelligence and Machine Learning",
+                                "category": "Machine Learning",
+                                "electives": [
+                                    {
+                                        "srNo": 1,
+                                        "semester": "III",
+                                        "name": "Elective - Introduction of AI in Healthcare"
+                                    }
+                                ]
+                            },
+                            {
+                                "id": "ai-ml",
+                                "name": "Department of Artificial Intelligence and Machine Learning",
+                                "category": "Machine Learning",
+                                "electives": [
+                                    {
+                                        "srNo": 1,
+                                        "semester": "III",
+                                        "name": "Elective - Introduction of AI in Healthcare"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "slug": "/jnmc/transcript-3",
+            "sections": [
+                {
+                    "section_id": "transcript_subpage",
+                    "data": {
+                        "title": "Transcript",
+                        "top_ui": {
+                            "type": "heading",
+                            "title": "Undergraduate Program (BDS) Courses",
+                            "subtitle": "Foundational and Advanced Dental Training"
+                        },
+                        "departments": [
+                            {
+                                "id": "cs-design",
+                                "name": "Department of Computer Science and Design",
+                                "electives": [
+                                    {
+                                        "srNo": 1,
+                                        "semester": "III",
+                                        "name": "Elective - Data Mining",
+                                        "icon": "BookOpen"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
             "slug": "/new-micro/programs",
             "sections": [
                 {

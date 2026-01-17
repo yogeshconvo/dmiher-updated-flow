@@ -2,12 +2,11 @@ import parse from "html-react-parser";
 import DOMPurify from "dompurify";
 import clsx from "clsx";
 
-// Only create a DOMPurify instance when window is defined
 const createDOMPurify = () => {
   if (typeof window !== "undefined") {
     return DOMPurify;
   }
-  return { sanitize: (html) => html }; // fallback for SSR (no-op)
+  return { sanitize: (html) => html }; 
 };
 
 export default function RichTextRenderer({ html, className }) {

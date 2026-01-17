@@ -505,6 +505,53 @@
     @apply w-3 h-3 text-[#F04E30];
 }
 
+/* -------- Dropdown -------- */
+.topui-dropdown-wrapper {
+    @apply mb-14 text-center;
+}
+
+.topui-dropdown-inner {
+    @apply relative max-w-md mx-auto;
+}
+
+/* -------- Category -------- */
+.topui-category {
+    @apply mb-16 text-center;
+}
+
+.topui-category-title {
+    @apply text-3xl font-bold bg-gradient-to-r from-[#F04E30] to-[#102B64] bg-clip-text text-transparent mb-4;
+}
+
+.topui-category-subtitle {
+    @apply text-gray-600 mb-10;
+}
+
+.topui-category-list {
+    @apply flex flex-wrap justify-center gap-4;
+}
+
+.topui-category-btn {
+    @apply rounded-2xl px-6 py-3 shadow border transition bg-white text-gray-700;
+}
+
+.topui-category-btn-active {
+    @apply bg-[#102B64] text-white;
+}
+
+
+.topui-heading {
+    @apply text-center mb-16;
+}
+
+.topui-heading-title {
+    @apply text-4xl font-bold text-[#102B64] mb-4;
+}
+
+.topui-heading-subtitle {
+    @apply text-gray-600 text-xl font-medium;
+}
+
 @media (min-width: 768px) {
     .courses-grid {
         @apply grid-cols-2;

@@ -1,4 +1,5 @@
 import React from "react";
+import RichTextRenderer from "../../components/RichTextRenderer";
 
 const MainMicropage = ({ data }) => {
 
@@ -31,10 +32,10 @@ const MainMicropage = ({ data }) => {
 
             case "paragraph":
               return (
-                <p
+                <RichTextRenderer
                   key={key}
                   className="micropage-paragraph"
-                  dangerouslySetInnerHTML={{ __html: item.value }}
+                  html={item.value}
                 />
               );
 
