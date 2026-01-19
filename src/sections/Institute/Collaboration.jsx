@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
-// import ViewMoreButton from "../../components/UI/ViewMore";
+import ViewMoreButton from "../../components/UI/Buttons";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -27,7 +27,7 @@ const Collabaration = ({ data }) => {
         {/* LEFT */}
         <div>
    <hr className="heading-line" />
-          <h2 className="heading">{heading}
+          <h2 className="heading">{data.left_content.heading}
           </h2>
 
           {intro_paragraphs.map((p, i) => (
@@ -40,7 +40,7 @@ const Collabaration = ({ data }) => {
             ))}
           </p>
 
-          {/* <ViewMoreButton onClick={() => setShowModal(true)} /> */}
+          <ViewMoreButton label={data.left_content.cta_text} onClick={() => setShowModal(true)} />
         </div>
 
         {/* DESKTOP STATS */}

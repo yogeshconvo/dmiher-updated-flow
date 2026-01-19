@@ -1,4 +1,6 @@
 import { useParams } from "react-router-dom";
+import { usePages } from "./hooks/usePages";
+
 import { SECTION_COMPONENTS as InstituteSections } from "./sections/Institute";
 import { SECTION_COMPONENTS as MainPageSections } from "./sections/MainPageSections";
 import { SECTION_COMPONENTS as SubpagesSections } from "./sections/Subpages";
@@ -9,36 +11,30 @@ const SECTION_COMPONENTS = {
   ...SubpagesSections,
 };
 
-function PageView({ pages = [], subpages = [] }) {
+function PageView({ subpages = [] }) {
   const { slug, college, page } = useParams();
 
-  let resolvedPage = null;
+  const resolvedSlug =
+    page || slug || "home";
 
+  const {
+    data: pageData,
+    isLoading,
+    error,
+  } = usePages(resolvedSlug);
 
-if (!slug && !college && !page) {
-  resolvedPage = pages[0]; 
-}
+  if (isLoading) return <div>Loading...</div>;
+  if (error || !pageData) return <div>Page not found</div>;
 
-  console.log(pages)
-  console.log(subpages)
-  
-  if (!resolvedPage && college && page) {
+  let resolvedPage = pageData;
+
+  if (college && page) {
     const fullSlug = `/${college}/${page}`;
-    resolvedPage = subpages.find(
-      (p) => p.slug === fullSlug
-    );
+    resolvedPage =
+      subpages.find((p) => p.slug === fullSlug) || null;
   }
 
-
-  if (!resolvedPage && slug) {
-    resolvedPage = pages.find(
-      (p) => p.slug === slug
-    );
-  }
-
-  if (!resolvedPage) {
-    return <div>Page not found</div>;
-  }
+  if (!resolvedPage) return <div>Page not found</div>;
 
   return (
     <main>
@@ -47,9 +43,7 @@ if (!slug && !college && !page) {
           SECTION_COMPONENTS[sec.section_id];
 
         if (!SectionComponent) {
-          console.warn(
-            `No component for ${sec.section_id}`
-          );
+          console.warn(`No component for ${sec.section_id}`);
           return null;
         }
 

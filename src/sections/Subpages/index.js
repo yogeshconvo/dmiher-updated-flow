@@ -8,6 +8,7 @@ import DeanKnowMore from "./DeanKnowMore";
 import AccreditationsRecognitions from "./UniquePages/AccreditationsRecognitions";
 import MainMicropage from "../Micropages/Main-micropage";
 import ElectivesOfferedFEAT from "./ElectiveOffered";
+import PhDDAL from "./UniquePages/PHD-DAL";
 
 export const SECTION_COMPONENTS = {
 
@@ -18,6 +19,7 @@ export const SECTION_COMPONENTS = {
     dean_know_more: DeanKnowMore,
     accreditations_recognitions: AccreditationsRecognitions,
     electives_offered: ElectivesOfferedFEAT,
+    post_doctoral_programme: PhDDAL,
 
 
 

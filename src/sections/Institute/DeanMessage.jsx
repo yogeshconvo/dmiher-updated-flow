@@ -89,6 +89,7 @@ const DeansMessage = ({ data }) => {
   const {
     heading,
     dean_name,
+    desc,
     img,
     email,
   } = main;
@@ -142,9 +143,9 @@ const DeansMessage = ({ data }) => {
           {/* ================= MESSAGE ================= */}
           <div className="deans-message">
             {paragraphs.map((para, idx) =>
-              para?.value ? (
+              para?.desc ? (
                 <p key={idx} className="deans-paragraph">
-                  {para.value}
+                  {para.desc}
                 </p>
               ) : null
             )}

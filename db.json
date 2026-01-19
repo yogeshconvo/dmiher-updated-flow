@@ -3112,36 +3112,136 @@
             "slug": "/jnmc/transcript",
             "sections": [
                 {
-                    "section_id": "transcript_subpage",
+                    "section_id": "post_doctoral_programme",
                     "data": {
-                        "title": "Transcript Courses",
-                        "departments": [
+                        "tabs": [
                             {
-                                "name": "Department of Artificial Intelligence and Data Science",
-                                "courses": [
+                                "id": 1,
+                                "label": "Overview",
+                                "type": "content"
+                            },
+                            {
+                                "id": 2,
+                                "label": "AIPHDCET Syllabus",
+                                "type": "syllabus"
+                            },
+                            {
+                                "id": 3,
+                                "label": "Fee Structure",
+                                "type": "bank"
+                            },
+                            {
+                                "id": 4,
+                                "label": "Ph.D. Cell Office Bearer",
+                                "type": "office"
+                            },
+                            {
+                                "id": 5,
+                                "label": "Contact",
+                                "type": "contact"
+                            },
+                            {
+                                "id": 6,
+                                "label": "Important Dates",
+                                "type": "pdf",
+                                "url": "/assets/docs/important-dates-jan-2026.pdf"
+                            },
+                            {
+                                "id": 7,
+                                "label": "Degree Awarded",
+                                "type": "iframe",
+                                "url": "https://www.dmiher.edu.in/frontEnd/pages/page/images/pdf/phd/PHD%20DEGREE%20AWARDED-269.pdf"
+                            }
+                        ],
+                        "notifications": [
+                            {
+                                "title": "AIPHDCET July 2025 Application Open",
+                                "highlight": true,
+                                "link": "https://dmiher-apply.mastersofterp.com/ApplicationLandingPage/Index/DMIHER"
+                            },
+                            {
+                                "title": "Important Dates Announced for AIPHDCET JAN 2026",
+                                "highlight": false,
+                                "link": "/assets/docs/important-dates-jan-2026.pdf"
+                            }
+                        ],
+                        "overview": {
+                            "description": [
+                                "DMIHER (DU) promotes excellence in research and innovation.",
+                                "The Directorate of Advanced Learning ensures a strong research ecosystem."
+                            ],
+                            "objectives": [
+                                "Promote interdisciplinary research",
+                                "Strengthen global collaborations",
+                                "Develop centers of excellence"
+                            ]
+                        },
+                        "syllabus": [
+                            {
+                                "faculty": "Faculty of Medicine",
+                                "subjects": [
                                     {
-                                        "id": 1,
-                                        "sem": "I/II",
-                                        "name": "Learn Embeddings and Vector Databases",
-                                        "platform": "Coursera",
-                                        "university": "Scrimba",
-                                        "days": "2",
-                                        "mode": "Online",
-                                        "credits": "Value Added"
+                                        "name": "Anatomy",
+                                        "url": "https://www.dmiher.edu.in/frontEnd/pages/page/images/pdf/phd/1-Ph.D-Anatomy.pdf"
                                     },
                                     {
-                                        "id": 2,
-                                        "sem": "I/II",
-                                        "name": "Visualizing Data & Communicating Results in R with RStudio",
-                                        "platform": "Coursera",
-                                        "university": "Codio",
-                                        "days": "9",
-                                        "mode": "Online",
-                                        "credits": "Value Added"
+                                        "name": "Physiology",
+                                        "url": "https://www.dmiher.edu.in/frontEnd/pages/page/images/pdf/phd/2-Ph.D-Physiology.pdf"
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        "bankDetails": {
+                            "national": [
+                                {
+                                    "label": "Account Name",
+                                    "value": "Registrar DMIHER(DU)"
+                                },
+                                {
+                                    "label": "Bank Name",
+                                    "value": "HDFC BANK"
+                                },
+                                {
+                                    "label": "Account Number",
+                                    "value": "50200022291605"
+                                },
+                                {
+                                    "label": "IFSC Code",
+                                    "value": "HDFC0000965"
+                                }
+                            ],
+                            "international": [
+                                {
+                                    "label": "Account Name",
+                                    "value": "Registrar DMIHER(DU)"
+                                },
+                                {
+                                    "label": "Bank Name",
+                                    "value": "HDFC BANK"
+                                },
+                                {
+                                    "label": "Account Number",
+                                    "value": "50200022291605"
+                                },
+                                {
+                                    "label": "SWIFT Code",
+                                    "value": "HDFCINBB"
+                                }
+                            ]
+                        },
+                        "officeBearers": [
+                            {
+                                "name": "Dr. Rizwan Gilani",
+                                "designation": "Director, Directorate of Advanced Learning",
+                                "email": "dpydiradvl@dmiher.edu.in"
+                            }
+                        ],
+                        "contact": {
+                            "designation": "Ph.D. Admission Counsellor",
+                            "mobile": "9604525971",
+                            "email": "phdcounselor@dmiher.edu.in",
+                            "address": "D.M.I.H.E.R.(D.U.), Sawangi (Meghe), Wardha"
+                        }
                     }
                 }
             ]

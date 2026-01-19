@@ -755,3 +755,110 @@
         @apply grid-cols-1;
     }
 }
+
+
+/* ================= Post Doctoral Programme ================= */
+/* ================= ROOT ================= */
+.phd-wrapper {
+    @apply min-h-screen bg-gradient-to-br from-slate-50 to-blue-50;
+}
+
+/* ================= HEADER ================= */
+.phd-header {
+    @apply flex items-center gap-4 bg-gradient-to-r from-blue-900 to-blue-800 text-white px-6 py-8;
+}
+
+.phd-header h1 {
+    @apply text-2xl md:text-3xl font-bold;
+}
+
+/* ================= LAYOUT ================= */
+.phd-layout {
+    @apply max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-4 gap-8;
+}
+
+/* ================= SIDEBAR ================= */
+.phd-sidebar {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden;
+}
+
+.phd-tab {
+    @apply p-3 cursor-pointer text-sm transition-colors duration-200 hover:bg-blue-50;
+}
+
+.phd-tab.active {
+    @apply bg-blue-100 font-semibold;
+}
+
+.phd-content {
+    @apply lg:col-span-3 space-y-8;
+}
+
+.phd-card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6;
+}
+
+.phd-card h2 {
+    @apply flex items-center gap-2 text-xl font-bold text-gray-800 mb-6;
+}
+
+.phd-text {
+    @apply text-gray-700 leading-relaxed space-y-4;
+}
+
+.phd-text h3 {
+    @apply text-lg font-semibold text-gray-800 mt-6;
+}
+
+.phd-text ul {
+    @apply list-disc list-inside;
+}
+
+
+.phd-notification {
+    @apply flex items-center gap-3 p-4 rounded-lg border cursor-pointer transition-all duration-200 bg-gray-50 border-gray-200 hover:bg-gray-100;
+}
+
+.phd-notification.highlight {
+    @apply bg-amber-50 border-amber-200 hover:bg-amber-100;
+}
+
+.phd-syllabus-block {
+    @apply mb-8;
+}
+
+.phd-syllabus-header {
+    @apply flex items-center gap-2 bg-amber-500 text-white p-3 rounded-t-lg;
+}
+
+.phd-syllabus table {
+    @apply w-full bg-amber-50 border border-amber-200 rounded-b-lg overflow-hidden;
+}
+
+.phd-syllabus td {
+    @apply p-4 border-b border-amber-200 last:border-b-0 text-gray-700;
+}
+
+
+.phd-table td {
+    @apply p-4 border-b border-gray-200;
+}
+
+.phd-bank-block {
+    @apply mb-8;
+}
+
+.phd-sub-header {
+    @apply flex items-center gap-2 bg-amber-500 text-white p-3 rounded-t-lg;
+}
+
+.phd-bank-block table {
+    @apply w-full bg-amber-50 border border-amber-200 rounded-b-lg overflow-hidden;
+}
+
+.phd-contact {
+    @apply text-gray-800 space-y-2;
+}
+.phd-iframe {
+    @apply w-full h-[600px] border border-gray-300 rounded-lg;
+}

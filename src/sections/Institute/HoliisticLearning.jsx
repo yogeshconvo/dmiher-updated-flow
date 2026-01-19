@@ -74,6 +74,7 @@ function HolisticInfrastructureSection({ data }) {
     data?.dimensions?.map((item, index) => ({
       id: index + 1,
       label: item.title,
+      description: item.desc,
       content: item.description || "",
       image_key: item.image?.[0] || "",
     })) || [];
@@ -111,6 +112,7 @@ function HolisticInfrastructureSection({ data }) {
                   >
                     {section.label}
                   </span>
+                  <p>{section.description}</p>
                 </p>
               </div>
             ))}
