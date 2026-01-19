@@ -3682,8 +3682,19 @@
                             "title": "Training and Placement cell",
                             "content_flow": [
                                 {
-                                    "type": "heading",
-                                    "value": "Preamble"
+                                    "type": "dean_section",
+                                    "value": {
+                                        "dean": {
+                                            "name": "Dr. John Doe",
+                                            "designation": "Dean – Faculty of Medicine",
+                                            "qualifications": "MD, PhD",
+                                            "email": "dean@dmiher.edu.in",
+                                            "image": "/images/dean.jpg"
+                                        },
+                                        "message": [
+                                            "<h2>Preamble</h2> The students often find themselves in situations where they are lost and unable to understand how to cope up with the situation they are confronted with. These situations can be problems, difficulties and grievances related to academic and non academic matters. In such situations, they require support system, or someone in authority who will be able to provide desired help and guidance or a platform where they can approach with their problems and get the solution. This is essential for prompt redressal of grievances and to provide"
+                                        ]
+                                    }
                                 },
                                 {
                                     "type": "paragraph",
@@ -3773,6 +3784,25 @@
                                 {
                                     "type": "paragraph",
                                     "value": "<p>Contact No: 7410199555</p>"
+                                },
+                                {
+                                    "type": "management_team_box",
+                                    "value": [
+                                        {
+                                            "name": "Mr. Nitesh T Mankar",
+                                            "designation": "Deputy Director – T&P",
+                                            "qualification": "MBA",
+                                            "email": "nitesh.mankar@dmiher.edu.in",
+                                            "image": "/images/nitesh.jpg"
+                                        },
+                                        {
+                                            "name": "Mr. Yash Naik",
+                                            "designation": "Training & Placement Executive",
+                                            "qualification": "MBA",
+                                            "email": "yashnaik@dmiher.edu.in",
+                                            "image": "/images/yash.jpg"
+                                        }
+                                    ]
                                 }
                             ]
                         }
