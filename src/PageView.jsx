@@ -44,15 +44,29 @@ function PageView({ subpages = [] }) {
     isMicropage ? params.microSlug : null
   );
 
+  const isSubpage = !isMicropage && params.college && params.page;
+
+
   const subpagesQuery = useSubpages(params.pageSlug);
+const isLoading = isMicropage
+  ? micropageQuery.isLoading
+  : isSubpage
+  ? subpagesQuery.isLoading
+  : pageQuery.isLoading;
 
-  const isLoading = isMicropage
-    ? micropageQuery.isLoading
-    : pageQuery.isLoading;
+const error = isMicropage
+  ? micropageQuery.error
+  : isSubpage
+  ? subpagesQuery.error
+  : pageQuery.error;
 
-  const error = isMicropage
-    ? micropageQuery.error
-    : pageQuery.error;
+  // const isLoading = isMicropage
+  //   ? micropageQuery.isLoading
+  //   : pageQuery.isLoading;
+
+  // const error = isMicropage
+  //   ? micropageQuery.error
+  //   : pageQuery.error;
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Page not found</div>;
@@ -60,17 +74,31 @@ function PageView({ subpages = [] }) {
   /* ----------------------------------
      4️⃣ Resolve final page data
   ---------------------------------- */
+  // let resolvedPage = null;
+
+  // if (isMicropage) {
+  //   resolvedPage = micropageQuery.data;
+  // } else if (params.college && params.page) {
+  //     const fullSlug = `/${params.college}/${params.page}`;
+  //     resolvedPage =
+  //         subpagesQuery.data?.find((p) => p.slug === fullSlug) || null;
+  // } else {
+  //   resolvedPage = pageQuery.data;
+  // }
   let resolvedPage = null;
 
-  if (isMicropage) {
-    resolvedPage = micropageQuery.data;
-  } else if (params.college && params.page) {
-      const fullSlug = `/${params.college}/${params.page}`;
-      resolvedPage =
-          subpagesQuery.data?.find((p) => p.slug === fullSlug) || null;
-  } else {
-    resolvedPage = pageQuery.data;
-  }
+if (isMicropage) {
+  resolvedPage = micropageQuery.data;
+} 
+else if (isSubpage) {
+  const fullSlug = `/${params.college}/${params.page}`;
+  resolvedPage =
+    subpagesQuery.data?.find((p) => p.slug === fullSlug) || null;
+} 
+else {
+  resolvedPage = pageQuery.data;
+}
+
 
   if (!resolvedPage) return <div>Page not found</div>;
 
