@@ -74,25 +74,24 @@ function App() {
       <ScrollToTop />
 
       <Routes>
-        {/* HOME */}
+     
         <Route path="/" element={<PageView subpages={subpages} />} />
 
-        {/* STATIC */}
         <Route path="/know-more" element={<KnowMore />} />
 
-        {/* MICROPAGES */}
+    
         <Route
           path="/:pageSlug/micro-pages/:microSlug"
           element={<PageView subpages={subpages} />}
         />
 
-        {/* SUBPAGES */}
+
         <Route
           path="/:college/:page"
           element={<PageView subpages={subpages} />}
         />
 
-        {/* MAIN PAGES */}
+   
         <Route
           path="/:slug"
           element={<PageView subpages={subpages} />}
