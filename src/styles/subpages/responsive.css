@@ -1,0 +1,150 @@
+/* ================= ELECTIVES ================= */
+@media (min-width: 640px) {
+    .electives-grid {
+        @apply grid-cols-2;
+    }
+}
+
+@media (min-width: 1024px) {
+    .electives-grid {
+        @apply grid-cols-3;
+    }
+}
+
+/* ================= MANDATORY ================= */
+@media (min-width: 768px) {
+    .mandatory-card {
+        @apply w-[45%];
+    }
+
+    .disclosure-card {
+        @apply w-[45%];
+    }
+
+    .mandatory-heading {
+        @apply text-4xl;
+    }
+
+    .mandatory-heading-line {
+        @apply w-20;
+    }
+}
+
+/* ================= DEPARTMENTS ================= */
+@media (min-width: 768px) {
+    .hod-card {
+        @apply flex-row;
+    }
+
+    .usp-grid {
+        @apply grid-cols-2;
+    }
+}
+
+/* ================= PROGRAMS ================= */
+
+
+@media (min-width: 640px) {
+    .streams-tabs-grid {
+        @apply grid;
+    }
+
+    .streams-grid {
+        @apply grid-cols-2;
+    }
+
+    .stream-card-eligibility-text {
+        @apply text-sm;
+    }
+}
+
+@media (min-width: 1024px) {
+    .streams-grid {
+        @apply grid-cols-3;
+    }
+}
+
+/* ================= Transcripts Responsive ================= */
+
+@media (min-width: 640px) {
+    .dropdown-button {
+        @apply w-[520px];
+    }
+
+    .dropdown-list {
+        @apply w-[520px];
+    }
+}
+
+@media (min-width: 768px) {
+    .courses-grid {
+        @apply grid-cols-2;
+    }
+}
+
+@media (max-width: 767px) {
+    .transcript-title {
+        @apply text-3xl;
+    }
+
+    .courses-wrapper {
+        @apply p-6;
+    }
+}
+
+/* ================= Accordion and Rankings Responsive ================= */
+
+@media (min-width: 640px) {
+    .accreditation-grid {
+        @apply grid-cols-2;
+    }
+}
+
+@media (min-width: 768px) {
+    .accreditation-grid {
+        @apply grid-cols-3;
+    }
+}
+
+@media (min-width: 1024px) {
+    .accreditation-grid {
+        @apply grid-cols-4;
+    }
+}
+
+/* ================= Dean Know More Responsive ================= */
+
+@media (min-width: 1024px) {
+    .knowmore-dean-layout {
+        @apply flex-row items-start;
+    }
+
+    .knowmore-team-grid {
+        @apply grid-cols-3;
+    }
+}
+
+@media (max-width: 767px) {
+    .knowmore-team-grid {
+        @apply grid-cols-1;
+    }
+}
+
+
+/* ================= Post Doctoral Programme Responsive ================= */
+
+@media (min-width: 768px) {
+    .phd-header h1 {
+        @apply text-3xl;
+    }
+}
+
+@media (min-width: 1024px) {
+    .phd-layout {
+        @apply grid-cols-4;
+    }
+
+    .phd-content {
+        @apply col-span-3;
+    }
+}

@@ -34,6 +34,7 @@ import StudentLife from "../Institute/StudentLife"
 import WhyChoose from "../Institute/WhyChoseSlider"
 import HomeSteps from "./HomeSteps"
 import HeadwithPara from "./Global/HeadwithPara"
+import AdmissionInfoPage from "./Admissions/AdmissionInfoPage"
 export const SECTION_COMPONENTS = {
 
     // Common Sections
@@ -89,6 +90,9 @@ export const SECTION_COMPONENTS = {
     sdg_research: SDGResearchContributions,
     funded_projects: FundedResearchProjects,
     ResearchOpportunities: ResearchOpportunities,
+
+    // Admission Page
+    admission_info_section: AdmissionInfoPage,
 
     // Extra hai abhi
     programs_section: HomePrograms,

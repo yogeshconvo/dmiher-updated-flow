@@ -1,85 +1,95 @@
 import React, { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules";
 import ViewMoreButton from "../../components/UI/Buttons";
-
-import "swiper/css";
-import "swiper/css/pagination";
-// import "../styles/InstituteSections/collaboration.css";
+import RichTextRenderer from "../../components/RichTextRenderer";
 
 const Collabaration = ({ data }) => {
-  const {
-    heading,
-    intro_paragraphs = [],
-    highlight_points = [],
-    stats = [],
-    institutional_metrics,
-    research_collaboration = [],
-    educational_research = [],
-  } = data || {};
+  if (!data) return null;
 
   const [showModal, setShowModal] = useState(false);
-  const [openIdx, setOpenIdx] = useState(-1);
+
+  const { left_content, stats = [], popup_items = [] } = data;
 
   return (
     <div className="collab-section">
-      <div className="container collab-layout ">
-        {/* LEFT */}
+      <div className="container collab-layout">
+        {/* ================= LEFT CONTENT ================= */}
         <div>
-   <hr className="heading-line" />
-          <h2 className="heading">{data.left_content.heading}
-          </h2>
+          <hr className="heading-line" />
+          <h2 className="heading">{left_content?.heading}</h2>
 
-          {intro_paragraphs.map((p, i) => (
-            <p key={i} className="collab-text">{p}</p>
-          ))}
+          {/* HTML DESCRIPTION */}
+          {left_content?.desc && (
+            <div
+              className="collab-text"
+              // dangerouslySetInnerHTML={{
+              //   __html: left_content.desc,
+              // }}
+            >
+              <RichTextRenderer html={left_content?.desc} />
+            </div>
+          )}
 
-          <p className="collab-highlight">
-            {highlight_points.map((n, i) => (
-              <span key={i}>{n}<br /></span>
-            ))}
-          </p>
-
-          <ViewMoreButton label={data.left_content.cta_text} onClick={() => setShowModal(true)} />
+          {left_content?.cta_text && (
+            <ViewMoreButton
+              label={left_content.cta_text}
+              onClick={() => setShowModal(true)}
+            />
+          )}
         </div>
 
-        {/* DESKTOP STATS */}
+        {/* ================= STATS ================= */}
         <div className="collab-stats-grid">
-          {stats.map((s, i) => (
-            <div key={i} className="collab-stat">
-              <img src={s.icon} alt="" className="w-28 h-28 mb-2" />
-              <p className="collab-stat-value">{s.value}</p>
-              <span className="collab-stat-label">{s.label}</span>
+          {stats.map((item, index) => (
+            <div key={index} className="collab-stat">
+              {/* icon optional */}
+              {item.icon && item.icon.length > 0 && (
+                <img
+                  src={item.icon}
+                  alt=""
+                  className="w-28 h-28 mb-2"
+                />
+              )}
+
+              <p className="collab-stat-value">{item.value}</p>
+              <span className="collab-stat-label">{item.label}</span>
             </div>
           ))}
         </div>
       </div>
 
-      {/* MODAL */}
+      {/* ================= MODAL ================= */}
       {showModal && (
-        <div className="collab-modal-backdrop" onClick={() => setShowModal(false)}>
-          <div className="collab-modal" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="collab-modal-backdrop"
+          onClick={() => setShowModal(false)}
+        >
+          <div
+            className="collab-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="collab-modal-header">
-              <button className="collab-close" onClick={() => setShowModal(false)}>
+              <button
+                className="collab-close"
+                onClick={() => setShowModal(false)}
+              >
                 &times;
               </button>
             </div>
 
             <div className="p-10">
-              <h2 className="collab-heading">{heading}</h2>
+              <h2 className="collab-heading">
+                {left_content?.heading}
+              </h2>
 
-              {research_collaboration.map((item, idx) => (
-                <div key={idx}>
-                  <button
-                    className="w-full text-left py-3 flex justify-between"
-                    onClick={() => setOpenIdx(openIdx === idx ? -1 : idx)}
-                  >
-                    <span>{item.question}</span>
-                    <span>{openIdx === idx ? "-" : "+"}</span>
-                  </button>
-                  {openIdx === idx && <div>{item.answer}</div>}
-                </div>
-              ))}
+              {popup_items.length > 0 ? (
+                popup_items.map((item, idx) => (
+                  <div key={idx} className="py-2">
+                    {item.title}
+                  </div>
+                ))
+              ) : (
+                <p>No data available</p>
+              )}
             </div>
           </div>
         </div>

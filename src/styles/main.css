@@ -15,5 +15,6 @@
 /* @import "./subpages/CardMandatoryDisclosure.css"; */
 /* @import "./subpages/dean-know-more.css"; */
 /* @import "./subpages/accreditations_recognitions.css"; */
-@import "./subpages/main-subpages.css";
+@import "./subpages/main-subpage.css";
+@import "./subpages/responsive.css";
 @import "./micropages.css";

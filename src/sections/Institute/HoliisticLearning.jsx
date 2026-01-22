@@ -67,6 +67,7 @@
 
 // export default HolisticInfrastructureSection;
 import React, { useState, useRef } from "react";
+import { getImageSrc } from "../../components/Services/FetchImages";
 
 function HolisticInfrastructureSection({ data }) {
   const heading = data?.header?.title || "";
@@ -76,7 +77,7 @@ function HolisticInfrastructureSection({ data }) {
       label: item.title,
       description: item.desc,
       content: item.description || "",
-      image_key: item.image?.[0] || "",
+      image_key: item.image || "",
     })) || [];
 
   const [activeId, setActiveId] = useState(items[0]?.id ?? null);
@@ -103,36 +104,39 @@ function HolisticInfrastructureSection({ data }) {
           </h2>
 
           <div className="holistic-list custom-scrollbar">
-            {items.map((section) => (
-              <div key={section.id} className="holistic-item">
-                <p>
-                  <span
-                    onClick={() => setActiveId(section.id)}
-                    className={getHeadingClass(section.id)}
-                  >
-                    {section.label}
-                  </span>
-                  <p>{section.description}</p>
-                </p>
-              </div>
-            ))}
+            <div className="holistic-list custom-scrollbar">
+  {items.map((section) => (
+    <div key={section.id} className="holistic-item">
+      <span
+        onClick={() => setActiveId(section.id)}
+        className={getHeadingClass(section.id)}
+      >
+        {section.label}
+      </span>
+
+      <p className="holistic-item-content">
+        {section.description}
+      </p>
+    </div>
+  ))}
+</div>
+
           </div>
         </div>
 
         {/* IMAGE SECTION */}
-        <div className="holistic-image-wrapper">
-          <div className="holistic-image-box">
-            {activeItem.image_key ? (
-              <img
-                src={activeItem.image_key}
-                alt={activeItem.label}
-              />
-            ) : (
-              <p>No image available</p>
-            )}
-          </div>
-        </div>
-
+      <div className="holistic-image-wrapper">
+  <div className="holistic-image-box">
+    {activeItem.image_key ? (
+      <img
+        src={getImageSrc(activeItem.image_key)}
+        alt={activeItem.label}
+      />
+    ) : (
+      <p>No image available</p>
+    )}
+  </div>
+</div>
       </div>
     </div>
   );

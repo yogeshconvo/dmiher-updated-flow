@@ -2,38 +2,38 @@ import React, { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
-
+// import { useNavigate, useParams } from "react-router-dom";
+import { getImageSrc } from "../../components/Services/FetchImages";
 import "swiper/css";
 import "swiper/css/pagination";
 
 /* ================= CARD ================= */
-const DepartmentCard = ({ title, url }) => {
-  const navigate = useNavigate();
-  const { slug } = useParams();
+const DepartmentCard = ({ title, url, image }) => {
+  // const navigate = useNavigate();
+  // const { slug } = useParams();
 
-  const handleClick = () => {
-    if (url) {
-      navigate(`/${slug}${url}`);
-    }
-  };
+  // const handleClick = () => {
+  //   if (url) {
+  //     navigate(`/${slug}${url}`);
+  //   }
+  // };
 
   return (
-    <div
-      className="department-card-wrapper"
-      onClick={handleClick}
-    >
-      <div className="department-card department-card-hover department-card-height">
-        {/* Fallback UI (no image in API) */}
-        <div className="department-card-overlay">
-          <h3 className="department-card-title">
-            {title}
-          </h3>
-        </div>
-      </div>
+  <div className="department-card-wrapper" >
+  <div
+    className="department-card department-card-hover department-card-height"
+    style={{
+      backgroundImage: `url(${getImageSrc(image)})`,
+    }}
+  >
+    <div className="department-card-overlay">
+      <h3 className="department-card-title">{title}</h3>
     </div>
+  </div>
+</div>
   );
 };
+
 
 /* ================= SECTION ================= */
 const Departments = ({ data }) => {
@@ -136,13 +136,14 @@ const Departments = ({ data }) => {
             {slides.map((slide, index) => (
               <SwiperSlide key={index}>
                 <div className="departments-grid">
-                  {slide.map((item, idx) => (
-                    <DepartmentCard
-                      key={idx}
-                      title={item.title}
-                      url={item.url}
-                    />
-                  ))}
+                 {slide.map((item, idx) => (
+  <DepartmentCard
+    key={idx}
+    title={item.title}
+    url={item.url}
+    image={item.image}  
+  />
+))}
                 </div>
               </SwiperSlide>
             ))}

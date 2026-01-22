@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 const fetchPages = async (slug) => {
-    const finalSlug = slug || "home"; // ✅ default home
+    const finalSlug = slug || "home";
 
     const res = await fetch(
         `http://127.0.0.1:8000/api/pages/${finalSlug}`

@@ -1,7 +1,6 @@
 /* In This File We Write All The CSS For Subpages */
 
-/*  ================= ELECTIVES ================= */
-/* ===== PAGE ===== */
+/* ================= ELECTIVES ================= */
 .electives-page {
     @apply min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100;
 }
@@ -10,21 +9,18 @@
     @apply max-w-7xl mx-auto px-6 py-16;
 }
 
-/* ===== HEADER ===== */
 .electives-header {
     @apply bg-[#102B64] py-8 shadow-lg;
 }
 
 .electives-title {
-    @apply text-center text-4xl md:text-5xl font-bold text-white;
+    @apply text-center text-4xl font-bold text-white;
 }
 
-/* ===== GRID ===== */
 .electives-grid {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8;
+    @apply grid grid-cols-1 gap-8;
 }
 
-/* ===== CARD ===== */
 .elective-card {
     @apply bg-white rounded-3xl border border-gray-100 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300;
 }
@@ -41,7 +37,6 @@
     @apply text-xs opacity-80;
 }
 
-
 .elective-card-body {
     @apply p-6;
 }
@@ -53,8 +48,6 @@
 .elective-badge {
     @apply inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-sm font-medium text-gray-700;
 }
-
-
 
 /* ================= MANDATORY DISCLOSURE ================= */
 .mandatory-card {
@@ -138,14 +131,6 @@
     @apply text-gray-600 text-center col-span-full;
 }
 
-@media (min-width: 768px) {
-    .mandatory-card {
-        @apply w-[45%];
-    }
-}
-
-
-/* Mandatory Disclosure */
 /* ================= SECTION ================= */
 .mandatory-section {
     @apply bg-[#FAFAF6] py-12;
@@ -179,22 +164,7 @@
     @apply text-gray-800 font-medium text-[20px] leading-snug mt-2;
 }
 
-@media (min-width: 768px) {
-    .mandatory-heading {
-        @apply text-4xl;
-    }
-
-    .mandatory-heading-line {
-        @apply w-20;
-    }
-
-    .disclosure-card {
-        @apply w-[45%];
-    }
-}
-
 /* ================= DEPARTMENTS ================= */
-
 .page-wrapper {
     @apply min-h-screen bg-gray-50;
 }
@@ -240,7 +210,7 @@
 }
 
 .hod-card {
-    @apply flex flex-col md:flex-row items-center gap-6;
+    @apply flex flex-col items-center gap-6;
 }
 
 .hod-image {
@@ -280,7 +250,7 @@
 }
 
 .usp-grid {
-    @apply grid md:grid-cols-2 gap-4;
+    @apply grid gap-4;
 }
 
 .usp-item {
@@ -295,7 +265,7 @@
     @apply text-gray-700 leading-relaxed;
 }
 
-/* ================= Programs ================= */
+/* ================= PROGRAMS ================= */
 .streams-wrapper {
     @apply py-8;
 }
@@ -321,32 +291,29 @@
 }
 
 .streams-tabs-grid {
-    @apply hidden sm:grid gap-2 relative;
+    @apply hidden gap-2 relative;
     grid-auto-flow: column;
     grid-auto-columns: 1fr;
 }
 
 .stream-card {
-    @apply min-h-[300px] flex flex-col justify-around gap-3;
+    @apply min-h-[300px] flex flex-col justify-around gap-3 bg-white rounded-2xl border border-gray-100 p-6 shadow-sm transition-all;
 }
 
+.stream-card:hover {
+    @apply shadow-xl -translate-y-1;
+}
 
 .stream-card-eligibility {
-    @apply bg-gray-50 rounded-lg p-2.5 sm:p-3;
+    @apply bg-gray-50 rounded-lg p-2.5;
 }
 
 .stream-card-eligibility-text {
-    @apply text-xs sm:text-sm text-gray-600 leading-snug font-[Arial];
+    @apply text-xs text-gray-600 leading-snug font-[Arial];
 }
 
-.stream-card-badge {
-    @apply text-sm bg-blue-100 text-blue-700 px-3 py-2 rounded-xl;
-}
-
-.stream-card-badge-duration {
-    @apply text-sm font-semibold bg-blue-100 text-blue-800 px-3 py-1 rounded-full;
-}
-
+.stream-card-badge,
+.stream-card-badge-duration,
 .stream-card-badge-text {
     @apply text-sm font-semibold bg-blue-100 text-blue-800 px-3 py-1 rounded-xl;
 }
@@ -368,15 +335,7 @@
 }
 
 .streams-grid {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
-}
-
-.stream-card {
-    @apply bg-white rounded-2xl border border-gray-100 p-6 shadow-sm transition-all;
-}
-
-.stream-card:hover {
-    @apply shadow-xl -translate-y-1;
+    @apply grid grid-cols-1 gap-6;
 }
 
 .stream-card-title {
@@ -395,7 +354,7 @@
     @apply bg-[#102B64];
 }
 
-/* ================= Transcripts  ================= */
+/* ================= Transcripts ================= */
 
 .transcript-page {
     @apply min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100;
@@ -418,7 +377,7 @@
 }
 
 .dropdown-button {
-    @apply w-full sm:w-[520px] bg-white border border-gray-300 rounded-lg px-4 py-3 flex items-center justify-between shadow-sm hover:shadow-md transition;
+    @apply w-full bg-white border border-gray-300 rounded-lg px-4 py-3 flex items-center justify-between shadow-sm hover:shadow-md transition;
 }
 
 .dropdown-icon {
@@ -430,7 +389,7 @@
 }
 
 .dropdown-list {
-    @apply absolute z-10 mt-2 w-full sm:w-[520px] bg-white border border-gray-300 rounded-lg shadow-lg;
+    @apply absolute z-10 mt-2 w-full bg-white border border-gray-300 rounded-lg shadow-lg;
 }
 
 .dropdown-item {
@@ -539,7 +498,6 @@
     @apply bg-[#102B64] text-white;
 }
 
-
 .topui-heading {
     @apply text-center mb-16;
 }
@@ -550,22 +508,6 @@
 
 .topui-heading-subtitle {
     @apply text-gray-600 text-xl font-medium;
-}
-
-@media (min-width: 768px) {
-    .courses-grid {
-        @apply grid-cols-2;
-    }
-}
-
-@media (max-width: 767px) {
-    .transcript-title {
-        @apply text-3xl;
-    }
-
-    .courses-wrapper {
-        @apply p-6;
-    }
 }
 
 /* ================= Accordion and Rankings ================= */
@@ -589,7 +531,6 @@
 .accreditation-tab.active {
     @apply bg-[#F04E30] text-white scale-105 shadow-lg;
 }
-
 
 .accreditation-grid {
     @apply grid gap-8;
@@ -663,23 +604,6 @@
     @apply mt-4 inline-block bg-[#F04E30] text-white px-5 py-2 rounded-lg hover:bg-[#102B64];
 }
 
-@media (min-width: 640px) {
-    .accreditation-grid {
-        @apply grid-cols-2;
-    }
-}
-
-@media (min-width: 768px) {
-    .accreditation-grid {
-        @apply grid-cols-3;
-    }
-}
-
-@media (min-width: 1024px) {
-    .accreditation-grid {
-        @apply grid-cols-4;
-    }
-}
 
 /* ================= Dean Know More ================= */
 
@@ -738,132 +662,12 @@
 
 .knowmore-team-email {
     @apply text-xs px-2 text-gray-500;
-}
 
-@media (min-width: 1024px) {
-    .knowmore-dean-layout {
-        @apply flex-row items-start;
-    }
-
-    .knowmore-team-grid {
-        @apply grid-cols-3;
-    }
-}
-
-@media (max-width: 767px) {
-    .knowmore-team-grid {
-        @apply grid-cols-1;
-    }
 }
 
 
 /* ================= Post Doctoral Programme ================= */
-/* ================= ROOT ================= */
-.phd-wrapper {
-    @apply min-h-screen bg-gradient-to-br from-slate-50 to-blue-50;
-}
 
-/* ================= HEADER ================= */
-.phd-header {
-    @apply flex items-center gap-4 bg-gradient-to-r from-blue-900 to-blue-800 text-white px-6 py-8;
-}
-
-.phd-header h1 {
-    @apply text-2xl md:text-3xl font-bold;
-}
-
-/* ================= LAYOUT ================= */
-.phd-layout {
-    @apply max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-4 gap-8;
-}
-
-/* ================= SIDEBAR ================= */
-.phd-sidebar {
-    @apply bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden;
-}
-
-.phd-tab {
-    @apply p-3 cursor-pointer text-sm transition-colors duration-200 hover:bg-blue-50;
-}
-
-.phd-tab.active {
-    @apply bg-blue-100 font-semibold;
-}
-
-.phd-content {
-    @apply lg:col-span-3 space-y-8;
-}
-
-.phd-card {
-    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6;
-}
-
-.phd-card h2 {
-    @apply flex items-center gap-2 text-xl font-bold text-gray-800 mb-6;
-}
-
-.phd-text {
-    @apply text-gray-700 leading-relaxed space-y-4;
-}
-
-.phd-text h3 {
-    @apply text-lg font-semibold text-gray-800 mt-6;
-}
-
-.phd-text ul {
-    @apply list-disc list-inside;
-}
-
-
-.phd-notification {
-    @apply flex items-center gap-3 p-4 rounded-lg border cursor-pointer transition-all duration-200 bg-gray-50 border-gray-200 hover:bg-gray-100;
-}
-
-.phd-notification.highlight {
-    @apply bg-amber-50 border-amber-200 hover:bg-amber-100;
-}
-
-.phd-syllabus-block {
-    @apply mb-8;
-}
-
-.phd-syllabus-header {
-    @apply flex items-center gap-2 bg-amber-500 text-white p-3 rounded-t-lg;
-}
-
-.phd-syllabus table {
-    @apply w-full bg-amber-50 border border-amber-200 rounded-b-lg overflow-hidden;
-}
-
-.phd-syllabus td {
-    @apply p-4 border-b border-amber-200 last:border-b-0 text-gray-700;
-}
-
-
-.phd-table td {
-    @apply p-4 border-b border-gray-200;
-}
-
-.phd-bank-block {
-    @apply mb-8;
-}
-
-.phd-sub-header {
-    @apply flex items-center gap-2 bg-amber-500 text-white p-3 rounded-t-lg;
-}
-
-.phd-bank-block table {
-    @apply w-full bg-amber-50 border border-amber-200 rounded-b-lg overflow-hidden;
-}
-
-.phd-contact {
-    @apply text-gray-800 space-y-2;
-}
-.phd-iframe {
-    @apply w-full h-[600px] border border-gray-300 rounded-lg;
-}
-
-/* ================= Post Doctoral Programme ================= */
 .phd-wrapper {
     @apply min-h-screen bg-gradient-to-br from-slate-50 to-blue-50;
 }

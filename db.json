@@ -3773,6 +3773,50 @@
             ]
         },
         {
+            "slug": "/jnmc/test",
+            "sections": [
+                {
+                    "section_id": "admission_info_section",
+                    "data": {
+                        "heading": "Admission Process & Information",
+                        "subheading": "Explore our comprehensive network of colleges and institutions offering diverse programs across multiple disciplines",
+                        "items": [
+                            {
+                                "title": "Admission Flow Chart",
+                                "icon": "FileText",
+                                "link": "https://www.dmiher.edu.in/lp/national-admission/pdf/Admission-Flow-Chart.pdf"
+                            },
+                            {
+                                "title": "Sharad Pawar Dental College (SPDC)",
+                                "icon": "Stethoscope",
+                                "link": "https://www.dmiher.edu.in/lp/national-admission/pdf/SPDC.pdf"
+                            },
+                            {
+                                "title": "Ravi Nair Physiotherapy College (RNPC)",
+                                "icon": "ActivitySquare",
+                                "link": "https://www.dmiher.edu.in/lp/national-admission/pdf/RNPC.pdf"
+                            },
+                            {
+                                "title": "Shrimati Radhikabai Meghe Memorial College Of Nursing (SRMMCON)",
+                                "icon": "User",
+                                "link": "https://www.dmiher.edu.in/lp/national-admission/pdf/SRMMCON.pdf"
+                            },
+                            {
+                                "title": "Datta Meghe College of Pharmacy (DMCP)",
+                                "icon": "Pill",
+                                "link": "https://www.dmiher.edu.in/lp/national-admission/pdf/DMCP-Wardha.pdf"
+                            },
+                            {
+                                "title": "Faculty of Engineering And Technology (FEAT)",
+                                "icon": "Zap",
+                                "link": "https://www.dmiher.edu.in/lp/national-admission/pdf/FEAT.pdf"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
             "slug": "/new-micro/programs",
             "sections": [
                 {
@@ -3901,6 +3945,209 @@
                                             "qualification": "MBA",
                                             "email": "yashnaik@dmiher.edu.in",
                                             "image": "/images/yash.jpg"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "slug": "/jnmc/cms",
+            "sections": [
+                {
+                    "section_id": "campus_facilities",
+                    "data": [
+                        {
+                            "pageTitle": "Campus Life and Facilities",
+                            "sections": [
+                                {
+                                    "key": "academic",
+                                    "subtitle": "Academic Facilities",
+                                    "items": [
+                                        {
+                                            "title": "School of Experiential Learning & Simulation Centre",
+                                            "image": "facilitiesimg9.png"
+                                        },
+                                        {
+                                            "title": "Museum",
+                                            "image": "facilitiesimg10.png"
+                                        },
+                                        {
+                                            "title": "Clinical Training",
+                                            "image": "facilitiesimg12.png"
+                                        },
+                                        {
+                                            "title": "Hi-Tech Classes",
+                                            "image": "facilitiesimg3.png"
+                                        },
+                                        {
+                                            "title": "Brainstorming Rooms",
+                                            "image": "facilitiesimg1.png"
+                                        },
+                                        {
+                                            "title": "Herbal Garden",
+                                            "image": "facilitiesimg2.png"
+                                        },
+                                        {
+                                            "title": "Animal House",
+                                            "image": "facilitiesimg4.png"
+                                        },
+                                        {
+                                            "title": "Lecture Halls",
+                                            "image": "facilitiesimg5.png"
+                                        },
+                                        {
+                                            "title": "Computer Labs",
+                                            "image": "facilitiesimg6.png"
+                                        },
+                                        {
+                                            "title": "Library & Digital Library",
+                                            "image": "facilitiesimg7.png"
+                                        },
+                                        {
+                                            "title": "Reading Rooms",
+                                            "image": "facilitiesimg8.png"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "key": "amenities",
+                                    "subtitle": "Campus Amenities",
+                                    "items": [
+                                        {
+                                            "title": "Cafeteria",
+                                            "image": "campusimg17.png"
+                                        },
+                                        {
+                                            "title": "Food Court",
+                                            "image": "campusimg2.png"
+                                        },
+                                        {
+                                            "title": "Guest House",
+                                            "image": "campusimg19.png"
+                                        },
+                                        {
+                                            "title": "Auditorium",
+                                            "image": "campusimg1.png"
+                                        },
+                                        {
+                                            "title": "Student Guidance Unit",
+                                            "image": "campusimg4.png"
+                                        },
+                                        {
+                                            "title": "Huge Flora & Fauna",
+                                            "image": "campusimg3.png"
+                                        },
+                                        {
+                                            "title": "Banking and ATM Facilities",
+                                            "image": "campusimg8.png"
+                                        },
+                                        {
+                                            "title": "Transport & Shuttle Services",
+                                            "image": "campusimg5.png"
+                                        },
+                                        {
+                                            "title": "Gym",
+                                            "image": "campusimg20.png"
+                                        },
+                                        {
+                                            "title": "Yoga Hall",
+                                            "image": "campusimg15.png"
+                                        },
+                                        {
+                                            "title": "Swimming Pool",
+                                            "image": "campusimg12.png"
+                                        },
+                                        {
+                                            "title": "Football Grounds",
+                                            "image": "campusimg16.png"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "slug": "/jnmc/test1",
+            "sections": [
+                {
+                    "section_id": "tabwise_micropage",
+                    "data": [
+                        {
+                            "pageTitle": "Campus Life and Facilities",
+                            "tabs": [
+                                {
+                                    "label": "About School",
+                                    "path": "/about-soas",
+                                    "content_flow": [
+                                        {
+                                            "type": "heading",
+                                            "value": "About SOAS"
+                                        },
+                                        {
+                                            "type": "paragraph",
+                                            "value": "<p>School of Advanced Studies is committed to excellence.</p>"
+                                        },
+                                        {
+                                            "type": "image",
+                                            "value": "https://via.placeholder.com/600x300"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "label": "Faculty",
+                                    "path": "/faculty",
+                                    "content_flow": [
+                                        {
+                                            "type": "heading",
+                                            "value": "About SOAS"
+                                        },
+                                        {
+                                            "type": "table",
+                                            "value": {
+                                                "thead": [
+                                                    "Name",
+                                                    "Designation"
+                                                ],
+                                                "tbody": [
+                                                    [
+                                                        "Dr. A",
+                                                        "Professor"
+                                                    ],
+                                                    [
+                                                        "Dr. B",
+                                                        "Assistant Professor"
+                                                    ]
+                                                ]
+                                            }
+                                        },
+                                        {
+                                            "type": "heading",
+                                            "value": "About SOAS"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "label": "Contact Us",
+                                    "path": "/contact",
+                                    "content_flow": [
+                                        {
+                                            "type": "paragraph",
+                                            "value": "<p>Email: info@college.com</p><p>Phone: 9999999999</p>"
+                                        },
+                                        {
+                                            "type": "heading",
+                                            "value": "About Contact"
+                                        },
+                                        {
+                                            "type": "heading",
+                                            "value": "About Contact"
                                         }
                                     ]
                                 }

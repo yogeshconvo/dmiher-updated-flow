@@ -1,6 +1,62 @@
 @reference "tailwindcss";
 
+
+
+
 /* ================= Home Page Sections ================= */
+/* ================= Campus Facilities ================= */
+
+.campus-page {
+    @apply bg-gray-50 py-10;
+}
+
+.campus-section {
+    @apply mb-16 relative;
+}
+
+
+.section-header {
+    @apply mb-8;
+}
+
+.section-title {
+    @apply text-3xl md:text-4xl text-[#707070] uppercase;
+}
+
+.section-subheader {
+    @apply flex items-center gap-4 mt-4 flex-wrap;
+}
+
+.section-subtitle {
+    @apply text-[#F04E30] font-medium text-sm sm:text-lg;
+}
+
+.section-divider {
+    @apply flex-1 h-px bg-gray-300;
+}
+
+.section-nav {
+    @apply hidden md:flex gap-2;
+}
+
+.nav-btn {
+    @apply p-2 border rounded-full text-gray-600 hover:bg-gray-100 transition;
+}
+
+/* ================= CARD ================= */
+.facility-card {
+    @apply px-2 cursor-pointer;
+}
+
+.facility-image {
+    @apply w-full h-56 object-cover rounded-md;
+}
+
+.facility-title {
+    @apply mt-2 text-gray-600 text-base sm:text-lg  ;
+}
+
+
 .arrow-controls {
     @apply flex justify-end gap-3 mt-6;
 }
@@ -827,13 +883,11 @@
     @apply font-bold text-[#707070];
 }
 
-/* ================= HEADWITHPARA ================= */
 
 .centers-section {
     @apply container py-16;
 }
 
-/* ================= HEADING ================= */
 .centers-heading {
     @apply text-2xl text-[#707070] mb-8 font-[500] tracking-tight leading-tight uppercase;
 }
@@ -842,7 +896,6 @@
     @apply block border-t-4 border-[#F04E30] w-20 mb-2 mr-4;
 }
 
-/* ================= TEXT ================= */
 .centers-description {
     @apply text-[#58595B] max-w-[1000px];
 }
@@ -857,4 +910,44 @@
 
 .center-extra-btn {
     @apply px-12 py-3 w-[300px] mt-5 flex rounded-md text-blue-900 bg-blue-100 shadow-md hover:bg-[#F04E30] hover:text-white font-semibold transition hover:scale-105 justify-center duration-200 transform;
+}
+
+
+
+/* ================= ADMISSION INFO PAGE ================= */
+
+.admission-page {
+    @apply bg-white py-12 container;
+}
+
+.admission-header {
+    @apply text-center mb-10;
+}
+
+.admission-title {
+    @apply text-3xl font-bold text-gray-800;
+}
+
+.admission-subtitle {
+    @apply mt-4 text-gray-600 max-w-2xl mx-auto;
+}
+
+.admission-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6;
+}
+
+.admission-card {
+    @apply bg-gray-50 shadow-md rounded-xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:scale-105;
+}
+
+.admission-icon {
+    @apply w-10 h-10 mb-4 rounded-md bg-[#F04E30] text-white flex items-center justify-center;
+}
+
+.admission-card-title {
+    @apply text-lg font-semibold text-gray-800 mb-6;
+}
+
+.admission-btn {
+    @apply mt-auto text-center bg-[#F04E30] text-white text-sm font-semibold py-2 rounded-md transition-colors duration-300 hover:bg-[#0C2C5B];
 }

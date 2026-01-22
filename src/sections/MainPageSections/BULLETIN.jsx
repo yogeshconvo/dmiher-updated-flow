@@ -109,62 +109,107 @@
 //   );
 // }
 
-// export default HomeBulletin;
-import { useState } from "react";
+// export default HomeBulletin;import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useState } from "react";
 
 function HomeBulletin({ data }) {
-  const { title, tabs = [], content = {}, items_per_page = 4 } = data || {};
+  const {
+    title,
+    tabs = [],
+    content = {},
+    items_per_page = 4,
+  } = data || {};
 
-  const [activeTab, setActiveTab] = useState(tabs[0]);
+  const [activeTab, setActiveTab] = useState(tabs[0]?.id);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const currentItems = content[activeTab] || [];
-  const visibleItems = currentItems.slice(currentIndex, currentIndex + items_per_page);
+  const visibleItems = currentItems.slice(
+    currentIndex,
+    currentIndex + items_per_page
+  );
 
   return (
     <div className="bulletin-section">
       <div className="container">
         <h2 className="heading">
           <hr className="heading-line" />
-          {title}
+          {data.header.title}
         </h2>
 
+        {/* TABS */}
         <div className="bulletin-tabs">
           {tabs.map((tab) => (
             <button
-              key={tab}
-              className={`tab-btn ${activeTab === tab ? "active" : ""}`}
+              key={tab.id}
+              className={`tab-btn ${
+                activeTab === tab.id ? "active" : ""
+              }`}
               onClick={() => {
-                setActiveTab(tab);
+                setActiveTab(tab.id);
                 setCurrentIndex(0);
               }}
             >
-              {tab}
+              {tab.name}
             </button>
           ))}
         </div>
 
+         {/* "content": [
+          {
+            "title": "Test",
+            "date": "2026-01-20",
+            "college": "PJLC"
+          }
+        ] */}
+        {/* CONTENT */}
         <div className="bulletin-grid">
-          {visibleItems.map((item, index) => (
-            <div key={index} className="bulletin-item">
+          {data.content.map((item) => (
+            <div key={item.id} className="bulletin-item">
               {item.url ? (
                 <a href={item.url} target="_blank" rel="noreferrer">
                   {item.title}
                 </a>
               ) : (
-                <p>{item.title}</p>
+                <span>{item.title}</span>
               )}
 
-              {item.college && <p className="college">{item.college}</p>}
-              {item.date && <p className="date">{item.date}</p>}
+              {item.college && (
+                <div className="college">{item.college}</div>
+              )}
+              {item.date && (
+                <div className="date">{item.date}</div>
+              )}
             </div>
           ))}
         </div>
 
+        {/* ARROWS */}
         <div className="arrow-controls">
-          <button><ArrowLeft size={20} /></button>
-          <button><ArrowRight size={20} /></button>
+          <button
+            disabled={currentIndex === 0}
+            onClick={() =>
+              setCurrentIndex((prev) =>
+                Math.max(prev - items_per_page, 0)
+              )
+            }
+          >
+            <ArrowLeft size={20} />
+          </button>
+
+          <button
+            disabled={
+              currentIndex + items_per_page >= currentItems.length
+            }
+            onClick={() =>
+              setCurrentIndex((prev) =>
+                prev + items_per_page
+              )
+            }
+          >
+            <ArrowRight size={20} />
+          </button>
         </div>
       </div>
     </div>

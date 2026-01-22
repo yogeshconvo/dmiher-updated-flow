@@ -2,12 +2,7 @@ import React from "react";
 import { Link } from "react-router";
 
 function HomePrograms({ data }) {
-  const {
-    title,
-    background_color,
-    programs = [],
-    icon,
-  } = data || {};
+
 
   return (
     <div className="py-15" style={{ backgroundColor: background_color }}>
@@ -16,12 +11,19 @@ function HomePrograms({ data }) {
         <div className="text-white mb-8">
           <div className="w-20 h-1.5 bg-red-500 mb-2"></div>
           <h2 className="text-3xl md:text-4xl font-oswald-medium font-medium tracking-wide">
-            {title}
+            {data.header.heading}
           </h2>
         </div>
 
         {/* Programs Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-[15px] gap-y-4 sm:gap-y-6">
+           {/* "programs": [
+          {
+            "title": "Medicine",
+            "image": [],
+            "url": "ss"
+          }
+        ] */}
          {data.programs.map((program) => (
                    <Link
                      key={program.id}

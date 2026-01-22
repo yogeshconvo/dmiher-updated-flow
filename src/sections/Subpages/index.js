@@ -9,6 +9,8 @@ import AccreditationsRecognitions from "./UniquePages/AccreditationsRecognitions
 import MainMicropage from "../Micropages/Main-micropage";
 import ElectivesOfferedFEAT from "./ElectiveOffered";
 import PhDDAL from "./UniquePages/PHD-DAL";
+import CampusFacilities from "../MainPageSections/Home/CampusFacilities";
+import TabwiseMainMicropage from "../Micropages/Tabwise-micropage";
 
 export const SECTION_COMPONENTS = {
 
@@ -24,10 +26,9 @@ export const SECTION_COMPONENTS = {
 
 
 
-
-
     section_1: MainMicropage,
-
+    campus_facilities: CampusFacilities,
+    tabwise_micropage: TabwiseMainMicropage,
 
 
 };

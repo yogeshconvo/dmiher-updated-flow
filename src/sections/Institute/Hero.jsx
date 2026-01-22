@@ -175,9 +175,12 @@
 // export default Hero;
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getImageSrc } from "../../components/Services/FetchImages";
 
 function Hero({ data, slug }) {
   if (!data) return null;
+
+
 
   const topbar = data.topbar || {};
   const slides = Array.isArray(data.slides) ? data.slides : [];
@@ -185,7 +188,7 @@ function Hero({ data, slug }) {
 
   const [activeIndex, setActiveIndex] = useState(0);
 
-  /* ================= AUTOPLAY ================= */
+
   useEffect(() => {
     if (!slides.length) return;
 
@@ -196,13 +199,9 @@ function Hero({ data, slug }) {
     return () => clearInterval(interval);
   }, [slides.length]);
 
-  /* ================= HELPERS ================= */
-  const getImageSrc = (img) => {
-    if (!img) return null;
-    if (Array.isArray(img)) return img[0] || null;
-    if (typeof img === "string") return img;
-    return null;
-  };
+ 
+
+
 
   const handleScrollToSection = () => {
     if (!primarySectionId) return;

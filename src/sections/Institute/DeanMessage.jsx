@@ -1,80 +1,10 @@
-
-// import React from "react";
-// import { Link } from "react-router-dom";
-// // import "../styles/InstituteSections/DeanMessage.css";
-
-// const DeansMessage = ({ data }) => {
-//   const {
-//     heading,
-//     dean_name,
-//     designation_lines = [],
-//     email,
-//     dean_image,
-//     paragraphs = [],
-//     cta_label,
-//     cta_url,
-//   } = data || {};
-
-//   return (
-//     <div className="deans-section">
-//       <div className="container">
-//         <h2 className="deans-heading">
-//           <div className="deans-heading-line"></div>
-//           {heading}
-//         </h2>
-
-//         <div className="deans-layout">
-//           {/* IMAGE + NAME */}
-//           <div className="deans-image-wrapper">
-//             <img
-//               src={dean_image}
-//               alt={dean_name}
-//               className="deans-image"
-//             />
-
-//             <div className="deans-info">
-//               <p className="deans-name">{dean_name}</p>
-
-//               {designation_lines.length > 0 && (
-//                 <p>
-//                   {designation_lines.map((line, idx) => (
-//                     <span key={idx}>
-//                       {line}
-//                       <br />
-//                     </span>
-//                   ))}
-//                 </p>
-//               )}
-
-//               {email && <p className="deans-email">{email}</p>}
-//             </div>
-//           </div>
-
-//           {/* MESSAGE */}
-//           <div className="deans-message">
-//             {paragraphs.map((para, idx) => (
-//               <p key={idx} className="deans-paragraph">
-//                 {para}
-//               </p>
-//             ))}
-
-//             {cta_label && cta_url && (
-//               <Link to={cta_url} className="cta">
-//                 {cta_label}
-//               </Link>
-//             )}
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default DeansMessage;
 import React from "react";
 import { Link } from "react-router-dom";
+import { getImageSrc } from "../../components/Services/FetchImages";
+import { ROUTES } from "../../utils/routes";
+import ViewMoreButton from "../../components/UI/Buttons";
 
-const DeansMessage = ({ data }) => {
+const DeansMessage = ({ data, pageSlug }) => {
   if (!data) return null;
 
   const main = data.main || {};
@@ -86,39 +16,33 @@ const DeansMessage = ({ data }) => {
     : [];
   const cta = data.cta || {};
 
-  const {
-    heading,
-    dean_name,
-    desc,
-    img,
-    email,
-  } = main;
-
   return (
     <div className="deans-section">
       <div className="container">
+
         {/* ================= HEADING ================= */}
-        {heading && (
+        {main.heading && (
           <h2 className="deans-heading">
             <div className="deans-heading-line"></div>
-            {heading}
+            {main.heading}
           </h2>
         )}
 
         <div className="deans-layout">
+
           {/* ================= IMAGE + INFO ================= */}
           <div className="deans-image-wrapper">
-            {img && (
+            {data.img && (
               <img
-                src={img}
-                alt={dean_name || "Dean"}
+                src={getImageSrc(data.img)}
+                alt={main.dean_name || "Dean"}
                 className="deans-image"
               />
             )}
 
             <div className="deans-info">
-              {dean_name && (
-                <p className="deans-name">{dean_name}</p>
+              {main.dean_name && (
+                <p className="deans-name">{main.dean_name}</p>
               )}
 
               {designationLines.length > 0 && (
@@ -134,8 +58,8 @@ const DeansMessage = ({ data }) => {
                 </p>
               )}
 
-              {email && (
-                <p className="deans-email">{email}</p>
+              {main.email && (
+                <p className="deans-email">{main.email}</p>
               )}
             </div>
           </div>
@@ -150,15 +74,12 @@ const DeansMessage = ({ data }) => {
               ) : null
             )}
 
-            {cta.cta_label && (
-              <Link
-                to="#"
-                className="cta"
-              >
-                {cta.cta_label}
-              </Link>
-            )}
+            {/* ================= CTA ================= */}
+    
+             
+      <ViewMoreButton href={ROUTES.microPage(pageSlug, cta.micro_slug)} label=   {cta.cta_label} />
           </div>
+
         </div>
       </div>
     </div>

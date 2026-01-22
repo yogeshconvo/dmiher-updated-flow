@@ -46,9 +46,11 @@ function InfoSection({ data }) {
           {/* Intro paragraphs */}
           {introParagraphs.map((p, i) => (
             <p key={i} className="info-paragraph">
-              {p.text}
+              {p.desc}
             </p>
           ))}
+
+        
 
           {/* View More */}
           {!showMore && moreParagraphs.length > 0 && (
