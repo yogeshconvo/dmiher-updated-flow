@@ -16,7 +16,7 @@ const SECTION_COMPONENTS = {
   ...MicropageSections,
 };
 
-function PageView({ subpages = [] }) {
+function PageView() {
   const params = useParams();
 
   /* ----------------------------------
@@ -33,7 +33,7 @@ function PageView({ subpages = [] }) {
     params.page || params.slug || "home";
 
   /* ----------------------------------
-     3️⃣ Fetch data SAFELY
+     3️⃣ Fetch data  SAFELY
   ---------------------------------- */
   const pageQuery = usePages(
     !isMicropage ? resolvedSlug : null
@@ -44,6 +44,8 @@ function PageView({ subpages = [] }) {
     isMicropage ? params.microSlug : null
   );
 
+  // console.log("Page slug for redirection", params.pageSlug);
+  console.log("Micro slug for redirection", params.microSlug);
   const isSubpage = !isMicropage && params.college && params.page;
 
 
@@ -99,6 +101,8 @@ else {
   resolvedPage = pageQuery.data;
 }
 
+console.log("micropage data", micropageQuery.data);
+
 
   if (!resolvedPage) return <div>Page not found</div>;
 
@@ -112,13 +116,15 @@ else {
           SECTION_COMPONENTS[sec.section_id];
 
         if (!SectionComponent) {
-          console.warn(`No component for ${sec.section_id}`);
+          console.log(`No component for ${sec.section_id}`);
+          
           return null;
         }
 
         return (
           <section key={index}>
             <SectionComponent
+              
               data={sec.data}
               pageSlug={
                 params.pageSlug ||

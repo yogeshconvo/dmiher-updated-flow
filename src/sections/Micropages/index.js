@@ -3,6 +3,6 @@ import MainMicropage from './Main-micropage';
 export const SECTION_COMPONENTS = {
 
     // Common Sections
-    section_1: MainMicropage,
+    59: MainMicropage,
 
 };

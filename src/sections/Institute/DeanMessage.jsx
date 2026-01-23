@@ -8,13 +8,26 @@ const DeansMessage = ({ data, pageSlug }) => {
   if (!data) return null;
 
   const main = data.main || {};
-  const designationLines = Array.isArray(data.designation_lines)
-    ? data.designation_lines
-    : [];
+
+  /* ================= FIX DESIGNATION ================= */
+  let designationLines = [];
+  if (Array.isArray(data.designation_lines)) {
+    designationLines = data.designation_lines;
+  } else if (data.designation_lines?.value) {
+    designationLines = [data.designation_lines];
+  }
+
   const paragraphs = Array.isArray(data.paragraphs)
     ? data.paragraphs
     : [];
+
   const cta = data.cta || {};
+  const ctaItem = cta?.["0"];
+
+  const ctaLink =
+    ctaItem?.has_micro_page && ctaItem?.micro_slug
+      ? ROUTES.microPage(pageSlug, ctaItem.micro_slug)
+      : "";
 
   return (
     <div className="deans-section">
@@ -32,9 +45,9 @@ const DeansMessage = ({ data, pageSlug }) => {
 
           {/* ================= IMAGE + INFO ================= */}
           <div className="deans-image-wrapper">
-            {data.img && (
+            {main.img && (
               <img
-                src={getImageSrc(data.img)}
+                src={getImageSrc(main.img)}
                 alt={main.dean_name || "Dean"}
                 className="deans-image"
               />
@@ -47,14 +60,12 @@ const DeansMessage = ({ data, pageSlug }) => {
 
               {designationLines.length > 0 && (
                 <p className="deans-designation">
-                  {designationLines.map((line, idx) =>
-                    line?.value ? (
-                      <span key={idx}>
-                        {line.value}
-                        <br />
-                      </span>
-                    ) : null
-                  )}
+                  {designationLines.map((line, idx) => (
+                    <span key={idx}>
+                      {line.value}
+                      <br />
+                    </span>
+                  ))}
                 </p>
               )}
 
@@ -75,9 +86,12 @@ const DeansMessage = ({ data, pageSlug }) => {
             )}
 
             {/* ================= CTA ================= */}
-    
-             
-      <ViewMoreButton href={ROUTES.microPage(pageSlug, cta.micro_slug)} label=   {cta.cta_label} />
+            {cta?.cta_label && ctaLink && (
+              <ViewMoreButton
+                href={ctaLink}
+                label={cta.cta_label}
+              />
+            )}
           </div>
 
         </div>

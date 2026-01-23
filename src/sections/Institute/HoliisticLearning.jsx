@@ -77,7 +77,7 @@ function HolisticInfrastructureSection({ data }) {
       label: item.title,
       description: item.desc,
       content: item.description || "",
-      image_key: item.image || "",
+ image_key: item.img,  
     })) || [];
 
   const [activeId, setActiveId] = useState(items[0]?.id ?? null);

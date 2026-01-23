@@ -7,6 +7,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import { useSubpages } from "./hooks/useSubpages";
 import PageView from "./PageView";
 import KnowMore from "./sections/Subpages/DeanKnowMore";
+import MainMicropage from "./sections/Micropages/Main-micropage";
 
 function App() {
   const { data: subpages = [], isLoading, error } = useSubpages();
@@ -23,12 +24,20 @@ function App() {
      
         <Route path="/" element={<PageView />} />
 
-        <Route path="/know-more" element={<KnowMore />} />
+        {/* <Route path="/jnmc/micro-pages/key-official" element={<MainMicropage />} /> */}
+<Route
+  path="/:pageSlug/:microSlug"
+  element={<PageView />}
+/>
+<Route
+  path="/:college/:pageSlug/:microSlug"
+  element={<PageView />}
+/>
 
     
         <Route
-          path="/:pageSlug/micro-pages/:microSlug"
-          element={<PageView  />}
+          path="/:college/micro-pages/:microSlug"
+          element={<MainMicropage  />}
         />
 
 

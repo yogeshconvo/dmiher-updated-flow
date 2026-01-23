@@ -26,6 +26,7 @@ const fetchMicropage = async (pageSlug, microSlug) => {
         `http://127.0.0.1:8000/api/pages/${pageSlug}/micro-pages/${microSlug}`
     );
 
+    
     if (!res.ok) throw new Error("Micropage not found");
     return res.json();
 };

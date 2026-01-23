@@ -5,6 +5,7 @@ import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
+import RichTextRenderer from "../../components/RichTextRenderer";
 
 const WhyChoose = ({ data }) => {
   const cards = data?.cards || [];
@@ -63,12 +64,13 @@ const WhyChoose = ({ data }) => {
                   </h3>
 
                   {card.description || card.desc && (
-                    <p
+                    <RichTextRenderer
                       className="feature-subtitle"
                       style={{ color: card.desc_color }}
+                       html={card.description || card.desc}
                     >
-                      {card.description || card.desc}
-                    </p>
+                    
+                    </RichTextRenderer>
                   )}
                 </div>
               </SwiperSlide>
