@@ -33,7 +33,7 @@ export const SECTION_COMPONENTS = {
     student_gallery: StudentLife,
     button_section: ButtonSection,
     placements: Placements,
-    programs_announcements: ProgramsAnnouncements,
+    institute_announcements: ProgramsAnnouncements,
     why_choose_us: WhyChoose,
     // deans_message_section: deans_message_section,
     holistic_learning_Section: HolisticInfrastructureSection,

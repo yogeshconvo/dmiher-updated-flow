@@ -146,9 +146,10 @@
 // export default MainMicropage;
 import React, { useEffect, useState } from "react";
 import RichTextRenderer from "../../components/RichTextRenderer";
+import { getImageSrc } from "../../components/Services/FetchImages";
 
 const API_URL =
-  "http://127.0.0.1:8000/api/pages/jnmc/micro-pages/jnmc-key";
+  "http://127.0.0.1:8000/api/pages/jnmc/micro-pages/new-miceo";
 
 const MainMicropage = () => {
   /* ================= STATE ================= */
@@ -165,7 +166,7 @@ const MainMicropage = () => {
           throw new Error("Micropage not found");
         }
         const result = await response.json();
-        setPageData(result); // ✅ STORE DATA
+        setPageData(result);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -180,6 +181,14 @@ const MainMicropage = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   if (!pageData) return null;
+
+  /* ================= HELPERS ================= */
+  const getTextValue = (val) => {
+    if (!val) return "";
+    if (typeof val === "string") return val;
+    if (typeof val === "object" && "value" in val) return val.value;
+    return "";
+  };
 
   /* ================= NORMALIZE API DATA ================= */
   const contentFlow =
@@ -196,37 +205,38 @@ const MainMicropage = () => {
           const key = `${item.type}-${index}`;
 
           switch (item.type) {
-            /* ===== HEADING ===== */
+            /* ========== HEADING ========== */
             case "heading":
               return (
-                <h3 key={key} className="micropage-heading">
-                  {item.value}
-                </h3>
+                <h2 key={key} className="heading">
+                  <hr className="heading-line" />
+                  {getTextValue(item.value)}
+                </h2>
               );
 
-            /* ===== PARAGRAPH ===== */
+            /* ========== PARAGRAPH ========== */
             case "paragraph":
               return (
                 <RichTextRenderer
                   key={key}
                   className="micropage-paragraph"
-                  html={item.value}
+                  html={getTextValue(item.value)}
                 />
               );
 
-            /* ===== IMAGE ===== */
+            /* ========== IMAGE ========== */
             case "image":
               return (
                 <div key={key} className="micropage-image-wrapper">
                   <img
-                    src={item.value}
+                    src={getTextValue(item.value)}
                     alt=""
                     className="micropage-image"
                   />
                 </div>
               );
 
-            /* ===== TABLE ===== */
+            /* ========== TABLE (CMS FORMAT) ========== */
             case "table": {
               const rows = Array.isArray(item.value)
                 ? item.value
@@ -253,7 +263,7 @@ const MainMicropage = () => {
               );
             }
 
-            /* ===== DEAN SECTION ===== */
+            /* ========== DEAN SECTION ========== */
             case "dean_section": {
               const dean = item.value?.dean || {};
               const message =
@@ -265,7 +275,13 @@ const MainMicropage = () => {
                   className="knowmore-dean-layout"
                 >
                   <div className="knowmore-dean-profile">
+
                     <div className="knowmore-dean-info">
+                      <img
+                        src={getImageSrc(dean.image)}
+                        alt={dean.name}
+                        className="knowmore-dean-image"
+                      />
                       <p className="knowmore-dean-name">
                         {dean.name}
                       </p>
@@ -285,7 +301,7 @@ const MainMicropage = () => {
               );
             }
 
-            /* ===== MANAGEMENT TEAM ===== */
+            /* ========== MANAGEMENT TEAM ========== */
             case "management_team_box":
               return (
                 <div
@@ -299,6 +315,10 @@ const MainMicropage = () => {
                           key={idx}
                           className="knowmore-team-card"
                         >
+                          <img
+                            src={getImageSrc(member.image)}
+                            alt=""
+                          />
                           <h3>{member.name}</h3>
                           <p>{member.designation}</p>
                           <p>{member.qualification}</p>
@@ -309,6 +329,7 @@ const MainMicropage = () => {
                 </div>
               );
 
+            /* ========== UNKNOWN / EMPTY ========== */
             default:
               return null;
           }

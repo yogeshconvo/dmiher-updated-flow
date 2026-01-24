@@ -64,13 +64,11 @@ const WhyChoose = ({ data }) => {
                   </h3>
 
                   {card.description || card.desc && (
+                    <div className="feature-subtitle" style={{ color: card.desc_color }}>
                     <RichTextRenderer
-                      className="feature-subtitle"
-                      style={{ color: card.desc_color }}
-                       html={card.description || card.desc}
-                    >
-                    
-                    </RichTextRenderer>
+                      html={card.description || card.desc}
+                    />
+                    </div>
                   )}
                 </div>
               </SwiperSlide>
