@@ -3,29 +3,34 @@ name: Deploy Vite App to FTP
 on:
   push:
     branches:
-      - toFTP
+      - toFTP   # change to main if needed
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
+      # 1️⃣ Checkout repo
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2️⃣ Setup Node.js
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
         run: npm install --force
 
+      # 4️⃣ Build Vite project
       - name: Build project
         run: npm run build
 
+      # 5️⃣ Deploy dist/ to FTP
       - name: Deploy to FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
