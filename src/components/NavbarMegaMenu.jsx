@@ -33,9 +33,9 @@ const MegaMenu = ({ sections, hoveredItem, setHoveredItem }) => {
             <img
               src={hoveredItem.image}
               alt={hoveredItem.title}
-              className="mega-preview-img"
+              className="mega-preview-img h-40 w-full object-contain"
             />
-            <h5 className="mega-preview-title">{hoveredItem.title}</h5>
+            <p className="mega-preview-title">{hoveredItem.title}</p>
             <p className="mega-preview-desc">{hoveredItem.description}</p>
           </>
         ) : (

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
 function OneHealth({ data }) {
   const {
-    title,
+    title = "",
     legend = [],
     rows = [],
     columns = [],
@@ -10,6 +10,13 @@ function OneHealth({ data }) {
   } = data || {};
 
   const [cellSize, setCellSize] = useState(70);
+
+  // ✅ Normalize grid (array / object safe)
+  const safeGrid = useMemo(() => {
+    if (Array.isArray(grid)) return grid;
+    if (grid && typeof grid === "object") return Object.values(grid);
+    return [];
+  }, [grid]);
 
   useEffect(() => {
     const updateCellSize = () => {
@@ -33,25 +40,21 @@ function OneHealth({ data }) {
   return (
     <div className="my-10 flex flex-col items-start gap-16 sm:gap-32 container mx-auto">
       {/* Heading */}
-      <h2 className="text-3xl md:text-4xl font-oswald-medium font-[500] text-[#58595B]">
-        <hr className="w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4" />
-        {title}
-      </h2>
+      {title && (
+        <h2 className="text-3xl md:text-4xl font-[500] text-[#58595B]">
+          <hr className="w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4" />
+          {title}
+        </h2>
+      )}
 
-      <div className="w-full flex flex-col-reverse sm:flex-col lg:flex-row lg:justify-evenly gap-10 lg:gap-20">
+      <div className="w-full flex flex-col-reverse lg:flex-row lg:justify-evenly gap-10 lg:gap-20">
         {/* Legend */}
         <div className="space-y-4 mx-auto">
           {legend.map((item, i) => (
-            <div
-              key={i}
-              className="flex items-center gap-3 font-[600]"
-              style={{ top: `${i * 10}px` }}
-            >
-              <div
-                className={`w-5 h-5 transform rotate-45 ${item.color}`}
-              />
-              <span className="text-[#58595B] text-sm sm:text-base md:text-lg lg:text-[18px] max-w-xs">
-                {item.label}
+            <div key={i} className="flex items-center gap-3 font-[600]">
+              <div className={`w-5 h-5 rotate-45 ${item?.color || ""}`} />
+              <span className="text-[#58595B] text-sm md:text-lg">
+                {item?.label}
               </span>
             </div>
           ))}
@@ -59,7 +62,7 @@ function OneHealth({ data }) {
 
         {/* Grid */}
         <div
-          className="relative ml-auto md:mx-auto sm:mt-5 mt-36"
+          className="relative ml-auto md:mx-auto mt-36 sm:mt-5"
           style={{
             width: cellSize * columns.length,
             height: cellSize * rows.length,
@@ -72,7 +75,7 @@ function OneHealth({ data }) {
               className="absolute top-[-40px] w-px bg-[#707070]"
               style={{
                 left: `${colIdx * cellSize}px`,
-                height: `${cellSize === 40 ? 100 : 90}%`,
+                height: "90%",
               }}
             />
           ))}
@@ -84,28 +87,30 @@ function OneHealth({ data }) {
               className="absolute left-[-40px] h-px bg-[#707070]"
               style={{
                 top: `${rowIdx * cellSize}px`,
-                width: `${cellSize === 40 ? 100 : 90}%`,
+                width: "90%",
               }}
             />
           ))}
 
           {/* Diamonds */}
-          {grid.map((row, rowIdx) =>
-            row.map((cell, colIdx) =>
-              cell ? (
-                <div
-                  key={`${rowIdx}-${colIdx}`}
-                  className={`absolute w-5 h-5 transform rotate-45 ${cell}`}
-                  style={{
-                    top: `${rowIdx * cellSize - 8}px`,
-                    left: `${colIdx * cellSize - 8}px`,
-                  }}
-                />
-              ) : null
-            )
+          {safeGrid.map((row, rowIdx) =>
+            Array.isArray(row)
+              ? row.map((cell, colIdx) =>
+                  cell ? (
+                    <div
+                      key={`${rowIdx}-${colIdx}`}
+                      className={`absolute w-5 h-5 rotate-45 ${cell}`}
+                      style={{
+                        top: `${rowIdx * cellSize - 8}px`,
+                        left: `${colIdx * cellSize - 8}px`,
+                      }}
+                    />
+                  ) : null
+                )
+              : null
           )}
 
-          {/* Column headers */}
+          {/* Column headers ✅ FIXED */}
           {columns.map((col, idx) => (
             <div
               key={idx}
@@ -114,15 +119,15 @@ function OneHealth({ data }) {
                 left: `${idx * cellSize + 60}px`,
                 top: "-70px",
                 transform: "translateX(-50%) rotate(-90deg)",
-                width: "100px",
+                width: "120px",
                 whiteSpace: "nowrap",
               }}
             >
-              {col}
+              {col?.column_label ?? col}
             </div>
           ))}
 
-          {/* Row labels */}
+          {/* Row labels ✅ FIXED */}
           {rows.map((row, idx) => (
             <div
               key={idx}
@@ -133,11 +138,11 @@ function OneHealth({ data }) {
                 height: `${cellSize}px`,
                 display: "flex",
                 alignItems: "center",
-                width: "120px",
+                width: "140px",
                 transform: "translateY(-50%)",
               }}
             >
-              {row}
+              {row?.row_label ?? row}
             </div>
           ))}
         </div>

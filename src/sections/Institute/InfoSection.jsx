@@ -10,8 +10,35 @@ function InfoSection({ data }) {
   const moreParagraphs = Array.isArray(data.view_more_paragraphs)
     ? data.view_more_paragraphs
     : [];
-
+  //  "data": {
+  //               "basic": {
+  //                   "title": "JNMC",
+  //                   "subtitle": "JJNNMMCC",
+  //                   "tagline": "AA"
+  //               },
+  //               "intro_paragraphs": [
+  //                   {
+  //                       "desc": "AA"
+  //                   }
+  //               ],
+  //               "view_more_paragraphs": [
+  //                   {
+  //                       "desc": "DErr"
+  //                   }
+  //               ]
+  //           }
   const { title, tagline, highlight_color } = basic;
+  // const quickLinks = data.quick_links || [];
+  const quickLinks = [
+    { title: "Quick Link 1", url: "https://example.com/quick-link-1" },
+    { title: "Quick Link 2", url: "https://example.com/quick-link-2" },
+    { title: "Quick Link 3", url: "https://example.com/quick-link-3" },
+    { title: "Quick Link 3", url: "https://example.com/quick-link-3" },
+    { title: "Quick Link 3", url: "https://example.com/quick-link-3" },
+    { title: "Quick Link 3", url: "https://example.com/quick-link-3" },
+    { title: "Quick Link 3", url: "https://example.com/quick-link-3" },
+    { title: "Quick Link 3", url: "https://example.com/quick-link-3" },
+  ];
 
   const [showMore, setShowMore] = useState(false);
 
@@ -34,6 +61,15 @@ function InfoSection({ data }) {
         </h2>
       )}
 
+      {quickLinks && quickLinks.length > 0 && (
+       <div className="quick-links">
+        {quickLinks.map((link, i) => (
+          <a key={i} href={link.url} target="_blank" rel="noopener noreferrer">
+            {link.title}
+          </a>
+        ))}
+       </div>
+      )}
       {/* ================= CONTENT ================= */}
       <section className="info-content">
         {tagline && (
@@ -66,7 +102,7 @@ function InfoSection({ data }) {
           {showMore &&
             moreParagraphs.map((p, i) => (
               <p key={i} className="info-paragraph">
-                {p.text}
+                {p.desc}
               </p>
             ))}
 

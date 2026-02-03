@@ -75,7 +75,7 @@ function ExcellenceSection({ data }) {
   return (
     <section className="excellence-wrapper">
       <h1 className="excellence-title">
-        {title.split(".").map((line, i) => (
+        {title?.split("").map((line, i) => (
           <span key={i}>
             {line.trim()}
             {i === 0 && <br />}
@@ -91,7 +91,7 @@ function ExcellenceSection({ data }) {
       </div>
 
       <div className="excellence-grid">
-        {pillars.map((item, i) => (
+        {pillars?.map((item, i) => (
           <div key={i} className="excellence-card">
             <h3 className={`excellence-card-title ${item.color}`}>
               {item.title}

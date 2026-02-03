@@ -110,26 +110,52 @@
 // }
 
 // export default HomeANNOUNCEMENTS;
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-function HomeANNOUNCEMENTS({ data }) {
-  const { title, categories = [], announcements = {}, items_per_page = 4 } = data || {};
-
-  const [activeCategory, setActiveCategory] = useState(categories[0]);
+function HomeANNOUNCEMENTS() {
+  const [data, setData] = useState(null);
+  const [activeCategory, setActiveCategory] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/home-notices")
+      .then((res) => res.json())
+      .then((res) => {
+        const section = res.find(
+          (item) => item.section_id === "home_ANNOUNCEMENTS_section"
+        );
+
+        if (section) {
+          setData(section.data);
+          setActiveCategory(section.data.categories?.[0]);
+        }
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  if (!data) return null;
+
+  const {
+    title,
+    categories = [],
+    announcements = {},
+    items_per_page = 4,
+  } = data;
+
   const currentItems = announcements[activeCategory] || [];
-  const visibleItems = currentItems.slice(currentIndex, currentIndex + items_per_page);
+  const visibleItems = currentItems.slice(
+    currentIndex,
+    currentIndex + items_per_page
+  );
 
   return (
     <div className="announcements-section">
       <div className="container">
-        <h2 className="heading">
-          <hr className="heading-line" />
-          {title}
-        </h2>
+        <h2 className="heading"> <hr className="heading-line" /> {title}</h2>
 
+        {/* Categories */}
         <div className="announcement-categories">
           {categories.map((cat) => (
             <button
@@ -145,25 +171,42 @@ function HomeANNOUNCEMENTS({ data }) {
           ))}
         </div>
 
+        {/* Content */}
         <div className="announcement-grid">
           {visibleItems.map((item, index) => (
             <div key={index} className="announcement-item">
-              {item.url ? (
-                <a href={item.url} target="_blank" rel="noreferrer">
-                  {item.title}
-                </a>
-              ) : (
-                <h3>{item.title}</h3>
-              )}
+              <a href={item.url} target="_blank" rel="noreferrer">
+                {item.title}
+              </a>
               {item.date && <p className="date">{item.date}</p>}
             </div>
           ))}
         </div>
 
+        {/* Arrows */}
         {currentItems.length > items_per_page && (
           <div className="arrow-controls">
-            <button><ArrowLeft size={20} /></button>
-            <button><ArrowRight size={20} /></button>
+            <button
+              disabled={currentIndex === 0}
+              onClick={() =>
+                setCurrentIndex((p) =>
+                  Math.max(p - items_per_page, 0)
+                )
+              }
+            >
+              <ArrowLeft size={20} />
+            </button>
+
+            <button
+              disabled={
+                currentIndex + items_per_page >= currentItems.length
+              }
+              onClick={() =>
+                setCurrentIndex((p) => p + items_per_page)
+              }
+            >
+              <ArrowRight size={20} />
+            </button>
           </div>
         )}
       </div>

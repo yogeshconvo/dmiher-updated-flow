@@ -109,20 +109,34 @@
 //   );
 // }
 
-// export default HomeBulletin;import { useState } from "react";
+// export default HomeBulletin;   
+import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useState } from "react";
 
-function HomeBulletin({ data }) {
-  const {
-    title,
-    tabs = [],
-    content = {},
-    items_per_page = 4,
-  } = data || {};
-
-  const [activeTab, setActiveTab] = useState(tabs[0]?.id);
+function HomeBulletin() {
+  const [data, setData] = useState(null);
+  const [activeTab, setActiveTab] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/home-notices")
+      .then((res) => res.json())
+      .then((res) => {
+        const section = res.find(
+          (item) => item.section_id === "home_BULLETIN_section"
+        );
+
+        if (section) {
+          setData(section.data);
+          setActiveTab(section.data.tabs?.[0]);
+        }
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
+  if (!data) return null;
+
+  const { title, tabs = [], content = {}, items_per_page = 4 } = data;
 
   const currentItems = content[activeTab] || [];
   const visibleItems = currentItems.slice(
@@ -133,84 +147,63 @@ function HomeBulletin({ data }) {
   return (
     <div className="bulletin-section">
       <div className="container">
-        <h2 className="heading">
-          <hr className="heading-line" />
-          {data.header.title}
-        </h2>
+        <h2 className="heading"> <hr className="heading-line" /> {title}</h2>
 
-        {/* TABS */}
+        {/* Tabs */}
         <div className="bulletin-tabs">
           {tabs.map((tab) => (
             <button
-              key={tab.id}
-              className={`tab-btn ${
-                activeTab === tab.id ? "active" : ""
-              }`}
+              key={tab}
+              className={`tab-btn ${activeTab === tab ? "active" : ""}`}
               onClick={() => {
-                setActiveTab(tab.id);
+                setActiveTab(tab);
                 setCurrentIndex(0);
               }}
             >
-              {tab.name}
+              {tab}
             </button>
           ))}
         </div>
 
-         {/* "content": [
-          {
-            "title": "Test",
-            "date": "2026-01-20",
-            "college": "PJLC"
-          }
-        ] */}
-        {/* CONTENT */}
+        {/* Content */}
         <div className="bulletin-grid">
-          {data.content.map((item) => (
-            <div key={item.id} className="bulletin-item">
-              {item.url ? (
-                <a href={item.url} target="_blank" rel="noreferrer">
-                  {item.title}
-                </a>
-              ) : (
-                <span>{item.title}</span>
-              )}
-
-              {item.college && (
-                <div className="college">{item.college}</div>
-              )}
-              {item.date && (
-                <div className="date">{item.date}</div>
-              )}
+          {visibleItems.map((item, index) => (
+            <div key={index} className="bulletin-item">
+              <a href={item.url} target="_blank" rel="noreferrer">
+                {item.title}
+              </a>
+              {item.college && <div>{item.college}</div>}
+              {item.date && <div className="date">{item.date}</div>}
             </div>
           ))}
         </div>
 
-        {/* ARROWS */}
-        <div className="arrow-controls">
-          <button
-            disabled={currentIndex === 0}
-            onClick={() =>
-              setCurrentIndex((prev) =>
-                Math.max(prev - items_per_page, 0)
-              )
-            }
-          >
-            <ArrowLeft size={20} />
-          </button>
+        {/* Arrows */}
+        {currentItems.length > items_per_page && (
+          <div className="arrow-controls">
+            <button
+              disabled={currentIndex === 0}
+              onClick={() =>
+                setCurrentIndex((p) =>
+                  Math.max(p - items_per_page, 0)
+                )
+              }
+            >
+              <ArrowLeft size={20} />
+            </button>
 
-          <button
-            disabled={
-              currentIndex + items_per_page >= currentItems.length
-            }
-            onClick={() =>
-              setCurrentIndex((prev) =>
-                prev + items_per_page
-              )
-            }
-          >
-            <ArrowRight size={20} />
-          </button>
-        </div>
+            <button
+              disabled={
+                currentIndex + items_per_page >= currentItems.length
+              }
+              onClick={() =>
+                setCurrentIndex((p) => p + items_per_page)
+              }
+            >
+              <ArrowRight size={20} />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

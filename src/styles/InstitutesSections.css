@@ -214,6 +214,14 @@
     @apply text-2xl font-[500] text-[#58595B] leading-snug mb-6;
 }
 
+.quick-links {
+    @apply flex flex-wrap items-center justify-center;
+}
+
+.quick-links a {
+    @apply px-2 border-r-1 border-sky-500 last:border-r-0 text-sky-500;
+}
+
 /* ================= DEANS ================= */
 .deans-section {
     @apply bg-[#0C2C5B] text-white py-10;
