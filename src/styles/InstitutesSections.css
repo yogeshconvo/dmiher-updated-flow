@@ -7,7 +7,7 @@
 }
 
 .heading-line {
-    @apply w-16 w-20 border-[#F04E30] mb-2 border-t-4;
+    @apply w-20 border-t-4 border-[#F04E30] mb-2 ml-0 mr-auto;
 }
 
 .cta {
@@ -778,18 +778,11 @@
     @apply text-3xl md:text-4xl font-[500] tracking-wider text-white mb-4;
 }
 
-.education-heading-line {
-    @apply w-16 sm:w-20 border-[#F04E30] mb-4 border-t-4;
-}
-
 .education-paragraph {
     @apply text-white text-base max-w-5xl tracking-normal leading-relaxed mb-6;
 }
 
 /* ================= ANNOUNCEMENTS ================= */
-.announce-heading-line {
-    @apply w-16 border-[#F04E30] mb-4 border-t-4;
-}
 
 .announce-grid {
     @apply grid grid-cols-1 gap-5 max-w-2xl mx-auto justify-center;

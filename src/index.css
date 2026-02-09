@@ -6,7 +6,7 @@
 /* @import "../styles/InstituteSections/Banner.css"; */
 
 .container {
-    @apply max-w-7xl mx-auto px-5;
+    @apply max-w-7xl px-5;
 }
 
 .font-oswald-medium {
@@ -81,4 +81,10 @@ h6 {
     /* Optional: adds some breathing room */
     font-size: 15px;
     /* Optional: slightly increase font */
+}
+
+html,
+body {
+    transition: none !important;
+    opacity: 1 !important;
 }

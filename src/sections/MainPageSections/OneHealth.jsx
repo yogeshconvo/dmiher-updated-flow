@@ -49,8 +49,8 @@ function OneHealth({ data }) {
     <div className="my-10 flex flex-col items-start gap-16 sm:gap-32 container mx-auto">
 
       {/* Heading */}
-      <h2 className="text-3xl md:text-4xl font-[500] text-[#58595B]">
-        <hr className="w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4" />
+      <h2 className="heading">
+        <hr className="heading-line" />
         {basic?.title}
       </h2>
 

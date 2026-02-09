@@ -124,8 +124,8 @@ function CoreValues({ data }) {
       <div className="container">
 
         <div className="core-values-header">
-          <h2 className="core-values-title">
-            <hr className="committees-underline" />
+          <h2 className="heading">
+            <hr className="heading-line" />
             {basic?.title}
           </h2>
 

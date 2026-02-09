@@ -18,3 +18,5 @@
 @import "./subpages/main-subpage.css";
 @import "./subpages/responsive.css";
 @import "./micropages.css";
+@import "./components/footer.css";
+@import "./components/navbar.css";

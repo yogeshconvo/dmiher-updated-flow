@@ -66,25 +66,20 @@
     @apply py-10 bg-white;
 }
 
-.announcement-categories {
-    @apply flex justify-center gap-3 mt-6;
-}
 
-.announcement-grid {
-    @apply grid grid-cols-4 gap-4 mt-8;
-}
+
 
 .announcement-item {
-    @apply border-r pr-3 last:border-0;
+    @apply border-r pl-3 pr-3 last:border-0;
 }
 
-.announcement-item a {
-    @apply hover:underline;
+.announcement-item a:hover {
+    @apply underline;
 }
 
 .announcement-item a,
 .announcement-item h3 {
-    @apply text-xl text-[#707070];
+    @apply text-xl text-[#707070] no-underline;
 }
 
 .date {
@@ -803,6 +798,51 @@
 
 .excellence-card-desc {
     @apply text-xs text-[#58595B] text-center;
+}
+
+.vm-wrapper {
+    @apply max-w-5xl mx-auto px-2 grid grid-cols-1 md:grid-cols-2 gap-4 text-white;
+}
+
+.vm-card {
+    @apply shadow-md min-h-[360px] p-5 sm:p-8 md:p-10;
+}
+
+.vm-vision {
+    @apply bg-[#0b2d62];
+}
+
+.vm-mission {
+    @apply bg-[#e5cf60] text-[#58595B] p-6 sm:p-8;
+}
+
+.vm-header {
+    @apply pt-5 sm:pt-12 mb-4;
+}
+
+.vm-header-mission {
+    @apply sm:pt-16;
+}
+
+.vm-divider {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4;
+}
+
+.vm-title {
+    @apply text-2xl sm:text-3xl font-bold uppercase tracking-wide;
+}
+
+.vm-title-mission {
+    @apply text-gray-700;
+}
+
+.vm-text {
+    @apply text-lg leading-relaxed;
+}
+
+.vm-mission-points {
+    @apply space-y-3 text-xs sm:text-sm leading-snug;
+    font-family: Arial, sans-serif;
 }
 
 /* ================= PROGRAMS ================= */

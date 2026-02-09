@@ -16,8 +16,8 @@ function SDGSection({ data }) {
 
         {/* Heading */}
         <div className="font-oswald-medium mb-6">
-          <hr className="w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4" />
-          <h2 className="text-4xl font-[500] text-[#707070]">
+          <h2 className="heading">
+          <hr className="heading-line" /> 
             {header?.heading}
           </h2>
         </div>

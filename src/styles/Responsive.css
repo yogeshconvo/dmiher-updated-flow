@@ -1,6 +1,7 @@
 @reference "tailwindcss";
 
 /* =================Common Components Responsive Styles ================= */
+
 @media (max-width: 640px) {
     .heading {
         @apply text-2xl;
@@ -9,17 +10,30 @@
 }
 
 /* ================= Main Page Sections Responsive ================= */
-
-
 /* ===========Home Page Sections ============ */
+.announcement-categories {
+    @apply flex justify-center gap-3 mt-6;
+}
+
+.announcement-grid,
+.bulletin-grid {
+    @apply grid grid-cols-4;
+}
+
+/* ====== <= 1024px ====== */
 @media (max-width: 1024px) {
 
     .announcement-grid,
     .bulletin-grid {
         @apply grid-cols-2;
     }
+
+    .announcement-categories span {
+        @apply text-[20px];
+    }
 }
 
+/* ====== <= 640px ====== */
 @media (max-width: 640px) {
 
     .announcement-grid,
@@ -29,6 +43,14 @@
 
     .bulletin-item {
         @apply border-b border-r-0;
+    }
+
+    .announcement-categories {
+        @apply flex flex-wrap justify-center gap-2;
+    }
+
+    .announcement-categories span {
+        @apply text-[15px];
     }
 
     .video-box {
@@ -50,7 +72,8 @@
     .announcement-item {
         @apply h-[50px] border-0;
     }
-    .announcement-item a{
+
+    .announcement-item a {
         @apply text-sm;
     }
 }

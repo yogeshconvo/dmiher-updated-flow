@@ -39,9 +39,9 @@ function HomeBulletin() {
         <h2 className="heading"> <hr className="heading-line" /> {title}</h2>
 
         {/* Tabs */}
-        <div className="bulletin-tabs">
+        <div className="announcement-categories ">
           {tabs.map((tab) => (
-            <button
+            <span
               key={tab}
               className={`tab-btn ${activeTab === tab ? "active" : ""}`}
               onClick={() => {
@@ -50,12 +50,12 @@ function HomeBulletin() {
               }}
             >
               {tab}
-            </button>
+            </span>
           ))}
         </div>
 
         {/* Content */}
-        <div className="bulletin-grid">
+        {/* <div className="bulletin-grid">
           {visibleItems.map((item, index) => (
             <div key={index} className="bulletin-item">
               <a href={item.url} target="_blank" rel="noreferrer">
@@ -63,6 +63,19 @@ function HomeBulletin() {
               </a>
               {item.college && <div>{item.college}</div>}
               {item.date && <div className="date">{item.date}</div>}
+            </div>
+          ))}
+        </div> */}
+          <div className="announcement-grid">
+          {visibleItems.map((item, index) => (
+            <div key={index} className="announcement-item">
+              <a href={item.url} target="_blank" rel="noreferrer">
+                {item.title}
+              </a>
+{item.college && <div>{item.college}</div>}
+              {item.date && (
+                <p className="date">{item.date}</p>
+              )}
             </div>
           ))}
         </div>

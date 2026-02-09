@@ -8,18 +8,20 @@ const fetchPages = async (slug) => {
     );
 
     if (!res.ok) throw new Error("API error");
-
     return res.json();
 };
 
+// 🔥 Query factory (used by server)
+export const pagesQuery = (slug) => ({
+    queryKey: ["pages", slug || "home"],
+    queryFn: () => fetchPages(slug),
+    staleTime: 5 * 60 * 1000,
+});
+
+// 🔥 Client hook
 export const usePages = (slug) =>
     useQuery({
-        queryKey: ["pages", slug || "home"], 
-        queryFn: () => fetchPages(slug),
-
-        staleTime: 5 * 60 * 1000,
+        ...pagesQuery(slug),
         cacheTime: 30 * 60 * 1000,
-
-        refetchOnWindowFocus: true,
         retry: 1,
     });
