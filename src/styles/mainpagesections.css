@@ -53,7 +53,7 @@
 }
 
 .facility-title {
-    @apply mt-2 text-gray-600 text-base sm:text-lg  ;
+    @apply mt-2 text-gray-600 text-base sm:text-lg;
 }
 
 
@@ -76,6 +76,10 @@
 
 .announcement-item {
     @apply border-r pr-3 last:border-0;
+}
+
+.announcement-item a {
+    @apply hover:underline;
 }
 
 .announcement-item a,
@@ -110,6 +114,10 @@
 
 .bulletin-item {
     @apply border-r pr-3 last:border-0 text-[#707070];
+}
+
+.bulletin-item a {
+    @apply hover:underline;
 }
 
 .college {

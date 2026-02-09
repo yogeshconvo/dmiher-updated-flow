@@ -89,17 +89,21 @@ function ExcellenceSection({ data }) {
         <h2 className="excellence-highlight-title">{highlight?.title}</h2>
         <p className="excellence-highlight-sub">{highlight?.subtitle}</p>
       </div>
+      
+<div className="excellence-grid">
+  {pillars?.map((item, i) => (
+    <div key={i} className="excellence-card">
+      <h3
+        className="excellence-card-title"
+        style={{ color: item.color }}
+      >
+        {item.title}
+      </h3>
+      <p className="excellence-card-desc">{item.desc}</p>
+    </div>
+  ))}
+</div>
 
-      <div className="excellence-grid">
-        {pillars?.map((item, i) => (
-          <div key={i} className="excellence-card">
-            <h3 className={`excellence-card-title ${item.color}`}>
-              {item.title}
-            </h3>
-            <p className="excellence-card-desc">{item.desc}</p>
-          </div>
-        ))}
-      </div>
     </section>
   );
 }

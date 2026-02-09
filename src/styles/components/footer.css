@@ -11,6 +11,10 @@
         @apply w-48 mb-4;
     }
 
+    .footer-icons {
+        @apply w-[30px];
+    }
+
     .footer-list-group {
         @apply space-y-1 ml-4 list-disc;
     }
@@ -21,6 +25,10 @@
 
     .footer-title {
         @apply text-yellow-400 text-xl mb-2 border-b border-gray-500;
+    }
+
+    .footer-subtitle {
+        @apply text-yellow-400 text-xl mb-2;
     }
 
     .footer-title-mobile {

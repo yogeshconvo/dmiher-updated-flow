@@ -1,203 +1,5 @@
-// import React, { useEffect, useState } from "react";
-// import { Link, NavLink } from "react-router-dom";
-// import { Menu, X } from "lucide-react";
-// import MegaMenu from "./NavbarMegaMenu";
-// import "../styles/components/navbar.css";
-// // import logo from "../../assets/nav-logo.png";
-
-// const Navbar = () => {
-//   const [menuData, setMenuData] = useState([]);
-//   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-//   const [showMegaMenu, setShowMegaMenu] = useState(null);
-//   const [openSection, setOpenSection] = useState(null);
-//   const [openSubSection, setOpenSubSection] = useState(null);
-
-//   // Fetch Menu
-//   useEffect(() => {
-//     fetch("http://localhost:3000/menu")
-//     // fetch("https://json-new-sever.onrender.com/menu")
-//       .then((res) => res.json())
-//       .then((data) => setMenuData(data))
-//       .catch(console.error);
-//   }, []);
-
-//   const topLinks = menuData.filter((item) => item.type === "topLinks");
-
-//   return (
-//     <div className="navbar">
-//       <div className="navbar-inner">
-//         {/* LOGO */}
-//         <Link to="/">
-//           <img
-//             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuXZdE9ghv5B13jBGysqw_Lfw6x2YquReHJA&s"
-//             alt="logo"
-//             className="navbar-logo"
-//           />
-//         </Link>
-
-//         {/* DESKTOP */}
-//         <div className="navbar-desktop">
-//           <div className="navbar-top-links">
-//             {topLinks.map((link) => (
-//               <Link key={link.id} to={link.slug} className=" top-links">
-//                 {link.title}
-//               </Link>
-//             ))}
-//           </div>
-
-//           <div className="navbar-main">
-//             {menuData
-//               .filter((item) => item.type !== "topLinks")
-//               .map((item) => {
-//                 if (item.type === "normal") {
-//                   return (
-//                     <NavLink
-//                       key={item.id}
-//                       to={item.slug}
-//                       className={({ isActive }) =>
-//                         `nav-link ${isActive ? "nav-link-active" : ""}`
-//                       }
-//                     >
-//                       {item.title}
-//                     </NavLink>
-//                   );
-//                 }
-
-//                 if (item.type === "megaMenu") {
-//                   return (
-//                     <div
-//                       key={item.id}
-//                       className=""
-//                       onMouseEnter={() => setShowMegaMenu(item.id)}
-//                       onMouseLeave={() => setShowMegaMenu(null)}
-//                     >
-//                       <button className="nav-link">{item.title}</button>
-
-//                       {showMegaMenu === item.id && (
-//                         <MegaMenu sections={item.children} />
-//                       )}
-//                     </div>
-//                   );
-//                 }
-
-//                 return null;
-//               })}
-//           </div>
-//         </div>
-
-//         {/* MOBILE BUTTON */}
-//         <button
-//           className="mobile-btn"
-//           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-//         >
-//           {mobileMenuOpen ? <X /> : <Menu />}
-//         </button>
-
-//         {/* MOBILE MENU */}
-//         {mobileMenuOpen && (
-//           <div className="mobile-menu-full ">
-//             {/* CLOSE */}
-//             <button
-//               className="mobile-close-btn "
-//               onClick={() => setMobileMenuOpen(false)}
-//             >
-//               <X size={28} />
-//             </button>
-//             <div className="mobile-content-container">
-//               {menuData
-//                 .filter((item) => item.type !== "topLinks")
-//                 .map((item) => {
-//                   const isMega = item.type === "megaMenu";
-
-//                   return (
-//                     <div key={item.id} className="mobile-section">
-//                       {/* MAIN HEADING */}
-//                       {isMega ? (
-//                         <button
-//                           className="mobile-heading-btn-mega font-oswald-medium"
-//                           onClick={() => {
-//                             setOpenSection(
-//                               openSection === item.id ? null : item.id
-//                             );
-//                             setOpenSubSection(null);
-//                           }}
-//                         >
-//                           {item.title}
-//                         </button>
-//                       ) : (
-//                         <Link
-//                           to={item.slug}
-//                           className="mobile-heading-btn font-oswald-medium"
-//                           onClick={() => setMobileMenuOpen(false)}
-//                         >
-//                           {item.title}
-//                         </Link>
-//                       )}
-//                       {/* MEGA MENU CONTENT */}
-//                       {isMega && openSection === item.id && (
-//                         <div className="pl-4 mt-3 space-y-3">
-//                           {item.children?.map((campusObj, index) => (
-//                             <div key={index}>
-//                               {/* CAMPUS */}
-//                               <button
-//                                 className="mobile-sub-heading"
-//                                 onClick={() =>
-//                                   setOpenSubSection(
-//                                     openSubSection === campusObj.campus
-//                                       ? null
-//                                       : campusObj.campus
-//                                   )
-//                                 }
-//                               >
-//                                 {campusObj.campus}
-//                               </button>
-
-//                               {/* COLLEGES */}
-//                               {openSubSection === campusObj.campus && (
-//                                 <div className="pl-4 mt-2 space-y-1">
-//                                   {campusObj.items?.map((college) => (
-//                                     <Link
-//                                       key={college.id}
-//                                       to={college.slug}
-//                                       className="mobile-link"
-//                                       onClick={() => setMobileMenuOpen(false)}
-//                                     >
-//                                       {college.title}
-//                                     </Link>
-//                                   ))}
-//                                 </div>
-//                               )}
-//                             </div>
-//                           ))}
-//                         </div>
-//                       )}
-//                     </div>
-//                   );
-//                 })}
-//             </div>
-//             {/* TOP LINKS (MOBILE) */}
-//             <div className="mobile-bottom-links">
-//               {topLinks.map((link) => (
-//                 <Link
-//                   key={link.id}
-//                   to={link.slug}
-//                   onClick={() => setMobileMenuOpen(false)}
-//                   className="mobile-link"
-//                 >
-//                   {link.title}
-//                 </Link>
-//               ))}
-//             </div>
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Navbar;
 import React, { useEffect, useState } from "react";
-import { Link ,NavLink} from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import MegaMenu from "./NavbarMegaMenu";
 import "../styles/components/navbar.css";
@@ -205,10 +7,10 @@ import "../styles/components/navbar.css";
 const Navbar = () => {
   const [mainMenu, setMainMenu] = useState([]);
   const [topLinks, setTopLinks] = useState([]);
+  const [logo, setLogo] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openSection, setOpenSection] = useState(null);
   const [hoveredItem, setHoveredItem] = useState(null);
-  
 
   /* ================= FETCH MENU ================= */
   useEffect(() => {
@@ -219,6 +21,10 @@ const Navbar = () => {
 
         setMainMenu(menu.filter((i) => i.position === "Main"));
         setTopLinks(menu.filter((i) => i.position === "Top"));
+
+        // LOGO
+        const logoItem = menu.find((i) => i.position === "Logo");
+        setLogo(logoItem);
       })
       .catch(console.error);
   }, []);
@@ -226,86 +32,95 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navbar-inner">
-        {/* LOGO */}
+        {/* ================= LOGO ================= */}
         <Link to="/">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuXZdE9ghv5B13jBGysqw_Lfw6x2YquReHJA&s"
-            alt="logo"
-            className="navbar-logo"
-          />
+          {logo?.image && (
+            <img
+              src={logo.image}
+              alt={logo.title || "Logo"}
+              className="navbar-logo"
+            />
+          )}
         </Link>
 
         {/* ================= DESKTOP ================= */}
         <div className="navbar-desktop">
-          {/* TOP LINKS */}
-         <div className="navbar-top-links">
-  {topLinks.map((item) => (
-    <Link key={item.id} to={item.slug} className="top-links">
-      {item.image ? (
-        <div className="flex items-center gap-2">
-          <img  src={item.image} alt="icon" />
-          <span>{item.title}</span>
-        </div>
-      ) : (
-        item.title
-      )}
-    </Link>
-  ))}
-</div>
+          {/* ================= TOP LINKS ================= */}
+          <div className="navbar-top-links">
+            {topLinks.map((item) => {
+              const isParentMenu = item.type === "parent_menu";
 
+              if (isParentMenu && item.children?.length) {
+                return (
+                  <div key={item.id} className="relative group">
+                    <span className="top-links cursor-pointer">
+                      {item.title}
+                    </span>
 
-          {/* MAIN MENU */}
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 bg-white border shadow-lg p-4 z-[9999] w-[300px] hidden group-hover:block">
+                      {item.children.map((child) =>
+                        child.items?.map((subItem) => (
+                          <Link
+                            key={subItem.id}
+                            to={subItem.slug}
+                            className="block py-1 text-sm hover:text-[#F04E30]"
+                          >
+                            {subItem.title}
+                          </Link>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <Link key={item.id} to={item.slug} className="top-links">
+                  {item.image ? (
+                    <div className="flex items-center gap-2">
+                      <img src={item.image} alt="icon" />
+                      <span>{item.title}</span>
+                    </div>
+                  ) : (
+                    item.title
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* ================= MAIN MENU ================= */}
           <div className="navbar-main">
             {mainMenu.map((item) => {
               const isMega = item.type === "parent_menu";
 
               return (
-                <div  className="relative group">
-                  <Link to={item.slug || "#"} className="nav-link">
-                     <NavLink
-                       key={item.id}
-                       to={item.slug}
-                       className={({ isActive }) =>
-                         `nav-link ${isActive ? "nav-link-active" : ""}`
-                       }
-                     >
-                       {item.title}
-                     </NavLink>
-                  </Link>
+                <div key={item.id} className="relative group">
+                  {isMega ? (
+                    <span className="nav-link nav-link-disabled">
+                      {item.title}
+                    </span>
+                  ) : (
+                    <NavLink
+                      to={item.slug}
+                      end
+                      className={({ isActive }) =>
+                        `nav-link ${isActive ? "nav-link-active" : ""}`
+                      }
+                    >
+                      {item.title}
+                    </NavLink>
+                  )}
 
-                  {/* MEGA MENU */}
-                  {/* {isMega && (
-                    <div className="absolute hidden group-hover:flex bg-white shadow-lg p-4 gap-6 z-50">
-                      {item.children?.map((campus, i) => (
-                        <div key={i}>
-                          {campus.campus && (
-                            <p className="font-semibold mb-2">
-                              {campus.campus}
-                            </p>
-                          )}
-
-                          {campus.items?.map((college, j) => (
-                            <Link
-                              key={j}
-                              to={college.slug}
-                              className="block text-sm py-1 hover:text-[#F04E30]"
-                            >
-                              {college.title}
-                            </Link>
-                          ))}
-                        </div>
-                      ))}
+                  {isMega && (
+                    <div className="absolute hidden group-hover:flex bg-white shadow-lg z-50">
+                      <MegaMenu
+                        sections={item.children}
+                        hoveredItem={hoveredItem}
+                        setHoveredItem={setHoveredItem}
+                      />
                     </div>
-                  )} */}
-                {isMega && (
-  <div className="absolute hidden group-hover:flex bg-white shadow-lg gap-2 z-50">
-    <MegaMenu
-      sections={item.children}
-      hoveredItem={hoveredItem}
-      setHoveredItem={setHoveredItem}
-    />
-  </div>
-)}
+                  )}
                 </div>
               );
             })}
@@ -357,7 +172,6 @@ const Navbar = () => {
                       </Link>
                     )}
 
-                    {/* MEGA CONTENT */}
                     {isMega && openSection === item.id && (
                       <div className="pl-4 mt-3 space-y-3">
                         {item.children?.map((campus, i) => (
@@ -387,7 +201,6 @@ const Navbar = () => {
               })}
             </div>
 
-            {/* MOBILE TOP LINKS */}
             <div className="mobile-bottom-links">
               {topLinks.map((item) => (
                 <Link

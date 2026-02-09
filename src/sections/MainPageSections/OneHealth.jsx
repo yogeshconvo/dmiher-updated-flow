@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 
 function OneHealth({ data }) {
   const {
-    title = "",
+    basic,
     legend = [],
     rows = [],
     columns = [],
@@ -11,12 +11,20 @@ function OneHealth({ data }) {
 
   const [cellSize, setCellSize] = useState(70);
 
-  // ✅ Normalize grid (array / object safe)
+  // Normalize grid to 2D array
   const safeGrid = useMemo(() => {
-    if (Array.isArray(grid)) return grid;
-    if (grid && typeof grid === "object") return Object.values(grid);
-    return [];
-  }, [grid]);
+    if (!Array.isArray(grid)) return [];
+
+    // If backend sends flat grid, convert to NxN
+    if (!Array.isArray(grid[0])) {
+      const size = Math.min(rows.length, columns.length);
+      return Array.from({ length: size }, () =>
+        Array.from({ length: size }, () => grid[0]?.bg2_color || null)
+      );
+    }
+
+    return grid;
+  }, [grid, rows.length, columns.length]);
 
   useEffect(() => {
     const updateCellSize = () => {
@@ -39,22 +47,25 @@ function OneHealth({ data }) {
 
   return (
     <div className="my-10 flex flex-col items-start gap-16 sm:gap-32 container mx-auto">
+
       {/* Heading */}
-      {title && (
-        <h2 className="text-3xl md:text-4xl font-[500] text-[#58595B]">
-          <hr className="w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4" />
-          {title}
-        </h2>
-      )}
+      <h2 className="text-3xl md:text-4xl font-[500] text-[#58595B]">
+        <hr className="w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4" />
+        {basic?.title}
+      </h2>
 
       <div className="w-full flex flex-col-reverse lg:flex-row lg:justify-evenly gap-10 lg:gap-20">
+
         {/* Legend */}
         <div className="space-y-4 mx-auto">
           {legend.map((item, i) => (
             <div key={i} className="flex items-center gap-3 font-[600]">
-              <div className={`w-5 h-5 rotate-45 ${item?.color || ""}`} />
+              <div
+                className="w-5 h-5 rotate-45"
+                style={{ backgroundColor: item.bg_color }}
+              />
               <span className="text-[#58595B] text-sm md:text-lg">
-                {item?.label}
+                {item.label}
               </span>
             </div>
           ))}
@@ -62,7 +73,7 @@ function OneHealth({ data }) {
 
         {/* Grid */}
         <div
-          className="relative ml-auto md:mx-auto mt-36 sm:mt-5"
+          className="relative md:mx-auto mt-10"
           style={{
             width: cellSize * columns.length,
             height: cellSize * rows.length,
@@ -93,41 +104,40 @@ function OneHealth({ data }) {
           ))}
 
           {/* Diamonds */}
-          {safeGrid.map((row, rowIdx) =>
-            Array.isArray(row)
-              ? row.map((cell, colIdx) =>
-                  cell ? (
-                    <div
-                      key={`${rowIdx}-${colIdx}`}
-                      className={`absolute w-5 h-5 rotate-45 ${cell}`}
-                      style={{
-                        top: `${rowIdx * cellSize - 8}px`,
-                        left: `${colIdx * cellSize - 8}px`,
-                      }}
-                    />
-                  ) : null
-                )
-              : null
+          {safeGrid.map((row, rIdx) =>
+            row.map((color, cIdx) =>
+              color ? (
+                <div
+                  key={`${rIdx}-${cIdx}`}
+                  className="absolute w-5 h-5 rotate-45"
+                  style={{
+                    backgroundColor: color,
+                    top: `${rIdx * cellSize - 9}px`,
+                    left: `${cIdx * cellSize - 9}px`,
+                  }}
+                />
+              ) : null
+            )
           )}
 
-          {/* Column headers ✅ FIXED */}
+          {/* Column labels */}
           {columns.map((col, idx) => (
             <div
               key={idx}
               className="absolute text-sm text-[#58595B]"
               style={{
-                left: `${idx * cellSize + 60}px`,
-                top: "-70px",
+                left: `${idx * cellSize}px`,
+                top: "-140px",
                 transform: "translateX(-50%) rotate(-90deg)",
                 width: "120px",
                 whiteSpace: "nowrap",
               }}
             >
-              {col?.column_label ?? col}
+              {col.column_label}
             </div>
           ))}
 
-          {/* Row labels ✅ FIXED */}
+          {/* Row labels */}
           {rows.map((row, idx) => (
             <div
               key={idx}
@@ -142,7 +152,7 @@ function OneHealth({ data }) {
                 transform: "translateY(-50%)",
               }}
             >
-              {row?.row_label ?? row}
+              {row.row_label}
             </div>
           ))}
         </div>
