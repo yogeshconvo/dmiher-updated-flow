@@ -302,161 +302,211 @@
 
 // export default Footer;
 
-
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  FaInstagram,
-  FaFacebookF,
-  FaLinkedinIn,
-  FaYoutube,
-} from "react-icons/fa";
 import "../styles/components/footer.css";
 
-const iconMap = {
-  instagram: FaInstagram,
-  facebook: FaFacebookF,
-  linkedin: FaLinkedinIn,
-  youtube: FaYoutube,
-};
+const API_BASE = "http://127.0.0.1:8000";
 
 const Footer = () => {
-  const [footerCols, setFooterCols] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [footer, setFooter] = useState(null);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/menus/Footer")
-      .then((res) => res.json())
-      .then((res) => {
-        const footerData = res?.data?.Footer?.[""] || {};
-        setFooterCols(footerData);
-        setLoading(false);
+    fetch(`${API_BASE}/api/menus/Footer`)
+      .then(res => res.json())
+      .then(res => {
+        const data = res?.data || {};
+
+        /* ================= COL 1 ================= */
+        const col1 = data.Footer?.COL1 || {};
+
+        const logo = col1.items?.[0]?.image || null;
+        const address =
+          col1.items?.[0]?.description?.split("\n") || [];
+
+        const contactTitle = col1.contact?.title || "";
+        const contactValue =
+          col1.contact?.items?.[0]?.description || "";
+
+        const emailTitle = col1.email?.title || "";
+        const emailValue =
+          col1.email?.items?.find(i => i.description)
+            ?.description?.trim() || "";
+
+        const socials =
+          col1.email?.items?.filter(i => i.icon && i.slug) || [];
+
+        /* ================= COL 2 ================= */
+        const programs = data.Footer?.COL2?.programs || {};
+        const terms = data.Footer?.COL2?.["T&C"] || {};
+
+        /* ================= COL 3 ================= */
+        const col3 = data.Footer?.COL3 || {};
+        const colleges = col3.college || {};
+        const otherLinks = col3.items || [];
+
+        /* ================= COL 4 ================= */
+        const importantLinks =
+          data.Footer?.COL4?.important_links || {};
+
+        /* ================= BOTTOM ================= */
+        const copyright =
+          data.Bottom?.Bottom?.items?.[0]?.description || "";
+
+        setFooter({
+          logo,
+          address,
+          contactTitle,
+          contactValue,
+          emailTitle,
+          emailValue,
+          socials,
+          programs,
+          terms,
+          colleges,
+          otherLinks,
+          importantLinks,
+          copyright,
+        });
       })
-      .catch((err) => {
-        console.error("Footer API Error:", err);
-        setLoading(false);
-      });
+      .catch(console.error);
   }, []);
 
-  if (loading) {
-    return (
-      <div className="bg-[#132F5C] text-white text-center p-6">
-        Loading footer...
-      </div>
+  if (!footer) return null;
+
+  const SafeLink = ({ to, children }) =>
+    to && to !== "#" ? (
+      <Link to={to}>{children}</Link>
+    ) : (
+      <span className="cursor-default">{children}</span>
     );
-  }
-
-  const renderLink = (item) => {
-    if (item.link_type === "page" && item.page_id) {
-      return (
-        <Link to={`/page/${item.page_id}`} className="links">
-          {item.title}
-        </Link>
-      );
-    }
-
-    if (item.custom_url) {
-      return (
-        <a
-          href={item.custom_url}
-          target="_blank"
-          rel="noreferrer"
-          className="links"
-        >
-          {item.title}
-        </a>
-      );
-    }
-
-    return <span className="links">{item.title}</span>;
-  };
 
   return (
     <>
       {/* ================= DESKTOP FOOTER ================= */}
       <footer className="footer footer-desktop">
-        <div className="footer-grid">
-          {/* ===== COL1 (DESCRIPTION / ADDRESS) ===== */}
-          <div>
-            {footerCols.COL1?.map((item) => (
-<>
-              <p key={item.id} className="footer-title font-oswald-medium">
-                {item.title}
-              </p>
-              <p key={item.id} className="mb-4 whitespace-pre-line">
-                {item.description}
-              </p>
+        <div className="footer-grid footer-grid-4">
+
+          {/* ===== COL 1 ===== */}
+          <div className="footer-col">
+            {footer.logo && (
+              <img
+                src={footer.logo}
+                alt="Logo"
+                className="footer-logo"
+              />
+            )}
+
+            <p className="footer-address">
+              {footer.address.map((line, i) => (
+                <span key={i}>
+                  {line}<br />
+                </span>
+              ))}
+            </p>
+
+            {footer.contactValue && (
+              <>
+                <h3 className="footer-subtitle">{footer.contactTitle}</h3>
+                <p>{footer.contactValue}</p>
               </>
-            ))}
+            )}
+
+            {footer.emailValue && (
+              <>
+                <h3 className="footer-subtitle">{footer.emailTitle}</h3>
+                <p>{footer.emailValue}</p>
+              </>
+            )}
+
+            {footer.socials.length > 0 && (
+              <div className="footer-socials">
+                {footer.socials.map(item => (
+                  <a
+                    key={item.id}
+                    href={item.slug}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <img className="footer-icons" src={`${API_BASE}/storage/${item.icon}`} alt={item.title} />
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* ===== COL2 ===== */}
-          <div>
-            <h3 className="footer-title font-oswald-medium">Links</h3>
-            <ul className="footer-list">
-              {footerCols.COL2?.map((item) => (
-                <li key={item.id}>{renderLink(item)}</li>
+          {/* ===== COL 2 ===== */}
+          <div className="footer-col">
+            <h3 className="footer-title">{footer.programs.title}</h3>
+            <ul className="mb-2">
+              {footer.programs.items?.map(item => (
+                <li className="mt-1" key={item.id}>
+                  <SafeLink to={item.slug}>{item.title}</SafeLink>
+                </li>
+              ))}
+            </ul>
+
+            <h3 className="footer-title">{footer.terms.title}</h3>
+            <ul>
+              {footer.terms.items?.map(item => (
+                <li className="mt-1" key={item.id}>
+                  <SafeLink to={item.slug}>{item.title}</SafeLink>
+                </li>
               ))}
             </ul>
           </div>
 
-          {/* ===== COL3 ===== */}
-          <div>
-            <h3 className="footer-title font-oswald-medium">Colleges</h3>
-            <ul className="footer-list">
-              {footerCols.COL3?.map((item) => (
-                <li key={item.id}>{renderLink(item)}</li>
-              ))}
-            </ul>
+          {/* ===== COL 3 ===== */}
+          <div className="footer-col">
+            <h3 className="footer-title">{footer.colleges.title}</h3>
+
+            {Object.entries(footer.colleges.campus || {}).map(
+              ([campus, list]) => (
+                <div key={campus} className="footer-campus">
+                  <strong className="mt-2">{campus}</strong>
+                  <ul className="list-disc ml-5">
+                    {list
+                      .sort((a, b) => a.sort_order - b.sort_order)
+                      .map(item => (
+                        <li className="mt-1" key={item.id}>
+                          <SafeLink to={item.slug}>{item.title}</SafeLink>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              )
+            )}
+
+            {footer.otherLinks.length > 0 && (
+              <ul className="footer-subtitle font-oswald-medium grid grid-cols-2 gap-3 mt-4">
+                {footer.otherLinks.map(item => (
+                  <li key={item.id}>
+                    <SafeLink to={item.slug}>{item.title}</SafeLink>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
-          {/* ===== COL4 ===== */}
-          <div>
-            <h3 className="footer-title font-oswald-medium">Academics</h3>
-            <ul className="footer-list">
-              {footerCols.COL4?.map((item) => (
-                <li key={item.id}>{renderLink(item)}</li>
+          {/* ===== COL 4 ===== */}
+          <div className="footer-col">
+            <h3 className="footer-title">{footer.importantLinks.title}</h3>
+            <ul>
+              {footer.importantLinks.items?.map(item => (
+                <li key={item.id}>
+                  <SafeLink to={item.slug}>{item.title}</SafeLink>
+                </li>
               ))}
             </ul>
           </div>
         </div>
 
-        <p className="footer-bottom">
-          © {new Date().getFullYear()} Datta Meghe Institute of Higher Education &
-          Research
-        </p>
+        <p className="footer-bottom">{footer.copyright}</p>
       </footer>
 
       {/* ================= MOBILE FOOTER ================= */}
       <footer className="footer footer-mobile">
-        {/* COL1 */}
-        {footerCols.COL1?.map((item) => (
-          <p key={item.id} className="mb-4 whitespace-pre-line">
-            {item.description}
-          </p>
-        ))}
-
-        {/* COL2 */}
-        <h3 className="footer-title-mobile font-oswald-medium">Links</h3>
-        {footerCols.COL2?.map((item) => (
-          <p key={item.id}>{renderLink(item)}</p>
-        ))}
-
-        {/* COL3 */}
-        <h3 className="footer-title-mobile font-oswald-medium">Colleges</h3>
-        {footerCols.COL3?.map((item) => (
-          <p key={item.id}>{renderLink(item)}</p>
-        ))}
-
-        {/* COL4 */}
-        <h3 className="footer-title-mobile font-oswald-medium">Academics</h3>
-        {footerCols.COL4?.map((item) => (
-          <p key={item.id}>{renderLink(item)}</p>
-        ))}
-
-        <p className="footer-bottom mt-6">
-          © {new Date().getFullYear()} DMIHER
-        </p>
+        <p className="footer-bottom">{footer.copyright}</p>
       </footer>
     </>
   );

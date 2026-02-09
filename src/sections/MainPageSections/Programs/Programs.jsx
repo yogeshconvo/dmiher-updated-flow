@@ -1,32 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router";
 
-// import "../../styles/programs-main.css";
-// import "../../styles/programs-responsive.css";
-
 const ProgramsComponent = ({data}) => {
-
-
-//   useEffect(() => {
-//     fetch("/api/programs") // 🔁 your real API
-//       .then((res) => res.json())
-//       .then((res) => {
-//         setPrograms(res.programs || []);
-//         setHeading(res.heading || "PROGRAMS");
-//         setLoading(false);
-//       })
-//       .catch(() => setLoading(false));
-//   }, []);
-
-//   if (loading) {
-//     return (
-//       <section className="programs-section">
-//         <div className="container">Loading programs...</div>
-//       </section>
-//     );
-// //   }
-
-//   if (!programs.length) return null;
 
   return (
     <section className="programs-section">

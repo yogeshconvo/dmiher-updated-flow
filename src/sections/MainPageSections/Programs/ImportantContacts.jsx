@@ -3,28 +3,6 @@ import { Phone } from "lucide-react";
 import { Link } from "react-router";
 
 const ImportantContacts = ({data}) => {
-//   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     fetch("/api/important-contacts") // 🔁 replace with real endpoint
-//       .then((res) => res.json())
-//       .then((res) => {
-//         setData(res);
-//         setLoading(false);
-//       })
-//       .catch(() => setLoading(false));
-//   }, []);
-
-//   if (loading) {
-//     return (
-//       <section className="w-full py-14 bg-gray-100">
-//         <div className="container">Loading contacts...</div>
-//       </section>
-//     );
-//   }
-
-//   if (!data || !data.contacts?.length) return null;
 
   return (
 <section className="important-contacts-section">
