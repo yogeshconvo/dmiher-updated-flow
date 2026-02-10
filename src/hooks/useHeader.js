@@ -9,11 +9,12 @@ const fetchHeader = async () => {
 
     const json = await res.json();
     const menu = json?.menu || [];
-
+    console.log("added", res);
     return {
         mainMenu: menu.filter(i => i.position === "Main"),
         topLinks: menu.filter(i => i.position === "Top"),
         logo: menu.find(i => i.position === "Logo") || null,
+
     };
 };
 

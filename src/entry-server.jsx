@@ -7,29 +7,28 @@ import {
   dehydrate,
   HydrationBoundary,
 } from "@tanstack/react-query";
-import "./styles/main.css";
 import App from "./App";
 import { pagesQuery } from "./hooks/usePages";
 import { micropageQuery } from "./hooks/useMicropage";
 import { subpagesQuery } from "./hooks/useSubpages";
 import { headerQuery, footerQuery } from "./hooks/useHeader";
+import { homeNoticesQuery } from "./hooks/useHomeNotices";
 
 
 export async function render(url) {
-  // ✅ NEW QueryClient PER REQUEST
   const queryClient = new QueryClient();
 
-  // 🔥 URL parsing
   const segments = url.split("/").filter(Boolean);
   const pageSlug = segments[0] || "home";
   const microSlug = segments[1];
-await queryClient.prefetchQuery(headerQuery());
-await queryClient.prefetchQuery(footerQuery());
 
-  // ✅ Prefetch queries
+  // 🔥 HEADER + FOOTER PREFETCH 
+  await queryClient.prefetchQuery(headerQuery());
+  await queryClient.prefetchQuery(footerQuery());
+
   await queryClient.prefetchQuery(pagesQuery(pageSlug));
   await queryClient.prefetchQuery(subpagesQuery());
-
+await queryClient.prefetchQuery(homeNoticesQuery());
   if (microSlug) {
     await queryClient.prefetchQuery(
       micropageQuery(pageSlug, microSlug)

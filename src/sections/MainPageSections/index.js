@@ -35,6 +35,7 @@ import WhyChoose from "../Institute/WhyChoseSlider"
 import HomeSteps from "./HomeSteps"
 import HeadwithPara from "./Global/HeadwithPara"
 import AdmissionInfoPage from "./Admissions/AdmissionInfoPage"
+import mainHolistic from "../Institute/mainHolistic"
 export const SECTION_COMPONENTS = {
 
     // Common Sections
@@ -51,7 +52,7 @@ export const SECTION_COMPONENTS = {
     about_Committees_Section: CommitteesSection,
     about_DMIHERJourney_section: DMIHERJourney,
     about_OneHealth_section: OneHealth,
-    about_HolisticLearningPage: HolisticLearningPage,
+    holistic_learning_Section: mainHolistic,
     about_SDGSection: SDGSection,
     about_Gallery_section: Gallery,
 

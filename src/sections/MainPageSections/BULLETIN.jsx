@@ -1,31 +1,22 @@
- 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useHomeNotices } from "../../hooks/useHomeNotices";
 
 function HomeBulletin() {
-  const [data, setData] = useState(null);
+  const { bulletin, isLoading, isError } = useHomeNotices();
+
   const [activeTab, setActiveTab] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/home-notices")
-      .then((res) => res.json())
-      .then((res) => {
-        const section = res.find(
-          (item) => item.section_id === "home_BULLETIN_section"
-        );
+    if (bulletin?.tabs?.length) {
+      setActiveTab(bulletin.tabs[0]);
+    }
+  }, [bulletin]);
 
-        if (section) {
-          setData(section.data);
-          setActiveTab(section.data.tabs?.[0]);
-        }
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  if (isLoading || isError || !bulletin) return null;
 
-  if (!data) return null;
-
-  const { title, tabs = [], content = {}, items_per_page = 4 } = data;
+  const { title, tabs = [], content = {}, items_per_page = 4 } = bulletin;
 
   const currentItems = content[activeTab] || [];
   const visibleItems = currentItems.slice(
@@ -34,13 +25,16 @@ function HomeBulletin() {
   );
 
   return (
-    <div className="bulletin-section">
+    <section className="bulletin-section">
       <div className="container">
-        <h2 className="heading"> <hr className="heading-line" /> {title}</h2>
+        <h2 className="heading">
+          <hr className="heading-line" />
+          {title}
+        </h2>
 
         {/* Tabs */}
-        <div className="announcement-categories ">
-          {tabs.map((tab) => (
+        <div className="announcement-categories">
+          {tabs.map(tab => (
             <span
               key={tab}
               className={`tab-btn ${activeTab === tab ? "active" : ""}`}
@@ -55,27 +49,14 @@ function HomeBulletin() {
         </div>
 
         {/* Content */}
-        {/* <div className="bulletin-grid">
-          {visibleItems.map((item, index) => (
-            <div key={index} className="bulletin-item">
+        <div className="announcement-grid">
+          {visibleItems.map((item, i) => (
+            <div key={i} className="announcement-item">
               <a href={item.url} target="_blank" rel="noreferrer">
                 {item.title}
               </a>
               {item.college && <div>{item.college}</div>}
-              {item.date && <div className="date">{item.date}</div>}
-            </div>
-          ))}
-        </div> */}
-          <div className="announcement-grid">
-          {visibleItems.map((item, index) => (
-            <div key={index} className="announcement-item">
-              <a href={item.url} target="_blank" rel="noreferrer">
-                {item.title}
-              </a>
-{item.college && <div>{item.college}</div>}
-              {item.date && (
-                <p className="date">{item.date}</p>
-              )}
+              {item.date && <p className="date">{item.date}</p>}
             </div>
           ))}
         </div>
@@ -86,12 +67,12 @@ function HomeBulletin() {
             <button
               disabled={currentIndex === 0}
               onClick={() =>
-                setCurrentIndex((p) =>
+                setCurrentIndex(p =>
                   Math.max(p - items_per_page, 0)
                 )
               }
             >
-              <ArrowLeft size={20} />
+              <ArrowLeft size={18} />
             </button>
 
             <button
@@ -99,15 +80,15 @@ function HomeBulletin() {
                 currentIndex + items_per_page >= currentItems.length
               }
               onClick={() =>
-                setCurrentIndex((p) => p + items_per_page)
+                setCurrentIndex(p => p + items_per_page)
               }
             >
-              <ArrowRight size={20} />
+              <ArrowRight size={18} />
             </button>
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 }
 

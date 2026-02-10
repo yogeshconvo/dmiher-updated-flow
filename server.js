@@ -10,20 +10,17 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 async function createServer() {
     const app = express();
 
-    // gzip compression
     app.use(compression());
 
-    // Create Vite dev server in middleware mode
     const vite = await createViteServer({
         server: { middlewareMode: true },
         appType: "custom",
     });
 
-    // Use Vite's middleware
     app.use(vite.middlewares);
 
-    // 🔥 SSR handler
-    app.use(async (req, res) => {
+    // ✅ SSR ONLY FOR HTML
+    app.get("*", async (req, res) => {
         try {
             const url = req.originalUrl;
 
@@ -32,11 +29,7 @@ async function createServer() {
                 "utf-8"
             );
 
-            const transformed = await vite.transformIndexHtml(url, template);
-            template =
-                typeof transformed === "string"
-                    ? transformed
-                    : transformed.html;
+            template = await vite.transformIndexHtml(url, template);
 
             const { render } = await vite.ssrLoadModule(
                 "/src/entry-server.jsx"
@@ -44,21 +37,27 @@ async function createServer() {
 
             const { html, dehydratedState } = await render(url);
 
+            const safeState = JSON.stringify(dehydratedState).replace(
+                /</g,
+                "\\u003c"
+            );
+
             const finalHtml = template
                 .replace("<!--ssr-outlet-->", html)
                 .replace(
                     "</body>",
                     `<script>
-                  window.__REACT_QUERY_STATE__ = ${JSON.stringify(
-                        dehydratedState
-                    )}
-                </script>
-                </body>`
+            window.__REACT_QUERY_STATE__ = ${safeState}
+          </script>
+          </body>`
                 );
 
             res
                 .status(200)
-                .set({ "Content-Type": "text/html" })
+                .set({
+                    "Content-Type": "text/html",
+                    "Cache-Control": "no-store",
+                })
                 .end(finalHtml);
         } catch (e) {
             vite.ssrFixStacktrace(e);
@@ -67,9 +66,8 @@ async function createServer() {
         }
     });
 
-
-    app.listen(5173, () => {
-        console.log("🚀 SSR server running at http://localhost:5173");
+    app.listen(5174, () => {
+        console.log("🚀 SSR server running at http://localhost:5174");
     });
 }
 

@@ -1,33 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import MegaMenu from "./NavbarMegaMenu";
+import { useHeader } from "../hooks/useHeader";
 import "../styles/components/navbar.css";
 
 const Navbar = () => {
-  const [mainMenu, setMainMenu] = useState([]);
-  const [topLinks, setTopLinks] = useState([]);
-  const [logo, setLogo] = useState(null);
+  /* ================= STATE ================= */
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openSection, setOpenSection] = useState(null);
   const [hoveredItem, setHoveredItem] = useState(null);
 
-  /* ================= FETCH MENU ================= */
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/menus/Header")
-      .then((res) => res.json())
-      .then((res) => {
-        const menu = res?.menu || [];
+  /* ================= API ================= */
+  const { header, isLoading, isError } = useHeader();
 
-        setMainMenu(menu.filter((i) => i.position === "Main"));
-        setTopLinks(menu.filter((i) => i.position === "Top"));
+  if (isLoading) return null; // or loader
+  if (isError || !header) return null;
 
-        // LOGO
-        const logoItem = menu.find((i) => i.position === "Logo");
-        setLogo(logoItem);
-      })
-      .catch(console.error);
-  }, []);
+  const { mainMenu = [], topLinks = [], logo } = header;
 
   return (
     <div className="navbar">
@@ -78,7 +68,7 @@ const Navbar = () => {
                 <Link key={item.id} to={item.slug} className="top-links">
                   {item.image ? (
                     <div className="flex items-center gap-2">
-                      <img src={item.image} alt="icon" />
+                      <img src={item.image} alt="" />
                       <span>{item.title}</span>
                     </div>
                   ) : (
@@ -174,22 +164,22 @@ const Navbar = () => {
 
                     {isMega && openSection === item.id && (
                       <div className="pl-4 mt-3 space-y-3">
-                        {item.children?.map((campus, i) => (
+                        {item.children?.map((group, i) => (
                           <div key={i}>
-                            {campus.campus && (
+                            {group.campus && (
                               <p className="font-semibold text-sm">
-                                {campus.campus}
+                                {group.campus}
                               </p>
                             )}
 
-                            {campus.items?.map((college, j) => (
+                            {group.items?.map((child, j) => (
                               <Link
                                 key={j}
-                                to={college.slug}
+                                to={child.slug}
                                 className="mobile-link"
                                 onClick={() => setMobileMenuOpen(false)}
                               >
-                                {college.title}
+                                {child.title}
                               </Link>
                             ))}
                           </div>
