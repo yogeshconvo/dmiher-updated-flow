@@ -35,6 +35,7 @@ import WhyChoose from "../Institute/WhyChoseSlider"
 import HomeSteps from "./HomeSteps"
 import HeadwithPara from "./Global/HeadwithPara"
 import AdmissionInfoPage from "./Admissions/AdmissionInfoPage"
+import Outcome from "./Home/Outcome"
 export const SECTION_COMPONENTS = {
 
     // Common Sections
@@ -42,6 +43,10 @@ export const SECTION_COMPONENTS = {
     info_section: HomeInfo,
     gallery: StudentLife,
     why_choose: WhyChoose,
+
+
+    // home 
+    outcome_section: Outcome,
 
     // About Section
     About_Excellence_Section: ExcellenceSection,
