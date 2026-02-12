@@ -1,0 +1,115 @@
+{
+    "section_id": "outcome_section",
+    "data": {
+        "slider": [
+            {
+                "type": "image",
+                "title": "OUTCOME BASED MULTIDISCIPLINARY EDUCATION",
+                "image": "Group 1749.png"
+            },
+            {
+                "type": "icons",
+                "text": "LEARN FROM THE GLOBAL LEADERS, LEAD AS THE BEST"
+            }
+        ],
+        "icons": [
+            "clinic-2.png",
+            "clinic-3.png",
+            "clinic-4.png",
+            "clinic-5.png",
+            "clinic-6.png",
+            "logo.jpg",
+            "clinic-8.png",
+            "clinic-9.png",
+            "clinic-10.png",
+            "clinic-11.png",
+            "clinic-12.png",
+            "clinic-13.png",
+            "clinic-14.png",
+            "clinic-15.png",
+            "clinic-16.png",
+            "clinic-17.png",
+            "clinic-18.png"
+        ],
+        "video": {
+            "thumbnail": "LifeAtDMIHR.jpg",
+            "youtube_id": "U4ovO7md5M0"
+        }
+    }
+},
+// Footprints
+{
+    "section_id": "international_footprint",
+    "tabs": [
+        {
+            "id": "tab1",
+            "title": "INTERNATIONAL FOOTPRINTS",
+            "image": "IF.png",
+            "blocks": [
+                {
+                    "text": "Internationalization in University – Collaborations/ Academic Programs/ Learners Mobility/ Faculty Mobility/ Clinical Researches / Services/ Admission/ Placements."
+                },
+                {
+                    "text": "12 International centers providing comprehensive international educational experience across University"
+                },
+                {
+                    "text": "Students from 35+ countries across multiple Programs."
+                },
+                {
+                    "text": "International immersive opportunities for both Inward and Outward Learners."
+                },
+                {
+                    "text": "100+ International Adjunct faculty & Opportunities for International Placements"
+                }
+            ]
+        },
+        {
+            "id": "tab2",
+            "title": "OUR TALENT ACROSS INDUSTRIES",
+            "description": "Our graduates excel across diverse industries, contributing globally."
+        }
+    ],
+    "logos": [
+        "1.png",
+        "2.png",
+        "3.png",
+        "4.png",
+        "5.png",
+        "6.png",
+        "7.png",
+        "8.png",
+        "9.png",
+        "10.png",
+        "11.png",
+        "12.png",
+        "13.png",
+        "14.png",
+        "15.png",
+        "16.png",
+        "26.png",
+        "27.png",
+        "28.png",
+        "29.png",
+        "30.png",
+        "31.png",
+        "32.png",
+        "33.png",
+        "34.png",
+        "35.png",
+        "36.png",
+        "37.png",
+        "38.png",
+        "39.png",
+        "40.png",
+        "41.png",
+        "42.png",
+        "43.png",
+        "44.png",
+        "45.png",
+        "46.png",
+        "47.png",
+        "48.png",
+        "49.png",
+        "50.png"
+    ]
+}

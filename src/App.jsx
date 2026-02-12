@@ -4,16 +4,16 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 
-// import { useSubpages } from "./hooks/useSubpages";
+import { useSubpages } from "./hooks/useSubpages";
 import PageView from "./PageView";
 import KnowMore from "./sections/Subpages/DeanKnowMore";
 import MainMicropage from "./sections/Micropages/Main-micropage";
 
 function App() {
-  // const { data: subpages = [], isLoading, error } = useSubpages();
+  const { data: subpages = [], isLoading, error } = useSubpages();
 
-  // if (isLoading) return <div>Loading...</div>;
-  // if (error) return <div>Error loading site</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading site</div>;
 
   return (
     <>
