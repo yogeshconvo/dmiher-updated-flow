@@ -2,9 +2,9 @@
 import HomePrograms from "../MainPageSections/Programs"
 //import ResearchInnovation from "../sections/non-institute/ResearchInnovation"
 import HeroSection from "../Institute/Hero"
-import HomeBulletin from "../MainPageSections/BULLETIN"
-import HomeANNOUNCEMENTS from "../MainPageSections/ANNOUNCEMENTS"
-import HomeTestimonial from "../MainPageSections/testimonial"
+import HomeBulletin from "../MainPageSections/Home/BULLETIN"
+import HomeANNOUNCEMENTS from "../MainPageSections/Home/ANNOUNCEMENTS"
+import HomeTestimonial from "../MainPageSections/Home/testimonial"
 import ExcellenceSection from "../MainPageSections/About/ExcellenceSection"
 import VisionMissionSection from "./About/VisionMissionSection"
 import CoreValues from "./About/CoreValues"
@@ -32,10 +32,12 @@ import ImportantContacts from "./Programs/ImportantContacts"
 import EnquiryGlobal from "./Global/EnquiryGlobal"
 import StudentLife from "../Institute/StudentLife"
 import WhyChoose from "../Institute/WhyChoseSlider"
-import HomeSteps from "./HomeSteps"
+import HomeSteps from "./Home/HomeSteps"
 import HeadwithPara from "./Global/HeadwithPara"
 import AdmissionInfoPage from "./Admissions/AdmissionInfoPage"
 import Outcome from "./Home/Outcome"
+import FootprintSection from "./Home/FootprintSection"
+import ResearchInnovation from "./Home/ResearchInnovation"
 export const SECTION_COMPONENTS = {
 
     // Common Sections
@@ -47,7 +49,9 @@ export const SECTION_COMPONENTS = {
 
     // home 
     outcome_section: Outcome,
-
+    international_footprint: FootprintSection,
+    research_innovation: ResearchInnovation,
+    
     // About Section
     About_Excellence_Section: ExcellenceSection,
     about_VisionMission_Section: VisionMissionSection,

@@ -10,7 +10,10 @@ const Navbar = () => {
   const [logo, setLogo] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openSection, setOpenSection] = useState(null);
-  const [hoveredItem, setHoveredItem] = useState(null);
+
+  // 🔥 NEW STATE FOR MEGA MENU
+  const [activeMega, setActiveMega] = useState(null);
+  const [closeTimeout, setCloseTimeout] = useState(null);
 
   /* ================= FETCH MENU ================= */
   useEffect(() => {
@@ -22,12 +25,28 @@ const Navbar = () => {
         setMainMenu(menu.filter((i) => i.position === "Main"));
         setTopLinks(menu.filter((i) => i.position === "Top"));
 
-        // LOGO
         const logoItem = menu.find((i) => i.position === "Logo");
         setLogo(logoItem);
       })
       .catch(console.error);
   }, []);
+
+  /* ================= MEGA MENU HANDLERS ================= */
+
+  const handleMouseEnter = (id) => {
+    if (closeTimeout) {
+      clearTimeout(closeTimeout);
+      setCloseTimeout(null);
+    }
+    setActiveMega(id);
+  };
+
+  const handleMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setActiveMega(null);
+    }, 300); // smooth delay
+    setCloseTimeout(timeout);
+  };
 
   return (
     <div className="navbar">
@@ -52,24 +71,31 @@ const Navbar = () => {
 
               if (isParentMenu && item.children?.length) {
                 return (
-                  <div key={item.id} className="relative group">
-                    <span className="top-links cursor-pointer">
+                  <div
+                    key={item.id}
+                    className="relative top-links"
+                    onMouseEnter={() => handleMouseEnter(item.id)}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <span className="cursor-pointer">
                       {item.title}
                     </span>
 
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 bg-white border shadow-lg p-4 z-[9999] w-[300px] hidden group-hover:block">
-                      {item.children.map((child) =>
-                        child.items?.map((subItem) => (
-                          <Link
-                            key={subItem.id}
-                            to={subItem.slug}
-                            className="block py-1 text-sm hover:text-[#F04E30]"
-                          >
-                            {subItem.title}
-                          </Link>
-                        ))
-                      )}
-                    </div>
+                    {activeMega === item.id && (
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 bg-white border shadow-lg p-4 z-[9999] w-[300px] transition-all duration-200">
+                        {item.children.map((child) =>
+                          child.items?.map((subItem) => (
+                            <Link
+                              key={subItem.id}
+                              to={subItem.slug}
+                              className="block py-1 text-sm hover:text-[#F04E30]"
+                            >
+                              {subItem.title}
+                            </Link>
+                          ))
+                        )}
+                      </div>
+                    )}
                   </div>
                 );
               }
@@ -95,7 +121,12 @@ const Navbar = () => {
               const isMega = item.type === "parent_menu";
 
               return (
-                <div key={item.id} className="relative group">
+                <div
+                  key={item.id}
+                  className="relative "
+                  onMouseEnter={() => handleMouseEnter(item.id)}
+                  onMouseLeave={handleMouseLeave}
+                >
                   {isMega ? (
                     <span className="nav-link nav-link-disabled">
                       {item.title}
@@ -112,13 +143,9 @@ const Navbar = () => {
                     </NavLink>
                   )}
 
-                  {isMega && (
-                    <div className="absolute hidden group-hover:flex bg-white shadow-lg z-50">
-                      <MegaMenu
-                        sections={item.children}
-                        hoveredItem={hoveredItem}
-                        setHoveredItem={setHoveredItem}
-                      />
+                  {isMega && activeMega === item.id && (
+                    <div className="absolute left-0 top-full bg-white shadow-lg z-50 transition-all duration-200">
+                      <MegaMenu sections={item.children} />
                     </div>
                   )}
                 </div>
