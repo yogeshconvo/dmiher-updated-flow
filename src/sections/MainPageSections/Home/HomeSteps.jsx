@@ -1,4 +1,4 @@
-import { getImageSrc } from "../../components/Services/FetchImages";
+import { getImageSrc } from "../../../components/Services/FetchImages";
 
 function HomeSteps({ data }) {
   const {

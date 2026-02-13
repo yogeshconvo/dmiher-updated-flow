@@ -37,6 +37,9 @@
         }
     }
 },
+
+
+
 // Footprints
 {
     "section_id": "international_footprint",
@@ -112,4 +115,50 @@
         "49.png",
         "50.png"
     ]
+}
+
+
+
+{
+    "section_id": "research_innovation",
+    "data": {
+        "heading": "Research & Innovation",
+        "image": "RI.png",
+        "stats": [
+            {
+                "icon": "researchicon1.png",
+                "alt": "Publications",
+                "value": "17500+",
+                "label": "Publications"
+            },
+            {
+                "icon": "researchicon2.png",
+                "alt": "Grants",
+                "value": "12500+ lakhs INR",
+                "label": "in research grants"
+            },
+            {
+                "icon": "researchicon3.png",
+                "alt": "Patents",
+                "value": "130+",
+                "label": "Patents granted"
+            },
+            {
+                "icon": "researchicon4.png",
+                "alt": "Collaborations",
+                "value": "100+",
+                "label": "Research Collaborations"
+            },
+            {
+                "icon": "researchicon5.png",
+                "alt": "Consortia",
+                "value": "15+",
+                "label": "Global consortia"
+            }
+        ],
+        "button": {
+            "label": "Know more about Research >",
+            "link": "/research"
+        }
+    }
 }

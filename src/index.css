@@ -82,3 +82,39 @@ h6 {
     font-size: 15px;
     /* Optional: slightly increase font */
 }
+
+
+
+.video-section {
+    margin-top: 40px;
+    position: relative;
+    height: 800px;
+}
+
+.video-thumbnail-wrapper {
+
+    position: relative;
+    cursor: pointer;
+}
+
+.video-thumbnail {
+    width: 100%;
+    height: 800px;
+    object-fit: cover;
+
+}
+
+.play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    opacity: 0.9;
+}
+
+.video-iframe {
+    width: 100%;
+    height: 650px;
+    border-radius: 12px;
+}

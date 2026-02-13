@@ -1,7 +1,7 @@
 
 import { usePages } from "./hooks/usePages";
 import { useMicropage } from "./hooks/useMicropage";
-import { useSubpages } from "./hooks/useSubpages";
+// import { useSubpages } from "./hooks/useSubpages";
 
 import { SECTION_COMPONENTS as InstituteSections } from "./sections/Institute";
 import { SECTION_COMPONENTS as MainPageSections } from "./sections/MainPageSections";
@@ -49,7 +49,7 @@ function PageView() {
   const isSubpage = !isMicropage && params.college && params.page;
 
 
-  const subpagesQuery = useSubpages(params.pageSlug);
+  // const subpagesQuery = useSubpages(params.pageSlug);
 const isLoading = isMicropage
   ? micropageQuery.isLoading
   : isSubpage
