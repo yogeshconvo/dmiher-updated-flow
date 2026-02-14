@@ -55,30 +55,31 @@ const Outcome = ({ data }) => {
                 </div>
               )}
 
-              {slide.type === "icons" && (
-                <div className="slide-icons">
-                  <div className="icons-grid">
-                    {data.icons?.map((item, i) => (
-                      <img
-                        key={i}
-                        src={`${BASE_URL}/${item.icon}`}
-                        alt={`icon-${i}`}
-                        className="icon-img"
-                      />
-                    ))}
-                    <div className="icons-text">
-                      <p>{slide.title}</p>
-                    </div>
-                  </div>
-                </div>
-              )}
+            {slide.type === "icons" && (
+  <div className="slide-icons">
+    <div className="icons-grid">
+      {slide.icons?.map((item, i) => (
+        <img
+          key={i}
+          src={`${BASE_URL}/${item.image}`}
+          alt={`icon-${i}`}
+          className="icon-img"
+        />
+      ))}
+      <div className="icons-text">
+        <p>{slide.title}</p>
+      </div>
+    </div>
+  </div>
+)}
+
             </SwiperSlide>
           ))}
         </Swiper>
 
         {/* ✅ Improved Video Section */}
         {data?.video?.youtube_id && (
-          <div className="video-section">
+          <div className="video-section ">
             {!playVideo ? (
               <div
                 className="video-thumbnail-wrapper"
