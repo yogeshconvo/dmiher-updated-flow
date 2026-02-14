@@ -23,8 +23,8 @@ function HomeTestimonial({ data }) {
       <div className="container">
 
         {/* ===== Title ===== */}
-        <h2 className="heading text-center mb-6">
-          <span className="heading-line"></span>
+        <h2 className="heading ">
+          <hr className="heading-line"/>
           {title}
         </h2>
 

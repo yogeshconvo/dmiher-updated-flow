@@ -5,7 +5,7 @@
 }
 
 .outcome-inner {
-    @apply py-[40px] px-[20px];
+    @apply py-[40px];
 }
 
 .outcome-swiper {
@@ -41,11 +41,11 @@
 }
 
 .icons-grid {
-    @apply grid grid-cols-4 gap-[20px] max-w-[1200px] w-full items-center;
+    @apply grid grid-cols-4 gap-[5px] max-w-[1200px] w-full items-center;
 }
 
 .icon-img {
-    @apply w-full h-[100px] object-contain;
+    @apply w-full h-[100px] object-cover;
 }
 
 .icons-text {
@@ -65,7 +65,7 @@
 /* ================= VIDEO SECTION ================= */
 
 .video-section {
-    @apply py-[60px] px-[20px];
+    @apply py-[60px];
 }
 
 .video-heading {
@@ -101,6 +101,10 @@
 
     .icons-grid {
         @apply grid-cols-2;
+    }
+
+    .icon-img {
+        @apply object-contain h-auto;
     }
 
     .slide-content {
