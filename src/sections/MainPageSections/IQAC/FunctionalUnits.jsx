@@ -1,58 +1,58 @@
 import React from "react";
-// import "../../styles/functional-units-main.css";
-// import "../../styles/functional-units-responsive.css";
+// import "./FunctionalUnits.css";
+// import dataFile from "./functionalUnits.json";
 
-const FunctionalUnits = ({ data, loading = false }) => {
-  if (loading) {
-    return (
-      <section className="functional-section">
-        <div className="container">Loading...</div>
-      </section>
-    );
-  }
-
-  if (!data) return null;
+export default function FunctionalUnits({data}) {
+  const { heading, units, initiative_label } = data;
 
   return (
-    <section className="functional-section">
-      <div className="container">
+    <section id="functional_units" className="functional">
+      <div className="functional-container">
+        
         {/* Heading */}
-        <div className="functional-header">
-          <div className="heading-line" />
-          <h2 className="heading">
-            {data.heading}: <br />
-            <span>{data.subheading}</span>
+        <div className="functional-heading">
+          <div className="functional-line" />
+          <h2 className="functional-title">
+            {heading.title} <br />
+            <span>{heading.highlight}</span>
           </h2>
-          <p className="functional-description">{data.description}</p>
+          <p className="functional-description">
+            {heading.description}
+          </p>
         </div>
 
         {/* Units Grid */}
         <div className="functional-grid">
-          {data.units.map((unit) => (
-            <div key={unit.id} className="functional-card">
+          {units.map((unit, index) => (
+            <div
+              key={index}
+              className={`functional-card ${
+                index === units.length - 1 ? "no-border" : ""
+              }`}
+            >
               <div className="functional-card-header">
                 <div className={`functional-number ${unit.color}`}>
                   {unit.number}
                 </div>
-                <h3 className={`functional-title ${unit.color}`}>
+                <h3 className={`functional-card-title ${unit.color}`}>
                   {unit.title}
                 </h3>
               </div>
 
               <ul className="functional-list">
-                {unit.points.map((point, idx) => (
-                  <li key={idx}>{point}</li>
+                {unit.points.map((point, i) => (
+                  <li key={i}>{point}</li>
                 ))}
               </ul>
 
-              {unit.initiatives?.length > 0 && (
+              {unit.initiatives && (
                 <>
-                  <p className="functional-subtitle">
-                    Related DMIHER initiatives:
+                  <p className="functional-initiative-title">
+                    {initiative_label}
                   </p>
-                  <ul className="functional-initiative-list">
-                    {unit.initiatives.map((item, idx) => (
-                      <li key={idx}>{item}</li>
+                  <ul className="functional-list">
+                    {unit.initiatives.map((item, i) => (
+                      <li key={i}>{item}</li>
                     ))}
                   </ul>
                 </>
@@ -60,9 +60,8 @@ const FunctionalUnits = ({ data, loading = false }) => {
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );
-};
-
-export default FunctionalUnits;
+}

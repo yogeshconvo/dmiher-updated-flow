@@ -1,0 +1,382 @@
+.feature-section {
+    @apply bg-white mx-auto max-w-7xl py-12 px-5;
+}
+
+.feature-container {
+    @apply mx-auto;
+}
+
+.feature-heading {
+    @apply mb-8;
+}
+
+.feature-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4;
+}
+
+.feature-title {
+    @apply text-3xl md:text-4xl font-[500] uppercase text-[#707070];
+}
+
+.feature-mobile {
+    @apply block md:hidden;
+}
+
+.feature-desktop {
+    @apply hidden md:flex flex-wrap gap-4 justify-center;
+}
+
+.feature-card {
+    @apply relative w-full sm:w-[300px] md:w-[360px] h-[500px] rounded-xl overflow-hidden shadow-lg group;
+}
+
+.feature-img {
+    @apply w-full h-full object-cover transition-transform duration-300 group-hover:scale-105;
+}
+
+.feature-overlay {
+    @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 text-white p-4 h-44 flex flex-col;
+}
+
+.feature-card-title {
+    @apply text-[18px] font-bold leading-tight;
+}
+
+.feature-card-desc {
+    @apply text-sm mt-1 leading-snug overflow-hidden text-ellipsis line-clamp-4;
+}
+
+/* Steps Page */
+.steps-section {
+    @apply text-white bg-cover bg-no-repeat;
+}
+
+.steps-container {
+    @apply max-w-7xl px-5 py-16 mx-auto overflow-x-hidden;
+}
+
+.steps-heading {
+    @apply mb-16;
+}
+
+.steps-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-4 border-t-4;
+}
+
+.steps-title {
+    @apply text-2xl sm:text-3xl font-[500] tracking-wider;
+}
+
+.steps-wrapper {
+    @apply flex flex-row flex-wrap gap-[2%] px-2 sm:px-6 max-sm:flex-col max-sm:items-center max-sm:w-fit;
+}
+
+.step-card {
+    @apply relative basis-0 min-w-[14.6%] max-w-[200px] max-sm:min-w-[220px] max-sm:flex max-sm:flex-col max-sm:items-center max-sm:text-center max-sm:pb-12 max-sm:mb-12 max-sm:border-b max-sm:border-b-[#E1CD67];
+}
+
+.step-number {
+    @apply text-xs sm:text-sm text-white/80 font-medium mb-1;
+}
+
+.step-icon {
+    @apply w-10 h-10 sm:w-12 sm:h-12 mb-4 sm:mb-6 object-contain relative z-10;
+}
+
+.step-line-horizontal {
+    @apply absolute top-1/2 left-full h-[1px] bg-yellow-400 hidden lg:block;
+    width: 100px;
+    margin-left: -100px;
+    transform: translateY(-50%);
+    z-index: 5;
+}
+
+.step-title {
+    @apply text-xs sm:text-sm font-bold text-[#E1CD67] leading-tight mb-2;
+}
+
+.final-step {
+    @apply text-red-400;
+}
+
+.step-desc {
+    @apply text-xs sm:text-[0.85rem] mt-2 leading-snug;
+}
+
+.step-link {
+    @apply text-blue-300 underline hover:text-blue-400;
+}
+
+.step-note {
+    @apply text-xs sm:text-[0.85rem] mt-2;
+}
+
+.steps-bottom-note {
+    @apply text-xs sm:text-sm text-white/70 mt-12 text-center lg:text-left;
+}
+
+
+.intl-section {
+    @apply relative bg-[#122E5E] text-white px-4 py-10 md:py-20 bg-no-repeat bg-center;
+    background-size: 70%;
+}
+
+.intl-container {
+    @apply max-w-7xl mx-auto px-5;
+}
+
+.intl-title {
+    @apply text-3xl md:text-4xl mb-10 text-center sm:text-left;
+}
+
+.intl-line {
+    @apply w-12 border-[#F04E30] mb-3 border-t-4 mx-auto sm:mx-0;
+}
+
+.intl-stats-wrapper {
+    @apply max-w-4xl mx-auto relative;
+}
+
+/* Desktop */
+.intl-desktop {
+    @apply relative h-[400px] hidden md:block;
+}
+
+.intl-horizontal-line {
+    @apply absolute top-1/2 left-0 w-[105%] border-t border-gray-400 z-0;
+}
+
+.intl-grid {
+    @apply absolute top-0 left-0 w-full h-full grid grid-cols-4;
+}
+
+.intl-col {
+    @apply relative flex justify-center;
+}
+
+.intl-vertical-line {
+    @apply absolute border-r border-gray-400;
+}
+
+.intl-line-top {
+    @apply top-0 h-1/2 right-0;
+}
+
+.intl-line-bottom {
+    @apply top-1/2 h-1/2 right-0;
+}
+
+.intl-data {
+    @apply absolute w-full mx-auto text-center;
+}
+
+.intl-data-top {
+    @apply top-[8%] -translate-y-[10%];
+}
+
+.intl-data-bottom {
+    @apply bottom-[8%] translate-y-[10%];
+}
+
+.intl-number {
+    @apply text-7xl font-bold;
+}
+
+.intl-label {
+    @apply whitespace-pre-line text-xl mt-2;
+}
+
+/* Mobile */
+.intl-mobile {
+    @apply md:hidden flex flex-col items-center gap-10 mt-10;
+}
+
+.intl-mobile-item {
+    @apply text-center max-w-xs;
+}
+
+.intl-mobile-number {
+    @apply text-4xl max-sm:text-7xl font-bold;
+}
+
+.intl-mobile-label {
+    @apply whitespace-pre-line text-lg mt-2;
+}
+
+/* Admission Info */
+.admission-section {
+    @apply py-12 bg-white;
+}
+
+.admission-container {
+    @apply container mx-auto px-4;
+}
+
+.admission-heading {
+    @apply text-center mb-10;
+}
+
+.admission-title {
+    @apply text-3xl font-bold text-gray-800;
+}
+
+.admission-description {
+    @apply mt-4 text-gray-600 max-w-2xl mx-auto;
+}
+
+.admission-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6;
+}
+
+.admission-card {
+    @apply shadow-md rounded-xl p-6 bg-gray-50 hover:shadow-2xl hover:scale-105 transition-all duration-300 flex flex-col;
+}
+
+.admission-icon-wrapper {
+    @apply w-10 h-10 rounded-md bg-[#F04E30] flex items-center justify-center mb-4;
+}
+
+.admission-icon {
+    @apply w-6 h-6 text-white;
+}
+
+.admission-card-title {
+    @apply text-lg font-semibold text-gray-800 mb-5;
+}
+
+.admission-btn {
+    @apply mt-auto text-center bg-[#F04E30] hover:bg-[#0C2C5B] text-white text-sm font-semibold py-2 rounded-md transition;
+}
+
+
+/* Why Study */
+
+.why-section {
+    @apply pt-10 bg-[#FAFAF6] flex justify-center;
+}
+
+.why-container {
+    @apply w-full mx-auto max-w-7xl px-5;
+}
+
+.why-title {
+    @apply text-3xl md:text-4xl tracking-wide text-[#707070] font-[500] mb-10;
+}
+
+.why-line {
+    @apply border-t-4 border-[#EE4B2B] w-20 mb-2;
+}
+
+.why-slider {
+    @apply relative pb-16 max-w-5xl mx-auto;
+}
+
+
+.highlight-card {
+    @apply rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden flex flex-col justify-between w-[90%] sm:w-64 md:w-60 min-h-[320px] mx-auto;
+}
+
+.highlight-body {
+    @apply p-4 text-center flex flex-col justify-center flex-grow;
+}
+
+.highlight-title {
+    @apply mb-1 font-bold;
+}
+
+.highlight-sup {
+    @apply align-super text-xl font-bold;
+}
+
+.highlight-img-wrapper {
+    @apply flex-grow flex items-center justify-center mt-2;
+}
+
+.highlight-img {
+    @apply mx-auto object-contain max-h-24;
+}
+
+.highlight-footer {
+    @apply h-24 text-white text-lg p-2 text-center flex items-center justify-center;
+}
+
+.highlight-footer-text {
+    @apply leading-snug line-clamp-3;
+}
+
+
+.campus-section {
+    @apply bg-gray-50 py-10;
+}
+
+.campus-container {
+    @apply container mx-auto space-y-16;
+}
+
+.campus-header {
+    @apply flex flex-col md:flex-row md:items-end md:justify-between mb-6;
+}
+
+.campus-title {
+    @apply text-3xl md:text-4xl tracking-wide font-[500] text-[#707070];
+}
+
+.campus-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4;
+}
+
+.campus-controls {
+    @apply hidden md:flex items-center space-x-4;
+}
+
+.campus-viewall {
+    @apply text-red-500 text-xs font-semibold;
+}
+
+.campus-tabs {
+    @apply flex justify-center items-center space-x-6 text-sm mb-6;
+}
+
+.campus-tab {
+    @apply text-gray-500 transition;
+}
+
+.active-tab {
+    @apply text-red-500 font-semibold underline;
+}
+
+.campus-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4;
+}
+
+.campus-img {
+    @apply w-full h-60 object-cover rounded-xl cursor-pointer hover:scale-[1.02] transition-transform duration-300;
+}
+
+.campus-popup {
+    @apply fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center px-6;
+}
+
+.campus-popup-inner {
+    @apply relative max-w-5xl w-full flex items-center justify-between gap-6;
+}
+
+.campus-popup-img {
+    @apply max-h-[80vh] w-auto max-w-full object-contain rounded shadow-lg;
+}
+
+.campus-close {
+    @apply absolute top-2 right-2 text-white;
+}
+
+.campus-important {
+    @apply pb-15;
+}
+
+.campus-important-title {
+    @apply text-3xl font-[500] tracking-wide text-[#707070] mb-6;
+}
+
+.campus-important-grid {
+    @apply flex flex-col md:flex-row md:space-x-12 text-gray-700;
+}

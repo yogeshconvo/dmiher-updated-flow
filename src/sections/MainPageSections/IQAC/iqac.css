@@ -1,0 +1,130 @@
+.functional {
+    @apply bg-gray-100 text-[#58595B] py-16 font-[Arial];
+}
+
+.functional-container {
+    @apply container mx-auto px-4;
+}
+
+.functional-heading {
+    @apply mb-10;
+}
+
+.functional-line {
+    @apply w-14 h-1 bg-red-600 mb-3;
+}
+
+.functional-title {
+    @apply text-3xl sm:text-4xl font-[500] tracking-wide uppercase;
+}
+
+.functional-description {
+    @apply mt-4 max-w-3xl text-sm sm:text-base;
+}
+
+.functional-grid {
+    @apply grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-6 text-sm;
+}
+
+.functional-card {
+    @apply border-r md:pr-4;
+}
+
+.no-border {
+    @apply border-none;
+}
+
+.functional-card-header {
+    @apply flex items-center mb-2;
+}
+
+.functional-number {
+    @apply text-white rounded-full h-12 w-12 flex items-center justify-center text-3xl font-[500] mr-2;
+}
+
+.functional-card-title {
+    @apply pb-3 text-xl font-[500];
+}
+
+.functional-list {
+    @apply list-disc pl-5 space-y-1;
+}
+
+.functional-initiative-title {
+    @apply font-semibold mt-3;
+}
+
+/* Color Variants */
+.blue {
+    @apply bg-blue-600 text-blue-600;
+}
+
+.orange {
+    @apply bg-orange-500 text-orange-500;
+}
+
+.darkblue {
+    @apply bg-blue-800 text-blue-800;
+}
+
+.red {
+    @apply bg-red-600 text-red-600;
+}
+
+
+
+
+
+
+
+.iqac-section {
+    @apply bg-[#eaf3fb] py-16 px-4 font-[Arial];
+}
+
+.iqac-container {
+    @apply container mx-auto;
+}
+
+.iqac-heading {
+    @apply mb-10;
+}
+
+.iqac-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-4 border-t-4;
+}
+
+.iqac-title {
+    @apply text-3xl md:text-4xl uppercase font-[500] text-gray-700 tracking-wider;
+}
+
+.iqac-buttons {
+    @apply max-w-6xl mx-auto text-center flex flex-wrap justify-center gap-4 font-[500];
+}
+
+.iqac-btn {
+    @apply py-3 px-6 text-white text-sm sm:text-base rounded shadow-md transition-all duration-200 transform hover:scale-105 hover:bg-[#f04e30] bg-[#0f2c5c];
+}
+
+.iqac-btn.disabled {
+    @apply cursor-not-allowed opacity-60;
+}
+
+.iqac-annual {
+    @apply mt-16 text-left;
+}
+
+.iqac-annual-title {
+    @apply text-[#0f2c5c] text-xl font-bold mb-2;
+}
+
+.iqac-reports {
+    @apply mt-5 flex flex-col gap-4 flex-wrap;
+}
+
+.iqac-report-btn {
+    @apply flex items-center gap-2 bg-sky-200 text-[#F04E30] hover:bg-[#F04E30] hover:text-white px-6 py-3 rounded-md shadow-md transition hover:scale-105 w-[150px];
+}
+
+.iqac-icon {
+    @apply w-5 h-5 text-[#0B2A6D];
+}

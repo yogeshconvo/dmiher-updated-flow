@@ -306,7 +306,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/components/footer.css";
 
-const API_BASE = "http://127.0.0.1:8000";
+const API_BASE = "https://convomax.com/admin_dmiher";
 
 const Footer = () => {
   const [footer, setFooter] = useState(null);
