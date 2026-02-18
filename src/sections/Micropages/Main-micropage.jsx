@@ -149,7 +149,7 @@ import RichTextRenderer from "../../components/RichTextRenderer";
 import { getImageSrc } from "../../components/Services/FetchImages";
 
 const API_URL =
-  "http://127.0.0.1:8000/api/pages/jnmc/micro-pages/new-miceo";
+  "https://convomax.com/admin_dmiher/api/pages/jnmc/micro-pages/new-miceo";
 
 const MainMicropage = () => {
   /* ================= STATE ================= */

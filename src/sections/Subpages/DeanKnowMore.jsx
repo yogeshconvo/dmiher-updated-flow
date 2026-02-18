@@ -8,7 +8,7 @@ const [data, setData] = useState(null);
 useEffect(() => {
   const fetchApiData = async () => {
  try {
-   const res = await fetch("http://127.0.0.1:8000/api/page-sections/18/micro-pages");
+   const res = await fetch("https://convomax.com/admin_dmiher/api/page-sections/18/micro-pages");
    const data = await res.json();
   const page = data.micro_pages[0];
   

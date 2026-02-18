@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PlayCircle } from "lucide-react";
-import YouTube from "react-youtube";
+import { getImageSrc } from "../../../components/Services/FetchImages";
 
 function HomeTestimonial({ data }) {
   const title = data?.header?.title;
@@ -18,13 +18,26 @@ function HomeTestimonial({ data }) {
 
   if (!current) return null;
 
+  // ✅ Extract YouTube Video ID from URL
+  const getYoutubeEmbedUrl = (url) => {
+    if (!url) return "";
+
+    const regExp =
+      /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([^&?/]+)/;
+    const match = url.match(regExp);
+
+    const videoId = match ? match[1] : "";
+
+    return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+  };
+
   return (
     <div className="testimonial-section py-12 bg-[#f4f4f4]">
-      <div className="container">
+      <div className="container mx-auto px-4">
 
         {/* ===== Title ===== */}
-        <h2 className="heading ">
-          <hr className="heading-line"/>
+        <h2 className="heading">
+          <hr className="heading-line" />
           {title}
         </h2>
 
@@ -53,12 +66,16 @@ function HomeTestimonial({ data }) {
         <div className="flex flex-col items-center">
 
           <div className="relative w-[320px] h-[220px] md:w-[470px] md:h-[280px] bg-gray-300 rounded-xl overflow-hidden shadow-lg mb-4">
+
             {!isPlaying ? (
               <>
                 <img
-                  src={`${import.meta.env.VITE_BASE_URL}/${current.thumbnail}`}
+                  src={getImageSrc(current.thumbnail)}
                   alt={current.name}
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.src = "/fallback.jpg";
+                  }}
                 />
 
                 <div
@@ -72,13 +89,15 @@ function HomeTestimonial({ data }) {
                 </div>
               </>
             ) : (
-              <YouTube
-                videoId={current.videoId}
-                opts={{
-                  width: "100%",
-                  height: "100%",
-                  playerVars: { autoplay: 1 },
-                }}
+              <iframe
+                width="100%"
+                height="100%"
+                src={getYoutubeEmbedUrl(current.videoId)}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+                className="w-full h-full"
               />
             )}
           </div>
@@ -98,7 +117,7 @@ function HomeTestimonial({ data }) {
             )}
           </div>
 
-          {/* ===== Multiple Testimonials Selector (Optional) ===== */}
+          {/* ===== Multiple Testimonials Selector */}
           {testimonials.length > 1 && (
             <div className="flex gap-3 mt-4">
               {testimonials.map((_, i) => (

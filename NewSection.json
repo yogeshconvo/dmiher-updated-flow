@@ -1,164 +1,387 @@
 {
-    "section_id": "outcome_section",
+    "section_id": "functional_units",
     "data": {
-        "slider": [
+        "heading": {
+            "title": "Our Functional Units:",
+            "highlight": "Action and Impact",
+            "description": "Aligned with the functions outlined by NAAC, IQAC at DMIHER (DU) is structured into four functional units driving progressive excellence."
+        },
+        "initiative_label": "Related DMIHER initiatives:",
+        "units": [
             {
-                "type": "image",
-                "title": "OUTCOME BASED MULTIDISCIPLINARY EDUCATION",
-                "image": "Group 1749.png"
+                "number": "1",
+                "title": "Rankings and Accreditations",
+                "color": "blue",
+                "points": [
+                    "Strategize Institutional growth at National and International levels",
+                    "Coordinate the preparation of AQAR"
+                ],
+                "initiatives": [
+                    "NAAC",
+                    "NIRF",
+                    "TIMES",
+                    "QS",
+                    "IQMC"
+                ]
             },
             {
-                "type": "icons",
-                "text": "LEARN FROM THE GLOBAL LEADERS, LEAD AS THE BEST"
+                "number": "2",
+                "title": "Quality Benchmarks & Best Practices",
+                "color": "orange",
+                "points": [
+                    "Identify emerging areas in Higher Education",
+                    "Ensure application of quality benchmarks",
+                    "Promote technology adoption",
+                    "Ensure dissemination of best practices"
+                ]
+            },
+            {
+                "number": "3",
+                "title": "Audits, Feedbacks & Evaluation",
+                "color": "darkblue",
+                "points": [
+                    "Encourage self and external evaluation",
+                    "Conduct Academic and Administrative Audits",
+                    "Analyse stakeholder feedback"
+                ],
+                "initiatives": [
+                    "Stakeholder’s Feedback",
+                    "Student Satisfaction Survey",
+                    "Audits"
+                ]
+            },
+            {
+                "number": "4",
+                "title": "Quality Dissemination & Circles",
+                "color": "red",
+                "points": [
+                    "Organize workshops and seminars",
+                    "Mentor other HEIs",
+                    "Promote quality culture"
+                ],
+                "initiatives": [
+                    "Quality related events",
+                    "Mentoring activities"
+                ]
+            }
+        ]
+    }
+}
+
+
+
+{
+    "section_id": "iqac_section",
+    "data": {
+        "title": "IQAC",
+        "buttons": [
+            {
+                "label": "Composition",
+                "type": "route",
+                "link": "/IQAC/internal-quality-assurance-cell-iqac"
+            },
+            {
+                "label": "Institutional Development Plan",
+                "type": "pdf",
+                "link": "/assets/IQAC-Doc/DMIHER Strategic plan VISION-2025.pdf"
+            },
+            {
+                "label": "Quality Policy",
+                "type": "route",
+                "link": "/IQAC/quality-policy"
+            },
+            {
+                "label": "Minutes of Meeting",
+                "type": "route",
+                "link": "/IQAC/iqac-minutes"
+            },
+            {
+                "label": "NAAC",
+                "type": "route",
+                "link": "/IQAC/naac"
+            },
+            {
+                "label": "NIRF",
+                "type": "route",
+                "link": "/IQAC/nirf"
+            },
+            {
+                "label": "Sustainable Development Goals",
+                "type": "route",
+                "link": "/IQAC/sustainable-development-goals"
+            },
+            {
+                "label": "Accreditations, Rankings & Recognitions",
+                "type": "route",
+                "link": "/IQAC/accreditations-recognitions"
             }
         ],
-        "icons": [
-            "clinic-2.png",
-            "clinic-3.png",
-            "clinic-4.png",
-            "clinic-5.png",
-            "clinic-6.png",
-            "logo.jpg",
-            "clinic-8.png",
-            "clinic-9.png",
-            "clinic-10.png",
-            "clinic-11.png",
-            "clinic-12.png",
-            "clinic-13.png",
-            "clinic-14.png",
-            "clinic-15.png",
-            "clinic-16.png",
-            "clinic-17.png",
-            "clinic-18.png"
-        ],
-        "video": {
-            "thumbnail": "LifeAtDMIHR.jpg",
-            "youtube_id": "U4ovO7md5M0"
-        }
-    }
-},
-
-
-
-// Footprints
-{
-    "section_id": "international_footprint",
-    "tabs": [
-        {
-            "id": "tab1",
-            "title": "INTERNATIONAL FOOTPRINTS",
-            "image": "IF.png",
-            "blocks": [
+        "annual_reports": {
+            "title": "Annual Reports",
+            "reports": [
                 {
-                    "text": "Internationalization in University – Collaborations/ Academic Programs/ Learners Mobility/ Faculty Mobility/ Clinical Researches / Services/ Admission/ Placements."
+                    "label": "IQAC",
+                    "type": "route",
+                    "link": "/IQAC/annual-report"
                 },
                 {
-                    "text": "12 International centers providing comprehensive international educational experience across University"
-                },
-                {
-                    "text": "Students from 35+ countries across multiple Programs."
-                },
-                {
-                    "text": "International immersive opportunities for both Inward and Outward Learners."
-                },
-                {
-                    "text": "100+ International Adjunct faculty & Opportunities for International Placements"
+                    "label": "SDG",
+                    "type": "external",
+                    "link": "https://dmiher.edu.in/dmiher-uat/IQAC/sustainable-development-goals/SDG-annual-reports"
                 }
             ]
-        },
-        {
-            "id": "tab2",
-            "title": "OUR TALENT ACROSS INDUSTRIES",
-            "description": "Our graduates excel across diverse industries, contributing globally."
-        }
-    ],
-    "logos": [
-        "1.png",
-        "2.png",
-        "3.png",
-        "4.png",
-        "5.png",
-        "6.png",
-        "7.png",
-        "8.png",
-        "9.png",
-        "10.png",
-        "11.png",
-        "12.png",
-        "13.png",
-        "14.png",
-        "15.png",
-        "16.png",
-        "26.png",
-        "27.png",
-        "28.png",
-        "29.png",
-        "30.png",
-        "31.png",
-        "32.png",
-        "33.png",
-        "34.png",
-        "35.png",
-        "36.png",
-        "37.png",
-        "38.png",
-        "39.png",
-        "40.png",
-        "41.png",
-        "42.png",
-        "43.png",
-        "44.png",
-        "45.png",
-        "46.png",
-        "47.png",
-        "48.png",
-        "49.png",
-        "50.png"
-    ]
-}
-
-
-
-{
-    "section_id": "research_innovation",
-    "data": {
-        "heading": "Research & Innovation",
-        "image": "RI.png",
-        "stats": [
-            {
-                "icon": "researchicon1.png",
-                "alt": "Publications",
-                "value": "17500+",
-                "label": "Publications"
-            },
-            {
-                "icon": "researchicon2.png",
-                "alt": "Grants",
-                "value": "12500+ lakhs INR",
-                "label": "in research grants"
-            },
-            {
-                "icon": "researchicon3.png",
-                "alt": "Patents",
-                "value": "130+",
-                "label": "Patents granted"
-            },
-            {
-                "icon": "researchicon4.png",
-                "alt": "Collaborations",
-                "value": "100+",
-                "label": "Research Collaborations"
-            },
-            {
-                "icon": "researchicon5.png",
-                "alt": "Consortia",
-                "value": "15+",
-                "label": "Global consortia"
-            }
-        ],
-        "button": {
-            "label": "Know more about Research >",
-            "link": "/research"
         }
     }
 }
+
+
+
+// Admissions Section
+{
+    "section_id": "feature_cards",
+    "data": {
+        "title": "Dynamic. Future-Ready. Engaged.",
+        "cards": [
+            {
+                "title": "Campus Infrastructure",
+                "description": "270+ acre campus featuring modern teaching hospitals, lush green pathways, and hands-on medical training.",
+                "image": "/assets/AdmissionGrid/FeatureCards1.png"
+            },
+            {
+                "title": "Innovate the Future of Healthcare",
+                "description": "Our Medical Innovation Incubator provides mentorship, funding, and access to advanced labs.",
+                "image": "/assets/AdmissionGrid/FeatureCards2.png"
+            },
+            {
+                "title": "Clinical Excellence: Learn in Action",
+                "description": "Gain hands-on experience by treating diverse patients across nine hospitals and conducting research.",
+                "image": "/assets/AdmissionGrid/FeatureCards3.png"
+            }
+        ]
+    }
+}
+
+{
+    "section_id": "admission_steps",
+    "data": {
+        "title": "5 STEPS TO BEGIN YOUR JOURNEY",
+        "background_image": "/assets/StepsPage.png",
+        "note": "*Note - DMIHER-CET is exclusively conducted for the following streams: Engineering, Pharmacy, Physiotherapy, Nursing, Allied Health Sciences, and Allied Sciences programs.",
+        "steps": [
+            {
+                "step": "Step 1",
+                "title": "Explore Programs & Eligibility",
+                "icon": "/assets/AdmissionGrid/Step1.png",
+                "description": "270+ programs across Medicine, Dentistry, Nursing, and more",
+                "linkText": "Check eligibility criteria",
+                "href": "/programs",
+                "note": "(12th pass with PCB/PCM or Diploma for respective programs)"
+            },
+            {
+                "step": "Step 2",
+                "title": "Register Online",
+                "icon": "/assets/AdmissionGrid/Steps.png",
+                "description": "Select your desired course and receive confirmation email.",
+                "linkText": "Register",
+                "href": "https://dmiher-apply.mastersofterp.com/ApplicationLandingPage/Index/DMIHER",
+                "type": "external"
+            },
+            {
+                "step": "Step 3",
+                "title": "Fill the Application Form",
+                "icon": "/assets/AdmissionGrid/Steps.png",
+                "description": "Upload required documents (mark sheets, ID proof, etc).",
+                "linkText": "Application form",
+                "href": "https://dmiher-apply.mastersofterp.com/ApplicationLandingPage/Index/DMIHER",
+                "type": "external"
+            },
+            {
+                "step": "Step 4",
+                "title": "Pay the Application Fee",
+                "icon": "/assets/AdmissionGrid/Steps.png",
+                "description": "Pay securely via Net Banking, Card, or UPI."
+            },
+            {
+                "step": "Step 5",
+                "title": "Entrance Exam / Counselling",
+                "icon": "/assets/AdmissionGrid/Steps.png"
+            },
+            {
+                "step": "",
+                "title": "Confirm Admission",
+                "icon": "/assets/AdmissionGrid/Complete.png",
+                "description": "Receive provisional admission letter and secure your seat."
+            }
+        ]
+    }
+}
+
+
+{
+    "section_id": "international_collaborations",
+    "data": {
+        "title": "INTERNATIONAL COLLABORATIONS",
+        "background_image": "/assets/InternationalCollaborations.png",
+        "stats": [
+            {
+                "number": "51",
+                "label": "Collaborations\nall across the\nglobe",
+                "color": "#F7941D",
+                "position": "top"
+            },
+            {
+                "number": "37",
+                "label": "Student-Faculty\nExchanges",
+                "color": "#269BFF",
+                "position": "bottom"
+            },
+            {
+                "number": "73",
+                "label": "Major\nCollaborative\nProjects",
+                "color": "#E1CD67",
+                "position": "top"
+            },
+            {
+                "number": "11 Cr",
+                "label": "Collaborative\nFunding",
+                "color": "#F04E30",
+                "position": "bottom"
+            }
+        ]
+    }
+}
+
+
+{
+    "section_id": "admission_info",
+    "data": {
+        "title": "Admission Process & Information",
+        "description": "Explore our comprehensive network of colleges and institutions offering diverse programs across multiple disciplines",
+        "items": [
+            {
+                "icon": "FileText",
+                "title": "Admission Flow Chart",
+                "link": "https://www.dmiher.edu.in/lp/national-admission/pdf/Admission-Flow-Chart.pdf"
+            },
+            {
+                "icon": "Stethoscope",
+                "title": "Sharad Pawar Dental College (SPDC)",
+                "link": "https://www.dmiher.edu.in/lp/national-admission/pdf/SPDC.pdf"
+            },
+            {
+                "icon": "ActivitySquare",
+                "title": "Ravi Nair Physiotherapy College (RNPC)",
+                "link": "https://www.dmiher.edu.in/lp/national-admission/pdf/RNPC.pdf"
+            },
+            {
+                "icon": "User",
+                "title": "Shrimati Radhikabai Meghe Memorial College Of Nursing (SRMMCON)",
+                "link": "https://www.dmiher.edu.in/lp/national-admission/pdf/SRMMCON.pdf"
+            },
+            {
+                "icon": "Pill",
+                "title": "Datta Meghe College of Pharmacy (DMCP)",
+                "link": "https://www.dmiher.edu.in/lp/national-admission/pdf/DMCP-Wardha.pdf"
+            },
+            {
+                "icon": "Zap",
+                "title": "Faculty of Engineering And Technology (FEAT)",
+                "link": "https://www.dmiher.edu.in/lp/national-admission/pdf/FEAT.pdf"
+            }
+        ]
+    }
+}
+
+
+{
+    "section_id": "why_study",
+    "data": {
+        "title": "WHY STUDY AT DMIHER (DU) ?",
+        "highlights": [
+            {
+                "title": "NAAC A++",
+                "title2": "CGPA 3.78",
+                "img": "/assets/india.png",
+                "bg": "bg-white",
+                "footerText": "Join a top-ranked university trusted for excellence.",
+                "footerBg": "bg-green-600",
+                "textColor": "text-[#F04E30]",
+                "customTitleStyle": "text-4xl font-bold"
+            },
+            {
+                "title": "49",
+                "superscript": "th",
+                "img": "/assets/Group.png",
+                "bg": "bg-white",
+                "footerText": "Ranked University in India – NIRF",
+                "footerBg": "bg-[#122E5E]",
+                "textColor": "text-[#F7941D]",
+                "customTitleStyle": "text-6xl font-bold"
+            },
+            {
+                "img": "/assets/Group3.png",
+                "bg": "bg-black",
+                "footerText": "Recognized in THE Impact Rankings for Sustainability",
+                "footerBg": "bg-blue-500",
+                "textColor": "text-white",
+                "onlyImage": true
+            }
+        ]
+    }
+}
+
+
+{
+    "section_id": "campus_life",
+    "data": {
+        "title": "CAMPUS LIFE",
+        "view_all_link": "https://www.dmiher.edu.in/photoGallery/2",
+        "tabs": [
+            {
+                "key": "events",
+                "label": "Events",
+                "images": [
+                    "/assets/About/Gallery/Events/Event1.jpg",
+                    "/assets/About/Gallery/Events/Event2.jpg",
+                    "/assets/About/Gallery/Events/Event3.jpg"
+                ]
+            },
+            {
+                "key": "sportsevents",
+                "label": "Sports Events",
+                "images": [
+                    "/assets/About/Gallery/Sports/1.jpg",
+                    "/assets/About/Gallery/Sports/2.jpg",
+                    "/assets/About/Gallery/Sports/3.jpg"
+                ]
+            },
+            {
+                "key": "culturalevents",
+                "label": "Cultural Events",
+                "images": [
+                    "/assets/About/Gallery/Cultural Events/CE1.jpg",
+                    "/assets/About/Gallery/Cultural Events/CE2.jpg",
+                    "/assets/About/Gallery/Cultural Events/CE3.jpg"
+                ]
+            }
+        ],
+        "important_details": {
+            "title": "IMPORTANT DETAILS",
+            "address": {
+                "heading": "Office Address",
+                "content": "Admission Cell, ISHKRUPA Building, University Office, DMIHER (DU), Sawangi (Meghe), Wardha, 442001"
+            },
+            "off_campus": {
+                "heading": "Off-Campus Address",
+                "content": "Wanadongri, Hingna Road, Nagpur, 441110"
+            },
+            "contact": {
+                "heading": "For any Enquiry:",
+                "email": "admissioncell@dmiher.edu.in",
+                "phone": "+918888040999"
+            }
+        }
+    }
+}
+
+

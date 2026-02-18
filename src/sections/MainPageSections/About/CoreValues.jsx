@@ -85,7 +85,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import "swiper/css";
 
-const STORAGE_URL = "http://127.0.0.1:8000/storage/";
+const STORAGE_URL = "https://convomax.com/admin_dmiher/storage/";
 
 function CoreValues({ data }) {
   const { basic, values = [] } = data || {};

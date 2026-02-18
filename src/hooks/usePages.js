@@ -4,7 +4,7 @@ const fetchPages = async (slug) => {
     const finalSlug = slug || "home"; // ✅ default home
 
     const res = await fetch(
-        `http://127.0.0.1:8000/api/pages/${finalSlug}`
+        `https://convomax.com/admin_dmiher/api/pages/${finalSlug}`
     );
 
     if (!res.ok) throw new Error("API error");
@@ -14,7 +14,7 @@ const fetchPages = async (slug) => {
 
 export const usePages = (slug) =>
     useQuery({
-        queryKey: ["pages", slug || "home"], 
+        queryKey: ["pages", slug || "home"],
         queryFn: () => fetchPages(slug),
 
         staleTime: 5 * 60 * 1000,

@@ -11,7 +11,7 @@ const Outcome = ({ data }) => {
   if (!data?.slider) return null;
 
   const slides = data.slider;
-  const BASE_URL = "http://127.0.0.1:8000/storage";
+  const BASE_URL = "https://convomax.com/admin_dmiher/storage";
 
   const hasMultipleSlides = slides.length > 1;
   const enableLoop = slides.length >= 3;
