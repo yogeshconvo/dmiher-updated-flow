@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import { getImageSrc } from "../../../components/Services/FetchImages";
+// import { getImageSrc } from "../../../components/Services/FetchImages";
 
 
 const FootprintSection = ({ data }) => {
@@ -79,7 +79,7 @@ const FootprintSection = ({ data }) => {
               <div className="flex flex-col gap-6 items-center max-w-6xl mx-auto">
 
                 <img
-                  src={getImageSrc(currentTab.image)}
+                  src={currentTab.image}
                   alt={currentTab.id}
                   className="w-full object-contain p-4"
                   style={{ maxHeight: "700px" }}
@@ -143,7 +143,7 @@ const FootprintSection = ({ data }) => {
                             className="p-4 flex items-center justify-center border border-gray-200"
                           >
                             <img
-                              src={getImageSrc(logoObj.logo)}
+                              src={logoObj.logo}
                               alt="logo"
                               className="max-w-[100px] object-contain hover:scale-105 transition-transform duration-300"
                             />

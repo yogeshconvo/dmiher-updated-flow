@@ -1,10 +1,9 @@
 import React from "react";
 import * as Icons from "lucide-react";
-import "./AdmissionInfoPage.css";
-import dataFile from "./admissionInfo.json";
+// import dataFile from "./admissionInfo.json";
 
-const AdmissionInfoPage = () => {
-  const { title, description, items } = dataFile.data;
+const AdmissionInfoPage = ({data}) => {
+  const { title, description, items } = data;
 
   return (
     <section id="admission_info" className="admission-section">

@@ -1,6 +1,6 @@
 import ViewMoreButton from "../../../components/UI/ViewMore";
 import ResearchSectionMobileSlider from "../../../components/UI/MobileSlider";
-import { getImageSrc } from "../../../components/Services/FetchImages";
+// import { getImageSrc } from "../../../components/Services/FetchImages";
 
 const ResearchInnovation = ({ data }) => {
   if (!data) return null;
@@ -29,7 +29,7 @@ const ResearchInnovation = ({ data }) => {
           {image && typeof image === "string" && (
             <div className="lg:w-2/5">
               <img
-                src={getImageSrc(image)}
+                src={image}
                 alt="Research"
                 className="w-full h-auto max-h-96 object-cover rounded-lg shadow"
               />
@@ -47,7 +47,7 @@ const ResearchInnovation = ({ data }) => {
                 }`}
               >
                 <img
-                  src={getImageSrc(item.icon)}
+                  src={item.icon}
                   alt={item.label}
                   className="w-24 h-24 mb-2"
                 />
@@ -71,7 +71,7 @@ const ResearchInnovation = ({ data }) => {
                     }`}
                   >
                     <img
-                      src={getImageSrc(item.icon)}
+                      src={item.icon}
                       alt={item.label}
                       className="w-24 h-24 mb-2"
                     />

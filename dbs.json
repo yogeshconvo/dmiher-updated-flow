@@ -2937,3 +2937,105 @@
         }
     ]
 }
+
+{
+    "section_id": "recognitions",
+    "slides": [
+        {
+            "type": "stats",
+            "layout": "naac-nirf-the",
+            "data": {
+                "naac": {
+                    "logo": "india.png",
+                    "grade": "NAAC A++",
+                    "cgpa": "CGPA: 3.78",
+                    "description": "Highest among Health Sciences University"
+                },
+                "nirf": {
+                    "logo": "group.png",
+                    "rankings": [
+                        {
+                            "num": "20",
+                            "suffix": "TH",
+                            "label": "Medical"
+                        },
+                        {
+                            "num": "36",
+                            "suffix": "TH",
+                            "label": "Dental"
+                        },
+                        {
+                            "num": "49",
+                            "suffix": "TH",
+                            "label": "University in India"
+                        },
+                        {
+                            "num": "84",
+                            "suffix": "TH",
+                            "label": "Overall"
+                        }
+                    ]
+                },
+                "the": {
+                    "rank": "1001-1200",
+                    "title": "Times Higher Education 2026"
+                }
+            }
+        },
+        {
+            "type": "image",
+            "variant": "responsive",
+            "data": {
+                "desktop": "rankingslide1.jpg",
+                "mobile": "rankingslide1-mobile.jfif"
+            }
+        },
+        {
+            "type": "grid",
+            "variant": "international",
+            "title": "International",
+            "columns": 4,
+            "data": [
+                {
+                    "name": "Times Higher Education",
+                    "src": "clinik3.png"
+                },
+                {
+                    "name": "AMEE",
+                    "src": "clinik2.png"
+                },
+                {
+                    "name": "WFME",
+                    "src": "clinik4.png"
+                },
+                {
+                    "name": "American Heart Association",
+                    "src": "clinik1.png"
+                }
+            ]
+        },
+        {
+            "type": "grid",
+            "variant": "national",
+            "title": "National",
+            "columns": 5,
+            "data": [
+                {
+                    "src": "NL1.png"
+                },
+                {
+                    "src": "NL2.png"
+                },
+                {
+                    "src": "NL3.png"
+                },
+                {
+                    "src": "NL4.png"
+                },
+                {
+                    "src": "NL5.png"
+                }
+            ]
+        }
+    ]
+}
