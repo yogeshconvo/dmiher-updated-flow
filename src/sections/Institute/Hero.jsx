@@ -175,7 +175,7 @@
 // export default Hero;
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getImageSrc } from "../../components/Services/FetchImages";
+// import { getImageSrc } from "../../components/Services/FetchImages";
 
 function Hero({ data, slug }) {
   if (!data) return null;
@@ -296,7 +296,7 @@ function Hero({ data, slug }) {
         } overflow-hidden relative`}
       >
         {slides.map((slide, idx) => {
-          const imageSrc = getImageSrc(slide.img);
+          const imageSrc = slide.img;
 
           return (
             <div

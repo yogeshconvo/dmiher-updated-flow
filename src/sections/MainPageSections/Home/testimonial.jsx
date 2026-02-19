@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PlayCircle } from "lucide-react";
-import { getImageSrc } from "../../../components/Services/FetchImages";
+// import { getImageSrc } from "../../../components/Services/FetchImages";
 
 function HomeTestimonial({ data }) {
   const title = data?.header?.title;
@@ -70,7 +70,7 @@ function HomeTestimonial({ data }) {
             {!isPlaying ? (
               <>
                 <img
-                  src={getImageSrc(current.thumbnail)}
+                  src={current.thumbnail}
                   alt={current.name}
                   className="w-full h-full object-cover"
                   onError={(e) => {

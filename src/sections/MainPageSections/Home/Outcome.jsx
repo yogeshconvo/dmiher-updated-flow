@@ -11,23 +11,30 @@ const Outcome = ({ data }) => {
   if (!data?.slider) return null;
 
   const slides = data.slider;
-  const BASE_URL = "https://convomax.com/admin_dmiher/storage";
-
   const hasMultipleSlides = slides.length > 1;
   const enableLoop = slides.length >= 3;
 
-  // ✅ Thumbnail Logic
+  // ✅ Thumbnail Fix (array handle)
   const thumbnail =
-    data?.video?.thumbnail
-      ? `${BASE_URL}/${data.video.thumbnail}`
-      : "https://via.placeholder.com/800x450?text=Video+Thumbnail";
+    data?.video?.thumbnail?.[0] ||
+    "https://via.placeholder.com/800x450?text=Video+Thumbnail";
+
+  // ✅ Extract YouTube ID from full URL
+  const getYoutubeId = (url) => {
+    if (!url) return "";
+    const regExp =
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    return match && match[2].length === 11 ? match[2] : url;
+  };
+
+  const youtubeId = getYoutubeId(data?.video?.youtube_id);
 
   return (
     <div className="container">
       <div className="outcome-inner">
 
         <Swiper
-          key={slides.length}
           modules={[Autoplay, Pagination]}
           slidesPerView={1}
           loop={enableLoop}
@@ -41,10 +48,12 @@ const Outcome = ({ data }) => {
         >
           {slides.map((slide, index) => (
             <SwiperSlide key={index}>
+
+              {/* IMAGE SLIDE */}
               {slide.type === "image" && (
                 <div className="slide-image">
                   <img
-                    src={`${BASE_URL}/${slide.image}`}
+                    src={slide.image}
                     alt={slide.title}
                     className="slide-img"
                   />
@@ -55,31 +64,36 @@ const Outcome = ({ data }) => {
                 </div>
               )}
 
-            {slide.type === "icons" && (
-  <div className="slide-icons">
-    <div className="icons-grid">
-      {slide.icons?.map((item, i) => (
-        <img
-          key={i}
-          src={`${BASE_URL}/${item.image}`}
-          alt={`icon-${i}`}
-          className="icon-img"
-        />
-      ))}
-      <div className="icons-text">
-        <p>{slide.title}</p>
-      </div>
-    </div>
-  </div>
-)}
+              {/* ICON SLIDE */}
+              {slide.type === "icons" && (
+                <div className="slide-icons">
+              
+
+                  <div className="icons-grid">
+                    {slide.icons?.map((item, i) => (
+                      <img
+                        key={i}
+                        src={item.image}
+                        alt={`icon-${i}`}
+                        className="icon-img"
+                      />
+                    ))}
+                     <div className="icons-text">
+                    <p>{slide.title}</p>
+                  </div>
+                  </div>
+
+                 
+                </div>
+              )}
 
             </SwiperSlide>
           ))}
         </Swiper>
 
-        {/* ✅ Improved Video Section */}
-        {data?.video?.youtube_id && (
-          <div className="video-section ">
+        {/* VIDEO SECTION */}
+        {youtubeId && (
+          <div className="video-section">
             {!playVideo ? (
               <div
                 className="video-thumbnail-wrapper"
@@ -97,7 +111,7 @@ const Outcome = ({ data }) => {
             ) : (
               <iframe
                 className="video-iframe"
-                src={`https://www.youtube.com/embed/${data.video.youtube_id}?autoplay=1`}
+                src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
                 title="YouTube Video"
                 allow="autoplay; encrypted-media"
                 allowFullScreen
