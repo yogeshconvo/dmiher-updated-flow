@@ -1,10 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./StepsPage.css";
-import dataFile from "./stepsPage.json";
 
-export default function StepsPage() {
-  const { title, steps, background_image, note } = dataFile.data;
+export default function StepsPage({data}) {
+  const { title, steps, background_image, note } = data;
 
   return (
     <section

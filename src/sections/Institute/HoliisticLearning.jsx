@@ -67,7 +67,7 @@
 
 // export default HolisticInfrastructureSection;
 import React, { useState, useRef } from "react";
-import { getImageSrc } from "../../components/Services/FetchImages";
+
 
 function HolisticInfrastructureSection({ data }) {
   const heading = data?.header?.title || "";
@@ -129,7 +129,7 @@ function HolisticInfrastructureSection({ data }) {
   <div className="holistic-image-box">
     {activeItem.image_key ? (
       <img
-        src={getImageSrc(activeItem.image_key)}
+        src={activeItem.image_key}
         alt={activeItem.label}
       />
     ) : (

@@ -1,14 +1,13 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-import "./FeatureCards.css";
-import dataFile from "./featureCards.json";
+
 
 import "swiper/css";
 import "swiper/css/pagination";
 
-export default function FeatureCards() {
-  const { title, cards } = dataFile.data;
+export default function FeatureCards({data}) {
+  const { title, cards } = data;
 
   const swiperSettings = {
     modules: [Pagination],
