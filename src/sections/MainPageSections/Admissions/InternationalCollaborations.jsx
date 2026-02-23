@@ -1,6 +1,4 @@
 import React from "react";
-// import "./InternationalCollaborations.css";
-// import dataFile from "./internationalCollaborations.json";
 
 export default function InternationalCollaborations({data}) {
   const { title, stats, background_image } = data;
