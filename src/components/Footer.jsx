@@ -301,7 +301,6 @@
 // };
 
 // export default Footer;
-
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/components/footer.css";
@@ -397,13 +396,15 @@ const Footer = () => {
               />
             )}
 
-            <p className="footer-address">
-              {footer.address.map((line, i) => (
-                <span key={i}>
-                  {line}<br />
-                </span>
-              ))}
-            </p>
+            {footer.address.length > 0 && (
+              <p className="footer-address">
+                {footer.address.map((line, i) => (
+                  <span key={`addr-${i}`}>
+                    {line}<br />
+                  </span>
+                ))}
+              </p>
+            )}
 
             {footer.contactValue && (
               <>
@@ -421,14 +422,18 @@ const Footer = () => {
 
             {footer.socials.length > 0 && (
               <div className="footer-socials">
-                {footer.socials.map(item => (
+                {footer.socials.map((item, index) => (
                   <a
-                    key={item.id}
+                    key={`social-${item.id || index}`}
                     href={item.slug}
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <img className="footer-icons" src={`${API_BASE}/storage/${item.icon}`} alt={item.title} />
+                    <img
+                      className="footer-icons"
+                      src={`${API_BASE}/storage/${item.icon}`}
+                      alt={item.title}
+                    />
                   </a>
                 ))}
               </div>
@@ -437,19 +442,19 @@ const Footer = () => {
 
           {/* ===== COL 2 ===== */}
           <div className="footer-col">
-            <h3 className="footer-title">{footer.programs.title}</h3>
+            <h3 className="footer-title">{footer.programs?.title}</h3>
             <ul className="mb-2">
-              {footer.programs.items?.map(item => (
-                <li className="mt-1" key={item.id}>
+              {footer.programs?.items?.map((item, index) => (
+                <li className="mt-1" key={`program-${item.id}-${index}`}>
                   <SafeLink to={item.slug}>{item.title}</SafeLink>
                 </li>
               ))}
             </ul>
 
-            <h3 className="footer-title">{footer.terms.title}</h3>
+            <h3 className="footer-title">{footer.terms?.title}</h3>
             <ul>
-              {footer.terms.items?.map(item => (
-                <li className="mt-1" key={item.id}>
+              {footer.terms?.items?.map((item, index) => (
+                <li className="mt-1" key={`term-${item.id}-${index}`}>
                   <SafeLink to={item.slug}>{item.title}</SafeLink>
                 </li>
               ))}
@@ -458,17 +463,20 @@ const Footer = () => {
 
           {/* ===== COL 3 ===== */}
           <div className="footer-col">
-            <h3 className="footer-title">{footer.colleges.title}</h3>
+            <h3 className="footer-title">{footer.colleges?.title}</h3>
 
-            {Object.entries(footer.colleges.campus || {}).map(
-              ([campus, list]) => (
-                <div key={campus} className="footer-campus">
+            {Object.entries(footer.colleges?.campus || {}).map(
+              ([campus, list], campusIndex) => (
+                <div key={`campus-${campusIndex}`} className="footer-campus">
                   <strong className="mt-2">{campus}</strong>
                   <ul className="list-disc ml-5">
                     {list
-                      .sort((a, b) => a.sort_order - b.sort_order)
-                      .map(item => (
-                        <li className="mt-1" key={item.id}>
+                      ?.sort((a, b) => a.sort_order - b.sort_order)
+                      .map((item, index) => (
+                        <li
+                          className="mt-1"
+                          key={`college-${item.id}-${index}`}
+                        >
                           <SafeLink to={item.slug}>{item.title}</SafeLink>
                         </li>
                       ))}
@@ -479,8 +487,8 @@ const Footer = () => {
 
             {footer.otherLinks.length > 0 && (
               <ul className="footer-subtitle font-oswald-medium grid grid-cols-2 gap-3 mt-4">
-                {footer.otherLinks.map(item => (
-                  <li key={item.id}>
+                {footer.otherLinks.map((item, index) => (
+                  <li key={`other-${item.id}-${index}`}>
                     <SafeLink to={item.slug}>{item.title}</SafeLink>
                   </li>
                 ))}
@@ -490,10 +498,10 @@ const Footer = () => {
 
           {/* ===== COL 4 ===== */}
           <div className="footer-col">
-            <h3 className="footer-title">{footer.importantLinks.title}</h3>
+            <h3 className="footer-title">{footer.importantLinks?.title}</h3>
             <ul>
-              {footer.importantLinks.items?.map(item => (
-                <li key={item.id}>
+              {footer.importantLinks?.items?.map((item, index) => (
+                <li key={`important-${item.id}-${index}`}>
                   <SafeLink to={item.slug}>{item.title}</SafeLink>
                 </li>
               ))}
@@ -506,6 +514,130 @@ const Footer = () => {
 
       {/* ================= MOBILE FOOTER ================= */}
       <footer className="footer footer-mobile">
+        <div className="footer-mobile-grid">
+
+          <div className="footer-col">
+            {footer.logo && (
+              <img
+                src={footer.logo}
+                alt="Logo"
+                className="footer-logo-mobile"
+              />
+            )}
+
+            {footer.address.length > 0 && (
+              <div className="footer-address-mobile">
+                <p className="text-yellow-400">ADDRESS</p>
+                {footer.address.map((line, i) => (
+                  <p key={`m-addr-${i}`}>{line}</p>
+                ))}
+              </div>
+            )}
+
+            {footer.contactValue && (
+              <div className="footer-contact-mobile">
+                <p className="text-yellow-400">{footer.contactTitle}</p>
+                <p>{footer.contactValue}</p>
+              </div>
+            )}
+
+            {footer.emailValue && (
+              <div className="footer-email-mobile">
+                <p className="text-yellow-400">{footer.emailTitle}</p>
+                <p>{footer.emailValue}</p>
+              </div>
+            )}
+
+            {footer.socials.length > 0 && (
+              <div className="footer-socials-mobile">
+                {footer.socials.map((item, index) => (
+                  <a
+                    key={`m-social-${item.id || index}`}
+                    href={item.slug}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <img
+                      src={`${API_BASE}/storage/${item.icon}`}
+                      alt={item.title}
+                      width="20"
+                    />
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* ===== COL 2 ===== */}
+          <div className="footer-col">
+            <h3 className="footer-title">{footer.programs?.title}</h3>
+            <ul className="mb-2">
+              {footer.programs?.items?.map((item, index) => (
+                <li className="mt-1" key={`program-${item.id}-${index}`}>
+                  <SafeLink to={item.slug}>{item.title}</SafeLink>
+                </li>
+              ))}
+            </ul>
+
+            <h3 className="footer-title">{footer.terms?.title}</h3>
+            <ul>
+              {footer.terms?.items?.map((item, index) => (
+                <li className="mt-1" key={`term-${item.id}-${index}`}>
+                  <SafeLink to={item.slug}>{item.title}</SafeLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* ===== COL 3 ===== */}
+          <div className="footer-col">
+            <h3 className="footer-title">{footer.colleges?.title}</h3>
+
+            {Object.entries(footer.colleges?.campus || {}).map(
+              ([campus, list], campusIndex) => (
+                <div key={`campus-${campusIndex}`} className="footer-campus">
+                  <strong className="mt-2">{campus}</strong>
+                  <ul className="list-disc ml-5">
+                    {list
+                      ?.sort((a, b) => a.sort_order - b.sort_order)
+                      .map((item, index) => (
+                        <li
+                          className="mt-1"
+                          key={`college-${item.id}-${index}`}
+                        >
+                          <SafeLink to={item.slug}>{item.title}</SafeLink>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              )
+            )}
+
+            {footer.otherLinks.length > 0 && (
+              <ul className="footer-subtitle font-oswald-medium grid grid-cols-2 gap-3 mt-4">
+                {footer.otherLinks.map((item, index) => (
+                  <li key={`other-${item.id}-${index}`}>
+                    <SafeLink to={item.slug}>{item.title}</SafeLink>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          {/* ===== COL 4 ===== */}
+          <div className="footer-col">
+            <h3 className="footer-title">{footer.importantLinks?.title}</h3>
+            <ul>
+              {footer.importantLinks?.items?.map((item, index) => (
+                <li key={`important-${item.id}-${index}`}>
+                  <SafeLink to={item.slug}>{item.title}</SafeLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </div>
+
         <p className="footer-bottom">{footer.copyright}</p>
       </footer>
     </>

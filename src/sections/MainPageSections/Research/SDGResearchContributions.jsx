@@ -4,29 +4,35 @@ import { Link } from "react-router-dom";
 const SDGResearchContributions = ({ data }) => {
   if (!data) return null;
 
+  const basic = data.basic || {};
+  const titleLines = data.title_lines || [];
+
   const {
     heading,
-    title_lines = [],
     image,
     cta_label,
     cta_url = "",
-  } = data;
+  } = basic;
 
   return (
     <section className="sdg-section">
       <div className="container">
+
         {/* LEFT */}
+        <div className="flex ">
         <div className="sdg-left">
-          <h2 className="heading">
-            <hr className="heading-line" />
-            {heading}
-          </h2>
+          {heading && (
+            <h2 className="heading">
+              <hr className="heading-line" />
+              {heading}
+            </h2>
+          )}
 
           {/* TITLE LINES */}
-          {title_lines.length > 0 && (
+          {titleLines.length > 0 && (
             <div className="sdg-title">
-              {title_lines.map((line, idx) => (
-                <div key={idx}>{line}</div>
+              {titleLines.map((item, idx) => (
+                <div key={idx}>{item.line}</div>
               ))}
             </div>
           )}
@@ -34,7 +40,14 @@ const SDGResearchContributions = ({ data }) => {
           {/* CTA */}
           {cta_label && cta_url && (
             <div className="cta">
-              <Link to={cta_url}>{cta_label}</Link>
+              {/* If external link use <a> instead of Link */}
+              {cta_url.startsWith("http") ? (
+                <a href={cta_url} target="_blank" rel="noopener noreferrer">
+                  {cta_label}
+                </a>
+              ) : (
+                <Link to={cta_url}>{cta_label}</Link>
+              )}
             </div>
           )}
         </div>
@@ -50,6 +63,7 @@ const SDGResearchContributions = ({ data }) => {
             />
           )}
         </div>
+</div>
       </div>
     </section>
   );

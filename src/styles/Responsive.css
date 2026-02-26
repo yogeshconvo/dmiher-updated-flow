@@ -50,10 +50,115 @@
     .announcement-item {
         @apply h-[50px] border-0;
     }
-    .announcement-item a{
+
+    .announcement-item a {
         @apply text-sm;
     }
 }
+
+/* ========= Outcome ======== */
+
+
+/* <= 1024px */
+@media (max-width: 1024px) {
+
+    .icons-grid {
+        @apply grid-cols-2;
+    }
+
+    .icon-img {
+        @apply object-contain h-auto;
+    }
+
+    .slide-content {
+        @apply left-[30px] top-[40%];
+    }
+}
+
+/* <= 768px */
+@media (max-width: 768px) {
+
+    .outcome-wrapper {
+        @apply px-[15px];
+    }
+
+    .slide-content h1 {
+        @apply text-[22px];
+    }
+
+    .icons-text p {
+        @apply text-[16px];
+    }
+
+    /* Footprints */
+    .footprint-wrapper {
+        @apply py-8 sm:py-12 max-w-7xl mx-auto px-5;
+    }
+
+    .tab-buttons {
+        @apply flex flex-col sm:flex-row gap-4 lg:gap-10 w-full;
+    }
+
+    .tab-button {
+        @apply w-full sm:w-auto text-start relative pb-2 transition-all duration-300;
+    }
+
+    .tab-active {
+        @apply text-gray-800 font-medium;
+    }
+
+    .tab-inactive {
+        @apply text-gray-500 hover:text-gray-700 font-light;
+    }
+
+    .tab-title {
+        @apply text-2xl sm:text-3xl mt-3 uppercase;
+    }
+
+    .tab-title-active {
+        @apply text-[#707070];
+    }
+
+    .tab-underline-active {
+        @apply h-1 w-20 bg-red-500 mt-1;
+    }
+
+    .tab-underline {
+        @apply h-1 w-20 mt-1;
+    }
+
+    .footprint-blue-section {
+        @apply bg-[#122E5E] mt-6 sm:mt-8 rounded-none sm:rounded-2xl w-full;
+    }
+
+    .footprint-image {
+        @apply w-full object-contain p-4;
+    }
+
+    .block-container {
+        @apply w-full flex gap-6 mb-10 px-8 flex-wrap justify-center;
+    }
+
+    .block-item {
+        @apply px-4 py-6 text-white text-sm;
+    }
+
+    .logo-grid {
+        @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5;
+    }
+
+    .logo-item {
+        @apply p-4 flex items-center justify-center border border-gray-200;
+    }
+
+    .logo-img {
+        @apply max-w-[120px] object-contain hover:scale-105 transition-transform duration-300;
+    }
+}
+
+
+
+/* =============================== Research Page =================================== */
 
 /* ================= RESEARCH GRID ================= */
 @media (min-width: 768px) {
@@ -184,7 +289,7 @@
     }
 }
 
-/* ================= ABOUT ================= */
+/* =========================== ABOUT =========================== */
 @media (min-width: 640px) {
     .about-grid-section {
         @apply px-6;
@@ -199,6 +304,7 @@
     }
 }
 
+/* =============== about grid ============== */
 @media (min-width: 768px) {
     .about-grid-section {
         @apply px-20;
@@ -245,11 +351,11 @@
 
 @media (min-width: 768px) {
     .excellence-wrapper {
-        @apply px-20;
+        @apply px-15;
     }
 
     .excellence-grid {
-        @apply grid-cols-3 w-full;
+        @apply grid-cols-3 w-full border-t-0;
     }
 }
 

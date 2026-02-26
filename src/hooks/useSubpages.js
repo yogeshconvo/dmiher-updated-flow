@@ -1,24 +1,24 @@
 import { useQuery } from "@tanstack/react-query";
 
-const API_URL = "http://localhost:3000/subpages";
-// const API_URL = "https://json-new-sever.onrender.com/page-data";
+const fetchSubpage = async ({ queryKey }) => {
+    const [, slug] = queryKey;
 
-const fetchPages = async () => {
-    const res = await fetch(API_URL);
-    if (!res.ok) throw new Error("API error");
+    const res = await fetch(
+        `https://convomax.com/admin_dmiher/api/pages/${slug}`
+    );
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch subpage");
+    }
+
     return res.json();
 };
 
-export const useSubpages = () =>
+export const useSubpage = (slug) =>
     useQuery({
-        queryKey: ["subpages"],
-        queryFn: fetchPages,
-
+        queryKey: ["subpage", slug],
+        queryFn: fetchSubpage,
+        enabled: !!slug,
         staleTime: 5 * 60 * 1000,
-        cacheTime: 30 * 60 * 1000,
-
-        refetchOnMount: "always",
-        refetchOnWindowFocus: true,
-
         retry: 1,
     });

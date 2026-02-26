@@ -1,6 +1,5 @@
 import React from "react";
-// import "./FunctionalUnits.css";
-// import dataFile from "./functionalUnits.json";
+
 
 export default function FunctionalUnits({data}) {
   const { heading, units, initiative_label } = data;

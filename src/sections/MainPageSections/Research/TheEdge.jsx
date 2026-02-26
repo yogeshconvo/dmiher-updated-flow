@@ -4,14 +4,20 @@ import { Autoplay, Navigation } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import RichTextRenderer from "../../../components/RichTextRenderer";
 
 // import "../../styles/the-edge-main.css";
 // import "../../styles/the-edge-responsive.css";
 
 const TheEdge = ({ data }) => {
   if (!data) return null;
+  const basic = data.basic || {};
+  const cards = data.cards || [];
 
-  const { heading, subheading, tagline, cards = [] } = data;
+
+  const { heading, subheading, tagline} = basic;
+
+
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -65,7 +71,12 @@ const TheEdge = ({ data }) => {
                 className="edge-card-image"
               />
               <div className="edge-card-overlay">
-                <h3 className="edge-card-title">{card.title}</h3>
+                {/* <h3 className="edge-card-title">{card.title}</h3> */}
+<RichTextRenderer
+  className="edge-card-title"
+  html={card.title}
+  bgColor={card.bg_color}
+/>
                 <p className="edge-card-desc">{card.description}</p>
               </div>
             </div>

@@ -149,15 +149,23 @@
 }
 
 .hero-content {
-    @apply absolute z-20 px-4 sm:px-6 sm:top-1/2 bottom-10 transform sm:-translate-y-1/2 text-white w-full sm:w-1/2 max-w-2xl;
+    @apply absolute z-20 px-4 sm:px-6 sm:top-1/2 bottom-10 transform sm:-translate-y-1/2 text-white w-full;
 }
 
 .hero-content-left {
     @apply left-0 text-left sm:ml-10;
 }
 
+.hero-content-center {
+    @apply left-0 text-center items-center sm:ml-10;
+}
+
 .hero-content-right {
-    @apply right-0 text-left sm:mr-10;
+    @apply right-0 text-right items-center sm:mr-10;
+}
+
+.hero-content-bottom {
+    @apply bottom-10 text-left sm:ml-10;
 }
 
 .hero-title {
@@ -174,7 +182,7 @@
 }
 
 .info-title {
-    @apply flex flex-wrap items-center justify-center text-[#F04E30] text-3xl tracking-wider uppercase mb-6 text-center;
+    @apply flex flex-wrap items-center justify-center text-[#F04E30] text-3xl tracking-wider  mb-6 text-center;
 }
 
 .info-title-text {
@@ -323,6 +331,96 @@
 
 .holistic-placeholder-title {
     @apply font-semibold mb-2;
+}
+
+/* =========================
+   HOLISTIC LEARNING HORIZONTAL (hlh)
+   ========================= */
+
+.hlh-section {
+    @apply bg-[#E4C957] p-10;
+}
+
+.hlh-container {
+    @apply max-w-7xl mx-auto;
+}
+
+/* Header */
+.hlh-header {
+    @apply flex items-center justify-between flex-wrap gap-4;
+}
+
+.hlh-title {
+    @apply text-4xl font-medium text-[#58595B] uppercase;
+}
+
+.hlh-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4;
+}
+
+/* Subtitle */
+.hlh-subheader {
+    @apply flex justify-between mt-8;
+}
+
+.hlh-subtitle {
+    @apply text-3xl font-medium text-[#300986];
+}
+
+/* Swiper */
+.hlh-swiper {
+    @apply relative mt-6;
+}
+
+/* Slide */
+.hlh-slide {
+    @apply px-2 w-[315px];
+}
+
+.hlh-image {
+    @apply object-cover h-40 w-full rounded-xl;
+}
+
+/* Content */
+.hlh-content {
+    @apply flex pt-4;
+}
+
+.hlh-number {
+    @apply h-12 w-12 flex-shrink-0 text-xl font-[300] rounded-full flex items-center justify-center relative overflow-hidden;
+}
+
+.hlh-number-overlay {
+    @apply absolute inset-0 rounded-full bg-black opacity-40;
+}
+
+.hlh-number-text {
+    @apply relative z-10 text-2xl text-white;
+}
+
+.hlh-text {
+    @apply pl-2;
+}
+
+.hlh-item-title {
+    @apply font-medium text-[#58595B];
+}
+
+.hlh-item-desc {
+    @apply text-sm text-[#58595B] mt-1;
+    font-family: Arial, sans-serif;
+}
+
+.hlh-arrow-btn {
+    @apply h-10 w-10 rounded-full border border-gray-400 flex items-center justify-center transition-all duration-300 hover:border-[#707070] hover:scale-105;
+}
+
+.hlh-arrow-icon {
+    @apply w-5 h-5 text-[#58595B] transition-colors duration-300;
+}
+
+.hlh-arrow-btn:hover .hlh-arrow-icon {
+    @apply text-white;
 }
 
 /* ================= DEPARTMENTS ================= */

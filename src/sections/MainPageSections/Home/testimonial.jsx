@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { PlayCircle } from "lucide-react";
-// import { getImageSrc } from "../../../components/Services/FetchImages";
 
 function HomeTestimonial({ data }) {
   const title = data?.header?.title;
@@ -18,18 +17,22 @@ function HomeTestimonial({ data }) {
 
   if (!current) return null;
 
-  // ✅ Extract YouTube Video ID from URL
+  // ✅ Robust YouTube ID extractor (works in prod)
   const getYoutubeEmbedUrl = (url) => {
     if (!url) return "";
 
     const regExp =
-      /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([^&?/]+)/;
+      /(?:youtube\.com\/(?:watch\?v=|embed\/|v\/)|youtu\.be\/)([^&\n?#]+)/;
     const match = url.match(regExp);
 
-    const videoId = match ? match[1] : "";
+    if (match && match[1]) {
+      return `https://www.youtube.com/embed/${match[1]}?autoplay=1&rel=0`;
+    }
 
-    return `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    return "";
   };
+
+  const embedUrl = getYoutubeEmbedUrl(current.videoId);
 
   return (
     <div className="testimonial-section py-12 bg-[#f4f4f4]">
@@ -42,7 +45,7 @@ function HomeTestimonial({ data }) {
         </h2>
 
         {/* ===== Tabs ===== */}
-        <div className="flex justify-center gap-4 flex-wrap mb-8">
+        <div className="flex justify-center flex-wrap mb-8">
           {tabs.map((tab, index) => (
             <button
               key={index}
@@ -51,7 +54,7 @@ function HomeTestimonial({ data }) {
                 setActiveVideoIndex(0);
                 setIsPlaying(false);
               }}
-              className={`px-3 py-1 text-base ${
+              className={`px-3 py-1 text-base border-r last:border-r-0 ${
                 activeTabIndex === index
                   ? "underline text-black"
                   : "text-gray-500 hover:text-gray-700"
@@ -89,16 +92,16 @@ function HomeTestimonial({ data }) {
                 </div>
               </>
             ) : (
-              <iframe
-                width="100%"
-                height="100%"
-                src={getYoutubeEmbedUrl(current.videoId)}
-                title="YouTube video player"
-                frameBorder="0"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-                className="w-full h-full"
-              />
+              embedUrl && (
+                <iframe
+                  src={embedUrl}
+                  title={current.name}
+                  className="w-full h-full"
+                  frameBorder="0"
+                  allow="autoplay; encrypted-media; fullscreen"
+                  allowFullScreen
+                />
+              )
             )}
           </div>
 

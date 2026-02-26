@@ -13,7 +13,7 @@ import CommitteesSection from "./About/CommitteesSection"
 import DMIHERJourney from "./About/DMIHERJourney"
 import OneHealth from "../MainPageSections/OneHealth"
 import HolisticLearningPage from "../MainPageSections/HolisticLearningPage"
-import SDGSection from "./Research/SDGSection"
+import SDGSection from "./About/SDGSection"
 import Gallery from "../MainPageSections/Gallery"
 import ResearchHighlights from "./Research/ResearchHighlights"
 import Grid from "./Grid"
@@ -38,6 +38,8 @@ import AdmissionInfoPage from "./Admissions/AdmissionInfoPage"
 import Outcome from "./Home/Outcome"
 import FootprintSection from "./Home/FootprintSection"
 import ResearchInnovation from "./Home/ResearchInnovation"
+import SubPrograms from "../Subpages/Programs"
+
 export const SECTION_COMPONENTS = {
 
     // Common Sections
@@ -51,7 +53,7 @@ export const SECTION_COMPONENTS = {
     outcome_section: Outcome,
     international_footprint: FootprintSection,
     research_innovation: ResearchInnovation,
-    
+
     // About Section
     About_Excellence_Section: ExcellenceSection,
     about_VisionMission_Section: VisionMissionSection,
@@ -62,7 +64,7 @@ export const SECTION_COMPONENTS = {
     about_OneHealth_section: OneHealth,
     about_HolisticLearningPage: HolisticLearningPage,
     about_SDGSection: SDGSection,
-    about_Gallery_section: Gallery,
+    filterable_gallery_section: Gallery,
 
 
     // Research Section
@@ -70,9 +72,9 @@ export const SECTION_COMPONENTS = {
     grid_section: Grid,
     research_ecosystem: ResearchEcosystem,
     the_edge: TheEdge,
-    sdg_research: SDGResearchContributions,
+    research_sdg: SDGResearchContributions,
     funded_projects: FundedResearchProjects,
-    ResearchOpportunities: ResearchOpportunities,
+    research_opportunities: ResearchOpportunities,
 
     // Global Section
     global_alliances: AlliancesGlobal,
@@ -111,5 +113,6 @@ export const SECTION_COMPONENTS = {
     home_testimonial_section: HomeTestimonial,
 
     // home_research_section: HomeResearch,
+    programs_subpage: SubPrograms,
 
 };
