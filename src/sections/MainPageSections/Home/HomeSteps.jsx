@@ -12,12 +12,12 @@ function HomeSteps({ data }) {
     background_image, 
   } = header;
 
-  const bgImage = getImageSrc(background_image);
+  const bgImage = background_image;
 
   return (
-    <div className="max-w-7xl mx-auto px-5">
+    <div className="max-w-7xl mx-auto px-5  py-10 ">
       <div
-        className="bg-white bg-no-repeat bg-center bg-contain text-center px-4 md:px-12 pt-[60px] py-12 mx-4 md:mx-20"
+        className="bg-white bg-no-repeat bg-center bg-contain text-center px-4 md:px-12 pt-[60px] mx-4 md:mx-20"
         style={bgImage ? { backgroundImage: `url(${bgImage})` } : {}}
       >
         {/* Heading */}

@@ -25,11 +25,73 @@ const CustomDots = ({ activeIndex, total, onDotClick }) => (
 const ResearchHighlights = ({ data }) => {
   if (!data) return null;
 
-  const { heading, desktop_columns = [] } = data;
+  const { basic = {}, desktop_columns = [] } = data;
+  const { heading } = basic;
 
   const [activeSlide, setActiveSlide] = useState(0);
   const [swiperRef, setSwiperRef] = useState(null);
-
+  // {
+  //           "page_section_id": 102,
+  //           "section_id": "research_highlights",
+  //           "data": {
+  //               "basic": {
+  //                   "heading": "Reseach Heading"
+  //               },
+  //               "desktop_columns": [
+  //                   {
+  //                       "icon": "https://convomax.com/admin_dmiher/storage/research_highlights/desktop_columns/2026/02/researchicon1.png",
+  //                       "items": [
+  //                           {
+  //                               "label": "17,500+",
+  //                               "text": " publications in top-tier journals (indexed in Scopus, WoS, PubMed) like The Lancet, NEJM, BMJ, Nature, Frontiers, JAMA, etc."
+  //                           },
+  //                           {
+  //                               "label": "50,000+ ",
+  //                               "text": "citations"
+  //                           },
+  //                           {
+  //                               "label": "500+",
+  //                               "text": "High Impact publications"
+  //                           }
+  //                       ]
+  //                   },
+  //                   {
+  //                       "icon": "https://convomax.com/admin_dmiher/storage/research_highlights/desktop_columns/2026/02/researchicon2.png",
+  //                       "items": [
+  //                           {
+  //                               "label": "130+ ",
+  //                               "text": "patents granted"
+  //                           },
+  //                           {
+  //                               "label": "180+",
+  //                               "text": "patents published"
+  //                           },
+  //                           {
+  //                               "label": "185+ ",
+  //                               "text": " ICMR Short-Term Studentships (among the highest in India)"
+  //                           }
+  //                       ]
+  //                   },
+  //                   {
+  //                       "icon": "https://convomax.com/admin_dmiher/storage/research_highlights/desktop_columns/2026/02/researchicon3.png",
+  //                       "items": [
+  //                           {
+  //                               "label": "12,500+",
+  //                               "text": "lakhs INR in research grants"
+  //                           },
+  //                           {
+  //                               "label": "100+",
+  //                               "text": "Research Collaborations"
+  //                           },
+  //                           {
+  //                               "label": "15+",
+  //                               "text": "Global Consortia"
+  //                           }
+  //                       ]
+  //                   }
+  //               ]
+  //           }
+  //       }
   return (
     <section className="research-section ">
       {/* Heading */}
@@ -118,3 +180,4 @@ const ResearchHighlights = ({ data }) => {
 };
 
 export default ResearchHighlights;
+ 

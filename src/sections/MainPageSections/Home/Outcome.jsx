@@ -16,8 +16,8 @@ const Outcome = ({ data }) => {
 
   // ✅ Thumbnail Fix (array handle)
   const thumbnail =
-    data?.video?.thumbnail?.[0] ||
-    "https://via.placeholder.com/800x450?text=Video+Thumbnail";
+    data?.video?.thumbnail ||
+    "";
 
   // ✅ Extract YouTube ID from full URL
   const getYoutubeId = (url) => {

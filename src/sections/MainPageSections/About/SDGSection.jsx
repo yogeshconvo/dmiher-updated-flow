@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import ViewMoreButton from "../../../components/UI/ViewMore";
 
 function SDGSection({ data }) {
   const {
@@ -34,10 +36,11 @@ function SDGSection({ data }) {
               />
             )}
           </div>
+          
 
           {/* Right content */}
           <div className="max-w-3xl mx-auto flex flex-col">
-
+<img src={header?.sdg_logo} alt="" className="w-[220px] sm:w-[240px] md:w-[280px] lg:w-[330px]" />
             {/* SDG Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-20 p-5">
               {sdg_cards.map((item, index) => (
@@ -111,6 +114,11 @@ function SDGSection({ data }) {
 
           </div>
         </div>
+        <div className="flex items-center  text-[14px] gap-2">
+        <ViewMoreButton href={view_more?.view_more_link}
+          label={view_more?.view_more_label}/>
+
+      </div>
       </div>
     </div>
   );

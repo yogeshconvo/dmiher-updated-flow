@@ -1,32 +1,39 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import RichTextRenderer from "../../../components/RichTextRenderer";
 
 const ResearchOpportunities = ({ data }) => {
-  // Safety checks
-  if (!data || !data.tabs || !data.tabs.length) return null;
+  if (!data) return null;
+
+  const basic = data.basic || {};
+  const tabs = data.tabs || [];
+
+  if (!tabs.length) return null;
 
   const {
     heading,
     subheading,
-    tabs,
     contact_email,
-    cta_url = "",
-  } = data;
+    cta_url,
+    cta_name
+  } = basic;
 
-  // Default active tab
-  const [activeTab, setActiveTab] = useState(tabs[0].key);
+  // Since API has no key, use index
+  const [activeTab, setActiveTab] = useState(0);
 
-  // Active tab data
-  const activeData = tabs.find((t) => t.key === activeTab);
+  const activeData = tabs[activeTab];
 
   return (
     <section className="research-op-section container">
+      
       {/* ================= HEADING ================= */}
-      <div className="">
-        <h2 className="heading">
-          <hr className="heading-line" />
-          {heading}
-        </h2>
+      <div>
+        {heading && (
+          <h2 className="heading">
+            <hr className="heading-line" />
+            {heading}
+          </h2>
+        )}
 
         {subheading && (
           <p className="research-op-subheading">{subheading}</p>
@@ -35,16 +42,17 @@ const ResearchOpportunities = ({ data }) => {
 
       {/* ================= CONTENT ================= */}
       <div className="research-op-grid">
-        {/* -------- LEFT : ACCORDION -------- */}
+
+        {/* -------- LEFT -------- */}
         <div className="research-op-accordion">
-          {tabs.map((tab) => {
-            const isActive = activeTab === tab.key;
+          {tabs.map((tab, index) => {
+            const isActive = activeTab === index;
 
             return (
-              <div key={tab.key} className="research-op-item">
+              <div key={index} className="research-op-item">
                 <button
                   type="button"
-                  onClick={() => setActiveTab(tab.key)}
+                  onClick={() => setActiveTab(index)}
                   className={`research-op-tab ${
                     isActive
                       ? "research-op-tab-active"
@@ -57,14 +65,12 @@ const ResearchOpportunities = ({ data }) => {
                   </span>
                 </button>
 
-                {isActive && tab.items?.length > 0 && (
-                  <div className="research-op-list">
-                    {tab.items.map((item, idx) => (
-                      <div key={idx} className="research-op-list-item">
-                        • {item}
-                      </div>
-                    ))}
-                  </div>
+                {isActive && tab.desc && (
+                  <RichTextRenderer
+                    className="research-op-list"
+                  html={ tab.desc}
+                  
+                  />
                 )}
               </div>
             );
@@ -74,7 +80,7 @@ const ResearchOpportunities = ({ data }) => {
           <div className="research-op-footer">
             {cta_url && (
               <Link to={cta_url} className="research-op-link">
-                Know more about research opportunities
+               {cta_name}
               </Link>
             )}
 
@@ -92,7 +98,7 @@ const ResearchOpportunities = ({ data }) => {
           </div>
         </div>
 
-        {/* -------- RIGHT : IMAGE -------- */}
+        {/* -------- RIGHT IMAGE -------- */}
         <div className="research-op-image-box">
           {activeData?.image && (
             <img

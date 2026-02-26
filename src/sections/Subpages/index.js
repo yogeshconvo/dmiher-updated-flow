@@ -11,6 +11,7 @@ import ElectivesOfferedFEAT from "./ElectiveOffered";
 import PhDDAL from "./UniquePages/PHD-DAL";
 import CampusFacilities from "../MainPageSections/Home/CampusFacilities";
 import TabwiseMainMicropage from "../Micropages/Tabwise-micropage";
+import SubPrograms from "./Programs";
 
 export const SECTION_COMPONENTS = {
 
@@ -29,6 +30,8 @@ export const SECTION_COMPONENTS = {
     section_1: MainMicropage,
     campus_facilities: CampusFacilities,
     tabwise_micropage: TabwiseMainMicropage,
+
+    programs_subpage: SubPrograms
 
 
 };

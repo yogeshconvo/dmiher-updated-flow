@@ -1,16 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
-const AboutGrid = ({data}) => {
+const AboutGrid = ({ data }) => {
   const {
-    grid_items,
-    bottom_description,
-    primary_buttons,
-    secondary_buttons
-  } = data;
+    gridItems = [],
+    cta = {},
+    ctaButtons = [],
+    bottomButtons = []
+  } = data || {};
 
   const renderLink = (item, children) => {
+    if (!item?.url) return children;
+
     const isExternal = item.url.startsWith("http");
 
     if (isExternal) {
@@ -39,10 +40,11 @@ const AboutGrid = ({data}) => {
 
         {/* Grid */}
         <div className="about-grid">
-          {grid_items.map((item) =>
+          {gridItems.map((item, index) =>
             renderLink(
               item,
               <div
+                key={index}
                 className="about-card"
                 style={{ backgroundImage: `url(${item.image})` }}
               >
@@ -58,14 +60,14 @@ const AboutGrid = ({data}) => {
 
         {/* Description */}
         <div className="about-description">
-          <p>{bottom_description}</p>
+          <p>{cta?.ctaText}</p>
 
           {/* Primary Buttons */}
           <div className="about-btn-grid">
-            {primary_buttons.map((btn) =>
+            {ctaButtons.map((btn, index) =>
               renderLink(
                 btn,
-                <span className="about-btn">
+                <span key={index} className="about-btn">
                   {btn.label}
                 </span>
               )
@@ -75,10 +77,10 @@ const AboutGrid = ({data}) => {
 
         {/* Secondary Buttons */}
         <div className="about-btn-grid secondary">
-          {secondary_buttons.map((btn) =>
+          {bottomButtons.map((btn, index) =>
             renderLink(
               btn,
-              <span className="about-btn">
+              <span key={index} className="about-btn">
                 {btn.label}
               </span>
             )

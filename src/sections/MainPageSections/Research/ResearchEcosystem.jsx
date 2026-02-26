@@ -3,16 +3,19 @@ import React from "react";
 // import "../../styles/research-ecosystem-responsive.css";
 
 function ResearchEcosystem({ data }) {
-  if (!data) return null;
+   if (!data) return null;
+
+  const basic = data.basic || {};
+  const points = data.points || [];
 
   const {
     heading,
     subheading,
     description_title,
     description,
-    points = [],
+
     image,
-  } = data;
+  } = basic;
 
   return (
     <section className="reco-section">
@@ -47,7 +50,7 @@ function ResearchEcosystem({ data }) {
 
           <ul className="reco-list">
             {points.map((item, idx) => (
-              <li key={idx}>{item}</li>
+              <li key={idx}>{item.point}</li>
             ))}
           </ul>
         </div>
@@ -57,3 +60,5 @@ function ResearchEcosystem({ data }) {
 }
 
 export default ResearchEcosystem;
+
+

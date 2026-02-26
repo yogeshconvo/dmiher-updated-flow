@@ -6,15 +6,31 @@ const createDOMPurify = () => {
   if (typeof window !== "undefined") {
     return DOMPurify;
   }
-  return { sanitize: (html) => html }; 
+  return { sanitize: (html) => html };
 };
 
-export default function RichTextRenderer({ html, className }) {
+export default function RichTextRenderer({
+  html,
+  className,
+  bgColor,
+  textcolor,
+}) {
   if (!html) return null;
 
   const purify = createDOMPurify();
   const clean = purify.sanitize(html);
   const content = parse(clean);
 
-  return <div className={clsx("prose max-w-none", className)}>{content}</div>;
+  return (
+    <div
+      className={clsx("prose max-w-none", className)}
+      style={{
+        ...(bgColor && { backgroundColor: bgColor }),
+        ...(textcolor && { color: textcolor }),
+        ...(textcolor && { color: textcolor }),
+      }}
+    >
+      {content}
+    </div>
+  );
 }

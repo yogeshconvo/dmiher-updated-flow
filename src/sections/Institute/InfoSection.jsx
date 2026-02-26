@@ -1,4 +1,5 @@
 import { useState } from "react";
+import RichTextRenderer from "../../components/RichTextRenderer";
 
 function InfoSection({ data }) {
   if (!data) return null;
@@ -61,7 +62,7 @@ function InfoSection({ data }) {
         </h2>
       )}
 
-      {quickLinks && quickLinks.length > 0 && (
+      {/* {quickLinks && quickLinks.length > 0 && (
        <div className="quick-links">
         {quickLinks.map((link, i) => (
           <a key={i} href={link.url} target="_blank" rel="noopener noreferrer">
@@ -69,27 +70,21 @@ function InfoSection({ data }) {
           </a>
         ))}
        </div>
-      )}
+      )} */}
       {/* ================= CONTENT ================= */}
       <section className="info-content">
         {tagline && (
           <h1 className="info-tagline">
-            {tagline.toUpperCase()}
+            {tagline}
           </h1>
         )}
 
         <div className="info-text-wrapper">
           {/* Intro paragraphs */}
           {introParagraphs.map((p, i) => (
-            <p key={i} className="info-paragraph">
-              {p.desc}
-            </p>
-          ))}
-
-        
-
-          {/* View More */}
-          {!showMore && moreParagraphs.length > 0 && (
+            <p key={i} className="">
+              <RichTextRenderer html={p.desc} />
+                 {!showMore && moreParagraphs.length > 0 && (
             <button
               className="info-btn info-btn-more"
               onClick={() => setShowMore(true)}
@@ -98,11 +93,17 @@ function InfoSection({ data }) {
             </button>
           )}
 
+            </p>
+            
+          ))}      
+
+          {/* View More */}
+       
           {/* Extra paragraphs */}
           {showMore &&
             moreParagraphs.map((p, i) => (
               <p key={i} className="info-paragraph">
-                {p.desc}
+                <RichTextRenderer html={p.desc}/>
               </p>
             ))}
 
