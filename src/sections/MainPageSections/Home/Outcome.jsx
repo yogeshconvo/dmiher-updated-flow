@@ -4,6 +4,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { PlayCircle } from "lucide-react";
+import RichTextRenderer from "../../../components/RichTextRenderer";
 
 const Outcome = ({ data }) => {
   const [playVideo, setPlayVideo] = useState(false);
@@ -59,7 +60,7 @@ const Outcome = ({ data }) => {
                   />
                   <div className="slide-overlay" />
                   <div className="slide-content">
-                    <h1>{slide.title}</h1>
+                  <RichTextRenderer html={slide.title} />
                   </div>
                 </div>
               )}

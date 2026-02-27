@@ -27,7 +27,7 @@ export const SECTION_COMPONENTS = {
 
 
 
-    section_1: MainMicropage,
+    micro_page: MainMicropage,
     campus_facilities: CampusFacilities,
     tabwise_micropage: TabwiseMainMicropage,
 

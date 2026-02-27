@@ -39,9 +39,6 @@
         @apply w-[320px];
     }
 
-    .section-title {
-        @apply text-2xl;
-    }
 
     .tab-btn {
         @apply text-sm;
@@ -350,9 +347,9 @@
 }
 
 @media (min-width: 768px) {
-    .excellence-wrapper {
+    /* .excellence-wrapper {
         @apply px-15;
-    }
+    } */
 
     .excellence-grid {
         @apply grid-cols-3 w-full border-t-0;
@@ -362,6 +359,67 @@
 @media (min-width: 1024px) {
     .excellence-grid {
         @apply grid-cols-6;
+    }
+}
+
+/* ================= Vision and mission ================= */
+@media (min-width: 640px) {
+    .vision-card {
+        @apply p-8;
+    }
+
+    .mission-card {
+        @apply p-8;
+    }
+
+    .section-header {
+        @apply pt-12;
+    }
+
+    .section-line {
+        @apply w-20;
+    }
+
+
+    .mission-text {
+        @apply text-sm;
+    }
+}
+
+@media (min-width: 768px) {
+    .vision-card {
+        @apply p-10;
+    }
+
+    .mission-header {
+        @apply pt-16;
+    }
+}
+
+@media (min-width: 768px) {
+    /* .vision-mission-grid {
+        @apply px-20;
+    } */
+
+    .vision-card,
+    .mission-card {
+        @apply p-10;
+    }
+
+    .section-header {
+        @apply pt-12;
+    }
+
+    .section-title {
+        @apply text-4xl;
+    }
+
+    .vision-text {
+        @apply text-xl;
+    }
+
+    .mission-text {
+        @apply text-base;
     }
 }
 
