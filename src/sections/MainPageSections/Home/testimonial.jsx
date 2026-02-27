@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { PlayCircle } from "lucide-react";
+import RichTextRenderer from "../../../components/RichTextRenderer";
 
 function HomeTestimonial({ data }) {
   const title = data?.header?.title;
@@ -107,7 +108,7 @@ function HomeTestimonial({ data }) {
 
           {/* ===== Text Section ===== */}
           <div className="w-[320px] md:w-[460px] text-left">
-            <p className="text-lg font-semibold text-gray-800">
+            {/* <p className="text-lg font-semibold text-gray-800">
               {current.name}
             </p>
             <p className="text-sm text-gray-600">
@@ -117,7 +118,8 @@ function HomeTestimonial({ data }) {
               <p className="text-sm text-gray-600 font-medium">
                 {current.extra}
               </p>
-            )}
+            )} */}
+            <RichTextRenderer html={current.paragraph}/>
           </div>
 
           {/* ===== Multiple Testimonials Selector */}

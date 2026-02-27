@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import RichTextRenderer from "../../components/RichTextRenderer";
 
 function Hero({ data, slug }) {
   if (!data) return null;
@@ -160,7 +161,7 @@ function Hero({ data, slug }) {
                     : "hero-content-left"
                 }`}
               >
-                {slide.title && (
+                {/* {slide.title && (
                   <h1 className="hero-title">{slide.title}</h1>
                 )}
 
@@ -168,7 +169,8 @@ function Hero({ data, slug }) {
                   <h2 className="hero-highlight">
                     {slide.highlight}
                   </h2>
-                )}
+                )} */}
+                <RichTextRenderer html={slide.desc}/>
 
                 {slide.paragraph && (
                   <p className="hero-paragraph">

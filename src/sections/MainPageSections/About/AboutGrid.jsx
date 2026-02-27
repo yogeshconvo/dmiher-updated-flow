@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const AboutGrid = ({ data }) => {
+  const location = useLocation(); // get current route
+
   const {
     gridItems = [],
     cta = {},
@@ -10,11 +12,19 @@ const AboutGrid = ({ data }) => {
   } = data || {};
 
   const renderLink = (item, children) => {
-    if (!item?.url) return children;
+    // If page_slug exists → use it
+    if (item?.page_slug) {
+      const newPath = `${location.pathname}/${item.page_slug}`;
 
-    const isExternal = item.url.startsWith("http");
+      return (
+        <Link key={item.page_slug} to={newPath}>
+          {children}
+        </Link>
+      );
+    }
 
-    if (isExternal) {
+    // External URL support
+    if (item?.url?.startsWith("http")) {
       return (
         <a
           key={item.url}
@@ -27,11 +37,7 @@ const AboutGrid = ({ data }) => {
       );
     }
 
-    return (
-      <Link key={item.url} to={item.url}>
-        {children}
-      </Link>
-    );
+    return children;
   };
 
   return (
@@ -62,7 +68,6 @@ const AboutGrid = ({ data }) => {
         <div className="about-description">
           <p>{cta?.ctaText}</p>
 
-          {/* Primary Buttons */}
           <div className="about-btn-grid">
             {ctaButtons.map((btn, index) =>
               renderLink(
@@ -75,7 +80,6 @@ const AboutGrid = ({ data }) => {
           </div>
         </div>
 
-        {/* Secondary Buttons */}
         <div className="about-btn-grid secondary">
           {bottomButtons.map((btn, index) =>
             renderLink(

@@ -39,6 +39,7 @@ import Outcome from "./Home/Outcome"
 import FootprintSection from "./Home/FootprintSection"
 import ResearchInnovation from "./Home/ResearchInnovation"
 import SubPrograms from "../Subpages/Programs"
+import MainMicropage from "../Micropages/Main-micropage"
 
 export const SECTION_COMPONENTS = {
 
@@ -114,5 +115,8 @@ export const SECTION_COMPONENTS = {
 
     // home_research_section: HomeResearch,
     programs_subpage: SubPrograms,
+
+
+    micro_page: MainMicropage,
 
 };

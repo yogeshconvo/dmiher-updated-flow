@@ -57,7 +57,7 @@ function InfoSection({ data }) {
 
           <hr
             className="info-title-line"
-            style={{ borderColor: highlight_color || "#ccc" }}
+            style={{ borderColor: highlight_color }}
           />
         </h2>
       )}

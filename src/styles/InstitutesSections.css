@@ -161,7 +161,7 @@
 }
 
 .hero-content-right {
-    @apply right-0 text-right items-center sm:mr-10;
+    @apply absolute left-0 lg:left-1/2 lg:top-1/2 -translate-y-1/2 text-left items-start pl-10 sm:pl-65;
 }
 
 .hero-content-bottom {
@@ -182,7 +182,7 @@
 }
 
 .info-title {
-    @apply flex flex-wrap items-center justify-center text-[#F04E30] text-3xl tracking-wider  mb-6 text-center;
+    @apply flex flex-wrap items-center justify-center text-[#F04E30] text-3xl tracking-wider mb-6 text-center;
 }
 
 .info-title-text {
