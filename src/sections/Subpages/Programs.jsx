@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { GraduationCap, Search, X } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 
 const SubPrograms = ({ apiBaseUrl }) => {
   const { slug } = useParams();
@@ -9,6 +9,21 @@ const SubPrograms = ({ apiBaseUrl }) => {
   const [activeTab, setActiveTab] = useState("");
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
+
+  /* ---------------- Icon Renderer ---------------- */
+  const renderIcon = (iconName, size = 18) => {
+    if (!iconName) return null;
+
+    // Convert kebab-case to PascalCase
+    const formattedName = iconName
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join("");
+
+    const IconComponent = LucideIcons[formattedName];
+
+    return IconComponent ? <IconComponent className="sm:w-5 sm:h-5 lg:w-6 lg:h-6 flex-shrink-0 transition-colors duration-300" size={size} /> : null;
+  };
 
   /* ---------------- Fetch Data ---------------- */
   useEffect(() => {
@@ -54,13 +69,14 @@ const SubPrograms = ({ apiBaseUrl }) => {
     <section className="streams-wrapper">
       <div className="container py-8">
 
-        {/* Search Bar (Same UI) */}
+        {/* ---------------- Search ---------------- */}
         <div className="mb-6 max-w-2xl mx-auto">
           <div className="relative">
-            <Search
+            <LucideIcons.Search
               size={20}
-              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
             />
+
             <input
               type="text"
               value={searchQuery}
@@ -68,31 +84,30 @@ const SubPrograms = ({ apiBaseUrl }) => {
               placeholder={settings.search_placeholder || "Search programs..."}
               className="w-full pl-10 pr-10 py-3 rounded-xl border border-gray-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white"
             />
+
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
               >
-                <X size={20} />
+                <LucideIcons.X size={20} />
               </button>
             )}
           </div>
         </div>
 
-        {/* ---------------- Tabs (UNCHANGED DESIGN) ---------------- */}
-
-        <div className="mb-6  mx-auto">
+        {/* ---------------- Tabs ---------------- */}
+        <div className="mb-6 mx-auto">
           <div className="relative bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 p-1 sm:p-2">
 
-            {/* Desktop View */}
             <div className="hidden sm:block">
-         <div
-  className="grid gap-2 relative"
-  style={{
-    gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))`,
-  }}
->
-
+              <div
+                className="grid gap-2 relative"
+                style={{
+                  gridTemplateColumns: `repeat(${tabs.length}, minmax(0, 1fr))`,
+                }}
+              >
+                {/* Active Tab Background */}
                 <div
                   className="absolute top-0 bottom-0 bg-[#122E5E] rounded-lg sm:rounded-xl transition-all duration-300 ease-in-out shadow-md z-0"
                   style={{
@@ -114,11 +129,9 @@ const SubPrograms = ({ apiBaseUrl }) => {
                           : "text-gray-600 hover:text-white hover:bg-[#F04E30]"
                       }`}
                     >
-                      <span
-                        className={`text-sm text-center font-medium ${
-                          isActive ? "text-white" : ""
-                        }`}
-                      >
+        {renderIcon(tab.icon, 18)}
+
+                      <span className="text-xs sm:text-sm lg:text-base text-center leading-tight font-medium transition-colors duration-300">
                         {tab.tab_label}
                       </span>
                     </button>
@@ -126,17 +139,15 @@ const SubPrograms = ({ apiBaseUrl }) => {
                 })}
               </div>
             </div>
-
           </div>
         </div>
 
-        {/* ---------------- Programs Grid (Same) ---------------- */}
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {/* ---------------- Programs Grid ---------------- */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredPrograms.map((program, index) => (
             <div
               key={index}
-              className="group bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-5 lg:p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="group bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex flex-col h-full">
 
@@ -149,6 +160,7 @@ const SubPrograms = ({ apiBaseUrl }) => {
                       {program.duration || "N/A"}
                     </span>
                   </div>
+
                   <p className="text-sm text-gray-500">
                     {program.description || "Program details not available."}
                   </p>
@@ -179,15 +191,18 @@ const SubPrograms = ({ apiBaseUrl }) => {
           ))}
         </div>
 
+        {/* ---------------- Empty State ---------------- */}
         {filteredPrograms.length === 0 && (
           <div className="text-center py-12">
-            <GraduationCap size={60} className="mx-auto text-gray-300 mb-4" />
+            <LucideIcons.GraduationCap
+              size={60}
+              className="mx-auto text-gray-300 mb-4"
+            />
             <h3 className="text-xl font-semibold text-gray-600">
               No Programs Available
             </h3>
           </div>
         )}
-
       </div>
     </section>
   );
