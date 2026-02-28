@@ -60,7 +60,7 @@ const Outcome = ({ data }) => {
                   />
                   <div className="slide-overlay" />
                   <div className="slide-content">
-                  <RichTextRenderer html={slide.title} />
+                     <RichTextRenderer html={slide.desc} />
                   </div>
                 </div>
               )}
