@@ -79,7 +79,7 @@ function InfoSection({ data }) {
           </h1>
         )}
 
-        <div className="info-text-wrapper">
+        <div className="">
           {/* Intro paragraphs */}
           {introParagraphs.map((p, i) => (
             <p key={i} className="">

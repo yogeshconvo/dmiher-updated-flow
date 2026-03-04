@@ -65,6 +65,7 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import PageView from "./PageView";
 import SubPrograms from "./sections/Subpages/Programs";
+import TabwiseMicropage from "./sections/Micropages/Tabwise-micropage";
 
 function App() {
   return (
@@ -81,6 +82,10 @@ function App() {
         <Route
           path="/:college/:page"
           element={<PageView />}
+        />
+        <Route
+          path="/TabwiseMicropage"
+          element={<TabwiseMicropage/>}
         />
 
         {/* Normal Slug */}

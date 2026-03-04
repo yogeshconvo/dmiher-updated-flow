@@ -1,150 +1,178 @@
 import React, { useState } from "react";
-import RichTextRenderer from "../../components/RichTextRenderer";
 
-const TabwiseMainMicropage = ({ data }) => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [activeTabIndex, setActiveTabIndex] = useState(0);
+/* ================= SIMPLE LIGHTWEIGHT JSON ================= */
 
-  /* ================= REAL API DATA ================= */
+const data = {
+  tabs: [
+    {
+      slug: "equal-opportunity-cell",
+      title: "Equal Opportunity Cell",
+      content_flow: [
+        {
+          type: "heading",
+          value: "Equal Opportunity Cell",
+        },
+        {
+          type: "paragraph",
+          value:
+            "<p>The Equal Opportunity Cell ensures inclusive growth and equal access to opportunities for all students and staff.</p>",
+        },
+      ],
+    },
 
-  // API se array aa raha hai
-  const pageData = Array.isArray(data) ? data[0] : data;
+    {
+      slug: "training-placement-cell",
+      title: "Training & Placement Cell",
+      content_flow: [
+        {
+          type: "heading",
+          value: "Training and Placement Cell",
+        },
+        {
+          type: "dean_section",
+          value: {
+            name: "Dr. (Mrs.) Sonali Choudhari Deshmukh",
+            designation: "Dean, JNMC & AVBRH, DMIHER",
+            qualifications: "MBBS, MD, MPhil (HPE), FAIMER",
+            email: "dean.jnmc@dmiher.edu.in",
+            image:
+              "https://convomax.com/admin_dmiher/storage/micropages/9503a50c-97c8-4995-a354-12ebb8e3513c.jpg",
+            message:
+              "<p>The Training and Placement Cell prepares students for professional careers and ensures strong industry interaction.</p>",
+          },
+        },
+      ],
+    },
 
-  const tabs = pageData?.tabs || [];
+    {
+      slug: "anti-ragging-cell",
+      title: "Anti Ragging Cell",
+      content_flow: [
+        {
+          type: "heading",
+          value: "Anti Ragging Cell",
+        },
+        {
+          type: "paragraph",
+          value:
+            "<p>The Anti Ragging Cell ensures a safe and harassment-free campus environment.</p>",
+        },
+        {
+          type: "table",
+          value: {
+            thead: ["Name", "Role"],
+            tbody: [
+              ["Dr. A. Kumar", "Chairperson"],
+              ["Prof. S. Sharma", "Member"],
+            ],
+          },
+        },
+      ],
+    },
+  ],
+};
 
-  if (!tabs.length) {
-    return (
-      <div style={{ padding: 20, color: "red" }}>
-        ❌ Tabs not found<br />
-        API response:
-        <pre style={{ fontSize: 12 }}>
-          {JSON.stringify(data, null, 2)}
-        </pre>
-      </div>
-    );
-  }
+/* ================= MAIN COMPONENT ================= */
 
-  const activeTab = tabs[activeTabIndex];
-  const contentFlow = activeTab?.content_flow || [];
+const TabwiseMicropage = () => {
+  const [activeSlug, setActiveSlug] = useState(data.tabs[0].slug);
 
-  /* ================= UI ================= */
+  const activeTab = data.tabs.find((tab) => tab.slug === activeSlug);
 
   return (
-    <section className="micropage-wrapper">
-
-      {/* PAGE TITLE */}
-    
+    <div className="py-10">
 
       {/* ================= TABS ================= */}
-      <div className="shadow-sm">
-        <div className="max-w-7xl mx-auto py-3 px-4">
-
-          {/* Mobile Dropdown */}
-          <div className="block md:hidden relative">
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="w-full border rounded-md p-2 text-left"
-            >
-              {activeTab.label}
-            </button>
-
-            {menuOpen && (
-              <div className="absolute w-full bg-white border rounded-md mt-1 z-50">
-                {tabs.map((tab, index) => (
-                  <button
-                    key={index}
-                    onClick={() => {
-                      setActiveTabIndex(index);
-                      setMenuOpen(false);
-                    }}
-                    className={`block w-full text-left p-2 text-sm ${
-                      index === activeTabIndex
-                        ? "bg-[#F04E30] text-white"
-                        : "hover:bg-gray-100"
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Desktop Tabs (DESIGN SAME AS LIVE SITE) */}
-          <div className="hidden md:flex flex-wrap gap-3 justify-center">
-            {tabs.map((tab, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveTabIndex(index)}
-                className={`px-4 py-2 text-sm rounded-md border transition ${
-                  index === activeTabIndex
-                    ? "bg-[#F04E30] text-white border-[#F04E30]"
-                    : "bg-gray-100 hover:bg-[#112a62] hover:text-white"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-        </div>
+      <div className="max-w-7xl mx-auto flex flex-wrap gap-3 justify-center px-4 mb-8">
+        {data.tabs.map((tab) => (
+          <button
+            key={tab.slug}
+            onClick={() => setActiveSlug(tab.slug)}
+            className={`text-sm font-medium px-4 py-2 rounded-md border transition-all duration-200 ${
+              activeSlug === tab.slug
+                ? "bg-[#F04E30] text-white border-[#F04E30]"
+                : "bg-gray-100 text-black border-gray-300 hover:bg-[#112a62] hover:text-white"
+            }`}
+          >
+            {tab.title}
+          </button>
+        ))}
       </div>
 
       {/* ================= CONTENT ================= */}
-      <div className="micropage-container px-4 py-6">
-  {pageData?.pageTitle && (
-        <h2 className="text-2xl font-semibold text-center my-4">
-          {pageData.pageTitle}
-        </h2>
-      )}
-        {contentFlow.map((item, index) => {
-          switch (item.type) {
+      <div className="max-w-6xl mx-auto px-4">
+        {activeTab?.content_flow.map((item, index) => {
+          const key = `${item.type}-${index}`;
 
+          switch (item.type) {
             case "heading":
               return (
-                  <h2 key={index} className="heading">
-                      <hr className="heading-line" />
+                <h2 key={key} className="text-2xl font-semibold mb-4">
                   {item.value}
                 </h2>
               );
 
             case "paragraph":
               return (
-                <RichTextRenderer
-                  key={index}
+                <div
+                  key={key}
                   className="mb-4"
-                  html={item.value}
+                  dangerouslySetInnerHTML={{ __html: item.value }}
                 />
               );
 
-            case "image":
+            case "dean_section":
               return (
-                <img
-                  key={index}
-                  src={item.value}
-                  alt=""
-                  className="mb-4 rounded"
-                />
+                <div
+                  key={key}
+                  className="grid md:grid-cols-2 gap-8 mb-10"
+                >
+                  <div>
+                    <img
+                      src={item.value.image}
+                      alt={item.value.name}
+                      className="rounded-lg mb-4 w-full"
+                    />
+                    <h3 className="font-semibold text-lg">
+                      {item.value.name}
+                    </h3>
+                    <p>{item.value.designation}</p>
+                    <p>{item.value.qualifications}</p>
+                    <p>{item.value.email}</p>
+                  </div>
+
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: item.value.message,
+                    }}
+                  />
+                </div>
               );
 
-             case "table":
+            case "table":
               return (
-                <div key={index} className="micropage-table-wrapper">
-                  <table className="micropage-table">
+                <div key={key} className="overflow-x-auto mb-8">
+                  <table className="min-w-full border border-gray-300">
                     <thead>
                       <tr>
-                        {item.value.thead.map((h, i) => (
-                          <th key={i} className="micropage-th">
-                            {h}
+                        {item.value.thead.map((head, i) => (
+                          <th
+                            key={i}
+                            className="border px-4 py-2 bg-gray-100"
+                          >
+                            {head}
                           </th>
                         ))}
                       </tr>
                     </thead>
                     <tbody>
                       {item.value.tbody.map((row, r) => (
-                        <tr key={r} className="micropage-tr">
+                        <tr key={r}>
                           {row.map((cell, c) => (
-                            <td key={c} className="micropage-td">
+                            <td
+                              key={c}
+                              className="border px-4 py-2"
+                            >
                               {cell}
                             </td>
                           ))}
@@ -153,14 +181,15 @@ const TabwiseMainMicropage = ({ data }) => {
                     </tbody>
                   </table>
                 </div>
-                  );
+              );
+
             default:
               return null;
           }
         })}
       </div>
-    </section>
+    </div>
   );
 };
 
-export default TabwiseMainMicropage;
+export default TabwiseMicropage;
