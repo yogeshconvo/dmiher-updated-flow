@@ -1,195 +1,170 @@
+// import React, { useState } from "react";
+// import { useNavigate } from "react-router-dom";
+
+// const TabMenu = ({ data }) => {
+//   const navigate = useNavigate();
+//   const [openDropdown, setOpenDropdown] = useState(null);
+
+//   const handleClick = (tab, index) => {
+//     if (tab.type === "page") {
+//       navigate(`/page/${tab.page_slug }`);
+//       console.log(tab.page_slug );
+//     }
+
+//     if (tab.type === "pdf") {
+//       window.open(`/${tab.pdf}`, "_blank");
+//     }
+
+//     if (tab.type === "dropdown") {
+//       setOpenDropdown(openDropdown === index ? null : index);
+//     }
+//   };
+
+//   return (
+//     <div className="bg-white shadow-md rounded-lg p-4">
+//       <ul className="flex gap-6">
+//         {data.tabs.map((tab, index) => (
+//           <li key={index} className="relative">
+            
+//             <button
+//               onClick={() => handleClick(tab, index)}
+//               className="font-medium text-gray-700 hover:text-blue-600 transition"
+//             >
+//               {tab.title}
+//             </button>
+
+//             {/* Dropdown */}
+//             {tab.type === "dropdown" && openDropdown === index && (
+//               <ul className="absolute left-0 mt-2 w-40 bg-white shadow-lg border rounded-md">
+//                 {tab.items.map((item, i) => (
+//                   <li key={i}>
+//                     <button
+//                       onClick={() => navigate(`/page/${item.page_slug}`)}
+//                       className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+//                     >
+//                       {item.title}
+//                     </button>
+//                   </li>
+//                 ))}
+//               </ul>
+//             )}
+
+//           </li>
+//         ))}
+//       </ul>
+//     </div>
+
+
+//     I want page will render here when type === page and tabs will be clickable and fixed to that post-- -> {
+      
+//     }
+//   );
+// };
+
+// export default TabMenu;
 import React, { useState } from "react";
+import { useNavigate, Routes, Route } from "react-router-dom";
+// import PageRenderer from "./PageRenderer";
+import MainMicropage from "./Main-micropage";
 
-/* ================= SIMPLE LIGHTWEIGHT JSON ================= */
+const TabMenu = ({ data }) => {
 
-const data = {
-  tabs: [
-    {
-      slug: "equal-opportunity-cell",
-      title: "Equal Opportunity Cell",
-      content_flow: [
-        {
-          type: "heading",
-          value: "Equal Opportunity Cell",
-        },
-        {
-          type: "paragraph",
-          value:
-            "<p>The Equal Opportunity Cell ensures inclusive growth and equal access to opportunities for all students and staff.</p>",
-        },
-      ],
-    },
+  const navigate = useNavigate();
+  const [openDropdown, setOpenDropdown] = useState(null);
 
-    {
-      slug: "training-placement-cell",
-      title: "Training & Placement Cell",
-      content_flow: [
-        {
-          type: "heading",
-          value: "Training and Placement Cell",
-        },
-        {
-          type: "dean_section",
-          value: {
-            name: "Dr. (Mrs.) Sonali Choudhari Deshmukh",
-            designation: "Dean, JNMC & AVBRH, DMIHER",
-            qualifications: "MBBS, MD, MPhil (HPE), FAIMER",
-            email: "dean.jnmc@dmiher.edu.in",
-            image:
-              "https://convomax.com/admin_dmiher/storage/micropages/9503a50c-97c8-4995-a354-12ebb8e3513c.jpg",
-            message:
-              "<p>The Training and Placement Cell prepares students for professional careers and ensures strong industry interaction.</p>",
-          },
-        },
-      ],
-    },
+  const handleClick = (tab, index) => {
 
-    {
-      slug: "anti-ragging-cell",
-      title: "Anti Ragging Cell",
-      content_flow: [
-        {
-          type: "heading",
-          value: "Anti Ragging Cell",
-        },
-        {
-          type: "paragraph",
-          value:
-            "<p>The Anti Ragging Cell ensures a safe and harassment-free campus environment.</p>",
-        },
-        {
-          type: "table",
-          value: {
-            thead: ["Name", "Role"],
-            tbody: [
-              ["Dr. A. Kumar", "Chairperson"],
-              ["Prof. S. Sharma", "Member"],
-            ],
-          },
-        },
-      ],
-    },
-  ],
-};
+    if (tab.type === "page") {
+      navigate(tab.page_slug);
+    }
 
-/* ================= MAIN COMPONENT ================= */
+    if (tab.type === "pdf") {
+      window.open(`/${tab.pdf}`, "_blank");
+    }
 
-const TabwiseMicropage = () => {
-  const [activeSlug, setActiveSlug] = useState(data.tabs[0].slug);
-
-  const activeTab = data.tabs.find((tab) => tab.slug === activeSlug);
+    if (tab.type === "dropdown") {
+      setOpenDropdown(openDropdown === index ? null : index);
+    }
+  };
 
   return (
-    <div className="py-10">
+    <div>
 
-      {/* ================= TABS ================= */}
-      <div className="max-w-7xl mx-auto flex flex-wrap gap-3 justify-center px-4 mb-8">
-        {data.tabs.map((tab) => (
-          <button
-            key={tab.slug}
-            onClick={() => setActiveSlug(tab.slug)}
-            className={`text-sm font-medium px-4 py-2 rounded-md border transition-all duration-200 ${
-              activeSlug === tab.slug
-                ? "bg-[#F04E30] text-white border-[#F04E30]"
-                : "bg-gray-100 text-black border-gray-300 hover:bg-[#112a62] hover:text-white"
-            }`}
-          >
-            {tab.title}
-          </button>
-        ))}
+      {/* Tabs */}
+      <div className="bg-white shadow-md sticky top-0 z-50">
+        <ul className="flex gap-6 px-6 py-3">
+
+          {data.tabs.map((tab, index) => (
+            <li key={index} className="relative">
+
+              <button
+                onClick={() => handleClick(tab, index)}
+                className="font-medium text-gray-700 hover:text-blue-600"
+              >
+                {tab.title}
+              </button>
+
+              {/* Dropdown */}
+              {tab.type === "dropdown" && openDropdown === index && (
+                <ul className="absolute left-0 mt-2 w-44 bg-white shadow-lg border rounded-md">
+
+                  {tab.items.map((item, i) => (
+                    <li key={i}>
+                      <button
+                        onClick={() => navigate(item.page_slug)}
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                      >
+                        {item.title}
+                      </button>
+                    </li>
+                  ))}
+
+                </ul>
+              )}
+
+            </li>
+          ))}
+
+        </ul>
       </div>
 
-      {/* ================= CONTENT ================= */}
-      <div className="max-w-6xl mx-auto px-4">
-        {activeTab?.content_flow.map((item, index) => {
-          const key = `${item.type}-${index}`;
+      {/* Page Render Area */}
+      <div className="p-6">
 
-          switch (item.type) {
-            case "heading":
-              return (
-                <h2 key={key} className="text-2xl font-semibold mb-4">
-                  {item.value}
-                </h2>
-              );
+        <Routes>
 
-            case "paragraph":
+          {data.tabs.map((tab, index) => {
+
+            if (tab.type === "page") {
               return (
-                <div
-                  key={key}
-                  className="mb-4"
-                  dangerouslySetInnerHTML={{ __html: item.value }}
+                <Route
+                  key={index}
+                  path={tab.page_slug}
+                  element={<MainMicropage slug={tab.page_slug} />}
                 />
               );
+            }
 
-            case "dean_section":
-              return (
-                <div
-                  key={key}
-                  className="grid md:grid-cols-2 gap-8 mb-10"
-                >
-                  <div>
-                    <img
-                      src={item.value.image}
-                      alt={item.value.name}
-                      className="rounded-lg mb-4 w-full"
-                    />
-                    <h3 className="font-semibold text-lg">
-                      {item.value.name}
-                    </h3>
-                    <p>{item.value.designation}</p>
-                    <p>{item.value.qualifications}</p>
-                    <p>{item.value.email}</p>
-                  </div>
+            if (tab.type === "dropdown") {
+              return tab.items.map((item, i) => (
+                <Route
+                  key={i}
+                  path={item.page_slug}
+                  element={<MainMicropage slug={item.page_slug} />}
+                />
+              ));
+            }
 
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: item.value.message,
-                    }}
-                  />
-                </div>
-              );
+            return null;
 
-            case "table":
-              return (
-                <div key={key} className="overflow-x-auto mb-8">
-                  <table className="min-w-full border border-gray-300">
-                    <thead>
-                      <tr>
-                        {item.value.thead.map((head, i) => (
-                          <th
-                            key={i}
-                            className="border px-4 py-2 bg-gray-100"
-                          >
-                            {head}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {item.value.tbody.map((row, r) => (
-                        <tr key={r}>
-                          {row.map((cell, c) => (
-                            <td
-                              key={c}
-                              className="border px-4 py-2"
-                            >
-                              {cell}
-                            </td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              );
+          })}
 
-            default:
-              return null;
-          }
-        })}
+        </Routes>
+
       </div>
+
     </div>
   );
 };
 
-export default TabwiseMicropage;
+export default TabMenu;

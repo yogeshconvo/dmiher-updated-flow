@@ -1,47 +1,49 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router";
 
-const ProgramsComponent = ({data}) => {
+const ProgramsComponent = ({ data }) => {
+
+  if (!data) return null;
+
+  const heading = data?.header?.heading || "Programs";
+  const programs = data?.programs || [];
+  const bgColor = data?.header?.color || "#ffffff";
+  const heading_color = data?.header?.heading_color || "#000000ff";
 
   return (
-    <section className="programs-section">
+    <section
+      className="programs-section"
+      style={{ backgroundColor: bgColor }}
+    >
       <div className="container">
+
         {/* Heading */}
         <div className="programs-heading-wrapper">
           <div className="heading-line" />
-          <h2 className="heading">{heading}</h2>
+          <h2 className="heading" style={{ color: heading_color }}>{heading}</h2>
         </div>
 
         {/* Grid */}
         <div className="programs-grid">
-          {data.programs.map((program) => (
-            <Link
-              key={program.id}
-              to={program.slug}
+          {programs.map((program, index) => (
+            <div
+              key={index}
               className="program-card"
+              style={{ background: program.color }}
             >
               <img
                 src={program.image}
-                alt={program.name}
+                alt={program.title}
                 className="program-image"
               />
 
               <div className="program-content">
-                <h6 className="program-title">{program.name}</h6>
-
-                {program.icon && (
-                  <div className="program-icon-wrapper">
-                    <img
-                      src={program.icon}
-                      alt="Program Icon"
-                      className="program-icon"
-                    />
-                  </div>
-                )}
+                <h6 className="program-title">{program.title}</h6>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
+
       </div>
     </section>
   );

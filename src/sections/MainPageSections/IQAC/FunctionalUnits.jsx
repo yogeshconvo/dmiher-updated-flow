@@ -1,60 +1,61 @@
 import React from "react";
 
-
-export default function FunctionalUnits({data}) {
-  const { heading, units, initiative_label } = data;
+export default function FunctionalUnits({ data }) {
+  const { heading, units } = data || {};
 
   return (
     <section id="functional_units" className="functional">
       <div className="functional-container">
-        
+
         {/* Heading */}
-        <div className="functional-heading">
-          <div className="functional-line" />
-          <h2 className="functional-title">
-            {heading.title} <br />
-            <span>{heading.highlight}</span>
-          </h2>
-          <p className="functional-description">
-            {heading.description}
-          </p>
-        </div>
+        {heading && (
+          <div className="functional-heading">
+            <div className="functional-line"></div>
+
+            <h2 className="functional-title">
+              {heading.title} <br />
+              <span>{heading.highlight}</span>
+            </h2>
+
+            <p className="functional-description">
+              {heading.description}
+            </p>
+          </div>
+        )}
 
         {/* Units Grid */}
         <div className="functional-grid">
-          {units.map((unit, index) => (
+          {units?.map((unit, index) => (
             <div
               key={index}
               className={`functional-card ${
                 index === units.length - 1 ? "no-border" : ""
               }`}
             >
-              <div className="functional-card-header">
-                <div className={`functional-number ${unit.color}`}>
-                  {unit.number}
-                </div>
-                <h3 className={`functional-card-title ${unit.color}`}>
-                  {unit.title}
-                </h3>
+             
+              
+
+
+               <div className="flex items-center mb-2">
+                <div className="text-white rounded-full h-12 w-12 flex items-center justify-center text-3xl font-[500] mr-2"
+                style={{ backgroundColor: unit.color }}
+                >
+                    {unit.number}
               </div>
 
-              <ul className="functional-list">
-                {unit.points.map((point, i) => (
-                  <li key={i}>{point}</li>
-                ))}
-              </ul>
+                <h3 className="font-oswald-medium font-[500] pb-3 text-xl"
+                style={{ color: unit.color }}
+                >
+              {unit.title}
+              </h3>
+            </div>
 
-              {unit.initiatives && (
-                <>
-                  <p className="functional-initiative-title">
-                    {initiative_label}
-                  </p>
-                  <ul className="functional-list">
-                    {unit.initiatives.map((item, i) => (
-                      <li key={i}>{item}</li>
-                    ))}
-                  </ul>
-                </>
+              {/* Description HTML */}
+              {unit.desc && (
+                <div
+                  className="functional-desc"
+                  dangerouslySetInnerHTML={{ __html: unit.desc }}
+                ></div>
               )}
             </div>
           ))}

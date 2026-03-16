@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
@@ -10,15 +10,10 @@ import "../styles/components/gallery.css";
 export function GalleryWithPopup({ data }) {
   if (!data) return null;
 
-  const images = Array.isArray(data.gallery)
-    ? data.gallery
-    : [];
+  const images = Array.isArray(data.gallery) ? data.gallery : [];
 
   const [popupIndex, setPopupIndex] = useState(null);
   const [chunkSize, setChunkSize] = useState(9);
-
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
 
   /* ============== RESPONSIVE GRID ============== */
   useEffect(() => {
@@ -26,10 +21,11 @@ export function GalleryWithPopup({ data }) {
       if (window.innerWidth < 1024) setChunkSize(6);
       else setChunkSize(9);
     };
+
     updateChunkSize();
     window.addEventListener("resize", updateChunkSize);
-    return () =>
-      window.removeEventListener("resize", updateChunkSize);
+
+    return () => window.removeEventListener("resize", updateChunkSize);
   }, []);
 
   /* ============== SLIDES ============== */
@@ -53,33 +49,35 @@ export function GalleryWithPopup({ data }) {
   return (
     <section className="gallery-section">
       <div className="container">
-        <div className="gallery-heading-line"></div>
-        <h2 className="gallery-heading">
-         {data.header.heading}
+
+        {/* Heading */}
+
+        <h2 className="heading">
+          <hr className="heading-line" />
+          {data.header?.heading || "Gallery"}
         </h2>
 
-        {/* NAV */}
-        <div className="gallery-nav">
-          <button ref={prevRef} className="gallery-nav-btn">
+        {/* Navigation */}
+        <div className="gallery-nav ">
+          <div> <p></p></div>
+
+          <div>  <button className="gallery-nav-btn">
             <ArrowLeft />
           </button>
-          <button ref={nextRef} className="gallery-nav-btn">
+
+          <button className="gallery-nav-btn">
             <ArrowRight />
-          </button>
+          </button></div>
+        
         </div>
 
+        {/* Swiper */}
         <Swiper
           modules={[Navigation]}
           spaceBetween={20}
           navigation={{
-            prevEl: prevRef.current,
-            nextEl: nextRef.current,
-          }}
-          onBeforeInit={(swiper) => {
-            swiper.params.navigation.prevEl =
-              prevRef.current;
-            swiper.params.navigation.nextEl =
-              nextRef.current;
+            prevEl: ".gallery-prev",
+            nextEl: ".gallery-next",
           }}
         >
           {slides.map((slide, i) => (
@@ -87,16 +85,13 @@ export function GalleryWithPopup({ data }) {
               <div className="gallery-grid">
                 {slide.items.map((img, idx) => {
                   const imageSrc = getImageSrc(img.image);
-                  const globalIndex =
-                    slide.startIndex + idx;
+                  const globalIndex = slide.startIndex + idx;
 
                   return (
                     <div
                       key={globalIndex}
                       className="gallery-card"
-                      onClick={() =>
-                        setPopupIndex(globalIndex)
-                      }
+                      onClick={() => setPopupIndex(globalIndex)}
                     >
                       {imageSrc ? (
                         <img
@@ -121,6 +116,7 @@ export function GalleryWithPopup({ data }) {
           ))}
         </Swiper>
 
+        {/* Popup */}
         {popupIndex !== null && (
           <ImagePopup
             images={images}
@@ -134,6 +130,7 @@ export function GalleryWithPopup({ data }) {
 }
 
 /* ================= POPUP ================= */
+
 export function ImagePopup({ images, index, onClose }) {
   const getImageSrc = (img) => {
     if (!img) return null;
@@ -151,7 +148,7 @@ export function ImagePopup({ images, index, onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         {imageSrc ? (
-          <img src={imageSrc} alt="" />
+          <img src={imageSrc} alt="popup" />
         ) : (
           <div className="gallery-popup-fallback" />
         )}

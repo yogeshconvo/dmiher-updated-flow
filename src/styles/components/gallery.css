@@ -1,9 +1,7 @@
 @reference "tailwindcss";
 
 /* ================= SECTION ================= */
-.gallery-section {
-    @apply py-20;
-}
+
 
 .gallery-heading {
     @apply text-3xl text-[#707070] uppercase tracking-wider;
@@ -26,11 +24,11 @@
 
 /* ================= NAV ================= */
 .gallery-nav {
-    @apply flex gap-1;
+    @apply flex justify-between gap-2;
 }
 
 .gallery-nav-btn {
-    @apply border p-2 rounded-full hover:bg-gray-100 transition;
+    @apply border p-2 mr-1 mb-1 rounded-full hover:bg-gray-100 transition;
 }
 
 /* ================= GRID ================= */
@@ -60,7 +58,7 @@
 }
 
 .gallery-image-title {
-    @apply absolute bottom-3 left-0 right-0 bg-gradient-to-r from-black text-white text-sm py-2 px-4    ;
+    @apply absolute bottom-3 left-0 right-0 bg-gradient-to-r from-black text-white text-sm py-2 px-4;
 }
 
 /* ================= POPUP ================= */

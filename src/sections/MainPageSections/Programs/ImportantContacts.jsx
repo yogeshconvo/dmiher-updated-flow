@@ -9,13 +9,13 @@ const ImportantContacts = ({data}) => {
   <div className="container">
     <h2 className="heading">
       <hr className="heading-line" />
-      {data?.heading}
+      {data?.basic?.heading}
     </h2>
 
-    <a href={`tel:${data?.main_phone}`}>
+    <a href={`tel:${data?.basic?.main_phone}`}>
       <div className="important-contacts-phone">
         <Phone className="w-5 h-5 mr-2 text-white" />
-    {data?.main_phone}
+    {data?.basic?.main_phone}
       </div>
     </a>
 

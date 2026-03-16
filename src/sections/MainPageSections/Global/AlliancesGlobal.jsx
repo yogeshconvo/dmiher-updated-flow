@@ -1,36 +1,35 @@
 import React from "react";
-// import "../../styles/alliances-global-main.css";
-// import "../../styles/alliances-global-responsive.css";
 
 function AlliancesGlobal({ data }) {
-  if (!data) return null;
+  if (!data?.header?.length) return null;
 
-  const {
-    heading,
-    description,
-    background_image,
-    logos = [],
-    center_logo,
-  } = data;
+  const header = data.header[0];
+
+  const { heading, description, background_image, icons = [] } = header;
 
   return (
     <section
       className="alliances-section"
-      style={{ backgroundImage: `url(${background_image})` ,backgroundSize: "cover", backgroundPosition: "center" }}
+      style={{
+        backgroundImage: `url(${background_image})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
       <div className="container">
+
         <h2 className="alliances-heading">
-          <div className="alliances-heading-line" />
+          <div className="alliances-heading-line"></div>
           {heading}
         </h2>
 
         <p className="alliances-text">{description}</p>
 
-        <ul className="alliances-list ">
-          {logos.map((logo, idx) => (
+        <ul className="alliances-list">
+          {icons.map((item, idx) => (
             <li key={idx} className="alliance-item">
               <img
-                src={logo}
+                src={item.image}
                 alt="alliance logo"
                 className="alliance-image"
               />
@@ -38,15 +37,6 @@ function AlliancesGlobal({ data }) {
           ))}
         </ul>
 
-        {center_logo && (
-          <div className="alliance-center">
-            <img
-              src={center_logo}
-              alt="alliance"
-              className="alliance-center-image"
-            />
-          </div>
-        )}
       </div>
     </section>
   );

@@ -34,9 +34,9 @@ const EnquiryGlobal = ({ data }) => {
   return (
     <section className="enquiry-section">
       <div className="container">
-        <h2 className="enquiry-heading">
-          <span className="enquiry-heading-line" />
-          {data?.title}
+        <h2 className="heading">
+          <hr className="heading-line" />
+          {data?.basic?.title}
         </h2>
 
         <div className="enquiry-grid">

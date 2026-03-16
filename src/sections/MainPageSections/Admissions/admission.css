@@ -212,16 +212,18 @@
     @apply container mx-auto px-4;
 }
 
+
 .admission-heading {
-    @apply text-center mb-10;
+    /* @apply flex flex-col items-center justify-center text-center mb-10; */
+    text-align: center !important;
 }
 
 .admission-title {
-    @apply text-3xl font-bold text-gray-800;
+    @apply text-3xl font-bold text-gray-800 text-center;
 }
 
 .admission-description {
-    @apply mt-4 text-gray-600 max-w-2xl mx-auto;
+    @apply mt-4 text-gray-600 max-w-2xl mx-auto text-center;
 }
 
 .admission-grid {

@@ -33,13 +33,18 @@ import EnquiryGlobal from "./Global/EnquiryGlobal"
 import StudentLife from "../Institute/StudentLife"
 import WhyChoose from "../Institute/WhyChoseSlider"
 import HomeSteps from "./Home/HomeSteps"
-import HeadwithPara from "./Global/HeadwithPara"
+import UniversalSection from "./Global/HeadwithPara"
 import AdmissionInfoPage from "./Admissions/AdmissionInfoPage"
 import Outcome from "./Home/Outcome"
 import FootprintSection from "./Home/FootprintSection"
 import ResearchInnovation from "./Home/ResearchInnovation"
 import SubPrograms from "../Subpages/Programs"
 import MainMicropage from "../Micropages/Main-micropage"
+import ClinicalResearch from "./Research/ClinicalResearch"
+import TabMenu from "../Micropages/Tabwise-micropage"
+import FeatureCards from "./Admissions/FeatureCards"
+import AdmissionFAQs from "./Admissions/Faqs"
+import InternationalCollaborations from "./Admissions/InternationalCollaboration"
 
 export const SECTION_COMPONENTS = {
 
@@ -76,13 +81,14 @@ export const SECTION_COMPONENTS = {
     research_sdg: SDGResearchContributions,
     funded_projects: FundedResearchProjects,
     research_opportunities: ResearchOpportunities,
+    clinical_research: ClinicalResearch,
 
     // Global Section
     global_alliances: AlliancesGlobal,
     functional_units: FunctionalUnits,
 
     // IQAC Section
-    iqac_buttons: IQACSection,
+    iqac_button: IQACSection,
     functional_units: FunctionalUnits,
 
     // Programs Section
@@ -92,7 +98,7 @@ export const SECTION_COMPONENTS = {
     //Global
     enquiry_global: EnquiryGlobal,
     global_alliances: AlliancesGlobal,
-    headwithpara_section: HeadwithPara,
+    universal_section: UniversalSection,
 
     // Research Section
     research_highlights: ResearchHighlights,
@@ -104,7 +110,9 @@ export const SECTION_COMPONENTS = {
     ResearchOpportunities: ResearchOpportunities,
 
     // Admission Page
-    admission_info_section: AdmissionInfoPage,
+    admission_info_boxes: AdmissionInfoPage,
+    admission_faqs: AdmissionFAQs,
+    international_collaborations_admission: InternationalCollaborations,
 
     // Extra hai abhi
     programs_section: HomePrograms,
@@ -118,5 +126,8 @@ export const SECTION_COMPONENTS = {
 
 
     micro_page: MainMicropage,
+    tab_menu: TabMenu,
+    feature_cards: FeatureCards,
+
 
 };

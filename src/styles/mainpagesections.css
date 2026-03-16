@@ -525,6 +525,49 @@
     @apply w-12 h-12 object-contain mt-2;
 }
 
+/* ================= CLINICAL RESEARCH ================= */
+.infograph-section {
+    @apply py-10 mx-auto;
+}
+
+.infograph-container {
+    @apply flex flex-col md:flex-row justify-center gap-4 container;
+}
+
+.infograph-image img {
+    @apply w-[500px] h-[500px] object-cover;
+}
+
+.infograph-content {
+    @apply flex flex-col;
+}
+
+/* .infograph-title {
+    @apply text-3xl md:text-4xl font-[500] text-[#707070] uppercase mb-4 ;
+}
+
+.infograph-line {
+    @apply w-16 sm:w-20 border-[#F04E30] border-t-4 mb-2;
+} */
+
+.infograph-subtitle {
+    @apply text-xl font-semibold text-[#707070] mt-6 mb-8;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ================= ALLIANCES GLOBAL ================= */
 
@@ -580,15 +623,6 @@
 /* ================= ENQUIRY GLOBAL ================= */
 .enquiry-section {
     @apply bg-[#f1f1f1] py-16;
-}
-
-
-.enquiry-heading {
-    @apply text-3xl font-[500] text-[#707070] mb-10;
-}
-
-.enquiry-heading-line {
-    @apply block border-t-4 border-[#F04E30] w-24 mb-2;
 }
 
 
@@ -720,13 +754,13 @@
 }
 
 /* ================= IQAC Buttons ================= */
-.iqac-section {
+/* .iqac-section {
     @apply bg-[#eaf3fb] py-16 px-4 font-[Arial];
 }
 
 .iqac-buttons-wrapper {
     @apply mx-auto text-center space-y-4;
-}
+} */
 
 .iqac-btn-row {
     @apply flex flex-wrap justify-center gap-4;
@@ -1182,27 +1216,6 @@
 }
 
 
-.blue {
-    @apply bg-blue-600 text-blue-600;
-}
-
-.orange {
-    @apply bg-orange-500 text-orange-500;
-}
-
-.darkblue {
-    @apply bg-blue-800 text-blue-800;
-}
-
-.red {
-    @apply bg-red-600 text-red-600;
-}
-
-
-
-
-
-
 
 .iqac-section {
     @apply bg-[#eaf3fb] py-16 px-4 font-[Arial];
@@ -1233,7 +1246,7 @@
 }
 
 .iqac-btn.disabled {
-    @apply cursor-not-allowed opacity-60;
+    @apply cursor-not-allowed;
 }
 
 .iqac-annual {
