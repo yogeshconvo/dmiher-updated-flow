@@ -53,35 +53,45 @@ const MainMicropage = ({ data }) => {
               );
 
             /* ================= TABLE ================= */
-            case "table":
-              return (
-                <div key={key} className="micropage-table-wrapper">
-                  <table className="micropage-table">
-                    <thead>
-                      <tr>
-                        {item.value?.thead?.map((h, i) => (
-                          <th key={i} className="micropage-th">
-                            {h}
-                          </th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {item.value?.tbody?.map((row, r) => (
-                        <tr key={r} className="micropage-tr">
-                          {row.map((cell, c) => (
-                            <td key={c} className="micropage-td">
-                              {cell}
-                            </td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              );
+        case "table": {
+  const excel = item.value?.[0]?.["excel-file"];
+  const rows = excel?.rows || [];
 
-            /* ================= DEAN SECTION ================= */
+  if (!rows.length) return null;
+
+  const thead = rows[0];
+  const tbody = rows.slice(1);
+
+  return (
+    <div key={key} className="micropage-table-wrapper">
+      <table className="micropage-table">
+
+        <thead>
+          <tr>
+            {thead.map((h, i) => (
+              <th key={i} className="micropage-th">
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
+
+        <tbody>
+          {tbody.map((row, r) => (
+            <tr key={r} className="micropage-tr">
+              {row.map((cell, c) => (
+                <td key={c} className="micropage-td">
+                  {cell ?? ""}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+
+      </table>
+    </div>
+  );
+}          /* ================= DEAN SECTION ================= */
             case "dean_section": {
               const dean = item.value?.dean || {};
               const message = dean.value || "";

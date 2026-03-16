@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const fetchMicropage = async (pageSlug, microSlug) => {
     const res = await fetch(
-        `https://convomax.com/admin_dmiher/${pageSlug}/micro-pages/${microSlug}`
+        `http://127.0.0.1:8000/${pageSlug}/micro-pages/${microSlug}`
     );
 
 

@@ -1,29 +1,32 @@
 import React from "react";
 import * as Icons from "lucide-react";
-// import dataFile from "./admissionInfo.json";
 
-const AdmissionInfoPage = ({data}) => {
-  const { title, description, items } = data;
+const AdmissionInfoPage = ({ data }) => {
+  const { basic, cards } = data;
 
   return (
-    <section id="admission_info" className="admission-section">
+    <section id="admission_info" className="container mx-auto">
       <div className="admission-container">
 
         {/* Heading */}
-        <div className="admission-heading">
-          <h2 className="admission-title">{title}</h2>
-          <p className="admission-description">{description}</p>
-        </div>
+        {/* <div className="admission-heading">
+          <h2 className="admission-title">{basic.title}</h2>
+          <p className="admission-description">{basic.description}</p>
+        </div> */}
+
+        {/* Heading */}
+
+        <h2 className="text-3xl font-bold text-gray-800 text-center">{basic.title}</h2>
+        <p className="text-gray-600 text-center">{basic.description}</p>
 
         {/* Grid */}
         <div className="admission-grid">
-          {items.map((item, index) => {
+          {cards.map((item, index) => {
             const IconComponent = Icons[item.icon];
 
             return (
               <div key={index} className="admission-card">
 
-                {/* Icon */}
                 {IconComponent && (
                   <div className="admission-icon-wrapper">
                     <IconComponent className="admission-icon" />
@@ -40,7 +43,7 @@ const AdmissionInfoPage = ({data}) => {
                   rel="noopener noreferrer"
                   className="admission-btn"
                 >
-                  View Details
+                  {item.cta_text}
                 </a>
 
               </div>

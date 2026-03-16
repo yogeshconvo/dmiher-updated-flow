@@ -29,15 +29,20 @@ const FootprintSection = ({ data }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const currentTab = tabs.find((tab) => tab.id === activeTab);
 
-  if (!tabs.length) return null;
+  const currentTab = tabs.find((tab) => tab.id === activeTab);
+  // if (currentTab.id === "" ? "" : "") {
+  //   tab.title
+  // }
+
+  if (tabs.length === 0) return
+    tabs.title;
 
   return (
     <div className="py-8 sm:py-12 overflow-x-hidden max-w-7xl mx-auto px-5">
 
       {/* TAB HEADINGS */}
-      <div className="flex flex-col sm:flex-row gap-4 lg:gap-10 w-full">
+      {/* <div className="flex flex-col sm:flex-row gap-4 lg:gap-10 w-full">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -65,7 +70,54 @@ const FootprintSection = ({ data }) => {
             </h2>
           </button>
         ))}
-      </div>
+      </div> */}
+      {/* TAB HEADINGS */}
+
+{tabs.length === 1 ? (
+  <div className="pb-2">
+    <div className="h-1 w-20 mt-1 bg-red-500" />
+
+    <h2
+      className="text-2xl sm:text-3xl mt-3 uppercase text-[#707070]"
+      style={{
+        fontFamily: "'Oswald', sans-serif",
+        fontWeight: 500,
+      }}
+    >
+      {tabs[0].title || tabs[0].id.replaceAll("_", " ")}
+    </h2>
+  </div>
+) : (
+  <div className="flex flex-col sm:flex-row gap-4 lg:gap-10 w-full">
+    {tabs.map((tab) => (
+      <button
+        key={tab.id}
+        className="w-full sm:w-auto text-start relative pb-2"
+        onClick={() => setActiveTab(tab.id)}
+      >
+        <div
+          className={`h-1 w-20 mt-1 ${
+            activeTab === tab.id ? "bg-red-500" : ""
+          }`}
+        />
+
+        <h2
+          className={`text-2xl sm:text-3xl mt-3 uppercase ${
+            activeTab === tab.id
+              ? "text-[#707070]"
+              : "text-[rgba(112,112,112,0.30)]"
+          }`}
+          style={{
+            fontFamily: "'Oswald', sans-serif",
+            fontWeight: 500,
+          }}
+        >
+          {tab.title || tab.id.replaceAll("_", " ")}
+        </h2>
+      </button>
+    ))}
+  </div>
+)}
 
       {/* TAB CONTENT */}
       {currentTab && (

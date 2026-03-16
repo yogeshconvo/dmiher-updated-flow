@@ -39,7 +39,7 @@ const ResearchHighlights = ({ data }) => {
   //               },
   //               "desktop_columns": [
   //                   {
-  //                       "icon": "https://convomax.com/admin_dmiher/storage/research_highlights/desktop_columns/2026/02/researchicon1.png",
+  //                       "icon": "http://127.0.0.1:8000/storage/research_highlights/desktop_columns/2026/02/researchicon1.png",
   //                       "items": [
   //                           {
   //                               "label": "17,500+",
@@ -56,7 +56,7 @@ const ResearchHighlights = ({ data }) => {
   //                       ]
   //                   },
   //                   {
-  //                       "icon": "https://convomax.com/admin_dmiher/storage/research_highlights/desktop_columns/2026/02/researchicon2.png",
+  //                       "icon": "http://127.0.0.1:8000/storage/research_highlights/desktop_columns/2026/02/researchicon2.png",
   //                       "items": [
   //                           {
   //                               "label": "130+ ",
@@ -73,7 +73,7 @@ const ResearchHighlights = ({ data }) => {
   //                       ]
   //                   },
   //                   {
-  //                       "icon": "https://convomax.com/admin_dmiher/storage/research_highlights/desktop_columns/2026/02/researchicon3.png",
+  //                       "icon": "http://127.0.0.1:8000/storage/research_highlights/desktop_columns/2026/02/researchicon3.png",
   //                       "items": [
   //                           {
   //                               "label": "12,500+",
