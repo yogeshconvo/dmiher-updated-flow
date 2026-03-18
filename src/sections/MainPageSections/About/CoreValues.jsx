@@ -48,7 +48,7 @@ function CoreValues({ data }) {
           </h2>
 
           {!isMobile && (
-            <div className="flex items-center space-x-2">
+            <div className="core-values-arrows-mobile">
               {/* <button onClick={() => swiperRef.current?.slidePrev()}>
                 <ArrowLeft />
               </button>
@@ -59,8 +59,7 @@ function CoreValues({ data }) {
                 onClick={() => swiperRef.current?.slidePrev()}
                 disabled={atStart}
                 aria-disabled={atStart}
-                className={`p-2 rounded-full border border-gray-300 hover:bg-gray-200 transition ${
-                  atStart ? "opacity-50 pointer-events-none" : ""
+                className={`core-values-arrows-mobile-button ${atStart ? "opacity-50 pointer-events-none" : ""
                 }`}
                 title="Previous"
               >
@@ -70,8 +69,7 @@ function CoreValues({ data }) {
                 onClick={() => swiperRef.current?.slideNext()}
                 disabled={atEnd}
                 aria-disabled={atEnd}
-                className={`p-2 rounded-full border border-gray-300 hover:bg-gray-200 transition ${
-                  atEnd ? "opacity-50 pointer-events-none" : ""
+                className={`core-values-arrows-mobile-button ${atEnd ? "opacity-50 pointer-events-none" : ""
                 }`}
                 title="Next"
               >
@@ -82,7 +80,7 @@ function CoreValues({ data }) {
         </div>
 
         {isMobile ? (
-          <div className="flex flex-col gap-6">
+          <div className="core-values-slide-mobile">
             {values.map((item) => (
               <Slide key={item.number} item={item} />
             ))}

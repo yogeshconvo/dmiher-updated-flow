@@ -4,7 +4,7 @@ const fetchPages = async (slug) => {
     const finalSlug = slug || "home"; // ✅ default home
 
     const res = await fetch(
-        `http://127.0.0.1:8000/api/pages/${finalSlug}`
+        `https://demos.convomax.com/dmiher_backend/api/pages/${finalSlug}`
     );
 
     if (!res.ok) throw new Error("API error");

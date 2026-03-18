@@ -1,6 +1,5 @@
 import React from "react";
 
-
 function VisionMissionSection({ data }) {
   const {
     vision,
@@ -14,7 +13,10 @@ function VisionMissionSection({ data }) {
       <div className="vision-mission-grid">
 
         {/* Vision */}
-        <div className="vision-card">
+        <div
+          className="vision-card"
+          style={{ backgroundColor: vision?.bg_color || "#fff" }}
+        >
           <div className="section-header">
             <hr className="section-line" />
             <h2 className="section-title-vm">
@@ -22,13 +24,18 @@ function VisionMissionSection({ data }) {
             </h2>
           </div>
 
-          <p className="vision-text">
-            {vision_points?.[0]?.value}
-          </p>
+          <div className="vision-text">
+            {vision_points.map((item, index) => (
+              <p key={index}>{item.value}</p>
+            ))}
+          </div>
         </div>
 
         {/* Mission */}
-        <div className="mission-card">
+        <div
+          className="mission-card"
+          style={{ backgroundColor: mission?.bg_color || "#fff" }}
+        >
           <div className="section-header mission-header">
             <hr className="section-line" />
             <h2 className="section-title-vm mission-title">
@@ -37,8 +44,8 @@ function VisionMissionSection({ data }) {
           </div>
 
           <div className="mission-text">
-            {mission_points?.map((item, index) => (
-              <p key={index}>“{item.value}”</p>
+            {mission_points.map((item, index) => (
+              <p key={index}>{item.value}</p>
             ))}
           </div>
         </div>

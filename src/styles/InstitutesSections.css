@@ -10,6 +10,10 @@
     @apply w-16 w-20 border-[#F04E30] mb-2 border-t-4;
 }
 
+.sub-heading {
+    @apply text-2xl text-[#545454];
+}
+
 .cta {
     @apply mb-4 inline-block px-5 py-2 bg-[#F04E30] text-white rounded font-semibold transition-colors duration-200 hover:bg-[#d13d22];
 }

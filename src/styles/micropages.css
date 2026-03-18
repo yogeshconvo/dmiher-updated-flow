@@ -52,3 +52,27 @@
 .micropage-td {
     @apply px-4 py-3 border border-gray-200;
 }
+
+.management-team-wrapper {
+    @apply max-w-7xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6;
+}
+
+.management-team-card {
+    @apply border border-gray-300 rounded-sm shadow-sm pb-2 flex flex-col items-center text-center hover:shadow-md transition-shadow hover:scale-102 duration-200 cursor-pointer;
+}
+
+.management-team-image {
+    @apply w-full h-60 object-cover object-top mb-4;
+}
+
+.management-team-name {
+    @apply text-blue-800 font-semibold text-lg mb-1;
+}
+
+.management-team-title {
+    @apply text-sm font-medium text-gray-600 px-2 mb-1;
+}
+
+.management-team-details {
+    @apply text-xs px-2 text-gray-500;
+}

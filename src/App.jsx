@@ -96,7 +96,7 @@ function App() {
  <Route
           path="/programs/:slug"
           element={
-            <SubPrograms apiBaseUrl="http://127.0.0.1:8000/api/pages" />
+            <SubPrograms apiBaseUrl="https://demos.convomax.com/dmiher_backend/api/pages" />
           }
         />
       </Routes>

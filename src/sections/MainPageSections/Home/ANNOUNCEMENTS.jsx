@@ -9,7 +9,7 @@ function HomeANNOUNCEMENTS() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/home-notices")
+    fetch("https://demos.convomax.com/dmiher_backend/api/home-notices")
       .then((res) => res.json())
       .then((res) => {
         const section = res.find(

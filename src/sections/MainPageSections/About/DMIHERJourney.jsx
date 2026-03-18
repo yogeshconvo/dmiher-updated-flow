@@ -39,9 +39,9 @@ const DMHRSTimeline = ({ data }) => {
 
   if (!isMobile) {
     return (
-      <div className="min-h-[1000px] overflow-x-hidden relative bg-[#122E5E]">
+      <div className="dmiher-journey-wrapper">
         <div
-          className="relative w-full h-screen min-h-[1200px] max-h-[1500px] max-w-7xl mx-auto py-32"
+          className="dmiher-journey-container"
           style={{
             backgroundImage: `url(${heading?.image})`,
             backgroundSize: "contain",
@@ -50,12 +50,12 @@ const DMHRSTimeline = ({ data }) => {
           }}
         >
           {/* Title */}
-          <div className="absolute top-8 text-white z-10">
+          <div className="">
             <h2
-              className="text-4xl font-[500] uppercase mb-5 tracking-wide"
+              className="heading"
              
             >
-              <hr className="w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4" />
+              <hr className="heading-line" />
               {heading?.title}
             </h2>
           </div>
