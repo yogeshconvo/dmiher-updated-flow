@@ -60,7 +60,7 @@ function CommitteesSection({ data }) {
 
   return (
     <section className="committees-section">
-      <div className="max-w-7xl mx-auto">
+      <div className="container">
         {/* Committees */}
         <h2 className="committees-title">
           <hr className="committees-underline" />

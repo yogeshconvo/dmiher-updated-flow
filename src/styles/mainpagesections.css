@@ -84,58 +84,51 @@
     @apply w-full h-full border-0;
 }
 
-/* ================= Campus Facilities ================= */
-.campus-page {
-    @apply bg-gray-50 py-10;
+/*======= Home Steps ======== */
+.home-steps-inner {
+    @apply bg-white bg-no-repeat bg-center bg-contain text-center px-4 md:px-12 pt-[60px] mx-4 md:mx-20;
 }
 
-.campus-section {
-    @apply mb-16 relative;
+.home-steps-heading {
+    @apply flex justify-center max-w-2xl mx-auto; 
 }
 
-.section-header {
-    @apply mb-8;
+.home-steps-heading-text {
+    @apply text-2xl md:text-5xl p-6 md:p-10 text-[#707070] mb-4 leading-snug;
+    font-weight: 500;
+    font-family: 'Oswald', sans-serif;
 }
 
-.section-title {
-    @apply text-3xl md:text-4xl text-[#707070] uppercase;
+.home-steps-counters {
+    @apply flex flex-wrap justify-center gap-6 mt-6 md:mt-10;
 }
 
-.section-subheader {
-    @apply flex items-center gap-4 mt-4 flex-wrap;
+.counter-item {
+    @apply flex flex-col gap-1 items-center;
 }
 
-.section-subtitle {
-    @apply text-[#F04E30] font-medium text-sm sm:text-lg;
+.counter-circle {
+    @apply bg-[#E1CD67] rounded-full w-32 h-32 md:w-36 md:h-36 flex items-center justify-center shadow-md;
 }
 
-.section-divider {
-    @apply flex-1 h-px bg-gray-300;
+.counter-value {
+    @apply text-4xl text-[#122E5E];
+    font-weight: 500;
+    font-family: 'Oswald', sans-serif;
 }
 
-.section-nav {
-    @apply hidden md:flex gap-2;
+.counter-label {
+    @apply mt-2 text-2xl text-[#122E5E] text-center max-w-[9rem];
+    font-weight: 600;
+    font-family: 'Oswald', sans-serif;
 }
 
-.nav-btn {
-    @apply p-2 border rounded-full text-gray-600 hover:bg-gray-100 transition;
+.home-steps-paragraphs {
+    @apply mt-8 text-[#58595B] max-w-3xl mx-auto text-base;
 }
 
-.facility-card {
-    @apply px-2 cursor-pointer;
-}
-
-.facility-image {
-    @apply w-full h-56 object-cover rounded-md;
-}
-
-.facility-title {
-    @apply mt-2 text-gray-600 text-base sm:text-lg;
-}
-
-
-.arrow-controls {
-    @apply flex justify-end gap-3 mt-6;
+.home-steps-text {
+    @apply mb-3;
 }
 
 /* ===== ANNOUNCEMENTS ===== */
@@ -888,6 +881,26 @@
     @apply flex-shrink-0 w-10 h-10 rounded-full bg-[#58595B] opacity-40 text-white flex items-center justify-center text-xl mr-4;
 }
 
+.core-values-arrows-mobile {
+    @apply flex items-center space-x-2;
+}
+
+/* .core-values-arrows-mobile button {
+    @apply p-2 rounded-full border border-gray-300 hover:bg-gray-200 transition;
+}
+
+.core-values-arrows-mobile button:disabled {
+    @apply opacity-50 pointer-events-none;
+} */
+
+.core-values-arrows-mobile-button {
+    @apply p-2 rounded-full border border-gray-300 hover:bg-gray-200 transition;
+}
+
+.core-values-arrows-mobile-button:disabled {
+    @apply opacity-50 pointer-events-none;
+}
+
 .core-values-desc {
     @apply text-xs leading-relaxed;
 }
@@ -995,6 +1008,236 @@
 
 .mission-title {
     @apply text-gray-700;
+}
+
+/* ================= DMIHER Journey ================= */
+.dmiher-journey-wrapper {
+    @apply min-h-[1000px] overflow-x-hidden relative bg-[#122E5E];
+}
+
+.dmiher-journey-container {
+    @apply relative w-full h-screen min-h-[1200px] max-h-[1500px] max-w-7xl mx-auto py-32;
+}
+
+/* ================= SDG ================= */
+.sdg-container {
+    @apply flex flex-col gap-20 lg:flex-row items-center;
+}
+
+.sdg-wheel {
+    @apply flex justify-center;
+}
+
+.sdg-wheel-image {
+    @apply w-full;
+}
+
+.sdg-text-container {
+    @apply flex items-center text-[14px] gap-2;
+}
+
+.sdg-logo {
+    @apply w-[220px] sm:w-[240px] md:w-[280px] lg:w-[400px];
+}
+
+.sdg-cards {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-10 p-5;
+}
+
+.sdg-card-title {
+    @apply font-bold text-xl;
+}
+
+.sdg-card-subtitle {
+    @apply font-normal;
+}
+
+.sdg-card-divider {
+    @apply w-full border-2 my-2;
+}
+
+.sdg-card-rank {
+    @apply text-[#707070] text-sm;
+}
+
+.sdg-footer-score {
+    @apply font-bold text-[18px] text-gray-700;
+}
+
+.sdg-footer-text {
+    @apply text-[13px] text-gray-600 leading-snug;
+}
+
+.sdg-rating-box {
+    @apply relative w-[85px] h-9 bg-white shadow flex items-center justify-center text-[12px] font-semibold text-gray-700 pl-5;
+}
+
+.sdg-footer-note {
+    @apply text-[12px] text-gray-700;
+}
+
+/* ================= CAMPUS FACILITIES ================= */
+.cf-section-header {
+    @apply mb-8;
+}
+
+.cf-section-line {
+    @apply h-1 w-20 bg-red-500 mt-1;
+}
+
+.cf-section-title {
+    @apply text-3xl md:text-4xl mt-3 text-[#707070] uppercase;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+}
+
+.cf-header-row {
+    @apply flex flex-wrap items-center justify-between mt-4 gap-2;
+}
+
+.cf-subtitle {
+    @apply text-sm sm:text-lg text-[#F04E30] font-medium;
+}
+
+.cf-divider {
+    @apply flex-1 h-px bg-gray-300 mx-2 min-w-[40px];
+}
+
+.cf-actions {
+    @apply hidden md:flex items-center gap-2 flex-wrap;
+}
+
+.cf-nav-btn {
+    @apply p-2 border rounded-full text-gray-600 hover:bg-gray-100 transition;
+}
+
+.cf-view-all {
+    @apply text-[#F04E30] ml-2 font-semibold sm:text-base text-sm hover:underline whitespace-nowrap;
+    font-family: "Helvetica LT Std", "Condensed", sans-serif;
+}
+
+.cf-view-all-mobile {
+    @apply md:hidden mt-4 text-end;
+}
+
+.cf-view-all-mobile a {
+    @apply text-blue-600 font-semibold text-sm hover:underline;
+}
+
+.cf-main-section {
+    @apply py-10 px-5;
+}
+
+.cf-container {
+    @apply max-w-7xl mx-auto;
+}
+
+
+.cf-tab-block {
+    @apply mb-10;
+}
+
+.cf-card {
+    @apply cursor-pointer px-2;
+}
+
+.cf-card-img {
+    @apply w-full h-52 object-cover rounded-lg;
+}
+
+.cf-card-text {
+    @apply mt-2 text-gray-600 text-base sm:text-lg;
+    font-family: 'Oswald', sans-serif;
+}
+
+
+
+.cf-popup-overlay {
+    @apply fixed inset-0 bg-black/70 flex items-center justify-center z-50;
+}
+
+.cf-popup-content {
+    @apply relative;
+}
+
+.cf-popup-img {
+    @apply max-h-[80vh] rounded;
+}
+
+.cf-popup-close {
+    @apply absolute top-2 right-2 text-white;
+}
+
+/* ================= FOOTPRINT ================= */
+.tab-wrapper {
+    @apply flex flex-col sm:flex-row gap-4 lg:gap-10 w-full;
+}
+
+.tab-button {
+    @apply w-full sm:w-auto text-start relative pb-2 cursor-pointer;
+}
+
+.tab-indicator {
+    @apply h-1 w-20 mt-1;
+}
+
+.tab-indicator-active {
+    @apply bg-red-500;
+}
+
+.tab-title {
+    @apply text-2xl sm:text-3xl mt-3 uppercase;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+}
+
+.tab-title-active {
+    @apply text-[#707070];
+}
+
+.tab-title-inactive {
+    @apply text-gray-300;
+}
+
+.image-container {
+    @apply mt-6 sm:mt-8 w-full rounded-xl;
+}
+
+.image-inner {
+    @apply flex flex-col gap-6 items-center max-w-6xl mx-auto;
+}
+
+.tab-image {
+    @apply w-full object-contain p-4;
+    max-height: 700px;
+}
+
+.points-grid {
+    @apply grid grid-cols-2 md:grid-cols-5 mb-10 px-4 md:px-10;
+}
+
+.point-item {
+    @apply px-4 py-6 text-white text-sm border-b md:border-b-0 md:border-r last:border-r-0;
+}
+
+.point-mobile {
+    @apply px-4 py-6 pb-8 text-white text-center;
+}
+
+.logos-container {
+    @apply bg-red-50 mt-6 sm:mt-8 rounded-none sm:rounded-2xl w-full;
+}
+
+.logo-grid {
+    @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-0;
+}
+
+.logo-item {
+    @apply p-4 flex items-center justify-center border border-gray-200;
+}
+
+.logo-image {
+    @apply max-w-[100px] object-contain hover:scale-105 transition-transform duration-300;
 }
 
 /* ================= PROGRAMS ================= */

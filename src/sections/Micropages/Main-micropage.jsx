@@ -53,9 +53,11 @@ const MainMicropage = ({ data }) => {
               );
 
             /* ================= TABLE ================= */
-        case "table": {
+            case "table": {
+          
   const excel = item.value?.[0]?.["excel-file"];
-  const rows = excel?.rows || [];
+              const rows = excel?.rows || [];
+              const name = item.value?.[0].name;
 
   if (!rows.length) return null;
 
@@ -64,6 +66,10 @@ const MainMicropage = ({ data }) => {
 
   return (
     <div key={key} className="micropage-table-wrapper">
+      <h2 className="sub-heading">
+   
+        {name}
+      </h2>
       <table className="micropage-table">
 
         <thead>
@@ -125,7 +131,40 @@ const MainMicropage = ({ data }) => {
 
                 </div>
               );
-            }
+            }case "management_team_box": {
+  const team = item.value || [];
+
+  if (!team.length) return null;
+
+  return (
+    
+    <div key={key} className="management-team-wrapper">
+      {team.map((member, i) => (
+        <div key={i} className="management-team-card">
+
+          <img
+            src={(member.image)}
+            alt={member.name}
+            className="management-team-image"
+          />
+
+          <div className="management-team-info">
+            <p className="management-team-name">
+              {member.name}
+            </p>
+
+            <p>
+              {member.designation}
+              <br />
+              {member.qualification}
+            </p>
+          </div>
+
+        </div>
+      ))}
+    </div>
+  );
+}
 
             /* ================= DEFAULT (SAFE FALLBACK) ================= */
             default:

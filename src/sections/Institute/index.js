@@ -16,6 +16,7 @@ import ProgramsAnnouncements from "./ProgramsAnnouncements"
 import WhyChoose from "./WhyChoseSlider"
 import HolisticInfrastructureSection from "./HoliisticLearning"
 import Outcome from "../MainPageSections/Home/Outcome"
+import KeyFunctionTabs from "./KeyFunctionTabs"
 
 export const SECTION_COMPONENTS = {
 
@@ -36,6 +37,7 @@ export const SECTION_COMPONENTS = {
     placements: Placements,
     institute_announcements: ProgramsAnnouncements,
     why_choose_us: WhyChoose,
+    key_functions: KeyFunctionTabs,
     // deans_message_section: deans_message_section,
     outcome_section: Outcome,
     holistic_learning_Section: HolisticInfrastructureSection,

@@ -13,58 +13,58 @@ function SDGSection({ data }) {
   } = data || {};
 
   return (
-    <div className="bg-[#f0f2f5] relative py-10 md:py-16 font-[Arial]">
+    <div className="">
       <div className="container">
 
         {/* Heading */}
-        <div className="font-oswald-medium mb-6">
-          <hr className="w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4" />
-          <h2 className="text-4xl font-[500] text-[#707070]">
+        <div className="heading">
+          <hr className="heading-line" />
+          <h2 className="heading-text">
             {header?.heading}
           </h2>
         </div>
 
-        <div className="flex flex-col gap-10 lg:flex-row items-center">
+        <div className="sdg-container">
 
           {/* SDG Wheel */}
-          <div className="flex justify-center">
+          <div className="sdg-wheel">
             {header?.sdg_wheel_image && (
               <img
                 src={header.sdg_wheel_image}
                 alt="SDG Wheel"
-                className="w-[250px] sm:w-[280px] md:w-[360px] lg:w-[450px]"
+                className="sdg-wheel-image"
               />
             )}
           </div>
           
 
           {/* Right content */}
-          <div className="max-w-3xl mx-auto flex flex-col">
-<img src={header?.sdg_logo} alt="" className="w-[220px] sm:w-[240px] md:w-[280px] lg:w-[330px]" />
+          <div className="sdg-right-content">
+<img src={header?.sdg_logo} alt="" className="sdg-logo" />
             {/* SDG Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-20 p-5">
+            <div className="sdg-cards">
               {sdg_cards.map((item, index) => (
                 <div key={index}>
                   <h3
-                    className="font-bold text-xl"
+                    className="sdg-card-title"
                     style={{ color: item.color }}
                   >
                     {item.title}:{" "}
-                    <span className="font-normal">{item.subtitle}</span>
+                    <span className="sdg-card-subtitle">{item.subtitle}</span>
                   </h3>
 
                   <hr
-                    className="w-full border-2 my-2"
+                    className="sdg-card-divider"
                     style={{ borderColor: item.color }}
                   />
 
-                  <p className="text-[#707070] text-sm">{item.rank}</p>
+                  <p className="sdg-card-rank">{item.rank}</p>
                 </div>
               ))}
             </div>
 
             {/* Footer info (desktop only) */}
-            <div className="hidden md:flex items-center mt-10">
+               <div className="hidden md:flex items-center mt-10">
 
               <div className="flex items-center gap-5 mr-6">
                 <div className="font-bold text-[18px] text-gray-700">
@@ -114,7 +114,7 @@ function SDGSection({ data }) {
 
           </div>
         </div>
-        <div className="flex items-center  text-[14px] gap-2">
+        <div className="">
         <ViewMoreButton href={view_more?.view_more_link}
           label={view_more?.view_more_label}/>
 
