@@ -29,14 +29,15 @@ const SubPrograms = ({ apiBaseUrl }) => {
   useEffect(() => {
     if (!slug) return;
 
-    fetch(`${apiBaseUrl}/${slug}`)
+
+    fetch(`http://127.0.0.1:8000/api/programs/${slug}`)
       .then((res) => res.json())
       .then((res) => {
         const programsSection = res?.sections?.find(
-          (sec) => sec.section_id === "programs_subpage"
+          (sec) => sec.section_key === "programs_subpage"
         );
 
-        const sectionData = programsSection?.data;
+        const sectionData = programsSection?.section_content;
         if (!sectionData) return;
 
         setData(sectionData);

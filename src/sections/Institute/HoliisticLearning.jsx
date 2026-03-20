@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import ViewMoreButton from "../../components/UI/ViewMore";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import "swiper/css";
 // import "./HolisticHorizontal.css"; // make sure this file exists
@@ -33,6 +34,14 @@ function HolisticInfrastructureSection({ data }) {
   const layoutType = data?.layout?.layout_type || "vertical";
   const heading = data?.header?.title || "";
   const subtitle = data?.header?.subtitle || "";
+
+  const cta = data.cta || {};
+  const ctaItem = cta?.["0"];
+
+  const ctaLink =
+    ctaItem?.has_micro_page && ctaItem?.micro_slug
+      ? ROUTES.microPage(pageSlug, ctaItem.micro_slug)
+      : "";
 
   const dimensions =
     data?.dimensions?.map((item, index) => ({
@@ -194,7 +203,30 @@ function HolisticInfrastructureSection({ data }) {
           </div>
         </div>
 
+     
+
       </div>
+        <div className="holistic-cta">
+ 
+    
+   {cta?.length > 0 && <div className="holistic-cta-wrapper">
+      {Array.isArray(cta) &&
+        cta.map((item, index) => (
+          item?.label && (
+            <button
+              key={index}
+              className="holistic-cta-button"
+              onClick={() => window.open(item.cta_key, "_blank")}
+            >
+              {item.label}
+            </button>
+          )
+        ))}
+   
+
+  </div>
+}
+</div>
     </div>
   );
 }

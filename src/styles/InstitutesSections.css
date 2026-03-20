@@ -181,58 +181,48 @@
 }
 
 /* ================= INFO SECTION ================= */
-.info-section {
-    @apply py-12;
+.info-wrapper {
+    @apply py-10;
 }
 
+/* ===== TITLE ===== */
 .info-title {
-    @apply flex flex-wrap items-center justify-center text-[#F04E30] text-3xl tracking-wider mb-6 text-center;
-}
-
-.info-title-text {
-    @apply px-4 whitespace-normal text-sm;
+    @apply flex flex-wrap items-center justify-center sm:justify-between text-[#F04E30] tracking-wider uppercase mb-6 text-center text-3xl;
 }
 
 .info-title-line {
-    @apply hidden flex-grow border-t;
-    margin: 0;
+    @apply hidden sm:block flex-grow border-t border-[#F04E30];
 }
 
-.info-content {
-    @apply bg-white text-center text-sm mx-auto max-w-7xl px-2;
+.info-title-text {
+    @apply px-4 whitespace-normal text-sm sm:text-lg md:text-xl lg:text-xl xl:text-3xl;
 }
 
-.info-text-wrapper {
-    @apply text-[#58595B] font-[Arial] tracking-wide max-w-4xl mx-auto;
+.info-subtitle {
+    @apply text-base text-gray-500;
 }
 
-.info-paragraph {
-    @apply mb-4;
+/* ===== CONTENT ===== */
+.info-section {
+    @apply bg-white text-center text-sm mx-auto max-w-7xl px-2 sm:px-4;
 }
 
-.info-btn {
-    @apply mt-2 mb-4 px-6 py-2 text-white rounded font-semibold transition-colors duration-200;
-}
-
-.info-btn-more {
-    @apply bg-[#F04E30] hover:bg-[#d13d22];
-}
-
-.info-btn-less {
-    @apply bg-[#f47660] hover:bg-[#d13d22];
+.info-links {
+    @apply text-sky-500 mb-5;
 }
 
 .info-tagline {
-    @apply text-2xl font-[500] text-[#58595B] leading-snug mb-6;
+    @apply text-2xl sm:text-3xl md:text-4xl font-[500] text-[#58595B] leading-snug mb-6;
 }
 
-.quick-links {
-    @apply flex flex-wrap items-center justify-center;
+.info-description {
+    @apply text-[#58595B] font-[Arial] tracking-wide max-w-4xl mx-auto;
 }
 
-.quick-links a {
-    @apply px-2 border-r-1 border-sky-500 last:border-r-0 text-sky-500;
-}
+
+
+
+
 
 /* ================= DEANS ================= */
 .deans-section {
@@ -335,6 +325,19 @@
 
 .holistic-placeholder-title {
     @apply font-semibold mb-2;
+}
+
+
+.holistic-cta {
+    @apply py-10 flex justify-center;
+}
+
+.holistic-cta-wrapper {
+    @apply flex flex-wrap justify-center gap-6;
+}
+
+.holistic-cta-button {
+    @apply hover:bg-[#F04E30] bg-[#122E5E] hover:scale-105 text-white text-base sm:text-xl font-medium px-8 sm:px-10 py-3 min-w-[250px] rounded-md transition-all duration-300;
 }
 
 /* =========================

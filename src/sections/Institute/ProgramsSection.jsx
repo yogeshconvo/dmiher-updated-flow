@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 
 function ProgramsSection({ data }) {
   const {
-    heading,
+   header,
     programs,
     disclosures_heading,
     disclosures_link_text,
@@ -12,15 +12,15 @@ function ProgramsSection({ data }) {
   const instituteSlug = useLocation().pathname.split("/")[1];
 
   return (
-    <div className="w-full flex justify-center py-20">
+    <div className="w-full flex justify-center ">
       <div className="container">
          <h2 className="heading">
               <hr className="heading-line" />
-          {heading}
+          {header?.heading}
         </h2>
 
         {/* mobile */}
-        <ul className="flex flex-col items-center sm:hidden flex-wrap gap-6 mb-10">
+        <ul className="flex flex-col items-center sm:hidden flex-wrap gap-6 ">
           {programs.map((program) => (
             <li
               key={program.name}
@@ -34,7 +34,7 @@ function ProgramsSection({ data }) {
               >
                 <span className="clip-path-message-inner">
                   <span className="text-center  block w-[160px]">
-                    {program.category}
+                    {program.name}
                   </span>
                 </span>
               </Link>
@@ -58,7 +58,7 @@ function ProgramsSection({ data }) {
                 >
                   <span className="clip-path-message-inner">
                     <span className="text-center break-words block w-[180px]">
-                      {program.category}
+                      {program.name}
                     </span>
                   </span>
                 </Link>
@@ -67,24 +67,7 @@ function ProgramsSection({ data }) {
           </ul>
         </div>
 
-        <h2 className="text-3xl md:text-4xl mt-10 md:mt-15 font-[500] text-[#707070] mb-8 tracking-wider font-oswald-medium">
-          <hr className="w-16 sm:w-20 border-[#F04E30] mb-4 border-t-4" />
-          {disclosures_heading}
-        </h2>
-
-        <div className="flex flex-col sm:flex-row items-center gap-4">
-          <div className="flex justify-center">
-            <Link
-              to={disclosures_url}
-              className="text-base md:text-xl tracking-wide font-oswald-medium text-gray-600 rounded-md font-[300] hover:bg-blue-100 transition text-center py-2"
-            >
-              {disclosures_link_text}{" "}
-              <span className="font-[400] underline">
-                {disclosures_cta_text}
-              </span>
-            </Link>
-          </div>
-        </div>
+       
       </div>
     </div>
   );

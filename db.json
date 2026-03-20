@@ -2161,19 +2161,23 @@
                         "programs": [
                             {
                                 "name": "BAMS (Bachelor of Ayurvedic Medicine and Surgery)",
-                                "category": "UG"
+                                "category": "UG",
+                                "slug": "/jnmc/programs/bams"
                             },
                             {
                                 "name": "M.D. (Samhita Siddhant)",
-                                "category": "PG"
+                                "category": "PG",
+                                "slug": "/jnmc/programs/md-samhita-siddhant"
                             },
                             {
                                 "name": "PhD in Ayurveda",
-                                "category": "PhD"
+                                "category": "PhD",
+                                "slug": "/jnmc/programs/phd-ayurveda"
                             },
                             {
                                 "name": "Certificate in Panchakarma Therapy",
-                                "category": "Certifications"
+                                "category": "Certifications",
+                                "slug": "/jnmc/programs/certificate-panchakarma-therapy"
                             }
                         ],
                         "disclosures_heading": "MANDATORY DISCLOSURES",

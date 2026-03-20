@@ -21,7 +21,7 @@ function Programs({ data }) {
 
         {/* Heading */}
         <div className="text-white mb-8">
-          <h2 className=" heading" style={{ color: heading_color }}> <hr className="heading-line" />
+          <h2 className="heading" style={{ color: heading_color }}> <hr className="heading-line" />
             {heading}
           </h2>
         </div>

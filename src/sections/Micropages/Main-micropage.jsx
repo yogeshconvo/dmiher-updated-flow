@@ -1,6 +1,5 @@
 import React from "react";
 import RichTextRenderer from "../../components/RichTextRenderer";
-import { getImageSrc } from "../../components/Services/FetchImages";
 
 const MainMicropage = ({ data }) => {
   if (!data) return null;
@@ -46,7 +45,7 @@ const MainMicropage = ({ data }) => {
               return (
                 <img
                   key={key}
-                  src={getImageSrc(item.value)}
+                  src={item.value}
                   alt=""
                   className="mb-4 rounded"
                 />
@@ -107,7 +106,7 @@ const MainMicropage = ({ data }) => {
 
                   <div className="knowmore-dean-profile">
                     <img
-                      src={getImageSrc(dean.image)}
+                      src={dean.image}
                       alt={dean.name}
                       className="knowmore-dean-image"
                     />

@@ -17,6 +17,9 @@ import WhyChoose from "./WhyChoseSlider"
 import HolisticInfrastructureSection from "./HoliisticLearning"
 import Outcome from "../MainPageSections/Home/Outcome"
 import KeyFunctionTabs from "./KeyFunctionTabs"
+import MandatoryDisclosure from "./MandatoryDisclosure"
+import Logos from "./Logos"
+import TabMenu from "../Micropages/Tabwise-micropage"
 
 export const SECTION_COMPONENTS = {
 
@@ -24,22 +27,27 @@ export const SECTION_COMPONENTS = {
     hero_section: HeroSection,
     institute_info: InfoSection,
     institute_programs_section: ProgramsSection,
-    hospital_section: HospitalSection,
+    institute_hospital_section: HospitalSection,
     deans_message_section: DeansMessage,
-    education_unit: EducationUnit,
+    medical_education_unit: EducationUnit,
     departments: departments,
     innovative_learning: InnovativeLearning,
     research_collaborations: Collabaration,
     global_opportunities: GlobalOpportunities,
-    testimonial: Testimonial,
+    institute_testimonial_section: Testimonial,
     student_gallery: StudentLife,
     button_section: ButtonSection,
     placements: Placements,
     institute_announcements: ProgramsAnnouncements,
+    institute_mandatory_disclosures: MandatoryDisclosure,
     why_choose_us: WhyChoose,
     key_functions: KeyFunctionTabs,
     // deans_message_section: deans_message_section,
     outcome_section: Outcome,
     holistic_learning_Section: HolisticInfrastructureSection,
+    institute_logos: Logos,
+
+
+
 
 };

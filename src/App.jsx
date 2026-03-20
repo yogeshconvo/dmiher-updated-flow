@@ -66,6 +66,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import PageView from "./PageView";
 import SubPrograms from "./sections/Subpages/Programs";
 import TabwiseMicropage from "./sections/Micropages/Tabwise-micropage";
+import TabMenu from "./sections/Micropages/Tabwise-micropage";
 
 function App() {
   return (
@@ -83,10 +84,10 @@ function App() {
           path="/:college/:page"
           element={<PageView />}
         />
-        <Route
+        {/* <Route
           path="/TabwiseMicropage"
           element={<TabwiseMicropage/>}
-        />
+        /> */}
 
         {/* Normal Slug */}
         <Route
@@ -96,9 +97,14 @@ function App() {
  <Route
           path="/programs/:slug"
           element={
-            <SubPrograms apiBaseUrl="https://demos.convomax.com/dmiher_backend/api/pages" />
+            <SubPrograms />
           }
         />
+
+
+        {/* <Route path="/equal-opportunity-cell" element={<TabMenu />} /> */}
+
+{/* <Route path="/equal-opportunity-cell/:pageSlug" element={<PageView />} /> */}
       </Routes>
 
       <Footer />

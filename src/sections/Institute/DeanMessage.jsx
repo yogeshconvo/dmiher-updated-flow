@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getImageSrc } from "../../components/Services/FetchImages";
+import RichTextRenderer from "../../components/RichTextRenderer";
 import { ROUTES } from "../../utils/routes";
 import ViewMoreButton from "../../components/UI/Buttons";
 
@@ -8,15 +8,6 @@ const DeansMessage = ({ data, pageSlug }) => {
   if (!data) return null;
 
   const main = data.main || {};
-
-  /* ================= FIX DESIGNATION ================= */
-  let designationLines = [];
-  if (Array.isArray(data.designation_lines)) {
-    designationLines = data.designation_lines;
-  } else if (data.designation_lines?.value) {
-    designationLines = [data.designation_lines];
-  }
-
   const paragraphs = Array.isArray(data.paragraphs)
     ? data.paragraphs
     : [];
@@ -47,51 +38,38 @@ const DeansMessage = ({ data, pageSlug }) => {
           <div className="deans-image-wrapper">
             {main.img && (
               <img
-                src={getImageSrc(main.img)}
+                src={main.img}
                 alt={main.dean_name || "Dean"}
                 className="deans-image"
               />
             )}
 
-            <div className="deans-info">
-              {main.dean_name && (
-                <p className="deans-name">{main.dean_name}</p>
-              )}
-
-              {designationLines.length > 0 && (
-                <p className="deans-designation">
-                  {designationLines.map((line, idx) => (
-                    <span key={idx}>
-                      {line.value}
-                      <br />
-                    </span>
-                  ))}
-                </p>
-              )}
-
-              {main.email && (
-                <p className="deans-email">{main.email}</p>
-              )}
-            </div>
+            {/* Dean Info (name + designation) */}
+            {main.desc && (
+              <div className="deans-info">
+                <RichTextRenderer html={main.desc} />
+              </div>
+            )}
           </div>
 
           {/* ================= MESSAGE ================= */}
           <div className="deans-message">
-            {paragraphs.map((para, idx) =>
-              para?.desc ? (
-                <p key={idx} className="deans-paragraph">
-                  {para.desc}
-                </p>
-              ) : null
-            )}
+
+            {/* Paragraph Content */}
+            {paragraphs.map((item, i) => (
+              <div key={i} className="deans-paragraph">
+                <RichTextRenderer html={item.desc} />
+              </div>
+            ))}
 
             {/* ================= CTA ================= */}
-            {cta?.cta_label && ctaLink && (
+            {cta?.cta_label && (
               <ViewMoreButton
                 href={ctaLink}
                 label={cta.cta_label}
               />
             )}
+
           </div>
 
         </div>

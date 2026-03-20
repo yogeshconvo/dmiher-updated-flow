@@ -1,85 +1,96 @@
-// import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-
-// const TabMenu = ({ data }) => {
-//   const navigate = useNavigate();
-//   const [openDropdown, setOpenDropdown] = useState(null);
-
-//   const handleClick = (tab, index) => {
-//     if (tab.type === "page") {
-//       navigate(`/page/${tab.page_slug }`);
-//       console.log(tab.page_slug );
-//     }
-
-//     if (tab.type === "pdf") {
-//       window.open(`/${tab.pdf}`, "_blank");
-//     }
-
-//     if (tab.type === "dropdown") {
-//       setOpenDropdown(openDropdown === index ? null : index);
-//     }
-//   };
-
-//   return (
-//     <div className="bg-white shadow-md rounded-lg p-4">
-//       <ul className="flex gap-6">
-//         {data.tabs.map((tab, index) => (
-//           <li key={index} className="relative">
-            
-//             <button
-//               onClick={() => handleClick(tab, index)}
-//               className="font-medium text-gray-700 hover:text-blue-600 transition"
-//             >
-//               {tab.title}
-//             </button>
-
-//             {/* Dropdown */}
-//             {tab.type === "dropdown" && openDropdown === index && (
-//               <ul className="absolute left-0 mt-2 w-40 bg-white shadow-lg border rounded-md">
-//                 {tab.items.map((item, i) => (
-//                   <li key={i}>
-//                     <button
-//                       onClick={() => navigate(`/page/${item.page_slug}`)}
-//                       className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-//                     >
-//                       {item.title}
-//                     </button>
-//                   </li>
-//                 ))}
-//               </ul>
-//             )}
-
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-
-
-//     I want page will render here when type === page and tabs will be clickable and fixed to that post-- -> {
-      
-//     }
-//   );
-// };
-
-// export default TabMenu;
-import React, { useState } from "react";
-import { useNavigate, Routes, Route } from "react-router-dom";
-// import PageRenderer from "./PageRenderer";
-import MainMicropage from "./Main-micropage";
+import React, { useEffect, useState } from "react";
+import HelperTabwisePage from "./HelperTabwisePage";
 
 const TabMenu = ({ data }) => {
-
-  const navigate = useNavigate();
+  const tabs = data?.tabs || [];
+  const [activeTab, setActiveTab] = useState(null);
+  const [pageData, setPageData] = useState(null);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleClick = (tab, index) => {
+  /* ===== FETCH PAGE (pages API → fallback to independent-pages) ===== */
+  const fetchPage = async (slug) => {
+    try {
+      const res = await fetch(`http://127.0.0.1:8000/api/pages/${slug}`);
+      if (!res.ok) throw new Error("Not in pages API");
+      return res.json();
+    } catch {
+      try {
+        const res = await fetch(
+          `http://127.0.0.1:8000/api/independent-pages/${slug}`
+        );
+        if (!res.ok) throw new Error("Not in independent-pages API");
+        return res.json();
+      } catch (err) {
+        console.error("Page fetch failed:", err);
+        return null;
+      }
+    }
+  };
 
-    if (tab.type === "page") {
-      navigate(tab.page_slug);
+  /* ===== HELPER: extract content_flow from page json ===== */
+  const getContentFlow = (json) =>
+    json?.sections?.find((s) => s.section_id === "micro_page")
+      ?.data?.sections?.[0]?.content_flow || [];
+
+  /* ===== ACTIVATE SLUG — auto-skips if content_flow is empty ===== */
+  const activateSlug = async (slug, allSlugs = []) => {
+    setLoading(true);
+    setActiveTab(slug);
+    const json = await fetchPage(slug);
+    setLoading(false);
+
+    if (json && getContentFlow(json).length > 0) {
+      setPageData(json);
+      return;
     }
 
-    if (tab.type === "pdf") {
-      window.open(`/${tab.pdf}`, "_blank");
+    // No content → skip to next slug in list
+    const idx = allSlugs.indexOf(slug);
+    const next = allSlugs[idx + 1];
+    if (next) {
+      activateSlug(next, allSlugs);
+    } else {
+      setPageData(json ?? null); // show whatever we have
+    }
+  };
+
+  /* ===== INIT — load first tab on mount ===== */
+  useEffect(() => {
+    if (tabs.length === 0) return;
+
+    // Collect all page-type slugs in order (including dropdown children)
+    const allPageSlugs = [];
+    tabs.forEach((tab) => {
+      if (tab.type === "page" && tab.page_slug)
+        allPageSlugs.push(tab.page_slug);
+      if (tab.type === "dropdown") {
+        tab.items?.forEach((item) => {
+          if (item.page_slug) allPageSlugs.push(item.page_slug);
+        });
+      }
+    });
+
+    if (allPageSlugs.length > 0) {
+      activateSlug(allPageSlugs[0], allPageSlugs);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tabs.length]);
+
+  /* ===== TAB CLICK ===== */
+  const handleTabClick = (tab, index) => {
+    if (tab.type === "page" && tab.page_slug) {
+      setOpenDropdown(null);
+      setLoading(true);
+      setActiveTab(tab.page_slug);
+      fetchPage(tab.page_slug).then((json) => {
+        setLoading(false);
+        setPageData(json || null);
+      });
+    }
+
+    if (tab.type === "pdf" && tab.pdf) {
+      window.open(`http://127.0.0.1:8000/${tab.pdf}`, "_blank");
     }
 
     if (tab.type === "dropdown") {
@@ -87,82 +98,85 @@ const TabMenu = ({ data }) => {
     }
   };
 
+  /* ===== DROPDOWN ITEM CLICK ===== */
+  const handleDropdownItem = (item) => {
+    setOpenDropdown(null);
+
+    if (item.type === "pdf" && item.pdf) {
+      window.open(`http://127.0.0.1:8000/${item.pdf}`, "_blank");
+      return;
+    }
+
+    if (item.page_slug) {
+      setActiveTab(item.page_slug);
+      setLoading(true);
+      fetchPage(item.page_slug).then((json) => {
+        setLoading(false);
+        setPageData(json || null);
+      });
+    }
+  };
+
+  /* ===== ACTIVE CHECK — highlights dropdown parent if child is active ===== */
+  const isTabActive = (tab) => {
+    if (tab.type === "page") return activeTab === tab.page_slug;
+    if (tab.type === "dropdown")
+      return tab.items?.some((item) => item.page_slug === activeTab);
+    return false;
+  };
+
   return (
     <div>
+      {/* ===== TAB BAR ===== */}
+      <div className="flex flex-wrap gap-2 shadow-lg  pb-2 mb-6 px-4 justify-center mt-2">
+        {tabs.map((tab, i) => {
+          if (!tab.title) return null;
 
-      {/* Tabs */}
-      <div className="bg-white shadow-md sticky top-0 z-50">
-        <ul className="flex gap-6 px-6 py-3">
-
-          {data.tabs.map((tab, index) => (
-            <li key={index} className="relative">
-
+          return (
+            <div key={i} className="relative">
               <button
-                onClick={() => handleClick(tab, index)}
-                className="font-medium text-gray-700 hover:text-blue-600"
+                className={`px-4 py-2 text-sm font-medium rounded transition-colors ${
+                  isTabActive(tab)
+                    ? "bg-[#F04E30] text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-[#112a62] hover:text-white"
+                }`}
+                onClick={() => handleTabClick(tab, i)}
               >
                 {tab.title}
+                {tab.type === "dropdown" && (
+                  <span className="ml-1 text-xs">▾</span>
+                )}
               </button>
 
-              {/* Dropdown */}
-              {tab.type === "dropdown" && openDropdown === index && (
-                <ul className="absolute left-0 mt-2 w-44 bg-white shadow-lg border rounded-md">
-
-                  {tab.items.map((item, i) => (
-                    <li key={i}>
-                      <button
-                        onClick={() => navigate(item.page_slug)}
-                        className="block w-full text-left px-4 py-2 hover:bg-gray-100"
-                      >
-                        {item.title}
-                      </button>
-                    </li>
+              {/* ===== DROPDOWN PANEL ===== */}
+              {tab.type === "dropdown" && openDropdown === i && (
+                <div className="absolute top-full left-0 mt-1 w-52 bg-white border rounded shadow-lg z-50">
+                  {tab.items?.map((item, j) => (
+                    <button
+                      key={j}
+                      onClick={() => handleDropdownItem(item)}
+                      className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 ${
+                        activeTab === item.page_slug
+                          ? "bg-orange-50 text-[#F04E30] font-semibold"
+                          : ""
+                      }`}
+                    >
+                      {item.title}
+                    </button>
                   ))}
-
-                </ul>
+                </div>
               )}
-
-            </li>
-          ))}
-
-        </ul>
+            </div>
+          );
+        })}
       </div>
 
-      {/* Page Render Area */}
-      <div className="p-6">
-
-        <Routes>
-
-          {data.tabs.map((tab, index) => {
-
-            if (tab.type === "page") {
-              return (
-                <Route
-                  key={index}
-                  path={tab.page_slug}
-                  element={<MainMicropage slug={tab.page_slug} />}
-                />
-              );
-            }
-
-            if (tab.type === "dropdown") {
-              return tab.items.map((item, i) => (
-                <Route
-                  key={i}
-                  path={item.page_slug}
-                  element={<MainMicropage slug={item.page_slug} />}
-                />
-              ));
-            }
-
-            return null;
-
-          })}
-
-        </Routes>
-
+      {/* ===== CONTENT ===== */}
+      <div className="px-4">
+        {loading && <div>Loading tab content...</div>}
+        {!loading && pageData && <HelperTabwisePage data={pageData} />}
+        {!loading && !pageData && <div>No content available</div>}
       </div>
-
     </div>
   );
 };

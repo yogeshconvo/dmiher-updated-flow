@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "../styles/components/gallery.css";
+import RichTextRenderer from "./RichTextRenderer";
 
 export function GalleryWithPopup({ data }) {
   if (!data) return null;
@@ -28,7 +29,7 @@ export function GalleryWithPopup({ data }) {
     return () => window.removeEventListener("resize", updateChunkSize);
   }, []);
 
-  /* ============== SLIDES ============== */
+
   const slides = [];
   for (let i = 0; i < images.length; i += chunkSize) {
     slides.push({
@@ -47,21 +48,21 @@ export function GalleryWithPopup({ data }) {
   if (!images.length) return null;
 
   return (
-    <section className="gallery-section">
-      <div className="container">
+    <section className="container">
+    
 
-        {/* Heading */}
 
         <h2 className="heading">
           <hr className="heading-line" />
           {data.header?.heading || "Gallery"}
         </h2>
 
-        {/* Navigation */}
-        <div className="gallery-nav ">
-          <div> <p></p></div>
 
-          <div>  <button className="gallery-nav-btn">
+        <div className="gallery-nav">
+       <RichTextRenderer html={data.header?.intro_text} />
+
+          <div className="button-wrapper">
+             <button className="gallery-nav-btn">
             <ArrowLeft />
           </button>
 
@@ -124,7 +125,7 @@ export function GalleryWithPopup({ data }) {
             onClose={() => setPopupIndex(null)}
           />
         )}
-      </div>
+     
     </section>
   );
 }

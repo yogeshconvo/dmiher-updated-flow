@@ -17,7 +17,7 @@ const Navbar = () => {
 
   /* ================= FETCH MENU ================= */
   useEffect(() => {
-    fetch("https://demos.convomax.com/dmiher_backend/api/menus/Header")
+    fetch("http://127.0.0.1:8000/api/menus/Header")
       .then((res) => res.json())
       .then((res) => {
         const menu = res?.menu || [];
@@ -77,9 +77,9 @@ const Navbar = () => {
                     onMouseEnter={() => handleMouseEnter(item.id)}
                     onMouseLeave={handleMouseLeave}
                   >
-                    <span className="cursor-pointer">
+                    <Link to={item.slug || "#"} className="cursor-pointer">
                       {item.title}
-                    </span>
+                    </Link>
 
                     {activeMega === item.id && (
                       <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 bg-white border shadow-lg p-4 z-[9999] w-[300px] transition-all duration-200">
@@ -128,12 +128,12 @@ const Navbar = () => {
                   onMouseLeave={handleMouseLeave}
                 >
                   {isMega ? (
-                    <span className="nav-link nav-link-disabled">
+                    <Link to={item.slug || "#"} className="nav-link nav-link-disabled">
                       {item.title}
-                    </span>
+                    </Link>
                   ) : (
                     <NavLink
-                      to={item.slug}
+                      to={item.slug || "#"}
                       end
                       className={({ isActive }) =>
                         `nav-link ${isActive ? "nav-link-active" : ""}`
