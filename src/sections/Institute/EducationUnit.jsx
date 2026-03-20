@@ -1,25 +1,22 @@
 
 import React from "react";
 import { Link } from "react-router";
+import RichTextRenderer from "../../components/RichTextRenderer";
 // import "../../styles/education-unit.css";
 
 function EducationUnit({ data }) {
   if (!data) return null;
 
   const {
-    section_id,
-    heading,
+  header,
     paragraphs = [],
-    cta_label,
-    cta_url,
-    background_image,
+   cta
   } = data;
 
   return (
     <section
-      id={section_id}
       className="education-section"
-      style={{ "--edu-bg": `url(${background_image})` }}
+      style={{ "--edu-bg": `url(${header.background_image})` }}
     >
       <div className="education-overlay" />
 
@@ -27,20 +24,21 @@ function EducationUnit({ data }) {
         <div className="mb-8">
           <h2 className="education-heading">
             <hr className="education-heading-line" />
-            {heading}
+            {header.heading}
           </h2>
+          
 
-          {paragraphs.map((text, index) => (
-            <p key={index} className="education-paragraph">
-              {text}
+          {paragraphs.map((para, index) => (
+           <p key={index} className="education-paragraph">
+              <RichTextRenderer html={para.description} />
             </p>
           ))}
 
-          {cta_label && cta_url && (
-            <Link to={cta_url} className="cta">
-              {cta_label}
+          
+            <Link to={cta.cta_url} className="cta">
+              {cta.cta_label}
             </Link>
-          )}
+          
         </div>
       </div>
     </section>

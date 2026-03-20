@@ -1,7 +1,9 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "../styles/components/navbar.css";
 
-const MegaMenu = ({ sections, hoveredItem, setHoveredItem }) => {
+const MegaMenu = ({ sections }) => {
+  const [hoveredItem, setHoveredItem] = useState(null);
+
   return (
     <div className="mega-menu">
       <div className="mega-menu-left">
@@ -13,7 +15,7 @@ const MegaMenu = ({ sections, hoveredItem, setHoveredItem }) => {
               {section.items.map((item) => (
                 <li key={item.id}>
                   <Link
-                    to={item.slug}
+                    to={item.slug || "/"}
                     onMouseEnter={() => setHoveredItem(item)}
                     className="mega-link"
                   >
@@ -26,22 +28,19 @@ const MegaMenu = ({ sections, hoveredItem, setHoveredItem }) => {
         ))}
       </div>
 
-      {/* RIGHT PREVIEW */}
       <div className="mega-preview">
         {hoveredItem ? (
           <>
             <img
               src={hoveredItem.image}
               alt={hoveredItem.title}
-              className="mega-preview-img h-40 w-full object-contain"
+              className="mega-preview-img"
             />
-            <p className="mega-preview-title">{hoveredItem.title}</p>
-            <p className="mega-preview-desc">{hoveredItem.description}</p>
+            <p>{hoveredItem.title}</p>
+            <p>{hoveredItem.description}</p>
           </>
         ) : (
-          <p className="mega-preview-placeholder">
-            Hover on institute to preview
-          </p>
+          <p>Hover on institute to preview</p>
         )}
       </div>
     </div>

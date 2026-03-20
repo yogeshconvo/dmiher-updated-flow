@@ -1,4 +1,4 @@
-const BASE_URL = "https://demos.convomax.com/dmiher_backend/storage/";
+const BASE_URL = "http://127.0.0.1:8000/storage/";
 
 export const getImageSrc = (img) => {
   if (!img) return "";

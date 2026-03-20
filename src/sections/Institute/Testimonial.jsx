@@ -1,34 +1,47 @@
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-
 import "swiper/css";
 import "swiper/css/pagination";
-// import "../styles/InstituteSections/testimonial.css";
+import RichTextRenderer from "../../components/RichTextRenderer";
 
-const Testimonial  = ({ data }) => {
-  const { heading, tabs = [], testimonials = {} } = data || {};
-  const [activeTab, setActiveTab] = useState(tabs[0]);
+const Testimonial = ({ data }) => {
+  const { tabs = [], header = {} } = data || {};
+
+  const [activeTab, setActiveTab] = useState(tabs[0]?.tab_name);
+
+  // Find active tab object
+  const activeTabData = tabs.find(
+    (tab) => tab.tab_name === activeTab
+  );
+
+  const testimonials = activeTabData?.testimonials || [];
 
   return (
     <div className="testimonial-section">
       <div className="container">
-        <h2 className="heading">
-          <hr className="heading-line" />
-          {heading}
-        </h2>
+        
+        {/* HEADER */}
+        {header?.title && (
+          <h2 className="heading">
+            <hr className="heading-line" />
+            {header.title}
+          </h2>
+        )}
 
         {/* TABS */}
         <div className="testimonial-tabs">
-          {tabs.map((label, index) => (
+          {tabs.map((tab, index) => (
             <button
-              key={label}
+              key={tab.tab_name}
               className={`testimonial-tab ${
-                activeTab === label ? "testimonial-tab-active" : ""
+                activeTab === tab.tab_name
+                  ? "testimonial-tab-active"
+                  : ""
               } ${index < tabs.length - 1 ? "testimonial-tab-divider" : ""}`}
-              onClick={() => setActiveTab(label)}
+              onClick={() => setActiveTab(tab.tab_name)}
             >
-              {label}
+              {tab.tab_name}
             </button>
           ))}
         </div>
@@ -42,22 +55,21 @@ const Testimonial  = ({ data }) => {
             pagination={{ clickable: true }}
             modules={[Pagination]}
           >
-            {testimonials[activeTab]?.length ? (
-              testimonials[activeTab].map((t, idx) => (
+            {testimonials.length > 0 ? (
+              testimonials.map((t, idx) => (
                 <SwiperSlide key={idx}>
                   <div className="testimonial-slide">
+                    
+                    {/* IMAGE */}
                     <div className="testimonial-avatar">
-                      <img src={t.img} alt={t.name} />
+                      <img src={t.image} alt="testimonial" />
                     </div>
 
+                    {/* CONTENT */}
                     <div className="testimonial-content">
-                      <p className="testimonial-text">{t.text}</p>
-                      <p className="testimonial-name">{t.name}</p>
-                      <pre className="testimonial-year">{t.year}</pre>
-                      {t.extra && (
-                        <div className="testimonial-extra">{t.extra}</div>
-                      )}
+                      <RichTextRenderer html={t.paragraph} />
                     </div>
+
                   </div>
                 </SwiperSlide>
               ))
@@ -70,9 +82,10 @@ const Testimonial  = ({ data }) => {
             )}
           </Swiper>
         </div>
+
       </div>
     </div>
   );
 };
 
-export default Testimonial ;
+export default Testimonial;

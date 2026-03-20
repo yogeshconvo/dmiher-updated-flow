@@ -1,20 +1,27 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-const fetchMicropage = async (pageSlug, microSlug) => {
+const fetchMicropage = async (slug) => {
+    console.log("MICRO SLUG:", slug);
+
     const res = await fetch(
-        `https://demos.convomax.com/dmiher_backend/${pageSlug}/micro-pages/${microSlug}`
+        `http://127.0.0.1:8000/api/independent-pages/${slug}`
     );
 
+    if (!res.ok) {
+        throw new Error("Micropage not found");
+    }
 
-    if (!res.ok) throw new Error("Micropage not found");
-    return res.json();
+    const data = await res.json();
+    console.log("MICRO DATA:", data);
+
+    return data;
 };
 
-export const useMicropage = (pageSlug, microSlug) =>
+export const useMicropage = (slug) =>
     useQuery({
-        queryKey: ["micropage", pageSlug, microSlug],
-        queryFn: () => fetchMicropage(pageSlug, microSlug),
-        enabled: !!pageSlug && !!microSlug,
-        staleTime: 5 * 60 * 1000,
+        queryKey: ["micropage", slug],
+        queryFn: () => fetchMicropage(slug),
+        enabled: !!slug,
     });
+

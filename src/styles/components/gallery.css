@@ -13,27 +13,24 @@
     }
 }
 
-.gallery-heading-line {
-    @apply h-1 w-20 bg-red-500 mt-1;
-}
 
-/* ================= DESCRIPTION ================= */
-.gallery-description {
-    @apply text-[#707070] max-w-4xl text-sm;
-}
 
 /* ================= NAV ================= */
 .gallery-nav {
     @apply flex justify-between gap-2;
 }
 
+.button-wrapper {
+    @apply flex gap-2 items-center;
+}
+
 .gallery-nav-btn {
-    @apply border p-2 mr-1 mb-1 rounded-full hover:bg-gray-100 transition;
+    @apply border p-2 mr-1 w-10 h-10 rounded-full hover:bg-gray-100 transition;
 }
 
 /* ================= GRID ================= */
 .gallery-grid {
-    @apply grid grid-cols-1 gap-6;
+    @apply grid grid-cols-1 gap-6 mt-5;
 }
 
 @media (min-width: 640px) {

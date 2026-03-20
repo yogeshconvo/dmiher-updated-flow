@@ -5,6 +5,7 @@ import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/autoplay";
 import "swiper/css/navigation";
+import RichTextRenderer from "../../components/RichTextRenderer";
 
 // import ViewMoreButton from "../../components/UI/ViewMore";
 // import "../../styles/hospital-highlight.css";
@@ -13,13 +14,10 @@ const HospitalHighlight = ({ data }) => {
   if (!data) return null;
 
   const {
-    heading,
-    subtitle,
-    description,
-    stats = [],
+    header,
+    content,
     images = [],
-    cta_url,
-    cta_label,
+    cta
   } = data;
 
   return (
@@ -29,27 +27,27 @@ const HospitalHighlight = ({ data }) => {
         <div className="hospital-content">
            <h2 className="heading">
               <hr className="heading-line" />
-            {heading}
+            {header.heading}
           </h2>
 
-          {subtitle && (
-            <h4 className="hospital-subtitle">{subtitle}</h4>
+          {header.subtitle && (
+            <h4 className="hospital-subtitle">{header.subtitle}</h4>
           )}
 
-          <p className="hospital-description">{description}</p>
+          <RichTextRenderer html={content.description} />
 
-          <ul className="hospital-list">
-            {stats.map((item, idx) => (
+          {/* <ul className="hospital-list">
+            {content.stats.map((item, idx) => (
               <li key={idx} className="hospital-list-item">
                 {item}
               </li>
             ))}
-          </ul>
+          </ul> */}
 
-          {cta_url && (
+          {cta.cta_url && (
             <div className="cta">
               {/* <ViewMoreButton href={cta_url} label={cta_label} /> */}
-              <p>{cta_label}</p>
+              <p>{cta.cta_label}</p>
             </div>
           )}
         </div>
@@ -67,7 +65,7 @@ const HospitalHighlight = ({ data }) => {
             {images.map((img, index) => (
               <SwiperSlide key={index}>
                 <img
-                  src={img}
+                  src={img.image}
                   alt={`Hospital ${index + 1}`}
                   className="hospital-slide-image"
                 />
