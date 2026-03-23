@@ -45,6 +45,11 @@ import TabMenu from "../Micropages/Tabwise-micropage"
 import FeatureCards from "./Admissions/FeatureCards"
 import AdmissionFAQs from "./Admissions/Faqs"
 import InternationalCollaborations from "./Admissions/InternationalCollaboration"
+import ActivitiesAndAnnouncements from "./Alumni/ActivitiesAndAnnouncements"
+import EminentAlumni from "./Alumni/EminentAlumni"
+import ExamCellOfficials from "./ControllerOfExamination/ExamCellOfficials"
+import AcademicFC from "./CampusFacilities/AcademicFC"
+import WellbeingComfortFC from "./CampusFacilities/WellbeingComfortFC"
 
 export const SECTION_COMPONENTS = {
 
@@ -129,5 +134,16 @@ export const SECTION_COMPONENTS = {
     tab_menu: TabMenu,
     feature_cards: FeatureCards,
 
+
+    // Alumni
+    activities_announcements: ActivitiesAndAnnouncements,
+    eminent_alumni: EminentAlumni,
+
+    // Exam Cell
+    exam_cell_officials: ExamCellOfficials,
+
+    // Campus Facilities
+    academic_innovation_facilities: AcademicFC,
+    wellbeing_section: WellbeingComfortFC,
 
 };

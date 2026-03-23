@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import RichTextRenderer from "../../components/RichTextRenderer";
@@ -8,8 +7,11 @@ function Hero({ data, slug }) {
 
   const topbar = data.topbar || {};
   const slides = Array.isArray(data.slides) ? data.slides : [];
-  const primarySectionId = topbar.primary_cta_section_id;
 
+  // ✅ Dynamic buttons
+  const ctaButtons = Array.isArray(data.address) ? data.address : [];
+
+  const primarySectionId = topbar.primary_cta_section_id;
   const strapPosition = topbar.position || "top";
   const isTopbarEnabled = topbar?.enabled;
 
@@ -34,7 +36,7 @@ function Hero({ data, slug }) {
     window.scrollTo({ top: y, behavior: "smooth" });
   };
 
-  /* ================= TOPBAR COMPONENT ================= */
+  /* ================= TOPBAR ================= */
 
   const TopBarComponent =
     isTopbarEnabled && topbar ? (
@@ -43,8 +45,54 @@ function Hero({ data, slug }) {
           {topbar.admissions_text}
         </span>
 
-        {/* Desktop */}
+        {/* ================= DESKTOP ================= */}
         <div className="hero-desktop-actions">
+          {ctaButtons.length > 0
+            ? ctaButtons.map((btn, index) => {
+                const isPhone = btn.apply_now_url?.startsWith("+");
+
+                const commonProps = {
+                  key: index,
+                  className: "hero-apply-btn",
+                  style: {
+                    backgroundColor: btn.bg_color,
+                    color: btn.text_color,
+                    transition: "background-color 0.3s ease",
+                  },
+                  onMouseEnter: (e) =>
+                    (e.currentTarget.style.backgroundColor =
+                      btn.hover_bg_color || btn.bg_color),
+                  onMouseLeave: (e) =>
+                    (e.currentTarget.style.backgroundColor = btn.bg_color),
+                };
+
+                return isPhone ? (
+                  <a {...commonProps} href={`tel:${btn.apply_now_url}`}>
+                    {btn.primary_cta_text}
+                  </a>
+                ) : (
+                  <a
+                    {...commonProps}
+                    href={btn.apply_now_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {btn.primary_cta_text}
+                  </a>
+                );
+              })
+            : topbar.apply_now_url && (
+                <a
+                  href={topbar.apply_now_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hero-apply-btn"
+                >
+                  APPLY NOW
+                </a>
+              )}
+
+          {/* Optional Scroll Button */}
           {topbar.primary_cta_text && (
             <button
               onClick={handleScrollToSection}
@@ -53,28 +101,9 @@ function Hero({ data, slug }) {
               {topbar.primary_cta_text}
             </button>
           )}
-
-          {topbar.apply_now_url && (
-            <a
-              href={topbar.apply_now_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hero-apply-btn"
-            >
-              APPLY NOW
-            </a>
-          )}
-
-          {topbar.phone_number && (
-            <a href={`tel:${topbar.phone_number}`}>
-              <button className="hero-phone-btn">
-                {topbar.phone_label || topbar.phone_number}
-              </button>
-            </a>
-          )}
         </div>
 
-        {/* Mobile */}
+        {/* ================= MOBILE ================= */}
         <div className="hero-mobile">
           {topbar.primary_cta_text && (
             <Link
@@ -86,24 +115,34 @@ function Hero({ data, slug }) {
           )}
 
           <div className="hero-mobile-actions">
-            {topbar.apply_now_url && (
-              <a
-                href={topbar.apply_now_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hero-mobile-apply"
-              >
-                APPLY NOW
-              </a>
-            )}
+            {ctaButtons.length > 0
+              ? ctaButtons.map((btn, index) => {
+                  const isPhone = btn.apply_now_url?.startsWith("+");
 
-            {topbar.phone_number && (
-              <a href={`tel:${topbar.phone_number}`}>
-                <button className="hero-mobile-phone">
-                  {topbar.phone_label || topbar.phone_number}
-                </button>
-              </a>
-            )}
+                  return isPhone ? (
+                    <a key={index} href={`tel:${btn.apply_now_url}`}>
+                      {btn.primary_cta_text}
+                    </a>
+                  ) : (
+                    <a
+                      key={index}
+                      href={btn.apply_now_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {btn.primary_cta_text}
+                    </a>
+                  );
+                })
+              : topbar.apply_now_url && (
+                  <a
+                    href={topbar.apply_now_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    APPLY NOW
+                  </a>
+                )}
           </div>
         </div>
       </div>
@@ -111,15 +150,15 @@ function Hero({ data, slug }) {
 
   return (
     <>
-      {/* ================= TOP POSITION ================= */}
+      {/* ================= TOP ================= */}
       {strapPosition === "top" && TopBarComponent}
 
       {/* ================= SLIDER ================= */}
       <div
         className={`hero-swiper-wrapper ${
           isTopbarEnabled && strapPosition === "top"
-          ? "h-[80dvh] md:h-[calc(86dvh-10px)]" 
-          : isTopbarEnabled && strapPosition === "bottom"
+            ? "h-[80dvh] md:h-[calc(86dvh-10px)]"
+            : isTopbarEnabled && strapPosition === "bottom"
             ? "h-[90dvh] md:h-[calc(84dvh-6px)]"
             : "h-[90dvh] md:h-[calc(96dvh-10px)]"
         } overflow-hidden relative`}
@@ -135,7 +174,6 @@ function Hero({ data, slug }) {
                 transform: `translateX(${(idx - activeIndex) * 100}%)`,
               }}
             >
-              {/* Background */}
               {imageSrc ? (
                 <img
                   src={imageSrc}
@@ -146,10 +184,8 @@ function Hero({ data, slug }) {
                 <div className="hero-bg-fallback" />
               )}
 
-              {/* Overlay */}
               <div className="hero-overlay" />
 
-              {/* Content */}
               <div
                 className={`hero-content ${
                   slide.textPosition === "right"
@@ -161,16 +197,7 @@ function Hero({ data, slug }) {
                     : "hero-content-left"
                 }`}
               >
-                {/* {slide.title && (
-                  <h1 className="hero-title">{slide.title}</h1>
-                )}
-
-                {slide.highlight && (
-                  <h2 className="hero-highlight">
-                    {slide.highlight}
-                  </h2>
-                )} */}
-                <RichTextRenderer html={slide.desc}/>
+                <RichTextRenderer html={slide.desc} />
 
                 {slide.paragraph && (
                   <p className="hero-paragraph">
@@ -200,7 +227,7 @@ function Hero({ data, slug }) {
         )}
       </div>
 
-      {/* ================= BOTTOM POSITION ================= */}
+      {/* ================= BOTTOM ================= */}
       {strapPosition === "bottom" && TopBarComponent}
     </>
   );

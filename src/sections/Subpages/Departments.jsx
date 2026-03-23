@@ -1,55 +1,49 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import DropdownButton from "../../components/UI/DropDownButton";
+import useDepartments from "../../hooks/useDepartments";
 
-// import "../../styles/main.css";
-// import "../../styles/responsive.css";
-
-function Departments({ data }) {
+function Departments() {
   const { deptKey } = useParams();
   const navigate = useNavigate();
 
-  const { title, subtitle, departments = [] } = data || {};
+  const { data, departments, loading, error } = useDepartments();
 
-  const [selectedDepartment, setSelectedDepartment] = useState(
-   ""
+  const { title, subtitle } = data || {};
+
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+
+  // Dropdown options
+  const options = departments.map((dept) => ({
+    key: dept.key,
+    name: dept.name,
+  }));
+
+  // Handle default selection
+  useEffect(() => {
+    if (deptKey) {
+      setSelectedDepartment(deptKey);
+    } else if (departments.length > 0) {
+      setSelectedDepartment(departments[0].key);
+    }
+  }, [deptKey, departments]);
+
+  // Dropdown change
+  const handleDepartmentChange = (key) => {
+    setSelectedDepartment(key);
+    // navigate(`/jnmc/departments/${key}`); // optional
+  };
+
+  // Current department
+  const currentDept = departments.find(
+    (dept) => dept.key === selectedDepartment
   );
 
-  // useEffect(() => {
-  //   if (deptKey) {
-  //     setSelectedDepartment(deptKey);
-  //   }
-  // }, [deptKey]);
-
-  // const currentDept = departments.find(
-  //   (dept) => dept.key === selectedDepartment
-  // );
-const options = departments.map((dept) => ({
-  key: dept.key,
-  name: dept.name,
-}));
-
-useEffect(() => {
-  if (deptKey) {
-    setSelectedDepartment(deptKey);
-  } else if (departments.length > 0) {
-    setSelectedDepartment(departments[0].key);
-  }
-}, [deptKey, departments]);
-
-const handleDepartmentChange = (key) => {
-  setSelectedDepartment("");
-  // navigate(`/jnmc/departments/${key}`);
-};
-
-const currentDept = departments.find(
-  (dept) => dept.key === selectedDepartment
-);
+  // Loading & error states
+  if (loading) return <div className="p-10 text-center">Loading...</div>;
+  if (error) return <div className="p-10 text-center">Error loading data</div>;
   if (!currentDept) return null;
-  console.log(currentDept);
-  console.log(selectedDepartment);
-  console.log(deptKey);
-  
+
   return (
     <div className="page-wrapper">
       {/* ================= HEADER ================= */}
@@ -58,21 +52,27 @@ const currentDept = departments.find(
         <p className="jnmc-header-subtitle">{subtitle}</p>
       </header>
 
-   <DropdownButton
+      {/* ================= DROPDOWN ================= */}
+      <DropdownButton
         options={options}
         selectedKey={selectedDepartment}
-        // onChange={handleDepartmentChange}
+        onChange={handleDepartmentChange}
         placeholder="Select Department"
         className="mb-8"
-        />
+      />
+
       <div className="container">
- 
+        {/* ================= DEPARTMENT HEADER ================= */}
         <div className="department-header">
-          <h2 className="department-header-title">{currentDept.name}</h2>
-          <p className="department-header-info">{currentDept.info}</p>
+          <h2 className="department-header-title">
+            {currentDept.name}
+          </h2>
+          <p className="department-header-info">
+            {currentDept.info}
+          </p>
         </div>
-        <h2>Test Comment</h2>
-     
+
+        {/* ================= HOD ================= */}
         {currentDept.hod?.length > 0 && (
           <div className="section-card mt-8">
             <h3 className="section-title">Head of Department</h3>
@@ -88,7 +88,9 @@ const currentDept = departments.find(
 
                   <div>
                     <h4 className="hod-name">{hod.name}</h4>
-                    <p className="hod-designation">{hod.designation}</p>
+                    <p className="hod-designation">
+                      {hod.designation}
+                    </p>
 
                     {hod.qualification && (
                       <p className="hod-qualification">
@@ -102,6 +104,7 @@ const currentDept = departments.find(
           </div>
         )}
 
+        {/* ================= STAFF ================= */}
         {currentDept.staff?.length > 0 && (
           <div className="section-card mt-8">
             <h3 className="section-title">Department Staff</h3>
@@ -132,6 +135,7 @@ const currentDept = departments.find(
           </div>
         )}
 
+        {/* ================= USP ================= */}
         {currentDept.usp?.length > 0 && (
           <div className="section-card mt-8">
             <h3 className="section-title">
@@ -141,7 +145,9 @@ const currentDept = departments.find(
             <div className="usp-grid">
               {currentDept.usp.map((point, index) => (
                 <div key={index} className="usp-item">
-                  <span className="usp-index">{index + 1}</span>
+                  <span className="usp-index">
+                    {index + 1}
+                  </span>
                   <p className="usp-text">{point}</p>
                 </div>
               ))}

@@ -44,7 +44,7 @@
 
 /* ================= Hero ================= */
 .hero-topbar {
-    @apply relative w-full bg-[#E1CD67] text-gray-600 text-[11px] sm:text-sm px-3 py-1 flex flex-col sm:flex-row sm:justify-between sm:items-center z-50 gap-y-2;
+    @apply w-full bg-[#E1CD67] text-gray-600 text-[11px] sm:text-sm px-3 py-1 flex flex-col sm:flex-row sm:justify-between sm:items-center z-50 gap-y-2;
 }
 
 .hero-admission-text {
@@ -125,7 +125,7 @@
 }
 
 .hero-swiper-wrapper {
-    @apply relative w-full overflow-hidden;
+    @apply w-full overflow-hidden;
 }
 
 .hero-slide {
@@ -141,7 +141,7 @@
 }
 
 .hero-bg-img {
-    @apply absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat;
+    @apply inset-0 w-full h-full bg-cover bg-center bg-no-repeat;
 }
 
 .hero-bg-fallback {
