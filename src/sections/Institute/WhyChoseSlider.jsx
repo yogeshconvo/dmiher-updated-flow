@@ -23,6 +23,14 @@ const WhyChoose = ({ data }) => {
           </h2>
         )}
 
+        {data?.header?.desc && (
+          <p className="text-base mt-2 max-w-3xl opacity-90">
+            <RichTextRenderer
+                      html={data.header.desc}
+                    />
+          </p>
+        )}
+
         <div className="feature-slider-wrapper">
           <Swiper
             modules={[Pagination, Autoplay]}

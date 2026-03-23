@@ -90,7 +90,7 @@
 }
 
 .home-steps-heading {
-    @apply flex justify-center max-w-2xl mx-auto; 
+    @apply flex justify-center max-w-2xl mx-auto;
 }
 
 .home-steps-heading-text {
@@ -938,13 +938,7 @@
     @apply p-4 h-full flex flex-col items-center border border-b-0 border-[#58595B];
 }
 
-/* .excellence-grid {
-    @apply grid grid-cols-1 md:grid-cols-3 w-full mx-auto border border-[#58595B];
-}
 
-.excellence-card {
-    @apply p-4 h-full flex flex-col items-center border-r border-[#58595B];
-} */
 
 /* Last column ka right border remove */
 .excellence-card:nth-child(1n) {
@@ -1510,4 +1504,149 @@
 
 .iqac-icon {
     @apply w-5 h-5 text-[#0B2A6D];
+}
+
+
+
+/* ================= ACTIVITIES AND ANNOUNCEMENTS ================= */
+.section-bg {
+    @apply bg-[#fee8d2] py-8 sm:py-10;
+}
+
+.container-custom {
+    @apply container mx-auto px-4;
+}
+
+.section-title {
+    @apply text-2xl sm:text-3xl md:text-4xl font-[500] text-[#707070] tracking-wider;
+}
+
+.card {
+    @apply bg-white shadow-lg p-4 sm:p-6 rounded-lg h-full flex flex-col;
+}
+
+.card-title {
+    @apply text-lg sm:text-xl font-bold text-[#001c54];
+}
+
+.view-all-btn {
+    @apply text-[#f2542d] text-xs sm:text-sm font-semibold hover:underline;
+}
+
+.news-item {
+    @apply mb-4 border-b pb-2 last:border-b-0;
+}
+
+.news-title {
+    @apply text-sm text-gray-700;
+}
+
+.news-date {
+    @apply text-xs text-gray-500 mt-1;
+}
+
+.event-img {
+    @apply w-full max-h-48 sm:max-h-64 md:max-h-80 rounded-lg mb-3 object-cover;
+}
+
+.event-desc {
+    @apply text-xs sm:text-sm md:text-base text-gray-700 pb-4;
+}
+
+.modal-overlay {
+    @apply fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 px-4;
+}
+
+.modal-box {
+    @apply bg-white rounded-lg p-4 sm:p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto;
+}
+
+
+
+/* ================= EMINENT ALUMNI ================= */
+.alumni-section {
+    @apply container my-10;
+}
+
+.alumni-header {
+    @apply mb-10 flex justify-between items-center;
+}
+
+.alumni-title {
+    @apply text-3xl sm:text-4xl font-[500] text-[#545454] uppercase;
+}
+
+.alumni-btn {
+    @apply px-4 py-1 border border-[#F04E30] text-[#F04E30] rounded-full hover:bg-[#F04E30] hover:text-white transition;
+}
+
+.alumni-grid {
+    @apply grid gap-6 sm:grid-cols-2 lg:grid-cols-3;
+}
+
+.alumni-card {
+    @apply relative bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer transition-all duration-700;
+}
+
+.alumni-collapsed {
+    @apply flex items-center gap-4 p-5;
+}
+
+.alumni-img {
+    @apply w-20 h-20 rounded-full object-cover;
+}
+
+.alumni-name {
+    @apply text-lg font-semibold text-[#2C3E50];
+}
+
+.alumni-meta {
+    @apply text-xs text-gray-500;
+}
+
+.alumni-expanded {
+    @apply absolute inset-0 p-6 overflow-y-auto;
+}
+
+.alumni-expanded-img {
+    @apply w-28 h-28 rounded-full mx-auto mb-3 object-cover;
+}
+
+.alumni-details {
+    @apply text-sm text-gray-700 whitespace-pre-line;
+}
+
+
+
+/* ================= EXAM CELL OFFICIALS ================= */
+.exam-section {
+    @apply py-12;
+}
+
+.exam-title {
+    @apply text-2xl sm:text-3xl md:text-4xl text-[#707070] mb-2 uppercase pb-10 font-[500];
+}
+
+.exam-grid {
+    @apply grid grid-cols-1 md:grid-cols-4 gap-y-10 gap-x-8;
+}
+
+.exam-card {
+    @apply h-full pr-4 flex flex-col justify-between;
+}
+
+.exam-name {
+    @apply font-semibold text-[#58595B] text-[16px];
+}
+
+.exam-designation {
+    @apply text-sm text-[#58595B] mt-1;
+}
+
+.exam-email {
+    @apply text-sm text-blue-600 mt-1 block;
+}
+
+.exam-btn {
+    @apply bg-[#002D62] hover:bg-[#f2542d] hover:scale-105 text-white px-16 py-3 rounded-md transition;
 }

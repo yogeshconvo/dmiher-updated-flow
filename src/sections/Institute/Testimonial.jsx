@@ -61,9 +61,9 @@ const Testimonial = ({ data }) => {
                   <div className="testimonial-slide">
                     
                     {/* IMAGE */}
-                    <div className="testimonial-avatar">
+                  {t.image &&  <div className="testimonial-avatar">
                       <img src={t.image} alt="testimonial" />
-                    </div>
+                    </div>}
 
                     {/* CONTENT */}
                     <div className="testimonial-content">

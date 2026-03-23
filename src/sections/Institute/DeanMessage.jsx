@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import { ROUTES } from "../../utils/routes";
@@ -8,17 +8,19 @@ const DeansMessage = ({ data, pageSlug }) => {
   if (!data) return null;
 
   const main = data.main || {};
-  const paragraphs = Array.isArray(data.paragraphs)
-    ? data.paragraphs
-    : [];
+  const paragraphs = data.paragraphs || [];
+  const moreParagraphs = data.view_more_paragraphs || [];
 
   const cta = data.cta || {};
   const ctaItem = cta?.["0"];
 
+  const [expanded, setExpanded] = useState(false);
+
+  // ✅ CTA LINK LOGIC
   const ctaLink =
     ctaItem?.has_micro_page && ctaItem?.micro_slug
       ? ROUTES.microPage(pageSlug, ctaItem.micro_slug)
-      : "";
+      : null;
 
   return (
     <div className="deans-section">
@@ -34,7 +36,7 @@ const DeansMessage = ({ data, pageSlug }) => {
 
         <div className="deans-layout">
 
-          {/* ================= IMAGE + INFO ================= */}
+          {/* ================= IMAGE ================= */}
           <div className="deans-image-wrapper">
             {main.img && (
               <img
@@ -44,7 +46,6 @@ const DeansMessage = ({ data, pageSlug }) => {
               />
             )}
 
-            {/* Dean Info (name + designation) */}
             {main.desc && (
               <div className="deans-info">
                 <RichTextRenderer html={main.desc} />
@@ -55,23 +56,37 @@ const DeansMessage = ({ data, pageSlug }) => {
           {/* ================= MESSAGE ================= */}
           <div className="deans-message">
 
-            {/* Paragraph Content */}
+            {/* DEFAULT PARAGRAPHS */}
             {paragraphs.map((item, i) => (
               <div key={i} className="deans-paragraph">
                 <RichTextRenderer html={item.desc} />
               </div>
             ))}
 
+            {/* ================= EXPAND CONTENT ================= */}
+            {expanded &&
+              moreParagraphs.map((item, i) => (
+                <div key={i} className="deans-paragraph">
+                  <RichTextRenderer html={item.desc} />
+                </div>
+              ))}
+
             {/* ================= CTA ================= */}
-            {cta?.cta_label && (
-              <ViewMoreButton
-                href={ctaLink}
-                label={cta.cta_label}
-              />
+
+            {/* ✅ CASE 1: Redirect */}
+            {ctaLink ? (
+              <ViewMoreButton href={ctaLink} label={cta.cta_label || "View More"} />
+            ) : (
+              // ✅ CASE 2: Expand/Collapse
+              moreParagraphs.length > 0 && (
+                <ViewMoreButton
+                  onClick={() => setExpanded(!expanded)}
+                  label={expanded ? "Read Less" : "Read More"}
+                />
+              )
             )}
 
           </div>
-
         </div>
       </div>
     </div>
