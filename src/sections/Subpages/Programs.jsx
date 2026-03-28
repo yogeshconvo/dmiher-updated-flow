@@ -22,19 +22,23 @@ const SubPrograms = ({ apiBaseUrl }) => {
 
     const IconComponent = LucideIcons[formattedName];
 
-    return IconComponent ? <IconComponent className="sm:w-5 sm:h-5 lg:w-6 lg:h-6 flex-shrink-0 transition-colors duration-300" size={size} /> : null;
+    return IconComponent ? (
+      <IconComponent
+        className="sm:w-5 sm:h-5 lg:w-6 lg:h-6 flex-shrink-0 transition-colors duration-300"
+        size={size}
+      />
+    ) : null;
   };
 
   /* ---------------- Fetch Data ---------------- */
   useEffect(() => {
     if (!slug) return;
 
-
-    fetch(`http://127.0.0.1:8000/api/programs/${slug}`)
+    fetch(`https://demos.convomax.com/dmiher_backend/api/programs/${slug}`)
       .then((res) => res.json())
       .then((res) => {
         const programsSection = res?.sections?.find(
-          (sec) => sec.section_key === "programs_subpage"
+          (sec) => sec.section_key === "programs_subpage",
         );
 
         const sectionData = programsSection?.section_content;
@@ -63,13 +67,12 @@ const SubPrograms = ({ apiBaseUrl }) => {
   const filteredPrograms = programs.filter(
     (p) =>
       p.tab_id === activeTab &&
-      p.title?.toLowerCase().includes(searchQuery.toLowerCase())
+      p.title?.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   return (
     <section className="streams-wrapper">
       <div className="container py-8">
-
         {/* ---------------- Search ---------------- */}
         <div className="mb-6 max-w-2xl mx-auto">
           <div className="relative">
@@ -100,7 +103,6 @@ const SubPrograms = ({ apiBaseUrl }) => {
         {/* ---------------- Tabs ---------------- */}
         <div className="mb-6 mx-auto">
           <div className="relative bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 p-1 sm:p-2">
-
             <div className="hidden sm:block">
               <div
                 className="grid gap-2 relative"
@@ -130,7 +132,7 @@ const SubPrograms = ({ apiBaseUrl }) => {
                           : "text-gray-600 hover:text-white hover:bg-[#F04E30]"
                       }`}
                     >
-        {renderIcon(tab.icon, 18)}
+                      {renderIcon(tab.icon, 18)}
 
                       <span className="text-xs sm:text-sm lg:text-base text-center leading-tight font-medium transition-colors duration-300">
                         {tab.tab_label}
@@ -151,7 +153,6 @@ const SubPrograms = ({ apiBaseUrl }) => {
               className="group bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex flex-col h-full">
-
                 <div className="mb-3">
                   <div className="flex justify-between mb-2">
                     <h3 className="text-lg font-semibold text-gray-800">
@@ -186,7 +187,6 @@ const SubPrograms = ({ apiBaseUrl }) => {
                 <button className="w-full bg-[#F04E30] text-white py-2.5 rounded-lg hover:bg-[#122E5E] transition-all duration-300">
                   {settings.apply_label || "Apply Now"}
                 </button>
-
               </div>
             </div>
           ))}

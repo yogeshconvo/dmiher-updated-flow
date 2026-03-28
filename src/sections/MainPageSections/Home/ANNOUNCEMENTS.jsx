@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
@@ -9,12 +7,12 @@ function HomeANNOUNCEMENTS() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/home-notices")
+    fetch("https://demos.convomax.com/dmiher_backend/api/announcements")
       .then((res) => res.json())
       .then((res) => {
-        const section = res.find(
-          (item) => item.section_id === "home_ANNOUNCEMENTS_section"
-        );
+        const section = Array.isArray(res)
+          ? res.find((item) => item.section_id === "home_ANNOUNCEMENTS_section")
+          : res;
 
         if (section) {
           setData(section.data);
@@ -36,13 +34,16 @@ function HomeANNOUNCEMENTS() {
   const currentItems = announcements[activeCategory] || [];
   const visibleItems = currentItems.slice(
     currentIndex,
-    currentIndex + items_per_page
+    currentIndex + items_per_page,
   );
 
   return (
     <div className="announcements-section">
       <div className="container">
-        <h2 className="heading"> <hr className="heading-line" /> {title}</h2>
+        <h2 className="heading">
+          {" "}
+          <hr className="heading-line" /> {title}
+        </h2>
 
         {/* Categories */}
         <div className="announcement-categories">
@@ -78,21 +79,15 @@ function HomeANNOUNCEMENTS() {
             <button
               disabled={currentIndex === 0}
               onClick={() =>
-                setCurrentIndex((p) =>
-                  Math.max(p - items_per_page, 0)
-                )
+                setCurrentIndex((p) => Math.max(p - items_per_page, 0))
               }
             >
               <ArrowLeft size={20} />
             </button>
 
             <button
-              disabled={
-                currentIndex + items_per_page >= currentItems.length
-              }
-              onClick={() =>
-                setCurrentIndex((p) => p + items_per_page)
-              }
+              disabled={currentIndex + items_per_page >= currentItems.length}
+              onClick={() => setCurrentIndex((p) => p + items_per_page)}
             >
               <ArrowRight size={20} />
             </button>

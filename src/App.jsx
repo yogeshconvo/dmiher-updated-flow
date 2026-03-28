@@ -67,6 +67,7 @@ import PageView from "./PageView";
 import SubPrograms from "./sections/Subpages/Programs";
 import TabwiseMicropage from "./sections/Micropages/Tabwise-micropage";
 import TabMenu from "./sections/Micropages/Tabwise-micropage";
+import Loader from "./components/Loader";
 
 function App() {
   return (
@@ -102,7 +103,7 @@ function App() {
         />
 
 
-        {/* <Route path="/equal-opportunity-cell" element={<TabMenu />} /> */}
+        <Route path="/loading" element={<Loader />} />
 
 {/* <Route path="/equal-opportunity-cell/:pageSlug" element={<PageView />} /> */}
       </Routes>
