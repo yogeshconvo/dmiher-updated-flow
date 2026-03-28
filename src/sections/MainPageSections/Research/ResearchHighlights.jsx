@@ -39,7 +39,7 @@ const ResearchHighlights = ({ data }) => {
   //               },
   //               "desktop_columns": [
   //                   {
-  //                       "icon": "http://127.0.0.1:8000/storage/research_highlights/desktop_columns/2026/02/researchicon1.png",
+  //                       "icon": "https://demos.convomax.com/dmiher_backend/storage/research_highlights/desktop_columns/2026/02/researchicon1.png",
   //                       "items": [
   //                           {
   //                               "label": "17,500+",
@@ -56,7 +56,7 @@ const ResearchHighlights = ({ data }) => {
   //                       ]
   //                   },
   //                   {
-  //                       "icon": "http://127.0.0.1:8000/storage/research_highlights/desktop_columns/2026/02/researchicon2.png",
+  //                       "icon": "https://demos.convomax.com/dmiher_backend/storage/research_highlights/desktop_columns/2026/02/researchicon2.png",
   //                       "items": [
   //                           {
   //                               "label": "130+ ",
@@ -73,7 +73,7 @@ const ResearchHighlights = ({ data }) => {
   //                       ]
   //                   },
   //                   {
-  //                       "icon": "http://127.0.0.1:8000/storage/research_highlights/desktop_columns/2026/02/researchicon3.png",
+  //                       "icon": "https://demos.convomax.com/dmiher_backend/storage/research_highlights/desktop_columns/2026/02/researchicon3.png",
   //                       "items": [
   //                           {
   //                               "label": "12,500+",
@@ -155,9 +155,7 @@ const ResearchHighlights = ({ data }) => {
                   {col.items.map((item, i) => (
                     <div key={i}>
                       <p>
-                        <span className="research-highlight">
-                          {item.label}
-                        </span>{" "}
+                        <span className="research-highlight">{item.label}</span>{" "}
                         {item.text}
                       </p>
                       {i < col.items.length - 1 && <hr />}
@@ -180,4 +178,3 @@ const ResearchHighlights = ({ data }) => {
 };
 
 export default ResearchHighlights;
- 

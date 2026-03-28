@@ -11,13 +11,15 @@ const TabMenu = ({ data }) => {
   /* ===== FETCH PAGE (pages API → fallback to independent-pages) ===== */
   const fetchPage = async (slug) => {
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/pages/${slug}`);
+      const res = await fetch(
+        `https://demos.convomax.com/dmiher_backend/api/pages/${slug}`,
+      );
       if (!res.ok) throw new Error("Not in pages API");
       return res.json();
     } catch {
       try {
         const res = await fetch(
-          `http://127.0.0.1:8000/api/independent-pages/${slug}`
+          `https://demos.convomax.com/dmiher_backend/api/independent-pages/${slug}`,
         );
         if (!res.ok) throw new Error("Not in independent-pages API");
         return res.json();
@@ -30,8 +32,8 @@ const TabMenu = ({ data }) => {
 
   /* ===== HELPER: extract content_flow from page json ===== */
   const getContentFlow = (json) =>
-    json?.sections?.find((s) => s.section_id === "micro_page")
-      ?.data?.sections?.[0]?.content_flow || [];
+    json?.sections?.find((s) => s.section_id === "micro_page")?.data
+      ?.sections?.[0]?.content_flow || [];
 
   /* ===== ACTIVATE SLUG — auto-skips if content_flow is empty ===== */
   const activateSlug = async (slug, allSlugs = []) => {
@@ -90,7 +92,10 @@ const TabMenu = ({ data }) => {
     }
 
     if (tab.type === "pdf" && tab.pdf) {
-      window.open(`http://127.0.0.1:8000/${tab.pdf}`, "_blank");
+      window.open(
+        `https://demos.convomax.com/dmiher_backend/${tab.pdf}`,
+        "_blank",
+      );
     }
 
     if (tab.type === "dropdown") {
@@ -103,7 +108,10 @@ const TabMenu = ({ data }) => {
     setOpenDropdown(null);
 
     if (item.type === "pdf" && item.pdf) {
-      window.open(`http://127.0.0.1:8000/${item.pdf}`, "_blank");
+      window.open(
+        `https://demos.convomax.com/dmiher_backend/${item.pdf}`,
+        "_blank",
+      );
       return;
     }
 

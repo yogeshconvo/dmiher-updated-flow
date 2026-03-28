@@ -4,7 +4,7 @@ const fetchSubpage = async ({ queryKey }) => {
     const [, slug] = queryKey;
 
     const res = await fetch(
-        `http://127.0.0.1:8000/api/pages/${slug}`
+        `https://demos.convomax.com/dmiher_backend/api/pages/${slug}`
     );
 
     if (!res.ok) {

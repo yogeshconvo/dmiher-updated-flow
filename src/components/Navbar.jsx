@@ -17,7 +17,7 @@ const Navbar = () => {
 
   /* ================= FETCH MENU ================= */
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/menus/Header")
+    fetch("https://demos.convomax.com/dmiher_backend/api/menus/Header")
       .then((res) => res.json())
       .then((res) => {
         const menu = res?.menu || [];
@@ -92,7 +92,7 @@ const Navbar = () => {
                             >
                               {subItem.title}
                             </Link>
-                          ))
+                          )),
                         )}
                       </div>
                     )}
@@ -128,7 +128,10 @@ const Navbar = () => {
                   onMouseLeave={handleMouseLeave}
                 >
                   {isMega ? (
-                    <Link to={item.slug || "#"} className="nav-link nav-link-disabled">
+                    <Link
+                      to={item.slug || "#"}
+                      className="nav-link nav-link-disabled"
+                    >
                       {item.title}
                     </Link>
                   ) : (
@@ -183,7 +186,7 @@ const Navbar = () => {
                         className="mobile-heading-btn-mega"
                         onClick={() =>
                           setOpenSection(
-                            openSection === item.id ? null : item.id
+                            openSection === item.id ? null : item.id,
                           )
                         }
                       >
