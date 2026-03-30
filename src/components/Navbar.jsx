@@ -17,7 +17,7 @@ const Navbar = () => {
 
   /* ================= FETCH MENU ================= */
   useEffect(() => {
-    fetch("https://demos.convomax.com/dmiher_backend/api/menus/Header")
+    fetch("http://127.0.0.1:8000/api/menus/Header")
       .then((res) => res.json())
       .then((res) => {
         const menu = res?.menu || [];

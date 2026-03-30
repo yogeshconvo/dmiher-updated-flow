@@ -5,7 +5,7 @@ const fetchMicropage = async (slug) => {
     console.log("MICRO SLUG:", slug);
 
     const res = await fetch(
-        `https://demos.convomax.com/dmiher_backend/api/independent-pages/${slug}`
+        `http://127.0.0.1:8000/api/independent-pages/${slug}`
     );
 
     if (!res.ok) {

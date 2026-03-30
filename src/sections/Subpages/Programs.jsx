@@ -34,7 +34,7 @@ const SubPrograms = ({ apiBaseUrl }) => {
   useEffect(() => {
     if (!slug) return;
 
-    fetch(`https://demos.convomax.com/dmiher_backend/api/programs/${slug}`)
+    fetch(`http://127.0.0.1:8000/api/programs/${slug}`)
       .then((res) => res.json())
       .then((res) => {
         const programsSection = res?.sections?.find(

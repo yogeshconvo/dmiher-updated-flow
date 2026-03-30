@@ -78,21 +78,22 @@ function Gallery({ data }) {
       <div className="max-w-7xl mx-auto">
 
         {/* Heading */}
-        <h2 className="text-3xl font-bold text-center mb-6">
+     {basic.title &&   <h2 className="heading">
+          <hr className="heading-line" />
           {basic.title}
-        </h2>
+        </h2>}
 
         {/* Tabs */}
-        <div className="flex justify-center mb-6 flex-wrap gap-2">
+        <div className="flex justify-center items-center  text-sm mb-6">
           {tabs_order.map((key) => (
             <button
               key={key}
               onClick={() => setActiveSection(key)}
-              className={`px-4 py-2 border rounded transition
+              className={`transition-all duration-300 border-r-1 border-gray-300 px-3 last:border-r-0
               ${
                 activeSection === key
-                  ? "bg-red-500 text-white"
-                  : "text-gray-500 hover:bg-gray-100"
+                  ? "text-red-500 font-semibold underline "
+                  : "text-gray-500"
               }`}
             >
               {tabs_labels[key]}
@@ -162,7 +163,8 @@ function Gallery({ data }) {
         <section className="mt-16">
           <div className="max-w-7xl mx-auto">
 
-            <h2 className="text-3xl font-bold mb-8 text-gray-800 text-center">
+            <h2 className="heading">
+              <hr className="heading-line" />
               Important Details
             </h2>
 
@@ -171,9 +173,9 @@ function Gallery({ data }) {
               {addressArr.map((item, index) => (
                 <div
                   key={index}
-                  className="p-6 border rounded-xl shadow hover:shadow-md transition"
+                  className={`border-r-2 border-gray-300 last:border-r-0 ${index === 0 ? "border-r-0 pl-0" : ""}`}
                 >
-                  <h3 className="font-semibold mb-2 text-lg">
+                  <h3 className="">
                     {item.heading}
                   </h3>
 

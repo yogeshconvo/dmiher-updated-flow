@@ -20,6 +20,7 @@ import KeyFunctionTabs from "./KeyFunctionTabs"
 import MandatoryDisclosure from "./MandatoryDisclosure"
 import Logos from "./Logos"
 import TabMenu from "../Micropages/Tabwise-micropage"
+import Departments from "./Departments"
 
 export const SECTION_COMPONENTS = {
 
@@ -46,6 +47,7 @@ export const SECTION_COMPONENTS = {
     outcome_section: Outcome,
     holistic_learning_Section: HolisticInfrastructureSection,
     institute_logos: Logos,
+    institute_departments: Departments,
 
 
 
