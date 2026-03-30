@@ -204,6 +204,30 @@ function Hero({ data, slug }) {
                     {slide.paragraph}
                   </p>
                 )}
+ {slide.cta_buttons && slide.cta_buttons.length > 0 && (
+  <div className="hero-buttons flex gap-2">
+    {slide.cta_buttons.map((btn, btnIndex) => {
+      const [isHover, setIsHover] = React.useState(false);
+
+      return (
+        <a
+          key={btnIndex}
+          href={btn.url}
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
+          className="mt-2 mb-4 px-6 py-2 transition-all duration-200 rounded cursor-pointer font-semibold inline-block text-center min-w-[200px]"
+          style={{
+            backgroundColor: isHover ? btn.hover_bg_color : btn.bg_color,
+            color: isHover ? btn.hover_text_color : btn.text_color,
+            transform: isHover ? "scale(1.05)" : "scale(1)",
+          }}
+        >
+          {btn.text}
+        </a>
+      );
+    })}
+  </div>
+)}
               </div>
             </div>
           );

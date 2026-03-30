@@ -1,61 +1,66 @@
+"use client";
+
 import React, { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-// import { useNavigate, useParams } from "react-router-dom";
-import { getImageSrc } from "../../components/Services/FetchImages";
+import { useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/pagination";
 
 /* ================= CARD ================= */
 const DepartmentCard = ({ title, url, image }) => {
-  // const navigate = useNavigate();
-  // const { slug } = useParams();
-
-  // const handleClick = () => {
-  //   if (url) {
-  //     navigate(`/${slug}${url}`);
-  //   }
-  // };
+  const navigate = useNavigate();
 
   return (
-  <div className="department-card-wrapper" >
-  <div
-    className="department-card department-card-hover department-card-height"
-    style={{
-      backgroundImage: `url(${getImageSrc(image)})`,
-    }}
-  >
-    <div className="department-card-overlay">
-      <h3 className="department-card-title">{title}</h3>
+    <div
+      className="department-card-wrapper cursor-pointer"
+      onClick={() => navigate(url)}
+    >
+      <div
+        className="department-card department-card-hover department-card-height"
+        style={{
+          backgroundImage: `url(${image})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="department-card-overlay">
+          <h3 className="department-card-title">{title}</h3>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
   );
 };
 
-
-/* ================= SECTION ================= */
-const Departments = ({ data }) => {
-  if (!data) return null;
-
+/* ================= MAIN ================= */
+const Departments = ({ data, pageSlug = "jnmc" }) => {
   const swiperRef = useRef(null);
+  const [departments, setDepartments] = useState([]);
+  const [slides, setSlides] = useState([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const heading = data?.header?.heading;
-  const departments = Array.isArray(data.departments)
-    ? data.departments
-    : [];
-
-  const chunkConfig = data?.chunk_config || {
+  const chunkConfig = {
     desktop: 8,
     tablet: 6,
     mobile: 4,
   };
 
-  const [slides, setSlides] = useState([]);
-  const [currentSlide, setCurrentSlide] = useState(0);
+  /* ================= DATA SET ================= */
+  useEffect(() => {
+    if (!data?.grids?.length) return;
 
-  /* ================= SLIDE CHUNKING ================= */
+    const deptList =
+      data.grids[0]?.departments?.map((item) => ({
+        title: item.title,
+        image: item.image,
+        url: `/department/${pageSlug}/${item.page_slug}`,
+      })) || [];
+
+    setDepartments(deptList);
+  }, [data, pageSlug]);
+
+  /* ================= SLIDER ================= */
   useEffect(() => {
     if (!departments.length) return;
 
@@ -77,25 +82,23 @@ const Departments = ({ data }) => {
 
     calculateSlides();
     window.addEventListener("resize", calculateSlides);
+
     return () =>
       window.removeEventListener("resize", calculateSlides);
-  }, [departments, chunkConfig]);
+  }, [departments]);
 
-  if (!departments.length) return null;
+  if (!departments.length) return <p>Loading...</p>;
 
   return (
     <div className="departments-section">
       <div className="container">
-        {/* ================= HEADING ================= */}
-        {heading && (
-          <h2 className="heading">
-            <hr className="heading-line" />
-            {heading}
-          </h2>
-        )}
+        <h2 className="heading">
+          <hr className="heading-line" />
+          Departments
+        </h2>
 
         <div className="relative">
-          {/* ================= NAV ================= */}
+          {/* NAV */}
           <div className="departments-nav">
             <button
               onClick={() => swiperRef.current?.slidePrev()}
@@ -122,7 +125,7 @@ const Departments = ({ data }) => {
             </button>
           </div>
 
-          {/* ================= SWIPER ================= */}
+          {/* SWIPER */}
           <Swiper
             modules={[Pagination]}
             slidesPerView={1}
@@ -136,14 +139,14 @@ const Departments = ({ data }) => {
             {slides.map((slide, index) => (
               <SwiperSlide key={index}>
                 <div className="departments-grid">
-                 {slide.map((item, idx) => (
-  <DepartmentCard
-    key={idx}
-    title={item.title}
-    url={item.url}
-    image={item.image}  
-  />
-))}
+                  {slide.map((item, idx) => (
+                    <DepartmentCard
+                      key={idx}
+                      title={item.title}
+                      url={item.url}
+                      image={item.image}
+                    />
+                  ))}
                 </div>
               </SwiperSlide>
             ))}

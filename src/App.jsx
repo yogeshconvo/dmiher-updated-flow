@@ -68,6 +68,8 @@ import SubPrograms from "./sections/Subpages/Programs";
 import TabwiseMicropage from "./sections/Micropages/Tabwise-micropage";
 import TabMenu from "./sections/Micropages/Tabwise-micropage";
 import Loader from "./components/Loader";
+import Departments from "./sections/Institute/Departments";
+import DepartmentsSubpage from "./sections/Subpages/Departments";
 
 function App() {
   return (
@@ -76,7 +78,10 @@ function App() {
       <ScrollToTop />
 
       <Routes>
-
+  <Route
+          path="/new-departments"
+          element={<DepartmentsSubpage />}
+        />
         {/* Home */}
         <Route path="/" element={<PageView />} />
 

@@ -12,14 +12,14 @@ const TabMenu = ({ data }) => {
   const fetchPage = async (slug) => {
     try {
       const res = await fetch(
-        `https://demos.convomax.com/dmiher_backend/api/pages/${slug}`,
+        `http://127.0.0.1:8000/api/pages/${slug}`,
       );
       if (!res.ok) throw new Error("Not in pages API");
       return res.json();
     } catch {
       try {
         const res = await fetch(
-          `https://demos.convomax.com/dmiher_backend/api/independent-pages/${slug}`,
+          `http://127.0.0.1:8000/api/independent-pages/${slug}`,
         );
         if (!res.ok) throw new Error("Not in independent-pages API");
         return res.json();
@@ -93,7 +93,7 @@ const TabMenu = ({ data }) => {
 
     if (tab.type === "pdf" && tab.pdf) {
       window.open(
-        `https://demos.convomax.com/dmiher_backend/${tab.pdf}`,
+        `http://127.0.0.1:8000/${tab.pdf}`,
         "_blank",
       );
     }
@@ -109,7 +109,7 @@ const TabMenu = ({ data }) => {
 
     if (item.type === "pdf" && item.pdf) {
       window.open(
-        `https://demos.convomax.com/dmiher_backend/${item.pdf}`,
+        `http://127.0.0.1:8000/${item.pdf}`,
         "_blank",
       );
       return;

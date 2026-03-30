@@ -7,7 +7,7 @@ function HomeANNOUNCEMENTS() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    fetch("https://demos.convomax.com/dmiher_backend/api/announcements")
+    fetch("http://127.0.0.1:8000/api/announcements")
       .then((res) => res.json())
       .then((res) => {
         const section = Array.isArray(res)

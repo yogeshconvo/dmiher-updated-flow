@@ -8,7 +8,7 @@ function KnowMore() {
     const fetchApiData = async () => {
       try {
         const res = await fetch(
-          "https://demos.convomax.com/dmiher_backend/api/page-sections/18/micro-pages",
+          "http://127.0.0.1:8000/api/page-sections/18/micro-pages",
         );
         const data = await res.json();
         const page = data.micro_pages[0];

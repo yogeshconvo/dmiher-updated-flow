@@ -1,162 +1,183 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import DropdownButton from "../../components/UI/DropDownButton";
-import useDepartments from "../../hooks/useDepartments";
+import React, { useEffect, useState } from "react";
+import DropdownButton from "../../components/DropDownButton";
+import { GalleryWithPopup } from "../../components/GalleryWithPopup";
 
-function Departments() {
-  const { deptKey } = useParams();
-  const navigate = useNavigate();
+function DepartmentsSubpage() {
+  const [departments, setDepartments] = useState([]);
+  const [selectedKey, setSelectedKey] = useState(null);
+  const [currentDept, setCurrentDept] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const { data, departments, loading, error } = useDepartments();
+  const pageSlug = "jnmc";
 
-  const { title, subtitle } = data || {};
-
-  const [selectedDepartment, setSelectedDepartment] = useState("");
-
-  // Dropdown options
-  const options = departments.map((dept) => ({
-    key: dept.key,
-    name: dept.name,
-  }));
-
-  // Handle default selection
+  /* ================= FETCH ================= */
   useEffect(() => {
-    if (deptKey) {
-      setSelectedDepartment(deptKey);
-    } else if (departments.length > 0) {
-      setSelectedDepartment(departments[0].key);
-    }
-  }, [deptKey, departments]);
+    const fetchDepartment = async () => {
+      try {
+        setLoading(true);
 
-  // Dropdown change
-  const handleDepartmentChange = (key) => {
-    setSelectedDepartment(key);
-    // navigate(`/jnmc/departments/${key}`); // optional
+        const res = await fetch(
+          `http://127.0.0.1:8000/api/departments/${pageSlug}`
+        );
+
+        const json = await res.json();
+
+        setDepartments(json.data || []);
+
+        // default select first valid department
+        const first = json.data?.find(d => d.data !== null);
+
+        if (first) {
+          setSelectedKey(first.slug);
+          setCurrentDept(first.data.departments[0]);
+        }
+
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDepartment();
+  }, []);
+
+  /* ================= HANDLE CHANGE ================= */
+  const handleChange = (slug) => {
+    setSelectedKey(slug);
+
+    const selected = departments.find(d => d.slug === slug);
+
+    const deptData = selected?.data?.departments?.[0] || null;
+
+    setCurrentDept(deptData);
   };
 
-  // Current department
-  const currentDept = departments.find(
-    (dept) => dept.key === selectedDepartment
-  );
+  /* ================= LOADING ================= */
+  if (loading)
+    return <div className="p-10 text-center">Loading...</div>;
 
-  // Loading & error states
-  if (loading) return <div className="p-10 text-center">Loading...</div>;
-  if (error) return <div className="p-10 text-center">Error loading data</div>;
-  if (!currentDept) return null;
+  if (!currentDept)
+    return <div className="p-10 text-center">No Data</div>;
+
+  /* ================= DROPDOWN OPTIONS ================= */
+  const options = departments.map((d) => ({
+    key: d.slug,
+    label: d.name,
+  }));
 
   return (
-    <div className="page-wrapper">
+    <div className="min-h-screen bg-gray-50">
+
       {/* ================= HEADER ================= */}
-      <header className="jnmc-header">
-        <h1 className="jnmc-header-title">{title}</h1>
-        <p className="jnmc-header-subtitle">{subtitle}</p>
-      </header>
-
-      {/* ================= DROPDOWN ================= */}
-      <DropdownButton
-        options={options}
-        selectedKey={selectedDepartment}
-        onChange={handleDepartmentChange}
-        placeholder="Select Department"
-        className="mb-8"
-      />
-
-      <div className="container">
-        {/* ================= DEPARTMENT HEADER ================= */}
-        <div className="department-header">
-          <h2 className="department-header-title">
+      <header className="bg-[#122E5E] text-white py-10">
+        <div className="max-w-7xl mx-auto text-center px-4">
+          <h2 className="text-4xl font-bold mb-2">
             {currentDept.name}
           </h2>
-          <p className="department-header-info">
+          <p className="text-lg opacity-90">
             {currentDept.info}
           </p>
         </div>
+      </header>
 
-        {/* ================= HOD ================= */}
-        {currentDept.hod?.length > 0 && (
-          <div className="section-card mt-8">
-            <h3 className="section-title">Head of Department</h3>
+      {/* ================= DROPDOWN ================= */}
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <DropdownButton
+          options={options}
+          selectedKey={selectedKey}
+          onChange={handleChange}
+          placeholder="Select Department"
+        />
 
-            <div className="hod-wrapper">
-              {currentDept.hod.map((hod, index) => (
-                <div key={index} className="hod-card">
-                  <img
-                    src={hod.image}
-                    alt={hod.name}
-                    className="hod-image"
-                  />
+        {/* ================= CONTENT ================= */}
+        <div className="space-y-8 mt-8">
 
-                  <div>
-                    <h4 className="hod-name">{hod.name}</h4>
-                    <p className="hod-designation">
-                      {hod.designation}
-                    </p>
+          {/* ================= HOD ================= */}
+          {currentDept.dean_image && (
+            <div className="bg-white rounded-xl shadow-lg p-8">
+              <h3 className="text-2xl font-bold text-center mb-6">
+                Head of Department
+              </h3>
 
-                    {hod.qualification && (
-                      <p className="hod-qualification">
-                        {hod.qualification}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              ))}
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <img
+                  src={currentDept.dean_image}
+                  className="w-44 h-52 rounded-full object-cover shadow"
+                />
+
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: currentDept.dean_details,
+                  }}
+                />
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* ================= STAFF ================= */}
-        {currentDept.staff?.length > 0 && (
-          <div className="section-card mt-8">
-            <h3 className="section-title">Department Staff</h3>
+          {/* ================= STAFF ================= */}
+          {currentDept.staff?.length > 0 && (
+            <div className="bg-white rounded-xl shadow-lg p-8">
+              <h3 className="text-2xl font-bold mb-6">
+                Department Staff
+              </h3>
 
-            <div className="overflow-x-auto">
-              <table className="staff-table">
+              <table className="w-full">
                 <thead>
-                  <tr>
-                    <th>Sr. No.</th>
-                    <th>Name</th>
-                    <th>Designation</th>
+                  <tr className="border-b">
+                    <th className="text-left p-3">Sr No.</th>
+                    <th className="text-left p-3">Name</th>
+                    <th className="text-left p-3">Designation</th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  {currentDept.staff.map((staff, index) => (
-                    <tr key={index} className="staff-row">
-                      <td>{index + 1}</td>
-                      <td className="font-medium text-gray-800">
-                        {staff.name}
-                      </td>
-                      <td>{staff.designation}</td>
+                  {currentDept.staff.map((s, i) => (
+                    <tr key={i} className="border-b">
+                      <td className="p-3">{i + 1}</td>
+                      <td className="p-3">{s.name}</td>
+                      <td className="p-3">{s.designation}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* ================= USP ================= */}
-        {currentDept.usp?.length > 0 && (
-          <div className="section-card mt-8">
-            <h3 className="section-title">
-              Department’s Information
-            </h3>
+          {/* ================= USP ================= */}
+          {currentDept.usp?.length > 0 && (
+            <div className="bg-white rounded-xl shadow-lg p-8">
+              <h3 className="text-2xl font-bold mb-6">
+                Department Information
+              </h3>
 
-            <div className="usp-grid">
-              {currentDept.usp.map((point, index) => (
-                <div key={index} className="usp-item">
-                  <span className="usp-index">
-                    {index + 1}
-                  </span>
-                  <p className="usp-text">{point}</p>
-                </div>
-              ))}
+              <div className="grid md:grid-cols-2 gap-4">
+                {currentDept.usp.map((u, i) => (
+                  <div
+                    key={i}
+                    className="flex p-4 bg-gray-50 rounded-lg"
+                  >
+                    <div className="mr-3 font-bold text-[#F04E30]">
+                      {i + 1}.
+                    </div>
+                    <p>{u.point}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
+        </div>
+
+        {/* ================= GALLERY ================= */}
+        {currentDept.gallery?.length > 0 && (
+          <GalleryWithPopup
+            title="Gallery"
+            images={currentDept.gallery.map(g => g.image)}
+          />
         )}
       </div>
     </div>
   );
 }
 
-export default Departments;
+export default DepartmentsSubpage;
