@@ -1,88 +1,92 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import DropdownButton from "../../components/DropDownButton";
 import { GalleryWithPopup } from "../../components/GalleryWithPopup";
+import * as LucideIcons from "lucide-react";
 
 function DepartmentsSubpage() {
+  const { college, deptSlug } = useParams();
+
   const [departments, setDepartments] = useState([]);
   const [selectedKey, setSelectedKey] = useState(null);
-  const [currentDept, setCurrentDept] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [currentDeptList, setCurrentDeptList] = useState([]);
+  const [activeDeptIndex, setActiveDeptIndex] = useState(0);
 
-  const pageSlug = "jnmc";
-
-  /* ================= FETCH ================= */
   useEffect(() => {
-    const fetchDepartment = async () => {
-      try {
-        setLoading(true);
+    const fetchData = async () => {
+      const res = await fetch(
+        `http://127.0.0.1:8000/api/departments/${college}`
+      );
+      const json = await res.json();
 
-        const res = await fetch(
-          `http://127.0.0.1:8000/api/departments/${pageSlug}`
-        );
+      const deptData = json.data || [];
+      setDepartments(deptData);
 
-        const json = await res.json();
+      const selected = deptData.find(d => d.slug === deptSlug);
 
-        setDepartments(json.data || []);
-
-        // default select first valid department
-        const first = json.data?.find(d => d.data !== null);
-
-        if (first) {
-          setSelectedKey(first.slug);
-          setCurrentDept(first.data.departments[0]);
-        }
-
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
+      if (selected) {
+        setSelectedKey(selected.slug);
+        setCurrentDeptList(selected.data?.departments || []);
+        setActiveDeptIndex(0);
       }
     };
 
-    fetchDepartment();
-  }, []);
+    fetchData();
+  }, [college, deptSlug]);
 
-  /* ================= HANDLE CHANGE ================= */
   const handleChange = (slug) => {
     setSelectedKey(slug);
-
     const selected = departments.find(d => d.slug === slug);
-
-    const deptData = selected?.data?.departments?.[0] || null;
-
-    setCurrentDept(deptData);
+    setCurrentDeptList(selected?.data?.departments || []);
+    setActiveDeptIndex(0);
   };
 
-  /* ================= LOADING ================= */
-  if (loading)
-    return <div className="p-10 text-center">Loading...</div>;
+  const currentDept = currentDeptList[activeDeptIndex];
 
-  if (!currentDept)
-    return <div className="p-10 text-center">No Data</div>;
+  if (!currentDept) return <p>Loading...</p>;
 
-  /* ================= DROPDOWN OPTIONS ================= */
-  const options = departments.map((d) => ({
+  const options = departments.map(d => ({
     key: d.slug,
     label: d.name,
   }));
 
+   /* ---------------- Icon Renderer ---------------- */
+    const renderIcon = (iconName, size = 18) => {
+      if (!iconName) return null;
+  
+      // Convert kebab-case to PascalCase
+      const formattedName = iconName
+        .split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join("");
+  
+      const IconComponent = LucideIcons[formattedName];
+  
+      return IconComponent ? (
+        <IconComponent
+          className=" "
+          size={size}
+        />
+      ) : null;
+    };
+  
+
   return (
     <div className="min-h-screen bg-gray-50">
 
-      {/* ================= HEADER ================= */}
-      <header className="bg-[#122E5E] text-white py-10">
-        <div className="max-w-7xl mx-auto text-center px-4">
-          <h2 className="text-4xl font-bold mb-2">
-            {currentDept.name}
-          </h2>
-          <p className="text-lg opacity-90">
-            {currentDept.info}
-          </p>
-        </div>
+      {/* Header */}
+      <header className="bg-[#122E5E] text-white py-8 text-center">
+        <h1 className="text-4xl font-bold">
+          {currentDept.college_name || "JNMC"}
+        </h1>
+        <p className="text-xl opacity-90">
+          {currentDept.college_info || ""}
+        </p>
       </header>
 
-      {/* ================= DROPDOWN ================= */}
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8 space-y-6">
+
+        {/* Dropdown */}
         <DropdownButton
           options={options}
           selectedKey={selectedKey}
@@ -90,91 +94,114 @@ function DepartmentsSubpage() {
           placeholder="Select Department"
         />
 
-        {/* ================= CONTENT ================= */}
-        <div className="space-y-8 mt-8">
+        {/* Dept Header */}
+        <div className="bg-[#122E5E] text-white rounded-xl p-8 mt-6 text-center ">
+           <div className="flex items-center gap-2 justify-center">{renderIcon(currentDept.icon,30)}<h2 className="text-3xl font-bold"> {currentDept.name}</h2></div>
+          <p className="mt-2 text-lg max-w-4xl mx-auto">{currentDept.info}</p>
+        </div>
 
-          {/* ================= HOD ================= */}
-          {currentDept.dean_image && (
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h3 className="text-2xl font-bold text-center mb-6">
-                Head of Department
-              </h3>
+        {/* HOD */}
+        {currentDept.dean_image && (
+          <div className="bg-white p-8 mt-6 py-2 rounded-xl shadow">
+            <h3 className="text-2xl font-bold text-center mb-6">
+              Head of Department
+            </h3>
 
-              <div className="flex flex-col md:flex-row items-center gap-6">
-                <img
-                  src={currentDept.dean_image}
-                  className="w-44 h-52 rounded-full object-cover shadow"
-                />
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              <img
+                src={currentDept.dean_image}
+                className="w-44 h-52 rounded-full object-cover"
+              />
 
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: currentDept.dean_details,
-                  }}
-                />
-              </div>
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: currentDept.dean_details,
+                }}
+              />
             </div>
-          )}
+          </div>
+        )}
 
-          {/* ================= STAFF ================= */}
-          {currentDept.staff?.length > 0 && (
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h3 className="text-2xl font-bold mb-6">
-                Department Staff
-              </h3>
+      
 
+         <div className="bg-white rounded-xl shadow-lg p-8 ">
+            <h3 className="text-2xl font-bold text-gray-800 mb-6">
+              Department Staff
+            </h3>
+            <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b">
-                    <th className="text-left p-3">Sr No.</th>
-                    <th className="text-left p-3">Name</th>
-                    <th className="text-left p-3">Designation</th>
+                  <tr className="border-b-2 border-gray-200">
+                    <th className="text-left py-3 px-4 font-semibold text-gray-800">
+                      Sr. No.
+                    </th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-800">
+                      Name
+                    </th>
+                    <th className="text-left py-3 px-4 font-semibold text-gray-800">
+                      Designation
+                    </th>
                   </tr>
                 </thead>
-
                 <tbody>
-                  {currentDept.staff.map((s, i) => (
-                    <tr key={i} className="border-b">
-                      <td className="p-3">{i + 1}</td>
-                      <td className="p-3">{s.name}</td>
-                      <td className="p-3">{s.designation}</td>
+                  {currentDept.staff.map((member, index) => (
+                    <tr
+                      key={index}
+                      className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
+                    >
+                      <td className="py-3 px-4 text-gray-700">{index + 1}</td>
+                      <td className="py-3 px-4 text-gray-800 font-medium">
+                        {member.name}
+                      </td>
+                      <td className="py-3 px-4 text-gray-700">
+                        {member.designation}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-          )}
+          </div>
 
-          {/* ================= USP ================= */}
-          {currentDept.usp?.length > 0 && (
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h3 className="text-2xl font-bold mb-6">
-                Department Information
-              </h3>
+        {/* USP */}
+        {/* {currentDept.usp?.length > 0 && (
+          <div className="bg-white p-8 mt-6 rounded-xl shadow">
+            <h3 className="text-2xl font-bold mb-4">
+              Department Info
+            </h3>
 
-              <div className="grid md:grid-cols-2 gap-4">
-                {currentDept.usp.map((u, i) => (
-                  <div
-                    key={i}
-                    className="flex p-4 bg-gray-50 rounded-lg"
-                  >
-                    <div className="mr-3 font-bold text-[#F04E30]">
-                      {i + 1}.
-                    </div>
-                    <p>{u.point}</p>
+            {currentDept.usp.map((u, i) => (
+              <p key={i}>{i + 1}. {u.point}</p>
+            ))}
+          </div>
+        )} */}
+          <div className="bg-white rounded-xl shadow-lg p-8">
+            <h3 className="text-2xl font-bold text-gray-800 mb-6">
+              Department's Information
+            </h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              {currentDept.usp.map((u, i) => (
+                <div
+                  key={i}
+                  className="flex items-start p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  <div className="flex-shrink-0 w-6 h-6 bg-[#F04E30] text-white rounded-full flex items-center justify-center text-sm font-bold mr-3 mt-0.5">
+                    {i + 1}
                   </div>
-                ))}
-              </div>
+                  <p className="text-gray-700 leading-relaxed">{u.point}</p>
+                </div>
+              ))}
             </div>
-          )}
-        </div>
+          </div>
 
-        {/* ================= GALLERY ================= */}
+        {/* Gallery */}
         {currentDept.gallery?.length > 0 && (
           <GalleryWithPopup
             title="Gallery"
             images={currentDept.gallery.map(g => g.image)}
           />
         )}
+
       </div>
     </div>
   );

@@ -79,9 +79,9 @@ function App() {
 
       <Routes>
   <Route
-          path="/new-departments"
-          element={<DepartmentsSubpage />}
-        />
+        path="/:college/departments/:deptSlug"
+        element={<DepartmentsSubpage />}
+      />
         {/* Home */}
         <Route path="/" element={<PageView />} />
 
@@ -90,11 +90,11 @@ function App() {
           path="/:college/:page"
           element={<PageView />}
         />
-        {/* <Route
-          path="/TabwiseMicropage"
-          element={<TabwiseMicropage/>}
-        /> */}
-
+       {/* ✅ Department subpage */}
+        <Route
+          path="/:college/departments/:deptSlug"
+          element={<PageView />}
+        />
         {/* Normal Slug */}
         <Route
           path="/:slug"

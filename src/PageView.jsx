@@ -82,6 +82,9 @@ import { SECTION_COMPONENTS as InstituteSections } from "./sections/Institute";
 import { SECTION_COMPONENTS as SubpagesSections } from "./sections/Subpages";
 import { SECTION_COMPONENTS as MicropageSections } from "./sections/Micropages";
 
+// ✅ IMPORT THIS
+import DepartmentsSubpage from "./sections/Subpages/Departments";
+
 const SECTION_COMPONENTS = {
   ...MainPageSections,
   ...InstituteSections,
@@ -92,19 +95,28 @@ const SECTION_COMPONENTS = {
 function PageView() {
   const params = useParams();
 
+  /* ================= ROUTE FLAGS ================= */
   const isMicropage = params.college && params.page;
+  const isDepartmentSubpage =
+    params.college && params.page === "departments" && params.deptSlug;
 
+  /* ================= HANDLE DEPARTMENT SUBPAGE ================= */
+  if (isDepartmentSubpage) {
+    return <DepartmentsSubpage />;
+  }
+
+  /* ================= SLUG LOGIC ================= */
   const slug = params.slug || params.page || "home";
   const microSlug = isMicropage ? params.page : null;
 
-  /* ===== Queries ===== */
+  /* ================= QUERIES ================= */
   const pageQuery = usePages(!isMicropage ? slug : null);
 
   const micropageQuery = useMicropage(
     isMicropage ? microSlug : null
   );
 
-  /* ===== Loading ===== */
+  /* ================= LOADING ================= */
   const isLoading = isMicropage
     ? micropageQuery?.isLoading
     : pageQuery?.isLoading;
@@ -119,7 +131,7 @@ function PageView() {
   if (error)
     return <div className="p-10 text-center">Page not found</div>;
 
-  /* ===== Resolve ===== */
+  /* ================= RESOLVE ================= */
   const resolvedPage = isMicropage
     ? micropageQuery?.data
     : pageQuery?.data;
@@ -127,7 +139,7 @@ function PageView() {
   if (!resolvedPage)
     return <div className="p-10 text-center">No Data</div>;
 
-  /* ===== Render ===== */
+  /* ================= RENDER ================= */
   return (
     <main>
       {resolvedPage.sections?.map((sec, index) => {
@@ -138,7 +150,10 @@ function PageView() {
 
         return (
           <section key={index}>
-            <SectionComponent data={sec.data} />
+            <SectionComponent
+              data={sec.data}
+              college={params.slug } 
+            />
           </section>
         );
       })}
