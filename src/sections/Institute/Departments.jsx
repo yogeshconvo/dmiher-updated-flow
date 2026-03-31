@@ -1,10 +1,151 @@
+// "use client";
+
+// import React, { useRef, useState, useEffect } from "react";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import { Pagination } from "swiper/modules";
+// import { ArrowLeft, ArrowRight } from "lucide-react";
+// import { useNavigate } from "react-router-dom";
+// import "swiper/css";
+// import "swiper/css/pagination";
+
+
+
+// /* ================= MAIN ================= */
+// const Departments = ({ data }) => {
+//   const swiperRef = useRef(null);
+//   const [departments, setDepartments] = useState([]);
+//   const [slides, setSlides] = useState([]);
+//   const [currentSlide, setCurrentSlide] = useState(0);
+
+//   const chunkConfig = {
+//     desktop: 8,
+//     tablet: 6,
+//     mobile: 4,
+//   };
+
+//   /* ================= DATA SET ================= */
+//   useEffect(() => {
+//     if (!data?.grids?.length) return;
+
+//     const deptList =
+//       data.grids[0]?.departments?.map((item) => ({
+//         title: item.title,
+//         image: item.image,
+//         url: `/${pageSlug}/departments/${item.page_slug}`,
+//       })) || [];
+
+//     setDepartments(deptList);
+//   }, [data, pageSlug]);
+
+//   /* ================= SLIDER ================= */
+//   useEffect(() => {
+//     if (!departments.length) return;
+
+//     const calculateSlides = () => {
+//       let chunkSize = chunkConfig.desktop;
+
+//       if (window.innerWidth < 640) chunkSize = chunkConfig.mobile;
+//       else if (window.innerWidth < 1024)
+//         chunkSize = chunkConfig.tablet;
+
+//       const chunks = [];
+//       for (let i = 0; i < departments.length; i += chunkSize) {
+//         chunks.push(departments.slice(i, i + chunkSize));
+//       }
+
+//       setSlides(chunks);
+//       setCurrentSlide(0);
+//     };
+
+//     calculateSlides();
+//     window.addEventListener("resize", calculateSlides);
+
+//     return () =>
+//       window.removeEventListener("resize", calculateSlides);
+//   }, [departments]);
+
+//   if (!departments.length) return <p>Loading...</p>;
+
+//   return (
+//     <div className="departments-section">
+//       <div className="container">
+//         <h2 className="heading">
+//           <hr className="heading-line" />
+//           Departments
+//         </h2>
+
+//         <div className="relative">
+//           {/* NAV */}
+//           <div className="departments-nav">
+//             <button
+//               onClick={() => swiperRef.current?.slidePrev()}
+//               disabled={currentSlide === 0}
+//               className={`departments-nav-btn ${
+//                 currentSlide === 0
+//                   ? "departments-nav-btn-disabled"
+//                   : "departments-nav-btn-active"
+//               }`}
+//             >
+//               <ArrowLeft size={20} />
+//             </button>
+
+//             <button
+//               onClick={() => swiperRef.current?.slideNext()}
+//               disabled={currentSlide === slides.length - 1}
+//               className={`departments-nav-btn ${
+//                 currentSlide === slides.length - 1
+//                   ? "departments-nav-btn-disabled"
+//                   : "departments-nav-btn-active"
+//               }`}
+//             >
+//               <ArrowRight size={20} />
+//             </button>
+//           </div>
+
+//           {/* SWIPER */}
+//           <Swiper
+//             modules={[Pagination]}
+//             slidesPerView={1}
+//             speed={500}
+//             pagination={{ clickable: true }}
+//             onSwiper={(swiper) => (swiperRef.current = swiper)}
+//             onSlideChange={(swiper) =>
+//               setCurrentSlide(swiper.activeIndex)
+//             }
+//           >
+//             {slides.map((slide, index) => (
+//               <SwiperSlide key={index}>
+//                 <div className="departments-grid">
+//                   {slide.map((item, idx) => (
+//                     <DepartmentCard
+//                       key={idx}
+//                       title={item.title}
+//                       url={item.url}
+//                       image={item.image}
+//                     />
+//                   ))}
+//                 </div>
+//               </SwiperSlide>
+//             ))}
+//           </Swiper>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Departments;
+
+
+
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
 import "swiper/css";
 import "swiper/css/pagination";
 
@@ -34,19 +175,15 @@ const DepartmentCard = ({ title, url, image }) => {
 };
 
 /* ================= MAIN ================= */
-const Departments = ({ data, pageSlug = "jnmc" }) => {
+const Departments = ({ data , college}) => {
   const swiperRef = useRef(null);
   const [departments, setDepartments] = useState([]);
   const [slides, setSlides] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const chunkConfig = {
-    desktop: 8,
-    tablet: 6,
-    mobile: 4,
-  };
+  // const { college } = useParams(); // ✅ dynamic college
 
-  /* ================= DATA SET ================= */
+  /* ================= DATA ================= */
   useEffect(() => {
     if (!data?.grids?.length) return;
 
@@ -54,42 +191,35 @@ const Departments = ({ data, pageSlug = "jnmc" }) => {
       data.grids[0]?.departments?.map((item) => ({
         title: item.title,
         image: item.image,
-        url: `/department/${pageSlug}/${item.page_slug}`,
+        url: `/${college}/departments/${item.page_slug}`, // ✅ FIXED
+
+
       })) || [];
 
+    console.log("COLLEGE", college);
+    console.log("DEPT LIST", deptList);
+
     setDepartments(deptList);
-  }, [data, pageSlug]);
+  }, [data, college]);
 
   /* ================= SLIDER ================= */
   useEffect(() => {
     if (!departments.length) return;
 
-    const calculateSlides = () => {
-      let chunkSize = chunkConfig.desktop;
+    const chunkSize = window.innerWidth < 640 ? 4 : window.innerWidth < 1024 ? 6 : 8;
 
-      if (window.innerWidth < 640) chunkSize = chunkConfig.mobile;
-      else if (window.innerWidth < 1024)
-        chunkSize = chunkConfig.tablet;
+    const chunks = [];
+    for (let i = 0; i < departments.length; i += chunkSize) {
+      chunks.push(departments.slice(i, i + chunkSize));
+    }
 
-      const chunks = [];
-      for (let i = 0; i < departments.length; i += chunkSize) {
-        chunks.push(departments.slice(i, i + chunkSize));
-      }
-
-      setSlides(chunks);
-      setCurrentSlide(0);
-    };
-
-    calculateSlides();
-    window.addEventListener("resize", calculateSlides);
-
-    return () =>
-      window.removeEventListener("resize", calculateSlides);
+    setSlides(chunks);
+    setCurrentSlide(0);
   }, [departments]);
 
   if (!departments.length) return <p>Loading...</p>;
 
-  return (
+   return (
     <div className="departments-section">
       <div className="container">
         <h2 className="heading">
@@ -156,5 +286,7 @@ const Departments = ({ data, pageSlug = "jnmc" }) => {
     </div>
   );
 };
+
+
 
 export default Departments;
