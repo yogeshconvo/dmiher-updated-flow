@@ -2,7 +2,7 @@
 import Programs from "./Programs"
 import Departments from "./Departments"
 import TranscriptSubpage from "./Transcript-type1";
-import TranscriptFEAT from "./Transcript-type1";
+import Transcript from "./Transcript-type1";
 import MandatoryDisclosures from "./MD";
 import DeanKnowMore from "./DeanKnowMore";
 import AccreditationsRecognitions from "./UniquePages/AccreditationsRecognitions";
@@ -12,12 +12,13 @@ import PhDDAL from "./UniquePages/PHD-DAL";
 import CampusFacilities from "../MainPageSections/Home/CampusFacilities";
 import TabwiseMainMicropage from "../Micropages/Tabwise-micropage";
 import SubPrograms from "./Programs";
+// import Transcript from "./Transcript-type1";
 
 export const SECTION_COMPONENTS = {
 
     programs_subpage: Programs,
     departments_section: Departments,
-    transcript_subpage: TranscriptFEAT,
+    // transcript_subpage: TranscriptFEAT,
     mandatoryDisclore_subpage: MandatoryDisclosures,
     dean_know_more: DeanKnowMore,
     accreditations_recognitions: AccreditationsRecognitions,
@@ -30,6 +31,8 @@ export const SECTION_COMPONENTS = {
     micro_page: MainMicropage,
     campus_facilities: CampusFacilities,
     tabwise_micropage: TabwiseMainMicropage,
+
+    transcript_subpage: Transcript,
 
     programs_subpage: SubPrograms
 

@@ -70,6 +70,7 @@ import TabMenu from "./sections/Micropages/Tabwise-micropage";
 import Loader from "./components/Loader";
 import Departments from "./sections/Institute/Departments";
 import DepartmentsSubpage from "./sections/Subpages/Departments";
+import TranscriptFEAT from "./sections/Subpages/Transcript-type1";
 
 function App() {
   return (
@@ -108,7 +109,7 @@ function App() {
         />
 
 
-        <Route path="/loading" element={<Loader />} />
+        <Route path="/jnmc/transcript" element={<TranscriptFEAT />} />
 
 {/* <Route path="/equal-opportunity-cell/:pageSlug" element={<PageView />} /> */}
       </Routes>
