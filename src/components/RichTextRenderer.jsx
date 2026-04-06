@@ -27,7 +27,6 @@ export default function RichTextRenderer({
       style={{
         ...(bgColor && { backgroundColor: bgColor }),
         ...(textcolor && { color: textcolor }),
-        ...(textcolor && { color: textcolor }),
       }}
     >
       {content}

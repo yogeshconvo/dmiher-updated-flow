@@ -8,6 +8,7 @@
     "db": "json-server --watch db.json",
     "dbs": "json-server --watch dbs.json",
     "build": "vite build",
+    "build:ssg": "vite build && node scripts/prerender.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -21,7 +22,6 @@
     "html-react-parser": "^5.2.11",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.553.0",
-    "prerender-spa-plugin-next": "^4.2.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-helmet-async": "^2.0.5",
@@ -29,8 +29,7 @@
     "react-router-dom": "^7.9.6",
     "react-youtube": "^10.1.0",
     "swiper": "^12.0.3",
-    "tailwindcss": "^4.1.17",
-    "vite-plugin-prerender": "^1.0.8"
+    "tailwindcss": "^4.1.17"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -42,6 +41,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "puppeteer": "^24.40.0",
     "vite": "npm:rolldown-vite@7.2.2"
   },
   "overrides": {

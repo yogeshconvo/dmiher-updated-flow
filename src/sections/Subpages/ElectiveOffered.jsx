@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BookOpen, Star } from "lucide-react";
-import DropdownButton from "../../components/UI/DropDownButton";
+import DropdownButton from "../../components/DropDownButton";
 // import data from "./electivesData.json";
 
 const iconMap = {

@@ -1,0 +1,233 @@
+/* ============== SKELETON LOADERS ============== */
+
+.skeleton {
+  background: #e2e8f0;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ============== PAGE SKELETON ============== */
+
+.page-skeleton {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem;
+}
+
+.page-skeleton-hero {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+}
+
+.page-skeleton-heading {
+  width: 40%;
+  height: 32px;
+  margin-bottom: 1rem;
+}
+
+.page-skeleton-text {
+  width: 100%;
+  height: 16px;
+  margin-bottom: 0.75rem;
+}
+
+.page-skeleton-text-short {
+  width: 70%;
+  height: 16px;
+  margin-bottom: 0.75rem;
+}
+
+.page-skeleton-section {
+  margin-bottom: 2.5rem;
+}
+
+.page-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.page-skeleton-card {
+  height: 200px;
+  border-radius: 12px;
+}
+
+/* ============== CARD SKELETON ============== */
+
+.card-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.card-skeleton {
+  padding: 1.5rem;
+  border-radius: 16px;
+  background: white;
+  border: 1px solid #f1f5f9;
+}
+
+.card-skeleton-title {
+  width: 80%;
+  height: 24px;
+  margin-bottom: 0.75rem;
+}
+
+.card-skeleton-badge {
+  width: 60px;
+  height: 20px;
+  border-radius: 9999px;
+  margin-bottom: 1rem;
+}
+
+.card-skeleton-body {
+  width: 100%;
+  height: 60px;
+  margin-bottom: 1rem;
+}
+
+.card-skeleton-btn {
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+}
+
+/* ============== NAVBAR SKELETON ============== */
+
+.navbar-skeleton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+  height: 100px;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.navbar-skeleton-logo {
+  width: 120px;
+  height: 50px;
+  border-radius: 8px;
+}
+
+.navbar-skeleton-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.navbar-skeleton-link {
+  width: 80px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+/* ============== ERROR BOUNDARY ============== */
+
+.error-boundary-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.error-boundary-text {
+  color: #64748b;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.error-boundary-btn {
+  padding: 0.5rem 1.5rem;
+  background: #F04E30;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.error-boundary-btn:hover {
+  background: #122E5E;
+}
+
+/* ============== FADE-IN ANIMATION ============== */
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ============== RESPONSIVE ============== */
+
+@media (max-width: 1024px) {
+  .page-skeleton-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card-skeleton-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .page-skeleton-hero {
+    height: 250px;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-skeleton-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-skeleton-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-skeleton-hero {
+    height: 180px;
+  }
+
+  .page-skeleton-heading {
+    width: 60%;
+  }
+
+  .navbar-skeleton-links {
+    display: none;
+  }
+}

@@ -1,10 +1,9 @@
 import React, { useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import ViewMoreButton from "../../components/UI/ViewMore";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import "swiper/css";
-// import "./HolisticHorizontal.css"; // make sure this file exists
 
 /* =========================
    Arrow Button Component
@@ -30,17 +29,18 @@ const ArrowButton = ({ direction = "next", onClick }) => {
    Main Component
 ========================= */
 
-function HolisticInfrastructureSection({ data }) {
+function HolisticInfrastructureSection({ data , college }) {
   const layoutType = data?.layout?.layout_type || "vertical";
   const heading = data?.header?.title || "";
   const subtitle = data?.header?.subtitle || "";
+  const pageSlug = college;
 
   const cta = data.cta || {};
   const ctaItem = cta?.["0"];
 
   const ctaLink =
     ctaItem?.has_micro_page && ctaItem?.micro_slug
-      ? ROUTES.microPage(pageSlug, ctaItem.micro_slug)
+      ? `/${pageSlug}/${ctaItem.micro_slug}`
       : "";
 
   const dimensions =
@@ -213,13 +213,14 @@ function HolisticInfrastructureSection({ data }) {
       {Array.isArray(cta) &&
         cta.map((item, index) => (
           item?.label && (
-            <button
+            <Link
               key={index}
+              // to={item.cta_key}
               className="holistic-cta-button"
-              onClick={() => window.open(item.cta_key, "_blank")}
+              to={`/${college}/${item.cta_key}`}
             >
               {item.label}
-            </button>
+            </Link>
           )
         ))}
    

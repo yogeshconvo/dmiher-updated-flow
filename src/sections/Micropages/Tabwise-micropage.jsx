@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { API_BASE } from "../../config/api";
 import HelperTabwisePage from "./HelperTabwisePage";
 
 const TabMenu = ({ data }) => {
@@ -12,14 +13,14 @@ const TabMenu = ({ data }) => {
   const fetchPage = async (slug) => {
     try {
       const res = await fetch(
-        `http://127.0.0.1:8000/api/pages/${slug}`,
+        `${API_BASE}/api/pages/${slug}`,
       );
       if (!res.ok) throw new Error("Not in pages API");
       return res.json();
     } catch {
       try {
         const res = await fetch(
-          `http://127.0.0.1:8000/api/independent-pages/${slug}`,
+          `${API_BASE}/api/independent-pages/${slug}`,
         );
         if (!res.ok) throw new Error("Not in independent-pages API");
         return res.json();
@@ -93,7 +94,7 @@ const TabMenu = ({ data }) => {
 
     if (tab.type === "pdf" && tab.pdf) {
       window.open(
-        `http://127.0.0.1:8000/${tab.pdf}`,
+        `${API_BASE}/${tab.pdf}`,
         "_blank",
       );
     }
@@ -109,7 +110,7 @@ const TabMenu = ({ data }) => {
 
     if (item.type === "pdf" && item.pdf) {
       window.open(
-        `http://127.0.0.1:8000/${item.pdf}`,
+        `${API_BASE}/${item.pdf}`,
         "_blank",
       );
       return;
