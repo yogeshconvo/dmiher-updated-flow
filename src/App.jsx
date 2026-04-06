@@ -5,6 +5,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import PageView from "./PageView";
 import SubPrograms from "./sections/Subpages/Programs";
 import DepartmentsSubpage from "./sections/Subpages/Departments";
+import TranscriptFEAT from "./sections/Subpages/Transcript-type1";
 
 function App() {
   return (
