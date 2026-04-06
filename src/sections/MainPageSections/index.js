@@ -1,6 +1,5 @@
 
 import HomePrograms from "../MainPageSections/Programs"
-//import ResearchInnovation from "../sections/non-institute/ResearchInnovation"
 import HeroSection from "../Institute/Hero"
 import HomeBulletin from "../MainPageSections/Home/BULLETIN"
 import HomeANNOUNCEMENTS from "../MainPageSections/Home/ANNOUNCEMENTS"
@@ -22,7 +21,6 @@ import TheEdge from "./Research/TheEdge"
 import SDGResearchContributions from "./Research/SDGResearchContributions"
 import FundedResearchProjects from "./Research/FundedResearchProjects"
 import ResearchOpportunities from "./Research/ResearchOpportunities"
-
 import HomeInfo from "../Institute/InfoSection"
 import AlliancesGlobal from "./Global/AlliancesGlobal"
 import FunctionalUnits from "./IQAC/FunctionalUnits"
@@ -59,11 +57,14 @@ export const SECTION_COMPONENTS = {
     gallery: StudentLife,
     why_choose: WhyChoose,
 
-
-    // home 
+    // Home
     outcome_section: Outcome,
     international_footprint: FootprintSection,
     research_innovation: ResearchInnovation,
+    home_steps_section: HomeSteps,
+    home_BULLETIN_section: HomeBulletin,
+    home_ANNOUNCEMENTS_section: HomeANNOUNCEMENTS,
+    home_testimonial_section: HomeTestimonial,
 
     // About Section
     About_Excellence_Section: ExcellenceSection,
@@ -77,63 +78,41 @@ export const SECTION_COMPONENTS = {
     about_SDGSection: SDGSection,
     filterable_gallery_section: Gallery,
 
-
     // Research Section
     research_highlights: ResearchHighlights,
     grid_section: Grid,
     research_ecosystem: ResearchEcosystem,
     the_edge: TheEdge,
     research_sdg: SDGResearchContributions,
+    sdg_research: SDGResearchContributions,
     funded_projects: FundedResearchProjects,
     research_opportunities: ResearchOpportunities,
+    ResearchOpportunities: ResearchOpportunities,
     clinical_research: ClinicalResearch,
 
     // Global Section
     global_alliances: AlliancesGlobal,
-    functional_units: FunctionalUnits,
+    enquiry_global: EnquiryGlobal,
+    universal_section: UniversalSection,
 
     // IQAC Section
     iqac_button: IQACSection,
     functional_units: FunctionalUnits,
 
     // Programs Section
-    programs_section: ProgramsComponent,
+    programs_section: HomePrograms,
     important_contacts: ImportantContacts,
-
-    //Global
-    enquiry_global: EnquiryGlobal,
-    global_alliances: AlliancesGlobal,
-    universal_section: UniversalSection,
-
-    // Research Section
-    research_highlights: ResearchHighlights,
-    grid_section: Grid,
-    research_ecosystem: ResearchEcosystem,
-    the_edge: TheEdge,
-    sdg_research: SDGResearchContributions,
-    funded_projects: FundedResearchProjects,
-    ResearchOpportunities: ResearchOpportunities,
+    programs_subpage: SubPrograms,
 
     // Admission Page
     admission_info_boxes: AdmissionInfoPage,
     admission_faqs: AdmissionFAQs,
     international_collaborations_admission: InternationalCollaborations,
-
-    // Extra hai abhi
-    programs_section: HomePrograms,
-    home_steps_section: HomeSteps,
-    home_BULLETIN_section: HomeBulletin,
-    home_ANNOUNCEMENTS_section: HomeANNOUNCEMENTS,
-    home_testimonial_section: HomeTestimonial,
-
-    // home_research_section: HomeResearch,
-    programs_subpage: SubPrograms,
-
-
-    micro_page: MainMicropage,
-    tab_menu: TabMenu,
     feature_cards: FeatureCards,
 
+    // Micropages
+    micro_page: MainMicropage,
+    tab_menu: TabMenu,
 
     // Alumni
     activities_announcements: ActivitiesAndAnnouncements,
@@ -145,5 +124,4 @@ export const SECTION_COMPONENTS = {
     // Campus Facilities
     academic_innovation_facilities: AcademicFC,
     wellbeing_section: WellbeingComfortFC,
-
 };

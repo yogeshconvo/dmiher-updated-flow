@@ -1,5 +1,4 @@
-import React from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 const ViewMoreButton = ({
   onClick,
@@ -21,17 +20,6 @@ const ViewMoreButton = ({
       >
         {label}
       </Link>
-    );
-  } else if (href) {
-    return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="w-full bg-gray-100 hover:bg-[#F04E30] text-gray-700 hover:text-white py-2 px-4 rounded-lg transition-all duration-300 font-medium block text-center"
-      >
-        View Certificate
-      </a>
     );
   }
 

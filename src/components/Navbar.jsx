@@ -1,38 +1,34 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 import MegaMenu from "./NavbarMegaMenu";
+import { API_BASE } from "../config/api";
 import "../styles/components/navbar.css";
 
+const fetchNavMenu = async () => {
+  const res = await fetch(`${API_BASE}/api/menus/Header`);
+  if (!res.ok) throw new Error("Failed to fetch menu");
+  return res.json();
+};
+
 const Navbar = () => {
-  const [mainMenu, setMainMenu] = useState([]);
-  const [topLinks, setTopLinks] = useState([]);
-  const [logo, setLogo] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openSection, setOpenSection] = useState(null);
-
-  // 🔥 NEW STATE FOR MEGA MENU
   const [activeMega, setActiveMega] = useState(null);
   const [closeTimeout, setCloseTimeout] = useState(null);
 
-  /* ================= FETCH MENU ================= */
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/menus/Header")
-      .then((res) => res.json())
-      .then((res) => {
-        const menu = res?.menu || [];
+  const { data: menuData } = useQuery({
+    queryKey: ["menu", "header"],
+    queryFn: fetchNavMenu,
+  });
 
-        setMainMenu(menu.filter((i) => i.position === "Main"));
-        setTopLinks(menu.filter((i) => i.position === "Top"));
-
-        const logoItem = menu.find((i) => i.position === "Logo");
-        setLogo(logoItem);
-      })
-      .catch(console.error);
-  }, []);
+  const menu = menuData?.menu || [];
+  const mainMenu = menu.filter((i) => i.position === "Main");
+  const topLinks = menu.filter((i) => i.position === "Top");
+  const logo = menu.find((i) => i.position === "Logo");
 
   /* ================= MEGA MENU HANDLERS ================= */
-
   const handleMouseEnter = (id) => {
     if (closeTimeout) {
       clearTimeout(closeTimeout);
@@ -44,7 +40,7 @@ const Navbar = () => {
   const handleMouseLeave = () => {
     const timeout = setTimeout(() => {
       setActiveMega(null);
-    }, 300); // smooth delay
+    }, 300);
     setCloseTimeout(timeout);
   };
 
@@ -92,7 +88,7 @@ const Navbar = () => {
                             >
                               {subItem.title}
                             </Link>
-                          )),
+                          ))
                         )}
                       </div>
                     )}
@@ -123,7 +119,7 @@ const Navbar = () => {
               return (
                 <div
                   key={item.id}
-                  className="relative "
+                  className="relative"
                   onMouseEnter={() => handleMouseEnter(item.id)}
                   onMouseLeave={handleMouseLeave}
                 >
@@ -186,7 +182,7 @@ const Navbar = () => {
                         className="mobile-heading-btn-mega"
                         onClick={() =>
                           setOpenSection(
-                            openSection === item.id ? null : item.id,
+                            openSection === item.id ? null : item.id
                           )
                         }
                       >
@@ -212,14 +208,14 @@ const Navbar = () => {
                               </p>
                             )}
 
-                            {campus.items?.map((college, j) => (
+                            {campus.items?.map((col, j) => (
                               <Link
                                 key={j}
-                                to={college.slug}
+                                to={col.slug}
                                 className="mobile-link"
                                 onClick={() => setMobileMenuOpen(false)}
                               >
-                                {college.title}
+                                {col.title}
                               </Link>
                             ))}
                           </div>

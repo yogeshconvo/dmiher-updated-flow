@@ -1,4 +1,6 @@
-const BASE_URL = "http://127.0.0.1:8000/storage/";
+import { API_BASE } from "../../config/api";
+
+const BASE_URL = `${API_BASE}/storage/`;
 
 export const getImageSrc = (img) => {
   if (!img) return "";

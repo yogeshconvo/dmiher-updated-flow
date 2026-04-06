@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
@@ -12,31 +12,10 @@ export function GalleryWithPopup({ data }) {
   if (!data) return null;
 
   const images = Array.isArray(data.gallery) ? data.gallery : [];
-
   const [popupIndex, setPopupIndex] = useState(null);
-  const [chunkSize, setChunkSize] = useState(9);
 
-  /* ============== RESPONSIVE GRID ============== */
-  useEffect(() => {
-    const updateChunkSize = () => {
-      if (window.innerWidth < 1024) setChunkSize(6);
-      else setChunkSize(9);
-    };
-
-    updateChunkSize();
-    window.addEventListener("resize", updateChunkSize);
-
-    return () => window.removeEventListener("resize", updateChunkSize);
-  }, []);
-
-
-  const slides = [];
-  for (let i = 0; i < images.length; i += chunkSize) {
-    slides.push({
-      startIndex: i,
-      items: images.slice(i, i + chunkSize),
-    });
-  }
+  // Use CSS-based responsive grid instead of JS resize listener
+  // Desktop: 9 per slide, Tablet: 6 per slide — handled via gallery-grid CSS
 
   const getImageSrc = (img) => {
     if (!img) return null;
@@ -49,89 +28,79 @@ export function GalleryWithPopup({ data }) {
 
   return (
     <section className="container">
-    
+      <h2 className="heading">
+        <hr className="heading-line" />
+        {data.header?.heading || "Gallery"}
+      </h2>
 
+      <div className="gallery-nav">
+        <RichTextRenderer html={data.header?.intro_text} />
 
-        <h2 className="heading">
-          <hr className="heading-line" />
-          {data.header?.heading || "Gallery"}
-        </h2>
-
-
-        <div className="gallery-nav">
-       <RichTextRenderer html={data.header?.intro_text} />
-
-          <div className="button-wrapper">
-             <button className="gallery-nav-btn">
+        <div className="button-wrapper">
+          <button className="gallery-nav-btn gallery-prev">
             <ArrowLeft />
           </button>
-
-          <button className="gallery-nav-btn">
+          <button className="gallery-nav-btn gallery-next">
             <ArrowRight />
-          </button></div>
-        
+          </button>
         </div>
+      </div>
 
-        {/* Swiper */}
-        <Swiper
-          modules={[Navigation]}
-          spaceBetween={20}
-          navigation={{
-            prevEl: ".gallery-prev",
-            nextEl: ".gallery-next",
-          }}
-        >
-          {slides.map((slide, i) => (
-            <SwiperSlide key={i}>
-              <div className="gallery-grid">
-                {slide.items.map((img, idx) => {
-                  const imageSrc = getImageSrc(img.image);
-                  const globalIndex = slide.startIndex + idx;
+      {/* Swiper */}
+      <Swiper
+        modules={[Navigation]}
+        spaceBetween={20}
+        navigation={{
+          prevEl: ".gallery-prev",
+          nextEl: ".gallery-next",
+        }}
+      >
+        {/* Single slide with all images - CSS grid handles responsive layout */}
+        <SwiperSlide>
+          <div className="gallery-grid">
+            {images.map((img, idx) => {
+              const imageSrc = getImageSrc(img.image);
 
-                  return (
-                    <div
-                      key={globalIndex}
-                      className="gallery-card"
-                      onClick={() => setPopupIndex(globalIndex)}
-                    >
-                      {imageSrc ? (
-                        <img
-                          src={imageSrc}
-                          alt={img.caption || "gallery"}
-                          className="gallery-image"
-                        />
-                      ) : (
-                        <div className="gallery-image-fallback" />
-                      )}
+              return (
+                <div
+                  key={idx}
+                  className="gallery-card"
+                  onClick={() => setPopupIndex(idx)}
+                >
+                  {imageSrc ? (
+                    <img
+                      src={imageSrc}
+                      alt={img.caption || "gallery"}
+                      className="gallery-image"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="gallery-image-fallback" />
+                  )}
 
-                      {img.caption && (
-                        <p className="gallery-image-title">
-                          {img.caption}
-                        </p>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+                  {img.caption && (
+                    <p className="gallery-image-title">{img.caption}</p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </SwiperSlide>
+      </Swiper>
 
-        {/* Popup */}
-        {popupIndex !== null && (
-          <ImagePopup
-            images={images}
-            index={popupIndex}
-            onClose={() => setPopupIndex(null)}
-          />
-        )}
-     
+      {/* Popup */}
+      {popupIndex !== null && (
+        <ImagePopup
+          images={images}
+          index={popupIndex}
+          onClose={() => setPopupIndex(null)}
+        />
+      )}
     </section>
   );
 }
 
 /* ================= POPUP ================= */
-
 export function ImagePopup({ images, index, onClose }) {
   const getImageSrc = (img) => {
     if (!img) return null;
@@ -154,10 +123,7 @@ export function ImagePopup({ images, index, onClose }) {
           <div className="gallery-popup-fallback" />
         )}
 
-        <button
-          className="gallery-popup-close"
-          onClick={onClose}
-        >
+        <button className="gallery-popup-close" onClick={onClose}>
           <X size={30} />
         </button>
       </div>

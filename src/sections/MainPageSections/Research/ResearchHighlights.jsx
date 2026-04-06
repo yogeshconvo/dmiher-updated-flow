@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import { API_BASE } from "../../../config/api";
 
 import "swiper/css";
 import "swiper/css/pagination";

@@ -69,4 +69,4 @@ function Micropages({ institutes }) {
   );
 }
 
-export default Subpages;
+export default Micropages;

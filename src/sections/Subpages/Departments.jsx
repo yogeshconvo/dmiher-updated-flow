@@ -1,102 +1,83 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import DropdownButton from "../../components/DropDownButton";
 import { GalleryWithPopup } from "../../components/GalleryWithPopup";
-import * as LucideIcons from "lucide-react";
+import { renderIcon } from "../../utils/renderIcon";
+import { API_BASE } from "../../config/api";
+import PageSkeleton from "../../components/Skeletons/PageSkeleton";
+import RichTextRenderer from "../../components/RichTextRenderer";
+
+const fetchDepartments = async (college) => {
+  const res = await fetch(`${API_BASE}/api/departments/${college}`);
+  if (!res.ok) throw new Error("Failed to fetch departments");
+  const json = await res.json();
+  return json.data || [];
+};
 
 function DepartmentsSubpage() {
   const { college, deptSlug } = useParams();
 
-  const [departments, setDepartments] = useState([]);
+  const { data: departments = [], isLoading } = useQuery({
+    queryKey: ["departments", college],
+    queryFn: () => fetchDepartments(college),
+    enabled: !!college,
+  });
+
   const [selectedKey, setSelectedKey] = useState(null);
-  const [currentDeptList, setCurrentDeptList] = useState([]);
   const [activeDeptIndex, setActiveDeptIndex] = useState(0);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(
-        `http://127.0.0.1:8000/api/departments/${college}`
-      );
-      const json = await res.json();
-
-      const deptData = json.data || [];
-      setDepartments(deptData);
-
-      const selected = deptData.find(d => d.slug === deptSlug);
-
-      if (selected) {
-        setSelectedKey(selected.slug);
-        setCurrentDeptList(selected.data?.departments || []);
-        setActiveDeptIndex(0);
-      }
-    };
-
-    fetchData();
-  }, [college, deptSlug]);
+  // Once data loads, auto-select based on URL slug
+  const effectiveKey = selectedKey ?? deptSlug;
+  const selected = departments.find((d) => d.slug === effectiveKey);
+  const currentDeptList = selected?.data?.departments || [];
+  const currentDept = currentDeptList[activeDeptIndex];
 
   const handleChange = (slug) => {
     setSelectedKey(slug);
-    const selected = departments.find(d => d.slug === slug);
-    setCurrentDeptList(selected?.data?.departments || []);
     setActiveDeptIndex(0);
   };
 
-  const currentDept = currentDeptList[activeDeptIndex];
+  if (isLoading) return <PageSkeleton />;
 
-  if (!currentDept) return <p>Loading...</p>;
+  if (!currentDept) {
+    return (
+      <div className="text-center py-20 text-gray-500">
+        No department data available.
+      </div>
+    );
+  }
 
-  const options = departments.map(d => ({
+  const options = departments.map((d) => ({
     key: d.slug,
     label: d.name,
   }));
 
-   /* ---------------- Icon Renderer ---------------- */
-    const renderIcon = (iconName, size = 18) => {
-      if (!iconName) return null;
-  
-      // Convert kebab-case to PascalCase
-      const formattedName = iconName
-        .split("-")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join("");
-  
-      const IconComponent = LucideIcons[formattedName];
-  
-      return IconComponent ? (
-        <IconComponent
-          className=" "
-          size={size}
-        />
-      ) : null;
-    };
-  
-
   return (
-    <div className="min-h-screen bg-gray-50">
-
+    <div className="min-h-screen bg-gray-50 fade-in">
       {/* Header */}
       <header className="bg-[#122E5E] text-white py-8 text-center">
         <h1 className="text-4xl font-bold">
-          {currentDept.college_name || "JNMC"}
+          {currentDept.college_name || "Department"}
         </h1>
-        <p className="text-xl opacity-90">
-          {currentDept.college_info || ""}
-        </p>
+        <p className="text-xl opacity-90">{currentDept.college_info || ""}</p>
       </header>
 
       <div className="max-w-7xl mx-auto px-4 py-8 space-y-6">
-
         {/* Dropdown */}
         <DropdownButton
           options={options}
-          selectedKey={selectedKey}
+          selectedKey={effectiveKey}
           onChange={handleChange}
           placeholder="Select Department"
         />
 
         {/* Dept Header */}
-        <div className="bg-[#122E5E] text-white rounded-xl p-8 mt-6 text-center ">
-           <div className="flex items-center gap-2 justify-center">{renderIcon(currentDept.icon,30)}<h2 className="text-3xl font-bold"> {currentDept.name}</h2></div>
+        <div className="bg-[#122E5E] text-white rounded-xl p-8 mt-6 text-center">
+          <div className="flex items-center gap-2 justify-center">
+            {renderIcon(currentDept.icon, 30)}
+            <h2 className="text-3xl font-bold">{currentDept.name}</h2>
+          </div>
           <p className="mt-2 text-lg max-w-4xl mx-auto">{currentDept.info}</p>
         </div>
 
@@ -110,21 +91,17 @@ function DepartmentsSubpage() {
             <div className="flex flex-col md:flex-row items-center gap-6">
               <img
                 src={currentDept.dean_image}
+                alt="Head of Department"
                 className="w-44 h-52 rounded-full object-cover"
               />
-
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: currentDept.dean_details,
-                }}
-              />
+              <RichTextRenderer html={currentDept.dean_details} />
             </div>
           </div>
         )}
 
-      
-
-         <div className="bg-white rounded-xl shadow-lg p-8 ">
+        {/* Staff Table */}
+        {currentDept.staff?.length > 0 && (
+          <div className="bg-white rounded-xl shadow-lg p-8">
             <h3 className="text-2xl font-bold text-gray-800 mb-6">
               Department Staff
             </h3>
@@ -162,19 +139,10 @@ function DepartmentsSubpage() {
               </table>
             </div>
           </div>
+        )}
 
-        {/* USP */}
-        {/* {currentDept.usp?.length > 0 && (
-          <div className="bg-white p-8 mt-6 rounded-xl shadow">
-            <h3 className="text-2xl font-bold mb-4">
-              Department Info
-            </h3>
-
-            {currentDept.usp.map((u, i) => (
-              <p key={i}>{i + 1}. {u.point}</p>
-            ))}
-          </div>
-        )} */}
+        {/* USP / Department Info */}
+        {currentDept.usp?.length > 0 && (
           <div className="bg-white rounded-xl shadow-lg p-8">
             <h3 className="text-2xl font-bold text-gray-800 mb-6">
               Department's Information
@@ -193,15 +161,17 @@ function DepartmentsSubpage() {
               ))}
             </div>
           </div>
+        )}
 
         {/* Gallery */}
         {currentDept.gallery?.length > 0 && (
           <GalleryWithPopup
-            title="Gallery"
-            images={currentDept.gallery.map(g => g.image)}
+            data={{
+              gallery: currentDept.gallery,
+              header: { heading: "Gallery" },
+            }}
           />
         )}
-
       </div>
     </div>
   );
