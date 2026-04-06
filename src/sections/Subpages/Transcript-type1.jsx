@@ -131,6 +131,7 @@ function Transcript({ data: propData, college: propCollege }) {
 
   return (
     <div className="transcript-page">
+      {/* Header */}
       <header className="transcript-header">
         <h1 className="transcript-title">{title}</h1>
       </header>
