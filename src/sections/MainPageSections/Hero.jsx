@@ -34,92 +34,154 @@ function Hero({ data, slug = "Home" }) {
 
         {/* Desktop / large view */}
         <div className="hidden lg:flex items-center gap-x-5">
-          {topbar.primary_cta_text && (
-            <button
-              onClick={handleScrollToSection}
-              className="flex items-center text-xl text-white px-3 py-2 space-x-3 font-semibold rounded-[10px] btn-primary"
-            >
-              <span>{topbar.primary_cta_text}</span>
-            </button>
-          )}
+          {/* Dynamic topbar.buttons */}
+          {Array.isArray(topbar.buttons) && topbar.buttons.length > 0
+            ? topbar.buttons.map((btn, index) => {
+                const isPhone = btn.url_type === "phone";
+                return (
+                  <a
+                    key={index}
+                    href={isPhone ? `tel:${btn.phone}` : btn.url}
+                    target={isPhone ? undefined : "_blank"}
+                    rel={isPhone ? undefined : "noopener noreferrer"}
+                    className="flex items-center rounded-[10px] text-xl px-3 py-2 space-x-3 font-semibold transition-colors duration-300"
+                    style={{
+                      backgroundColor: btn.bg_color,
+                      color: btn.text_color,
+                    }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.backgroundColor =
+                        btn.hover_bg_color || btn.bg_color)
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.backgroundColor = btn.bg_color)
+                    }
+                  >
+                    <span>{btn.text}</span>
+                  </a>
+                );
+              })
+            : <>
+                {topbar.primary_cta_text && (
+                  <button
+                    onClick={handleScrollToSection}
+                    className="flex items-center text-xl text-white px-3 py-2 space-x-3 font-semibold rounded-[10px] btn-primary"
+                  >
+                    <span>{topbar.primary_cta_text}</span>
+                  </button>
+                )}
 
-          {/* APPLY NOW Button */}
-          {topbar.apply_now_url && (
-            <a
-              href={topbar.apply_now_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center rounded-[10px] text-xl bg-[#F04E30] hover:bg-[#102B64] text-white px-3 py-2 space-x-3 font-semibold"
-            >
-              <span>APPLY NOW</span>
-            </a>
-          )}
+                {/* APPLY NOW Button */}
+                {topbar.apply_now_url && (
+                  <a
+                    href={topbar.apply_now_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center rounded-[10px] text-xl bg-[#F04E30] hover:bg-[#102B64] text-white px-3 py-2 space-x-3 font-semibold"
+                  >
+                    <span>APPLY NOW</span>
+                  </a>
+                )}
 
-          {/* Phone Button */}
-          {topbar.phone_number && (
-            <a href={`tel:${topbar.phone_number}`}>
-              <button className="flex items-center uppercase rounded-[10px] font-[500] text-base hover:bg-[#F04E30] bg-[#102B64] text-white px-3 py-2 space-x-3">
-                <svg
-                  className="w-5 h-5"
-                  fill="white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M6.62 10.79a15.91 15.91 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27 11.36 11.36 0 003.55.57 1 1 0 011 1v3.43a1 1 0 01-1 1A17.93 17.93 0 012 6a1 1 0 011-1h3.44a1 1 0 011 1 11.36 11.36 0 00.57 3.55 1 1 0 01-.27 1.11z" />
-                </svg>
-                <span className="text-xl ml-1">
-                  {topbar.phone_label || topbar.phone_number}
-                </span>
-              </button>
-            </a>
-          )}
+                {/* Phone Button */}
+                {topbar.phone_number && (
+                  <a href={`tel:${topbar.phone_number}`}>
+                    <button className="flex items-center uppercase rounded-[10px] font-[500] text-base hover:bg-[#F04E30] bg-[#102B64] text-white px-3 py-2 space-x-3">
+                      <svg
+                        className="w-5 h-5"
+                        fill="white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M6.62 10.79a15.91 15.91 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27 11.36 11.36 0 003.55.57 1 1 0 011 1v3.43a1 1 0 01-1 1A17.93 17.93 0 012 6a1 1 0 011-1h3.44a1 1 0 011 1 11.36 11.36 0 00.57 3.55 1 1 0 01-.27 1.11z" />
+                      </svg>
+                      <span className="text-xl ml-1">
+                        {topbar.phone_label || topbar.phone_number}
+                      </span>
+                    </button>
+                  </a>
+                )}
+              </>
+          }
         </div>
 
         {/* Mobile View */}
         <div className="flex flex-col items-center gap-y-2 mt-1 lg:hidden">
-          {topbar.primary_cta_text && (
-            <Link
-              to={`/${slug}#${primarySectionId}`}
-              rel="noopener noreferrer"
-              className="w-full text-center flex justify-center items-center text-base text-white px-3 py-2 font-semibold rounded-[10px] btn-primary"
-            >
-              <span>{topbar.primary_cta_text}</span>
-            </Link>
-          )}
-
-          <div className="flex justify-center gap-x-3 w-full">
-            {topbar.apply_now_url && (
-              <a
-                href={topbar.apply_now_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full flex justify-center items-center rounded-[10px] text-sm bg-[#F04E30] hover:bg-[#102B64] text-white px-1 py-2 font-semibold"
-              >
-                APPLY NOW
-              </a>
-            )}
-
-            {topbar.phone_number && (
-              <a
-                href={`tel:${topbar.phone_number}`}
-                className="w-full flex justify-center"
-              >
-                <button className="w-full flex justify-center items-center uppercase rounded-[10px] font-[500] text-sm hover:bg-[#F04E30] bg-[#102B64] text-white px-2 py-2">
-                  <svg
-                    className="w-5 h-5"
-                    fill="white"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
+          {/* Dynamic topbar.buttons (mobile) */}
+          {Array.isArray(topbar.buttons) && topbar.buttons.length > 0
+            ? <div className="flex flex-wrap justify-center gap-2 w-full">
+                {topbar.buttons.map((btn, index) => {
+                  const isPhone = btn.url_type === "phone";
+                  return (
+                    <a
+                      key={index}
+                      href={isPhone ? `tel:${btn.phone}` : btn.url}
+                      target={isPhone ? undefined : "_blank"}
+                      rel={isPhone ? undefined : "noopener noreferrer"}
+                      className="flex-1 min-w-[120px] text-center flex justify-center items-center rounded-[10px] text-sm px-2 py-2 font-semibold transition-colors duration-300"
+                      style={{
+                        backgroundColor: btn.bg_color,
+                        color: btn.text_color,
+                      }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.backgroundColor =
+                          btn.hover_bg_color || btn.bg_color)
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.backgroundColor = btn.bg_color)
+                      }
+                    >
+                      {btn.text}
+                    </a>
+                  );
+                })}
+              </div>
+            : <>
+                {topbar.primary_cta_text && (
+                  <Link
+                    to={`/${slug}#${primarySectionId}`}
+                    rel="noopener noreferrer"
+                    className="w-full text-center flex justify-center items-center text-base text-white px-3 py-2 font-semibold rounded-[10px] btn-primary"
                   >
-                    <path d="M6.62 10.79a15.91 15.91 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27 11.36 11.36 0 003.55.57 1 1 0 011 1v3.43a1 1 0 01-1 1A17.93 17.93 0 012 6a1 1 0 011-1h3.44a1 1 0 011 1 11.36 11.36 0 00.57 3.55 1 1 0 01-.27 1.11z" />
-                  </svg>
-                  <span className="text-sm">
-                    {topbar.phone_label || topbar.phone_number}
-                  </span>
-                </button>
-              </a>
-            )}
-          </div>
+                    <span>{topbar.primary_cta_text}</span>
+                  </Link>
+                )}
+
+                <div className="flex justify-center gap-x-3 w-full">
+                  {topbar.apply_now_url && (
+                    <a
+                      href={topbar.apply_now_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full flex justify-center items-center rounded-[10px] text-sm bg-[#F04E30] hover:bg-[#102B64] text-white px-1 py-2 font-semibold"
+                    >
+                      APPLY NOW
+                    </a>
+                  )}
+
+                  {topbar.phone_number && (
+                    <a
+                      href={`tel:${topbar.phone_number}`}
+                      className="w-full flex justify-center"
+                    >
+                      <button className="w-full flex justify-center items-center uppercase rounded-[10px] font-[500] text-sm hover:bg-[#F04E30] bg-[#102B64] text-white px-2 py-2">
+                        <svg
+                          className="w-5 h-5"
+                          fill="white"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M6.62 10.79a15.91 15.91 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27 11.36 11.36 0 003.55.57 1 1 0 011 1v3.43a1 1 0 01-1 1A17.93 17.93 0 012 6a1 1 0 011-1h3.44a1 1 0 011 1 11.36 11.36 0 00.57 3.55 1 1 0 01-.27 1.11z" />
+                        </svg>
+                        <span className="text-sm">
+                          {topbar.phone_label || topbar.phone_number}
+                        </span>
+                      </button>
+                    </a>
+                  )}
+                </div>
+              </>
+          }
         </div>
 
         {/* Button Animation CSS */}

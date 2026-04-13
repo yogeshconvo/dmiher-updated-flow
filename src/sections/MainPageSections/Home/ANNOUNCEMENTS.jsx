@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { API_BASE } from "../../../config/api";
+import api from "../../../config/api";
 
 function HomeANNOUNCEMENTS() {
   const [data, setData] = useState(null);
@@ -8,8 +8,8 @@ function HomeANNOUNCEMENTS() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    fetch(`${API_BASE}/api/announcements`)
-      .then((res) => res.json())
+    api.get("/announcements")
+      .then((res) => res.data)
       .then((res) => {
         const section = Array.isArray(res)
           ? res.find((item) => item.section_id === "home_ANNOUNCEMENTS_section")

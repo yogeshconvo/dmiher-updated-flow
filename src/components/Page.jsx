@@ -1,3 +1,5 @@
+import RichTextRenderer from "./RichTextRenderer";
+
 function Page({ page }) {
   if (!page) {
     return <main>Page not found</main>;
@@ -11,9 +13,8 @@ function Page({ page }) {
 
       {sections.map((sec) => (
         <section key={sec.slug}>
-          {sec.html && <div dangerouslySetInnerHTML={{ __html: sec.html }} />}
+          {sec.html && <RichTextRenderer html={sec.html} />}
 
-          
           {sec.content && !sec.html && <p>{sec.content}</p>}
         </section>
       ))}

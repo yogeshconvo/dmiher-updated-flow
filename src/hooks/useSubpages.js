@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { API_BASE } from "../config/api";
+import api from "../config/api";
 
 const fetchSubpage = async (slug, page) => {
-  const res = await fetch(`${API_BASE}/api/micropage/${slug}/${page}`);
-  if (!res.ok) throw new Error("Failed to fetch subpage");
-  return res.json();
+  const { data } = await api.get(`/micropage/${slug}/${page}`);
+  return data;
 };
 
 export const useSubpage = (slug, page) =>

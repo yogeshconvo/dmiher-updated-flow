@@ -1,4 +1,5 @@
 import React from "react";
+import RichTextRenderer from "../../../components/RichTextRenderer";
 
 export default function FunctionalUnits({ data }) {
   const { heading, units } = data || {};
@@ -52,10 +53,7 @@ export default function FunctionalUnits({ data }) {
 
               {/* Description HTML */}
               {unit.desc && (
-                <div
-                  className="functional-desc"
-                  dangerouslySetInnerHTML={{ __html: unit.desc }}
-                ></div>
+                <RichTextRenderer html={unit.desc} className="functional-desc" />
               )}
             </div>
           ))}

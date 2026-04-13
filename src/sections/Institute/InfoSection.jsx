@@ -3,21 +3,26 @@ import RichTextRenderer from "../../components/RichTextRenderer";
 import ViewMoreButton from "../../components/UI/ViewMore";
 
 function InfoSection({ data }) {
-  if (!data || !Array.isArray(data.slider) || data.slider.length === 0) {
+  const source = data?.Info || data?.slider;
+  if (!data || !Array.isArray(source) || source.length === 0) {
     return null;
   }
 
   const [showMore, setShowMore] = useState(false);
 
-  const item = data.slider[0];
+  const item = source[0];
 
   const {
     title,
     subtitle,
     tegline,
     desc,
-    viredesc, 
+    institute_desc,
+    non_desc,
+    viredesc,
   } = item || {};
+
+  const mainDesc = institute_desc || non_desc || desc;
 
   return (
     <div className="info-wrapper">
@@ -48,9 +53,9 @@ function InfoSection({ data }) {
         )}
 
         {/* Main Description */}
-        {desc && (
+        {mainDesc && (
           <div className="info-description">
-            <RichTextRenderer html={desc} />
+            <RichTextRenderer html={mainDesc} />
           </div>
         )}
 

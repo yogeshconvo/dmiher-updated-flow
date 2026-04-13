@@ -10,6 +10,13 @@ const DeansMessage = ({ data, pageSlug, college }) => {
   const main = data.main || {};
   const paragraphs = data.paragraphs || [];
   const moreParagraphs = data.view_more_paragraphs || [];
+  const contentItems = Array.isArray(data.content) ? data.content : [];
+
+  // Extract button and view items from new content array
+  const buttonContent = contentItems.find((c) => c.tab_type === "button");
+  const viewContent = contentItems.find((c) => c.tab_type === "view");
+
+  // Old format fallback
   const cta = data.cta || {};
 
   // Resolve the college slug for building the CTA link
@@ -70,22 +77,54 @@ const DeansMessage = ({ data, pageSlug, college }) => {
                 </div>
               ))}
 
-            {/* ================= CTA ================= */}
-
-            {/* CASE 1: Redirect → /{college}/{ctaKey} */}
-            {ctaLink ? (
-              <ViewMoreButton
-                href={ctaLink}
-                label={cta.cta_label || "View More"}
-              />
-            ) : (
-              // CASE 2: Expand / Collapse
-              moreParagraphs.length > 0 && (
+            {/* ================= VIEW MORE (new content format) ================= */}
+            {viewContent?.description && (
+              <>
+                {expanded && (
+                  <div className="deans-paragraph">
+                    <RichTextRenderer html={viewContent.description} />
+                  </div>
+                )}
                 <ViewMoreButton
                   onClick={() => setExpanded(!expanded)}
                   label={expanded ? "Read Less" : "Read More"}
                 />
-              )
+              </>
+            )}
+
+            {/* ================= BUTTON CTAs (new content format) ================= */}
+            {buttonContent?.cta?.length > 0 &&
+              buttonContent.cta.map((btn, i) => {
+                const btnLink =
+                  btn.cta_key && resolvedSlug
+                    ? `/${resolvedSlug}/${btn.cta_key}`
+                    : null;
+                return btnLink ? (
+                  <ViewMoreButton
+                    key={i}
+                    href={btnLink}
+                    label={btn.label || "View More"}
+                  />
+                ) : null;
+              })}
+
+            {/* ================= OLD FORMAT CTA ================= */}
+            {!viewContent && !buttonContent && (
+              <>
+                {ctaLink ? (
+                  <ViewMoreButton
+                    href={ctaLink}
+                    label={cta.cta_label || "View More"}
+                  />
+                ) : (
+                  moreParagraphs.length > 0 && (
+                    <ViewMoreButton
+                      onClick={() => setExpanded(!expanded)}
+                      label={expanded ? "Read Less" : "Read More"}
+                    />
+                  )
+                )}
+              </>
             )}
 
           </div>

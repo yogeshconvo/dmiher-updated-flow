@@ -3,13 +3,12 @@ import { Link, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import MegaMenu from "./NavbarMegaMenu";
-import { API_BASE } from "../config/api";
+import api from "../config/api";
 import "../styles/components/navbar.css";
 
 const fetchNavMenu = async () => {
-  const res = await fetch(`${API_BASE}/api/menus/Header`);
-  if (!res.ok) throw new Error("Failed to fetch menu");
-  return res.json();
+  const { data } = await api.get("/menus/Header");
+  return data;
 };
 
 const Navbar = () => {

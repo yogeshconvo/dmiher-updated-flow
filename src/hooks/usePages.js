@@ -1,11 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { API_BASE } from "../config/api";
+import api from "../config/api";
 
 const fetchPages = async (slug) => {
   const finalSlug = slug || "home";
-  const res = await fetch(`${API_BASE}/api/pages/${finalSlug}`);
-  if (!res.ok) throw new Error("API error");
-  return res.json();
+  const { data } = await api.get(`/pages/${finalSlug}`);
+  return data;
 };
 
 export const usePages = (slug) =>

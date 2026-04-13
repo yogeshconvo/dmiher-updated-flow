@@ -1,5 +1,6 @@
 import React from "react";
 import DynamicTable from "./DynamicTable";
+import RichTextRenderer from "../../components/RichTextRenderer";
 
 const ContentRenderer = ({ flow = [] }) => {
   if (!Array.isArray(flow)) return null;
@@ -19,10 +20,7 @@ const ContentRenderer = ({ flow = [] }) => {
 
           case "paragraph":
             return (
-              <div
-                key={key}
-                dangerouslySetInnerHTML={{ __html: block.value }}
-              />
+              <RichTextRenderer key={key} html={block.value} />
             );
 
           case "table":

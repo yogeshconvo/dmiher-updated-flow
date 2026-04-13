@@ -30,13 +30,17 @@ const ArrowButton = ({ direction = "next", onClick }) => {
 ========================= */
 
 function HolisticInfrastructureSection({ data , college }) {
-  const layoutType = data?.layout?.layout_type || "vertical";
-  const heading = data?.header?.title || "";
-  const subtitle = data?.header?.subtitle || "";
+  const slider = Array.isArray(data?.slider) ? data.slider[0] : data?.slider;
+  const source = slider || data || {};
+
+  const layoutType =
+    source?.tab_type || source?.layout?.layout_type || data?.layout?.layout_type || "vertical";
+  const heading = source?.title || data?.header?.title || "";
+  const subtitle = source?.subtitle || data?.header?.subtitle || "";
   const pageSlug = college;
 
-  const cta = data.cta || {};
-  const ctaItem = cta?.["0"];
+  const cta = source?.cat || source?.cta || data?.cta || [];
+  const ctaItem = Array.isArray(cta) ? cta[0] : cta?.["0"];
 
   const ctaLink =
     ctaItem?.has_micro_page && ctaItem?.micro_slug
@@ -44,12 +48,12 @@ function HolisticInfrastructureSection({ data , college }) {
       : "";
 
   const dimensions =
-    data?.dimensions?.map((item, index) => ({
+    (source?.dimensions || data?.dimensions || []).map((item, index) => ({
       id: index + 1,
       title: item.title,
       desc: item.desc,
       image: item.img
-    })) || [];
+    }));
 
   const swiperRef = useRef(null);
 

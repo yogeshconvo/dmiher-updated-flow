@@ -11,7 +11,31 @@
       "Bash(node -e \"fetch\\(''''http://127.0.0.1:8000/api/pages/home''''\\).then\\(r=>r.json\\(\\)\\).then\\(d=>{console.log\\(''''top keys:'''', Object.keys\\(d\\)\\); console.log\\(''''name:'''', d.name\\); console.log\\(''''meta:'''', d.meta\\)}\\)\")",
       "Bash(node -e \":*)",
       "Bash(node -e \"const h=require\\(''fs''\\).readFileSync\\(''dist/index.html'',''utf8''\\);const i=h.indexOf\\(''<div id=\"\"root\"\">''\\);console.log\\(h.substring\\(i,i+400\\)\\)\")",
-      "Bash(node -e 'const h=require\\(\"\"fs\"\"\\).readFileSync\\(\"\"dist/index.html\"\",\"\"utf8\"\"\\);const i=h.indexOf\\(\"\"<div id=\"\"\\);console.log\\(h.substring\\(i,i+400\\)\\)')"
+      "Bash(node -e 'const h=require\\(\"\"fs\"\"\\).readFileSync\\(\"\"dist/index.html\"\",\"\"utf8\"\"\\);const i=h.indexOf\\(\"\"<div id=\"\"\\);console.log\\(h.substring\\(i,i+400\\)\\)')",
+      "Bash(grep -ri \"aws_\" /d/CONVOMAX/API/dmiher-new-flow --include=\"*.js\" --include=\"*.ts\" --include=\"*.json\" --include=\"*.yaml\" --include=\"*.yml\" ! -path \"*/node_modules/*\" ! -path \"*/.git/*\")",
+      "Bash(grep -r \"window\\\\.\\\\|localStorage\\\\|sessionStorage\\\\|Cookie\" /d/CONVOMAX/API/dmiher-new-flow/src --include=*.jsx --include=*.js)",
+      "Bash(grep -ri mongodb /d/CONVOMAX/API/dmiher-new-flow --include=*.js --include=*.ts --include=*.json --include=*.yaml --include=*.yml ! -path */node_modules/* ! -path */.git/*)",
+      "Bash(grep -ri database /d/CONVOMAX/API/dmiher-new-flow --include=*.js --include=*.ts --include=*.json --include=*.yaml --include=*.yml ! -path */node_modules/* ! -path */.git/*)",
+      "Bash(grep -ri \"user.*password\\\\|username.*pass\\\\|auth.*token\\\\|bearer.*\\\\|api.*key\\\\|secret.*key\" /d/CONVOMAX/API/dmiher-new-flow --include=*.js --include=*.ts --include=*.json ! -path */node_modules/* ! -path */.git/*)",
+      "Bash(find /d/CONVOMAX/API/dmiher-new-flow -name .env* -o -name *.pem -o -name *.key -o -name *.pfx -o -name *.p12)",
+      "Bash(grep -ri \"://.*:.*@\\\\|user.*@\\\\|postgres\\\\|mysql\\\\|mongodb\" /d/CONVOMAX/API/dmiher-new-flow/src --include=*.js --include=*.ts --include=*.json)",
+      "Bash(grep -ri \"mastersofterp\\\\|apply\\\\.\" /d/CONVOMAX/API/dmiher-new-flow/src --include=*.js --include=*.jsx)",
+      "Bash(grep -ri \"https://.*dmiher\\\\|https://.*mastersofterp\\\\|https://.*apply\" /d/CONVOMAX/API/dmiher-new-flow --include=*.js --include=*.jsx --include=*.ts --include=*.tsx --include=*.json ! -path */node_modules/*)",
+      "Bash(grep -ri \"ftp_\\\\|FTP_\" /d/CONVOMAX/API/dmiher-new-flow --include=\"*.js\" --include=\"*.jsx\" --include=\"*.json\" --include=\"*.yml\" --include=\"*.yaml\" ! -path \"*/node_modules/*\")",
+      "Bash(grep -ri \"sk_test\\\\|sk_live\\\\|pk_test\\\\|pk_live\\\\|stripe\\\\|auth0\\\\|firebase\\\\|google.*key\\\\|twitter.*key\\\\|facebook.*token\" /d/CONVOMAX/API/dmiher-new-flow --include=\"*.js\" --include=\"*.jsx\" --include=\"*.json\" ! -path \"*/node_modules/*\")",
+      "Bash(grep -ri \"ftp://\\\\|sftp://\\\\|smtps://\\\\|mongodb://\\\\|mysql://\\\\|postgres://\" /d/CONVOMAX/API/dmiher-new-flow --include=\"*.js\" --include=\"*.jsx\" --include=\"*.json\" ! -path \"*/node_modules/*\" ! -path \"*/.git/*\")",
+      "Bash(npm audit:*)",
+      "Bash(node -e \"try { require\\(''docx''\\); console.log\\(''docx available''\\); } catch\\(e\\) { console.log\\(''docx not found''\\); }\")",
+      "Bash(node generate-report.cjs)",
+      "Bash(python \"C:/Users/CONVOMAX/AppData/Roaming/Claude/local-agent-mode-sessions/skills-plugin/4211565b-4d8a-4718-8b06-140520bea4a6/04c80c76-1b65-46fc-94ad-25d84f0e3853/skills/docx/scripts/office/validate.py\" \"D:/CONVOMAX/API/dmiher-new-flow/SECURITY_ASSESSMENT_REPORT.docx\")",
+      "Bash(npm update:*)",
+      "Bash(grep -v \"//\")",
+      "Bash(npm ls:*)",
+      "Bash(npm -v)",
+      "Bash(ls -la \"D:/CONVOMAX/API/dmiher-new-flow/\"SECURITY_ASSESSMENT_REPORT*.docx)",
+      "Bash(find /d/CONVOMAX/API/dmiher-new-flow -type f \\\\\\(-name *.env* -o -name *axios* -o -name *api* -o -name config* \\\\\\))",
+      "Bash(grep -n \"Authorization\\\\|Bearer\\\\|token\\\\|auth\\\\|header\" /d/CONVOMAX/API/dmiher-new-flow/src/config/api.js /d/CONVOMAX/API/dmiher-new-flow/src/hooks/*.js /d/CONVOMAX/API/dmiher-new-flow/src/components/Navbar.jsx /d/CONVOMAX/API/dmiher-new-flow/src/components/Footer.jsx -i)",
+      "Bash(xargs grep:*)"
     ]
   }
 }

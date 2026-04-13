@@ -47,9 +47,10 @@ function Hero({ data, slug }) {
 
         {/* ================= DESKTOP ================= */}
         <div className="hero-desktop-actions">
-          {ctaButtons.length > 0
-            ? ctaButtons.map((btn, index) => {
-                const isPhone = btn.apply_now_url?.startsWith("+");
+          {/* Dynamic topbar.buttons */}
+          {Array.isArray(topbar.buttons) && topbar.buttons.length > 0
+            ? topbar.buttons.map((btn, index) => {
+                const isPhone = btn.url_type === "phone";
 
                 const commonProps = {
                   key: index,
@@ -67,30 +68,65 @@ function Hero({ data, slug }) {
                 };
 
                 return isPhone ? (
-                  <a {...commonProps} href={`tel:${btn.apply_now_url}`}>
-                    {btn.primary_cta_text}
+                  <a {...commonProps} href={`tel:${btn.phone}`}>
+                    {btn.text}
                   </a>
                 ) : (
                   <a
                     {...commonProps}
-                    href={btn.apply_now_url}
+                    href={btn.url}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {btn.primary_cta_text}
+                    {btn.text}
                   </a>
                 );
               })
-            : topbar.apply_now_url && (
-                <a
-                  href={topbar.apply_now_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hero-apply-btn"
-                >
-                  APPLY NOW
-                </a>
-              )}
+            : ctaButtons.length > 0
+              ? ctaButtons.map((btn, index) => {
+                  const isPhone = btn.apply_now_url?.startsWith("+");
+
+                  const commonProps = {
+                    key: index,
+                    className: "hero-apply-btn",
+                    style: {
+                      backgroundColor: btn.bg_color,
+                      color: btn.text_color,
+                      transition: "background-color 0.3s ease",
+                    },
+                    onMouseEnter: (e) =>
+                      (e.currentTarget.style.backgroundColor =
+                        btn.hover_bg_color || btn.bg_color),
+                    onMouseLeave: (e) =>
+                      (e.currentTarget.style.backgroundColor = btn.bg_color),
+                  };
+
+                  return isPhone ? (
+                    <a {...commonProps} href={`tel:${btn.apply_now_url}`}>
+                      {btn.primary_cta_text}
+                    </a>
+                  ) : (
+                    <a
+                      {...commonProps}
+                      href={btn.apply_now_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {btn.primary_cta_text}
+                    </a>
+                  );
+                })
+              : topbar.apply_now_url && (
+                  <a
+                    href={topbar.apply_now_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hero-apply-btn"
+                  >
+                    APPLY NOW
+                  </a>
+                )
+          }
 
           {/* Optional Scroll Button */}
           {topbar.primary_cta_text && (
@@ -115,34 +151,55 @@ function Hero({ data, slug }) {
           )}
 
           <div className="hero-mobile-actions">
-            {ctaButtons.length > 0
-              ? ctaButtons.map((btn, index) => {
-                  const isPhone = btn.apply_now_url?.startsWith("+");
+            {/* Dynamic topbar.buttons (mobile) */}
+            {Array.isArray(topbar.buttons) && topbar.buttons.length > 0
+              ? topbar.buttons.map((btn, index) => {
+                  const isPhone = btn.url_type === "phone";
 
                   return isPhone ? (
-                    <a key={index} href={`tel:${btn.apply_now_url}`}>
-                      {btn.primary_cta_text}
+                    <a key={index} href={`tel:${btn.phone}`}>
+                      {btn.text}
                     </a>
                   ) : (
                     <a
                       key={index}
-                      href={btn.apply_now_url}
+                      href={btn.url}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {btn.primary_cta_text}
+                      {btn.text}
                     </a>
                   );
                 })
-              : topbar.apply_now_url && (
-                  <a
-                    href={topbar.apply_now_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    APPLY NOW
-                  </a>
-                )}
+              : ctaButtons.length > 0
+                ? ctaButtons.map((btn, index) => {
+                    const isPhone = btn.apply_now_url?.startsWith("+");
+
+                    return isPhone ? (
+                      <a key={index} href={`tel:${btn.apply_now_url}`}>
+                        {btn.primary_cta_text}
+                      </a>
+                    ) : (
+                      <a
+                        key={index}
+                        href={btn.apply_now_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {btn.primary_cta_text}
+                      </a>
+                    );
+                  })
+                : topbar.apply_now_url && (
+                    <a
+                      href={topbar.apply_now_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      APPLY NOW
+                    </a>
+                  )
+            }
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { normalizeProgramsData } from "../utils/programs";
-import { API_BASE } from "../config/api";
+import api from "../config/api";
 
 /**
  * useProgramsData — Fetches ALL programs ONCE from:
@@ -30,18 +30,16 @@ export function useProgramsData(slug) {
         setLoading(true);
         setError("");
 
-        const url = `${API_BASE}/api/programs/page/${encodeURIComponent(slug)}`;
-        const res = await fetch(url, { signal: controller.signal });
+        const url = `/programs/page/${encodeURIComponent(slug)}`;
+        const res = await api.get(url, { signal: controller.signal });
 
-        if (!res.ok) throw new Error(`API Error (${res.status})`);
-
-        const json = await res.json();
+        const json = res.data;
 
         if (!json?.data) throw new Error("Empty or invalid response");
 
         setRawData(json);
       } catch (err) {
-        if (err.name === "AbortError") return;
+        if (err.name === "AbortError" || err.name === "CanceledError") return;
         console.error("useProgramsData →", err);
         setError("Failed to load programs");
       } finally {

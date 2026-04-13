@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { API_BASE } from "../../../config/api";
+import api from "../../../config/api";
 
 function HomeBulletin() {
   const [data, setData] = useState(null);
@@ -8,8 +8,8 @@ function HomeBulletin() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    fetch(`${API_BASE}/api/bulletins`)
-      .then((res) => res.json())
+    api.get("/bulletins")
+      .then((res) => res.data)
       .then((res) => {
   const section = Array.isArray(res)
     ? res.find((item) => item.section_id === "home_BULLETIN_section")

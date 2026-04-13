@@ -6,7 +6,8 @@ const createDOMPurify = () => {
   if (typeof window !== "undefined") {
     return DOMPurify;
   }
-  return { sanitize: (html) => html };
+  // SSR fallback: strip all HTML tags to prevent XSS in pre-rendered pages
+  return { sanitize: (html) => String(html).replace(/<[^>]*>/g, "") };
 };
 
 export default function RichTextRenderer({

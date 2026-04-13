@@ -32,8 +32,18 @@ function MicroPageCTA({ cta = {}, pageslug, className = "", children }) {
       // ── Existing callback flow (unchanged) ──
       cta.onClick();
     } else if (cta.href) {
-      // ── Existing href flow (unchanged) ──
-      window.location.href = cta.href;
+      // ── Validate URL scheme before redirect to prevent javascript: injection ──
+      try {
+        const url = new URL(cta.href, window.location.origin);
+        if (url.protocol === "http:" || url.protocol === "https:") {
+          window.location.href = cta.href;
+        }
+      } catch {
+        // Relative paths are safe
+        if (cta.href.startsWith("/")) {
+          window.location.href = cta.href;
+        }
+      }
     }
   };
 

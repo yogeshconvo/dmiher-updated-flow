@@ -4,15 +4,13 @@ import { useQuery } from "@tanstack/react-query";
 import DropdownButton from "../../components/DropDownButton";
 import { GalleryWithPopup } from "../../components/GalleryWithPopup";
 import { renderIcon } from "../../utils/renderIcon";
-import { API_BASE } from "../../config/api";
+import api from "../../config/api";
 import PageSkeleton from "../../components/Skeletons/PageSkeleton";
 import RichTextRenderer from "../../components/RichTextRenderer";
 
 const fetchDepartments = async (college) => {
-  const res = await fetch(`${API_BASE}/api/departments/${college}`);
-  if (!res.ok) throw new Error("Failed to fetch departments");
-  const json = await res.json();
-  return json.data || [];
+  const { data } = await api.get(`/departments/${college}`);
+  return data.data || [];
 };
 
 function DepartmentsSubpage() {
