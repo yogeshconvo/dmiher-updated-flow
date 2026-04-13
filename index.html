@@ -7,6 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="/src/index.css" rel="stylesheet">
 
+  <!-- Security Headers (CSP enforced via HTTP header in production by Laravel middleware) -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
   <!-- Default SEO meta (overridden by react-helmet-async per page) -->
   <title>DMIHER | Datta Meghe Institute of Higher Education and Research</title>
   <meta name="description" content="Official website of Datta Meghe Institute of Higher Education and Research (DMIHER) — Medical, Dental, Nursing, and Allied Health Sciences." />

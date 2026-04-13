@@ -1,11 +1,4 @@
-
-<<<<<<< HEAD
 import Departments from "./Departments";
-=======
-import Programs from "./Programs"
-import Departments from "./Departments"
-import TranscriptSubpage from "./Transcript-type1";
->>>>>>> f6a1a30e2d1aad8312445e992cdca4091642b60b
 import Transcript from "./Transcript-type1";
 import MandatoryDisclosures from "./MD";
 import DeanKnowMore from "./DeanKnowMore";

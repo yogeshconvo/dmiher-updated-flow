@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FileText } from "lucide-react";
 import { Link } from "react-router";
+import { getNonce } from "../../../context/NonceContext";
 
 // import "../../styles/enquiry-global-main.css";
 // import "../../styles/enquiry-global-responsive.css";
@@ -12,6 +13,10 @@ const NoPaperFormWidget = () => {
     script.type = "text/javascript";
     script.async = true;
     script.src = "https://widgets.in6.nopaperforms.com/emwgts.js";
+
+    // Attach CSP nonce so the browser allows this script
+    const nonce = getNonce();
+    if (nonce) script.setAttribute("nonce", nonce);
 
     document.body.appendChild(script);
     return () => document.body.removeChild(script);

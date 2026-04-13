@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { API_BASE } from "../config/api";
+import api from "../config/api";
 
 /**
  * useMicropageData — Reusable hook for fetching micropage data.
@@ -44,14 +44,11 @@ export function useMicropageData(pageSlug, ctaKey, propData = null) {
         setLoading(true);
         setError("");
 
-        const res = await fetch(
-          `${API_BASE}/api/micropage/${pageSlug}/${ctaKey}`,
-          { signal: controller.signal }
-        );
+        const res = await api.get(`/micropage/${pageSlug}/${ctaKey}`, {
+          signal: controller.signal,
+        });
 
-        if (!res.ok) throw new Error(`API Error (${res.status})`);
-
-        const json = await res.json();
+        const json = res.data;
 
         if (!json?.sections?.length) {
           throw new Error("Empty response");
@@ -60,7 +57,7 @@ export function useMicropageData(pageSlug, ctaKey, propData = null) {
         setRawData(json);
         setSections(json.sections);
       } catch (err) {
-        if (err.name === "AbortError") return;
+        if (err.name === "AbortError" || err.name === "CanceledError") return;
         console.error("useMicropageData →", err);
         setError("Failed to load data");
       } finally {

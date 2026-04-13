@@ -196,9 +196,6 @@ const Departments = ({ data , college}) => {
 
       })) || [];
 
-    console.log("COLLEGE", college);
-    console.log("DEPT LIST", deptList);
-
     setDepartments(deptList);
   }, [data, college]);
 

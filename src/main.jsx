@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
+import { NonceProvider } from "./context/NonceContext";
 import App from "./App";
 import "@fontsource/oswald";
 import "./styles/main.css";
@@ -22,13 +23,15 @@ const rootElement = document.getElementById("root");
 
 const app = (
   <React.StrictMode>
-    <HelmetProvider>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </QueryClientProvider>
-    </HelmetProvider>
+    <NonceProvider>
+      <HelmetProvider>
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </QueryClientProvider>
+      </HelmetProvider>
+    </NonceProvider>
   </React.StrictMode>
 );
 

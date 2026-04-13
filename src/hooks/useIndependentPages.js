@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { API_BASE } from "../config/api";
+import api from "../config/api";
 
 const fetchIndependentPage = async (slug) => {
-  const res = await fetch(`${API_BASE}/api/independent-pages/${slug}`);
-  if (!res.ok) throw new Error("Page not found");
-  return res.json();
+  const { data } = await api.get(`/independent-pages/${slug}`);
+  return data;
 };
 
 export const useIndependentPages = (slug) =>

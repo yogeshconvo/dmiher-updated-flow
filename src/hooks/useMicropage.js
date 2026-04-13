@@ -1,12 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-
-const API_BASE = "http://127.0.0.1:8000";
+import api from "../config/api";
 
 const fetchMicroPage = async ({ pageslug, ctaKey }) => {
-  const res = await fetch(`${API_BASE}/api/micropage/${pageslug}/${ctaKey}`);
-  if (!res.ok) throw new Error(`Micro-page fetch failed: ${res.status}`);
-  return res.json();
+  const { data } = await api.get(`/micropage/${pageslug}/${ctaKey}`);
+  return data;
 };
 
 /**

@@ -5,6 +5,9 @@ on:
     branches:
       - toFTP   # change to main if needed
 
+permissions:
+  contents: read
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,23 +15,28 @@ jobs:
     steps:
       # 1️⃣ Checkout repo
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
       # 2️⃣ Setup Node.js
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
           node-version: 20
+          cache: 'npm'
 
-      # 3️⃣ Install dependencies
+      # 3️⃣ Install dependencies (clean install for reproducible builds)
       - name: Install dependencies
-        run: npm install --force
+        run: npm ci
 
-      # 4️⃣ Build Vite project
+      # 4️⃣ Security audit
+      - name: Security audit
+        run: npm audit --audit-level=critical
+
+      # 5️⃣ Build Vite project
       - name: Build project
         run: npm run build
 
-      # 5️⃣ Deploy dist/ to FTP
+      # 6️⃣ Deploy dist/ to FTP
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -38,3 +46,4 @@ jobs:
           port: ${{ secrets.FTP_PORT }}
           local-dir: dist/
           server-dir: /
+          protocol: ftps

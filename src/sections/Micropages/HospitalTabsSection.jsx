@@ -4,7 +4,7 @@ import TopUI from "../../components/TranscriptTopUI";
 import { useParams, useLocation } from "react-router-dom";
 import { useMicropageData } from "../../hooks/useMicropageData";
 
-function ElectivesOffered({ data: propData, college: propCollege }) {
+function HospitalTabsSection({ data: propData, college: propCollege }) {
   // ---------- Derive slugs from URL ----------
   const params = useParams();
   const location = useLocation();
@@ -30,30 +30,33 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
     // When self-fetched         → sections[0].data holds section data
     const sectionData = propData ? propData : sections?.[0]?.data || {};
 
-    const section = sectionData?.section?.[0] || {};
+    const tabs = Array.isArray(sectionData?.tabs) ? sectionData.tabs : [];
+    const hospitals = Array.isArray(sectionData?.hospitals)
+      ? sectionData.hospitals
+      : [];
+
+    // Map tabs → departments (one "department" per tab)
+    const departments = tabs.map((tab, idx) => ({
+      id: idx + 1,
+      name: tab.label,
+      category: tab.id,
+      electives: hospitals
+        .filter((h) => h.category === tab.id)
+        .map((h, i) => ({
+          srNo: i + 1,
+          name: h.title,
+          semester: h.location || h.country || "",
+          badge: h.badge,
+          icon: h.icon,
+        })),
+    }));
 
     return {
-      title: section?.title || "Electives Offered",
-      subtitle: section?.subtitle || "",
-      departments: [
-        {
-          id: 1,
-          name: "General",
-          category: "All",
-          electives:
-            section?.courses_normal?.map((c, i) => ({
-              srNo: i + 1,
-              name: c.title,
-              semester: c.roman_number,
-              university: c.university,
-              badge: c.badge,
-              icon: c.icon,
-            })) || [],
-        },
-      ],
+      title: sectionData?.title || "Electives Offered",
+      departments,
       top_ui: {
         type: "dropdown",
-        categories: ["All"],
+        categories: tabs.map((t) => t.label),
       },
     };
   }, [propData, sections]);
@@ -97,7 +100,7 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
                       </div>
                       {course.semester && (
                         <div className="course-sem">
-                          Semester: {course.semester}
+                          {course.semester}
                         </div>
                       )}
                     </div>
@@ -106,11 +109,6 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
 
                 <div className="course-card-body">
                   <h3 className="course-title">{course.name}</h3>
-                  {course.university && (
-                    <p className="text-sm text-gray-600">
-                      {course.university}
-                    </p>
-                  )}
                 </div>
               </div>
             ))}
@@ -175,4 +173,4 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
   );
 }
 
-export default ElectivesOffered;
+export default HospitalTabsSection;
