@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import PageView from "./PageView";
 import SubPrograms from "./sections/Subpages/Programs";
+import HeadPrograms from "./sections/Subpages/HeadPrograms";
 import DepartmentsSubpage from "./sections/Subpages/Departments";
 import TranscriptFEAT from "./sections/Subpages/Transcript-type1";
 
@@ -28,7 +29,7 @@ function App() {
         />
         <Route
           path="/programs/:slug"
-          element={<SubPrograms />}
+          element={<HeadPrograms />}
         />
 
         {/* =================== DEPARTMENTS =================== */}
