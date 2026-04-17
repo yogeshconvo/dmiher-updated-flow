@@ -1,22 +1,23 @@
 import React from 'react';
 
 function HomeSteps({ data }) {
+  if (!data) return null;
+
   const {
     header = {},
     paragraphs = [],
     counters = [],
-  } = data || {};
+  } = data;
 
-  const { heading, background_image } = header;
-
-  const bgImage = background_image;
+  const { heading, image } = header;
+  const bgImage = image;
 
   return (
     <div className="home-steps-container">
-      <div
-        className="home-steps-inner"
-        style={bgImage ? { backgroundImage: `url(${bgImage})` } : {}}
-      >
+      <div className="home-steps-inner">
+        {/* Background image */}
+        {bgImage && <img className="bg-img" src={bgImage} alt="bg" />}
+
         {/* Heading */}
         {heading && (
           <div className="home-steps-heading">
@@ -27,11 +28,11 @@ function HomeSteps({ data }) {
         )}
 
         {/* Counters */}
-        {counters.length > 0 && (
+        {counters?.length > 0 && (
           <div className="home-steps-counters">
             {counters.map((item, index) => (
               <div
-                key={item.id || item.label || index}
+                key={item.id || `${item.label}-${index}`}
                 className="counter-item"
               >
                 <div className="counter-circle">
@@ -49,7 +50,7 @@ function HomeSteps({ data }) {
         )}
 
         {/* Paragraphs */}
-        {paragraphs.length > 0 && (
+        {paragraphs?.length > 0 && (
           <div className="home-steps-paragraphs">
             {paragraphs.map((item, index) => (
               <p key={index} className="home-steps-text">
@@ -62,5 +63,4 @@ function HomeSteps({ data }) {
     </div>
   );
 }
-
 export default HomeSteps;

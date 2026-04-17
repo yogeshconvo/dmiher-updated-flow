@@ -86,7 +86,21 @@
 
 /*======= Home Steps ======== */
 .home-steps-inner {
-    @apply bg-white bg-no-repeat bg-center bg-contain text-center px-4 md:px-12 pt-[60px] mx-4 md:mx-20;
+    @apply relative bg-white text-center px-4 md:px-12 pt-[60px] mx-4 md:mx-20 overflow-hidden;
+}
+
+/* Background image — fixed 600px height, width auto, centered */
+.home-steps-inner .bg-img {
+    @apply absolute top-1/2 left-1/2 w-auto object-contain pointer-events-none select-none;
+    height: 600px;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+/* Keep all direct children stacked above the bg image */
+.home-steps-inner > *:not(.bg-img) {
+    position: relative;
+    z-index: 1;
 }
 
 .home-steps-heading {
@@ -960,48 +974,129 @@
 /* ================= Vision and mission ================= */
 /* Wrapper */
 .vision-mission-wrapper {
-    @apply w-full py-10;
+    @apply w-full py-12 md:py-16;
 }
 
-/* Grid */
+/* Grid: 2 cols on desktop, 1 col on mobile, equal width, centered */
 .vision-mission-grid {
-    @apply max-w-6xl mx-auto px-5 grid grid-cols-1 md:grid-cols-2 gap-4 text-white;
+    @apply max-w-6xl mx-auto px-5 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch;
 }
 
-/* Cards */
+/* Cards: relative for absolute icon, equal min-height, rounded, spacious padding */
+.vm-card {
+    @apply relative overflow-hidden rounded-xl shadow-md;
+    padding: 40px;
+    min-height: 360px;
+}
+
+@media (max-width: 767px) {
+    .vm-card {
+        padding: 28px;
+        min-height: 300px;
+    }
+}
+
+/* Default card colors (overridden by inline bg from JSX) */
 .vision-card {
-    @apply bg-[#0b2d62] p-5 shadow-md min-h-[360px];
+    @apply bg-[#0b2d62] text-white;
 }
 
 .mission-card {
-    @apply bg-[#e5cf60] p-6 shadow-md min-h-[360px] text-[#58595B];
+    @apply bg-[#e5cf60] text-[#3a3a3a];
+}
+
+/* Watermark icon — top-right corner, faded */
+.vm-icon {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 96px;
+    height: 96px;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@media (max-width: 767px) {
+    .vm-icon {
+        width: 68px;
+        height: 68px;
+        top: 14px;
+        right: 14px;
+    }
 }
 
 /* Header */
 .section-header {
-    @apply pt-5 mb-4;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 18px;
 }
 
 .section-line {
-    @apply w-16 border-[#F04E30] mb-2 border-t-4;
+    @apply w-10 border-t-[3px] border-[#F04E30];
+    margin: 0 0 14px 0;
 }
 
 .section-title-vm {
-    @apply text-2xl font-bold text-white uppercase tracking-wide;
+    @apply font-bold uppercase text-white;
+    font-size: 26px;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
 }
 
-/* Text */
+@media (max-width: 767px) {
+    .section-title-vm {
+        font-size: 22px;
+    }
+}
+
+/* Mission card title sits on light bg → dark text */
+.mission-title {
+    color: #2a2a2a;
+}
+
+/* Body text */
+.vision-text,
+.mission-text {
+    position: relative;
+    z-index: 1;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
 .vision-text {
-    @apply text-lg leading-relaxed;
+    color: rgba(255, 255, 255, 0.92);
 }
 
 .mission-text {
-    @apply space-y-3 text-xs leading-snug;
+    color: #3a3a3a;
     font-family: Arial, sans-serif;
 }
 
-.mission-title {
-    @apply text-gray-700;
+/* Vertical rhythm between paragraphs */
+.vision-text p,
+.mission-text p {
+    margin: 0 0 12px 0;
+}
+
+.vision-text p:last-child,
+.mission-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* Lists, in case desc HTML uses them */
+.vision-text ul,
+.mission-text ul,
+.vision-text ol,
+.mission-text ol {
+    margin: 0 0 12px 1.25rem;
+    padding: 0;
+}
+
+.vision-text li,
+.mission-text li {
+    margin-bottom: 6px;
 }
 
 /* ================= DMIHER Journey ================= */
