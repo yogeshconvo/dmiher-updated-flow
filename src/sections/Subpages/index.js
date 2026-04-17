@@ -26,7 +26,7 @@ export const SECTION_COMPONENTS = {
     // Micropages
     micro_page: MainMicropage,
     campus_facilities: CampusFacilities,
-    tabwise_micropage: TabwiseMainMicropage,
+    tab_group_section: TabwiseMainMicropage,
 
     // Dean CTA micropage  (section_id from API: "dean_message")
     dean_message: DeansMicropage,

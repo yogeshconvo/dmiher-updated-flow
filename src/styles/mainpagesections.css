@@ -984,7 +984,7 @@
 
 /* Cards: relative for absolute icon, equal min-height, rounded, spacious padding */
 .vm-card {
-    @apply relative overflow-hidden rounded-xl shadow-md;
+    @apply relative overflow-hidden  shadow-md;
     padding: 40px;
     min-height: 360px;
 }
@@ -1109,18 +1109,37 @@
 }
 
 /* ================= SDG ================= */
+/* Two-column layout: wheel left, content right */
 .sdg-container {
-    @apply flex flex-col gap-20 lg:flex-row items-center;
+    @apply flex flex-col lg:flex-row items-start gap-10 lg:gap-12;
 }
 
+/* LEFT: wheel column — capped so it doesn't dominate */
 .sdg-wheel {
-    @apply flex justify-center;
+    @apply flex flex-col items-center w-full;
+    flex: 0 0 auto;
+}
+
+@media (min-width: 1024px) {
+    .sdg-wheel {
+        flex: 0 0 42%;
+        max-width: 480px;
+    }
 }
 
 .sdg-wheel-image {
-    @apply w-full;
+    @apply w-full h-auto;
+    max-width: 460px;
 }
 
+/* RIGHT: content column */
+.sdg-right-content {
+    @apply w-full flex flex-col;
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+/* ---- Original card / footer styling (restored) ---- */
 .sdg-text-container {
     @apply flex items-center text-[14px] gap-2;
 }
@@ -1163,6 +1182,17 @@
 
 .sdg-footer-note {
     @apply text-[12px] text-gray-700;
+}
+
+/* "Visit SDG to Know More" button — force bottom-LEFT (under wheel) on desktop */
+.sdg-container + div {
+    text-align: left !important;
+}
+
+@media (max-width: 1023px) {
+    .sdg-container + div {
+        text-align: center !important;
+    }
 }
 
 /* ================= CAMPUS FACILITIES ================= */

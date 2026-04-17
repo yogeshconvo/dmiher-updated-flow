@@ -6,15 +6,19 @@ import "swiper/css/pagination";
 
 const FootprintSection = ({ data }) => {
   const tabs = data?.tabs || [];
-  const [activeTab, setActiveTab] = useState("");
+
+  // ✅ index-based state
+  const [activeTab, setActiveTab] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
+  // ✅ default tab
   useEffect(() => {
     if (tabs.length > 0) {
-      setActiveTab(tabs[0].id);
+      setActiveTab(0); // 👈 this is your "setActiveTab(1)" style logic
     }
   }, [tabs]);
 
+  // ✅ responsive check
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);
@@ -24,54 +28,64 @@ const FootprintSection = ({ data }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const currentTab = tabs.find((tab) => tab.id === activeTab);
+  // ✅ current tab
+  const currentTab = tabs[activeTab];
+
+  // ✅ dynamic logo chunking
+  const chunkSize = 12;
+  const logoChunks = [];
+
+  if (currentTab?.logos?.length) {
+    for (let i = 0; i < currentTab.logos.length; i += chunkSize) {
+      logoChunks.push(currentTab.logos.slice(i, i + chunkSize));
+    }
+  }
 
   if (tabs.length === 0) return null;
 
   return (
     <div className="container">
-      
-      {/* Tabs */}
+
+      {/* ================= TABS ================= */}
       {tabs.length === 1 ? (
         <div className="pb-2">
           <div className="tab-indicator tab-indicator-active" />
-
           <h2 className="tab-title tab-title-active">
-            {tabs[0].title || tabs[0].id.replaceAll("_", " ")}
+            {tabs[0].title || "Tab"}
           </h2>
         </div>
       ) : (
         <div className="tab-wrapper">
-          {tabs.map((tab) => (
+          {tabs.map((tab, index) => (
             <button
-              key={tab.id}
+              key={index}
               className="tab-button"
-              onClick={() => setActiveTab(tab.id)}
+              onClick={() => setActiveTab(index)} // ✅ index-based
             >
               <div
                 className={`tab-indicator ${
-                  activeTab === tab.id ? "tab-indicator-active" : ""
+                  activeTab === index ? "tab-indicator-active" : ""
                 }`}
               />
 
               <h2
                 className={`tab-title ${
-                  activeTab === tab.id
+                  activeTab === index
                     ? "tab-title-active"
                     : "tab-title-inactive"
                 }`}
               >
-                {tab.title || tab.id.replaceAll("_", " ")}
+                {tab.title || `Tab ${index + 1}`}
               </h2>
             </button>
           ))}
         </div>
       )}
 
-      {/* Content */}
+      {/* ================= CONTENT ================= */}
       {currentTab && (
         <>
-          {/* Image + Points */}
+          {/* IMAGE + POINTS */}
           {currentTab.image && (
             <div
               className="image-container"
@@ -80,12 +94,15 @@ const FootprintSection = ({ data }) => {
               }}
             >
               <div className="image-inner">
+
+                {/* IMAGE */}
                 <img
                   src={currentTab.image}
-                  alt={currentTab.id}
+                  alt="tab"
                   className="tab-image"
                 />
 
+                {/* POINTS */}
                 {currentTab.points?.length > 0 &&
                   (isMobile ? (
                     <Swiper
@@ -113,35 +130,33 @@ const FootprintSection = ({ data }) => {
                       ))}
                     </div>
                   ))}
+
               </div>
             </div>
           )}
 
-          {/* Logos */}
+          {/* LOGOS */}
           {currentTab.logos?.length > 0 && (
             <div className="logos-container">
               <Swiper
                 modules={[Autoplay, Pagination]}
                 autoplay={{ delay: 4000 }}
                 pagination={{ clickable: true }}
-                loop
+                loop={logoChunks.length > 1}
                 slidesPerView={1}
               >
-                {[0, 20].map((startIndex, idx) => (
+                {logoChunks.map((chunk, idx) => (
                   <SwiperSlide key={idx}>
                     <div className="logo-grid">
-                      {currentTab.logos
-                        .slice(startIndex, startIndex + 20)
-                        .filter((logoObj) => logoObj?.logo)
-                        .map((logoObj, index) => (
-                          <div key={index} className="logo-item">
-                            <img
-                              src={logoObj.logo}
-                              alt="logo"
-                              className="logo-image"
-                            />
-                          </div>
-                        ))}
+                      {chunk.map((logoObj, index) => (
+                        <div key={index} className="logo-item">
+                          <img
+                            src={logoObj.logo}
+                            alt="logo"
+                            className="logo-image"
+                          />
+                        </div>
+                      ))}
                     </div>
                   </SwiperSlide>
                 ))}

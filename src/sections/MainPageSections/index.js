@@ -71,7 +71,7 @@ export const SECTION_COMPONENTS = {
     about_VisionMission_Section: VisionMissionSection,
     about_CoreValues_section: CoreValues,
     AboutGrid_section: AboutGrid,
-    about_Committees_Section: CommitteesSection,
+    committees_facilities_section: CommitteesSection,
     dmiher_journey: DMIHERJourney,
     about_OneHealth_section: OneHealth,
     about_HolisticLearningPage: HolisticLearningPage,

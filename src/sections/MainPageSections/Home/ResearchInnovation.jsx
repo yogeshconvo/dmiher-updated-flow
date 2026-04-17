@@ -1,12 +1,13 @@
 import ViewMoreButton from "../../../components/UI/ViewMore";
 import ResearchSectionMobileSlider from "../../../components/UI/MobileSlider";
 // import { getImageSrc } from "../../../components/Services/FetchImages";
+import RichTextRenderer from "../../../components/RichTextRenderer";
 
 const ResearchInnovation = ({ data }) => {
   if (!data) return null;
 
   const heading = data?.header?.heading;
-  const image = data?.header?.image?.[0];
+  const image = data?.header?.image;
   const stats = data?.stats || [];
   const button = data?.button;
 
@@ -51,12 +52,9 @@ const ResearchInnovation = ({ data }) => {
                   alt={item.label}
                   className="w-24 h-24 mb-2"
                 />
-                <h3 className="text-2xl font-bold text-orange-600">
-                  {item.value}
-                </h3>
-                <p className="text-gray-700 text-xl">
-                  {item.label}
-                </p>
+                <RichTextRenderer className="text-2xl font-bold text-orange-600" html=  {item.value}/>
+              
+             
               </div>
             ))}
 
@@ -75,12 +73,7 @@ const ResearchInnovation = ({ data }) => {
                       alt={item.label}
                       className="w-24 h-24 mb-2"
                     />
-                    <h3 className="text-2xl text-orange-600 font-bold">
-                      {item.value}
-                    </h3>
-                    <p className="text-gray-700 text-xl text-center">
-                      {item.label}
-                    </p>
+                   <RichTextRenderer className="text-2xl font-bold text-orange-600" html=  {item.value}/>
                   </div>
                 ))}
               </div>
