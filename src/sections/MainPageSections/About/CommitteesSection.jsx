@@ -1,67 +1,63 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import {
-  Users,
-  GraduationCap,
-  BookOpenCheck,
-  Wallet,
-  ShieldAlert,
-  Accessibility,
-  Scale,
-} from "lucide-react";
+import { Link, useParams, useLocation } from "react-router-dom";
+import * as Icons from "lucide-react";
 
-const iconMap = {
-  Users: <Users />,
-  GraduationCap: <GraduationCap />,
-  BookOpenCheck: <BookOpenCheck />,
-  Wallet: <Wallet />,
-  ShieldAlert: <ShieldAlert />,
-  Accessibility: <Accessibility />,
-  Scale: <Scale />,
+/* Convert API icon name → Lucide component (e.g. "graduation-cap" → GraduationCap) */
+const getLucideIcon = (name) => {
+  if (!name) return Icons.Users;
+  const formatted = name
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join("");
+  return Icons[formatted] || Icons.Users;
 };
 
-const Card = ({ icon, name, link }) => {
-  // if link is "#" → disable navigation
-  const isDisabled = !link || link === "#";
+/* ================= CARD ================= */
+const Card = ({ iconName, name, link }) => {
+  const IconComponent = getLucideIcon(iconName);
+  const isDisabled = !link;
 
   if (isDisabled) {
     return (
-      <div className="committee-card cursor-not-allowed ">
-        <div className="committee-icon">{icon}</div>
+      <div className="committee-card cursor-not-allowed">
+        <div className="committee-icon">
+          <IconComponent size={28} />
+        </div>
         <div className="committee-name">{name}</div>
       </div>
     );
   }
 
-  const isInternal = link.startsWith("/");
-  const Wrapper = isInternal ? Link : "a";
-  const props = isInternal
-    ? { to: link }
-    : { href: link, target: "_blank", rel: "noopener noreferrer" };
-
   return (
-    <Wrapper {...props}>
-      <div className="committee-card">
-        <div className="committee-icon">{icon}</div>
+    <Link to={link}>
+      <div className="committee-card hover:scale-105 transition">
+        <div className="committee-icon">
+          <IconComponent size={28} />
+        </div>
         <div className="committee-name">{name}</div>
       </div>
-    </Wrapper>
+    </Link>
   );
 };
 
-function CommitteesSection({ data }) {
-  const {
-    basic = {},
-    committees = [],
-    inclusiveFacilities = [],
-  } = data || {};
+/* ================= MAIN ================= */
+function CommitteesSection({ data, college, pageSlug }) {
+  if (!data) return null;
 
-  const { title, inclusiveTitle } = basic;
+  const committees = data?.committees || [];
+  const title = data?.heading?.title || "Committees";
+
+  // Resolve which "college/parent" segment we should prefix the link with so
+  // links go to /:college/:page (the route that already handles micropages).
+  // Priority: explicit prop → first segment of current URL → fallback "about".
+  const params = useParams();
+  const location = useLocation();
+  const firstSegment = location.pathname.split("/").filter(Boolean)[0];
+  const parentSlug = college || pageSlug || params.college || firstSegment || "about";
 
   return (
     <section className="committees-section">
       <div className="container">
-        {/* Committees */}
         <h2 className="committees-title">
           <hr className="committees-underline" />
           {title}
@@ -72,25 +68,8 @@ function CommitteesSection({ data }) {
             <Card
               key={i}
               name={item.name}
-              link={item.link}
-              icon={iconMap[item.icon] || <Users />}
-            />
-          ))}
-        </div>
-
-        {/* Inclusive Facilities */}
-        <h2 className="committees-title">
-          <hr className="committees-underline" />
-          {inclusiveTitle}
-        </h2>
-
-        <div className="committees-grid">
-          {inclusiveFacilities.map((item, i) => (
-            <Card
-              key={i}
-              name={item.name}
-              link={item.link}
-              icon={iconMap[item.icon] || <Accessibility />}
+              link={item.page_slug ? `/${parentSlug}/${item.page_slug}` : null}
+              iconName={item.icon}
             />
           ))}
         </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { API_BASE } from "../../config/api";
+import api, { API_BASE } from "../../config/api";
 import HelperTabwisePage from "./HelperTabwisePage";
 
 const TabMenu = ({ data }) => {
@@ -9,21 +9,16 @@ const TabMenu = ({ data }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  /* ===== FETCH PAGE (pages API → fallback to independent-pages) ===== */
+  /* ===== FETCH PAGE (pages API → fallback to independent-pages) =====
+     Use the configured axios `api` so X-API-KEY auth header is sent. */
   const fetchPage = async (slug) => {
     try {
-      const res = await fetch(
-        `${API_BASE}/api/pages/${slug}`,
-      );
-      if (!res.ok) throw new Error("Not in pages API");
-      return res.json();
+      const { data } = await api.get(`/pages/${slug}`);
+      return data;
     } catch {
       try {
-        const res = await fetch(
-          `${API_BASE}/api/independent-pages/${slug}`,
-        );
-        if (!res.ok) throw new Error("Not in independent-pages API");
-        return res.json();
+        const { data } = await api.get(`/independent-pages/${slug}`);
+        return data;
       } catch (err) {
         console.error("Page fetch failed:", err);
         return null;
@@ -31,52 +26,36 @@ const TabMenu = ({ data }) => {
     }
   };
 
-  /* ===== HELPER: extract content_flow from page json ===== */
-  const getContentFlow = (json) =>
-    json?.sections?.find((s) => s.section_id === "micro_page")?.data
-      ?.sections?.[0]?.content_flow || [];
-
-  /* ===== ACTIVATE SLUG — auto-skips if content_flow is empty ===== */
-  const activateSlug = async (slug, allSlugs = []) => {
+  /* ===== ACTIVATE SLUG — load and show, no auto-skip ===== */
+  const activateSlug = async (slug) => {
     setLoading(true);
     setActiveTab(slug);
     const json = await fetchPage(slug);
+    setPageData(json || null);
     setLoading(false);
-
-    if (json && getContentFlow(json).length > 0) {
-      setPageData(json);
-      return;
-    }
-
-    // No content → skip to next slug in list
-    const idx = allSlugs.indexOf(slug);
-    const next = allSlugs[idx + 1];
-    if (next) {
-      activateSlug(next, allSlugs);
-    } else {
-      setPageData(json ?? null); // show whatever we have
-    }
   };
 
-  /* ===== INIT — load first tab on mount ===== */
+  /* ===== INIT — load first page-type tab on mount ===== */
   useEffect(() => {
     if (tabs.length === 0) return;
 
-    // Collect all page-type slugs in order (including dropdown children)
-    const allPageSlugs = [];
-    tabs.forEach((tab) => {
-      if (tab.type === "page" && tab.page_slug)
-        allPageSlugs.push(tab.page_slug);
-      if (tab.type === "dropdown") {
-        tab.items?.forEach((item) => {
-          if (item.page_slug) allPageSlugs.push(item.page_slug);
-        });
+    // Find the first tab that has a page_slug (top-level or nested in dropdown)
+    let firstSlug = null;
+    for (const tab of tabs) {
+      if (tab.type === "page" && tab.page_slug) {
+        firstSlug = tab.page_slug;
+        break;
       }
-    });
-
-    if (allPageSlugs.length > 0) {
-      activateSlug(allPageSlugs[0], allPageSlugs);
+      if (tab.type === "dropdown") {
+        const child = tab.items?.find((it) => it.page_slug);
+        if (child) {
+          firstSlug = child.page_slug;
+          break;
+        }
+      }
     }
+
+    if (firstSlug) activateSlug(firstSlug);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tabs.length]);
 

@@ -5,28 +5,29 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { PlayCircle } from "lucide-react";
 import RichTextRenderer from "../../../components/RichTextRenderer";
-
 const Outcome = ({ data }) => {
   const [playVideo, setPlayVideo] = useState(false);
 
-  if (!data?.slider) return null;
+  if (!data?.slider || data.slider.length === 0) return null;
 
   const slides = data.slider;
   const hasMultipleSlides = slides.length > 1;
   const enableLoop = slides.length >= 3;
 
-  // ✅ Thumbnail Fix (array handle)
-  const thumbnail =
-    data?.video?.thumbnail ||
-    "";
+  // ✅ Thumbnail Fix (handle string / array / fallback)
+  const thumbnail = Array.isArray(data?.video?.thumbnail)
+    ? data.video.thumbnail[0]
+    : data?.video?.thumbnail || "";
 
-  // ✅ Extract YouTube ID from full URL
+  // ✅ Extract YouTube ID (supports full URL or ID)
   const getYoutubeId = (url) => {
     if (!url) return "";
+    if (url.length === 11) return url;
+
     const regExp =
-      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      /^.*(youtu.be\/|v\/|embed\/|watch\?v=|\&v=)([^#\&\?]{11}).*/;
     const match = url.match(regExp);
-    return match && match[2].length === 11 ? match[2] : url;
+    return match ? match[2] : "";
   };
 
   const youtubeId = getYoutubeId(data?.video?.youtube_id);
@@ -50,26 +51,27 @@ const Outcome = ({ data }) => {
           {slides.map((slide, index) => (
             <SwiperSlide key={index}>
 
-              {/* IMAGE SLIDE */}
-              {slide.type === "image" && (
+              {/* ✅ IMAGE SLIDE */}
+              {slide.tab_type === "image" && (
                 <div className="slide-image">
                   <img
                     src={slide.image}
-                    alt={slide.title}
+                    alt="slide"
                     className="slide-img"
                   />
                   <div className="slide-overlay" />
                   <div className="slide-content">
-                     <RichTextRenderer html={slide.desc} />
+                    <RichTextRenderer html={slide.desc} />
                   </div>
                 </div>
               )}
 
-              {/* ICON SLIDE */}
-              {slide.type === "icons" && (
-                <div className="slide-icons">
-              
-
+              {/* ✅ ICON SLIDE */}
+              {slide.tab_type === "icons" && (
+                <div
+                  className="slide-icons"
+                  style={{ backgroundColor: slide.bg_color }}
+                >
                   <div className="icons-grid">
                     {slide.icons?.map((item, i) => (
                       <img
@@ -79,12 +81,13 @@ const Outcome = ({ data }) => {
                         className="icon-img"
                       />
                     ))}
-                     <div className="icons-text">
-                    <p>{slide.title}</p>
-                  </div>
                   </div>
 
-                 
+                  {slide.title && (
+                    <div className="icons-text">
+                      <p>{slide.title}</p>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -92,7 +95,7 @@ const Outcome = ({ data }) => {
           ))}
         </Swiper>
 
-        {/* VIDEO SECTION */}
+        {/* ✅ VIDEO SECTION */}
         {youtubeId && (
           <div className="video-section">
             {!playVideo ? (
@@ -101,7 +104,10 @@ const Outcome = ({ data }) => {
                 onClick={() => setPlayVideo(true)}
               >
                 <img
-                  src={thumbnail}
+                  src={
+                    thumbnail ||
+                    `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`
+                  }
                   alt="Video Thumbnail"
                   className="video-thumbnail"
                 />
@@ -125,5 +131,6 @@ const Outcome = ({ data }) => {
     </div>
   );
 };
-
 export default Outcome;
+ 
+    

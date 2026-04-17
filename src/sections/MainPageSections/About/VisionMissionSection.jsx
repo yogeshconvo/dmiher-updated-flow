@@ -1,53 +1,86 @@
 import React from "react";
+import * as Icons from "lucide-react";
 
 function VisionMissionSection({ data }) {
-  const {
-    vision,
-    vision_points = [],
-    mission,
-    mission_points = [],
-  } = data || {};
+  const sectionData = data?.vision || [];
+
+  // Extract Vision & Mission
+  const visionData = sectionData.find(item => item.title === "Vision");
+  const missionData = sectionData.find(item => item.title === "Mission");
+
+  // Convert icon string → Lucide component
+  const getIcon = (iconName) => {
+    if (!iconName) return null;
+
+    const formattedName = iconName
+      .split("-")
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join("");
+
+    return Icons[formattedName] || null;
+  };
+
+  const VisionIcon = getIcon(visionData?.icon);
+  const MissionIcon = getIcon(missionData?.icon);
 
   return (
     <div className="vision-mission-wrapper">
       <div className="vision-mission-grid">
 
-        {/* Vision */}
+        {/* ================= VISION ================= */}
         <div
-          className="vision-card"
-          style={{ backgroundColor: vision?.bg_color || "#fff" }}
+          className="vm-card vision-card"
+          style={{ backgroundColor: visionData?.bg_color || "#fff" }}
         >
+          {/* ICON (Top Right) */}
+          {VisionIcon && (
+            <VisionIcon
+              className="vm-icon"
+              color={visionData?.icon_color || "#000"}
+            />
+          )}
+
           <div className="section-header">
             <hr className="section-line" />
             <h2 className="section-title-vm">
-              {vision?.title}
+              {visionData?.title}
             </h2>
           </div>
 
-          <div className="vision-text">
-            {vision_points.map((item, index) => (
-              <p key={index}>{item.value}</p>
-            ))}
-          </div>
+          <div
+            className="vision-text"
+            dangerouslySetInnerHTML={{
+              __html: visionData?.desc || ""
+            }}
+          />
         </div>
 
-        {/* Mission */}
+        {/* ================= MISSION ================= */}
         <div
-          className="mission-card"
-          style={{ backgroundColor: mission?.bg_color || "#fff" }}
+          className="vm-card mission-card"
+          style={{ backgroundColor: missionData?.bg_color || "#fff" }}
         >
+          {/* ICON (Top Right) */}
+          {MissionIcon && (
+            <MissionIcon
+              className="vm-icon"
+              color={missionData?.icon_color || "#000"}
+            />
+          )}
+
           <div className="section-header mission-header">
             <hr className="section-line" />
             <h2 className="section-title-vm mission-title">
-              {mission?.title}
+              {missionData?.title}
             </h2>
           </div>
 
-          <div className="mission-text">
-            {mission_points.map((item, index) => (
-              <p key={index}>{item.value}</p>
-            ))}
-          </div>
+          <div
+            className="mission-text"
+            dangerouslySetInnerHTML={{
+              __html: missionData?.desc || ""
+            }}
+          />
         </div>
 
       </div>
