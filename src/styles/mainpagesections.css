@@ -246,7 +246,7 @@
 }
 
 .research-section {
-    @apply bg-[#fbf7e6] text-gray-800 py-16;
+    @apply bg-[#fbf7e6] text-gray-800 py-12;
 }
 
 .research-grid {
@@ -288,7 +288,7 @@
 
 /* ===================== RESEARCH ECHOSYSTEM ===================== */
 .reco-section {
-    @apply bg-gray-100 py-10 mx-auto;
+    @apply bg-gray-100 py-12 mx-auto;
 }
 
 .reco-layout {
@@ -325,7 +325,7 @@
 
 /* ===================== THE EDGE ===================== */
 .edge-section {
-    @apply bg-white py-10 text-[#707070] font-sans;
+    @apply bg-white py-12 text-[#707070] font-sans;
 }
 
 .edge-header {
@@ -463,7 +463,7 @@
 
 /* ===================== SDG ===================== */
 .sdg-section {
-    @apply bg-[#e9f4fc] py-6;
+    @apply bg-[#e9f4fc] py-12;
 }
 
 .sdg-layout {
@@ -488,7 +488,7 @@
 
 /* ================= FUNDED PROJECTS ================= */
 .funded-section {
-    @apply bg-gray-50 py-10;
+    @apply bg-gray-50 py-12;
 }
 
 .funded-desc {
@@ -505,7 +505,7 @@
 
 /* ================= AMOUNT ================= */
 .funded-amount {
-    @apply text-xl font-bold;
+    @apply text-2xl font-bold;
 }
 
 .funded-padding {
@@ -517,7 +517,7 @@
 }
 
 .funded-label {
-    @apply text-gray-400;
+    @apply text-gray-400 text-sm;
 }
 
 .funded-info {
@@ -529,12 +529,12 @@
 }
 
 .funded-icon {
-    @apply w-12 h-12 object-contain mt-2;
+    @apply w-12 h-12 object-contain;
 }
 
 /* ================= CLINICAL RESEARCH ================= */
 .infograph-section {
-    @apply py-10 mx-auto;
+    @apply py-12 mx-auto;
 }
 
 .infograph-container {

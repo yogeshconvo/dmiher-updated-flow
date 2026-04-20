@@ -1,10 +1,11 @@
 import React from "react";
-import ViewMoreButton from "../../../components/UI/ViewMore";
-// import "../../tailwind.css";
+import MicroPageCTA from "../../../components/MicroPageCTA";
 
-export default function ClinicalResearch({ data }) {
-
+export default function ClinicalResearch({ data, instituteSlug }) {
   if (!data) return null;
+
+  const basic = data.basic || {};
+  const { title, subtitle, image, image_alt, cta } = basic;
 
   return (
     <div className="infograph-section">
@@ -12,28 +13,30 @@ export default function ClinicalResearch({ data }) {
 
         {/* Image */}
         <div className="infograph-image">
-          <img
-            src={data.basic.image}
-            alt={data.basic.image_alt || "Research Ecosystem"}
-          />
+          <img src={image} alt={image_alt || title || "Clinical Research"} />
         </div>
 
         {/* Content */}
         <div className="infograph-content">
 
-          <h2 className="heading">
-            <hr className="heading-line" />
-            {data.basic.title}
-          </h2>
+          {title && (
+            <h2 className="heading">
+              <hr className="heading-line" />
+              {title}
+            </h2>
+          )}
 
-          <h3 className="infograph-subtitle">
-            {data.basic.subtitle}
-          </h3>
+          {subtitle && (
+            <h3 className="infograph-subtitle">{subtitle}</h3>
+          )}
 
-          <ViewMoreButton
-            href={data.basic.button_link}
-            label={data.basic.button_label}
-          />
+          {cta?.label && (
+            <MicroPageCTA
+              cta={cta}
+              pageslug={instituteSlug}
+              className="mt-2 mb-4 px-6 py-2 bg-[#F04E30] hover:bg-[#122E5E] hover:scale-105 transition-transform duration-200 text-white rounded font-semibold"
+            />
+          )}
 
         </div>
       </div>

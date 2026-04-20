@@ -1,12 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Controller } from "swiper/modules";
 import RichTextRenderer from "../../../components/RichTextRenderer";
 
-const colorMap = {
-  orange: "text-orange-600",
-  blue: "text-blue-600",
-  yellow: "text-yellow-500",
-  red: "text-red-500",
-};
+import "swiper/css";
 
 const FundedResearchProjects = ({ data }) => {
   if (!data) return null;
@@ -14,7 +11,32 @@ const FundedResearchProjects = ({ data }) => {
   const basic = data.basic || {};
   const projects = data.projects || [];
 
-  const { heading, description, thematic } = basic;
+  const { heading, desc } = basic;
+
+  const [firstSwiper, setFirstSwiper] = useState(null);
+  const [secondSwiper, setSecondSwiper] = useState(null);
+
+  const swiperSettingsMain = {
+    modules: [Controller],
+    slidesPerView: 2,
+    spaceBetween: 0,
+    controller: { control: secondSwiper },
+    breakpoints: {
+      480: { slidesPerView: 3 },
+      640: { slidesPerView: 4 },
+    },
+  };
+
+  const swiperSettingsNav = {
+    modules: [Controller],
+    slidesPerView: 2,
+    spaceBetween: 0,
+    controller: { control: firstSwiper },
+    breakpoints: {
+      480: { slidesPerView: 3 },
+      640: { slidesPerView: 4 },
+    },
+  };
 
   return (
     <section className="funded-section">
@@ -27,57 +49,115 @@ const FundedResearchProjects = ({ data }) => {
           </h2>
         )}
 
-        {description && (
-          <p className="funded-desc">{description}</p>
-        )}
+        {desc && <RichTextRenderer className="funded-desc" html={desc} />}
 
-        {thematic && (
-          <p className="funded-theme">{thematic}</p>
-        )}
-
-        {/* GRID */}
         {projects.length > 0 && (
-          <div className="funded-grid">
-            {projects.map((p, idx) => (
-              <div key={idx} className="funded-cell funded-info">
-
-                <div className="funded-title">
-                  <div className="funded-padding">
-                    {/* <p
-                      className={`funded-amount ${
-                        colorMap[p.color] || "text-gray-700"
-                      }`}
+          <div>
+            {/* ================= MOBILE SWIPERS ================= */}
+            <div className="block md:hidden">
+              {/* Amount + Label */}
+              <Swiper
+                {...swiperSettingsMain}
+                onSwiper={setFirstSwiper}
+                className="border-2 border-gray-300 border-b-0"
+              >
+                {projects.map((project, idx) => (
+                  <SwiperSlide
+                    key={idx}
+                    className="border-r-2 border-b-2 border-gray-300 p-4 text-center"
+                    style={{
+                      borderRight:
+                        idx === projects.length - 1 ? "none" : undefined,
+                    }}
+                  >
+                    <p
+                      className="text-xl font-bold"
+                      style={project.color ? { color: project.color } : undefined}
                     >
-                      {p.amount}
-                    </p> */}
-                    <RichTextRenderer
-  className="edge-card-title font-bold"
-  html={p.amount}
-  textcolor={p.bg_color}
-/>
-                    <p className="funded-label">{p.label}</p>
-                  </div>
-                </div>
-
-                <div className="funded-padding">
-                  <p className="font-semibold">{p.title}</p>
-                  {p.subtitle && (
-                    <p className="text-xs text-gray-500">
-                      {p.subtitle}
+                      {project.amount}
                     </p>
+                    <p className="text-gray-400 mb-1">{project.label}</p>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+
+              {/* Desc (title/subtitle HTML) + Icon */}
+              <Swiper
+                {...swiperSettingsNav}
+                onSwiper={setSecondSwiper}
+                className="border-x-2 border-gray-300 border-b-2"
+              >
+                {projects.map((project, idx) => (
+                  <SwiperSlide
+                    key={idx}
+                    className="border-r-2 border-gray-300 p-4 flex flex-col items-center gap-3 text-center min-h-[220px]"
+                    style={{
+                      borderRight:
+                        idx === projects.length - 1 ? "none" : undefined,
+                    }}
+                  >
+                    {project.desc && (
+                      <RichTextRenderer html={project.desc} />
+                    )}
+                    {project.icon && (
+                      <img
+                        src={project.icon}
+                        alt="project icon"
+                        className="mt-auto object-contain"
+                        style={{ width: "110px", height: "110px" }}
+                      />
+                    )}
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+
+            {/* ================= DESKTOP GRID ================= */}
+            <div className="hidden md:grid md:grid-cols-8 border-2 border-gray-300 border-b-0">
+              {projects.map((project, idx) => (
+                <div
+                  key={idx}
+                  className="border-r-2 border-b-2 border-gray-300 p-4 text-center"
+                  style={{
+                    borderRight:
+                      idx === projects.length - 1 ? "none" : undefined,
+                  }}
+                >
+                  <p
+                    className="text-xl font-bold"
+                    style={project.color ? { color: project.color } : undefined}
+                  >
+                    {project.amount}
+                  </p>
+                  <p className="text-gray-400 mb-1">{project.label}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="hidden md:grid md:grid-cols-8 border-x-2 border-b-2 border-gray-300">
+              {projects.map((project, idx) => (
+                <div
+                  key={idx}
+                  className="border-r-2 border-gray-300 p-4 flex flex-col items-center gap-3 text-center min-h-[220px]"
+                  style={{
+                    borderRight:
+                      idx === projects.length - 1 ? "none" : undefined,
+                  }}
+                >
+                  {project.desc && (
+                    <RichTextRenderer html={project.desc} />
+                  )}
+                  {project.icon && (
+                    <img
+                      src={project.icon}
+                      alt="project icon"
+                      className="mt-auto object-contain"
+                      style={{ width: "110px", height: "110px" }}
+                    />
                   )}
                 </div>
-
-                {p.icon && (
-                  <img
-                    src={p.icon}
-                    alt={p.title}
-                    className="funded-icon"
-                    loading="lazy"
-                  />
-                )}
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
 

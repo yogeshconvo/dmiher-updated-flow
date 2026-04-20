@@ -46,11 +46,11 @@ const EnquiryGlobal = ({ data }) => {
 
         <div className="enquiry-grid">
           {links.map((link, idx) => {
+            const target = link.page_slug ?? link.path;
             const isExternal =
-              link.path?.startsWith("http") ||
-              link.path?.endsWith(".pdf");
+              target?.startsWith?.("http") || target?.endsWith?.(".pdf");
 
-            if (link.path === "popup") {
+            if (target === "popup") {
               return (
                 <div
                   key={idx}
@@ -65,10 +65,12 @@ const EnquiryGlobal = ({ data }) => {
               );
             }
 
+            const to = target?.startsWith?.("/") ? target : `/${target || ""}`;
+
             return isExternal ? (
               <a
                 key={idx}
-                href={link.path}
+                href={target}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="enquiry-card"
@@ -79,7 +81,7 @@ const EnquiryGlobal = ({ data }) => {
                 <div className="enquiry-text">{link.title}</div>
               </a>
             ) : (
-              <Link key={idx} to={link.path} className="enquiry-card">
+              <Link key={idx} to={to} className="enquiry-card">
                 <div className="enquiry-icon-wrap">
                   <FileText className="enquiry-icon" />
                 </div>

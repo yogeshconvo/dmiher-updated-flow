@@ -10,7 +10,7 @@ function InfoSection({ data }) {
 
   const [showMore, setShowMore] = useState(false);
 
-  const item = source[0];
+  const item = source[0] || {};
 
   const {
     title,
@@ -20,9 +20,19 @@ function InfoSection({ data }) {
     institute_desc,
     non_desc,
     viredesc,
-  } = item || {};
+    content,
+  } = item;
 
   const mainDesc = institute_desc || non_desc || desc;
+
+  // Expanded content: legacy `viredesc` OR new `content[]` (only enabled, tab_type === "view")
+  const expandedBlocks = Array.isArray(content)
+    ? content.filter(
+        (c) => c?._section_enabled !== false && c?.description
+      )
+    : [];
+
+  const hasExpanded = Boolean(viredesc) || expandedBlocks.length > 0;
 
   return (
     <div className="info-wrapper">
@@ -59,29 +69,33 @@ function InfoSection({ data }) {
           </div>
         )}
 
-        {/* ===== VIEW MORE LOGIC (ONLY IF DATA EXISTS) ===== */}
-        {!showMore && viredesc && (
-          <ViewMoreButton
-      label="View More"
-            onClick={() => setShowMore(true)}
-          >
-            View More
-          </ViewMoreButton>
-        )}
-
+        {/* ===== EXPANDED BLOCKS ===== */}
         {showMore && viredesc && (
           <div className="info-description">
             <RichTextRenderer html={viredesc} />
           </div>
         )}
 
-        {showMore && viredesc && (
+        {showMore &&
+          expandedBlocks.map((block, idx) => (
+            <div key={idx} className="info-description">
+              <RichTextRenderer html={block.description} />
+            </div>
+          ))}
+
+        {/* ===== VIEW MORE / VIEW LESS ===== */}
+        {hasExpanded && !showMore && (
           <ViewMoreButton
-      label="View Less"
+            label="View More"
+            onClick={() => setShowMore(true)}
+          />
+        )}
+
+        {hasExpanded && showMore && (
+          <ViewMoreButton
+            label="View Less"
             onClick={() => setShowMore(false)}
-          >
-            View Less
-          </ViewMoreButton>
+          />
         )}
 
       </section>
