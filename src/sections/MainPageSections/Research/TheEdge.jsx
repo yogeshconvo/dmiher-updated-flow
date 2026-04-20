@@ -14,8 +14,7 @@ const TheEdge = ({ data }) => {
   const basic = data.basic || {};
   const cards = data.cards || [];
 
-
-  const { heading, subheading, tagline} = basic;
+  const { heading, desc } = basic;
 
 
 
@@ -39,12 +38,13 @@ const TheEdge = ({ data }) => {
     <section className="edge-section container">
       {/* Header */}
       <div className="edge-header">
-        <h2 className="heading">
-          <hr className="heading-line" />
-          {heading}
-        </h2>
-        <p className="edge-subtitle">{subheading}</p>
-        <p className="edge-tagline">{tagline}</p>
+        {heading && (
+          <h2 className="heading">
+            <hr className="heading-line" />
+            {heading}
+          </h2>
+        )}
+        {desc && <RichTextRenderer className="edge-desc" html={desc} />}
       </div>
 
       {/* Slider */}

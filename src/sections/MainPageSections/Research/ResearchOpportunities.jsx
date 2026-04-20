@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import RichTextRenderer from "../../../components/RichTextRenderer";
 
 const ResearchOpportunities = ({ data }) => {
@@ -10,13 +9,7 @@ const ResearchOpportunities = ({ data }) => {
 
   if (!tabs.length) return null;
 
-  const {
-    heading,
-    subheading,
-    contact_email,
-    cta_url,
-    cta_name
-  } = basic;
+  const { heading, subheading, sub_heading, desc } = basic;
 
   // Since API has no key, use index
   const [activeTab, setActiveTab] = useState(0);
@@ -25,7 +18,7 @@ const ResearchOpportunities = ({ data }) => {
 
   return (
     <section className="research-op-section container">
-      
+
       {/* ================= HEADING ================= */}
       <div>
         {heading && (
@@ -35,8 +28,15 @@ const ResearchOpportunities = ({ data }) => {
           </h2>
         )}
 
-        {subheading && (
-          <p className="research-op-subheading">{subheading}</p>
+        {sub_heading ? (
+          <RichTextRenderer
+            className="research-op-subheading"
+            html={sub_heading}
+          />
+        ) : (
+          subheading && (
+            <p className="research-op-subheading">{subheading}</p>
+          )
         )}
       </div>
 
@@ -68,8 +68,7 @@ const ResearchOpportunities = ({ data }) => {
                 {isActive && tab.desc && (
                   <RichTextRenderer
                     className="research-op-list"
-                  html={ tab.desc}
-                  
+                    html={tab.desc}
                   />
                 )}
               </div>
@@ -77,25 +76,11 @@ const ResearchOpportunities = ({ data }) => {
           })}
 
           {/* -------- FOOTER -------- */}
-          <div className="research-op-footer">
-            {cta_url && (
-              <Link to={cta_url} className="research-op-link">
-               {cta_name}
-              </Link>
-            )}
-
-            {contact_email && (
-              <p className="research-op-contact">
-                <strong>Contact:</strong>{" "}
-                <a
-                  href={`mailto:${contact_email}`}
-                  className="research-op-link"
-                >
-                  {contact_email}
-                </a>
-              </p>
-            )}
-          </div>
+          {desc && (
+            <div className="research-op-footer">
+              <RichTextRenderer html={desc} />
+            </div>
+          )}
         </div>
 
         {/* -------- RIGHT IMAGE -------- */}

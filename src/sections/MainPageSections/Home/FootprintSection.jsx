@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import RichTextRenderer from "../../../components/RichTextRenderer";
 
 const FootprintSection = ({ data }) => {
   const tabs = data?.tabs || [];
@@ -116,7 +117,7 @@ const FootprintSection = ({ data }) => {
                       {currentTab.points.map((point, index) => (
                         <SwiperSlide key={index}>
                           <div className="point-mobile">
-                            {point.text}
+                            <RichTextRenderer html={point.text} />
                           </div>
                         </SwiperSlide>
                       ))}
@@ -125,7 +126,7 @@ const FootprintSection = ({ data }) => {
                     <div className="points-grid">
                       {currentTab.points.map((point, index) => (
                         <div key={index} className="point-item">
-                          {point.text}
+                          <RichTextRenderer html={point.text} />
                         </div>
                       ))}
                     </div>

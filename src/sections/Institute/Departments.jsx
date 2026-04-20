@@ -145,11 +145,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useMicroPage } from "../../hooks/useMicropage";
 
 import "swiper/css";
 import "swiper/css/pagination";
 
-/* ================= CARD ================= */
+/* ================= CARD (institute slider) ================= */
 const DepartmentCard = ({ title, url, image }) => {
   const navigate = useNavigate();
 
@@ -174,33 +175,170 @@ const DepartmentCard = ({ title, url, image }) => {
   );
 };
 
+/* ================= ABOUT-VARIANT HELPERS ================= */
+/* Read first cta entry — supports both array form [{...}]
+   and keyed-object form { "1": {...} } */
+const firstCta = (cta) => {
+  if (!cta) return null;
+  if (Array.isArray(cta)) return cta[0] || null;
+  if (typeof cta === "object") {
+    const keys = Object.keys(cta);
+    return keys.length ? cta[keys[0]] : null;
+  }
+  return null;
+};
+
+/* Resolve href for an item or button based on action_type */
+const resolveHref = (item, parent) => {
+  if (item?.action_type === "link" && item?.page_slug) {
+    return `/${parent}/${item.page_slug}`;
+  }
+  if (item?.action_type === "dependent") {
+    const c = firstCta(item.cta);
+    if (c?.cta_key) return `/${parent}/${c.cta_key}`;
+  }
+  return null;
+};
+
+/* Extract micro-page trigger info if action_type is dependent + has_micro_page */
+const getMicroPageCta = (item) => {
+  if (item?.action_type !== "dependent") return null;
+  const c = firstCta(item.cta);
+  if (c?.has_micro_page && c?.cta_key) return c;
+  return null;
+};
+
+const labelFor = (item) =>
+  item?.title || item?.label || firstCta(item?.cta)?.label || "";
+
+/* ================= ABOUT GRID =================
+   Reuses the existing .departments-grid + .department-card-* styling
+   so the UI matches the rest of the site. */
+const AboutGrid = ({ grid, parent }) => {
+  const navigate = useNavigate();
+  const { mutate: triggerMicroPage, isPending } = useMicroPage();
+  const items = grid?.grid_items || [];
+  const buttons = grid?.cta_buttons || [];
+  const ctaText = grid?.cta?.[0]?.cta_text;
+
+  const handleClick = (item) => {
+    const micro = getMicroPageCta(item);
+    if (micro) {
+      triggerMicroPage({ pageslug: parent, ctaKey: micro.cta_key });
+      return;
+    }
+    const href = resolveHref(item, parent);
+    if (href) navigate(href);
+  };
+
+  return (
+    <>
+      {/* Image card grid */}
+      {items.length > 0 && (
+        <div className="departments-grid">
+          {items.map((item, idx) => (
+            <div
+              key={idx}
+              className="department-card-wrapper cursor-pointer"
+              onClick={() => handleClick(item)}
+            >
+              <div
+                className="department-card department-card-hover department-card-height"
+                style={{
+                  backgroundImage: `url(${item.image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              >
+                <div className="department-card-overlay">
+                  <h3 className="department-card-title">{labelFor(item)}</h3>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Helper text above buttons */}
+      {ctaText && (
+        <p className="text-center text-[#58595B] text-sm md:text-base mt-8">
+          {ctaText}
+        </p>
+      )}
+
+      {/* Pill button row */}
+      {buttons.length > 0 && (
+        <div className="flex flex-wrap justify-center gap-3 mt-4">
+          {buttons.map((btn, idx) => {
+            const micro = getMicroPageCta(btn);
+            const href = resolveHref(btn, parent);
+            const isClickable = Boolean(micro || href);
+            const label = labelFor(btn);
+            return (
+              <button
+                key={idx}
+                type="button"
+                onClick={() => handleClick(btn)}
+                disabled={!isClickable || isPending}
+                className={`px-5 py-2 text-sm font-medium rounded-full transition-colors border ${
+                  isClickable
+                    ? "bg-white border-[#122E5E] text-[#122E5E] hover:bg-[#122E5E] hover:text-white cursor-pointer"
+                    : "bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed"
+                }`}
+              >
+                {label}
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </>
+  );
+};
+
 /* ================= MAIN ================= */
-const Departments = ({ data , college}) => {
+const Departments = ({ data, college, pageSlug }) => {
   const swiperRef = useRef(null);
   const [departments, setDepartments] = useState([]);
   const [slides, setSlides] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // const { college } = useParams(); // ✅ dynamic college
+  // First grid drives the rendering decision
+  const firstGrid = data?.grids?.[0];
+  const designType = firstGrid?.design_type;
+  const isAboutVariant = designType === "about";
 
-  /* ================= DATA ================= */
+  /* ================= DATA (institute slider) — skip for about variant ===== */
   useEffect(() => {
+    if (isAboutVariant) return;
     if (!data?.grids?.length) return;
 
-    const deptList =
-      data.grids[0]?.departments?.map((item) => ({
-        title: item.title,
-        image: item.image,
-        url: `/${college}/departments/${item.page_slug}`, // ✅ FIXED
+    const grid = data.grids[0] || {};
+    const parent = college || pageSlug || "";
 
+    // Prefer `departments` (institute flow); fall back to `cards` (generic grid)
+    const source =
+      (Array.isArray(grid.departments) && grid.departments.length
+        ? grid.departments
+        : grid.cards) || [];
 
-      })) || [];
+    const isCards =
+      !(Array.isArray(grid.departments) && grid.departments.length);
+
+    const deptList = source.map((item) => ({
+      title: item.title,
+      image: item.image,
+      url: isCards
+        ? `/${parent}/${item.page_slug}`
+        : `/${parent}/departments/${item.page_slug}`,
+    }));
 
     setDepartments(deptList);
-  }, [data, college]);
+  }, [data, college, pageSlug, isAboutVariant]);
 
   /* ================= SLIDER ================= */
   useEffect(() => {
+    if (isAboutVariant) return;
     if (!departments.length) return;
 
     const chunkSize = window.innerWidth < 640 ? 4 : window.innerWidth < 1024 ? 6 : 8;
@@ -212,7 +350,19 @@ const Departments = ({ data , college}) => {
 
     setSlides(chunks);
     setCurrentSlide(0);
-  }, [departments]);
+  }, [departments, isAboutVariant]);
+
+  /* ===== ABOUT VARIANT — render grid_items + cta_buttons ===== */
+  if (isAboutVariant) {
+    const parent = college || pageSlug || "about";
+    return (
+      <div className="departments-section">
+        <div className="container">
+          <AboutGrid grid={firstGrid} parent={parent} />
+        </div>
+      </div>
+    );
+  }
 
   if (!departments.length) return <p>Loading...</p>;
 
