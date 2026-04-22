@@ -15,13 +15,22 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 /* ================= CARD (institute slider) ================= */
-const DepartmentCard = ({ title, url, image }) => {
+const DepartmentCard = ({ title, url, image, external = false }) => {
   const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (!url) return;
+    if (external) {
+      window.open(url, "_blank", "noopener,noreferrer");
+    } else {
+      navigate(url);
+    }
+  };
 
   return (
     <div
       className="department-card-wrapper cursor-pointer"
-      onClick={() => navigate(url)}
+      onClick={handleClick}
     >
       <div
         className="department-card department-card-hover department-card-height"
@@ -189,13 +198,22 @@ const Departments = ({ data, college, pageSlug }) => {
     const isCards =
       !(Array.isArray(grid.departments) && grid.departments.length);
 
-    const deptList = source.map((item) => ({
-      title: item.title,
-      image: item.image,
-      url: isCards
-        ? `/${parent}/${item.page_slug}`
-        : `/${parent}/departments/${item.page_slug}`,
-    }));
+    const deptList = source.map((item) => {
+      // Card-mode supports multiple action types: "link" | "pdf"
+      const isPdf = isCards && item.action_type === "pdf" && item.pdf;
+      const url = isPdf
+        ? item.pdf
+        : isCards
+          ? `/${parent}/${item.page_slug}`
+          : `/${parent}/departments/${item.page_slug}`;
+
+      return {
+        title: item.title,
+        image: item.image,
+        url,
+        external: isPdf,
+      };
+    });
 
     setDepartments(deptList);
   }, [data, college, pageSlug, isAboutVariant]);
@@ -257,6 +275,7 @@ const Departments = ({ data, college, pageSlug }) => {
                 title={item.title}
                 url={item.url}
                 image={item.image}
+                external={item.external}
               />
             ))}
           </div>

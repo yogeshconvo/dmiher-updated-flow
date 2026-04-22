@@ -40,9 +40,18 @@ export default function FeatureCards({ data }) {
     );
   }
 
+  const basic = data?.basic || {};
+  const subtitleHidden = basic?._disabled?.subtitle === true;
+
   return (
     <section className="container mx-auto py-10">
-      <h2 className="heading"> <hr className="heading-line" />{data.basic.heading}</h2>
+      <h2 className="heading"> <hr className="heading-line" />{basic.heading}</h2>
+
+      {!subtitleHidden && basic.subtitle && (
+        <p className="text-center text-[#58595B] text-sm md:text-base mt-2 mb-6">
+          {basic.subtitle}
+        </p>
+      )}
 
       <div className="relative overflow-hidden ">
 
