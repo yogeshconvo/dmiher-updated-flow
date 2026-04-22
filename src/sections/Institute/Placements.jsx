@@ -3,7 +3,15 @@ import RichTextRenderer from "../../components/RichTextRenderer";
 // import "../styles/InstituteSections/Placements.css";
 
 export default function PlacementsJNMC({ data }) {
-  const { header, highlights = [] } = data || {};
+  const { header = {} } = data || {};
+
+  // Support both legacy flat `highlights` and new
+  // `optinal_content[]._section_enabled + .highlights[]` structure.
+  const highlights = Array.isArray(data?.highlights)
+    ? data.highlights
+    : (data?.optinal_content || [])
+        .filter((block) => block?._section_enabled !== false)
+        .flatMap((block) => block?.highlights || []);
 
   return (
     <section className="placements-section">

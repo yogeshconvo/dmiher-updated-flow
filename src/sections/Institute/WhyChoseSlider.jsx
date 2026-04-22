@@ -71,7 +71,7 @@ const WhyChoose = ({ data }) => {
                     {card.title}
                   </h3>
 
-                  {card.description || card.desc && (
+                  {(card.description || card.desc) && (
                     <div className="feature-subtitle" style={{ color: card.desc_color }}>
                     <RichTextRenderer
                       html={card.description || card.desc}

@@ -6,13 +6,34 @@ export default function GlobalOpportunities({ data }) {
   const {
     header = {},
     image_section = {},
-    logos = [],
+    logos: rawLogos = [],
     layout = {},
   } = data || {};
 
   const { heading, description } = header;
   const { image } = image_section;
-  const { layout_type = "image_logo" } = layout;
+
+  // Normalize: API sends `logos` as an array of sections
+  //   [{ _section_enabled, logos: [{image}], tab_type }]
+  // Legacy form was a flat array [{src, alt}]. Support both.
+  const isNested =
+    Array.isArray(rawLogos) &&
+    rawLogos.length > 0 &&
+    Array.isArray(rawLogos[0]?.logos);
+
+  const enabledSections = isNested
+    ? rawLogos.filter((s) => s?._section_enabled !== false)
+    : [];
+
+  const logos = isNested
+    ? enabledSections.flatMap((s) => s.logos || [])
+    : rawLogos;
+
+  // Layout: prefer explicit layout.layout_type, otherwise first section tab_type
+  const layout_type =
+    layout.layout_type ||
+    enabledSections[0]?.tab_type ||
+    "image_logo";
 
   // Layout logic
   const showImage =
@@ -67,7 +88,7 @@ export default function GlobalOpportunities({ data }) {
                     >
                       <div className="global-logo-box">
                         <img
-                          src={logo.src}
+                          src={logo.image || logo.src}
                           alt={logo.alt || "logo"}
                           className="global-logo"
                         />
@@ -93,7 +114,7 @@ export default function GlobalOpportunities({ data }) {
                     <SwiperSlide key={idx}>
                       <div className="global-logo-box">
                         <img
-                          src={logo.src}
+                          src={logo.image || logo.src}
                           alt={logo.alt || "logo"}
                           className="global-logo"
                         />
@@ -130,7 +151,7 @@ export default function GlobalOpportunities({ data }) {
               {logos.map((logo, idx) => (
                 <SwiperSlide key={idx}>
                   <img
-                    src={logo.src}
+                    src={logo.image || logo.src}
                     alt={logo.alt || "logo"}
                     className="global-mobile-logo-img"
                   />

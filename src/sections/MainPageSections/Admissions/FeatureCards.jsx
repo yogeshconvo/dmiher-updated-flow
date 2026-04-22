@@ -20,16 +20,20 @@ export default function FeatureCards({ data }) {
   };
 
   function Card({ card }) {
+    const titleHidden = card?._disabled?.title === true;
+
     return (
       <div className="relative w-[320px] h-[500px] rounded-xl overflow-hidden shadow-lg group flex-shrink-0">
         <img
           src={card.image}
-          alt={card.title}
+          alt={card.title || ""}
           className="w-full h-full object-cover transition-transform group-hover:scale-105"
         />
 
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 text-white p-4 h-44 flex flex-col">
-          <h3 className="text-[18px] font-bold">{card.title}</h3>
+          {!titleHidden && card.title && (
+            <h3 className="text-[18px] font-bold">{card.title}</h3>
+          )}
           <p className="text-sm mt-1 line-clamp-4">{card.description}</p>
         </div>
       </div>

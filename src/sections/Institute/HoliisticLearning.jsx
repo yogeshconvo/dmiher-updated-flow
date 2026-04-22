@@ -51,9 +51,14 @@ function HolisticInfrastructureSection({ data , college }) {
     (source?.dimensions || data?.dimensions || []).map((item, index) => ({
       id: index + 1,
       title: item.title,
-      desc: item.desc,
+      // honor API's _disabled.desc flag
+      desc: item?._disabled?.desc === true ? "" : item.desc,
       image: item.img
     }));
+
+  // When every dimension is title-only (no description), we center the
+  // left column so the list isn't awkwardly top-aligned against the image.
+  const titlesOnly = dimensions.every((d) => !d.desc);
 
   const swiperRef = useRef(null);
 
@@ -162,10 +167,18 @@ function HolisticInfrastructureSection({ data , college }) {
 
   return (
     <div className="holistic-section container">
-      <div className="holistic-layout">
+      <div
+        className={`holistic-layout ${
+          titlesOnly ? "holistic-layout--titles-only" : ""
+        }`}
+      >
 
         {/* TEXT */}
-        <div className="holistic-text">
+        <div
+          className={`holistic-text ${
+            titlesOnly ? "holistic-text--centered" : ""
+          }`}
+        >
           <h2 className="heading">
             <hr className="heading-line" />
             {heading}
@@ -185,9 +198,11 @@ function HolisticInfrastructureSection({ data , college }) {
                   {section.label}
                 </span>
 
-                <p className="holistic-item-content">
-                  {section.description}
-                </p>
+                {section.description && (
+                  <p className="holistic-item-content">
+                    {section.description}
+                  </p>
+                )}
               </div>
             ))}
           </div>

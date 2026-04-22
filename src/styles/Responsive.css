@@ -570,7 +570,21 @@
 
 @media (min-width: 768px) {
     .collab-stats-grid {
-        @apply grid grid-cols-3;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: 2rem;
+        column-gap: 0;
+    }
+
+    .collab-stats-grid .collab-stat {
+        flex: 0 0 33.333%;
+        max-width: 33.333%;
+    }
+
+    /* Remove the trailing border on the last visible item of each row */
+    .collab-stats-grid .collab-stat:nth-child(3n) {
+        border-right: 0;
     }
 }
 
