@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import ViewMoreButton from "../../components/UI/Buttons";
 import RichTextRenderer from "../../components/RichTextRenderer";
 
@@ -7,7 +8,16 @@ const Collabaration = ({ data }) => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const { left_content, stats = [], popup_items = [] } = data;
+  const { stats = [], popup_items = [] } = data;
+  // Support both legacy `left_content` and new `paragraphs` key
+  const left_content = data.left_content || data.paragraphs || {};
+
+  // Content is a SEPARATE section (array of CTA-like blocks).
+  // Hide only when explicitly disabled via `_section_disabled: true`.
+  const rawContent = data?.Content;
+  const contentDisabled =
+    rawContent && !Array.isArray(rawContent) && rawContent._section_disabled === true;
+  const contentItems = Array.isArray(rawContent) ? rawContent : [];
 
   return (
     <div className="collab-section">
@@ -38,24 +48,89 @@ const Collabaration = ({ data }) => {
         </div>
 
         {/* ================= STATS ================= */}
-        <div className="collab-stats-grid">
-          {stats.map((item, index) => (
-            <div key={index} className="collab-stat">
-              {/* icon optional */}
-              {item.icon && item.icon.length > 0 && (
-                <img
-                  src={item.icon}
-                  alt=""
-                  className="w-28 h-28 mb-2"
-                />
-              )}
+        {stats.length > 0 && (
+          <div className="collab-stats-grid">
+            {stats.map((item, index) => {
+              const iconSrc = item.img || item.icon;
+              const iconHidden = item?._disabled?.img === true;
 
-              <p className="collab-stat-value">{item.value}</p>
-              <span className="collab-stat-label">{item.label}</span>
-            </div>
-          ))}
-        </div>
+              return (
+                <div key={index} className="collab-stat">
+                  {/* icon optional */}
+                  {!iconHidden && iconSrc && (
+                    <img
+                      src={iconSrc}
+                      alt=""
+                      className="w-28 h-28 mb-2"
+                    />
+                  )}
+
+                  {item.description ? (
+                    <div
+                      className="collab-stat-desc w-full"
+                      style={{ textAlign: "center" }}
+                    >
+                      <RichTextRenderer
+                        html={item.description}
+                        className="[&_*]:!text-center"
+                      />
+                    </div>
+                  ) : (
+                    <>
+                      <p className="collab-stat-value">{item.value}</p>
+                      <span className="collab-stat-label">{item.label}</span>
+                    </>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
+
+      {/* ================= CONTENT (separate CTA blocks) ================= */}
+      {!contentDisabled && contentItems.length > 0 && (
+        <div className="container collab-content">
+          {contentItems.map((item, idx) => {
+            const label = item.label || item.cta_text || item.title;
+
+            if (item.tab_type === "button" && (item.link || item.page_slug)) {
+              const isExternal = item.link?.startsWith("http");
+              const href = item.link || `/${item.page_slug}`;
+
+              return isExternal ? (
+                <a
+                  key={idx}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="collab-content-btn"
+                >
+                  {label || "Learn More"}
+                </a>
+              ) : (
+                <Link
+                  key={idx}
+                  to={href}
+                  className="collab-content-btn"
+                >
+                  {label || "Learn More"}
+                </Link>
+              );
+            }
+
+            if (item.description) {
+              return (
+                <div key={idx} className="collab-content-item">
+                  <RichTextRenderer html={item.description} />
+                </div>
+              );
+            }
+
+            return null;
+          })}
+        </div>
+      )}
 
       {/* ================= MODAL ================= */}
       {showModal && (

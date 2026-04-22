@@ -279,6 +279,24 @@
     @apply flex flex-col items-start justify-center;
 }
 
+/* Titles-only (vertical layout):
+   - Heading stays in place (top-left, untouched)
+   - Only the list block is vertically centered within the column so it
+     aligns mid-height with the image on the right.
+   - Items retain their normal width; text inside stays left-aligned. */
+.holistic-text--centered {
+    @apply flex flex-col;
+}
+
+.holistic-text--centered .holistic-list {
+    @apply flex flex-col justify-center flex-1;
+    min-height: 500px;
+}
+
+.holistic-text--centered .holistic-item {
+    @apply text-left;
+}
+
 .holistic-text {
     @apply w-full min-w-[300px];
 }
@@ -684,7 +702,18 @@
 
 
 .collab-stat {
-    @apply flex flex-col items-center px-4 border-r border-gray-300;
+    @apply flex flex-col items-center justify-start text-center px-4 border-r border-gray-300;
+}
+
+/* Force-center ALL descendants, including content injected via RichTextRenderer
+   (which adds an extra `.prose` wrapper) and inline HTML classes like `text-left`. */
+.collab-stat,
+.collab-stat *,
+.collab-stat .prose,
+.collab-stat .prose *,
+.collab-stat-desc,
+.collab-stat-desc * {
+    text-align: center !important;
 }
 
 .collab-stat:last-child {
@@ -692,11 +721,11 @@
 }
 
 .collab-stat-value {
-    @apply text-[24px] text-orange-600;
+    @apply text-[24px] text-orange-600 text-center;
 }
 
 .collab-stat-label {
-    @apply text-[#58595B] text-xl font-[Arial];
+    @apply text-[#58595B] text-xl font-[Arial] text-center;
 }
 
 /* ================= MODAL ================= */
