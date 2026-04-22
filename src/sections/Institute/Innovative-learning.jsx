@@ -8,7 +8,14 @@ import "swiper/css/navigation";
 // import "../styles/InstituteSections/innovative-learning.css";
 
 export default function InnovativeLearning({ data }) {
-  const { heading, subheading, cards = [] } = data || {};
+  const basic = data?.basic || {};
+  const cards = Array.isArray(data?.cards) ? data.cards : [];
+
+  // Support both new API (`basic.heading`/`basic.subtitle`) and
+  // legacy flat (`heading`/`subheading`) shapes.
+  const heading = basic.heading || data?.heading || "";
+  const subheading = basic.subtitle || data?.subheading || "";
+  const subtitleHidden = basic?._disabled?.subtitle === true;
   const [slidesToShow, setSlidesToShow] = useState(3);
   const swiperRef = useRef(null);
 
@@ -26,8 +33,10 @@ export default function InnovativeLearning({ data }) {
 
   return (
     <div className="innovative-section container">
-      <h2 className="innovative-heading">{heading}</h2>
-      <p className="innovative-subheading">{subheading}</p>
+      {heading && <h2 className="innovative-heading">{heading}</h2>}
+      {!subtitleHidden && subheading && (
+        <p className="innovative-subheading">{subheading}</p>
+      )}
 
       <div className="relative">
         <button
@@ -66,15 +75,20 @@ export default function InnovativeLearning({ data }) {
 
 /* ================= CARD ================= */
 function InnovativeCard({ card }) {
+  const titleHidden = card?._disabled?.title === true;
+
   return (
     <div className="innovative-card">
       <img
         src={card.image}
-        alt=""
+        alt={card.title || ""}
         className="innovative-card-image"
       />
 
       <div className="innovative-card-overlay">
+        {!titleHidden && card.title && (
+          <h3 className="innovative-card-title">{card.title}</h3>
+        )}
         <p className="innovative-card-text">
           {card.description}
         </p>

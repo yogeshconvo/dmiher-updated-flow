@@ -877,11 +877,15 @@
 }
 
 .innovative-card-overlay {
-    @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 text-white p-4 h-28 flex flex-col;
+    @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent text-white p-4 h-48 flex flex-col justify-end;
+}
+
+.innovative-card-title {
+    @apply text-[18px] font-bold mb-1;
 }
 
 .innovative-card-text {
-    @apply text-sm mt-1 leading-snug overflow-hidden text-ellipsis line-clamp-4;
+    @apply text-sm leading-snug overflow-hidden text-ellipsis line-clamp-4;
     font-family: Arial, sans-serif;
     font-weight: 400;
 }

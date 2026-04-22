@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
 export default function FeatureCards({ data }) {
-  const { basic, cards } = data;
+  const basic = data?.basic || {};
+  const cards = Array.isArray(data?.cards) ? data.cards : [];
   const [index, setIndex] = useState(0);
 
 
@@ -30,17 +31,17 @@ export default function FeatureCards({ data }) {
           className="w-full h-full object-cover transition-transform group-hover:scale-105"
         />
 
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 text-white p-4 h-44 flex flex-col">
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/80 to-black/40 text-white p-4 h-44 flex flex-col justify-end">
           {!titleHidden && card.title && (
-            <h3 className="text-[18px] font-bold">{card.title}</h3>
+            <h3 className="text-[18px] font-bold mb-1">{card.title}</h3>
           )}
-          <p className="text-sm mt-1 line-clamp-4">{card.description}</p>
+          <p className="text-sm line-clamp-4">{card.description}</p>
         </div>
       </div>
     );
   }
 
-  const basic = data?.basic || {};
+  
   const subtitleHidden = basic?._disabled?.subtitle === true;
 
   return (
