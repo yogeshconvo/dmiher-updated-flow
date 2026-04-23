@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
@@ -109,10 +110,30 @@ export function ImagePopup({ images, index, onClose }) {
     return null;
   };
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") onClose?.();
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
+
   const imageSrc = getImageSrc(images[index]?.image);
 
-  return (
-    <div className="gallery-popup" onClick={onClose}>
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
+    <div
+      className="gallery-popup"
+      role="dialog"
+      aria-modal="true"
+      onClick={onClose}
+    >
       <div
         className="gallery-popup-inner"
         onClick={(e) => e.stopPropagation()}
@@ -123,10 +144,15 @@ export function ImagePopup({ images, index, onClose }) {
           <div className="gallery-popup-fallback" />
         )}
 
-        <button className="gallery-popup-close" onClick={onClose}>
-          <X size={30} />
+        <button
+          className="gallery-popup-close"
+          onClick={onClose}
+          aria-label="Close"
+        >
+          <X size={20} />
         </button>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
