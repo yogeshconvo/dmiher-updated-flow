@@ -36,6 +36,7 @@ const WhyChoose = ({ data }) => {
             modules={[Pagination, Autoplay]}
             pagination={{
               clickable: true,
+              el: ".why-choose-pagination",
             }}
             autoplay={{
               delay: 3000,
@@ -57,7 +58,7 @@ const WhyChoose = ({ data }) => {
           >
             {cards.map((card, index) => (
               <SwiperSlide
-                key={`${index}-${card.title}`}   
+                key={`${index}-${card.title}`}
                 virtualIndex={index}
               >
                 <div
@@ -82,6 +83,9 @@ const WhyChoose = ({ data }) => {
               </SwiperSlide>
             ))}
           </Swiper>
+
+          {/* Pagination rendered below the slides via Swiper's `el` option */}
+          <div className="why-choose-pagination" />
         </div>
       </div>
     </div>

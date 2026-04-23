@@ -51,8 +51,11 @@ function HolisticInfrastructureSection({ data , college }) {
     (item, index) => ({
       id: index + 1,
       title: item.title,
-      // honor API's _disabled.desc flag
-      description: item?._disabled?.desc === true ? "" : item.description,
+      // honor API's _disabled.desc flag; accept either `description` (HTML) or `desc` (plain text)
+      description:
+        item?._disabled?.desc === true
+          ? ""
+          : item.description || item.desc || "",
       image: item.img,
     }),
   );

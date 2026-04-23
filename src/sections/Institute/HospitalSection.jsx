@@ -14,11 +14,19 @@ const HospitalHighlight = ({ data }) => {
   if (!data) return null;
 
   const {
-    header,
-    content,
+    header = {},
+    content = {},
     images = [],
-    cta
+    cta,
+    buttons = [],
   } = data;
+
+  // Normalize CTAs: support legacy single `cta` object and new `buttons[]` array
+  const ctaList = Array.isArray(buttons) && buttons.length > 0
+    ? buttons.filter((b) => b?._section_enabled !== false)
+    : cta
+      ? [cta]
+      : [];
 
   return (
     <section className="hospital-section">
@@ -34,20 +42,32 @@ const HospitalHighlight = ({ data }) => {
             <h4 className="hospital-subtitle">{header.subtitle}</h4>
           )}
 
-          <RichTextRenderer html={content.description} />
+          {content.description && (
+            <RichTextRenderer html={content.description} />
+          )}
 
-          {/* <ul className="hospital-list">
-            {content.stats.map((item, idx) => (
-              <li key={idx} className="hospital-list-item">
-                {item}
-              </li>
-            ))}
-          </ul> */}
-
-          {cta.cta_url && (
+          {ctaList.length > 0 && (
             <div className="cta">
-              {/* <ViewMoreButton href={cta_url} label={cta_label} /> */}
-              <p>{cta.cta_label}</p>
+              {ctaList.map((item, idx) => {
+                const href = item.link || item.cta_url;
+                const label = item.label || item.cta_label;
+                if (!href || !label) return null;
+                const isExternal =
+                  item.tab_type === "url" ||
+                  (typeof href === "string" && href.startsWith("http"));
+                return isExternal ? (
+                  <a
+                    key={idx}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {label}
+                  </a>
+                ) : (
+                  <p key={idx}>{label}</p>
+                );
+              })}
             </div>
           )}
         </div>
