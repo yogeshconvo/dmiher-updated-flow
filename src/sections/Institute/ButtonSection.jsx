@@ -39,10 +39,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ALIGN_MAP = {
+const FLEX_ALIGN_MAP = {
   left: "justify-start",
   center: "justify-center",
   right: "justify-end",
+};
+
+// Grid containers need `justify-items-*` (each cell's contents) rather than
+// `justify-*` (whole track), so we map separately.
+const GRID_ITEM_ALIGN_MAP = {
+  left: "justify-items-start",
+  center: "justify-items-center",
+  right: "justify-items-end",
 };
 
 const COL_MAP = {
@@ -56,57 +64,74 @@ export default function CTAButtons({ data }) {
   const buttons = data?.buttons || [];
   const layout = data?.layout || {};
 
-  const alignClass = ALIGN_MAP[layout.alignment] || "justify-center";
+  const alignment = layout.alignment || "center";
   const columns = Number(layout.columns) || 0;
   const colClass = COL_MAP[columns] || "";
 
-  // When columns is set, use grid; otherwise fall back to the
-  // existing flex row layout for backward compatibility.
   const useGrid = columns > 0;
-  const containerClass = useGrid
-    ? `grid grid-cols-1 ${colClass} gap-10 m-10 ${alignClass}`
-    : `flex flex-col md:flex-row ${alignClass} gap-10 m-10`;
+
+  // Split into full rows + a trailing partial row so any leftover buttons
+  // (e.g. 5 items in 2 cols → 1 extra, 7 items in 3 cols → 1 extra,
+  // 8 items in 3 cols → 2 extras) render as a centered flex row below
+  // the grid instead of getting stuck in a single grid cell off to one side.
+  const extras = useGrid ? buttons.length % columns : 0;
+  const mainButtons = extras === 0 ? buttons : buttons.slice(0, -extras);
+  const tailButtons = extras === 0 ? [] : buttons.slice(-extras);
+
+  const gridClass = useGrid
+    ? `grid grid-cols-1 ${colClass} ${GRID_ITEM_ALIGN_MAP[alignment] || "justify-items-center"} gap-10 max-w-fit mx-auto`
+    : `flex flex-col md:flex-row flex-wrap ${FLEX_ALIGN_MAP[alignment] || "justify-center"} gap-10`;
+
+  const renderButton = (btn, index) => {
+    const isExternal =
+      btn.tab_type === "url" ||
+      (typeof btn.link === "string" && btn.link.startsWith("http"));
+
+    const path =
+      btn.link && btn.link !== "#"
+        ? btn.link
+        : btn.page_slug
+          ? `/${btn.page_slug}`
+          : "#";
+
+    const buttonEl = (
+      <button className="w-[18rem] bg-[#F05423] hover:bg-[#0B2A6D] text-white text-2xl font-oswald-medium px-8 py-3 rounded-md drop-shadow-[4px_6px_6px_rgba(0,0,0,0.5)] hover:scale-105 transition">
+        {btn.label}
+      </button>
+    );
+
+    if (isExternal) {
+      return (
+        <a
+          key={index}
+          href={path}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex justify-center"
+        >
+          {buttonEl}
+        </a>
+      );
+    }
+
+    return (
+      <Link key={index} to={path} className="flex justify-center">
+        {buttonEl}
+      </Link>
+    );
+  };
 
   return (
-    <div className={containerClass}>
-      {buttons.map((btn, index) => {
-        const isExternal =
-          btn.tab_type === "url" ||
-          (typeof btn.link === "string" && btn.link.startsWith("http"));
+    <div className="m-10">
+      <div className={gridClass}>{mainButtons.map(renderButton)}</div>
 
-        const path =
-          btn.link && btn.link !== "#"
-            ? btn.link
-            : btn.page_slug
-              ? `/${btn.page_slug}`
-              : "#";
-
-        const buttonEl = (
-          <button className="w-[18rem] bg-[#F05423] hover:bg-[#0B2A6D] text-white text-2xl font-oswald-medium px-8 py-3 rounded-md drop-shadow-[4px_6px_6px_rgba(0,0,0,0.5)] hover:scale-105 transition">
-            {btn.label}
-          </button>
-        );
-
-        if (isExternal) {
-          return (
-            <a
-              key={index}
-              href={path}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex justify-center"
-            >
-              {buttonEl}
-            </a>
-          );
-        }
-
-        return (
-          <Link key={index} to={path} className="flex justify-center">
-            {buttonEl}
-          </Link>
-        );
-      })}
+      {tailButtons.length > 0 && (
+        <div className="flex flex-wrap justify-center gap-10 mt-10">
+          {tailButtons.map((btn, i) =>
+            renderButton(btn, mainButtons.length + i),
+          )}
+        </div>
+      )}
     </div>
   );
 }
