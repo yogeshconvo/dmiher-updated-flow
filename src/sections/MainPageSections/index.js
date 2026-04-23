@@ -48,6 +48,7 @@ import EminentAlumni from "./Alumni/EminentAlumni"
 import ExamCellOfficials from "./ControllerOfExamination/ExamCellOfficials"
 import AcademicFC from "./CampusFacilities/AcademicFC"
 import WellbeingComfortFC from "./CampusFacilities/WellbeingComfortFC"
+import ContactUS from "./Contact/ContactUS"
 
 export const SECTION_COMPONENTS = {
 
@@ -124,4 +125,7 @@ export const SECTION_COMPONENTS = {
     // Campus Facilities
     academic_innovation_facilities: AcademicFC,
     wellbeing_section: WellbeingComfortFC,
+
+    // Contact Us
+    contact_tabs_section: ContactUS,
 };
