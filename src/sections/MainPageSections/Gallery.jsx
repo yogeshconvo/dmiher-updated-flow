@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { createPortal } from "react-dom";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import CampusFacilities from "./Home/CampusFacilities";
 import RichTextRenderer from "../../components/RichTextRenderer";
@@ -66,6 +67,23 @@ function Gallery({ data }) {
       visibleImages.length
     );
 
+  useEffect(() => {
+    if (popupIndex === null) return;
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setPopupIndex(null);
+      else if (e.key === "ArrowRight") nextImage();
+      else if (e.key === "ArrowLeft") prevImage();
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [popupIndex, visibleImages.length]);
+
   /* =============================
       🟡 IMPORTANT DETAILS (FIXED)
   ============================== */
@@ -121,38 +139,61 @@ function Gallery({ data }) {
         )}
 
         {/* Popup */}
-        {popupIndex !== null && (
-          <div
-            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
-            onClick={() => setPopupIndex(null)}
-          >
+        {popupIndex !== null &&
+          typeof document !== "undefined" &&
+          createPortal(
             <div
-              className="relative flex items-center gap-6"
-              onClick={(e) => e.stopPropagation()}
+              className="fixed inset-0 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 z-[10000]"
+              role="dialog"
+              aria-modal="true"
+              onClick={() => setPopupIndex(null)}
             >
-              <button onClick={prevImage} className="text-white">
-                <ArrowLeft size={40} />
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  prevImage();
+                }}
+                className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-white/15 hover:bg-white/30 text-white transition z-10"
+                aria-label="Previous"
+              >
+                <ArrowLeft size={24} />
               </button>
 
-              <img
-                src={visibleImages[popupIndex]}
-                className="max-h-[80vh] rounded"
-                alt="preview"
-              />
+              <div
+                className="relative flex items-center justify-center max-w-[min(800px,80vw)] max-h-[70vh]"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img
+                  src={visibleImages[popupIndex]}
+                  className="block max-w-full max-h-[70vh] w-auto h-auto object-contain rounded-xl shadow-2xl"
+                  alt="preview"
+                />
+              </div>
 
-              <button onClick={nextImage} className="text-white">
-                <ArrowRight size={40} />
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  nextImage();
+                }}
+                className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-white/15 hover:bg-white/30 text-white transition z-10"
+                aria-label="Next"
+              >
+                <ArrowRight size={24} />
               </button>
 
               <button
-                onClick={() => setPopupIndex(null)}
-                className="absolute top-2 right-2 text-white"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setPopupIndex(null);
+                }}
+                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-white text-black shadow-lg hover:bg-red-500 hover:text-white transition z-10"
+                aria-label="Close"
               >
-                <X />
+                <X size={20} />
               </button>
-            </div>
-          </div>
-        )}
+            </div>,
+            document.body,
+          )}
       </div>
 
       {/* =============================

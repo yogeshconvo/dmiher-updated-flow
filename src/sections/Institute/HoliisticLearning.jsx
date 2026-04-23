@@ -47,18 +47,19 @@ function HolisticInfrastructureSection({ data , college }) {
       ? `/${pageSlug}/${ctaItem.micro_slug}`
       : "";
 
-  const dimensions =
-    (source?.dimensions || data?.dimensions || []).map((item, index) => ({
+  const dimensions = (source?.dimensions || data?.dimensions || []).map(
+    (item, index) => ({
       id: index + 1,
       title: item.title,
       // honor API's _disabled.desc flag
-      desc: item?._disabled?.desc === true ? "" : item.desc,
-      image: item.img
-    }));
+      description: item?._disabled?.desc === true ? "" : item.description,
+      image: item.img,
+    }),
+  );
 
   // When every dimension is title-only (no description), we center the
   // left column so the list isn't awkwardly top-aligned against the image.
-  const titlesOnly = dimensions.every((d) => !d.desc);
+  const titlesOnly = dimensions.every((d) => !d.description);
 
   const swiperRef = useRef(null);
 
@@ -70,7 +71,6 @@ function HolisticInfrastructureSection({ data , college }) {
     return (
       <div className="hlh-section">
         <div className="hlh-container">
-
           {/* Header */}
           <div className="hlh-header">
             <h1 className="hlh-title">
@@ -106,13 +106,12 @@ function HolisticInfrastructureSection({ data , college }) {
               breakpoints={{
                 640: { slidesPerView: 2 },
                 1024: { slidesPerView: 3 },
-                1280: { slidesPerView: 4 }
+                1280: { slidesPerView: 4 },
               }}
             >
               {dimensions.map((item) => (
                 <SwiperSlide key={item.id}>
                   <div className="hlh-slide">
-
                     <img
                       src={item.image}
                       alt={item.title}
@@ -122,27 +121,26 @@ function HolisticInfrastructureSection({ data , college }) {
                     <div className="hlh-content">
                       <div className="hlh-number">
                         <span className="hlh-number-overlay"></span>
-                        <span className="hlh-number-text">
-                          {item.id}
-                        </span>
+                        <span className="hlh-number-text">{item.id}</span>
                       </div>
 
                       <div className="hlh-text">
-                        <h3 className="hlh-item-title">
-                          {item.title}
-                        </h3>
-                        <p className="hlh-item-desc">
-                          {item.desc}
-                        </p>
+                        <h3 className="hlh-item-title">{item.title}</h3>
+                        {item.description && (
+                          <div
+                            className="hlh-item-desc"
+                            dangerouslySetInnerHTML={{
+                              __html: item.description,
+                            }}
+                          />
+                        )}
                       </div>
                     </div>
-
                   </div>
                 </SwiperSlide>
               ))}
             </Swiper>
           </div>
-
         </div>
       </div>
     );
@@ -156,8 +154,8 @@ function HolisticInfrastructureSection({ data , college }) {
     dimensions.map((item) => ({
       id: item.id,
       label: item.title,
-      description: item.desc,
-      image_key: item.image
+      description: item.description,
+      image_key: item.image,
     })) || [];
 
   const [activeId, setActiveId] = useState(items[0]?.id ?? null);
@@ -199,9 +197,12 @@ function HolisticInfrastructureSection({ data , college }) {
                 </span>
 
                 {section.description && (
-                  <p className="holistic-item-content">
-                    {section.description}
-                  </p>
+                  <div
+                    className="holistic-item-content"
+                    dangerouslySetInnerHTML={{
+                      __html: section.description,
+                    }}
+                  />
                 )}
               </div>
             ))}
