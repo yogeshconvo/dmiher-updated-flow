@@ -5,8 +5,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
 import { NonceProvider } from "./context/NonceContext";
 import App from "./App";
+import { startTokenAutoRefresh } from "./utils/auth";
 import "@fontsource/oswald";
 import "./styles/main.css";
+
+startTokenAutoRefresh();
 
 const queryClient = new QueryClient({
   defaultOptions: {
