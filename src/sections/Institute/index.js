@@ -21,6 +21,10 @@ import MandatoryDisclosure from "./MandatoryDisclosure"
 import Logos from "./Logos"
 import TabMenu from "../Micropages/Tabwise-micropage"
 import Departments from "./Departments"
+import {
+    MandatoryDisclosureSection,
+    mandatoryDisclosureConfig,
+} from "../../instituteSections/mandatoryDisclosure"
 
 export const SECTION_COMPONENTS = {
 
@@ -49,7 +53,7 @@ export const SECTION_COMPONENTS = {
     institute_logos: Logos,
     institute_departments: Departments,
 
-
-
+    // Mandatory Disclosure subpage — driven dynamically from API (no hardcoding)
+    [mandatoryDisclosureConfig.sectionId]: MandatoryDisclosureSection,
 
 };

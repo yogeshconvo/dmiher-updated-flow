@@ -3,6 +3,10 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig(({ mode }) => ({
+  // Site is hosted at https://dmiher.edu.in/dmiher-web/ — assets must be
+  // referenced relative to that subdirectory, not the domain root.
+  // Override at build time with `vite build --base=/some-other-path/` if needed.
+  base: mode === "production" ? "/dmiher-web/" : "/",
   plugins: [
     react({
       babel: {
