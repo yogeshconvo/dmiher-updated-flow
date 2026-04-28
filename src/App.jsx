@@ -7,6 +7,8 @@ import SubPrograms from "./sections/Subpages/Programs";
 import HeadPrograms from "./sections/Subpages/HeadPrograms";
 import DepartmentsSubpage from "./sections/Subpages/Departments";
 import TranscriptFEAT from "./sections/Subpages/Transcript-type1";
+import MandatoryDisclosurePage from "./Pages/MandatoryDisclosurePage";
+import { mandatoryDisclosureConfig } from "./instituteSections/mandatoryDisclosure";
 
 function App() {
   return (
@@ -36,6 +38,16 @@ function App() {
         <Route
           path="/:college/departments/:deptSlug"
           element={<DepartmentsSubpage />}
+        />
+
+        {/* =================== MANDATORY DISCLOSURE (isolated, college-scoped) =================== */}
+        <Route
+          path={mandatoryDisclosureConfig.nestedRoutePattern}
+          element={<MandatoryDisclosurePage />}
+        />
+        <Route
+          path={mandatoryDisclosureConfig.routePattern}
+          element={<MandatoryDisclosurePage />}
         />
 
         {/* =================== MICROPAGE / CTA =================== */}
