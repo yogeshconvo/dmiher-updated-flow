@@ -75,13 +75,9 @@ export default function CombinedSection({ data }) {
       data?.admission_section?.address ||
       "",
     email:
-      mainTab?.admission?.[0]?.email ||
-      data?.admission_section?.email ||
-      "",
+      mainTab?.admission?.[0]?.email || data?.admission_section?.email || "",
     phone:
-      mainTab?.admission?.[0]?.phone ||
-      data?.admission_section?.phone ||
-      "",
+      mainTab?.admission?.[0]?.phone || data?.admission_section?.phone || "",
     address_icon: mainTab?.admission?.[0]?.icon,
     email_icon: mainTab?.admission?.[0]?.email_icon,
     phone_icon: mainTab?.admission?.[0]?.phone_icon,
@@ -223,7 +219,7 @@ export default function CombinedSection({ data }) {
                       fallback={Fa6Icons.FaMapPin}
                       className="w-10 h-10 text-gray-700 mb-2"
                     />
-                    <p className="font-semibold">Address</p>
+
                     {isHtml(contact_tabs[tab].address) ? (
                       <div
                         className="text-gray-600 mt-1"
@@ -244,7 +240,7 @@ export default function CombinedSection({ data }) {
                       fallback={Fa6Icons.FaEnvelope}
                       className="w-10 h-10 text-gray-700 mb-2"
                     />
-                    <p className="font-semibold">E-mail</p>
+
                     <p className="text-gray-600 mt-1">
                       {contact_tabs[tab].email}
                     </p>
@@ -256,7 +252,7 @@ export default function CombinedSection({ data }) {
                       fallback={Fa6Icons.FaPhone}
                       className="w-10 h-10 text-gray-700 mb-2"
                     />
-                    <p className="font-semibold">Phone</p>
+
                     <p className="text-gray-600 mt-1">
                       {contact_tabs[tab].phone}
                     </p>
@@ -301,11 +297,13 @@ export default function CombinedSection({ data }) {
                 fallback={Fa6Icons.FaMapPin}
                 className="text-gray-700 mb-2 w-10 h-10"
               />
-              <p className="font-semibold text-[#F04E30]">Address</p>
+
               {isHtml(admission_section.address) ? (
                 <div
                   className="text-gray-600 mt-1"
-                  dangerouslySetInnerHTML={renderHtml(admission_section.address)}
+                  dangerouslySetInnerHTML={renderHtml(
+                    admission_section.address,
+                  )}
                 />
               ) : (
                 <p className="text-gray-600 mt-1">
@@ -320,7 +318,7 @@ export default function CombinedSection({ data }) {
                 fallback={Fa6Icons.FaEnvelope}
                 className="text-gray-700 mb-2 w-10 h-10"
               />
-              <p className="font-semibold text-[#F04E30]">Email</p>
+
               <a
                 href={`mailto:${admission_section.email}`}
                 className="text-gray-600 mt-1 hover:underline"
@@ -335,7 +333,7 @@ export default function CombinedSection({ data }) {
                 fallback={Fa6Icons.FaPhone}
                 className="text-gray-700 mb-2 w-10 h-10"
               />
-              <p className="font-semibold text-[#F04E30]">Phone</p>
+
               <a
                 href={`tel:${admission_section.phone}`}
                 className="text-gray-600 mt-1"

@@ -1,81 +1,98 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import api, { API_BASE } from "../../config/api";
 import HelperTabwisePage from "./HelperTabwisePage";
 
+/**
+ * TabWiseMicroPage / TabMenu
+ *
+ * URL contract: /:college/:page  (e.g. /about/executive)
+ * The second path segment (`params.page`) is the active tab key.
+ *
+ * Each tab entry defines its key via `page_slug`. Clicking a tab
+ * navigates to /{college}/{page_slug} — active state is read back
+ * from the URL, so the correct tab stays highlighted across loads.
+ */
 const TabMenu = ({ data }) => {
   const tabs = data?.tabs || [];
-  const [activeTab, setActiveTab] = useState(null);
-  const [pageData, setPageData] = useState(null);
+  const params = useParams();
+  const navigate = useNavigate();
+
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [pageData, setPageData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  /* ===== FETCH PAGE (pages API → fallback to independent-pages) =====
-     Use the configured axios `api` so X-API-KEY auth header is sent. */
-  const fetchPage = async (slug) => {
+  /* ===== ALL SLUGS (top-level + dropdown children) ===== */
+  const allSlugs = useMemo(() => {
+    const slugs = [];
+    for (const tab of tabs) {
+      if (tab.type === "page" && tab.page_slug) slugs.push(tab.page_slug);
+      if (tab.type === "dropdown") {
+        (tab.items || []).forEach((it) => {
+          if (it.page_slug) slugs.push(it.page_slug);
+        });
+      }
+    }
+    return slugs;
+  }, [tabs]);
+
+  /* ===== ACTIVE TAB — from URL, with fallback to first tab ===== */
+  const activeTab = useMemo(() => {
+    const urlSlug = params.page;
+    if (urlSlug && allSlugs.includes(urlSlug)) return urlSlug;
+    return allSlugs[0] || null;
+  }, [params.page, allSlugs]);
+
+  /* ===== BASE PATH — /{college} ===== */
+  const basePath = params.college ? `/${params.college}` : "";
+
+  /* ===== FETCH PAGE (pages API → fallback to independent-pages) ===== */
+  const fetchPage = async (slug, signal) => {
     try {
-      const { data } = await api.get(`/pages/${slug}`);
+      const { data } = await api.get(`/pages/${slug}`, { signal });
       return data;
     } catch {
       try {
-        const { data } = await api.get(`/independent-pages/${slug}`);
+        const { data } = await api.get(`/independent-pages/${slug}`, { signal });
         return data;
       } catch (err) {
-        console.error("Page fetch failed:", err);
+        if (err.name !== "AbortError" && err.name !== "CanceledError") {
+          console.error("Page fetch failed:", err);
+        }
         return null;
       }
     }
   };
 
-  /* ===== ACTIVATE SLUG — load and show, no auto-skip ===== */
-  const activateSlug = async (slug) => {
-    setLoading(true);
-    setActiveTab(slug);
-    const json = await fetchPage(slug);
-    setPageData(json || null);
-    setLoading(false);
-  };
-
-  /* ===== INIT — load first page-type tab on mount ===== */
+  /* ===== LOAD CONTENT WHENEVER activeTab CHANGES ===== */
   useEffect(() => {
-    if (tabs.length === 0) return;
-
-    // Find the first tab that has a page_slug (top-level or nested in dropdown)
-    let firstSlug = null;
-    for (const tab of tabs) {
-      if (tab.type === "page" && tab.page_slug) {
-        firstSlug = tab.page_slug;
-        break;
-      }
-      if (tab.type === "dropdown") {
-        const child = tab.items?.find((it) => it.page_slug);
-        if (child) {
-          firstSlug = child.page_slug;
-          break;
-        }
-      }
+    if (!activeTab) {
+      setPageData(null);
+      return;
     }
+    const controller = new AbortController();
+    setLoading(true);
+    (async () => {
+      const json = await fetchPage(activeTab, controller.signal);
+      if (!controller.signal.aborted) {
+        setPageData(json || null);
+        setLoading(false);
+      }
+    })();
+    return () => controller.abort();
+  }, [activeTab]);
 
-    if (firstSlug) activateSlug(firstSlug);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tabs.length]);
-
-  /* ===== TAB CLICK ===== */
+  /* ===== TAB CLICK → NAVIGATE URL ===== */
   const handleTabClick = (tab, index) => {
     if (tab.type === "page" && tab.page_slug) {
       setOpenDropdown(null);
-      setLoading(true);
-      setActiveTab(tab.page_slug);
-      fetchPage(tab.page_slug).then((json) => {
-        setLoading(false);
-        setPageData(json || null);
-      });
+      navigate(`${basePath}/${tab.page_slug}`);
+      return;
     }
 
     if (tab.type === "pdf" && tab.pdf) {
-      window.open(
-        `${API_BASE}/${tab.pdf}`,
-        "_blank",
-      );
+      window.open(`${API_BASE}/${tab.pdf}`, "_blank");
+      return;
     }
 
     if (tab.type === "dropdown") {
@@ -88,24 +105,16 @@ const TabMenu = ({ data }) => {
     setOpenDropdown(null);
 
     if (item.type === "pdf" && item.pdf) {
-      window.open(
-        `${API_BASE}/${item.pdf}`,
-        "_blank",
-      );
+      window.open(`${API_BASE}/${item.pdf}`, "_blank");
       return;
     }
 
     if (item.page_slug) {
-      setActiveTab(item.page_slug);
-      setLoading(true);
-      fetchPage(item.page_slug).then((json) => {
-        setLoading(false);
-        setPageData(json || null);
-      });
+      navigate(`${basePath}/${item.page_slug}`);
     }
   };
 
-  /* ===== ACTIVE CHECK — highlights dropdown parent if child is active ===== */
+  /* ===== ACTIVE CHECK ===== */
   const isTabActive = (tab) => {
     if (tab.type === "page") return activeTab === tab.page_slug;
     if (tab.type === "dropdown")
@@ -116,7 +125,7 @@ const TabMenu = ({ data }) => {
   return (
     <div>
       {/* ===== TAB BAR ===== */}
-      <div className="flex flex-wrap gap-2 shadow-lg  pb-2 mb-6 px-4 justify-center mt-2">
+      <div className="flex flex-wrap gap-2 shadow-lg pb-2 mb-6 px-4 justify-center mt-2">
         {tabs.map((tab, i) => {
           if (!tab.title) return null;
 

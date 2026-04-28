@@ -9,7 +9,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useMicroPage } from "../../hooks/useMicropage";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -89,20 +88,19 @@ const labelFor = (item) =>
    so the UI matches the rest of the site. */
 const AboutGrid = ({ grid, parent }) => {
   const navigate = useNavigate();
-  const { mutate: triggerMicroPage, isPending } = useMicroPage();
   const items = grid?.grid_items || [];
   const buttons = grid?.cta_buttons || [];
   const ctaText = grid?.cta?.[0]?.cta_text;
 
   const handleClick = (item) => {
-    const micro = getMicroPageCta(item);
-    if (micro) {
-      triggerMicroPage({ pageslug: parent, ctaKey: micro.cta_key });
-      return;
-    }
+    // For both "link" (page_slug) and "dependent" (cta[0].cta_key),
+    // navigate to /{parent}/{slug}. PageView's /:college/:page route
+    // fires useSubpage → /api/micropage/{parent}/{slug} and renders.
     const href = resolveHref(item, parent);
     if (href) navigate(href);
   };
+
+  const isPending = false;
 
   return (
     <>
