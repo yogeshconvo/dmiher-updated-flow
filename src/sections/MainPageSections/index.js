@@ -49,6 +49,7 @@ import ExamCellOfficials from "./ControllerOfExamination/ExamCellOfficials"
 import AcademicFC from "./CampusFacilities/AcademicFC"
 import WellbeingComfortFC from "./CampusFacilities/WellbeingComfortFC"
 import ContactUS from "./Contact/ContactUS"
+import TeachingHospitals from "./Hospital/TeachingHospitals/TeachingHospitals"
 
 export const SECTION_COMPONENTS = {
 
@@ -72,6 +73,7 @@ export const SECTION_COMPONENTS = {
     about_VisionMission_Section: VisionMissionSection,
     about_CoreValues_section: CoreValues,
     AboutGrid_section: AboutGrid,
+    institute_departments: AboutGrid,
     committees_facilities_section: CommitteesSection,
     dmiher_journey: DMIHERJourney,
     about_OneHealth_section: OneHealth,
@@ -128,4 +130,7 @@ export const SECTION_COMPONENTS = {
 
     // Contact Us
     contact_tabs_section: ContactUS,
+
+    // Hospital
+    hospitals_tab_section: TeachingHospitals,
 };

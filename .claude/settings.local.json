@@ -35,7 +35,8 @@
       "Bash(ls -la \"D:/CONVOMAX/API/dmiher-new-flow/\"SECURITY_ASSESSMENT_REPORT*.docx)",
       "Bash(find /d/CONVOMAX/API/dmiher-new-flow -type f \\\\\\(-name *.env* -o -name *axios* -o -name *api* -o -name config* \\\\\\))",
       "Bash(grep -n \"Authorization\\\\|Bearer\\\\|token\\\\|auth\\\\|header\" /d/CONVOMAX/API/dmiher-new-flow/src/config/api.js /d/CONVOMAX/API/dmiher-new-flow/src/hooks/*.js /d/CONVOMAX/API/dmiher-new-flow/src/components/Navbar.jsx /d/CONVOMAX/API/dmiher-new-flow/src/components/Footer.jsx -i)",
-      "Bash(xargs grep:*)"
+      "Bash(xargs grep:*)",
+      "Bash(npx eslint *)"
     ]
   }
 }

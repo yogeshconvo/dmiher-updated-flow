@@ -5,25 +5,37 @@ import RichTextRenderer from "../../components/RichTextRenderer";
 function Hero({ data, slug }) {
   if (!data) return null;
 
-  const topbar = data.topbar || {};
+  /* ================= NORMALIZE TOPBAR =================
+     New API : data.topbar = [{ _section_enabled, strip_position, buttons[], admissions_text, ... }]
+     Legacy  : data.topbar = { enabled, position, buttons[], ... }                                */
+  const topbar = Array.isArray(data.topbar)
+    ? data.topbar[0] || {}
+    : data.topbar || {};
+
   const slides = Array.isArray(data.slides) ? data.slides : [];
 
-  // ✅ Dynamic buttons
+  // Dynamic fallback buttons (legacy address[] field)
   const ctaButtons = Array.isArray(data.address) ? data.address : [];
 
   const primarySectionId = topbar.primary_cta_section_id;
-  const strapPosition = topbar.position || "top";
-  const isTopbarEnabled = topbar?.enabled;
+
+  // New: strip_position. Legacy: position. Default: top.
+  const strapPosition =
+    topbar.strip_position || topbar.position || "top";
+
+  // New: _section_enabled. Legacy: enabled. Treat _section_disabled as a hard kill switch.
+  const isTopbarEnabled =
+    topbar._section_disabled === true
+      ? false
+      : Boolean(topbar._section_enabled ?? topbar.enabled);
 
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     if (!slides.length) return;
-
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % slides.length);
     }, 5000);
-
     return () => clearInterval(interval);
   }, [slides.length]);
 
@@ -31,186 +43,156 @@ function Hero({ data, slug }) {
     if (!primarySectionId) return;
     const el = document.getElementById(primarySectionId);
     if (!el) return;
-
     const y = el.getBoundingClientRect().top + window.pageYOffset - 10;
     window.scrollTo({ top: y, behavior: "smooth" });
   };
 
-  /* ================= TOPBAR ================= */
+  /* ============ Per-button helpers (handle both shapes) ============ */
+  const buttonText = (btn) =>
+    btn.primary_cta_text || btn.text || btn.label || "";
 
-  const TopBarComponent =
-    isTopbarEnabled && topbar ? (
-      <div className="hero-topbar">
-        <span className="hero-admission-text">
-          {topbar.admissions_text}
-        </span>
+  const buttonIsPhone = (btn) => {
+    const t = btn.type || btn.url_type;
+    if (t === "phone") return true;
+    if (typeof btn.apply_now_url === "string" && btn.apply_now_url.startsWith("+"))
+      return true;
+    return false;
+  };
 
-        {/* ================= DESKTOP ================= */}
-        <div className="hero-desktop-actions">
-          {/* Dynamic topbar.buttons */}
-          {Array.isArray(topbar.buttons) && topbar.buttons.length > 0
-            ? topbar.buttons.map((btn, index) => {
-                const isPhone = btn.url_type === "phone";
+  const buttonHref = (btn) => {
+    if (buttonIsPhone(btn)) return `tel:${btn.phone || btn.apply_now_url}`;
+    return btn.url || btn.apply_now_url || "#";
+  };
 
-                const commonProps = {
-                  key: index,
-                  className: "hero-apply-btn",
-                  style: {
-                    backgroundColor: btn.bg_color,
-                    color: btn.text_color,
-                    transition: "background-color 0.3s ease",
-                  },
-                  onMouseEnter: (e) =>
-                    (e.currentTarget.style.backgroundColor =
-                      btn.hover_bg_color || btn.bg_color),
-                  onMouseLeave: (e) =>
-                    (e.currentTarget.style.backgroundColor = btn.bg_color),
-                };
+  const buttonStyle = (btn, hovered) => ({
+    backgroundColor: hovered
+      ? btn.hover_bg_color || btn.bg_color || undefined
+      : btn.bg_color || undefined,
+    color: btn.text_color || undefined,
+    transition: "background-color 0.3s ease",
+  });
 
+  /* ================= TOPBAR COMPONENT ================= */
+  const allButtons =
+    Array.isArray(topbar.buttons) && topbar.buttons.length > 0
+      ? topbar.buttons
+      : ctaButtons;
+
+  const TopBarComponent = isTopbarEnabled ? (
+    <div className="hero-topbar">
+      {topbar.admissions_text && (
+        <span className="hero-admission-text">{topbar.admissions_text}</span>
+      )}
+
+      {/* DESKTOP */}
+      <div className="hero-desktop-actions">
+        {allButtons.length > 0 ? (
+          allButtons.map((btn, index) => {
+            const isPhone = buttonIsPhone(btn);
+            const href = buttonHref(btn);
+            const label = buttonText(btn);
+            const commonProps = {
+              key: index,
+              className: "hero-apply-btn",
+              style: buttonStyle(btn, false),
+              onMouseEnter: (e) => {
+                if (btn.hover_bg_color)
+                  e.currentTarget.style.backgroundColor = btn.hover_bg_color;
+              },
+              onMouseLeave: (e) => {
+                e.currentTarget.style.backgroundColor =
+                  btn.bg_color || "";
+              },
+            };
+
+            return isPhone ? (
+              <a {...commonProps} href={href}>
+                {label}
+              </a>
+            ) : (
+              <a
+                {...commonProps}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {label}
+              </a>
+            );
+          })
+        ) : topbar.apply_now_url ? (
+          <a
+            href={topbar.apply_now_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hero-apply-btn"
+          >
+            APPLY NOW
+          </a>
+        ) : null}
+
+        {topbar.primary_cta_text && (
+          <button
+            onClick={handleScrollToSection}
+            className="hero-primary-btn btn-primary"
+          >
+            {topbar.primary_cta_text}
+          </button>
+        )}
+      </div>
+
+      {/* MOBILE */}
+      <div className="hero-mobile">
+        {topbar.primary_cta_text && (
+          <Link
+            to={`/${slug}#${primarySectionId}`}
+            className="hero-mobile-primary btn-primary"
+          >
+            {topbar.primary_cta_text}
+          </Link>
+        )}
+
+        <div className="hero-mobile-actions">
+          {allButtons.length > 0
+            ? allButtons.map((btn, index) => {
+                const isPhone = buttonIsPhone(btn);
+                const href = buttonHref(btn);
+                const label = buttonText(btn);
                 return isPhone ? (
-                  <a {...commonProps} href={`tel:${btn.phone}`}>
-                    {btn.text}
+                  <a key={index} href={href}>
+                    {label}
                   </a>
                 ) : (
                   <a
-                    {...commonProps}
-                    href={btn.url}
+                    key={index}
+                    href={href}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    {btn.text}
+                    {label}
                   </a>
                 );
               })
-            : ctaButtons.length > 0
-              ? ctaButtons.map((btn, index) => {
-                  const isPhone = btn.apply_now_url?.startsWith("+");
-
-                  const commonProps = {
-                    key: index,
-                    className: "hero-apply-btn",
-                    style: {
-                      backgroundColor: btn.bg_color,
-                      color: btn.text_color,
-                      transition: "background-color 0.3s ease",
-                    },
-                    onMouseEnter: (e) =>
-                      (e.currentTarget.style.backgroundColor =
-                        btn.hover_bg_color || btn.bg_color),
-                    onMouseLeave: (e) =>
-                      (e.currentTarget.style.backgroundColor = btn.bg_color),
-                  };
-
-                  return isPhone ? (
-                    <a {...commonProps} href={`tel:${btn.apply_now_url}`}>
-                      {btn.primary_cta_text}
-                    </a>
-                  ) : (
-                    <a
-                      {...commonProps}
-                      href={btn.apply_now_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {btn.primary_cta_text}
-                    </a>
-                  );
-                })
-              : topbar.apply_now_url && (
-                  <a
-                    href={topbar.apply_now_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hero-apply-btn"
-                  >
-                    APPLY NOW
-                  </a>
-                )
-          }
-
-          {/* Optional Scroll Button */}
-          {topbar.primary_cta_text && (
-            <button
-              onClick={handleScrollToSection}
-              className="hero-primary-btn btn-primary"
-            >
-              {topbar.primary_cta_text}
-            </button>
-          )}
-        </div>
-
-        {/* ================= MOBILE ================= */}
-        <div className="hero-mobile">
-          {topbar.primary_cta_text && (
-            <Link
-              to={`/${slug}#${primarySectionId}`}
-              className="hero-mobile-primary btn-primary"
-            >
-              {topbar.primary_cta_text}
-            </Link>
-          )}
-
-          <div className="hero-mobile-actions">
-            {/* Dynamic topbar.buttons (mobile) */}
-            {Array.isArray(topbar.buttons) && topbar.buttons.length > 0
-              ? topbar.buttons.map((btn, index) => {
-                  const isPhone = btn.url_type === "phone";
-
-                  return isPhone ? (
-                    <a key={index} href={`tel:${btn.phone}`}>
-                      {btn.text}
-                    </a>
-                  ) : (
-                    <a
-                      key={index}
-                      href={btn.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {btn.text}
-                    </a>
-                  );
-                })
-              : ctaButtons.length > 0
-                ? ctaButtons.map((btn, index) => {
-                    const isPhone = btn.apply_now_url?.startsWith("+");
-
-                    return isPhone ? (
-                      <a key={index} href={`tel:${btn.apply_now_url}`}>
-                        {btn.primary_cta_text}
-                      </a>
-                    ) : (
-                      <a
-                        key={index}
-                        href={btn.apply_now_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {btn.primary_cta_text}
-                      </a>
-                    );
-                  })
-                : topbar.apply_now_url && (
-                    <a
-                      href={topbar.apply_now_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      APPLY NOW
-                    </a>
-                  )
-            }
-          </div>
+            : topbar.apply_now_url && (
+                <a
+                  href={topbar.apply_now_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  APPLY NOW
+                </a>
+              )}
         </div>
       </div>
-    ) : null;
+    </div>
+  ) : null;
 
   return (
     <>
-      {/* ================= TOP ================= */}
+      {/* TOP STRIP */}
       {strapPosition === "top" && TopBarComponent}
 
-      {/* ================= SLIDER ================= */}
+      {/* SLIDER */}
       <div
         className={`hero-swiper-wrapper ${
           isTopbarEnabled && strapPosition === "top"
@@ -222,7 +204,6 @@ function Hero({ data, slug }) {
       >
         {slides.map((slide, idx) => {
           const imageSrc = slide.img;
-
           return (
             <div
               key={idx}
@@ -257,40 +238,22 @@ function Hero({ data, slug }) {
                 <RichTextRenderer html={slide.desc} />
 
                 {slide.paragraph && (
-                  <p className="hero-paragraph">
-                    {slide.paragraph}
-                  </p>
+                  <p className="hero-paragraph">{slide.paragraph}</p>
                 )}
- {slide.cta_buttons && slide.cta_buttons.length > 0 && (
-  <div className="hero-buttons flex gap-2">
-    {slide.cta_buttons.map((btn, btnIndex) => {
-      const [isHover, setIsHover] = React.useState(false);
 
-      return (
-        <a
-          key={btnIndex}
-          href={btn.url}
-          onMouseEnter={() => setIsHover(true)}
-          onMouseLeave={() => setIsHover(false)}
-          className="mt-2 mb-4 px-6 py-2 transition-all duration-200 rounded cursor-pointer font-semibold inline-block text-center min-w-[200px]"
-          style={{
-            backgroundColor: isHover ? btn.hover_bg_color : btn.bg_color,
-            color: isHover ? btn.hover_text_color : btn.text_color,
-            transform: isHover ? "scale(1.05)" : "scale(1)",
-          }}
-        >
-          {btn.text}
-        </a>
-      );
-    })}
-  </div>
-)}
+                {slide.cta_buttons && slide.cta_buttons.length > 0 && (
+                  <div className="hero-buttons flex gap-2">
+                    {slide.cta_buttons.map((btn, btnIndex) => (
+                      <SlideCtaButton key={btnIndex} btn={btn} />
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           );
         })}
 
-        {/* ================= DOTS ================= */}
+        {/* DOTS */}
         {slides.length > 1 && (
           <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 z-30">
             {slides.map((_, idx) => (
@@ -298,9 +261,7 @@ function Hero({ data, slug }) {
                 key={idx}
                 onClick={() => setActiveIndex(idx)}
                 className={`w-3 h-3 rounded-full transition ${
-                  idx === activeIndex
-                    ? "bg-white"
-                    : "bg-white/40"
+                  idx === activeIndex ? "bg-white" : "bg-white/40"
                 }`}
               />
             ))}
@@ -308,9 +269,29 @@ function Hero({ data, slug }) {
         )}
       </div>
 
-      {/* ================= BOTTOM ================= */}
+      {/* BOTTOM STRIP */}
       {strapPosition === "bottom" && TopBarComponent}
     </>
+  );
+}
+
+/* Per-slide CTA button extracted so we can use a stable hook (no nested useState in .map). */
+function SlideCtaButton({ btn }) {
+  const [isHover, setIsHover] = useState(false);
+  return (
+    <a
+      href={btn.url}
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={() => setIsHover(false)}
+      className="mt-2 mb-4 px-6 py-2 transition-all duration-200 rounded cursor-pointer font-semibold inline-block text-center min-w-[200px]"
+      style={{
+        backgroundColor: isHover ? btn.hover_bg_color : btn.bg_color,
+        color: isHover ? btn.hover_text_color : btn.text_color,
+        transform: isHover ? "scale(1.05)" : "scale(1)",
+      }}
+    >
+      {btn.text || btn.primary_cta_text}
+    </a>
   );
 }
 
