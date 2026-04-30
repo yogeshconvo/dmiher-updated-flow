@@ -10,6 +10,7 @@ import CampusFacilities from "../MainPageSections/Home/CampusFacilities";
 import TabwiseMainMicropage from "../Micropages/Tabwise-micropage";
 import SubPrograms from "./Programs";
 import DeansMicropage from "../Micropages/DeansMicropage";
+import NaacSSR from "./UniquePages/NAAC";
 
 export const SECTION_COMPONENTS = {
 
@@ -22,6 +23,9 @@ export const SECTION_COMPONENTS = {
     accreditations_recognitions: AccreditationsRecognitions,
     electives_offered: ElectivesOfferedFEAT,
     post_doctoral_programme: PhDDAL,
+
+    // NAAC SSR (section_id from API: "naac_ssr_micropage")
+    naac_ssr_micropage: NaacSSR,
 
     // Micropages
     micro_page: MainMicropage,

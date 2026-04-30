@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import RichTextRenderer from "../../components/RichTextRenderer";
+import { resolveImage } from "../../utils/resolveImage";
 
 function Hero({ data, slug }) {
   if (!data) return null;
@@ -203,7 +204,7 @@ function Hero({ data, slug }) {
         } overflow-hidden relative`}
       >
         {slides.map((slide, idx) => {
-          const imageSrc = slide.img;
+          const imageSrc = resolveImage(slide.img);
           return (
             <div
               key={idx}

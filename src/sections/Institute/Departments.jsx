@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
+import { resolveImage } from "../../utils/resolveImage";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -34,7 +35,7 @@ const DepartmentCard = ({ title, url, image, external = false }) => {
       <div
         className="department-card department-card-hover department-card-height"
         style={{
-          backgroundImage: `url(${image})`,
+          backgroundImage: `url(${resolveImage(image)})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -60,23 +61,34 @@ const firstCta = (cta) => {
   return null;
 };
 
-/* Resolve href for an item or button based on action_type */
+/* Resolve href for an item or button based on action_type.
+   Accepts both shapes the CMS emits:
+     - nested:  { action_type:"dependent", cta:[{cta_key:"x"}] }
+     - flat:    { action_type:"dependent", cta_key:"x" }            */
 const resolveHref = (item, parent) => {
   if (item?.action_type === "link" && item?.page_slug) {
     return `/${parent}/${item.page_slug}`;
   }
   if (item?.action_type === "dependent") {
-    const c = firstCta(item.cta);
-    if (c?.cta_key) return `/${parent}/${c.cta_key}`;
+    const nestedKey = firstCta(item.cta)?.cta_key;
+    const flatKey = item?.cta_key;
+    const key = nestedKey || flatKey;
+    if (key) return `/${parent}/${key}`;
   }
   return null;
 };
 
-/* Extract micro-page trigger info if action_type is dependent + has_micro_page */
+/* Extract micro-page trigger info if action_type is dependent + has_micro_page.
+   Same flat-vs-nested tolerance as resolveHref. */
 const getMicroPageCta = (item) => {
   if (item?.action_type !== "dependent") return null;
-  const c = firstCta(item.cta);
-  if (c?.has_micro_page && c?.cta_key) return c;
+
+  const nested = firstCta(item.cta);
+  if (nested?.has_micro_page && nested?.cta_key) return nested;
+
+  if (item?.has_micro_page && item?.cta_key) {
+    return { has_micro_page: true, cta_key: item.cta_key, label: item.label };
+  }
   return null;
 };
 
@@ -116,7 +128,7 @@ const AboutGrid = ({ grid, parent }) => {
               <div
                 className="department-card department-card-hover department-card-height"
                 style={{
-                  backgroundImage: `url(${item.image})`,
+                  backgroundImage: `url(${resolveImage(item.image)})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
@@ -254,10 +266,25 @@ const Departments = ({ data, college, pageSlug }) => {
    return (
     <div className="departments-section">
       <div className="container">
-        {data?.header?.heading && <h2 className="heading">
-          <hr className="heading-line" />
-          {data?.header?.heading}
-        </h2>}
+        {(() => {
+          // Header may arrive as an object ({heading}) OR an array ([{heading}]).
+          // The grid itself can also carry the heading on `firstGrid.header[0]`.
+          const dh = data?.header;
+          const headingFromData = Array.isArray(dh)
+            ? dh[0]?.heading
+            : dh?.heading;
+          const gh = firstGrid?.header;
+          const headingFromGrid = Array.isArray(gh)
+            ? gh[0]?.heading
+            : gh?.heading;
+          const heading = headingFromData || headingFromGrid;
+          return heading ? (
+            <h2 className="heading">
+              <hr className="heading-line" />
+              {heading}
+            </h2>
+          ) : null;
+        })()}
 
         {isSingleRow ? (
           /* ===== Single-row layout (≤ 5 cards) ===== */

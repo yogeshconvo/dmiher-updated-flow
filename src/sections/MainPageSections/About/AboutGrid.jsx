@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { resolveImage } from "../../../utils/resolveImage";
 
 const AboutGrid = ({ data }) => {
   const location = useLocation();
@@ -32,9 +33,12 @@ const AboutGrid = ({ data }) => {
       return { kind: "internal", href: `${basePath}/${item.page_slug}` };
     }
 
-    // action_type: "dependent" → first cta.cta_key
-    if (item.action_type === "dependent" && item.cta?.[0]?.cta_key) {
-      return { kind: "internal", href: `${basePath}/${item.cta[0].cta_key}` };
+    // action_type: "dependent" — accepts both:
+    //   nested: { cta: [{ cta_key: "x" }] }
+    //   flat:   { cta_key: "x" }
+    if (item.action_type === "dependent") {
+      const key = item.cta?.[0]?.cta_key || item.cta_key;
+      if (key) return { kind: "internal", href: `${basePath}/${key}` };
     }
 
     // Legacy: direct page_slug on the item
@@ -87,7 +91,7 @@ const AboutGrid = ({ data }) => {
                 item,
                 <div
                   className="about-card"
-                  style={{ backgroundImage: `url(${item.image})` }}
+                  style={{ backgroundImage: `url(${resolveImage(item.image)})` }}
                 >
                   <div className="about-overlay">
                     <span className="about-title">

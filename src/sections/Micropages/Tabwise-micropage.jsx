@@ -1,17 +1,18 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import api, { API_BASE } from "../../config/api";
-import HelperTabwisePage from "./HelperTabwisePage";
+import { API_BASE } from "../../config/api";
 
 /**
- * TabWiseMicroPage / TabMenu
+ * TabWiseMicroPage / TabMenu — pure navigation strip.
  *
  * URL contract: /:college/:page  (e.g. /about/executive)
  * The second path segment (`params.page`) is the active tab key.
  *
  * Each tab entry defines its key via `page_slug`. Clicking a tab
- * navigates to /{college}/{page_slug} — active state is read back
- * from the URL, so the correct tab stays highlighted across loads.
+ * navigates to /{college}/{page_slug}. PageView then fetches that
+ * micropage and renders its sections (`micro_page`, etc.) — TabMenu
+ * never fetches or renders content itself, so the body never
+ * duplicates the page sections rendered by PageView.
  */
 const TabMenu = ({ data }) => {
   const tabs = data?.tabs || [];
@@ -19,8 +20,6 @@ const TabMenu = ({ data }) => {
   const navigate = useNavigate();
 
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [pageData, setPageData] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   /* ===== ALL SLUGS (top-level + dropdown children) ===== */
   const allSlugs = useMemo(() => {
@@ -46,47 +45,14 @@ const TabMenu = ({ data }) => {
   /* ===== BASE PATH — /{college} ===== */
   const basePath = params.college ? `/${params.college}` : "";
 
-  /* ===== FETCH PAGE (pages API → fallback to independent-pages) ===== */
-  const fetchPage = async (slug, signal) => {
-    try {
-      const { data } = await api.get(`/pages/${slug}`, { signal });
-      return data;
-    } catch {
-      try {
-        const { data } = await api.get(`/independent-pages/${slug}`, { signal });
-        return data;
-      } catch (err) {
-        if (err.name !== "AbortError" && err.name !== "CanceledError") {
-          console.error("Page fetch failed:", err);
-        }
-        return null;
-      }
-    }
-  };
-
-  /* ===== LOAD CONTENT WHENEVER activeTab CHANGES ===== */
-  useEffect(() => {
-    if (!activeTab) {
-      setPageData(null);
-      return;
-    }
-    const controller = new AbortController();
-    setLoading(true);
-    (async () => {
-      const json = await fetchPage(activeTab, controller.signal);
-      if (!controller.signal.aborted) {
-        setPageData(json || null);
-        setLoading(false);
-      }
-    })();
-    return () => controller.abort();
-  }, [activeTab]);
-
   /* ===== TAB CLICK → NAVIGATE URL ===== */
   const handleTabClick = (tab, index) => {
     if (tab.type === "page" && tab.page_slug) {
       setOpenDropdown(null);
-      navigate(`${basePath}/${tab.page_slug}`);
+      // Don't navigate if we're already there — saves a no-op URL change
+      if (tab.page_slug !== params.page) {
+        navigate(`${basePath}/${tab.page_slug}`);
+      }
       return;
     }
 
@@ -109,7 +75,7 @@ const TabMenu = ({ data }) => {
       return;
     }
 
-    if (item.page_slug) {
+    if (item.page_slug && item.page_slug !== params.page) {
       navigate(`${basePath}/${item.page_slug}`);
     }
   };
@@ -122,58 +88,52 @@ const TabMenu = ({ data }) => {
     return false;
   };
 
+  if (!tabs.length) return null;
+
   return (
-    <div>
-      {/* ===== TAB BAR ===== */}
-      <div className="flex flex-wrap gap-2 shadow-lg pb-2 mb-6 px-4 justify-center mt-2">
-        {tabs.map((tab, i) => {
-          if (!tab.title) return null;
+    <div className="flex flex-wrap gap-2 shadow-lg pb-2 mb-6 px-4 justify-center mt-2">
+      {tabs.map((tab, i) => {
+        if (!tab.title) return null;
 
-          return (
-            <div key={i} className="relative">
-              <button
-                className={`px-4 py-2 text-sm font-medium rounded transition-colors ${
-                  isTabActive(tab)
-                    ? "bg-[#F04E30] text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-[#112a62] hover:text-white"
-                }`}
-                onClick={() => handleTabClick(tab, i)}
-              >
-                {tab.title}
-                {tab.type === "dropdown" && (
-                  <span className="ml-1 text-xs">▾</span>
-                )}
-              </button>
-
-              {/* ===== DROPDOWN PANEL ===== */}
-              {tab.type === "dropdown" && openDropdown === i && (
-                <div className="absolute top-full left-0 mt-1 w-52 bg-white border rounded shadow-lg z-50">
-                  {tab.items?.map((item, j) => (
-                    <button
-                      key={j}
-                      onClick={() => handleDropdownItem(item)}
-                      className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 ${
-                        activeTab === item.page_slug
-                          ? "bg-orange-50 text-[#F04E30] font-semibold"
-                          : ""
-                      }`}
-                    >
-                      {item.title}
-                    </button>
-                  ))}
-                </div>
+        return (
+          <div key={i} className="relative">
+            <button
+              type="button"
+              className={`px-4 py-2 text-sm font-medium rounded transition-colors ${
+                isTabActive(tab)
+                  ? "bg-[#F04E30] text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-[#112a62] hover:text-white"
+              }`}
+              onClick={() => handleTabClick(tab, i)}
+            >
+              {tab.title}
+              {tab.type === "dropdown" && (
+                <span className="ml-1 text-xs">▾</span>
               )}
-            </div>
-          );
-        })}
-      </div>
+            </button>
 
-      {/* ===== CONTENT ===== */}
-      <div className="px-4">
-        {loading && <div>Loading tab content...</div>}
-        {!loading && pageData && <HelperTabwisePage data={pageData} />}
-        {!loading && !pageData && <div>No content available</div>}
-      </div>
+            {/* ===== DROPDOWN PANEL ===== */}
+            {tab.type === "dropdown" && openDropdown === i && (
+              <div className="absolute top-full left-0 mt-1 w-52 bg-white border rounded shadow-lg z-50">
+                {tab.items?.map((item, j) => (
+                  <button
+                    key={j}
+                    type="button"
+                    onClick={() => handleDropdownItem(item)}
+                    className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 ${
+                      activeTab === item.page_slug
+                        ? "bg-orange-50 text-[#F04E30] font-semibold"
+                        : ""
+                    }`}
+                  >
+                    {item.title}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };

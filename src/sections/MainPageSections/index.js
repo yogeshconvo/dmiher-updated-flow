@@ -50,6 +50,7 @@ import AcademicFC from "./CampusFacilities/AcademicFC"
 import WellbeingComfortFC from "./CampusFacilities/WellbeingComfortFC"
 import ContactUS from "./Contact/ContactUS"
 import TeachingHospitals from "./Hospital/TeachingHospitals/TeachingHospitals"
+import TextEditor from "../Common/TextEditor"
 
 export const SECTION_COMPONENTS = {
 
@@ -133,4 +134,7 @@ export const SECTION_COMPONENTS = {
 
     // Hospital
     hospitals_tab_section: TeachingHospitals,
+
+    // Generic / cross-page
+    text_editor: TextEditor,
 };
