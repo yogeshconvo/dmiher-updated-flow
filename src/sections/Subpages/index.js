@@ -11,6 +11,7 @@ import TabwiseMainMicropage from "../Micropages/Tabwise-micropage";
 import SubPrograms from "./Programs";
 import DeansMicropage from "../Micropages/DeansMicropage";
 import NaacSSR from "./UniquePages/NAAC";
+import DmiherCet from "./UniquePages/DMIHER-CET";
 
 export const SECTION_COMPONENTS = {
 
@@ -26,6 +27,9 @@ export const SECTION_COMPONENTS = {
 
     // NAAC SSR (section_id from API: "naac_ssr_micropage")
     naac_ssr_micropage: NaacSSR,
+
+    // DMIHER CET (section_id from API: "dmiher_cet_subpage")
+    dmiher_cet_subpage: DmiherCet,
 
     // Micropages
     micro_page: MainMicropage,
