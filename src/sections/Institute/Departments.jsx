@@ -209,19 +209,48 @@ const Departments = ({ data, college, pageSlug }) => {
       !(Array.isArray(grid.departments) && grid.departments.length);
 
     const deptList = source.map((item) => {
-      // Card-mode supports multiple action types: "link" | "pdf"
-      const isPdf = isCards && item.action_type === "pdf" && item.pdf;
-      const url = isPdf
-        ? item.pdf
-        : isCards
-          ? `/${parent}/${item.page_slug}`
-          : `/${parent}/departments/${item.page_slug}`;
+      // Department flow keeps its existing /{parent}/departments/{page_slug} path
+      if (!isCards) {
+        return {
+          title: item.title,
+          image: item.image,
+          url: item.page_slug ? `/${parent}/departments/${item.page_slug}` : null,
+          external: false,
+        };
+      }
 
+      // Card-mode supports multiple action types: "link" | "page" | "pdf"
+      const action = item.action_type;
+
+      // PDF — open in a new tab
+      if (action === "pdf" && item.pdf) {
+        return {
+          title: item.title,
+          image: item.image,
+          url: item.pdf,
+          external: true,
+        };
+      }
+
+      // Micropage CTA — page_slug is empty; the real key lives in cta[0].cta_key
+      // (e.g. national-admissions DMIHER-CET card). Falls back to page_slug if present.
+      if (action === "page") {
+        const ctaKey = firstCta(item.cta)?.cta_key || item.page_slug || "";
+        return {
+          title: item.title,
+          image: item.image,
+          url: ctaKey ? `/${parent}/${ctaKey}` : null,
+          external: false,
+        };
+      }
+
+      // Default ("link" or unspecified) — page_slug is treated as a top-level
+      // route, so navigate directly to /{page_slug} without the parent prefix.
       return {
         title: item.title,
         image: item.image,
-        url,
-        external: isPdf,
+        url: item.page_slug ? `/${item.page_slug}` : null,
+        external: false,
       };
     });
 
