@@ -1,15 +1,20 @@
 import React from "react";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { resolveImage } from "../../../../utils/resolveImage";
+import { pickIndexedBlock } from "./helpers";
 import "swiper/css";
 import "swiper/css/navigation";
 
 function DifferenceHospitals({ campus }) {
   const diff = campus?.difference || {};
-  const title = diff?.["0"]?.heading || "";
-  const subTitle = diff?.["0"]?.subheading || "";
+  const diffHeader = pickIndexedBlock(diff);
+  const title = diffHeader.heading || "";
+  const subTitle = diffHeader.subheading || "";
   const points = Array.isArray(diff?.points) ? diff.points : [];
-  const images = (diff?.images || []).map((i) => i?.image).filter(Boolean);
+  const images = (diff?.images || [])
+    .map((i) => resolveImage(i?.image))
+    .filter(Boolean);
 
   if (!title && !subTitle && !points.length && !images.length) return null;
 

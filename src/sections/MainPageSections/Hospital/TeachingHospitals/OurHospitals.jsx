@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { ExternalLink } from "lucide-react";
 import RichTextRenderer from "../../../../components/RichTextRenderer";
+import { resolveImage } from "../../../../utils/resolveImage";
+import { pickIndexedBlock } from "./helpers";
 
 function OurHospitals({ campus }) {
   const diff = campus?.difference || {};
-  const heading = diff?.["0"]?.hospital_heading || "OUR HOSPITALS";
-  const subheading = diff?.["0"]?.hospital_subheading || "";
+  const diffHeader = pickIndexedBlock(diff);
+  const heading = diffHeader.hospital_heading || "OUR HOSPITALS";
+  const subheading = diffHeader.hospital_subheading || "";
   const hospitals = Array.isArray(diff?.hospitals) ? diff.hospitals : [];
 
   // Selected logo/sub-tab index
@@ -49,7 +52,7 @@ function OurHospitals({ campus }) {
             >
               {hospital.logo ? (
                 <img
-                  src={hospital.logo}
+                  src={resolveImage(hospital.logo)}
                   alt={name}
                   className="max-h-20 object-contain"
                 />
@@ -108,7 +111,7 @@ function OurHospitals({ campus }) {
                 {content.image && (
                   <div className="flex-1 w-full">
                     <img
-                      src={content.image}
+                      src={resolveImage(content.image)}
                       alt=""
                       className="md:mt-10 h-[400px] w-full object-cover rounded-lg"
                     />

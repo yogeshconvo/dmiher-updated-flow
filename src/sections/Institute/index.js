@@ -40,6 +40,7 @@ export const SECTION_COMPONENTS = {
     research_collaborations: Collabaration,
     global_opportunities: GlobalOpportunities,
     institute_testimonial_section: Testimonial,
+    Institute_testimonial_section: Testimonial, // capital-I alias from JNMC API
     student_gallery: StudentLife,
     button_section: ButtonSection,
     placements: Placements,

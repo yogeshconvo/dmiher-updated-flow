@@ -2,15 +2,17 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import RichTextRenderer from "../../../../components/RichTextRenderer";
+import { resolveImage } from "../../../../utils/resolveImage";
+import { pickIndexedBlock } from "./helpers";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 function HospitalDetails({ campus }) {
   const images = (campus?.intro?.into_img || [])
-    .map((i) => i?.image)
+    .map((i) => resolveImage(i?.image))
     .filter(Boolean);
-  const about = campus?.intro?.["0"] || {};
+  const about = pickIndexedBlock(campus?.intro);
 
   if (!images.length && !about?.heading && !about?.description) return null;
 
