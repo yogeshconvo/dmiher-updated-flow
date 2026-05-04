@@ -5,9 +5,12 @@ import RichTextRenderer from "../../components/RichTextRenderer";
 import SafeImage from "../../components/SafeImage";
 
 const Collabaration = ({ data }) => {
-  if (!data) return null;
-
   const [showModal, setShowModal] = useState(false);
+  const [openIdx, setOpenIdx] = useState(-1);
+
+  const handleToggleModal = () => setShowModal((prev) => !prev);
+
+  if (!data) return null;
 
   const { stats = [], popup_items = [] } = data;
   // Support both legacy `left_content` and new `paragraphs` key
@@ -17,8 +20,58 @@ const Collabaration = ({ data }) => {
   // Hide only when explicitly disabled via `_section_disabled: true`.
   const rawContent = data?.Content;
   const contentDisabled =
-    rawContent && !Array.isArray(rawContent) && rawContent._section_disabled === true;
+    rawContent &&
+    !Array.isArray(rawContent) &&
+    rawContent._section_disabled === true;
   const contentItems = Array.isArray(rawContent) ? rawContent : [];
+
+  const popupContentItems =
+    popup_items?.length > 0
+      ? popup_items
+      : contentItems.filter((item) => item.tab_type === "popup");
+
+  const popupSections = popupContentItems.flatMap((item) => {
+    if (Array.isArray(item.accordion)) {
+      return item;
+    }
+
+    if (Array.isArray(item.popup)) {
+      const hasNestedSections = item.popup.some(
+        (section) =>
+          Array.isArray(section.accordion) ||
+          Array.isArray(section.items) ||
+          Array.isArray(section.popup)
+      );
+
+      return item.tab_type === "popup" || hasNestedSections
+        ? item.popup
+        : item;
+    }
+
+    return [];
+  });
+
+  const hasPopupItems = popupContentItems.length > 0;
+  const defaultPopupButtonLabel =
+    popupContentItems[0]?.label ||
+    popupContentItems[0]?.cta_text ||
+    popupContentItems[0]?.title ||
+    popupContentItems[0]?.heading ||
+    "View Details";
+
+  const getAccordionContent = (item) => {
+    if (item.answer) return <RichTextRenderer html={item.answer} />;
+    if (item.content) return <RichTextRenderer html={item.content} />;
+    if (item.description) return <RichTextRenderer html={item.description} />;
+    return null;
+  };
+
+  const getAccordionItems = (section) => {
+    if (Array.isArray(section.accordion)) return section.accordion;
+    if (Array.isArray(section.items)) return section.items;
+    if (Array.isArray(section.popup)) return section.popup;
+    return [];
+  };
 
   return (
     <div className="collab-section">
@@ -40,11 +93,19 @@ const Collabaration = ({ data }) => {
             </div>
           )}
 
-          {left_content?.cta_text && (
+          {left_content?.cta_text ? (
             <ViewMoreButton
               label={left_content.cta_text}
               onClick={() => setShowModal(true)}
             />
+          ) : (
+            hasPopupItems &&
+            !contentItems.some((item) => item.tab_type === "popup") && (
+              <ViewMoreButton
+                label={defaultPopupButtonLabel}
+                onClick={() => setShowModal(true)}
+              />
+            )
           )}
         </div>
 
@@ -73,7 +134,7 @@ const Collabaration = ({ data }) => {
                     >
                       <RichTextRenderer
                         html={item.description}
-                        className="[&_*]:!text-center"
+                        className="text-center"
                       />
                     </div>
                   ) : (
@@ -93,7 +154,21 @@ const Collabaration = ({ data }) => {
       {!contentDisabled && contentItems.length > 0 && (
         <div className="container collab-content">
           {contentItems.map((item, idx) => {
-            const label = item.label || item.cta_text || item.title;
+            const label =
+              item.label || item.cta_text || item.title || item.heading;
+
+            if (item.tab_type === "popup") {
+              return (
+                <button
+                  key={idx}
+                  type="button"
+                  className="collab-content-btn"
+                  onClick={() => setShowModal(true)}
+                >
+                  {label || "View Details"}
+                </button>
+              );
+            }
 
             if (item.tab_type === "button" && (item.link || item.page_slug)) {
               const isExternal = item.link?.startsWith("http");
@@ -110,11 +185,7 @@ const Collabaration = ({ data }) => {
                   {label || "Learn More"}
                 </a>
               ) : (
-                <Link
-                  key={idx}
-                  to={href}
-                  className="collab-content-btn"
-                >
+                <Link key={idx} to={href} className="collab-content-btn">
                   {label || "Learn More"}
                 </Link>
               );
@@ -135,38 +206,61 @@ const Collabaration = ({ data }) => {
 
       {/* ================= MODAL ================= */}
       {showModal && (
-        <div
-          className="collab-modal-backdrop"
-          onClick={() => setShowModal(false)}
-        >
+        <div className="collab-modal-backdrop" onClick={handleToggleModal}>
           <div
-            className="collab-modal"
+            className="collab-modal custom-scrollbar"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="collab-modal-header">
-              <button
-                className="collab-close"
-                onClick={() => setShowModal(false)}
-              >
+              <button onClick={handleToggleModal} className="collab-close">
                 &times;
               </button>
             </div>
 
-            <div className="p-10">
-              <h2 className="collab-heading">
-                {left_content?.heading}
-              </h2>
+            {popupSections.map((section, sectionIdx) => {
+              const accordionItems = getAccordionItems(section);
 
-              {popup_items.length > 0 ? (
-                popup_items.map((item, idx) => (
-                  <div key={idx} className="py-2">
-                    {item.title}
-                  </div>
-                ))
-              ) : (
-                <p>No data available</p>
-              )}
-            </div>
+              return (
+                <div className="p-10" key={sectionIdx}>
+                  <div className="h-1 w-16 bg-[#e8502e] mb-3"></div>
+                  <h2 className="text-3xl md:text-4xl font-medium text-[#707070] uppercase font-oswald-medium leading-tight">
+                    {section.heading ||
+                      section.title ||
+                      "RESEARCH & COLLABORATIONS"}
+                  </h2>
+
+                  {accordionItems.map((item, idx) => {
+                    const itemKey = `${sectionIdx}-${idx}`;
+                    const isOpen = openIdx === itemKey;
+
+                    return (
+                      <div key={itemKey}>
+                        <button
+                          className={`w-full text-left py-3 border-gray-300 flex justify-between items-center text-base sm:text-lg ${
+                            isOpen
+                              ? "text-[#58595B]"
+                              : "text-[#58595B] border-b-2 border-[#58595B]"
+                          }`}
+                          onClick={() => setOpenIdx(isOpen ? -1 : itemKey)}
+                        >
+                          <span className="font-oswald-light text-2xl text-[#58595B]">
+                            {item.question || item.title || item.heading}
+                          </span>
+                          <span className="text-xl font-bold">
+                            {isOpen ? "-" : "+"}
+                          </span>
+                        </button>
+                        {isOpen && (
+                          <div className="pb-3 font-[Arial] text-sm text-[#58595B] border-b-2">
+                            {getAccordionContent(item)}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

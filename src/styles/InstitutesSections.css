@@ -731,18 +731,40 @@
 /* ================= MODAL ================= */
 .collab-modal-backdrop {
     @apply fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 px-4;
+    margin-top: 101px;
 }
 
 .collab-modal {
-    @apply bg-white w-[90%] max-w-4xl max-h-[70vh] overflow-y-auto rounded-lg shadow-lg relative;
+    @apply bg-white w-[90%] max-w-4xl max-h-[70vh] overflow-y-auto rounded-lg shadow-lg relative pt-0;
+}
+
+.collab-modal.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(56, 189, 248, 0.8) rgba(148, 163, 184, 0.2);
+}
+
+.collab-modal.custom-scrollbar::-webkit-scrollbar {
+    width: 10px;
+}
+
+.collab-modal.custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(148, 163, 184, 0.2);
+}
+
+.collab-modal.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(56, 189, 248, 0.8);
+    border-radius: 9999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
 }
 
 .collab-modal-header {
-    @apply bg-[#102B64] h-10 flex justify-end items-center;
+    @apply bg-[#122E5E] h-10 flex items-center justify-end;
 }
 
 .collab-close {
-    @apply text-gray-200 text-4xl font-light hover:text-red-400;
+    @apply text-gray-200 text-4xl font-light hover:text-red-400 transition duration-200;
+    margin-top: -15px;
 }
 
 /* ================= SECTION ================= */
