@@ -12,6 +12,7 @@ import SubPrograms from "./Programs";
 import DeansMicropage from "../Micropages/DeansMicropage";
 import NaacSSR from "./UniquePages/NAAC";
 import DmiherCet from "./UniquePages/DMIHER-CET";
+import AboutHospital from "./UniquePages/AboutHospital";
 
 export const SECTION_COMPONENTS = {
 
@@ -30,6 +31,9 @@ export const SECTION_COMPONENTS = {
 
     // DMIHER CET (section_id from API: "dmiher_cet_subpage")
     dmiher_cet_subpage: DmiherCet,
+
+    // About Hospital — single section, tabs + content inline
+    about_hospital_subpage: AboutHospital,
 
     // Micropages
     micro_page: MainMicropage,
