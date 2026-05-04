@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SafeImage from "../../../components/SafeImage";
 
 export default function StepsPage({data}) {
   const { title, steps, background_image, note } = data;
@@ -31,7 +32,7 @@ export default function StepsPage({data}) {
                     <p className="step-number">{step.step}</p>
                   )}
 
-                  <img
+                  <SafeImage
                     src={step.icon}
                     alt={step.title}
                     className="step-icon"

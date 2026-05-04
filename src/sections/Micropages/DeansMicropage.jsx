@@ -3,6 +3,7 @@ import { API_BASE } from "../../config/api";
 import { useMicropageData } from "../../hooks/useMicropageData";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import PageSkeleton from "../../components/Skeletons/PageSkeleton";
+import SafeImage from "../../components/SafeImage";
 
 /**
  * Resolves dean/team-member image to a full URL.
@@ -65,13 +66,11 @@ function DeansMicropage({ data: propData, college: propCollege }) {
       {hasDean && (
         <div className="knowmore-dean-layout">
           <div className="knowmore-dean-profile">
-            {deanImage && (
-              <img
-                src={deanImage}
-                alt="Dean"
-                className="knowmore-dean-image"
-              />
-            )}
+            <SafeImage
+              src={deanImage}
+              alt="Dean"
+              className="knowmore-dean-image"
+            />
 
             {dean.dean_details && (
               <div className="knowmore-dean-info">
@@ -96,13 +95,11 @@ function DeansMicropage({ data: propData, college: propCollege }) {
 
             return (
               <div key={i} className="management-team-card">
-                {memberImage && (
-                  <img
-                    src={memberImage}
-                    alt={member.name || "Team member"}
-                    className="management-team-image"
-                  />
-                )}
+                <SafeImage
+                  src={memberImage}
+                  alt={member.name || "Team member"}
+                  className="management-team-image"
+                />
 
                 <div className="management-team-info">
                   <p className="management-team-name">{member.name}</p>

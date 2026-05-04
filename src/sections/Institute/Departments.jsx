@@ -151,7 +151,7 @@ const AboutGrid = ({ grid, parent }) => {
 
       {/* Pill button row */}
       {buttons.length > 0 && (
-        <div className="flex flex-wrap justify-center gap-3 mt-4">
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-5 mt-6 max-w-6xl mx-auto">
           {buttons.map((btn, idx) => {
             const micro = getMicroPageCta(btn);
             const href = resolveHref(btn, parent);
@@ -163,10 +163,10 @@ const AboutGrid = ({ grid, parent }) => {
                 type="button"
                 onClick={() => handleClick(btn)}
                 disabled={!isClickable || isPending}
-                className={`px-5 py-2 text-sm font-medium rounded-full transition-colors border ${
+                className={`px-10 py-3 min-w-[260px] text-base font-semibold text-center rounded-full shadow-md transition-all duration-300 ${
                   isClickable
-                    ? "bg-white border-[#122E5E] text-[#122E5E] hover:bg-[#122E5E] hover:text-white cursor-pointer"
-                    : "bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed"
+                    ? "bg-[#122E5E] text-white hover:bg-[#F04E30] hover:scale-105 cursor-pointer"
+                    : "bg-gray-200 text-gray-400 cursor-not-allowed"
                 }`}
               >
                 {label}

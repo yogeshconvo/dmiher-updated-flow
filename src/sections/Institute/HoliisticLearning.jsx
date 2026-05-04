@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import SafeImage from "../../components/SafeImage";
 import "swiper/css";
 
 /* =========================
@@ -115,7 +116,7 @@ function HolisticInfrastructureSection({ data , college }) {
               {dimensions.map((item) => (
                 <SwiperSlide key={item.id}>
                   <div className="hlh-slide">
-                    <img
+                    <SafeImage
                       src={item.image}
                       alt={item.title}
                       className="hlh-image"
@@ -215,14 +216,10 @@ function HolisticInfrastructureSection({ data , college }) {
         {/* IMAGE */}
         <div className="holistic-image-wrapper">
           <div className="holistic-image-box">
-            {activeItem.image_key ? (
-              <img
-                src={activeItem.image_key}
-                alt={activeItem.label}
-              />
-            ) : (
-              <p>No image available</p>
-            )}
+            <SafeImage
+              src={activeItem.image_key}
+              alt={activeItem.label}
+            />
           </div>
         </div>
 

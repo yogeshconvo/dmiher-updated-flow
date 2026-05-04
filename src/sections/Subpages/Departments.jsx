@@ -7,6 +7,7 @@ import { renderIcon } from "../../utils/renderIcon";
 import api from "../../config/api";
 import PageSkeleton from "../../components/Skeletons/PageSkeleton";
 import RichTextRenderer from "../../components/RichTextRenderer";
+import SafeImage from "../../components/SafeImage";
 
 const fetchDepartments = async (college) => {
   const { data } = await api.get(`/departments/${college}`);
@@ -87,7 +88,7 @@ function DepartmentsSubpage() {
             </h3>
 
             <div className="flex flex-col md:flex-row items-center gap-6">
-              <img
+              <SafeImage
                 src={currentDept.dean_image}
                 alt="Head of Department"
                 className="w-44 h-52 rounded-full object-cover"

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import ViewMoreButton from "../../components/UI/Buttons";
+import SafeImage from "../../components/SafeImage";
 
 const DeansMessage = ({ data, pageSlug, college }) => {
   const [expanded, setExpanded] = useState(false);
@@ -44,13 +45,11 @@ const DeansMessage = ({ data, pageSlug, college }) => {
 
           {/* ================= IMAGE ================= */}
           <div className="deans-image-wrapper">
-            {main.img && (
-              <img
-                src={main.img}
-                alt={main.dean_name || "Dean"}
-                className="deans-image"
-              />
-            )}
+            <SafeImage
+              src={main.img}
+              alt={main.dean_name || "Dean"}
+              className="deans-image"
+            />
 
             {main.desc && (
               <div className="deans-info">

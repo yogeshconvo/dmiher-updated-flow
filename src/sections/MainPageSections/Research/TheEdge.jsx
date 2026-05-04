@@ -5,6 +5,7 @@ import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import RichTextRenderer from "../../../components/RichTextRenderer";
+import SafeImage from "../../../components/SafeImage";
 
 // import "../../styles/the-edge-main.css";
 // import "../../styles/the-edge-responsive.css";
@@ -65,7 +66,7 @@ const TheEdge = ({ data }) => {
               className="edge-card"
               onClick={() => setSelectedCard(card)}
             >
-              <img
+              <SafeImage
                 src={card.image}
                 alt={card.title}
                 className="edge-card-image"
@@ -116,7 +117,7 @@ const TheEdge = ({ data }) => {
               &times;
             </button>
 
-            <img
+            <SafeImage
               src={selectedCard.image}
               alt={selectedCard.title}
               className="edge-modal-image"

@@ -2,6 +2,7 @@ import ViewMoreButton from "../../../components/UI/ViewMore";
 import ResearchSectionMobileSlider from "../../../components/UI/MobileSlider";
 // import { getImageSrc } from "../../../components/Services/FetchImages";
 import RichTextRenderer from "../../../components/RichTextRenderer";
+import SafeImage from "../../../components/SafeImage";
 
 const ResearchInnovation = ({ data }) => {
   if (!data) return null;
@@ -27,15 +28,13 @@ const ResearchInnovation = ({ data }) => {
         <div className="mt-10 flex flex-col lg:flex-row gap-7">
 
           {/* ========== LEFT IMAGE ========== */}
-          {image && typeof image === "string" && (
-            <div className="lg:w-2/5">
-              <img
-                src={image}
-                alt="Research"
-                className="w-full h-auto max-h-96 object-cover rounded-lg shadow"
-              />
-            </div>
-          )}
+          <div className="lg:w-2/5">
+            <SafeImage
+              src={typeof image === "string" ? image : ""}
+              alt="Research"
+              className="w-full h-auto max-h-96 object-cover rounded-lg shadow"
+            />
+          </div>
 
           {/* ========== DESKTOP GRID (lg+) ========== */}
           <div className="hidden lg:grid lg:w-3/5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -47,7 +46,7 @@ const ResearchInnovation = ({ data }) => {
                   index !== 2 ? "border-r border-gray-300" : ""
                 }`}
               >
-                <img
+                <SafeImage
                   src={item.icon}
                   alt={item.label}
                   className="w-24 h-24 mb-2"
@@ -68,7 +67,7 @@ const ResearchInnovation = ({ data }) => {
                       index === 0 ? "border-r border-gray-300" : ""
                     }`}
                   >
-                    <img
+                    <SafeImage
                       src={item.icon}
                       alt={item.label}
                       className="w-24 h-24 mb-2"

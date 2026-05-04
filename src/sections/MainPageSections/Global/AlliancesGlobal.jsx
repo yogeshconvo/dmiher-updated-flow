@@ -1,4 +1,5 @@
 import React from "react";
+import SafeImage from "../../../components/SafeImage";
 
 function AlliancesGlobal({ data }) {
   if (!data?.header?.length) return null;
@@ -28,7 +29,7 @@ function AlliancesGlobal({ data }) {
         <ul className="alliances-list">
           {icons.map((item, idx) => (
             <li key={idx} className="alliance-item">
-              <img
+              <SafeImage
                 src={item.image}
                 alt="alliance logo"
                 className="alliance-image"

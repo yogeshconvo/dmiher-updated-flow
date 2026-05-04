@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
+import SafeImage from "../../../components/SafeImage";
 
 const AlumniCard = ({ person, index, expandedIndex, setExpandedIndex }) => {
   const expanded = expandedIndex === index;
@@ -28,8 +29,9 @@ const AlumniCard = ({ person, index, expandedIndex, setExpandedIndex }) => {
           expanded ? "opacity-0 pointer-events-none" : ""
         }`}
       >
-        <img
-          src={person.image || "https://via.placeholder.com/80"}
+        <SafeImage
+          src={person.image}
+          alt={person.name}
           className="alumni-img"
         />
         <div>
@@ -43,8 +45,9 @@ const AlumniCard = ({ person, index, expandedIndex, setExpandedIndex }) => {
       {expanded && (
         <div className="alumni-expanded">
           <div className="text-center mb-4">
-            <img
-              src={person.image || "https://via.placeholder.com/120"}
+            <SafeImage
+              src={person.image}
+              alt={person.name}
               className="alumni-expanded-img"
             />
             <h2 className="alumni-name">{person.name}</h2>

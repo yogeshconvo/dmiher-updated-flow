@@ -3,6 +3,7 @@ import { ExternalLink } from "lucide-react";
 import RichTextRenderer from "../../../../components/RichTextRenderer";
 import { resolveImage } from "../../../../utils/resolveImage";
 import { pickIndexedBlock } from "./helpers";
+import SafeImage from "../../../../components/SafeImage";
 
 function OurHospitals({ campus }) {
   const diff = campus?.difference || {};
@@ -51,7 +52,7 @@ function OurHospitals({ campus }) {
               }`}
             >
               {hospital.logo ? (
-                <img
+                <SafeImage
                   src={resolveImage(hospital.logo)}
                   alt={name}
                   className="max-h-20 object-contain"
@@ -110,7 +111,7 @@ function OurHospitals({ campus }) {
                 </div>
                 {content.image && (
                   <div className="flex-1 w-full">
-                    <img
+                    <SafeImage
                       src={resolveImage(content.image)}
                       alt=""
                       className="md:mt-10 h-[400px] w-full object-cover rounded-lg"

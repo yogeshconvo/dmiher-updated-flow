@@ -5,6 +5,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { PlayCircle } from "lucide-react";
 import RichTextRenderer from "../../../components/RichTextRenderer";
+import SafeImage from "../../../components/SafeImage";
 const Outcome = ({ data }) => {
   const [playVideo, setPlayVideo] = useState(false);
 
@@ -54,7 +55,7 @@ const Outcome = ({ data }) => {
               {/* ✅ IMAGE SLIDE */}
               {slide.tab_type === "image" && (
                 <div className="slide-image">
-                  <img
+                  <SafeImage
                     src={slide.image}
                     alt="slide"
                     className="slide-img"
@@ -74,7 +75,7 @@ const Outcome = ({ data }) => {
                 >
                   <div className="icons-grid">
                     {slide.icons?.map((item, i) => (
-                      <img
+                      <SafeImage
                         key={i}
                         src={item.image}
                         alt={`icon-${i}`}
@@ -103,7 +104,7 @@ const Outcome = ({ data }) => {
                 className="video-thumbnail-wrapper"
                 onClick={() => setPlayVideo(true)}
               >
-                <img
+                <SafeImage
                   src={
                     thumbnail ||
                     `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`

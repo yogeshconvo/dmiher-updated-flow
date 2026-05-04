@@ -40,15 +40,7 @@ const DMHRSTimeline = ({ data }) => {
   if (!isMobile) {
     return (
       <div className="dmiher-journey-wrapper">
-        <div
-          className="dmiher-journey-container"
-          style={{
-            backgroundImage: `url(${heading?.image})`,
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "right",
-          }}
-        >
+        <div className="dmiher-journey-container">
           {/* Title */}
           <div className="">
             <h2

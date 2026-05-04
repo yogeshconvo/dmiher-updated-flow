@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import RichTextRenderer from "../../../components/RichTextRenderer";
+import SafeImage from "../../../components/SafeImage";
 
 const ResearchOpportunities = ({ data }) => {
   if (!data) return null;
@@ -86,7 +87,7 @@ const ResearchOpportunities = ({ data }) => {
         {/* -------- RIGHT IMAGE -------- */}
         <div className="research-op-image-box">
           {activeData?.image && (
-            <img
+            <SafeImage
               src={activeData.image}
               alt={activeData.label}
               className="research-op-image"

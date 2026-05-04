@@ -1,5 +1,6 @@
 import React from "react";
 import RichTextRenderer from "../../../components/RichTextRenderer";
+import SafeImage from "../../../components/SafeImage";
 
 function ResearchEcosystem({ data }) {
   if (!data) return null;
@@ -12,7 +13,7 @@ function ResearchEcosystem({ data }) {
       <div className="container reco-layout">
         {/* IMAGE */}
         <div className="reco-image-wrapper">
-          <img src={image} alt={heading} className="reco-image" />
+          <SafeImage src={image} alt={heading} className="reco-image" />
         </div>
 
         {/* CONTENT */}

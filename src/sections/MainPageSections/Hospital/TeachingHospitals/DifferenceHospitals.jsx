@@ -3,6 +3,7 @@ import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { resolveImage } from "../../../../utils/resolveImage";
 import { pickIndexedBlock } from "./helpers";
+import SafeImage from "../../../../components/SafeImage";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -83,7 +84,7 @@ function DifferenceHospitals({ campus }) {
           >
             {images.map((src, idx) => (
               <SwiperSlide key={idx}>
-                <img
+                <SafeImage
                   src={src}
                   alt=""
                   className="object-cover rounded-xl w-full md:mt-20 h-[450px]"

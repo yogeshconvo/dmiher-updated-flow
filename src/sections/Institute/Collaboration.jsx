@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ViewMoreButton from "../../components/UI/Buttons";
 import RichTextRenderer from "../../components/RichTextRenderer";
+import SafeImage from "../../components/SafeImage";
 
 const Collabaration = ({ data }) => {
   if (!data) return null;
@@ -57,8 +58,8 @@ const Collabaration = ({ data }) => {
               return (
                 <div key={index} className="collab-stat">
                   {/* icon optional */}
-                  {!iconHidden && iconSrc && (
-                    <img
+                  {!iconHidden && (
+                    <SafeImage
                       src={iconSrc}
                       alt=""
                       className="w-28 h-28 mb-2"
