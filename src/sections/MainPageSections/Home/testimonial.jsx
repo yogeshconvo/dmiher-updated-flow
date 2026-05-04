@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { PlayCircle } from "lucide-react";
 import RichTextRenderer from "../../../components/RichTextRenderer";
+import SafeImage from "../../../components/SafeImage";
 
 function HomeTestimonial({ data }) {
   const title = data?.header?.title;
@@ -73,13 +74,10 @@ function HomeTestimonial({ data }) {
 
             {!isPlaying ? (
               <>
-                <img
+                <SafeImage
                   src={current.thumbnail}
                   alt={current.name}
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.target.src = "/fallback.jpg";
-                  }}
                 />
 
                 <div

@@ -2,6 +2,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import RichTextRenderer from "../RichTextRenderer";
+import SafeImage from "../SafeImage";
 
 const ResearchSectionMobileSlider = ({
   data,
@@ -37,17 +39,21 @@ const ResearchSectionMobileSlider = ({
         <SwiperSlide key={index}>
           <div className="flex justify-center">
             <div className="flex flex-col items-center text-center px-4 min-h-[200px]">
-              <img
+              <SafeImage
                 src={item.icon}
-                alt={item.label}
+                alt=""
                 className="w-25 h-25 mb-2"
               />
-              <p className="text-orange-600 text-xl font-semibold">
-                {item.value}
-              </p>
-              <p className="text-[#58595B] text-lg font-semibold">
-                {item.label}
-              </p>
+              <RichTextRenderer
+                className="text-orange-600 text-xl font-semibold"
+                html={item.value}
+              />
+              {item.label && (
+                <RichTextRenderer
+                  className="text-[#58595B] text-lg font-semibold"
+                  html={item.label}
+                />
+              )}
             </div>
           </div>
         </SwiperSlide>

@@ -1,6 +1,7 @@
 import React from "react";
 import DynamicTable from "./DynamicTable";
 import RichTextRenderer from "../../components/RichTextRenderer";
+import SafeImage from "../../components/SafeImage";
 
 const ContentRenderer = ({ flow = [] }) => {
   if (!Array.isArray(flow)) return null;
@@ -33,7 +34,7 @@ const ContentRenderer = ({ flow = [] }) => {
 
           case "image":
             return (
-              <img
+              <SafeImage
                 key={key}
                 src={block.value}
                 alt=""

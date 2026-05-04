@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SafeImage from "../../../components/SafeImage";
 
 export default function FeatureCards({ data }) {
   const basic = data?.basic || {};
@@ -25,7 +26,7 @@ export default function FeatureCards({ data }) {
 
     return (
       <div className="relative w-[320px] h-[500px] rounded-xl overflow-hidden shadow-lg group flex-shrink-0">
-        <img
+        <SafeImage
           src={card.image}
           alt={card.title || ""}
           className="w-full h-full object-cover transition-transform group-hover:scale-105"

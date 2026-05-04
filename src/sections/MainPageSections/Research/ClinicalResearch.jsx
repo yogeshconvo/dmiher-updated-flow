@@ -1,5 +1,6 @@
 import React from "react";
 import MicroPageCTA from "../../../components/MicroPageCTA";
+import SafeImage from "../../../components/SafeImage";
 
 export default function ClinicalResearch({ data, instituteSlug }) {
   if (!data) return null;
@@ -13,7 +14,7 @@ export default function ClinicalResearch({ data, instituteSlug }) {
 
         {/* Image */}
         <div className="infograph-image">
-          <img src={image} alt={image_alt || title || "Clinical Research"} />
+          <SafeImage src={image} alt={image_alt || title || "Clinical Research"} />
         </div>
 
         {/* Content */}

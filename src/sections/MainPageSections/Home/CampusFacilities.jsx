@@ -5,6 +5,7 @@ import { Navigation } from "swiper/modules";
 import { Link } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
+import SafeImage from "../../../components/SafeImage";
 
 export const SectionHeader = ({
   title,
@@ -98,7 +99,7 @@ function CampusFacilities({ data }) {
                     className="cf-card"
                     onClick={() => openPopup(tab.images, index)}
                   >
-                    <img
+                    <SafeImage
                       src={item.image}
                       alt={item.text}
                       className="cf-card-img"
@@ -121,7 +122,7 @@ function CampusFacilities({ data }) {
               className="cf-popup-content"
               onClick={(e) => e.stopPropagation()}
             >
-              <img
+              <SafeImage
                 src={popupImages[popupIndex]}
                 className="cf-popup-img"
                 alt="preview"

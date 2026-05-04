@@ -1,6 +1,7 @@
 import React from "react";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import { API_BASE } from "../../config/api";
+import SafeImage from "../../components/SafeImage";
 
 /* Resolve an image path that may be absolute (http…) or storage-relative */
 const resolveImage = (src) => {
@@ -26,7 +27,7 @@ const DeanBlock = ({ entries }) => {
         <div key={i} className="knowmore-dean-layout">
           {d?.img && (
             <div className="knowmore-dean-profile">
-              <img
+              <SafeImage
                 src={resolveImage(d.img)}
                 alt={d?.name || "Dean"}
                 className="knowmore-dean-image"
@@ -130,7 +131,7 @@ const MainMicropage = ({ data }) => {
 
               case "image":
                 return (
-                  <img
+                  <SafeImage
                     key={key}
                     src={resolveImage(item.value || item.image)}
                     alt=""
@@ -172,7 +173,7 @@ const MainMicropage = ({ data }) => {
 
             case "image":
               return (
-                <img
+                <SafeImage
                   key={key}
                   src={resolveImage(item.value)}
                   alt=""
@@ -218,7 +219,7 @@ const MainMicropage = ({ data }) => {
               return (
                 <div key={key} className="knowmore-dean-layout">
                   <div className="knowmore-dean-profile">
-                    <img
+                    <SafeImage
                       src={resolveImage(dean.image)}
                       alt={dean.name}
                       className="knowmore-dean-image"
@@ -247,7 +248,7 @@ const MainMicropage = ({ data }) => {
                 <div key={key} className="management-team-wrapper">
                   {team.map((member, i) => (
                     <div key={i} className="management-team-card">
-                      <img
+                      <SafeImage
                         src={resolveImage(member.image)}
                         alt={member.name}
                         className="management-team-image"

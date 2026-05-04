@@ -1,5 +1,6 @@
 import React from "react";
 import RichTextRenderer from "../../components/RichTextRenderer";
+import SafeImage from "../../components/SafeImage";
 
 /* Read the renderable items from a fetched page JSON.
    Supports both the new (block[]) and legacy (content_flow[]) shapes. */
@@ -95,7 +96,7 @@ const HelperTabwisePage = ({ data }) => {
 
               case "image":
                 return (
-                  <img
+                  <SafeImage
                     key={key}
                     src={item.value || item.image}
                     alt=""
@@ -127,7 +128,7 @@ const HelperTabwisePage = ({ data }) => {
 
             case "image":
               return (
-                <img
+                <SafeImage
                   key={key}
                   src={item.value}
                   alt=""

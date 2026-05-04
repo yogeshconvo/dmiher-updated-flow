@@ -4,6 +4,7 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import RichTextRenderer from "../../components/RichTextRenderer";
+import SafeImage from "../../components/SafeImage";
 
 const Testimonial = ({ data }) => {
   const { tabs = [], header = {} } = data || {};
@@ -61,9 +62,9 @@ const Testimonial = ({ data }) => {
                   <div className="testimonial-slide">
                     
                     {/* IMAGE */}
-                  {t.image &&  <div className="testimonial-avatar">
-                      <img src={t.image} alt="testimonial" />
-                    </div>}
+                  <div className="testimonial-avatar">
+                      <SafeImage src={t.image} alt="testimonial" />
+                    </div>
 
                     {/* CONTENT */}
                     <div className="testimonial-content">

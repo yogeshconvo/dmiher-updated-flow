@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
+import SafeImage from "../SafeImage";
 
 export const CardMandatoryDisclosure = ({
   icon,
@@ -80,7 +81,7 @@ export const CardMandatoryDisclosure = ({
                         isLastSingle ? "span-full" : ""
                       }`}
                     >
-                      <img
+                      <SafeImage
                         src={item.image || item.link}
                         alt={item.name}
                       />

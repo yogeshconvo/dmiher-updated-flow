@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { API_BASE } from "../../../config/api";
+import SafeImage from "../../../components/SafeImage";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -114,7 +115,7 @@ const ResearchHighlights = ({ data }) => {
                 : ""
             }`}
           >
-            <img
+            <SafeImage
               src={col.icon}
               alt="highlight icon"
               className="research-icon"
@@ -146,7 +147,7 @@ const ResearchHighlights = ({ data }) => {
           {desktop_columns.map((col, index) => (
             <SwiperSlide key={index}>
               <div className="research-mobile-content">
-                <img
+                <SafeImage
                   src={col.icon}
                   alt="highlight icon"
                   className="research-icon"

@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import SafeImage from "../../../components/SafeImage";
 
 const ActivitiesAndAnnouncements = ({ data }) => {
   const [isNewsModalOpen, setIsNewsModalOpen] = useState(false);
@@ -65,7 +66,7 @@ const ActivitiesAndAnnouncements = ({ data }) => {
                 >
                   {data?.events?.map((event, idx) => (
                     <SwiperSlide key={idx}>
-                      <img
+                      <SafeImage
                         src={event.image}
                         alt="event"
                         className="w-full h-60 object-cover rounded-lg mb-3"
@@ -104,7 +105,7 @@ const ActivitiesAndAnnouncements = ({ data }) => {
               <h3 className="text-xl font-bold mb-4">All Events</h3>
               {data?.events?.map((event, idx) => (
                 <div key={idx}>
-                  <img src={event.image} className="rounded mb-2" />
+                  <SafeImage src={event.image} className="rounded mb-2" alt="event" />
                   <p>{event.description}</p>
                 </div>
               ))}

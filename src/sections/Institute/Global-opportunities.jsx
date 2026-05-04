@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import RichTextRenderer from "../../components/RichTextRenderer";
+import SafeImage from "../../components/SafeImage";
 
 export default function GlobalOpportunities({ data }) {
   const {
@@ -67,7 +68,7 @@ export default function GlobalOpportunities({ data }) {
           {/* IMAGE */}
           {showImage && image && (
             <div className="global-image-wrapper">
-              <img src={image} alt="global" className="global-image" />
+              <SafeImage src={image} alt="global" className="global-image" />
             </div>
           )}
 
@@ -87,7 +88,7 @@ export default function GlobalOpportunities({ data }) {
                       }`}
                     >
                       <div className="global-logo-box">
-                        <img
+                        <SafeImage
                           src={logo.image || logo.src}
                           alt={logo.alt || "logo"}
                           className="global-logo"
@@ -113,7 +114,7 @@ export default function GlobalOpportunities({ data }) {
                   {logos.map((logo, idx) => (
                     <SwiperSlide key={idx}>
                       <div className="global-logo-box">
-                        <img
+                        <SafeImage
                           src={logo.image || logo.src}
                           alt={logo.alt || "logo"}
                           className="global-logo"
@@ -133,7 +134,7 @@ export default function GlobalOpportunities({ data }) {
           {/* IMAGE */}
           {showImage && image && (
             <div className="global-mobile-image">
-              <img src={image} alt="global" className="global-image" />
+              <SafeImage src={image} alt="global" className="global-image" />
             </div>
           )}
 
@@ -150,7 +151,7 @@ export default function GlobalOpportunities({ data }) {
             >
               {logos.map((logo, idx) => (
                 <SwiperSlide key={idx}>
-                  <img
+                  <SafeImage
                     src={logo.image || logo.src}
                     alt={logo.alt || "logo"}
                     className="global-mobile-logo-img"

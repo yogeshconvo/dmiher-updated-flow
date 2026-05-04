@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import CampusFacilities from "./Home/CampusFacilities";
 import RichTextRenderer from "../../components/RichTextRenderer";
+import SafeImage from "../../components/SafeImage";
 
 function Gallery({ data }) {
   const section = Array.isArray(data) ? data[0] : data;
@@ -123,7 +124,7 @@ function Gallery({ data }) {
         {visibleImages.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {visibleImages.map((img, index) => (
-              <img
+              <SafeImage
                 key={index}
                 src={img}
                 alt="gallery"
@@ -163,7 +164,7 @@ function Gallery({ data }) {
                 className="relative flex items-center justify-center max-w-[min(800px,80vw)] max-h-[70vh]"
                 onClick={(e) => e.stopPropagation()}
               >
-                <img
+                <SafeImage
                   src={visibleImages[popupIndex]}
                   className="block max-w-full max-h-[70vh] w-auto h-auto object-contain rounded-xl shadow-2xl"
                   alt="preview"

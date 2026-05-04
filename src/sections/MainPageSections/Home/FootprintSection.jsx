@@ -4,6 +4,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import RichTextRenderer from "../../../components/RichTextRenderer";
+import SafeImage from "../../../components/SafeImage";
 
 const FootprintSection = ({ data }) => {
   const tabs = data?.tabs || [];
@@ -97,7 +98,7 @@ const FootprintSection = ({ data }) => {
               <div className="image-inner">
 
                 {/* IMAGE */}
-                <img
+                <SafeImage
                   src={currentTab.image}
                   alt="tab"
                   className="tab-image"
@@ -151,7 +152,7 @@ const FootprintSection = ({ data }) => {
                     <div className="logo-grid">
                       {chunk.map((logoObj, index) => (
                         <div key={index} className="logo-item">
-                          <img
+                          <SafeImage
                             src={logoObj.logo}
                             alt="logo"
                             className="logo-image"

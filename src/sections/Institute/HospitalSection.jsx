@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/autoplay";
 import "swiper/css/navigation";
 import RichTextRenderer from "../../components/RichTextRenderer";
+import SafeImage from "../../components/SafeImage";
 
 // import ViewMoreButton from "../../components/UI/ViewMore";
 // import "../../styles/hospital-highlight.css";
@@ -84,7 +85,7 @@ const HospitalHighlight = ({ data }) => {
           >
             {images.map((img, index) => (
               <SwiperSlide key={index}>
-                <img
+                <SafeImage
                   src={img.image}
                   alt={`Hospital ${index + 1}`}
                   className="hospital-slide-image"

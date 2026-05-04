@@ -1,6 +1,7 @@
 import React from "react";
 import ViewMoreButton from "../../components/UI/ViewMore";
 import ResearchSectionMobileSlider from "../../components/MobileSlider";
+import SafeImage from "../../components/SafeImage";
 
 function HomeResearchInnovation({ data }) {
   const {
@@ -23,7 +24,7 @@ function HomeResearchInnovation({ data }) {
         <div className="mt-10 flex flex-col lg:flex-row gap-7">
           {/* Left Image */}
           <div className="lg:w-2/5">
-            <img
+            <SafeImage
               src={image}
               alt={title}
               className="w-full h-auto max-h-96 object-cover rounded-lg shadow"
@@ -39,7 +40,7 @@ function HomeResearchInnovation({ data }) {
                   index < stats.length - 1 ? "border-r border-gray-300" : ""
                 }`}
               >
-                <img src={item.icon} alt={item.alt} className="w-24 h-24 mb-2" />
+                <SafeImage src={item.icon} alt={item.alt} className="w-24 h-24 mb-2" />
                 <h3 className="text-2xl font-bold text-orange-600">
                   {item.value}
                 </h3>

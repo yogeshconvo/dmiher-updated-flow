@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { API_BASE } from "../../config/api";
+import SafeImage from "../../components/SafeImage";
 
 function KnowMore({ data: propData, college: propCollege }) {
   const params = useParams();
@@ -122,7 +123,7 @@ function KnowMore({ data: propData, college: propCollege }) {
       <div className="knowmore-dean-layout">
         {/* Image + Info */}
         <div className="knowmore-dean-profile">
-          <img
+          <SafeImage
             src={dean.image}
             alt={dean.name}
             className="knowmore-dean-image"
@@ -153,7 +154,7 @@ function KnowMore({ data: propData, college: propCollege }) {
           <div className="knowmore-team-grid">
             {managementTeam.map((member, idx) => (
               <div key={idx} className="knowmore-team-card">
-                <img
+                <SafeImage
                   src={member.image}
                   alt={member.name}
                   className="knowmore-team-image"
