@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import SafeImage from "../../components/SafeImage";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -91,7 +92,7 @@ function HolisticLearningPage({ data }) {
             {dimensions.map((item) => (
               <SwiperSlide key={item.id}>
                 <div className="px-2">
-                  <img
+                  <SafeImage
                     src={item.image}
                     alt={item.title}
                     className="h-50 object-cover rounded-xl"

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import SafeImage from "../../components/SafeImage";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -79,7 +80,7 @@ function InnovativeCard({ card }) {
 
   return (
     <div className="innovative-card">
-      <img
+      <SafeImage
         src={card.image}
         alt={card.title || ""}
         className="innovative-card-image"

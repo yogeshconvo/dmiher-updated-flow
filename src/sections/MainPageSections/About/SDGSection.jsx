@@ -1,5 +1,6 @@
 import React from "react";
 import ViewMoreButton from "../../../components/UI/ViewMore";
+import SafeImage from "../../../components/SafeImage";
 
 function SDGSection({ data }) {
   if (!data) return null;
@@ -31,26 +32,22 @@ function SDGSection({ data }) {
 
           {/* ================= SDG WHEEL ================= */}
           <div className="sdg-wheel">
-            {header?.image && (
-              <img
-                src={header.image}
-                alt="SDG Wheel"
-                className="sdg-wheel-image"
-              />
-            )}
+            <SafeImage
+              src={header?.image}
+              alt="SDG Wheel"
+              className="sdg-wheel-image"
+            />
           </div>
 
           {/* ================= RIGHT CONTENT ================= */}
           <div className="sdg-right-content">
 
             {/* LOGO */}
-            {header?.logo && (
-              <img
-                src={header.logo}
-                alt="SDG Logo"
-                className="sdg-logo"
-              />
-            )}
+            <SafeImage
+              src={header?.logo}
+              alt="SDG Logo"
+              className="sdg-logo"
+            />
 
             {/* ================= SDG CARDS ================= */}
             <div className="sdg-cards">

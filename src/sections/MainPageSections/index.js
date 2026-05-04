@@ -51,6 +51,7 @@ import WellbeingComfortFC from "./CampusFacilities/WellbeingComfortFC"
 import ContactUS from "./Contact/ContactUS"
 import TeachingHospitals from "./Hospital/TeachingHospitals/TeachingHospitals"
 import TextEditor from "../Common/TextEditor"
+import FloatingButtons from "../../components/FloatingButtons"
 
 export const SECTION_COMPONENTS = {
 
@@ -137,4 +138,5 @@ export const SECTION_COMPONENTS = {
 
     // Generic / cross-page
     text_editor: TextEditor,
+    floating_buttons: FloatingButtons,
 };

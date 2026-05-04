@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import "swiper/css";
+import SafeImage from "../../../components/SafeImage";
 
 
 function CoreValues({ data }) {
@@ -26,7 +27,7 @@ function CoreValues({ data }) {
       <div className="core-values-number">{item.number}</div>
 
       <div>
-        <img
+        <SafeImage
           src={item.img}
           alt={item.title}
           className="mb-4 max-h-24 mx-auto"

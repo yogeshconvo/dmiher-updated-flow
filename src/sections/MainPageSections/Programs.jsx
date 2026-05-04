@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import icon from "../../../public/programicon.png";
+import SafeImage from "../../components/SafeImage";
 
 function Programs({ data }) {
 
@@ -40,7 +41,7 @@ function Programs({ data }) {
                 className="program-card"
                 style={{ background: program.color }}
               >
-                <img
+                <SafeImage
                   src={program.image}
                   alt={program.title}
                   className="program-image"

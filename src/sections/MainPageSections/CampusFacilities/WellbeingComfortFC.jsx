@@ -4,6 +4,7 @@ import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import RichTextRenderer from "../../../components/RichTextRenderer";
+import SafeImage from "../../../components/SafeImage";
 
 const WellbeingComfortFC = ({ data }) => {
   if (!data) return null;
@@ -72,7 +73,7 @@ const WellbeingComfortFC = ({ data }) => {
                     <SwiperSlide key={i}>
                       <div className="relative w-full h-full">
 
-                        <img
+                        <SafeImage
                           src={img.image}
                           alt={img.caption}
                           className="w-full h-full object-cover"

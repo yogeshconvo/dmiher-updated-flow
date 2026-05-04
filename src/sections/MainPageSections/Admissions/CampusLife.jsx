@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import "./CampusLife.css";
 import dataFile from "./campusLife.json";
+import SafeImage from "../../../components/SafeImage";
 
 export default function CampusLife() {
   const { title, tabs, view_all_link, important_details } =
@@ -74,7 +75,7 @@ export default function CampusLife() {
         {/* Grid */}
         <div className="campus-grid">
           {images.map((img, index) => (
-            <img
+            <SafeImage
               key={index}
               src={img}
               alt="Gallery"
@@ -98,7 +99,7 @@ export default function CampusLife() {
                 <ArrowLeft size={40} />
               </button>
 
-              <img
+              <SafeImage
                 src={images[popupIndex]}
                 alt="Popup"
                 className="campus-popup-img"

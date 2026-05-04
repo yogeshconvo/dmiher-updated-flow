@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router";
+import SafeImage from "../../../components/SafeImage";
 
 const ProgramsComponent = ({ data }) => {
 
@@ -31,7 +32,7 @@ const ProgramsComponent = ({ data }) => {
               className="program-card"
               style={{ background: program.color }}
             >
-              <img
+              <SafeImage
                 src={program.image}
                 alt={program.title}
                 className="program-image"

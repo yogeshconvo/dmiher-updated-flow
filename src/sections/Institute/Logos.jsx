@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import { Link } from "react-router-dom";
+import SafeImage from "../../components/SafeImage";
 
 export default function Logos({ data }) {
   const {
@@ -64,7 +65,7 @@ export default function Logos({ data }) {
             {logos.map((logo, idx) => (
               <SwiperSlide key={idx}>
                 <div className="flex items-center justify-center h-24 border border-gray-200 rounded">
-                  <img
+                  <SafeImage
                     src={logo.src}
                     alt={logo.alt || "logo"}
                     className="h-20 object-contain"
@@ -90,7 +91,7 @@ export default function Logos({ data }) {
             {logos.map((logo, idx) => (
               <SwiperSlide key={idx}>
                 <div className="flex justify-center">
-                  <img
+                  <SafeImage
                     src={logo.src}
                     alt={logo.alt || "logo"}
                     className="h-20 object-contain"
@@ -110,7 +111,7 @@ export default function Logos({ data }) {
                 index !== arr.length - 1 ? "border-r border-gray-400" : ""
               }`}
             >
-              <img
+              <SafeImage
                 src={logo.src}
                 alt={logo.alt || "logo"}
                 className="h-20 w-45 object-contain"

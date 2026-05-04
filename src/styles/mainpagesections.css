@@ -834,7 +834,7 @@
 }
 
 .about-btn-grid {
-    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-10 mt-6;
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 mb-10 mt-6;
 }
 
 .about-btn-grid.secondary {
@@ -842,7 +842,7 @@
 }
 
 .about-btn {
-    @apply px-2 py-2 rounded-full text-white bg-[#122E5E] hover:bg-[#F04E30] font-semibold transition-all duration-300 hover:scale-105 shadow-md text-center block;
+    @apply px-6 py-3 rounded-full text-white bg-[#122E5E] hover:bg-[#F04E30] font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-105 shadow-md text-center block cursor-pointer;
 }
 
 /* ================= COMMITTEES ================= */

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import RichTextRenderer from "../../../components/RichTextRenderer";
+import SafeImage from "../../../components/SafeImage";
 
 const SDGResearchContributions = ({ data }) => {
   if (!data) return null;
@@ -45,7 +46,7 @@ const SDGResearchContributions = ({ data }) => {
           {/* RIGHT */}
           <div className="sdg-right">
             {image && (
-              <img
+              <SafeImage
                 src={image}
                 alt="SDG Research Contributions"
                 className="sdg-image"

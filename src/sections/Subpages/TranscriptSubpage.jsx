@@ -1,5 +1,6 @@
 import React from "react";
 import { BookOpen } from "lucide-react";
+import SafeImage from "../../components/SafeImage";
 
 /**
  * TranscriptSubpage — renders the NEW micro-page data structure.

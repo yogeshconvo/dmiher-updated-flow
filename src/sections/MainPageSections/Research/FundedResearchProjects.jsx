@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Controller } from "swiper/modules";
 import RichTextRenderer from "../../../components/RichTextRenderer";
+import SafeImage from "../../../components/SafeImage";
 
 import "swiper/css";
 
@@ -99,14 +100,12 @@ const FundedResearchProjects = ({ data }) => {
                     {project.desc && (
                       <RichTextRenderer html={project.desc} />
                     )}
-                    {project.icon && (
-                      <img
-                        src={project.icon}
-                        alt="project icon"
-                        className="mt-auto object-contain"
-                        style={{ width: "110px", height: "110px" }}
-                      />
-                    )}
+                    <SafeImage
+                      src={project.icon}
+                      alt="project icon"
+                      className="mt-auto object-contain"
+                      style={{ width: "110px", height: "110px" }}
+                    />
                   </SwiperSlide>
                 ))}
               </Swiper>
@@ -147,14 +146,12 @@ const FundedResearchProjects = ({ data }) => {
                   {project.desc && (
                     <RichTextRenderer html={project.desc} />
                   )}
-                  {project.icon && (
-                    <img
-                      src={project.icon}
-                      alt="project icon"
-                      className="mt-auto object-contain"
-                      style={{ width: "110px", height: "110px" }}
-                    />
-                  )}
+                  <SafeImage
+                    src={project.icon}
+                    alt="project icon"
+                    className="mt-auto object-contain"
+                    style={{ width: "110px", height: "110px" }}
+                  />
                 </div>
               ))}
             </div>

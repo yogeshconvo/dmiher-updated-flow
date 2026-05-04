@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { FileText } from "lucide-react";
+import SafeImage from "../../components/SafeImage";
 
 export const CardMandatoryDisclosure = ({
   icon,
@@ -71,7 +72,7 @@ export const CardMandatoryDisclosure = ({
                     rel="noopener noreferrer"
                     className={`w-full rounded-lg overflow-hidden shadow flex flex-col items-center p-3 ${isLastItemSingle ? "col-span-2 mx-auto max-w-[300px]" : ""}`}
                   >
-                    <img
+                    <SafeImage
                       src={item.image || item.link}
                       alt={item.name}
                       className="w-full max-h-[100px] object-contain"

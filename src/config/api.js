@@ -6,17 +6,23 @@ import {
 } from "../utils/auth";
 
 export const API_BASE = import.meta.env.VITE_API_BASE;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 const api = axios.create({
   baseURL: `${API_BASE}/api`,
-  headers: { Accept: "application/json" },
+  headers: {
+    Accept: "application/json",
+    ...(API_KEY ? { "X-API-KEY": API_KEY } : {}),
+  },
 });
 
 api.interceptors.request.use(async (config) => {
+  config.headers = config.headers || {};
+  if (API_KEY) config.headers["X-API-KEY"] = API_KEY;
+
   if (config.url === "/auth/token") return config;
 
   const token = await getTokenAsync();
-  config.headers = config.headers || {};
   config.headers.Authorization = `Bearer ${token}`;
   return config;
 });

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Library } from "lucide-react";
 import RichTextRenderer from "../../../components/RichTextRenderer";
+import SafeImage from "../../../components/SafeImage";
 
 const AcademicFC = ({ data }) => {
   const [activeTab, setActiveTab] = useState(null);
@@ -102,7 +103,7 @@ const AcademicFC = ({ data }) => {
           <div className="lg:basis-[60%] md:mt-10 w-full h-[520px] rounded-xl overflow-hidden shadow-md border border-gray-200">
 
             {activeData ? (
-              <img
+              <SafeImage
                 src={activeData.image}
                 alt={activeData.title}
                 className="w-full h-full object-cover transition-all duration-300"

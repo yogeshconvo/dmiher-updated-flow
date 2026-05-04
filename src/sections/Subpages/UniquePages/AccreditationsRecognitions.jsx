@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaEye, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import SafeImage from "../../../components/SafeImage";
 // import data from "./accreditations-recognitions.json";
 
 
@@ -47,7 +48,7 @@ const{categories,internationalCertificates,nationalCertificates}=data;
               className="accreditation-card"
             >
               <div className="card-image-wrapper">
-                <img src={item.image} alt={item.title} />
+                <SafeImage src={item.image} alt={item.title} />
                 <button
                   className="preview-btn"
                   onClick={() => setSelectedCertificate(item)}
@@ -101,7 +102,7 @@ const{categories,internationalCertificates,nationalCertificates}=data;
               <FaTimes />
             </button>
 
-            <img
+            <SafeImage
               src={selectedCertificate.image}
               alt={selectedCertificate.title}
             />

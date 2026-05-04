@@ -355,7 +355,7 @@
 }
 
 .holistic-cta-button {
-    @apply hover:bg-[#F04E30] bg-[#122E5E] hover:scale-105 text-white text-base sm:text-xl font-medium px-8 sm:px-10 py-3 min-w-[250px] rounded-md transition-all duration-300;
+    @apply hover:bg-[#F04E30] bg-[#122E5E] hover:scale-105 text-white text-base sm:text-xl font-medium text-center px-8 sm:px-10 py-3 min-w-[250px] rounded-md transition-all duration-300;
 }
 
 /* =========================

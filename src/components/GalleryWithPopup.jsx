@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "../styles/components/gallery.css";
 import RichTextRenderer from "./RichTextRenderer";
+import SafeImage from "./SafeImage";
 import { resolveImage } from "../utils/resolveImage";
 
 export function GalleryWithPopup({ data }) {
@@ -76,16 +77,12 @@ export function GalleryWithPopup({ data }) {
                   className="gallery-card"
                   onClick={() => setPopupIndex(idx)}
                 >
-                  {imageSrc ? (
-                    <img
-                      src={imageSrc}
-                      alt={img.caption || "gallery"}
-                      className="gallery-image"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="gallery-image-fallback" />
-                  )}
+                  <SafeImage
+                    src={imageSrc}
+                    alt={img.caption || "gallery"}
+                    className="gallery-image"
+                    loading="lazy"
+                  />
                   {img.caption && (
                     <p className="gallery-image-title">{img.caption}</p>
                   )}
@@ -111,16 +108,12 @@ export function GalleryWithPopup({ data }) {
                     className="gallery-card"
                     onClick={() => setPopupIndex(idx)}
                   >
-                    {imageSrc ? (
-                      <img
-                        src={imageSrc}
-                        alt={img.caption || "gallery"}
-                        className="gallery-image"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div className="gallery-image-fallback" />
-                    )}
+                    <SafeImage
+                      src={imageSrc}
+                      alt={img.caption || "gallery"}
+                      className="gallery-image"
+                      loading="lazy"
+                    />
                     {img.caption && (
                       <p className="gallery-image-title">{img.caption}</p>
                     )}
@@ -181,11 +174,7 @@ export function ImagePopup({ images, index, onClose }) {
         className="gallery-popup-inner"
         onClick={(e) => e.stopPropagation()}
       >
-        {imageSrc ? (
-          <img src={imageSrc} alt="popup" />
-        ) : (
-          <div className="gallery-popup-fallback" />
-        )}
+        <SafeImage src={imageSrc} alt="popup" />
 
         <button
           className="gallery-popup-close"

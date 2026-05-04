@@ -4,6 +4,7 @@ import { Autoplay, Navigation } from "swiper/modules";
 import RichTextRenderer from "../../../../components/RichTextRenderer";
 import { resolveImage } from "../../../../utils/resolveImage";
 import { pickIndexedBlock } from "./helpers";
+import SafeImage from "../../../../components/SafeImage";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -49,7 +50,7 @@ function HospitalDetails({ campus }) {
             {images.map((img, idx) => (
               <SwiperSlide key={idx}>
                 <div className="w-full h-[500px] rounded-xl overflow-hidden">
-                  <img
+                  <SafeImage
                     src={img}
                     alt={`Hospital ${idx + 1}`}
                     className="w-full h-full object-cover"
