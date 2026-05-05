@@ -2,6 +2,7 @@ import React from "react";
 import RichTextRenderer from "../../../../components/RichTextRenderer";
 import { resolveImage } from "../../../../utils/resolveImage";
 import { flattenNumericKeys } from "./utils";
+import MicropageView from "./MicropageView";
 
 /**
  * Renders one tab's content. `tab` is a single entry from data.tabs[].
@@ -14,6 +15,7 @@ export default function AboutHospitalTabBody({ tab }) {
   if (tabType === "schemes_table") return <SchemesTableView tab={tab} />;
   if (tabType === "document") return <DocumentView tab={tab} />;
   if (tabType === "gallery") return <GalleryView tab={tab} />;
+  if (tabType === "micropage") return <MicropageView tab={tab} />;
   return <RichView tab={tab} />;
 }
 
