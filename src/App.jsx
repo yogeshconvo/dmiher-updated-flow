@@ -42,6 +42,10 @@ function App() {
 
         {/* =================== MANDATORY DISCLOSURE (isolated, college-scoped) =================== */}
         <Route
+          path={mandatoryDisclosureConfig.deepRoutePattern}
+          element={<MandatoryDisclosurePage />}
+        />
+        <Route
           path={mandatoryDisclosureConfig.nestedRoutePattern}
           element={<MandatoryDisclosurePage />}
         />

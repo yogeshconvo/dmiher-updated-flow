@@ -7,15 +7,15 @@ import { mapMandatoryDisclosureData } from "./mapper";
  * Accepts RAW section data from the API (shape: `{ header, cards }`)
  * and normalizes it through `mapMandatoryDisclosureData` before handing
  * to the dumb UI component. The mapper is idempotent, so passing an
- * already-mapped `{ title, items }` payload is also safe — useful when
- * called from a route that fetches via `useMandatoryDisclosure`.
+ * already-mapped view model is also safe — useful when called from a
+ * route that fetches via `useMandatoryDisclosure`.
  *
- * `college` is forwarded into the mapper so `card_page` cards with
- * `has_micro_page: true` get built as
- * `/{college}/mandatory-disclosure/{cta_key}`.
+ *   - `college`    drives internal-link building.
+ *   - `parentSlug` is the L2 cardSlug — set on L2/L3 routes so any
+ *                  `card_page` cards on L2 link into L3 instead of L2.
  */
-const MandatoryDisclosureSection = ({ data, college }) => {
-  const view = mapMandatoryDisclosureData(data, { college });
+const MandatoryDisclosureSection = ({ data, college, parentSlug }) => {
+  const view = mapMandatoryDisclosureData(data, { college, parentSlug });
   return <MandatoryDisclosureUI data={view} />;
 };
 

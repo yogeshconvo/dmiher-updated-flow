@@ -37,13 +37,21 @@ export const detectLinkType = (link) => {
   return "internal";
 };
 
-const buildInternalLink = (cta = {}, college) => {
+/**
+ * Build the internal route for a `card_page` CTA.
+ *
+ *   L1 (no parentSlug)  → /:college/mandatory-disclosure/:cta_key      (links into L2)
+ *   L2 (parentSlug set) → /:college/mandatory-disclosure/:parentSlug/:cta_key  (links into L3)
+ */
+const buildInternalLink = (cta = {}, college, parentSlug) => {
   const key = cta?.cta_key || cta?.slug || "";
   if (!key) return "";
   const cleanKey = String(key).replace(/^\//, "");
-  // has_micro_page cards always drop into the college-scoped MD nested route.
-  if (college) return `/${college}/mandatory-disclosure/${cleanKey}`;
-  return `/${cleanKey}`;
+  if (!college) return `/${cleanKey}`;
+  if (parentSlug) {
+    return `/${college}/mandatory-disclosure/${parentSlug}/${cleanKey}`;
+  }
+  return `/${college}/mandatory-disclosure/${cleanKey}`;
 };
 
 const isAlreadyMappedItem = (item) =>
@@ -55,8 +63,11 @@ const isAlreadyMappedItem = (item) =>
 const isAlreadyMappedViewModel = (value) =>
   value &&
   typeof value === "object" &&
-  Array.isArray(value.items) &&
-  (value.items.length === 0 || value.items.every(isAlreadyMappedItem));
+  (
+    (Array.isArray(value.items) &&
+      (value.items.length === 0 || value.items.every(isAlreadyMappedItem))) ||
+    (Array.isArray(value.tabs) && value.layout === "tab_cards")
+  );
 
 const normalizePopupContent = (pdfArr = []) =>
   (Array.isArray(pdfArr) ? pdfArr : [])
@@ -75,7 +86,7 @@ const normalizePopupContent = (pdfArr = []) =>
  * Safely tolerates null/undefined and unknown tab_type values.
  *
  * @param {object} card
- * @param {{ college?: string }} [ctx]
+ * @param {{ college?: string, parentSlug?: string }} [ctx]
  */
 const normalizeCard = (card, ctx = {}) => {
   if (!card || typeof card !== "object") return null;
@@ -96,8 +107,21 @@ const normalizeCard = (card, ctx = {}) => {
       return { name, link, type: isFile(link) ? "file" : "external" };
     }
 
+    case "video": {
+      const id = String(card.video || "").trim();
+      const link = id ? `https://www.youtube.com/watch?v=${id}` : "";
+      return { name, link, type: link ? "external" : "internal" };
+    }
+
     case "popup_pdf": {
-      const popopContent = normalizePopupContent(card.pdf);
+      // popup_pdf can be either a flat array (legacy) or
+      // { popup_title, pdf_items: [...] } (new shape from the admin).
+      const items = Array.isArray(card?.pdf?.pdf_items)
+        ? card.pdf.pdf_items
+        : Array.isArray(card.pdf)
+          ? card.pdf
+          : [];
+      const popopContent = normalizePopupContent(items);
       return {
         name,
         link: "popup",
@@ -109,7 +133,7 @@ const normalizeCard = (card, ctx = {}) => {
     case "card_page":
     default: {
       const link =
-        buildInternalLink(card.cta, ctx.college) ||
+        buildInternalLink(card.cta, ctx.college, ctx.parentSlug) ||
         card.link ||
         card.url ||
         "";
@@ -149,25 +173,45 @@ const unwrapSectionData = (raw) => {
 
 /**
  * Transform API response into UI view model.
- * Idempotent: if `raw` already has shape `{title, items}`, returns it unchanged.
+ * Idempotent: if `raw` already has shape `{title, items}` or
+ * `{title, layout:"tab_cards", tabs}`, returns it unchanged.
+ *
+ * Output shapes:
+ *
+ *   simple_cards (default):
+ *     { title, layout: "simple_cards", items: [...] }
+ *
+ *   tab_cards:
+ *     { title, layout: "tab_cards", tabs: [{ name, slug, items: [...] }] }
  *
  * @param {unknown} raw
- * @param {{ college?: string }} [ctx]
- *   Context used to build nested card_page links as
- *   `/{college}/mandatory-disclosure/{cta_key}`.
- * @returns {{ title: string, items: Array<{name: string, link: string, type: string, popopContent?: Array}> }}
+ * @param {{ college?: string, parentSlug?: string }} [ctx]
+ *   Context used to build internal links:
+ *     - L1 (no parentSlug)  → links to L2: `/:college/mandatory-disclosure/:cta_key`
+ *     - L2 (parentSlug set) → links to L3: `/:college/mandatory-disclosure/:parentSlug/:cta_key`
  */
 export const mapMandatoryDisclosureData = (raw, ctx = {}) => {
-  if (!raw) return { title: "", items: [] };
+  const empty = { title: "", layout: "simple_cards", items: [] };
+  if (!raw) return empty;
 
   if (isAlreadyMappedViewModel(raw)) {
-    return { title: raw.title || "", items: raw.items };
+    return {
+      title: raw.title || "",
+      layout: raw.layout === "tab_cards" ? "tab_cards" : "simple_cards",
+      items: Array.isArray(raw.items) ? raw.items : [],
+      tabs: Array.isArray(raw.tabs) ? raw.tabs : undefined,
+    };
   }
 
   const inner = unwrapSectionData(raw);
 
   if (isAlreadyMappedViewModel(inner)) {
-    return { title: inner.title || "", items: inner.items };
+    return {
+      title: inner.title || "",
+      layout: inner.layout === "tab_cards" ? "tab_cards" : "simple_cards",
+      items: Array.isArray(inner.items) ? inner.items : [],
+      tabs: Array.isArray(inner.tabs) ? inner.tabs : undefined,
+    };
   }
 
   const title =
@@ -175,13 +219,37 @@ export const mapMandatoryDisclosureData = (raw, ctx = {}) => {
     inner?.title ||
     "Mandatory Disclosures";
 
+  const layout =
+    inner?.header?.layout_type === "tab_cards" ? "tab_cards" : "simple_cards";
+
   const cards = Array.isArray(inner?.cards) ? inner.cards : [];
+
+  if (layout === "tab_cards") {
+    // In tab_cards layout the API returns `cards` as an array of tabs:
+    //   [{ tab_name, tab_slug, cards: [...] }, ...]
+    const tabs = cards
+      .map((tab) => {
+        if (!tab || typeof tab !== "object") return null;
+        const innerCards = Array.isArray(tab.cards) ? tab.cards : [];
+        const items = innerCards
+          .map((card) => normalizeCard(card, ctx))
+          .filter((it) => it && (it.name || it.link));
+        return {
+          name: tab.tab_name || tab.name || tab.tab_slug || "",
+          slug: tab.tab_slug || tab.slug || "",
+          items,
+        };
+      })
+      .filter((t) => t && (t.items.length > 0 || t.name));
+
+    return { title, layout, tabs, items: [] };
+  }
 
   const items = cards
     .map((card) => normalizeCard(card, ctx))
     .filter((it) => it && (it.name || it.link));
 
-  return { title, items };
+  return { title, layout, items };
 };
 
 export default mapMandatoryDisclosureData;
