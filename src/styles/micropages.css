@@ -76,3 +76,33 @@
 .management-team-details {
     @apply text-xs px-2 text-gray-500;
 }
+
+.management-team-info {
+    @apply px-3 pb-3 text-sm text-gray-700;
+}
+
+/* Slider block (used by tab_type=slider) */
+.micropage-slider {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(var(--mp-slider-mobile, 1), minmax(0, 1fr));
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .micropage-slider {
+        grid-template-columns: repeat(var(--mp-slider-desktop, 3), minmax(0, 1fr));
+    }
+}
+
+.micropage-slide {
+    @apply rounded-lg overflow-hidden shadow-sm bg-white;
+}
+
+.micropage-slide-image {
+    @apply w-full h-48 object-cover;
+}
+
+.micropage-slide-caption {
+    @apply px-3 py-2 text-sm text-gray-700 text-center;
+}

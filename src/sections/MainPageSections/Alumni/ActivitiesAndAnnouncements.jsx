@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { X } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -85,8 +86,24 @@ const ActivitiesAndAnnouncements = ({ data }) => {
 
         {/* News Modal */}
         {isNewsModalOpen && (
-          <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-            <div className="bg-white p-6 rounded-lg max-w-2xl w-full">
+          <div
+            className="fixed inset-x-0 bottom-0 top-[100px] bg-black/40 flex items-start sm:items-center justify-center z-[990] p-4"
+            onClick={() => setIsNewsModalOpen(false)}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              className="relative bg-white p-6 rounded-lg max-w-2xl w-full max-h-[calc(100vh-140px)] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                aria-label="Close"
+                onClick={() => setIsNewsModalOpen(false)}
+                className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
+              >
+                <X size={20} />
+              </button>
               <h3 className="text-xl font-bold mb-4">All News</h3>
               {data?.news?.map((item, idx) => (
                 <div key={idx}>
@@ -100,8 +117,24 @@ const ActivitiesAndAnnouncements = ({ data }) => {
 
         {/* Events Modal */}
         {isEventsModalOpen && (
-          <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-            <div className="bg-white p-6 rounded-lg max-w-2xl w-full">
+          <div
+            className="fixed inset-x-0 bottom-0 top-[100px] bg-black/40 flex items-start sm:items-center justify-center z-[990] p-4"
+            onClick={() => setIsEventsModalOpen(false)}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              className="relative bg-white p-6 rounded-lg max-w-2xl w-full max-h-[calc(100vh-140px)] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                type="button"
+                aria-label="Close"
+                onClick={() => setIsEventsModalOpen(false)}
+                className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
+              >
+                <X size={20} />
+              </button>
               <h3 className="text-xl font-bold mb-4">All Events</h3>
               {data?.events?.map((event, idx) => (
                 <div key={idx}>

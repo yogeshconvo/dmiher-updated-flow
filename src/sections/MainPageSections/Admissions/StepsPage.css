@@ -1,0 +1,82 @@
+@reference "tailwindcss";
+
+.steps-section {
+    @apply text-white bg-cover bg-no-repeat bg-center;
+}
+
+.steps-container {
+    @apply max-w-7xl px-5 py-16 mx-auto overflow-x-hidden;
+}
+
+.steps-heading {
+    @apply mb-16 max-w-md;
+}
+
+.steps-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-4 border-t-4;
+}
+
+.steps-title {
+    @apply text-3xl sm:text-4xl font-bold tracking-wider uppercase leading-tight;
+}
+
+.steps-wrapper {
+    @apply flex flex-row flex-nowrap gap-2 sm:gap-3 px-2 sm:px-6 max-md:flex-col max-md:flex-wrap max-md:items-start max-md:gap-0;
+}
+
+.step-card {
+    @apply relative flex-1 min-w-0 basis-0 max-md:flex-none max-md:w-full max-md:min-w-[220px] max-md:flex max-md:flex-col max-md:items-start max-md:pb-8 max-md:mb-8 max-md:border-b max-md:border-b-[#E1CD67]/40;
+}
+
+.step-top {
+    @apply relative flex flex-col items-start;
+}
+
+.step-number {
+    @apply text-xs sm:text-sm text-white/90 font-medium mb-2 leading-4 sm:leading-5 min-h-[1rem] sm:min-h-[1.25rem];
+}
+
+.step-icon {
+    @apply w-12 h-12 sm:w-14 sm:h-14 mb-5 sm:mb-6 relative z-10 rounded-full bg-[#E1CD67] text-[#0D2B5E] flex items-center justify-center shrink-0;
+}
+
+.step-card:first-child .step-icon,
+.step-card:last-child .step-icon {
+    @apply bg-[#F04E30] text-white;
+}
+
+.step-line-horizontal {
+    @apply absolute h-[1.5px] bg-[#E1CD67] hidden md:block;
+    left: 4.25rem;
+    right: 0.5rem;
+    top: 3rem;
+    z-index: 1;
+}
+
+@media (min-width: 640px) {
+    .step-line-horizontal {
+        left: 4.75rem;
+        right: 0.5rem;
+        top: 3.5rem;
+    }
+}
+
+.step-points :where(h1, h2, h3, h4, h5, h6) {
+    @apply text-[#E1CD67] font-bold leading-tight mb-2 text-sm sm:text-base;
+}
+
+.step-card:last-child .step-points :where(h1, h2, h3, h4, h5, h6) {
+    @apply text-[#F04E30];
+}
+
+.step-points p {
+    @apply text-xs sm:text-[0.85rem] mt-1 sm:mt-2 leading-snug text-white/90;
+}
+
+.step-points a {
+    @apply text-blue-300 underline hover:text-blue-400;
+}
+
+.steps-bottom-note {
+    @apply text-xs sm:text-sm text-white/70 mt-12 text-center lg:text-left;
+}

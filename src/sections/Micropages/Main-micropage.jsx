@@ -58,6 +58,73 @@ const DeanBlock = ({ entries }) => {
   );
 };
 
+/* ================= TEAM BLOCK (new shape: block.management_team[]) ================= */
+const TeamBlock = ({ members }) => {
+  if (!Array.isArray(members) || !members.length) return null;
+  return (
+    <div className="management-team-wrapper">
+      {members.map((m, i) => (
+        <div key={i} className="management-team-card">
+          {m?.img && (
+            <SafeImage
+              src={resolveImage(m.img)}
+              alt=""
+              className="management-team-image"
+            />
+          )}
+          {m?.desc && (
+            <div className="management-team-info">
+              <RichTextRenderer html={m.desc} />
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+/* ================= SLIDER BLOCK (new shape: block.slider[]) ================= */
+const SliderBlock = ({ sliders }) => {
+  if (!Array.isArray(sliders) || !sliders.length) return null;
+  return (
+    <>
+      {sliders.map((s, si) => {
+        const slides = Array.isArray(s?.slides) ? s.slides : [];
+        if (!slides.length) return null;
+        const desktop = Number(s?.desktop_items) > 0 ? Number(s.desktop_items) : 3;
+        const mobile = Number(s?.mobile_items) > 0 ? Number(s.mobile_items) : 1;
+        return (
+          <div
+            key={si}
+            className="micropage-slider"
+            style={{
+              "--mp-slider-desktop": desktop,
+              "--mp-slider-mobile": mobile,
+            }}
+          >
+            {slides.map((slide, i) => (
+              <figure key={i} className="micropage-slide">
+                {slide?.image && (
+                  <SafeImage
+                    src={resolveImage(slide.image)}
+                    alt={slide?.heading || ""}
+                    className="micropage-slide-image"
+                  />
+                )}
+                {slide?.heading && (
+                  <figcaption className="micropage-slide-caption">
+                    {slide.heading}
+                  </figcaption>
+                )}
+              </figure>
+            ))}
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
 /* ================= TABLE BLOCK (new shape: block.excel[]) ================= */
 const TableBlock = ({ block }) => {
   const tables = Array.isArray(block?.excel) ? block.excel : [];
@@ -125,7 +192,7 @@ const MainMicropage = ({ data }) => {
                   <RichTextRenderer
                     key={key}
                     className="mb-4"
-                    html={item.value || item.paragraph || item.text || ""}
+                    html={item.desc || item.value || item.paragraph || item.text || ""}
                   />
                 );
 
@@ -145,6 +212,12 @@ const MainMicropage = ({ data }) => {
               case "dean":
               case "dean_section":
                 return <DeanBlock key={key} entries={item.dean || []} />;
+
+              case "team":
+                return <TeamBlock key={key} members={item.management_team || []} />;
+
+              case "slider":
+                return <SliderBlock key={key} sliders={item.slider || []} />;
 
               default:
                 return null;

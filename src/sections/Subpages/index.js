@@ -6,6 +6,7 @@ import AccreditationsRecognitions from "./UniquePages/AccreditationsRecognitions
 import MainMicropage from "../Micropages/Main-micropage";
 import ElectivesOfferedFEAT from "./ElectiveOffered";
 import PhDDAL from "./UniquePages/PHD-DAL";
+import PostDoc from "./UniquePages/PostDoc";
 import CampusFacilities from "../MainPageSections/Home/CampusFacilities";
 import TabwiseMainMicropage from "../Micropages/Tabwise-micropage";
 import SubPrograms from "./Programs";
@@ -25,6 +26,7 @@ export const SECTION_COMPONENTS = {
     accreditations_recognitions: AccreditationsRecognitions,
     electives_offered: ElectivesOfferedFEAT,
     post_doctoral_programme: PhDDAL,
+    post_doc_subpage: PostDoc,
 
     // NAAC SSR (section_id from API: "naac_ssr_micropage")
     naac_ssr_micropage: NaacSSR,
