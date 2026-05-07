@@ -36,6 +36,7 @@ import AdmissionInfoPage from "./Admissions/AdmissionInfoPage"
 import Outcome from "./Home/Outcome"
 import FootprintSection from "./Home/FootprintSection"
 import ResearchInnovation from "./Home/ResearchInnovation"
+import RecognitionsSection from "./Home/RecognitionsSection"
 import SubPrograms from "../Subpages/Programs"
 import MainMicropage from "../Micropages/Main-micropage"
 import ClinicalResearch from "./Research/ClinicalResearch"
@@ -43,6 +44,7 @@ import TabMenu from "../Micropages/Tabwise-micropage"
 import FeatureCards from "./Admissions/FeatureCards"
 import AdmissionFAQs from "./Admissions/Faqs"
 import InternationalCollaborations from "./Admissions/InternationalCollaboration"
+import StepsPage from "./Admissions/StepsPage"
 import ActivitiesAndAnnouncements from "./Alumni/ActivitiesAndAnnouncements"
 import EminentAlumni from "./Alumni/EminentAlumni"
 import ExamCellOfficials from "./ControllerOfExamination/ExamCellOfficials"
@@ -69,6 +71,7 @@ export const SECTION_COMPONENTS = {
     home_BULLETIN_section: HomeBulletin,
     home_ANNOUNCEMENTS_section: HomeANNOUNCEMENTS,
     home_testimonial_section: HomeTestimonial,
+    recognitions: RecognitionsSection,
 
     // About Section
     About_Excellence_Section: ExcellenceSection,
@@ -114,6 +117,7 @@ export const SECTION_COMPONENTS = {
     admission_faqs: AdmissionFAQs,
     international_collaborations_admission: InternationalCollaborations,
     feature_cards: FeatureCards,
+    admission_steps: StepsPage,
 
     // Micropages
     micro_page: MainMicropage,

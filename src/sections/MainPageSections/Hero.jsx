@@ -212,7 +212,7 @@ function Hero({ data, slug = "Home" }) {
         <Swiper
           modules={[Autoplay, Pagination]}
           autoplay={{ delay: 5000, disableOnInteraction: false }}
-          className="w-full h-full"
+          className="w-full h-full banner-swiper"
           loop={true}
           pagination={{ clickable: true }}
         >

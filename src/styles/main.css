@@ -23,3 +23,28 @@
 .safe-image-fallback-text {
     @apply text-xs sm:text-sm font-medium tracking-wide;
 }
+
+/* ================= GLOBAL SWIPER PAGINATION =================
+   Subtle grey dots placed BELOW slider content (no overlap).
+   Banner sliders opt-out via the `banner-swiper` class. */
+.swiper:not(.banner-swiper) {
+    padding-bottom: 36px;
+}
+
+.swiper:not(.banner-swiper) .swiper-pagination {
+    bottom: 8px;
+}
+
+.swiper:not(.banner-swiper) .swiper-pagination-bullet {
+    width: 11px;
+    height: 11px;
+    background-color: #D1D5DB;
+    opacity: 1;
+    margin: 0 5px;
+    transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.swiper:not(.banner-swiper) .swiper-pagination-bullet-active {
+    background-color: #6B7280;
+    transform: scale(1.1);
+}

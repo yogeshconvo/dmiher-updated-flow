@@ -10,6 +10,7 @@ import { flattenNumericKeys } from "./utils";
 const AboutHospital = ({ data }) => {
   const header = flattenNumericKeys(data?.header);
   const mainHeading = header?.main_heading;
+  const headingType = header?.heading_type || "full";
   const tabs = Array.isArray(data?.tabs) ? data.tabs : [];
   const [activeIdx, setActiveIdx] = useState(0);
 
@@ -20,9 +21,16 @@ const AboutHospital = ({ data }) => {
   return (
     <div className="px-6 min-h-screen bg-white max-w-7xl mx-auto my-5">
       {mainHeading && (
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-6 text-[#13305c]">
-          {mainHeading}
-        </h1>
+        headingType === "normal" ? (
+          <h2 className="heading">
+            <hr className="heading-line" />
+            {mainHeading}
+          </h2>
+        ) : (
+          <h1 className="text-3xl sm:text-4xl font-bold text-center mb-6 text-[#13305c]">
+            {mainHeading}
+          </h1>
+        )
       )}
 
       <div className="flex flex-wrap justify-center gap-3 mb-6">

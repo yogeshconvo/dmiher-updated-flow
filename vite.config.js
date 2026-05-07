@@ -6,8 +6,8 @@ export default defineConfig(({ mode }) => ({
   // Site is hosted at https://dmiher.edu.in/dmiher-web/ — assets must be
   // referenced relative to that subdirectory, not the domain root.
   // Override at build time with `vite build --base=/some-other-path/` if needed.
-  // base: mode === "production" ? "/dmiher-web/" : "/",
-  base: mode === "production" ? "/" : "/",
+  base: mode === "production" ? "/dmiher-web/" : "/",
+  // base: mode === "production" ? "/" : "/",
   plugins: [
     react({
       babel: {

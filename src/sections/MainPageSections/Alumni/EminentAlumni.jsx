@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
 import SafeImage from "../../../components/SafeImage";
 
 const AlumniCard = ({ person, index, expandedIndex, setExpandedIndex }) => {
   const expanded = expandedIndex === index;
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    if (!expanded) return;
+
+    const handleClickOutside = (e) => {
+      if (cardRef.current && !cardRef.current.contains(e.target)) {
+        setExpandedIndex(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [expanded, setExpandedIndex]);
 
   return (
     <div
+      ref={cardRef}
       className={`alumni-card ${expanded ? "h-[600px]" : "h-[140px]"}`}
       onClick={() => !expanded && setExpandedIndex(index)}
     >
