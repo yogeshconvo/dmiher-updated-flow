@@ -10,20 +10,23 @@ import {
 } from "../instituteSections/mandatoryDisclosure";
 
 /**
- * Standalone route page for `/:college/mandatory-disclosure`.
+ * Standalone route page for Mandatory Disclosures.
+ *
+ *   L1 : /:college/mandatory-disclosure
+ *   L2 : /:college/mandatory-disclosure/:nestedPage
+ *   L3 : /:college/mandatory-disclosure/:nestedPage/:nestedSlug
  *
  * Per requirement #6, this route does NOT render the UI component
  * independently — it routes through the InstituteSections module
- * (MandatoryDisclosureSection), which centralizes the mapping layer
- * and guarantees the same render path used by PageView's dynamic
- * SECTION_COMPONENTS lookup.
+ * (MandatoryDisclosureSection), which centralizes the mapping layer.
  */
 function MandatoryDisclosurePage() {
-  const { college, nestedPage } = useParams();
+  const { college, nestedPage, nestedSlug } = useParams();
 
   const { data, isLoading, isError } = useMandatoryDisclosure(
     college,
-    nestedPage
+    nestedPage,
+    nestedSlug
   );
 
   if (!college) {
@@ -44,13 +47,23 @@ function MandatoryDisclosurePage() {
     );
   }
 
-  if (!data || !data.items?.length) {
+  const hasContent =
+    data &&
+    ((Array.isArray(data.items) && data.items.length > 0) ||
+      (Array.isArray(data.tabs) &&
+        data.tabs.some((t) => t && Array.isArray(t.items) && t.items.length > 0)));
+
+  if (!hasContent) {
     return (
       <div className="error-boundary-fallback">
         <p className="error-boundary-text">No data available</p>
       </div>
     );
   }
+
+  // On L3 the parent context is the L2 cardSlug; on L2 there is no parent
+  // (cards still need to point UP into L3 via parentSlug = nestedPage).
+  const parentSlug = nestedSlug ? nestedPage : nestedPage || "";
 
   return (
     <main className="fade-in">
@@ -64,7 +77,11 @@ function MandatoryDisclosurePage() {
 
       <ErrorBoundary>
         <section>
-          <MandatoryDisclosureSection data={data} college={college} />
+          <MandatoryDisclosureSection
+            data={data}
+            college={college}
+            parentSlug={parentSlug}
+          />
         </section>
       </ErrorBoundary>
     </main>
