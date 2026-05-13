@@ -18,13 +18,20 @@
  * UI never crashes on a partially-populated payload.
  */
 
+import resolveImage from "../../../../../utils/resolveImage";
+
 const safeString = (value) => (typeof value === "string" ? value : "");
 const safeArray = (value) => (Array.isArray(value) ? value : []);
 
 const mapRow = (row = {}) => {
   const linkType = safeString(row.link_type).toLowerCase();
   const isPdf = linkType === "pdf";
-  const href = isPdf ? safeString(row.pdf) : safeString(row.url);
+  // PDF rows store a relative path (e.g. "assets/naac/foo.pdf"); pass
+  // it through resolveImage so the table renders an openable URL.
+  // External `url` rows are already absolute — resolveImage returns
+  // them unchanged.
+  const rawHref = isPdf ? safeString(row.pdf) : safeString(row.url);
+  const href = rawHref ? resolveImage(rawHref) : "";
   const text = safeString(row.text).trim();
 
   return {

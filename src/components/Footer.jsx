@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import api, { API_BASE } from "../config/api";
+import api from "../config/api";
+import resolveImage from "../utils/resolveImage";
 import "../styles/components/footer.css";
 
 const fetchFooter = async () => {
@@ -197,7 +198,7 @@ const Footer = () => {
               >
                 <img
                   className="footer-icons"
-                  src={`${API_BASE}/storage/${item.icon}`}
+                  src={resolveImage(item.icon)}
                   alt={item.title}
                 />
               </a>
@@ -353,7 +354,7 @@ const Footer = () => {
               {svg || (
                 <img
                   className="footer-icons"
-                  src={`${API_BASE}/storage/${item.icon}`}
+                  src={resolveImage(item.icon)}
                   alt={item.title}
                 />
               )}

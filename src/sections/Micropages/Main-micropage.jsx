@@ -1,16 +1,10 @@
 import React from "react";
 import RichTextRenderer from "../../components/RichTextRenderer";
-import { API_BASE } from "../../config/api";
 import SafeImage from "../../components/SafeImage";
-
-/* Resolve an image path that may be absolute (http…) or storage-relative */
-const resolveImage = (src) => {
-  if (!src) return "";
-  if (/^https?:\/\//i.test(src)) return src;
-  // strip leading slashes so we don't double them
-  const clean = src.replace(/^\/+/, "");
-  return `${API_BASE}/storage/${clean}`;
-};
+// Centralised resolver — handles both new "assets/..." paths and
+// legacy "storage/..." records so old data keeps rendering during
+// the rollout.
+import resolveImage from "../../utils/resolveImage";
 
 /* Get renderable items from either the new (block) or legacy (content_flow) shape */
 const getRenderItems = (data) => {

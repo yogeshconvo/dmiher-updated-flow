@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { API_BASE } from "../../config/api";
+import resolveImage from "../../utils/resolveImage";
 
 /**
  * TabWiseMicroPage / TabMenu — pure navigation strip.
@@ -57,7 +57,7 @@ const TabMenu = ({ data }) => {
     }
 
     if (tab.type === "pdf" && tab.pdf) {
-      window.open(`${API_BASE}/${tab.pdf}`, "_blank");
+      window.open(resolveImage(tab.pdf), "_blank");
       return;
     }
 
@@ -71,7 +71,7 @@ const TabMenu = ({ data }) => {
     setOpenDropdown(null);
 
     if (item.type === "pdf" && item.pdf) {
-      window.open(`${API_BASE}/${item.pdf}`, "_blank");
+      window.open(resolveImage(item.pdf), "_blank");
       return;
     }
 

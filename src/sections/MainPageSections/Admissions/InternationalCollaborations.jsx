@@ -1,4 +1,5 @@
 import React from "react";
+import resolveImage from "../../../utils/resolveImage";
 
 export default function InternationalCollaborations({data}) {
   const { title, stats, background_image } = data;
@@ -7,7 +8,7 @@ export default function InternationalCollaborations({data}) {
     <section
       id="international_collaborations"
       className="intl-section"
-      style={{ backgroundImage: `url(${background_image})` }}
+      style={{ backgroundImage: `url(${resolveImage(background_image)})` }}
     >
       {/* Heading */}
       <div className="intl-container">

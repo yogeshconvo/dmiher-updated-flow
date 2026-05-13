@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import resolveImage from "../../utils/resolveImage";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -27,7 +28,7 @@ const GridCard = ({ image, title, url }) => {
       <div
         className="department-card department-card-hover department-card-height"
         style={{
-          backgroundImage: `url(${image})`,
+          backgroundImage: `url(${resolveImage(image)})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

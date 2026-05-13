@@ -1,19 +1,11 @@
 import { useParams, useLocation } from "react-router-dom";
-import { API_BASE } from "../../config/api";
 import { useMicropageData } from "../../hooks/useMicropageData";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import PageSkeleton from "../../components/Skeletons/PageSkeleton";
 import SafeImage from "../../components/SafeImage";
-
-/**
- * Resolves dean/team-member image to a full URL.
- * Handles: full URLs, relative storage paths, and missing images.
- */
-function resolveImage(imagePath) {
-  if (!imagePath) return null;
-  if (imagePath.startsWith("http")) return imagePath;
-  return `${API_BASE}/storage/${imagePath}`;
-}
+// Centralised resolver — handles assets/, storage/, absolute URLs,
+// and stale localhost references uniformly.
+import resolveImage from "../../utils/resolveImage";
 
 function DeansMicropage({ data: propData, college: propCollege }) {
   const params = useParams();
