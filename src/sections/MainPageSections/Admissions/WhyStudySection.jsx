@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SafeImage from "../../../components/SafeImage";
+import resolveImage from "../../../utils/resolveImage";
 
 export default function StepsPage({data}) {
   const { title, steps, background_image, note } = data;
@@ -9,7 +10,7 @@ export default function StepsPage({data}) {
     <section
       id="admission_steps"
       className="steps-section"
-      style={{ backgroundImage: `url(${background_image})` }}
+      style={{ backgroundImage: `url(${resolveImage(background_image)})` }}
     >
       <div className="steps-container">
     

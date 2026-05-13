@@ -1,5 +1,6 @@
 import React from "react";
 import { renderIcon } from "../../../utils/renderIcon";
+import resolveImage from "../../../utils/resolveImage";
 import "./StepsPage.css";
 
 export default function StepsPage({ data }) {
@@ -9,7 +10,7 @@ export default function StepsPage({ data }) {
     <section
       id="admission_steps"
       className="steps-section"
-      style={{ backgroundImage: `url(${background_image})` }}
+      style={{ backgroundImage: `url(${resolveImage(background_image)})` }}
     >
       <div className="steps-container">
 

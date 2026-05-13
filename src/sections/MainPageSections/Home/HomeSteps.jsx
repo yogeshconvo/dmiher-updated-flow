@@ -1,4 +1,5 @@
 import React from 'react';
+import SafeImage from '../../../components/SafeImage';
 
 function HomeSteps({ data }) {
   if (!data) return null;
@@ -15,8 +16,10 @@ function HomeSteps({ data }) {
   return (
     <div className="home-steps-container">
       <div className="home-steps-inner">
-        {/* Background image */}
-        {bgImage && <img className="bg-img" src={bgImage} alt="bg" />}
+        {/* Background image — SafeImage normalises any backend path shape
+            (absolute URL, "assets/..." relative, legacy "storage/...") and
+            renders a placeholder if the file 404s. */}
+        {bgImage && <SafeImage className="bg-img" src={bgImage} alt="bg" />}
 
         {/* Heading */}
         {heading && (

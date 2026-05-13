@@ -1,4 +1,4 @@
-import { API_BASE } from "../../config/api";
+import resolveImage from "../../utils/resolveImage";
 
 /**
  * @file mapper.js
@@ -7,8 +7,6 @@ import { API_BASE } from "../../config/api";
  * SSG prerender, and any non-React consumer.
  */
 
-const MEDIA_BASE = import.meta.env.VITE_MEDIA_BASE || API_BASE || "";
-
 const FILE_RE = /\.(pdf|docx?|xlsx?|pptx?|jpe?g|png|webp|svg|gif)(\?.*)?$/i;
 const HTTP_RE = /^https?:\/\//i;
 
@@ -16,13 +14,10 @@ const isHttp = (url = "") => HTTP_RE.test(url);
 const isFile = (url = "") => FILE_RE.test(url);
 const isPopupToken = (value) => value === "popup";
 
-const toAbsoluteUrl = (url) => {
-  if (!url || typeof url !== "string") return "";
-  if (isHttp(url)) return url;
-  const base = String(MEDIA_BASE).replace(/\/$/, "");
-  const path = url.replace(/^\//, "");
-  return base ? `${base}/${path}` : `/${path}`;
-};
+// Delegated to the central resolver so the assets/ → storage/ → bare
+// path fallback chain stays in one place. Legacy callers that passed
+// a known-absolute URL still get it back untouched.
+const toAbsoluteUrl = (url) => resolveImage(url);
 
 /**
  * Detects the semantic type of a link.

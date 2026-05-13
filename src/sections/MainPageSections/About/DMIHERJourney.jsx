@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+import SafeImage from "../../../components/SafeImage";
 
 const DMHRSTimeline = ({ data }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   const heading = data?.heading;
   const journeyData = data?.journey || [];
+  const bgImage = heading?.image;
+  const bgColor = heading?.color;
 
   /* ================= RESPONSIVE ================= */
 
@@ -39,13 +42,28 @@ const DMHRSTimeline = ({ data }) => {
 
   if (!isMobile) {
     return (
-      <div className="dmiher-journey-wrapper">
+      <div
+        className="dmiher-journey-wrapper"
+        style={bgColor ? { backgroundColor: bgColor } : undefined}
+      >
         <div className="dmiher-journey-container">
+          {/* Background image saved in the CMS — sits behind the SVG
+              path and timeline dots (z-0). SafeImage normalises every
+              path shape the API may return. */}
+          {bgImage && (
+            <SafeImage
+              src={bgImage}
+              alt=""
+              className="dmiher-journey-bg absolute top-0 left-0 w-full h-full z-0"
+              style={{ objectFit: "cover", pointerEvents: "none" }}
+            />
+          )}
+
           {/* Title */}
           <div className="">
             <h2
               className="heading"
-             
+
             >
               <hr className="heading-line" />
               {heading?.title}
@@ -120,9 +138,22 @@ const DMHRSTimeline = ({ data }) => {
   /* ================= MOBILE ================= */
 
   return (
-    <div className="max-w-7xl mx-auto px-5 pl-4 pr-10 py-12 bg-[#001F48] text-white relative">
+    <div
+      className="max-w-7xl mx-auto px-5 pl-4 pr-10 py-12 bg-[#001F48] text-white relative overflow-hidden"
+      style={bgColor ? { backgroundColor: bgColor } : undefined}
+    >
+      {/* Background image — kept behind the rail and content */}
+      {bgImage && (
+        <SafeImage
+          src={bgImage}
+          alt=""
+          className="absolute inset-0 w-full h-full"
+          style={{ objectFit: "cover", opacity: 0.25, pointerEvents: "none", zIndex: 0 }}
+        />
+      )}
+
       <h2
-        className="text-3xl font-bold mb-10"
+        className="text-3xl font-bold mb-10 relative z-10"
         style={{ color: heading?.color }}
       >
         <hr className="w-16 sm:w-20 border-[#F04E30] mb-4 border-t-8" />

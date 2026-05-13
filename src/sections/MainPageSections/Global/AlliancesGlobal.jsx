@@ -1,5 +1,6 @@
 import React from "react";
 import SafeImage from "../../../components/SafeImage";
+import resolveImage from "../../../utils/resolveImage";
 
 function AlliancesGlobal({ data }) {
   if (!data?.header?.length) return null;
@@ -12,7 +13,7 @@ function AlliancesGlobal({ data }) {
     <section
       className="alliances-section"
       style={{
-        backgroundImage: `url(${background_image})`,
+        backgroundImage: `url(${resolveImage(background_image)})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

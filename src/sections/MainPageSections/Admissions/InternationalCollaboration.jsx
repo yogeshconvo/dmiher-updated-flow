@@ -1,4 +1,5 @@
 import React from "react";
+import resolveImage from "../../../utils/resolveImage";
 
 export default function InternationalCollaborations({ data }) {
   const { basic = {}, stats = [] } = data || {};
@@ -11,7 +12,7 @@ export default function InternationalCollaborations({ data }) {
               backgroundRepeat: "no-repeat",
               backgroundPosition: "center",
               backgroundSize: "70%",
-        backgroundImage: `url(${basic?.background_image || ""})`,
+        backgroundImage: `url(${resolveImage(basic?.background_image)})`,
       }}
     >
       {/* Heading */}
