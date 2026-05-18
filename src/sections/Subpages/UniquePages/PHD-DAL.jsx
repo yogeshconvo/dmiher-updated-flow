@@ -46,33 +46,33 @@ const PhDDAL = ({ data }) => {
   };
 
   const renderSyllabusFaculty = (faculty, idx) => (
-    <div key={idx} className="mb-8">
-      <div className="bg-[#facc15] text-black p-3 rounded-t-lg">
-        <h3 className="font-semibold flex items-center space-x-3">
-          <Building2 className="w-5 h-5" />
+    <div key={idx} className="up-table-block">
+      <div className="up-table-header">
+        <h3 className="up-table-header-h3">
+          <Building2 className="up-table-header-icon" />
           <span>{faculty.faculty_name}</span>
         </h3>
       </div>
-      <div className="border border-amber-200 rounded-b-lg overflow-hidden">
-        <table className="w-full">
+      <div className="up-table-wrap">
+        <table className="up-table">
           <tbody>
             {(faculty.subjects || []).map((subject, i) => (
-              <tr key={i} className="border-b border-amber-200 last:border-b-0">
-                <td className="p-4 border-r border-amber-100 font-medium text-gray-700 bg-white/50 w-1/6">
+              <tr key={i} className="up-table-row">
+                <td className="up-table-td-num">
                   {i + 1}
                 </td>
-                <td className="p-4 font-medium text-gray-700 bg-white/50">
+                <td className="up-table-td-mid">
                   <a
                     href={subject.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:underline"
+                    className="up-table-link"
                     aria-label={`View syllabus for ${subject.name}`}
                   >
                     {subject.name}
                   </a>
                 </td>
-                <td className="p-4 text-gray-800 font-semibold"></td>
+                <td className="up-table-td-val"></td>
               </tr>
             ))}
           </tbody>
@@ -82,25 +82,25 @@ const PhDDAL = ({ data }) => {
   );
 
   const renderBankTable = (rows, label, Icon = Building2) => (
-    <div className="mb-8">
-      <div className="bg-[#facc15] text-black p-3 rounded-t-lg">
-        <h3 className="font-semibold flex items-center space-x-2">
-          <Icon className="w-5 h-5" />
+    <div className="up-table-block">
+      <div className="up-table-header">
+        <h3 className="up-table-header-h3-tight">
+          <Icon className="up-table-header-icon" />
           <span>{label}</span>
         </h3>
       </div>
-      <div className="border border-amber-200 rounded-b-lg overflow-hidden">
-        <table className="w-full">
+      <div className="up-table-wrap">
+        <table className="up-table">
           <tbody>
             {rows.map(({ label, value }, i) => (
-              <tr key={i} className="border-b border-amber-200 last:border-b-0">
-                <td className="p-4 border-r border-amber-100 font-medium text-gray-700 bg-white/50 w-1/6">
+              <tr key={i} className="up-table-row">
+                <td className="up-table-td-num">
                   {i + 1}
                 </td>
-                <td className="p-4 font-medium text-gray-700 bg-white/50">
+                <td className="up-table-td-mid">
                   {label}
                 </td>
-                <td className="p-4 text-gray-800 font-semibold">{value}</td>
+                <td className="up-table-td-val">{value}</td>
               </tr>
             ))}
           </tbody>
@@ -117,16 +117,16 @@ const PhDDAL = ({ data }) => {
         const overview = firstOf(activeTab.overview_content);
         const objectives = activeTab.objectives || [];
         return (
-          <div className="text-lg text-gray-700 space-y-3 leading-relaxed">
+          <div className="up-overview">
             {overview.description && (
               <RichTextRenderer html={overview.description} />
             )}
             {(overview.objectives_title || objectives.length > 0) && (
               <>
-                <h3 className="text-xl font-semibold text-[#707070] tracking-wider mt-4">
+                <h3 className="up-overview-h3">
                   {overview.objectives_title || "Objectives"}
                 </h3>
-                <ul className="list-disc list-inside">
+                <ul className="up-overview-list">
                   {objectives.map((o, i) => (
                     <li key={i}>{o.text}</li>
                   ))}
@@ -140,8 +140,8 @@ const PhDDAL = ({ data }) => {
       case "syllabus": {
         const syllabus = activeTab.syllabus || [];
         return (
-          <div className="text-base md:text-lg text-gray-700 leading-relaxed space-y-4">
-            <h3 className="font-semibold text-base">
+          <div className="up-syllabus-wrap">
+            <h3 className="up-syllabus-h3">
               Doctoral Degree Program (Ph.D.) – Syllabus
             </h3>
             {syllabus.map(renderSyllabusFaculty)}
@@ -152,29 +152,29 @@ const PhDDAL = ({ data }) => {
       case "office_bearer": {
         const officeBearers = activeTab.office_bearers || [];
         return (
-          <div className="text-base md:text-lg text-gray-800">
-            <div className="mb-8">
-              <div className="bg-[#facc15] text-black p-3 rounded-t-lg">
-                <h3 className="font-semibold flex items-center space-x-2">
-                  <Building2 className="w-5 h-5" />
+          <div className="up-bank-section">
+            <div className="up-table-block">
+              <div className="up-table-header">
+                <h3 className="up-table-header-h3-tight">
+                  <Building2 className="up-table-header-icon" />
                   <span>Ph.D. Cell Office Bearer</span>
                 </h3>
               </div>
-              <div className="border border-amber-200 rounded-b-lg overflow-hidden">
-                <table className="w-full">
+              <div className="up-table-wrap">
+                <table className="up-table">
                   <tbody>
                     {officeBearers.map((item, i) => (
                       <tr
                         key={i}
-                        className="border-b border-amber-200 last:border-b-0"
+                        className="up-table-row"
                       >
-                        <td className="p-4 border-r border-amber-100 font-medium text-gray-700 bg-white/50 w-1/6">
+                        <td className="up-table-td-num">
                           {i + 1}
                         </td>
-                        <td className="p-4 font-medium text-gray-700 bg-white/50">
+                        <td className="up-table-td-mid">
                           {item.name}
                         </td>
-                        <td className="p-4 text-gray-800 font-semibold whitespace-pre-line">
+                        <td className="up-table-td-pre">
                           {item.designation}
                           {item.contact && (
                             <>
@@ -196,19 +196,19 @@ const PhDDAL = ({ data }) => {
       case "contact": {
         const contact = firstOf(activeTab.contact_info);
         return (
-          <div className="text-base md:text-lg text-gray-800">
-            <div className="mb-8 w-full md:w-3/4 lg:w-1/2">
-              <div className="bg-[#facc15] text-black p-3 rounded-t-lg">
-                <h3 className="font-semibold flex items-center space-x-2">
-                  <Building2 className="w-5 h-5" />
+          <div className="up-bank-section">
+            <div className="up-table-block-half">
+              <div className="up-table-header">
+                <h3 className="up-table-header-h3-tight">
+                  <Building2 className="up-table-header-icon" />
                   <span>Contact For PhD Enquiries</span>
                 </h3>
               </div>
-              <div className="border border-amber-200 rounded-b-lg overflow-hidden">
-                <table className="w-full">
+              <div className="up-table-wrap">
+                <table className="up-table">
                   <tbody>
-                    <tr className="border-b border-amber-200 last:border-b-0">
-                      <td className="p-4 text-gray-800 font-semibold whitespace-pre-line">
+                    <tr className="up-table-row">
+                      <td className="up-table-td-pre">
                         {contact.designation}
                         {contact.address && (
                           <>
@@ -268,19 +268,19 @@ const PhDDAL = ({ data }) => {
   const activeTabIsOverview = activeTab?.tab_key === "overview";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 [&_h1]:font-sans [&_h2]:font-sans [&_h3]:font-sans [&_h4]:font-sans [&_h5]:font-sans [&_h6]:font-sans">
+    <div className="up-page-gradient">
       {/* Header */}
-      <div className="bg-[#122E5E] text-white py-8">
-        <div className="container mx-auto flex justify-between items-center px-4">
-          <div className="flex items-center space-x-4">
-            <div className="bg-white/10 p-3 rounded-full">
-              <GraduationCap className="w-8 h-8" />
+      <div className="up-header">
+        <div className="up-header-container-flex">
+          <div className="up-header-row">
+            <div className="up-header-icon-wrap">
+              <GraduationCap className="up-header-icon" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold">
+              <h1 className="up-header-title">
                 {header.title || "Ph.D. Programmes"}
               </h1>
-              <p className="text-blue-100 mt-1">
+              <p className="up-header-subtitle">
                 {header.subtitle || "Directorate Of Advanced Learning"}
               </p>
             </div>
@@ -297,12 +297,12 @@ const PhDDAL = ({ data }) => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-4 gap-8">
+      <div className="up-main-container">
+        <div className="up-side-grid">
           {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-              <div className="divide-y divide-gray-100">
+          <div className="up-side-col">
+            <div className="up-side-card">
+              <div className="up-side-divide">
                 {tabs.map((item, index) => {
                   const isInternal = isInternalTab(item);
                   const isActive =
@@ -310,9 +310,7 @@ const PhDDAL = ({ data }) => {
                   return (
                     <div
                       key={index}
-                      className={`p-3 hover:bg-blue-50 cursor-pointer transition-colors duration-200 text-sm ${
-                        isActive ? "bg-blue-100" : ""
-                      }`}
+                      className={`up-side-item ${isActive ? "up-side-item-active" : ""}`}
                       onClick={() => handleTabClick(item)}
                       role="button"
                       aria-label={`Navigate to ${item.label}`}
@@ -326,36 +324,36 @@ const PhDDAL = ({ data }) => {
           </div>
 
           {/* Main Content */}
-          <div className="lg:col-span-3 space-y-8">
+          <div className="up-side-main">
             {/* Notifications — only on Overview tab */}
             {activeTabIsOverview && (
-              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                <div className="flex items-center space-x-3 mb-6">
-                  <div className="bg-amber-100 p-2 rounded-lg">
-                    <FileText className="w-6 h-6 text-amber-600" />
+              <div className="up-section-card-light">
+                <div className="up-notif-row">
+                  <div className="up-notif-icon-wrap">
+                    <FileText className="up-notif-icon" />
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-800">
+                  <h2 className="up-section-title-h2">
                     Latest Notifications
                   </h2>
                 </div>
-                <div className="space-y-3">
+                <div className="up-notif-list">
                   {notifications.length > 0 ? (
                     notifications.map((n, index) => (
                       <div
                         key={index}
-                        className={`p-4 rounded-lg border cursor-pointer transition-all duration-200 hover:shadow-md ${
+                        className={`up-notif-item ${
                           n.is_highlighted
-                            ? "border-amber-200 hover:bg-amber-100"
-                            : "bg-gray-50 border-gray-200 hover:bg-gray-100"
+                            ? "up-notif-item-highlighted"
+                            : "up-notif-item-default"
                         }`}
                       >
-                        <div className="flex items-center space-x-3">
-                          <Calendar className="w-5 h-5 text-blue-600" />
+                        <div className="up-notif-item-row">
+                          <Calendar className="up-notif-cal" />
                           <a
                             href={n.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="font-medium text-gray-800"
+                            className="up-notif-title"
                           >
                             {n.title}
                           </a>
@@ -363,7 +361,7 @@ const PhDDAL = ({ data }) => {
                       </div>
                     ))
                   ) : (
-                    <p className="text-gray-500 text-center">
+                    <p className="up-notif-empty">
                       No notification Available
                     </p>
                   )}
@@ -372,18 +370,18 @@ const PhDDAL = ({ data }) => {
             )}
 
             {/* Content panel */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+            <div className="up-section-card-light">
               {renderContent()}
             </div>
 
             {/* Fee Payment block — only on Bank Details tab */}
             {activeTabIsBank && (
-              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
-                <div className="flex items-center space-x-3 mb-6">
-                  <div className="bg-green-100 p-2 rounded-lg">
-                    <CreditCard className="w-6 h-6 text-green-600" />
+              <div className="up-section-card-light">
+                <div className="up-notif-row">
+                  <div className="up-fee-icon-wrap">
+                    <CreditCard className="up-fee-icon" />
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-800">
+                  <h2 className="up-section-title-h2">
                     Pay Fee by RTGS/NEFT/IMPS
                   </h2>
                 </div>

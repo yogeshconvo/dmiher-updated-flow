@@ -11,7 +11,7 @@ function ArrowButton({ direction, onClick }) {
   return (
     <button
       onClick={onClick}
-      className="border border-gray-600 hover:bg-gray-100 p-2 rounded-full"
+      className="hlp-arrow-btn"
     >
       {direction === "next" ? (
         <ArrowRight size={20} />
@@ -58,23 +58,23 @@ function HolisticLearningPage({ data }) {
   };
 
   return (
-    <div className="bg-[#E4C957] p-10 font-oswald-medium">
-      <div className="max-w-7xl mx-auto">
+    <div className="hlp-section">
+      <div className="hlp-container">
         {/* Heading */}
-        <div className="flex items-center justify-between flex-wrap gap-4">
-          <h1 className="text-4xl font-medium text-[#58595B] uppercase">
-            <hr className="w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4" />
+        <div className="hlp-heading-row">
+          <h1 className="hlp-title">
+            <hr className="hlp-title-line" />
             {title}
           </h1>
         </div>
 
         {/* Sub heading + arrows */}
-        <div className="flex justify-between mt-8">
-          <h2 className="text-3xl font-medium text-[#300986]">
+        <div className="hlp-sub-row">
+          <h2 className="hlp-subtitle">
             {subtitle}
           </h2>
 
-          <div className="hidden sm:flex gap-2">
+          <div className="hlp-arrows">
             <ArrowButton
               direction="prev"
               onClick={() => swiperRef.current?.slidePrev()}
@@ -87,31 +87,31 @@ function HolisticLearningPage({ data }) {
         </div>
 
         {/* Slider */}
-        <div className="relative mt-6">
+        <div className="hlp-slider-wrap">
           <Swiper {...swiperSettings}>
             {dimensions.map((item) => (
               <SwiperSlide key={item.id}>
-                <div className="px-2">
+                <div className="hlp-slide">
                   <SafeImage
                     src={item.image}
                     alt={item.title}
-                    className="h-50 object-cover rounded-xl"
+                    className="hlp-slide-img"
                   />
 
-                  <div className="flex pt-4">
-                    <div className="h-12 w-12 flex-shrink-0 text-xl font-[300] rounded-full flex items-center justify-center relative overflow-hidden">
-                      <span className="absolute inset-0 bg-black opacity-40"></span>
-                      <span className="relative z-10 text-2xl text-white">
+                  <div className="hlp-slide-row">
+                    <div className="hlp-num-bubble">
+                      <span className="hlp-num-bubble-bg"></span>
+                      <span className="hlp-num-bubble-text">
                         {item.id}
                       </span>
                     </div>
 
-                    <div className="pl-2">
-                      <h3 className="text-md font-medium text-[#58595B]">
+                    <div className="hlp-slide-text-wrap">
+                      <h3 className="hlp-slide-title">
                         {item.title}
                       </h3>
                       <p
-                        className="text-sm text-[#58595B] mt-1"
+                        className="hlp-slide-desc"
                         style={{ fontFamily: "Arial, sans-serif" }}
                       >
                         {item.desc}

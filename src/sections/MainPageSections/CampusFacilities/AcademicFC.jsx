@@ -6,7 +6,6 @@ import SafeImage from "../../../components/SafeImage";
 const AcademicFC = ({ data }) => {
   const [activeTab, setActiveTab] = useState(null);
 
-  // ✅ Set default active tab
   useEffect(() => {
     if (data?.tabs?.length) {
       setActiveTab(data.tabs[0]?.key);
@@ -17,25 +16,23 @@ const AcademicFC = ({ data }) => {
 
   return (
     <section
-      className="py-12"
+      className="afc-section"
       style={{
         backgroundColor: data?.basic?.bg_color || "#122E5E",
         color: data?.basic?.text_color || "#ffffff",
       }}
     >
       <div className="container">
-        <div className="flex flex-col lg:flex-row gap-10">
+        <div className="afc-row">
 
           {/* ================= LEFT ================= */}
-          <div className="lg:basis-[40%]">
+          <div className="afc-left">
 
             {/* Heading */}
-            <div className="mb-6">
-              <h2 className="text-3xl md:text-4xl font-oswald-medium font-medium uppercase">
-                
-                {/* Accent Line */}
+            <div className="afc-heading-wrap">
+              <h2 className="afc-heading">
                 <hr
-                  className="w-16 sm:w-20 mb-4 border-t-4"
+                  className="afc-heading-line"
                   style={{
                     borderColor:
                       data?.basic?.accent_color || "#F04E30",
@@ -45,16 +42,15 @@ const AcademicFC = ({ data }) => {
                 {data?.basic?.title}
               </h2>
 
-              {/* Description */}
-              <p className="text-base mt-2 opacity-90">
+              <p className="afc-desc">
                 {data?.basic?.description}
               </p>
             </div>
 
             {/* ================= TABS ================= */}
-            <div className="space-y-0">
+            <div className="afc-tabs">
               {data?.tabs?.map((tab) => (
-                <div key={tab.key} className="border-t border-gray-300/30">
+                <div key={tab.key} className="afc-tab">
 
                   <button
                     onClick={() =>
@@ -62,7 +58,7 @@ const AcademicFC = ({ data }) => {
                         prev === tab.key ? null : tab.key
                       )
                     }
-                    className="w-full text-left py-3 flex justify-between items-center transition"
+                    className="afc-tab-btn"
                     style={{
                       color:
                         activeTab === tab.key
@@ -71,27 +67,27 @@ const AcademicFC = ({ data }) => {
                     }}
                   >
                     <span
-                      className={`${
-                        activeTab === tab.key ? "font-bold" : ""
-                      }`}
+                      className={
+                        activeTab === tab.key ? "afc-tab-btn-active" : ""
+                      }
                     >
                       {tab.title}
                     </span>
 
-                    <span className="text-lg">
+                    <span className="afc-tab-toggle">
                       {activeTab === tab.key ? "-" : "+"}
                     </span>
                   </button>
 
                   {/* Items */}
                   {activeTab === tab.key && (
-                    <div className="pl-4 text-sm space-y-2 pb-2 animate-in slide-in-from-top duration-300">
+                    <div className="afc-tab-body">
 
-                    {activeTab === tab.key && tab.description && (
-  <div className="pl-4 text-sm  animate-in slide-in-from-top duration-300">
-    <RichTextRenderer html={tab.description} />
-  </div>
-)}
+                      {activeTab === tab.key && tab.description && (
+                        <div className="afc-tab-rich">
+                          <RichTextRenderer html={tab.description} />
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -100,25 +96,25 @@ const AcademicFC = ({ data }) => {
           </div>
 
           {/* ================= RIGHT ================= */}
-          <div className="lg:basis-[60%] md:mt-10 w-full h-[520px] rounded-xl overflow-hidden shadow-md border border-gray-200">
+          <div className="afc-right">
 
             {activeData ? (
               <SafeImage
                 src={activeData.image}
                 alt={activeData.title}
-                className="w-full h-full object-cover transition-all duration-300"
+                className="afc-right-img"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <div className="text-center">
+              <div className="afc-right-empty">
+                <div className="afc-right-empty-inner">
                   <Library
-                    className="w-16 h-16 mx-auto mb-4"
+                    className="afc-right-empty-icon"
                     style={{
                       color:
                         data?.basic?.accent_color || "#F04E30",
                     }}
                   />
-                  <span className="text-lg font-medium">
+                  <span className="afc-right-empty-text">
                     Select a section to view details
                   </span>
                 </div>

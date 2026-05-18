@@ -91,7 +91,7 @@ const TabMenu = ({ data }) => {
   if (!tabs.length) return null;
 
   return (
-    <div className="flex flex-wrap gap-2 shadow-lg pb-2 mb-6 px-4 justify-center mt-2">
+    <div className="tabwise-tabs">
       {tabs.map((tab, i) => {
         if (!tab.title) return null;
 

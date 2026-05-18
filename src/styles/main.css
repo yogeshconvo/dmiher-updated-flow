@@ -8,8 +8,52 @@
 @import "./InstitutesSections.css";
 @import "./Responsive.css";
 @import "./subpages/main-subpage.css";
+@import "./subpages/main-subpages.css";
 @import "./subpages/responsive.css";
+@import "./subpages/unique-pages.css";
+@import "./subpages/CardMandatoryDisclosure.css";
 @import "./micropages.css";
+
+/* ================= LOADER ================= */
+.loader-lottie {
+    width: 120px;
+    height: 120px;
+}
+
+/* ================= DROPDOWN BUTTON ================= */
+.dd-btn {
+    @apply w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-left shadow-sm hover:shadow-md transition-shadow duration-200 flex items-center justify-between;
+}
+
+/* ================= FLOATING BUTTONS ================= */
+.fb-rail {
+    @apply flex flex-col gap-2 fixed top-1/2 -translate-y-1/2 right-0 font-[500] pointer-events-none z-50;
+}
+
+.fb-modal-body {
+    @apply flex-grow p-0 m-0 overflow-auto;
+}
+
+/* ================= MOBILE SLIDER ================= */
+.mslider-cell {
+    @apply flex justify-center;
+}
+
+.mslider-content {
+    @apply flex flex-col items-center text-center px-4 min-h-[200px];
+}
+
+.mslider-icon {
+    @apply w-25 h-25 mb-2;
+}
+
+.mslider-value {
+    @apply text-orange-600 text-xl font-semibold;
+}
+
+.mslider-label {
+    @apply text-[#58595B] text-lg font-semibold;
+}
 
 /* ================= SAFE IMAGE PLACEHOLDER ================= */
 .safe-image-fallback {

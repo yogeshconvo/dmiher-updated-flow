@@ -15,7 +15,7 @@ function SDGSection({ data }) {
   } = data;
 
   return (
-    <div className="bg-[#F0F2F5]">
+    <div className="sdg-bg">
       <div className="container">
 
         {/* ================= HEADING ================= */}
@@ -76,25 +76,25 @@ function SDGSection({ data }) {
             </div>
 
             {/* ================= FOOTER (DESKTOP) ================= */}
-            <div className="hidden md:flex items-center mt-10">
+            <div className="sdg-footer-desktop">
 
               {/* LEFT */}
-              <div className="flex items-center gap-5 mr-6">
-                <div className="font-bold text-[18px] text-gray-700">
+              <div className="sdg-footer-left">
+                <div className="sdg-footer-score">
                   {footer_left?.score}
                 </div>
-                <div className="text-[13px] text-gray-600 leading-snug">
+                <div className="sdg-footer-text">
                   {footer_left?.text}
                 </div>
               </div>
 
               {/* RIGHT */}
-              <div className="flex items-center gap-2">
+              <div className="sdg-footer-right">
 
                 {rating_boxes.map((box, i) => (
                   <div
                     key={i}
-                    className="relative w-[85px] h-9 bg-white  shadow flex items-center justify-center font-semibold text-[12px] text-gray-700 pl-5"
+                    className="sdg-rating-box"
                     style={{
                       clipPath:
                         "polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%)",
@@ -102,7 +102,7 @@ function SDGSection({ data }) {
                   >
                     {/* LEFT HEX ICON */}
                     <div
-                      className="absolute w-[24px] h-[24px] flex items-center justify-center text-white text-[11px] font-bold"
+                      className="sdg-rating-icon"
                       style={{
                         clipPath:
                           "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
@@ -117,7 +117,7 @@ function SDGSection({ data }) {
                   </div>
                 ))}
 
-                <div className="text-[12px] text-gray-700 ml-2">
+                <div className="sdg-footer-note">
                   {footer_note?.footer_note}
                 </div>
               </div>
@@ -128,7 +128,7 @@ function SDGSection({ data }) {
 
         {/* ================= VIEW MORE ================= */}
         {view_more?.page_slug && (
-          <div className="mt-6 text-center md:text-right">
+          <div className="sdg-view-more">
             <ViewMoreButton
               href={`/${view_more.page_slug}`}
               label={view_more?.view_more_label || "View More"}

@@ -37,20 +37,20 @@ const ResearchSectionMobileSlider = ({
     >
       {data.map((item, index) => (
         <SwiperSlide key={index}>
-          <div className="flex justify-center">
-            <div className="flex flex-col items-center text-center px-4 min-h-[200px]">
+          <div className="mslider-cell">
+            <div className="mslider-content">
               <SafeImage
                 src={item.icon}
                 alt=""
-                className="w-25 h-25 mb-2"
+                className="mslider-icon"
               />
               <RichTextRenderer
-                className="text-orange-600 text-xl font-semibold"
+                className="mslider-value"
                 html={item.value}
               />
               {item.label && (
                 <RichTextRenderer
-                  className="text-[#58595B] text-lg font-semibold"
+                  className="mslider-label"
                   html={item.label}
                 />
               )}

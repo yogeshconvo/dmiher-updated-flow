@@ -19,7 +19,6 @@ function HomeTestimonial({ data }) {
 
   if (!current) return null;
 
-  // ✅ Robust YouTube ID extractor (works in prod)
   const getYoutubeEmbedUrl = (url) => {
     if (!url) return "";
 
@@ -37,8 +36,8 @@ function HomeTestimonial({ data }) {
   const embedUrl = getYoutubeEmbedUrl(current.videoId);
 
   return (
-    <div className="testimonial-section py-12 bg-[#f4f4f4]">
-      <div className="container mx-auto px-4">
+    <div className="testimonial-section">
+      <div className="home-testimonial-container">
 
         {/* ===== Title ===== */}
         <h2 className="heading">
@@ -47,7 +46,7 @@ function HomeTestimonial({ data }) {
         </h2>
 
         {/* ===== Tabs ===== */}
-        <div className="flex justify-center flex-wrap mb-8">
+        <div className="home-testimonial-tabs">
           {tabs.map((tab, index) => (
             <button
               key={index}
@@ -56,10 +55,10 @@ function HomeTestimonial({ data }) {
                 setActiveVideoIndex(0);
                 setIsPlaying(false);
               }}
-              className={`px-3 py-1 text-base border-r last:border-r-0 ${
+              className={`home-testimonial-tab ${
                 activeTabIndex === index
-                  ? "underline text-black"
-                  : "text-gray-500 hover:text-gray-700"
+                  ? "home-testimonial-tab-active"
+                  : "home-testimonial-tab-inactive"
               }`}
             >
               {tab.tab_name}
@@ -68,25 +67,25 @@ function HomeTestimonial({ data }) {
         </div>
 
         {/* ===== Video Section ===== */}
-        <div className="flex flex-col items-center">
+        <div className="testimonial-content">
 
-          <div className="relative w-[320px] h-[220px] md:w-[470px] md:h-[280px] bg-gray-300 rounded-xl overflow-hidden shadow-lg mb-4">
+          <div className="home-testimonial-video-wrap">
 
             {!isPlaying ? (
               <>
                 <SafeImage
                   src={current.thumbnail}
                   alt={current.name}
-                  className="w-full h-full object-cover"
+                  className="home-testimonial-thumbnail"
                 />
 
                 <div
-                  className="absolute inset-0 flex items-center justify-center cursor-pointer"
+                  className="home-testimonial-play"
                   onClick={() => setIsPlaying(true)}
                 >
                   <PlayCircle
                     size={60}
-                    className="text-white hover:scale-110 transition-transform"
+                    className="home-testimonial-play-icon"
                   />
                 </div>
               </>
@@ -95,7 +94,7 @@ function HomeTestimonial({ data }) {
                 <iframe
                   src={embedUrl}
                   title={current.name}
-                  className="w-full h-full"
+                  className="home-testimonial-iframe"
                   frameBorder="0"
                   allow="autoplay; encrypted-media; fullscreen"
                   allowFullScreen
@@ -105,24 +104,13 @@ function HomeTestimonial({ data }) {
           </div>
 
           {/* ===== Text Section ===== */}
-          <div className="w-[320px] md:w-[460px] text-left">
-            {/* <p className="text-lg font-semibold text-gray-800">
-              {current.name}
-            </p>
-            <p className="text-sm text-gray-600">
-              {current.designation}
-            </p>
-            {current.extra && (
-              <p className="text-sm text-gray-600 font-medium">
-                {current.extra}
-              </p>
-            )} */}
-            <RichTextRenderer html={current.paragraph}/>
+          <div className="home-testimonial-text">
+            <RichTextRenderer html={current.paragraph} />
           </div>
 
           {/* ===== Multiple Testimonials Selector */}
           {testimonials.length > 1 && (
-            <div className="flex gap-3 mt-4">
+            <div className="home-testimonial-dots">
               {testimonials.map((_, i) => (
                 <button
                   key={i}
@@ -130,10 +118,10 @@ function HomeTestimonial({ data }) {
                     setActiveVideoIndex(i);
                     setIsPlaying(false);
                   }}
-                  className={`w-3 h-3 rounded-full ${
+                  className={`home-testimonial-dot ${
                     activeVideoIndex === i
-                      ? "bg-black"
-                      : "bg-gray-400"
+                      ? "home-testimonial-dot-active"
+                      : "home-testimonial-dot-inactive"
                   }`}
                 />
               ))}

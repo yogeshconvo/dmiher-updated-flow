@@ -28,7 +28,7 @@ function Programs({ data }) {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="programs-section-grid">
 
           {data?.programs?.map((program, index) => {
 

@@ -1,5 +1,121 @@
 @reference "tailwindcss";
 
+/* ================= INSTITUTE LIGHT FILE HELPERS ================= */
+.inst-logos-section {
+    @apply mx-auto py-10 bg-gray-100;
+}
+
+.inst-logos-heading {
+    @apply text-center text-2xl font-bold mb-6;
+}
+
+.inst-logos-buttons {
+    @apply flex flex-wrap justify-center gap-6 mb-10;
+}
+
+.inst-logos-btn {
+    @apply bg-[#F04E30] hover:bg-[#122E5E] text-white text-lg px-6 py-3 rounded-md shadow-md transition;
+}
+
+.inst-logos-mobile {
+    @apply block md:hidden px-4;
+}
+
+.inst-logos-tablet {
+    @apply hidden md:block lg:hidden mt-6 px-6;
+}
+
+.inst-logos-desktop {
+    @apply hidden lg:flex flex-wrap justify-center items-center mt-6;
+}
+
+.inst-logos-slide {
+    @apply flex items-center justify-center h-24 border border-gray-200 rounded;
+}
+
+.inst-logos-slide-tablet {
+    @apply flex justify-center;
+}
+
+.inst-logos-img {
+    @apply h-20 object-contain;
+}
+
+.inst-logos-img-desktop {
+    @apply h-20 w-45 object-contain;
+}
+
+.inst-logos-cell {
+    @apply px-4 h-24 flex items-center justify-center;
+}
+
+.inst-logos-cell-divider {
+    @apply border-r border-gray-400;
+}
+
+/* Button section helpers */
+.inst-cta-wrap {
+    @apply m-10;
+}
+
+.inst-cta-btn {
+    @apply w-[18rem] bg-[#F05423] hover:bg-[#0B2A6D] text-white text-2xl px-8 py-3 rounded-md drop-shadow-[4px_6px_6px_rgba(0,0,0,0.5)] hover:scale-105 transition;
+    font-family: "Oswald", sans-serif;
+}
+
+.inst-cta-link-wrap {
+    @apply flex justify-center;
+}
+
+.inst-cta-tail {
+    @apply flex flex-wrap justify-center gap-10 mt-10;
+}
+
+/* ================= GENERIC WRAPPER HELPERS ================= */
+.flex-center {
+    @apply flex items-center justify-center;
+}
+
+.flex-center-py {
+    @apply flex items-center justify-center py-20;
+}
+
+.flex-col-center {
+    @apply flex flex-col items-center;
+}
+
+.inst-md-row {
+    @apply flex flex-col sm:flex-row items-center gap-4;
+}
+
+.inst-md-cell {
+    @apply flex justify-center;
+}
+
+.inst-hero-btn-row {
+    @apply flex gap-2;
+}
+
+.inst-hero-dots {
+    @apply absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 z-30;
+}
+
+.inst-hl-arrows {
+    @apply hidden sm:flex gap-2;
+}
+
+.inst-dept-row {
+    @apply flex flex-wrap justify-center gap-x-6 gap-y-5 mt-6 max-w-6xl mx-auto;
+}
+
+.inst-keyfn-tabs {
+    @apply border-b border-gray-400 flex flex-wrap gap-10 md:gap-20 mt-6 text-[17px] text-gray-600;
+}
+
+.inst-md-grid {
+    @apply flex flex-wrap max-w-6xl mx-auto justify-between gap-y-6;
+}
+
 /* Common Components */
 
 .heading {

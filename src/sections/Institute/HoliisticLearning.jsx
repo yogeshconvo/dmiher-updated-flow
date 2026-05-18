@@ -87,7 +87,7 @@ function HolisticInfrastructureSection({ data , college }) {
             <h2 className="hlh-subtitle">{subtitle}</h2>
 
             {/* Navigation Arrows */}
-            <div className="hidden sm:flex gap-2">
+            <div className="inst-hl-arrows">
               <ArrowButton
                 direction="prev"
                 onClick={() => swiperRef?.current?.slidePrev()}

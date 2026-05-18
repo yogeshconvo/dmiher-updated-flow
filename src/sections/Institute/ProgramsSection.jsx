@@ -34,7 +34,7 @@ function ProgramsSection({ data, college }) {
   if (!categoryCards.length) return null;
 
   return (
-    <div className="w-full flex justify-center">
+    <div className="inst-prog-section">
       <div className="container">
         <h2 className="heading">
           <hr className="heading-line" />
@@ -42,7 +42,7 @@ function ProgramsSection({ data, college }) {
         </h2>
 
         {/* Mobile */}
-        <ul className="flex flex-col items-center sm:hidden flex-wrap gap-6">
+        <ul className="inst-prog-mobile">
           {categoryCards.map((card) => (
             <li
               key={card.category}
@@ -50,7 +50,7 @@ function ProgramsSection({ data, college }) {
             >
               <Link to={card.link}>
                 <span className="clip-path-message-inner">
-                  <span className="text-center block w-[160px]">
+                  <span className="inst-prog-mobile-text">
                     {card.label}
                   </span>
                 </span>
@@ -60,8 +60,8 @@ function ProgramsSection({ data, college }) {
         </ul>
 
         {/* Desktop */}
-        <div className="hidden sm:block">
-          <ul className="flex justify-center gap-20 mb-10 flex-wrap container">
+        <div className="inst-prog-desktop">
+          <ul className="inst-prog-desktop-list container">
             {categoryCards.map((card) => (
               <li
                 key={card.category}
@@ -69,7 +69,7 @@ function ProgramsSection({ data, college }) {
               >
                 <Link to={card.link}>
                   <span className="clip-path-message-inner">
-                    <span className="text-center break-words block w-[180px]">
+                    <span className="inst-prog-desktop-text">
                       {card.label}
                     </span>
                   </span>

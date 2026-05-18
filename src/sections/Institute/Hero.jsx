@@ -243,7 +243,7 @@ function Hero({ data, slug }) {
                 )}
 
                 {slide.cta_buttons && slide.cta_buttons.length > 0 && (
-                  <div className="hero-buttons flex gap-2">
+                  <div className="hero-buttons inst-hero-btn-row">
                     {slide.cta_buttons.map((btn, btnIndex) => (
                       <SlideCtaButton key={btnIndex} btn={btn} />
                     ))}
@@ -256,7 +256,7 @@ function Hero({ data, slug }) {
 
         {/* DOTS */}
         {slides.length > 1 && (
-          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+          <div className="inst-hero-dots">
             {slides.map((_, idx) => (
               <button
                 key={idx}

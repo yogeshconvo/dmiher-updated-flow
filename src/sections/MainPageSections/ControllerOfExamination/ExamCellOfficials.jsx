@@ -11,7 +11,7 @@ const ExamCellOfficials = ({data}) => {
         
         {/* Title */}
         <h2 className="exam-title">
-          <span className="block border-t-4 border-[#F04E30] w-20 sm:w-24 mb-2"></span>
+          <span className="exam-title-line"></span>
           {data.basic?.title}
         </h2>
 
@@ -44,7 +44,7 @@ const ExamCellOfficials = ({data}) => {
         </div>
 
         {/* Button */}
-        <div className="mt-12 flex justify-center">
+        <div className="exam-btn-wrap">
           <Link to={data.basic?.button_link || "#"}>
             <button className="exam-btn">
               {data.basic?.button_text || "Organogram"}

@@ -27,14 +27,13 @@ function Hero({ data, slug = "Home" }) {
   return (
     <>
       {/* Top Bar */}
-      <div className="w-full bg-[#E1CD67] text-gray-600 text-[11px] sm:text-sm px-3 py-1 flex flex-col sm:flex-row sm:justify-between sm:items-center z-50 gap-y-2">
-        <span className="text-lg hidden md:block sm:ml-20">
+      <div className="mph-topbar">
+        <span className="mph-admission-text">
           {topbar.admissions_text}
         </span>
 
         {/* Desktop / large view */}
-        <div className="hidden lg:flex items-center gap-x-5">
-          {/* Dynamic topbar.buttons */}
+        <div className="mph-desktop-actions">
           {Array.isArray(topbar.buttons) && topbar.buttons.length > 0
             ? topbar.buttons.map((btn, index) => {
                 const isPhone = btn.url_type === "phone";
@@ -44,7 +43,7 @@ function Hero({ data, slug = "Home" }) {
                     href={isPhone ? `tel:${btn.phone}` : btn.url}
                     target={isPhone ? undefined : "_blank"}
                     rel={isPhone ? undefined : "noopener noreferrer"}
-                    className="flex items-center rounded-[10px] text-xl px-3 py-2 space-x-3 font-semibold transition-colors duration-300"
+                    className="mph-dyn-btn"
                     style={{
                       backgroundColor: btn.bg_color,
                       color: btn.text_color,
@@ -65,7 +64,7 @@ function Hero({ data, slug = "Home" }) {
                 {topbar.primary_cta_text && (
                   <button
                     onClick={handleScrollToSection}
-                    className="flex items-center text-xl text-white px-3 py-2 space-x-3 font-semibold rounded-[10px] btn-primary"
+                    className="mph-primary-btn btn-primary"
                   >
                     <span>{topbar.primary_cta_text}</span>
                   </button>
@@ -77,7 +76,7 @@ function Hero({ data, slug = "Home" }) {
                     href={topbar.apply_now_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center rounded-[10px] text-xl bg-[#F04E30] hover:bg-[#102B64] text-white px-3 py-2 space-x-3 font-semibold"
+                    className="mph-apply-btn"
                   >
                     <span>APPLY NOW</span>
                   </a>
@@ -86,16 +85,16 @@ function Hero({ data, slug = "Home" }) {
                 {/* Phone Button */}
                 {topbar.phone_number && (
                   <a href={`tel:${topbar.phone_number}`}>
-                    <button className="flex items-center uppercase rounded-[10px] font-[500] text-base hover:bg-[#F04E30] bg-[#102B64] text-white px-3 py-2 space-x-3">
+                    <button className="mph-phone-btn">
                       <svg
-                        className="w-5 h-5"
+                        className="mph-phone-icon"
                         fill="white"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                       >
                         <path d="M6.62 10.79a15.91 15.91 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27 11.36 11.36 0 003.55.57 1 1 0 011 1v3.43a1 1 0 01-1 1A17.93 17.93 0 012 6a1 1 0 011-1h3.44a1 1 0 011 1 11.36 11.36 0 00.57 3.55 1 1 0 01-.27 1.11z" />
                       </svg>
-                      <span className="text-xl ml-1">
+                      <span className="mph-phone-text">
                         {topbar.phone_label || topbar.phone_number}
                       </span>
                     </button>
@@ -106,10 +105,9 @@ function Hero({ data, slug = "Home" }) {
         </div>
 
         {/* Mobile View */}
-        <div className="flex flex-col items-center gap-y-2 mt-1 lg:hidden">
-          {/* Dynamic topbar.buttons (mobile) */}
+        <div className="mph-mobile">
           {Array.isArray(topbar.buttons) && topbar.buttons.length > 0
-            ? <div className="flex flex-wrap justify-center gap-2 w-full">
+            ? <div className="mph-mobile-row">
                 {topbar.buttons.map((btn, index) => {
                   const isPhone = btn.url_type === "phone";
                   return (
@@ -118,7 +116,7 @@ function Hero({ data, slug = "Home" }) {
                       href={isPhone ? `tel:${btn.phone}` : btn.url}
                       target={isPhone ? undefined : "_blank"}
                       rel={isPhone ? undefined : "noopener noreferrer"}
-                      className="flex-1 min-w-[120px] text-center flex justify-center items-center rounded-[10px] text-sm px-2 py-2 font-semibold transition-colors duration-300"
+                      className="mph-mobile-dyn-btn"
                       style={{
                         backgroundColor: btn.bg_color,
                         color: btn.text_color,
@@ -141,19 +139,19 @@ function Hero({ data, slug = "Home" }) {
                   <Link
                     to={`/${slug}#${primarySectionId}`}
                     rel="noopener noreferrer"
-                    className="w-full text-center flex justify-center items-center text-base text-white px-3 py-2 font-semibold rounded-[10px] btn-primary"
+                    className="mph-mobile-primary btn-primary"
                   >
                     <span>{topbar.primary_cta_text}</span>
                   </Link>
                 )}
 
-                <div className="flex justify-center gap-x-3 w-full">
+                <div className="mph-mobile-actions">
                   {topbar.apply_now_url && (
                     <a
                       href={topbar.apply_now_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full flex justify-center items-center rounded-[10px] text-sm bg-[#F04E30] hover:bg-[#102B64] text-white px-1 py-2 font-semibold"
+                      className="mph-mobile-apply"
                     >
                       APPLY NOW
                     </a>
@@ -162,18 +160,18 @@ function Hero({ data, slug = "Home" }) {
                   {topbar.phone_number && (
                     <a
                       href={`tel:${topbar.phone_number}`}
-                      className="w-full flex justify-center"
+                      className="mph-mobile-phone-link"
                     >
-                      <button className="w-full flex justify-center items-center uppercase rounded-[10px] font-[500] text-sm hover:bg-[#F04E30] bg-[#102B64] text-white px-2 py-2">
+                      <button className="mph-mobile-phone">
                         <svg
-                          className="w-5 h-5"
+                          className="mph-phone-icon"
                           fill="white"
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                         >
                           <path d="M6.62 10.79a15.91 15.91 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.27 11.36 11.36 0 003.55.57 1 1 0 011 1v3.43a1 1 0 01-1 1A17.93 17.93 0 012 6a1 1 0 011-1h3.44a1 1 0 011 1 11.36 11.36 0 00.57 3.55 1 1 0 01-.27 1.11z" />
                         </svg>
-                        <span className="text-sm">
+                        <span className="mph-mobile-phone-text">
                           {topbar.phone_label || topbar.phone_number}
                         </span>
                       </button>
@@ -208,54 +206,51 @@ function Hero({ data, slug = "Home" }) {
       </div>
 
       {/* Swiper section */}
-      <div className="relative w-full h-[100vh] sm:h-[calc(86vh-44px)] overflow-hidden">
+      <div className="mph-swiper-wrapper">
         <Swiper
           modules={[Autoplay, Pagination]}
           autoplay={{ delay: 5000, disableOnInteraction: false }}
-          className="w-full h-full banner-swiper"
+          className="mph-swiper banner-swiper"
           loop={true}
           pagination={{ clickable: true }}
         >
           {slides.map((slide, idx) => (
-            <SwiperSlide key={idx} className="w-full h-full relative">
-              {/* background: placeholder or image */}
+            <SwiperSlide key={idx} className="mph-slide">
               {slide.img ? (
                 <img
                   src={slide.img}
                   alt="Campus"
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="mph-slide-img"
                 />
               ) : (
-                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-slate-700 to-slate-900" />
+                <div className="mph-slide-fallback" />
               )}
 
               {/* overlay */}
               {![2, 3].includes(idx) && (
-                <div className="absolute inset-0 bg-black/20 z-10" />
+                <div className="mph-slide-overlay" />
               )}
 
               <div
-                className={`absolute z-20 px-4 sm:px-6 
-                  sm:top-1/2 top-auto bottom-10 
-                  transform sm:-translate-y-1/2 sm:translate-y-0 
-                  text-white w-full sm:w-1/2 max-w-2xl 
-                  ${
-                    slide.textPosition === "right"
-                      ? "right-0 sm:text-left text-left sm:mr-10"
-                      : "left-0 sm:text-left text-left sm:ml-10"
-                  }
-                  sm:bottom-auto sm:top-1/2
-                `}
+                className={`mph-slide-content ${
+                  slide.textPosition === "right"
+                    ? "mph-slide-content-right"
+                    : "mph-slide-content-left"
+                }`}
               >
                 <h1
-                  className={`text-3xl md:text-[42px] font-oswald-medium font-medium leading-snug whitespace-pre-line ${
-                    idx === 1 ? "mt-[-228px]" : idx === 3 ? "mt-[-70px]" : ""
+                  className={`mph-slide-title ${
+                    idx === 1
+                      ? "mph-slide-title-shift-1"
+                      : idx === 3
+                      ? "mph-slide-title-shift-3"
+                      : ""
                   }`}
                 >
                   {slide.title}
                 </h1>
                 {slide.highlight && (
-                  <p className="text-base sm:text-xl mt-3 font-[400] whitespace-pre-line">
+                  <p className="mph-slide-highlight">
                     {slide.highlight}
                   </p>
                 )}

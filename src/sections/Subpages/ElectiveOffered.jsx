@@ -15,7 +15,6 @@ const ICON_MAP = {
 const resolveIcon = (name) => ICON_MAP[name] || BookOpen;
 
 function ElectivesOffered({ data: propData, college: propCollege }) {
-  // ---------- Derive slugs from URL ----------
   const params = useParams();
   const location = useLocation();
   const pathSegments = location.pathname.split("/").filter(Boolean);
@@ -23,25 +22,19 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
   const pageSlug = params.college || propCollege || pathSegments[0];
   const ctaKey = params.page || pathSegments[1];
 
-  // ---------- Fetch data via reusable hook ----------
   const { sections, loading, error } = useMicropageData(
     pageSlug,
     ctaKey,
     propData
   );
 
-  // ---------- Local UI state ----------
   const [selectedDept, setSelectedDept] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [hoveredCourse, setHoveredCourse] = useState(null);
 
-  // ---------- Transform raw API/prop data → UI format ----------
   const transformedData = React.useMemo(() => {
-    // When rendered via PageView → propData IS section data directly
-    // When self-fetched         → sections[0].data holds section data
     const sectionData = propData ? propData : sections?.[0]?.data || {};
 
-    // ── Legacy shape: { title, top_ui, departments } ──
     if (Array.isArray(sectionData?.departments)) {
       return {
         title: sectionData.title || "Electives Offered",
@@ -51,7 +44,6 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
       };
     }
 
-    // ── New shape: { tab_type, categories, courses_normal, courses_category } ──
     const tabType = sectionData?.tab_type;
     const title = sectionData?.title || "Electives Offered";
     const subtitle = sectionData?.subtitle || "";
@@ -97,7 +89,6 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
       };
     }
 
-    // tab_type === "normal" (default)
     const coursesNormalRaw = Array.isArray(sectionData.courses_normal)
       ? sectionData.courses_normal
       : [];
@@ -122,7 +113,6 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
     };
   }, [propData, sections]);
 
-  // ---------- Apply defaults when data changes ----------
   useEffect(() => {
     if (loading) return;
 
@@ -134,12 +124,11 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
     }
   }, [transformedData, loading]);
 
-  // ---------- Courses renderer ----------
   const renderCourses = useCallback(
     (courses = []) => {
       if (courses.length === 0) {
         return (
-          <p className="text-center text-gray-500 py-8">
+          <p className="course-empty">
             No entries available
           </p>
         );
@@ -148,7 +137,7 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
       return (
         <section className="courses-section">
           <div className="courses-wrapper">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="course-grid">
               {courses.map((course, i) => {
                 const IconComponent = resolveIcon(course.icon);
                 const cardKey = course.srNo ?? i;
@@ -156,33 +145,33 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
                 return (
                   <div
                     key={cardKey}
-                    className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border border-gray-100 overflow-hidden"
+                    className="course-card group"
                     onMouseEnter={() => setHoveredCourse(cardKey)}
                     onMouseLeave={() => setHoveredCourse(null)}
                   >
                     {/* Header */}
-                    <div className="bg-gradient-to-r bg-[#122E5E] hover:bg-[#F04E30] cursor-pointer p-6 text-white relative overflow-hidden">
-                      <div className="relative flex items-center justify-between">
-                        <div className="flex items-center">
-                          <div className="bg-white/20 p-3 rounded-full mr-4">
-                            <IconComponent className="h-6 w-6" />
+                    <div className="course-card-header">
+                      <div className="course-card-header-row">
+                        <div className="course-card-header-left">
+                          <div className="course-card-icon-wrap">
+                            <IconComponent className="course-card-icon" />
                           </div>
                           <div>
                             {course.course_number && (
-                              <div className="text-sm font-medium opacity-90">
+                              <div className="course-card-num">
                                 Course #{course.course_number}
                               </div>
                             )}
                             {course.badge && (
-                              <div className="text-xs opacity-75">
+                              <div className="course-card-mini-badge">
                                 {course.badge}
                               </div>
                             )}
                           </div>
                         </div>
                         {course.roman_number && (
-                          <div className="bg-white/20 rounded-full px-3 py-1">
-                            <span className="text-xs font-bold">
+                          <div className="course-card-roman">
+                            <span className="course-card-roman-text">
                               {course.roman_number}
                             </span>
                           </div>
@@ -191,24 +180,24 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
                     </div>
 
                     {/* Content */}
-                    <div className="p-6">
+                    <div className="course-card-body">
                       {course.name && (
-                        <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-[#F04E30] transition-colors duration-300 leading-tight">
+                        <h3 className="course-card-name group-hover:text-[#F04E30]">
                           {course.name}
                         </h3>
                       )}
 
                       {course.university && (
-                        <div className="mb-4">
-                          <div className="flex items-start">
-                            <div className="bg-[#F04E30]/10 p-2 rounded-lg mr-3 mt-1">
-                              <Building2 className="h-4 w-4 text-[#F04E30]" />
+                        <div className="course-card-univ-row">
+                          <div className="course-card-univ-inner">
+                            <div className="course-card-univ-icon-wrap">
+                              <Building2 className="course-card-univ-icon" />
                             </div>
                             <div>
-                              <p className="text-sm text-gray-500 font-medium mb-1">
+                              <p className="course-card-univ-label">
                                 Powered by
                               </p>
-                              <p className="text-gray-700 font-semibold leading-relaxed">
+                              <p className="course-card-univ-name">
                                 {course.university}
                               </p>
                             </div>
@@ -217,9 +206,9 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
                       )}
 
                       {course.badge && (
-                        <div className="flex items-center justify-between">
-                          <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-gray-100 to-gray-200 rounded-full text-sm font-medium text-gray-700 group-hover:from-[#F04E30]/10 group-hover:to-[#122E5E]/10 transition-all duration-300">
-                            <Star className="h-3 w-3 mr-2 text-[#F04E30]" />
+                        <div className="course-card-badge-row">
+                          <div className="course-card-badge group-hover:from-[#F04E30]/10 group-hover:to-[#122E5E]/10">
+                            <Star className="course-card-badge-icon" />
                             {course.badge}
                           </div>
                         </div>
@@ -236,23 +225,20 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
     [hoveredCourse]
   );
 
-  // ---------- Loading ----------
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900"></div>
+      <div className="sub-loading-wrap">
+        <div className="sub-loading-spinner"></div>
       </div>
     );
   }
 
-  // ---------- Error ----------
   if (error) {
     return (
-      <div className="text-center py-20 text-red-500">{error}</div>
+      <div className="sub-error">{error}</div>
     );
   }
 
-  // ---------- Render ----------
   const { title, subtitle, departments = [], top_ui } = transformedData;
 
   const visibleDepartments =
@@ -285,7 +271,7 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
             <div key={dept.id}>{renderCourses(dept.electives)}</div>
           ))
         ) : (
-          <p className="text-center text-gray-500">No entries available</p>
+          <p className="course-empty-text">No entries available</p>
         )}
       </div>
     </div>

@@ -45,42 +45,42 @@ const PostDoc = ({ data }) => {
   const contact = firstOf(data?.contact);
 
   return (
-    <div className="min-h-screen bg-gray-50 [&_h1]:font-sans [&_h2]:font-sans [&_h3]:font-sans [&_h4]:font-sans [&_h5]:font-sans [&_h6]:font-sans">
+    <div className="up-page">
       {/* Header */}
-      <div className="bg-[#122E5E] text-white py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center space-x-4">
-            <div className="bg-white/10 p-3 rounded-full">
-              <GraduationCap className="w-8 h-8" />
+      <div className="up-header">
+        <div className="up-header-container">
+          <div className="up-header-row">
+            <div className="up-header-icon-wrap">
+              <GraduationCap className="up-header-icon" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold">{header.title}</h1>
+              <h1 className="up-header-title">{header.title}</h1>
               {header.subtitle && (
-                <p className="text-blue-100 mt-1">{header.subtitle}</p>
+                <p className="up-header-subtitle">{header.subtitle}</p>
               )}
             </div>
           </div>
         </div>
       </div>
 
-      <main className="max-w-6xl mx-auto px-4 py-12 space-y-12">
+      <main className="up-main">
         {/* Programs Overview */}
         {programs.length > 0 && (
-          <section className="bg-white rounded-xl shadow-lg p-8">
-            <div className="grid md:grid-cols-2 gap-8">
+          <section className="up-section-card">
+            <div className="up-grid-2">
               {programs.map((p, i) => (
                 <div key={i}>
-                  <div className="flex items-center mb-4">
+                  <div className="up-prog-cat-row">
                     <Icon
                       name={p.icon || "graduation"}
-                      className="text-[#F04E30] mr-3"
+                      className="up-prog-cat-icon"
                       size={32}
                     />
-                    <h3 className="text-2xl font-bold text-gray-800">
+                    <h3 className="up-prog-cat-h3">
                       {p.title}
                     </h3>
                   </div>
-                  <div className="text-gray-600 leading-relaxed">
+                  <div className="up-prog-cat-desc">
                     <RichTextRenderer html={p.description} />
                   </div>
                 </div>
@@ -91,24 +91,24 @@ const PostDoc = ({ data }) => {
 
         {/* Important Dates */}
         {importantDates.length > 0 && (
-          <section className="bg-white rounded-xl shadow-lg p-8">
-            <div className="flex items-center mb-6">
-              <Calendar className="text-[#F04E30] mr-3" size={32} />
-              <h3 className="text-2xl font-bold text-gray-800">
+          <section className="up-section-card">
+            <div className="up-section-title-row">
+              <Calendar className="up-section-title-icon" size={32} />
+              <h3 className="up-section-title-h2">
                 Important Dates
               </h3>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="up-grid-4">
               {importantDates.map((d, i) => (
                 <div
                   key={i}
-                  className="bg-gradient-to-br from-[#122E5E] to-[#1E3A8A] text-white p-6 rounded-lg"
+                  className="up-impdate-card"
                 >
-                  <div className="flex items-center mb-2">
-                    <Icon name={d.icon || "clock"} className="mr-2" size={20} />
-                    <span className="font-semibold">{d.label}</span>
+                  <div className="up-impdate-row">
+                    <Icon name={d.icon || "clock"} className="up-impdate-icon" size={20} />
+                    <span className="up-impdate-label">{d.label}</span>
                   </div>
-                  <p className="text-xl font-bold">{d.date}</p>
+                  <p className="up-impdate-date">{d.date}</p>
                 </div>
               ))}
             </div>
@@ -119,40 +119,40 @@ const PostDoc = ({ data }) => {
         {(eligibilityPoints.length > 0 ||
           pubReq.heading ||
           pubCols.length > 0) && (
-          <section className="bg-white rounded-xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">
+          <section className="up-section-card">
+            <h3 className="up-section-title-h3">
               Eligibility Requirements
             </h3>
-            <div className="space-y-6">
+            <div className="up-elig-points">
               {eligibilityPoints.map((p, i) => (
-                <div key={i} className="flex items-start">
-                  <div className="bg-[#F04E30] text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1">
+                <div key={i} className="up-elig-item">
+                  <div className="up-elig-num">
                     {i + 1}
                   </div>
-                  <div className="text-gray-700 leading-relaxed">
+                  <div className="up-elig-text">
                     <RichTextRenderer html={p.text} />
                   </div>
                 </div>
               ))}
 
               {(pubReq.heading || pubCols.length > 0) && (
-                <div className="bg-gray-50 p-6 rounded-lg">
+                <div className="up-elig-pub-card">
                   {pubReq.heading && (
-                    <h4 className="font-bold text-gray-800 mb-4">
+                    <h4 className="up-elig-pub-h4">
                       {pubReq.heading}
                     </h4>
                   )}
-                  <div className="grid md:grid-cols-2 gap-6">
+                  <div className="up-elig-pub-grid">
                     {pubCols.map((col, i) => (
                       <div key={i}>
                         <h5
-                          className={`font-semibold mb-2 ${
-                            i === 0 ? "text-[#F04E30]" : "text-[#122E5E]"
-                          }`}
+                          className={
+                            i === 0 ? "up-elig-pub-h5-orange" : "up-elig-pub-h5-blue"
+                          }
                         >
                           {col.label}
                         </h5>
-                        <div className="text-gray-700 text-sm leading-relaxed">
+                        <div className="up-elig-pub-desc">
                           <RichTextRenderer html={col.description} />
                         </div>
                       </div>
@@ -166,20 +166,20 @@ const PostDoc = ({ data }) => {
 
         {/* Application Process */}
         {applicationProcess.length > 0 && (
-          <section className="bg-white rounded-xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">
+          <section className="up-section-card">
+            <h3 className="up-section-title-h3">
               Application Process
             </h3>
-            <div className="space-y-4">
+            <div className="up-step-list">
               {applicationProcess.map((step, i) => (
                 <div
                   key={i}
-                  className="flex items-center hover:bg-gray-50 p-4 rounded-lg transition-colors"
+                  className="up-step"
                 >
-                  <div className="bg-[#F04E30] text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4">
+                  <div className="up-step-num">
                     {i + 1}
                   </div>
-                  <div className="text-gray-700">
+                  <div className="up-step-text">
                     <RichTextRenderer html={step.text} />
                   </div>
                 </div>
@@ -190,18 +190,18 @@ const PostDoc = ({ data }) => {
 
         {/* Required Documents */}
         {requiredDocs.length > 0 && (
-          <section className="bg-white rounded-xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">
+          <section className="up-section-card">
+            <h3 className="up-section-title-h3">
               Required Documents
             </h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="up-grid-3-doc">
               {requiredDocs.map((doc, i) => (
                 <div
                   key={i}
-                  className="flex items-center p-4 bg-gray-50 rounded-lg hover:bg-[#F04E30]/5 transition-colors"
+                  className="up-doc-item"
                 >
-                  <FileText className="text-[#F04E30] mr-3" size={20} />
-                  <span className="text-gray-700 text-sm">{doc.text}</span>
+                  <FileText className="up-doc-icon" size={20} />
+                  <span className="up-doc-text">{doc.text}</span>
                 </div>
               ))}
             </div>
@@ -210,18 +210,18 @@ const PostDoc = ({ data }) => {
 
         {/* Selection Procedure */}
         {selectionProcedure.length > 0 && (
-          <section className="bg-white rounded-xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">
+          <section className="up-section-card">
+            <h3 className="up-section-title-h3">
               Selection Procedure
             </h3>
-            <div className="space-y-4">
+            <div className="up-step-list">
               {selectionProcedure.map((step, i) => (
                 <div
                   key={i}
-                  className="flex items-center p-4 hover:bg-gray-50 rounded-lg transition-colors"
+                  className="up-sel-item"
                 >
-                  <CheckCircle className="text-green-500 mr-3" size={20} />
-                  <p className="text-gray-700">{step.text}</p>
+                  <CheckCircle className="up-sel-icon" size={20} />
+                  <p className="up-sel-text">{step.text}</p>
                 </div>
               ))}
             </div>
@@ -234,37 +234,37 @@ const PostDoc = ({ data }) => {
           contact.email ||
           contact.address ||
           contact.website) && (
-          <section className="bg-gradient-to-r from-[#122E5E] to-[#1E3A8A] text-white rounded-xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-            <div className="grid md:grid-cols-2 gap-8">
+          <section className="up-contact-section">
+            <h3 className="up-contact-h3">Contact Information</h3>
+            <div className="up-grid-2">
               <div>
                 {contact.office_name && (
-                  <h4 className="text-xl font-semibold mb-4">
+                  <h4 className="up-contact-name">
                     {contact.office_name}
                   </h4>
                 )}
                 {contact.address && (
-                  <p className="mb-4 leading-relaxed whitespace-pre-line">
+                  <p className="up-contact-addr">
                     {contact.address}
                   </p>
                 )}
               </div>
-              <div className="space-y-4">
+              <div className="up-contact-list">
                 {contact.phone && (
-                  <div className="flex items-center">
-                    <Phone className="mr-3" size={20} />
+                  <div className="up-contact-item">
+                    <Phone className="up-contact-icon" size={20} />
                     <span>{contact.phone}</span>
                   </div>
                 )}
                 {contact.email && (
-                  <div className="flex items-center">
-                    <Mail className="mr-3" size={20} />
+                  <div className="up-contact-item">
+                    <Mail className="up-contact-icon" size={20} />
                     <span>{contact.email}</span>
                   </div>
                 )}
                 {contact.website && (
-                  <div className="flex items-center">
-                    <Globe className="mr-3" size={20} />
+                  <div className="up-contact-item">
+                    <Globe className="up-contact-icon" size={20} />
                     <span>{contact.website}</span>
                   </div>
                 )}

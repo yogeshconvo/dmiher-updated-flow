@@ -91,15 +91,15 @@ function KnowMore({ data: propData, college: propCollege }) {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-20">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900"></div>
+      <div className="sub-loading-wrap">
+        <div className="sub-loading-spinner"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="text-center py-20 text-red-500">
+      <div className="sub-error">
         {error}
       </div>
     );

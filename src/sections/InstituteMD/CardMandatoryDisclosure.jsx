@@ -13,10 +13,10 @@ export const CardMandatoryDisclosure = ({
 
   const content = (
     <>
-      <div className="bg-[#F04E30]/10 text-[#F04E30] rounded-full p-3">
-        <div className="w-6 h-6">{icon}</div>
+      <div className="card-icon-wrapper">
+        <div className="card-icon">{icon}</div>
       </div>
-      <div className="text-gray-800 font-medium text-[20px] mt-1 leading-snug">
+      <div className="card-title">
         {name}
       </div>
     </>
@@ -27,14 +27,13 @@ export const CardMandatoryDisclosure = ({
     link?.endsWith(".docx") ||
     link?.endsWith(".xlsx") ||
     link?.startsWith("http");
-    
-  // Use conditional (ternary) operator to conditionally render JSX elements based on the value of `link`
+
   return isFile ? (
     <a
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-start gap-4 p-6 rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:bg-[#fef7f6] w-full md:w-[45%]"
+      className="mandatory-card"
     >
       {content}
     </a>
@@ -42,16 +41,16 @@ export const CardMandatoryDisclosure = ({
     <>
       <div
         onClick={() => setShow(true)}
-        className="cursor-pointer flex items-start gap-4 p-6 rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:bg-[#fef7f6] w-full md:w-[45%]"
+        className="mandatory-card clickable"
       >
         {content}
       </div>
 
       <PopupModal show={show} onClose={() => setShow(false)} title={name}>
         <div
-          className={`grid ${
-            popopContent?.length > 1 ? "grid-cols-2" : "grid-cols-1"
-          } gap-4`}
+          className={`popup-grid ${
+            popopContent?.length > 1 ? "two-cols" : "one-col"
+          }`}
         >
           {popopContent && popopContent.length > 0 ? (
             popopContent.map((item, index) => {
@@ -70,15 +69,14 @@ export const CardMandatoryDisclosure = ({
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-full rounded-lg overflow-hidden shadow flex flex-col items-center p-3 ${isLastItemSingle ? "col-span-2 mx-auto max-w-[300px]" : ""}`}
+                    className={`popup-image-card ${isLastItemSingle ? "span-full" : ""}`}
                   >
                     <SafeImage
                       src={item.image || item.link}
                       alt={item.name}
-                      className="w-full max-h-[100px] object-contain"
                     />
                     {item.name && (
-                      <p className="mt-2 text-sm text-gray-700 text-center">
+                      <p className="popup-image-title">
                         {item.name}
                       </p>
                     )}
@@ -92,17 +90,15 @@ export const CardMandatoryDisclosure = ({
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center justify-center gap-2 w-full h-[60px] text-base font-medium text-white bg-[#122E5E] rounded hover:bg-[#F04E30] transition
-    ${isLastItemSingle ? "col-span-2 mx-auto max-w-[300px]" : ""}
-  `}
+                  className={`popup-link-card ${isLastItemSingle ? "span-full" : ""}`}
                 >
-                  {item.icon && <span className="w-5 h-5">{item.icon}</span>}
-                  <span className="truncate capitalize">{item.name}</span>
+                  {item.icon && <span className="popup-link-icon">{item.icon}</span>}
+                  <span className="popup-link-text">{item.name}</span>
                 </a>
               );
             })
           ) : (
-            <p className="text-gray-600 col-span-full text-center">
+            <p className="popup-empty">
               No content available.
             </p>
           )}
@@ -112,7 +108,7 @@ export const CardMandatoryDisclosure = ({
   ) : (
     <Link
       to={link}
-      className="flex items-start gap-4 p-6 rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:bg-[#fef7f6] w-full md:w-[45%]"
+      className="mandatory-card"
     >
       {content}
     </Link>
@@ -143,27 +139,27 @@ export function PopupModal({ show, onClose, title, children }) {
 
   return (
     <div
-      className="fixed mt-[100px] inset-0 bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50"
+      className="popup-overlay"
       role="dialog"
       aria-modal="true"
       onClick={onClose}
     >
       <div
         ref={modalRef}
-        className="bg-white p-6 m-4 rounded-lg shadow-lg w-full max-w-2xl relative"
+        className="popup-container"
         tabIndex="-1"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 text-gray-500 hover:text-black text-2xl"
+          className="popup-close"
           aria-label="Close popup"
         >
           &times;
         </button>
 
         {title && (
-          <h2 className="text-xl text-red-500 text-center font-semibold mb-4">
+          <h2 className="popup-title">
             {title}
           </h2>
         )}

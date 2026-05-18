@@ -14,8 +14,8 @@ function MandatoryDisclosure({ data, college }) {
                   {header?.heading}
 
             </h2>
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-          <div className="flex justify-center">
+            <div className="inst-md-row">
+          <div className="inst-md-cell">
             <Link
               to={targetUrl}
               className="text-base md:text-xl tracking-wide font-oswald-medium text-gray-600 rounded-md font-[400] hover:bg-blue-100 transition text-center py-2"

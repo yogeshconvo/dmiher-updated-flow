@@ -5,14 +5,11 @@ import {
   Calendar,
   Clock,
   Users,
-  BookOpen,
   CheckCircle,
   AlertCircle,
   FileText,
-  Monitor,
   Shield,
   Target,
-  Zap,
   Award,
   TrendingUp,
   Brain,
@@ -159,26 +156,23 @@ function Phase2Page() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="up-page-gray">
       {/* Header */}
-      <div className="bg-[#122E5E] text-white py-8 px-4">
-        <div className="max-w-6xl mx-auto">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-4 transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
+      <div className="up-header-px">
+        <div className="up-header-container">
+          <Link to="/" className="up-back-link">
+            <ArrowLeft className="up-back-icon" />
             Back to Home
           </Link>
-          <div className="flex items-center gap-4 mb-4">
-            <div className="bg-white/10 p-3 rounded-full">
-              <Calendar className="w-8 h-8" />
+          <div className="up-header-icon-large">
+            <div className="up-header-icon-wrap">
+              <Calendar className="up-header-icon" />
             </div>
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold">
+              <h1 className="up-header-title-large">
                 Phase 2 Examination
               </h1>
-              <p className="text-xl opacity-90">
+              <p className="up-header-subtitle-opacity">
                 June 2025 • Advanced Selection Round
               </p>
             </div>
@@ -188,83 +182,68 @@ function Phase2Page() {
 
       {/* Overview Section */}
       <div className="py-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">
+        <div className="up-header-container">
+          <div className="up-section-card-mb">
+            <h2 className="up-section-title">
               Phase 2 Overview
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="text-center p-4 bg-blue-50 rounded-lg">
-                <Users className="w-12 h-12 text-blue-600 mx-auto mb-3" />
-                <h3 className="text-lg font-semibold text-blue-800">
-                  Total Seats
-                </h3>
-                <p className="text-2xl font-bold text-blue-600">330</p>
+            <div className="up-grid-4-stat">
+              <div className="up-stat-blue">
+                <Users className="up-stat-icon-blue" />
+                <h3 className="up-stat-label-blue">Total Seats</h3>
+                <p className="up-stat-value-blue">330</p>
               </div>
-              <div className="text-center p-4 bg-green-50 rounded-lg">
-                <Clock className="w-12 h-12 text-green-600 mx-auto mb-3" />
-                <h3 className="text-lg font-semibold text-green-800">
-                  Duration
-                </h3>
-                <p className="text-2xl font-bold text-green-600">
-                  2.5-3.5 Hours
-                </p>
+              <div className="up-stat-green">
+                <Clock className="up-stat-icon-green" />
+                <h3 className="up-stat-label-green">Duration</h3>
+                <p className="up-stat-value-green">2.5-3.5 Hours</p>
               </div>
-              <div className="text-center p-4 bg-purple-50 rounded-lg">
-                <FileText className="w-12 h-12 text-purple-600 mx-auto mb-3" />
-                <h3 className="text-lg font-semibold text-purple-800">
-                  Question Type
-                </h3>
-                <p className="text-2xl font-bold text-purple-600">
-                  Advanced MCQs
-                </p>
+              <div className="up-stat-purple">
+                <FileText className="up-stat-icon-purple" />
+                <h3 className="up-stat-label-purple">Question Type</h3>
+                <p className="up-stat-value-purple">Advanced MCQs</p>
               </div>
-              <div className="text-center p-4 bg-orange-50 rounded-lg">
-                <TrendingUp className="w-12 h-12 text-orange-600 mx-auto mb-3" />
-                <h3 className="text-lg font-semibold text-orange-800">
-                  Difficulty
-                </h3>
-                <p className="text-2xl font-bold text-orange-600">High</p>
+              <div className="up-stat-orange">
+                <TrendingUp className="up-stat-icon-orange" />
+                <h3 className="up-stat-label-orange">Difficulty</h3>
+                <p className="up-stat-value-orange">High</p>
               </div>
             </div>
           </div>
 
           {/* Eligibility Criteria */}
-          <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">
+          <div className="up-section-card-mb">
+            <h2 className="up-section-title">
               Eligibility Criteria
             </h2>
-            <div className="space-y-4">
+            <div className="up-step-list">
               {eligibilityCriteria.map((item, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:border-[#122E5E] transition-colors"
-                >
-                  <div className="flex items-center gap-4">
+                <div key={index} className="up-elig-row">
+                  <div className="up-elig-row-left">
                     <CheckCircle
-                      className={`w-6 h-6 ${
+                      className={
                         item.status === "mandatory"
-                          ? "text-red-500"
+                          ? "up-elig-icon-mandatory"
                           : item.status === "varies"
-                          ? "text-orange-500"
-                          : "text-green-500"
-                      }`}
+                          ? "up-elig-icon-varies"
+                          : "up-elig-icon-optional"
+                      }
                     />
                     <div>
-                      <h3 className="font-semibold text-gray-800">
+                      <h3 className="up-date-event">
                         {item.criteria}
                       </h3>
-                      <p className="text-gray-600">{item.requirement}</p>
+                      <p className="up-date-text">{item.requirement}</p>
                     </div>
                   </div>
                   <span
-                    className={`px-3 py-1 rounded-full text-sm ${
+                    className={
                       item.status === "mandatory"
-                        ? "bg-red-100 text-red-800"
+                        ? "up-elig-status-mandatory"
                         : item.status === "varies"
-                        ? "bg-orange-100 text-orange-800"
-                        : "bg-green-100 text-green-800"
-                    }`}
+                        ? "up-elig-status-varies"
+                        : "up-elig-status-optional"
+                    }
                   >
                     {item.status === "mandatory"
                       ? "Required"
@@ -278,35 +257,32 @@ function Phase2Page() {
           </div>
 
           {/* Programs Available */}
-          <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">
+          <div className="up-section-card-mb">
+            <h2 className="up-section-title">
               Advanced Programs in Phase 2
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="up-grid-3">
               {phase2Programs.map((category, index) => (
-                <div
-                  key={index}
-                  className="border border-gray-200 rounded-lg p-6 hover:border-[#122E5E] transition-colors"
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="text-[#122E5E]">{category.icon}</div>
-                    <h3 className="text-lg font-semibold text-gray-800">
+                <div key={index} className="up-prog-card-blue">
+                  <div className="up-prog-card-row">
+                    <div className="up-prog-card-icon-blue">{category.icon}</div>
+                    <h3 className="up-prog-card-title">
                       {category.category}
                     </h3>
                   </div>
-                  <div className="space-y-2 mb-4">
+                  <div className="up-prog-list">
                     {category.programs.map((program, idx) => (
-                      <div key={idx} className="flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                        <span className="text-gray-600 text-sm">{program}</span>
+                      <div key={idx} className="up-prog-item">
+                        <CheckCircle className="up-prog-item-icon" />
+                        <span className="up-prog-item-text">{program}</span>
                       </div>
                     ))}
                   </div>
-                  <div className="flex justify-between items-center">
-                    <div className="bg-[#122E5E] text-white px-3 py-1 rounded-full text-sm font-medium">
+                  <div className="up-prog-row">
+                    <div className="up-prog-seats-blue">
                       {category.seats} Seats
                     </div>
-                    <div className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium">
+                    <div className="up-prog-cutoff">
                       {category.cutoff} Cutoff
                     </div>
                   </div>
@@ -316,30 +292,27 @@ function Phase2Page() {
           </div>
 
           {/* Exam Schedule */}
-          <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">
+          <div className="up-section-card-mb">
+            <h2 className="up-section-title">
               Exam Schedule
             </h2>
-            <div className="space-y-4">
+            <div className="up-step-list">
               {examSchedule.map((slot, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
-                >
-                  <div className="flex items-center gap-4">
-                    <Clock className="w-6 h-6 text-[#122E5E]" />
+                <div key={index} className="up-sched-row">
+                  <div className="up-sched-left">
+                    <Clock className="up-sched-blue-icon" />
                     <div>
-                      <h3 className="font-semibold text-gray-800">
+                      <h3 className="up-sched-time">
                         {slot.time}
                       </h3>
-                      <p className="text-gray-600">{slot.programs}</p>
+                      <p className="up-sched-prog">{slot.programs}</p>
                     </div>
                   </div>
-                  <div className="text-right space-y-1">
-                    <div className="bg-[#122E5E] text-white px-3 py-1 rounded-full text-sm">
+                  <div className="up-sched-right-stack">
+                    <div className="up-sched-duration-blue">
                       {slot.duration}
                     </div>
-                    <div className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">
+                    <div className="up-sched-difficulty">
                       {slot.difficulty}
                     </div>
                   </div>
@@ -349,37 +322,34 @@ function Phase2Page() {
           </div>
 
           {/* Important Dates */}
-          <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">
+          <div className="up-section-card-mb">
+            <h2 className="up-section-title">
               Important Dates
             </h2>
-            <div className="space-y-4">
+            <div className="up-step-list">
               {importantDates.map((date, index) => (
-                <div
-                  key={index}
-                  className="flex items-center justify-between p-4 border-l-4 border-[#122E5E] bg-gray-50"
-                >
-                  <div className="flex items-center gap-4">
+                <div key={index} className="up-date-row-blue">
+                  <div className="up-sched-left">
                     <div
-                      className={`w-3 h-3 rounded-full ${
+                      className={
                         date.status === "completed"
-                          ? "bg-green-500"
-                          : "bg-orange-500"
-                      }`}
+                          ? "up-date-dot-completed"
+                          : "up-date-dot-pending"
+                      }
                     ></div>
                     <div>
-                      <h3 className="font-semibold text-gray-800">
+                      <h3 className="up-date-event">
                         {date.event}
                       </h3>
-                      <p className="text-gray-600">{date.date}</p>
+                      <p className="up-date-text">{date.date}</p>
                     </div>
                   </div>
                   <span
-                    className={`px-3 py-1 rounded-full text-sm ${
+                    className={
                       date.status === "completed"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-orange-100 text-orange-800"
-                    }`}
+                        ? "up-date-status-completed"
+                        : "up-date-status-pending"
+                    }
                   >
                     {date.status === "completed" ? "Completed" : "Upcoming"}
                   </span>
@@ -389,28 +359,25 @@ function Phase2Page() {
           </div>
 
           {/* Advanced Preparation */}
-          <div className="bg-white rounded-xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">
+          <div className="up-section-card">
+            <h2 className="up-section-title">
               Advanced Preparation Strategy
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="up-grid-2">
               {advancedPreparation.map((strategy, index) => (
-                <div
-                  key={index}
-                  className="p-6 border border-gray-200 rounded-lg hover:border-[#122E5E] transition-colors"
-                >
-                  <div className="flex items-center gap-4 mb-3">
-                    <div className="text-[#122E5E]">{strategy.icon}</div>
-                    <h3 className="text-lg font-semibold text-gray-800">
+                <div key={index} className="up-strategy-card">
+                  <div className="up-strategy-row">
+                    <div className="up-strategy-icon">{strategy.icon}</div>
+                    <h3 className="up-strategy-title">
                       {strategy.title}
                     </h3>
                   </div>
-                  <p className="text-gray-600 mb-4">{strategy.description}</p>
-                  <div className="space-y-2">
+                  <p className="up-strategy-desc">{strategy.description}</p>
+                  <div className="up-strategy-tips">
                     {strategy.tips.map((tip, idx) => (
-                      <div key={idx} className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-[#122E5E] rounded-full"></div>
-                        <span className="text-gray-600 text-sm">{tip}</span>
+                      <div key={idx} className="up-strategy-tip">
+                        <div className="up-strategy-bullet"></div>
+                        <span className="up-strategy-tip-text">{tip}</span>
                       </div>
                     ))}
                   </div>
@@ -422,14 +389,14 @@ function Phase2Page() {
       </div>
 
       {/* Alert Section */}
-      <div className="bg-[#122E5E] py-8 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
-            <div className="flex items-center gap-4 text-white">
-              <AlertCircle className="w-8 h-8" />
+      <div className="up-alert-strip">
+        <div className="up-header-container">
+          <div className="up-alert-card">
+            <div className="up-alert-row">
+              <AlertCircle className="up-alert-icon" />
               <div>
-                <h3 className="text-lg font-semibold mb-2">Phase 2 Notice</h3>
-                <p className="opacity-90">
+                <h3 className="up-alert-title">Phase 2 Notice</h3>
+                <p className="up-alert-text">
                   Phase 2 is highly competitive with advanced level questions.
                   Only top performers from Phase 1 are eligible. Prepare
                   thoroughly for specialized and research-oriented programs.
@@ -439,11 +406,6 @@ function Phase2Page() {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      {/* <div className="bg-gray-800 text-center py-8 px-4">
-        <p className="text-gray-400">© 2025 DMIHER CET Information Portal. All rights reserved.</p>
-      </div> */}
     </div>
   );
 }

@@ -5,18 +5,18 @@ const PatternStatsSection = ({ header, stats = [] }) => {
   if (!stats.length && !header?.heading) return null;
 
   return (
-    <div className="bg-white py-16 px-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="dcet-pattern-section">
+      <div className="dcet-container">
         {(header?.heading || header?.description) && (
-          <div className="text-center mb-12">
+          <div className="dcet-pattern-header">
             {header.heading ? (
-              <h2 className="text-3xl font-bold mb-4 text-gray-800">
+              <h2 className="dcet-pattern-h2">
                 {header.heading}
               </h2>
             ) : null}
             {header.description ? (
               <div
-                className="text-gray-600 max-w-2xl mx-auto"
+                className="dcet-pattern-desc"
                 dangerouslySetInnerHTML={{ __html: header.description }}
               />
             ) : null}
@@ -24,34 +24,34 @@ const PatternStatsSection = ({ header, stats = [] }) => {
         )}
 
         {stats.length ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="dcet-pattern-grid">
             {stats.map((item, index) => (
               <div
                 key={`${item.title}-${index}`}
-                className="relative overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                className="dcet-pattern-card"
               >
-                <div className="bg-gradient-to-br bg-[#122E5E] p-6 text-white relative">
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full -mr-10 -mt-10"></div>
-                  <div className="relative z-10">
-                    <div className="mb-4 opacity-90">
+                <div className="dcet-pattern-card-top">
+                  <div className="dcet-pattern-card-blob"></div>
+                  <div className="dcet-pattern-card-content">
+                    <div className="dcet-pattern-card-icon-wrap">
                       {renderIcon(item.icon, 64, "w-16 h-16")}
                     </div>
                     {item.stat ? (
-                      <div className="text-3xl font-bold mb-1">{item.stat}</div>
+                      <div className="dcet-pattern-card-stat">{item.stat}</div>
                     ) : null}
                     {item.statLabel ? (
-                      <div className="text-sm opacity-90">{item.statLabel}</div>
+                      <div className="dcet-pattern-card-statlabel">{item.statLabel}</div>
                     ) : null}
                   </div>
                 </div>
-                <div className="p-6">
+                <div className="dcet-pattern-card-bottom">
                   {item.title ? (
-                    <h3 className="text-lg font-semibold mb-2 text-gray-800">
+                    <h3 className="dcet-pattern-card-title">
                       {item.title}
                     </h3>
                   ) : null}
                   {item.description ? (
-                    <p className="text-gray-600 text-sm">{item.description}</p>
+                    <p className="dcet-pattern-card-desc">{item.description}</p>
                   ) : null}
                 </div>
               </div>

@@ -6,6 +6,10 @@
         @apply fixed w-full bg-white top-0 z-[999] px-0 lg:px-15 shadow-sm h-[100px];
     }
 
+    .navbar-icon-row {
+        @apply flex items-center gap-2;
+    }
+
     .navbar-inner {
         @apply flex justify-between items-center px-6 h-full;
     }

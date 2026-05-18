@@ -35,7 +35,7 @@ export default function KeyFunctionTabs({ data }) {
         </p>
 
         {/* Tabs */}
-        <div className="border-b border-gray-400 flex flex-wrap gap-10 md:gap-20 mt-6 text-[17px] text-gray-600">
+        <div className="inst-keyfn-tabs">
           {tabs.map((tab, index) => (
             <div key={index} className="relative w-[9rem]">
               <button

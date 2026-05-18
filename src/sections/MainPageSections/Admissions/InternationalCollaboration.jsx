@@ -16,53 +16,51 @@ export default function InternationalCollaborations({ data }) {
       }}
     >
       {/* Heading */}
-      <div className="max-w-7xl mx-auto px-5">
-        <h2 className="text-3xl md:text-4xl mb-10 font-oswald-medium text-center sm:text-left">
-          <hr className="w-12 border-[#F04E30] mb-3 border-t-4 mx-auto sm:mx-0" />
+      <div className="intl-collab-heading-wrap">
+        <h2 className="intl-collab-heading">
+          <hr className="intl-collab-heading-line" />
           {basic?.title}
         </h2>
       </div>
 
       {/* Stats Section */}
-      <div className="max-w-4xl mx-auto relative">
+      <div className="intl-collab-stats-wrap">
         {/* Desktop Version */}
-        <div className="relative h-[400px] hidden md:block">
-          <div className="absolute top-1/2 left-0 w-[105%] border-t border-gray-400 z-0"></div>
+        <div className="intl-collab-desktop">
+          <div className="intl-collab-axis"></div>
 
-          <div className="absolute top-0 left-0 w-full h-full grid grid-cols-4 gap-0">
+          <div className="intl-collab-grid">
             {stats.map((item, idx) => (
-              <div key={idx} className="relative flex justify-center">
+              <div key={idx} className="intl-collab-cell">
                 {/* Connecting Line */}
                 {item.position === "top" ? (
                   <div
-                    className={`absolute top-0 ${
-                      idx === stats.length - 1 ? "right-[8px]" : "right-0"
-                    } h-1/2 border-r border-gray-400`}
+                    className="intl-collab-line-top"
+                    style={{ right: idx === stats.length - 1 ? "8px" : 0 }}
                   ></div>
                 ) : (
                   <div
-                    className={`absolute top-1/2 ${
-                      idx === stats.length - 1 ? "right-[8px]" : "right-0"
-                    } h-1/2 border-r border-gray-400`}
+                    className="intl-collab-line-bottom"
+                    style={{ right: idx === stats.length - 1 ? "8px" : 0 }}
                   ></div>
                 )}
 
                 {/* Data Block */}
                 <div
-                  className={`absolute ${
+                  className={`intl-collab-data ${
                     item.position === "top"
-                      ? "top-[8%] translate-y-[-10%]"
-                      : "bottom-[8%] translate-y-[10%]"
-                  } w-full mx-auto text-center`}
+                      ? "intl-collab-data-top"
+                      : "intl-collab-data-bottom"
+                  }`}
                 >
                   <div
-                    className="text-7xl font-bold"
+                    className="intl-collab-number"
                     style={{ color: item.color }}
                   >
                     {item.number}
                   </div>
 
-                  <div className="whitespace-pre-line text-xl mt-2">
+                  <div className="intl-collab-label">
                     {item.label}
                   </div>
                 </div>
@@ -72,17 +70,17 @@ export default function InternationalCollaborations({ data }) {
         </div>
 
         {/* Mobile Version */}
-        <div className="md:hidden flex flex-col items-center gap-10 mt-10">
+        <div className="intl-collab-mobile">
           {stats.map((item, idx) => (
-            <div key={idx} className="text-center max-w-xs">
+            <div key={idx} className="intl-collab-mobile-item">
               <div
-                className="text-4xl max-sm:text-7xl font-bold"
+                className="intl-collab-mobile-num"
                 style={{ color: item.color }}
               >
                 {item.number}
               </div>
 
-              <div className="whitespace-pre-line text-lg mt-2">
+              <div className="intl-collab-mobile-label">
                 {item.label}
               </div>
             </div>

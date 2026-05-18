@@ -22,22 +22,22 @@ export default function Logos({ data }) {
   } = slider_settings;
 
   return (
-    <section className="mx-auto py-10 bg-gray-100">
+    <section className="inst-logos-section">
       <div className="container">
 
         {/* HEADING */}
         {heading && (
-          <h2 className="text-center text-2xl font-bold mb-6">
+          <h2 className="inst-logos-heading">
             {heading}
           </h2>
         )}
 
         {/* BUTTONS */}
         {buttons.length > 0 && (
-          <div className="flex flex-wrap justify-center gap-6 mb-10">
+          <div className="inst-logos-buttons">
             {buttons.map((btn, idx) => (
               <Link key={idx} to={btn.url || "#"}>
-                <button className="bg-[#F04E30] hover:bg-[#122E5E] text-white text-lg px-6 py-3 rounded-md shadow-md transition">
+                <button className="inst-logos-btn">
                   {btn.label}
                 </button>
               </Link>
@@ -46,7 +46,7 @@ export default function Logos({ data }) {
         )}
 
         {/* MOBILE (Slider) */}
-        <div className="block md:hidden px-4">
+        <div className="inst-logos-mobile">
           <Swiper
             spaceBetween={16}
             slidesPerView={mobile_slides}
@@ -64,11 +64,11 @@ export default function Logos({ data }) {
           >
             {logos.map((logo, idx) => (
               <SwiperSlide key={idx}>
-                <div className="flex items-center justify-center h-24 border border-gray-200 rounded">
+                <div className="inst-logos-slide">
                   <SafeImage
                     src={logo.src}
                     alt={logo.alt || "logo"}
-                    className="h-20 object-contain"
+                    className="inst-logos-img"
                   />
                 </div>
               </SwiperSlide>
@@ -77,7 +77,7 @@ export default function Logos({ data }) {
         </div>
 
         {/* TABLET (Slider) */}
-        <div className="hidden md:block lg:hidden mt-6 px-6">
+        <div className="inst-logos-tablet">
           <Swiper
             spaceBetween={20}
             slidesPerView={tablet_slides}
@@ -90,11 +90,11 @@ export default function Logos({ data }) {
           >
             {logos.map((logo, idx) => (
               <SwiperSlide key={idx}>
-                <div className="flex justify-center">
+                <div className="inst-logos-slide-tablet">
                   <SafeImage
                     src={logo.src}
                     alt={logo.alt || "logo"}
-                    className="h-20 object-contain"
+                    className="inst-logos-img"
                   />
                 </div>
               </SwiperSlide>
@@ -103,18 +103,18 @@ export default function Logos({ data }) {
         </div>
 
         {/* DESKTOP (Grid) */}
-        <div className="hidden lg:flex flex-wrap justify-center items-center mt-6">
+        <div className="inst-logos-desktop">
           {logos.map((logo, index, arr) => (
             <div
               key={index}
-              className={`px-4 h-24 flex items-center justify-center ${
-                index !== arr.length - 1 ? "border-r border-gray-400" : ""
+              className={`inst-logos-cell ${
+                index !== arr.length - 1 ? "inst-logos-cell-divider" : ""
               }`}
             >
               <SafeImage
                 src={logo.src}
                 alt={logo.alt || "logo"}
-                className="h-20 w-45 object-contain"
+                className="inst-logos-img-desktop"
               />
             </div>
           ))}

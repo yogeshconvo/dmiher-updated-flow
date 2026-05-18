@@ -45,7 +45,7 @@ const FloatingButtons = ({ data }) => {
 
   return (
     <>
-      <div className="flex flex-col gap-2 fixed top-1/2 -translate-y-1/2 right-0 font-[500] pointer-events-none z-50">
+      <div className="fb-rail">
         {buttons.map((btn, idx) => {
           const bgColor = btn.bg_color || "#122E5E";
           const baseClass =
@@ -99,7 +99,7 @@ const FloatingButtons = ({ data }) => {
             onClose={() => setActiveButton(null)}
             title={btn.label}
           >
-            <div className="flex-grow p-0 m-0 overflow-auto">
+            <div className="fb-modal-body">
               <NoPaperFormWidget widgetId={btn.widget_id} />
             </div>
           </PopupModal>
