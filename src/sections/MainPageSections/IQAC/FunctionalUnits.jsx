@@ -37,15 +37,17 @@ export default function FunctionalUnits({ data }) {
               
 
 
-               <div className="flex items-center mb-2">
-                <div className="text-white rounded-full h-12 w-12 flex items-center justify-center text-3xl font-[500] mr-2"
-                style={{ backgroundColor: unit.color }}
+               <div className="fu-card-row">
+                <div
+                  className="fu-card-num"
+                  style={{ backgroundColor: unit.color }}
                 >
                     {unit.number}
               </div>
 
-                <h3 className="font-oswald-medium font-[500] pb-3 text-xl"
-                style={{ color: unit.color }}
+                <h3
+                  className="fu-card-title"
+                  style={{ color: unit.color }}
                 >
               {unit.title}
               </h3>

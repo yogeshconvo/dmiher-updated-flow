@@ -98,7 +98,7 @@ const Navbar = () => {
               return (
                 <Link key={item.id} to={item.slug} className="top-links">
                   {item.image ? (
-                    <div className="flex items-center gap-2">
+                    <div className="navbar-icon-row">
                       <img src={item.image} alt="icon" />
                       <span>{item.title}</span>
                     </div>

@@ -95,7 +95,7 @@ export default function CTAButtons({ data }) {
           : "#";
 
     const buttonEl = (
-      <button className="w-[18rem] bg-[#F05423] hover:bg-[#0B2A6D] text-white text-2xl font-oswald-medium px-8 py-3 rounded-md drop-shadow-[4px_6px_6px_rgba(0,0,0,0.5)] hover:scale-105 transition">
+      <button className="inst-cta-btn">
         {btn.label}
       </button>
     );
@@ -107,7 +107,7 @@ export default function CTAButtons({ data }) {
           href={path}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex justify-center"
+          className="inst-cta-link-wrap"
         >
           {buttonEl}
         </a>
@@ -115,18 +115,18 @@ export default function CTAButtons({ data }) {
     }
 
     return (
-      <Link key={index} to={path} className="flex justify-center">
+      <Link key={index} to={path} className="inst-cta-link-wrap">
         {buttonEl}
       </Link>
     );
   };
 
   return (
-    <div className="m-10">
+    <div className="inst-cta-wrap">
       <div className={gridClass}>{mainButtons.map(renderButton)}</div>
 
       {tailButtons.length > 0 && (
-        <div className="flex flex-wrap justify-center gap-10 mt-10">
+        <div className="inst-cta-tail">
           {tailButtons.map((btn, i) =>
             renderButton(btn, mainButtons.length + i),
           )}

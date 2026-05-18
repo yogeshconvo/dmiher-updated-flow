@@ -14,22 +14,21 @@ const PhaseCard = ({ phase, collegeSlug }) => {
 
   const inner = (
     <>
-      <div className="bg-[#F04E30] text-white p-4 rounded-full inline-block mb-4 group-hover:bg-[#122E5E] transition-colors duration-300">
-        <Calendar className="w-5 h-5" />
+      <div className="dcet-phase-icon-wrap">
+        <Calendar className="dcet-phase-icon" />
       </div>
-      <h3 className="text-xl font-semibold mb-2 text-gray-800">{phase.phase}</h3>
-      <p className="text-gray-600 mb-3">{phase.month}</p>
+      <h3 className="dcet-phase-title">{phase.phase}</h3>
+      <p className="dcet-phase-month">{phase.month}</p>
       {path ? (
-        <div className="flex items-center justify-center text-[#F04E30] group-hover:text-[#122E5E] transition-colors duration-300">
-          <span className="text-sm font-medium mr-1">Learn More</span>
-          <ArrowRight className="w-4 h-4" />
+        <div className="dcet-phase-cta">
+          <span className="dcet-phase-cta-text">Learn More</span>
+          <ArrowRight className="dcet-phase-cta-icon" />
         </div>
       ) : null}
     </>
   );
 
-  const baseClass =
-    "bg-white rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition-all duration-300 hover:shadow-xl group";
+  const baseClass = "dcet-phase-card group";
 
   if (path) {
     return (
@@ -46,16 +45,16 @@ const TimelineSection = ({ header, phases = [], collegeSlug }) => {
   if (!phases.length && !header?.heading) return null;
 
   return (
-    <div className="py-16 px-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="dcet-section-plain">
+      <div className="dcet-container">
         {header?.heading ? (
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
+          <h2 className="dcet-section-title-mb12">
             {header.heading}
           </h2>
         ) : null}
 
         {phases.length ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="dcet-grid-3-col">
             {phases.map((phase, idx) => (
               <PhaseCard
                 key={`${phase.phase}-${idx}`}
@@ -65,7 +64,7 @@ const TimelineSection = ({ header, phases = [], collegeSlug }) => {
             ))}
           </div>
         ) : (
-          <p className="text-center text-gray-500 italic">
+          <p className="dcet-empty-italic">
             Timeline details will be announced soon.
           </p>
         )}

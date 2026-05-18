@@ -5,36 +5,36 @@ const ProgramSectionsList = ({ header, sections = [] }) => {
   if (!sections.length && !header?.heading) return null;
 
   return (
-    <div className="py-16 px-4 bg-gray-50">
-      <div className="max-w-6xl mx-auto">
+    <div className="dcet-section-grey">
+      <div className="dcet-container">
         {header?.heading ? (
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
+          <h2 className="dcet-section-title-mb12">
             {header.heading}
           </h2>
         ) : null}
 
         {sections.length ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="dcet-grid-3">
             {sections.map((program, index) => (
               <div
                 key={`${program.title}-${index}`}
-                className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 hover:shadow-xl"
+                className="dcet-prog-card"
               >
-                <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <h3 className="text-xl font-semibold text-[#F04E30]">
+                <div className="dcet-prog-header">
+                  <div className="dcet-prog-row">
+                    <h3 className="dcet-prog-title">
                       {program.title}
                     </h3>
                   </div>
                 </div>
-                <div className="p-6">
-                  <div className="space-y-2">
+                <div className="dcet-prog-body">
+                  <div className="dcet-prog-list">
                     {program.subjects.map((subject, idx) => (
                       <div
                         key={`${subject.name}-${idx}`}
-                        className="flex items-center gap-2 text-gray-700"
+                        className="dcet-prog-item"
                       >
-                        <CheckCircle className="w-4 h-4 text-green-500" />
+                        <CheckCircle className="dcet-prog-check" />
                         <span>{subject.name}</span>
                       </div>
                     ))}

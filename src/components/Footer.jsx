@@ -99,7 +99,7 @@ const Footer = () => {
         col4Groups: extractGroups(col4),
         // Bottom: social media
         socials: bottom.items?.filter((i) => i.icon && i.slug) || [],
-        copyright: "",
+        copyright: bottom.items?.find((i) => !i.icon)?.description || "",
       };
     }
 
@@ -108,18 +108,18 @@ const Footer = () => {
       isNewFormat: false,
       logo: col1.items?.[0]?.image || null,
       address: col1.items?.[0]?.description?.split("\n") || [],
-      contactTitle: col1.contact?.title || "",
-      contactValue: col1.contact?.items?.[0]?.description || "",
-      emailTitle: col1.email?.title || "",
+      contactTitle: col1["Contact"]?.title || "",
+      contactValue: col1["Contact"]?.items?.[0]?.description || "",
+      emailTitle: col1["Email"]?.title || "",
       emailValue:
-        col1.email?.items?.find((i) => i.description)?.description?.trim() ||
+        col1["Email"]?.items?.find((i) => i.description)?.description?.trim() ||
         "",
-      socials: col1.email?.items?.filter((i) => i.icon && i.slug) || [],
-      programs: col2.programs || {},
-      terms: col2["T&C"] || {},
-      colleges: col3.college || {},
+      socials: col1["Email"]?.items?.filter((i) => i.icon && i.slug) || [],
+      programs: col2["Programs"] || {},
+      terms: col2["Terms & Conditions"] || {},
+      colleges: col3["College"] || {},
       otherLinks: col3.items || [],
-      importantLinks: col4.important_links || {},
+      importantLinks: col4["Important Links"] || {},
       copyright: bottom.items?.[0]?.description || "",
     };
   }, [rawData]);
@@ -149,6 +149,33 @@ const Footer = () => {
             <p className="mt-2 text-gray-300 text-xs">
               {footer.addressDesc}
             </p>
+          )}
+
+          {footer.socials?.length > 0 && (
+            <div className="footer-socials footer-socials-mobile mt-4">
+              {footer.socials.map((item, index) => {
+                const iconName = item.icon?.toLowerCase();
+                const svg = SOCIAL_ICONS[iconName];
+                return (
+                  <a
+                    key={`social-${item.id || index}`}
+                    href={item.slug}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white hover:text-yellow-400 transition-colors"
+                    title={item.title}
+                  >
+                    {svg || (
+                      <img
+                        className="footer-icons"
+                        src={resolveImage(item.icon)}
+                        alt={item.title}
+                      />
+                    )}
+                  </a>
+                );
+              })}
+            </div>
           )}
         </div>
       );
@@ -189,20 +216,28 @@ const Footer = () => {
 
         {footer.socials.length > 0 && (
           <div className="footer-socials footer-socials-mobile">
-            {footer.socials.map((item, index) => (
-              <a
-                key={`social-${item.id || index}`}
-                href={item.slug}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img
-                  className="footer-icons"
-                  src={resolveImage(item.icon)}
-                  alt={item.title}
-                />
-              </a>
-            ))}
+            {footer.socials.map((item, index) => {
+              const iconName = item.icon?.toLowerCase();
+              const svg = SOCIAL_ICONS[iconName];
+              return (
+                <a
+                  key={`social-${item.id || index}`}
+                  href={item.slug}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-yellow-400 transition-colors"
+                  title={item.title}
+                >
+                  {svg || (
+                    <img
+                      className="footer-icons"
+                      src={resolveImage(item.icon)}
+                      alt={item.title}
+                    />
+                  )}
+                </a>
+              );
+            })}
           </div>
         )}
       </div>
@@ -247,7 +282,7 @@ const Footer = () => {
 
           {/* Regular items list */}
           {group.items.length > 0 && (
-            <ul className="mb-2">
+            <ul className={!group.title ? "footer-subtitle footer-other-grid" : "mb-2"}>
               {group.items.map((item, idx) => (
                 <li
                   className="mt-1"
@@ -308,7 +343,7 @@ const Footer = () => {
       )}
 
       {footer.otherLinks.length > 0 && (
-        <ul className="footer-subtitle font-oswald-medium grid grid-cols-2 gap-3 mt-4">
+        <ul className="footer-subtitle footer-other-grid">
           {footer.otherLinks.map((item, index) => (
             <li key={`other-${item.id}-${index}`}>
               <SafeLink to={item.slug}>{item.title}</SafeLink>
@@ -337,7 +372,7 @@ const Footer = () => {
     if (!footer.socials?.length) return null;
 
     return (
-      <div className="flex justify-center gap-5 mt-6">
+      <div className="footer-socials-row">
         {footer.socials.map((item, index) => {
           const iconName = item.icon?.toLowerCase();
           const svg = SOCIAL_ICONS[iconName];
@@ -391,7 +426,6 @@ const Footer = () => {
           {renderCol3()}
           {renderCol4()}
         </div>
-        {footer.isNewFormat && renderSocials()}
         {footer.copyright && (
           <p className="footer-bottom">{footer.copyright}</p>
         )}
@@ -405,7 +439,6 @@ const Footer = () => {
           {renderCol3()}
           {renderCol4()}
         </div>
-        {footer.isNewFormat && renderSocials()}
         {footer.copyright && (
           <p className="footer-bottom">{footer.copyright}</p>
         )}

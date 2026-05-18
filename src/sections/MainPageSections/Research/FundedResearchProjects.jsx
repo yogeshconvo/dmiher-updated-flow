@@ -55,43 +55,41 @@ const FundedResearchProjects = ({ data }) => {
         {projects.length > 0 && (
           <div>
             {/* ================= MOBILE SWIPERS ================= */}
-            <div className="block md:hidden">
-              {/* Amount + Label */}
+            <div className="frp-mobile-wrap">
               <Swiper
                 {...swiperSettingsMain}
                 onSwiper={setFirstSwiper}
-                className="border-2 border-gray-300 border-b-0"
+                className="frp-mobile-amount-swiper"
               >
                 {projects.map((project, idx) => (
                   <SwiperSlide
                     key={idx}
-                    className="border-r-2 border-b-2 border-gray-300 p-4 text-center"
+                    className="frp-mobile-amount-cell"
                     style={{
                       borderRight:
                         idx === projects.length - 1 ? "none" : undefined,
                     }}
                   >
                     <p
-                      className="text-xl font-bold"
+                      className="frp-amount-text"
                       style={project.color ? { color: project.color } : undefined}
                     >
                       {project.amount}
                     </p>
-                    <p className="text-gray-400 mb-1">{project.label}</p>
+                    <p className="frp-amount-label">{project.label}</p>
                   </SwiperSlide>
                 ))}
               </Swiper>
 
-              {/* Desc (title/subtitle HTML) + Icon */}
               <Swiper
                 {...swiperSettingsNav}
                 onSwiper={setSecondSwiper}
-                className="border-x-2 border-gray-300 border-b-2"
+                className="frp-mobile-desc-swiper"
               >
                 {projects.map((project, idx) => (
                   <SwiperSlide
                     key={idx}
-                    className="border-r-2 border-gray-300 p-4 flex flex-col items-center gap-3 text-center min-h-[220px]"
+                    className="frp-mobile-desc-cell"
                     style={{
                       borderRight:
                         idx === projects.length - 1 ? "none" : undefined,
@@ -103,7 +101,7 @@ const FundedResearchProjects = ({ data }) => {
                     <SafeImage
                       src={project.icon}
                       alt="project icon"
-                      className="mt-auto object-contain"
+                      className="frp-icon"
                       style={{ width: "110px", height: "110px" }}
                     />
                   </SwiperSlide>
@@ -112,32 +110,32 @@ const FundedResearchProjects = ({ data }) => {
             </div>
 
             {/* ================= DESKTOP GRID ================= */}
-            <div className="hidden md:grid md:grid-cols-8 border-2 border-gray-300 border-b-0">
+            <div className="frp-desktop-amount-grid">
               {projects.map((project, idx) => (
                 <div
                   key={idx}
-                  className="border-r-2 border-b-2 border-gray-300 p-4 text-center"
+                  className="frp-mobile-amount-cell"
                   style={{
                     borderRight:
                       idx === projects.length - 1 ? "none" : undefined,
                   }}
                 >
                   <p
-                    className="text-xl font-bold"
+                    className="frp-amount-text"
                     style={project.color ? { color: project.color } : undefined}
                   >
                     {project.amount}
                   </p>
-                  <p className="text-gray-400 mb-1">{project.label}</p>
+                  <p className="frp-amount-label">{project.label}</p>
                 </div>
               ))}
             </div>
 
-            <div className="hidden md:grid md:grid-cols-8 border-x-2 border-b-2 border-gray-300">
+            <div className="frp-desktop-desc-grid">
               {projects.map((project, idx) => (
                 <div
                   key={idx}
-                  className="border-r-2 border-gray-300 p-4 flex flex-col items-center gap-3 text-center min-h-[220px]"
+                  className="frp-mobile-desc-cell"
                   style={{
                     borderRight:
                       idx === projects.length - 1 ? "none" : undefined,
@@ -149,7 +147,7 @@ const FundedResearchProjects = ({ data }) => {
                   <SafeImage
                     src={project.icon}
                     alt="project icon"
-                    className="mt-auto object-contain"
+                    className="frp-icon"
                     style={{ width: "110px", height: "110px" }}
                   />
                 </div>

@@ -12,16 +12,9 @@ function Gallery({ data }) {
   const basic = section?.basic || {};
   const tabs = section?.tabs || [];
 
-  /* =============================
-      🟢 CAMPUS LAYOUT
-  ============================== */
   if (layoutType === "campus") {
     return <CampusFacilities data={section} />;
   }
-
-  /* =============================
-      🔴 TAB GALLERY
-  ============================== */
 
   const { tabs_order, tabs_labels, images } = useMemo(() => {
     const order = [];
@@ -85,34 +78,29 @@ function Gallery({ data }) {
     };
   }, [popupIndex, visibleImages.length]);
 
-  /* =============================
-      🟡 IMPORTANT DETAILS (FIXED)
-  ============================== */
-
-  // ✅ FIX: define properly (this was causing your error)
   const addressArr = section?.address || [];
 
   return (
-    <div className="bg-white py-10 px-5">
-      <div className="max-w-7xl mx-auto">
+    <div className="gallery-section">
+      <div className="gallery-container">
 
-        {/* Heading */}
-     {basic.title &&   <h2 className="heading">
-          <hr className="heading-line" />
-          {basic.title}
-        </h2>}
+        {basic.title && (
+          <h2 className="heading">
+            <hr className="heading-line" />
+            {basic.title}
+          </h2>
+        )}
 
         {/* Tabs */}
-        <div className="flex justify-center items-center  text-sm mb-6">
+        <div className="gallery-tabs">
           {tabs_order.map((key) => (
             <button
               key={key}
               onClick={() => setActiveSection(key)}
-              className={`transition-all duration-300 border-r-1 border-gray-300 px-3 last:border-r-0
-              ${
+              className={`gallery-tab ${
                 activeSection === key
-                  ? "text-red-500 font-semibold underline "
-                  : "text-gray-500"
+                  ? "gallery-tab-active"
+                  : "gallery-tab-inactive"
               }`}
             >
               {tabs_labels[key]}
@@ -122,19 +110,19 @@ function Gallery({ data }) {
 
         {/* Image Grid */}
         {visibleImages.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="gallery-grid">
             {visibleImages.map((img, index) => (
               <SafeImage
                 key={index}
                 src={img}
                 alt="gallery"
-                className="w-full h-60 object-cover rounded cursor-pointer hover:scale-105 transition"
+                className="gallery-image"
                 onClick={() => setPopupIndex(index)}
               />
             ))}
           </div>
         ) : (
-          <p className="text-center text-gray-400">
+          <p className="gallery-empty">
             No images available
           </p>
         )}
@@ -144,7 +132,7 @@ function Gallery({ data }) {
           typeof document !== "undefined" &&
           createPortal(
             <div
-              className="fixed inset-0 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 z-[10000]"
+              className="gallery-popup-overlay"
               role="dialog"
               aria-modal="true"
               onClick={() => setPopupIndex(null)}
@@ -154,19 +142,19 @@ function Gallery({ data }) {
                   e.stopPropagation();
                   prevImage();
                 }}
-                className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-white/15 hover:bg-white/30 text-white transition z-10"
+                className="gallery-popup-prev"
                 aria-label="Previous"
               >
                 <ArrowLeft size={24} />
               </button>
 
               <div
-                className="relative flex items-center justify-center max-w-[min(800px,80vw)] max-h-[70vh]"
+                className="gallery-popup-content"
                 onClick={(e) => e.stopPropagation()}
               >
                 <SafeImage
                   src={visibleImages[popupIndex]}
-                  className="block max-w-full max-h-[70vh] w-auto h-auto object-contain rounded-xl shadow-2xl"
+                  className="gallery-popup-img"
                   alt="preview"
                 />
               </div>
@@ -176,7 +164,7 @@ function Gallery({ data }) {
                   e.stopPropagation();
                   nextImage();
                 }}
-                className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-white/15 hover:bg-white/30 text-white transition z-10"
+                className="gallery-popup-next"
                 aria-label="Next"
               >
                 <ArrowRight size={24} />
@@ -187,7 +175,7 @@ function Gallery({ data }) {
                   e.stopPropagation();
                   setPopupIndex(null);
                 }}
-                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-white text-black shadow-lg hover:bg-red-500 hover:text-white transition z-10"
+                className="gallery-popup-close"
                 aria-label="Close"
               >
                 <X size={20} />
@@ -197,25 +185,23 @@ function Gallery({ data }) {
           )}
       </div>
 
-      {/* =============================
-          IMPORTANT DETAILS (DYNAMIC)
-      ============================== */}
+      {/* ============================= IMPORTANT DETAILS ============================= */}
 
       {addressArr.length > 0 && (
-        <section className="mt-16">
-          <div className="max-w-7xl mx-auto">
+        <section className="gallery-details">
+          <div className="gallery-container">
 
             <h2 className="heading">
               <hr className="heading-line" />
               Important Details
             </h2>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="gallery-details-grid">
 
               {addressArr.map((item, index) => (
                 <div
                   key={index}
-                  className={`border-r-2 border-gray-300 last:border-r-0 ${index === 0 ? "border-r-0 pl-0" : ""}`}
+                  className={`gallery-details-item ${index === 0 ? "gallery-details-item-first" : ""}`}
                 >
                   <h3 className="">
                     {item.heading}

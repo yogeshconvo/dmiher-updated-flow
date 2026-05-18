@@ -31,6 +31,15 @@
         @apply text-yellow-400 text-xl mb-2;
     }
 
+    .footer-other-grid {
+        @apply grid grid-cols-2 gap-3 mt-4;
+        font-family: "Oswald", sans-serif;
+    }
+
+    .footer-socials-row {
+        @apply flex justify-center gap-5 mt-6;
+    }
+
     .footer-title-mobile {
         @apply text-yellow-400 text-xl border-t pt-2 border-gray-300;
     }

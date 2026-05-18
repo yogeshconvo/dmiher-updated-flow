@@ -14,7 +14,7 @@ const WellbeingComfortFC = ({ data }) => {
 
   return (
     <section
-      className="py-10"
+      className="wfc-section"
       style={{
         backgroundColor: basic.bg_color || "#eaf4ff",
         color: basic.text_color || "#707070",
@@ -23,33 +23,27 @@ const WellbeingComfortFC = ({ data }) => {
       <div className="container">
 
         {/* Heading */}
-        <div className="mb-10">
-                  {basic.title && <h2 className="heading">
-            
-                      <hr
-                          className="heading-line"
-            
-                      />
+        <div className="wfc-heading-wrap">
+          {basic.title && (
+            <h2 className="heading">
+              <hr className="heading-line" />
+              {basic.title}
+            </h2>
+          )}
 
-                      {basic.title}
-                  </h2>
-                  }
-
-          <p className="max-w-3xl ">
-            <RichTextRenderer
-              html={basic.desc}
-            />
+          <p className="wfc-desc">
+            <RichTextRenderer html={basic.desc} />
           </p>
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="wfc-grid">
           {sections.map((section, idx) => (
-            <div key={idx} className="flex flex-col w-full">
+            <div key={idx} className="wfc-card">
 
               {/* Section Title */}
               <h3
-                className="text-lg md:text-2xl mb-3 px-2"
+                className="wfc-card-title"
                 style={{
                   color: basic.card_title_color || "#223971",
                 }}
@@ -58,7 +52,7 @@ const WellbeingComfortFC = ({ data }) => {
               </h3>
 
               {/* Swiper */}
-              <div className="w-full h-[300px] overflow-hidden rounded-xl shadow-md">
+              <div className="wfc-card-swiper-wrap">
                 <Swiper
                   modules={[Pagination, Autoplay]}
                   slidesPerView={1}
@@ -67,22 +61,24 @@ const WellbeingComfortFC = ({ data }) => {
                   pagination={{
                     clickable: true,
                   }}
-                  className="w-full h-full"
+                  className="wfc-card-swiper"
                 >
                   {section.images?.map((img, i) => (
                     <SwiperSlide key={i}>
-                      <div className="relative w-full h-full">
+                      <div className="wfc-slide">
 
                         <SafeImage
                           src={img.image}
                           alt={img.caption}
-                          className="w-full h-full object-cover"
+                          className="wfc-slide-img"
                         />
 
                         {/* Caption */}
-                      {img.caption &&  <div className="absolute bottom-5 left-0 right-0 bg-gradient-to-r from-black to-transparent text-white text-sm py-2 px-4">
-                          {img.caption}
-                        </div>}
+                        {img.caption && (
+                          <div className="wfc-slide-caption">
+                            {img.caption}
+                          </div>
+                        )}
 
                       </div>
                     </SwiperSlide>

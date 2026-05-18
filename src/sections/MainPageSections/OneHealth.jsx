@@ -11,11 +11,9 @@ function OneHealth({ data }) {
 
   const [cellSize, setCellSize] = useState(70);
 
-  // Normalize grid to 2D array
   const safeGrid = useMemo(() => {
     if (!Array.isArray(grid)) return [];
 
-    // If backend sends flat grid, convert to NxN
     if (!Array.isArray(grid[0])) {
       const size = Math.min(rows.length, columns.length);
       return Array.from({ length: size }, () =>
@@ -46,25 +44,25 @@ function OneHealth({ data }) {
   }, []);
 
   return (
-    <div className="my-10 flex flex-col items-start gap-16 sm:gap-32 container mx-auto">
+    <div className="onehealth-section">
 
       {/* Heading */}
-      <h2 className="text-3xl md:text-4xl font-[500] text-[#58595B]">
-        <hr className="w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4" />
+      <h2 className="onehealth-heading">
+        <hr className="onehealth-heading-line" />
         {basic?.title}
       </h2>
 
-      <div className="w-full flex flex-col-reverse lg:flex-row lg:justify-evenly gap-10 lg:gap-20">
+      <div className="onehealth-body">
 
         {/* Legend */}
-        <div className="space-y-4 mx-auto">
+        <div className="onehealth-legend">
           {legend.map((item, i) => (
-            <div key={i} className="flex items-center gap-3 font-[600]">
+            <div key={i} className="onehealth-legend-item">
               <div
-                className="w-5 h-5 rotate-45"
+                className="onehealth-legend-swatch"
                 style={{ backgroundColor: item.bg_color }}
               />
-              <span className="text-[#58595B] text-sm md:text-lg">
+              <span className="onehealth-legend-text">
                 {item.label}
               </span>
             </div>
@@ -73,7 +71,7 @@ function OneHealth({ data }) {
 
         {/* Grid */}
         <div
-          className="relative md:mx-auto mt-10"
+          className="onehealth-grid-wrap"
           style={{
             width: cellSize * columns.length,
             height: cellSize * rows.length,
@@ -83,7 +81,7 @@ function OneHealth({ data }) {
           {columns.map((_, colIdx) => (
             <div
               key={`v-${colIdx}`}
-              className="absolute top-[-40px] w-px bg-[#707070]"
+              className="onehealth-grid-vline"
               style={{
                 left: `${colIdx * cellSize}px`,
                 height: "90%",
@@ -95,7 +93,7 @@ function OneHealth({ data }) {
           {rows.map((_, rowIdx) => (
             <div
               key={`h-${rowIdx}`}
-              className="absolute left-[-40px] h-px bg-[#707070]"
+              className="onehealth-grid-hline"
               style={{
                 top: `${rowIdx * cellSize}px`,
                 width: "90%",
@@ -109,7 +107,7 @@ function OneHealth({ data }) {
               color ? (
                 <div
                   key={`${rIdx}-${cIdx}`}
-                  className="absolute w-5 h-5 rotate-45"
+                  className="onehealth-diamond"
                   style={{
                     backgroundColor: color,
                     top: `${rIdx * cellSize - 9}px`,
@@ -124,7 +122,7 @@ function OneHealth({ data }) {
           {columns.map((col, idx) => (
             <div
               key={idx}
-              className="absolute text-sm text-[#58595B]"
+              className="onehealth-grid-label"
               style={{
                 left: `${idx * cellSize}px`,
                 top: "-140px",
@@ -141,7 +139,7 @@ function OneHealth({ data }) {
           {rows.map((row, idx) => (
             <div
               key={idx}
-              className="absolute text-sm text-[#58595B]"
+              className="onehealth-grid-label"
               style={{
                 top: `${idx * cellSize}px`,
                 left: "-160px",

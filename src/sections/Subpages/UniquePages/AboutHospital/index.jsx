@@ -19,7 +19,7 @@ const AboutHospital = ({ data }) => {
   const activeTab = tabs[activeIdx] || tabs[0];
 
   return (
-    <div className="px-6 min-h-screen bg-white max-w-7xl mx-auto my-5">
+    <div className="ah-page">
       {mainHeading && (
         headingType === "normal" ? (
           <h2 className="heading">
@@ -27,22 +27,20 @@ const AboutHospital = ({ data }) => {
             {mainHeading}
           </h2>
         ) : (
-          <h1 className="text-3xl sm:text-4xl font-bold text-center mb-6 text-[#13305c]">
+          <h1 className="ah-page-h1">
             {mainHeading}
           </h1>
         )
       )}
 
-      <div className="flex flex-wrap justify-center gap-3 mb-6">
+      <div className="ah-tabs-row">
         {tabs.map((tab, idx) => (
           <button
             key={idx}
             type="button"
             onClick={() => setActiveIdx(idx)}
-            className={`px-4 py-2 rounded-lg transition font-medium ${
-              activeIdx === idx
-                ? "bg-[#F04E30] text-white"
-                : "bg-gray-100 text-[#333] hover:bg-[#13305c] hover:text-white"
+            className={`ah-tab-btn ${
+              activeIdx === idx ? "ah-tab-btn-active" : "ah-tab-btn-inactive"
             }`}
             role="tab"
             aria-selected={activeIdx === idx}

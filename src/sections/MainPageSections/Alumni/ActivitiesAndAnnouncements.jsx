@@ -12,48 +12,48 @@ const ActivitiesAndAnnouncements = ({ data }) => {
 
   return (
     <section
-      className="py-8 sm:py-10"
+      className="alumni-activities-section"
       style={{ backgroundColor: data?.basic?.bg_color || "#fee8d2" }}
     >
-      <div className="container mx-auto px-4">
-        
+      <div className="alumni-activities-container">
+
         {/* Header */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-[500] text-[#707070] tracking-wider mb-6">
-          <hr className="w-12 sm:w-20 border-[#F04E30] mb-3 border-t-4" />
+        <h2 className="alumni-activities-heading">
+          <hr className="alumni-activities-heading-line" />
           {data?.basic?.title || "ACTIVITIES AND ANNOUNCEMENTS"}
         </h2>
 
         <Swiper pagination={{ clickable: true }} modules={[Pagination]}>
           <SwiperSlide>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              
+            <div className="alumni-activities-grid">
+
               {/* News */}
-              <div className="bg-white shadow-lg p-4 sm:p-6 rounded-lg">
-                <div className="flex justify-between mb-4">
-                  <h3 className="text-lg font-bold text-[#001c54]">News</h3>
+              <div className="alumni-activities-card">
+                <div className="alumni-activities-card-header">
+                  <h3 className="alumni-activities-card-title">News</h3>
                   <button
                     onClick={() => setIsNewsModalOpen(true)}
-                    className="text-[#f2542d] text-sm font-semibold hover:underline"
+                    className="alumni-activities-view-all"
                   >
                     VIEW ALL
                   </button>
                 </div>
 
                 {data?.news?.map((item, idx) => (
-                  <div key={idx} className="mb-4 border-b pb-2">
-                    <p className="text-sm text-gray-700">{item.title}</p>
-                    <p className="text-xs text-gray-500">{item.date}</p>
+                  <div key={idx} className="alumni-activities-news-item">
+                    <p className="alumni-activities-news-title">{item.title}</p>
+                    <p className="alumni-activities-news-date">{item.date}</p>
                   </div>
                 ))}
               </div>
 
               {/* Events */}
-              <div className="bg-white shadow-lg p-4 sm:p-6 rounded-lg">
-                <div className="flex justify-between mb-4">
-                  <h3 className="text-lg font-bold text-[#001c54]">Events</h3>
+              <div className="alumni-activities-card">
+                <div className="alumni-activities-card-header">
+                  <h3 className="alumni-activities-card-title">Events</h3>
                   <button
                     onClick={() => setIsEventsModalOpen(true)}
-                    className="text-[#f2542d] text-sm font-semibold hover:underline"
+                    className="alumni-activities-view-all"
                   >
                     VIEW ALL
                   </button>
@@ -70,9 +70,9 @@ const ActivitiesAndAnnouncements = ({ data }) => {
                       <SafeImage
                         src={event.image}
                         alt="event"
-                        className="w-full h-60 object-cover rounded-lg mb-3"
+                        className="alumni-activities-event-img"
                       />
-                      <p className="text-sm text-gray-700">
+                      <p className="alumni-activities-event-desc">
                         {event.description}
                       </p>
                     </SwiperSlide>
@@ -87,28 +87,28 @@ const ActivitiesAndAnnouncements = ({ data }) => {
         {/* News Modal */}
         {isNewsModalOpen && (
           <div
-            className="fixed inset-x-0 bottom-0 top-[100px] bg-black/40 flex items-start sm:items-center justify-center z-[990] p-4"
+            className="alumni-activities-modal-overlay"
             onClick={() => setIsNewsModalOpen(false)}
             role="dialog"
             aria-modal="true"
           >
             <div
-              className="relative bg-white p-6 rounded-lg max-w-2xl w-full max-h-[calc(100vh-140px)] overflow-y-auto"
+              className="alumni-activities-modal"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 type="button"
                 aria-label="Close"
                 onClick={() => setIsNewsModalOpen(false)}
-                className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
+                className="alumni-activities-modal-close"
               >
                 <X size={20} />
               </button>
-              <h3 className="text-xl font-bold mb-4">All News</h3>
+              <h3 className="alumni-activities-modal-title">All News</h3>
               {data?.news?.map((item, idx) => (
                 <div key={idx}>
                   <p>{item.title}</p>
-                  <p className="text-xs text-gray-500">{item.date}</p>
+                  <p className="alumni-activities-news-date">{item.date}</p>
                 </div>
               ))}
             </div>
@@ -118,24 +118,24 @@ const ActivitiesAndAnnouncements = ({ data }) => {
         {/* Events Modal */}
         {isEventsModalOpen && (
           <div
-            className="fixed inset-x-0 bottom-0 top-[100px] bg-black/40 flex items-start sm:items-center justify-center z-[990] p-4"
+            className="alumni-activities-modal-overlay"
             onClick={() => setIsEventsModalOpen(false)}
             role="dialog"
             aria-modal="true"
           >
             <div
-              className="relative bg-white p-6 rounded-lg max-w-2xl w-full max-h-[calc(100vh-140px)] overflow-y-auto"
+              className="alumni-activities-modal"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 type="button"
                 aria-label="Close"
                 onClick={() => setIsEventsModalOpen(false)}
-                className="absolute top-3 right-3 text-gray-500 hover:text-gray-800"
+                className="alumni-activities-modal-close"
               >
                 <X size={20} />
               </button>
-              <h3 className="text-xl font-bold mb-4">All Events</h3>
+              <h3 className="alumni-activities-modal-title">All Events</h3>
               {data?.events?.map((event, idx) => (
                 <div key={idx}>
                   <SafeImage src={event.image} className="rounded mb-2" alt="event" />

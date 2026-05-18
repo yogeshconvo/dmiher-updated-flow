@@ -20,7 +20,7 @@ function DifferenceHospitals({ campus }) {
   if (!title && !subTitle && !points.length && !images.length) return null;
 
   return (
-    <div className="container py-10 flex flex-col md:flex-row gap-8">
+    <div className="diff-hospitals-section">
       <style>
         {`
           .difference-swiper .swiper-button-next,
@@ -41,24 +41,24 @@ function DifferenceHospitals({ campus }) {
       </style>
 
       {/* Left side content */}
-      <div className="flex-1 text-[#58595B]">
+      <div className="diff-hospitals-left">
         {title && (
-          <h2 className="text-2xl sm:text-3xl md:text-4xl text-[#707070] mb-2 font-oswald-medium font-[500] tracking-tight leading-tight">
-            <span className="block border-t-4 border-[#F04E30] w-20 sm:w-24 mb-2 mr-4"></span>
+          <h2 className="diff-hospitals-title">
+            <span className="diff-hospitals-title-line"></span>
             {title}
           </h2>
         )}
         {subTitle && (
-          <p className="text-[#122E5E] text-xl mb-4">{subTitle}</p>
+          <p className="diff-hospitals-subtitle">{subTitle}</p>
         )}
 
         {points.length > 0 && (
-          <div className="max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
-            <ul className="space-y-3 text-base">
+          <div className="diff-hospitals-points-wrap custom-scrollbar">
+            <ul className="diff-hospitals-points">
               {points.map((p, i) => (
-                <li key={i} className="leading-relaxed">
+                <li key={i} className="diff-hospitals-point">
                   {p.title && (
-                    <span className="font-semibold text-[#122E5E]">
+                    <span className="diff-hospitals-point-title">
                       {p.title}
                     </span>
                   )}
@@ -73,7 +73,7 @@ function DifferenceHospitals({ campus }) {
 
       {/* Right side Swiper */}
       {images.length > 0 && (
-        <div className="flex-1 max-w-xl flex justify-center items-center">
+        <div className="diff-hospitals-right">
           <Swiper
             modules={[Navigation]}
             navigation
@@ -87,7 +87,7 @@ function DifferenceHospitals({ campus }) {
                 <SafeImage
                   src={src}
                   alt=""
-                  className="object-cover rounded-xl w-full md:mt-20 h-[450px]"
+                  className="diff-hospitals-img"
                 />
               </SwiperSlide>
             ))}

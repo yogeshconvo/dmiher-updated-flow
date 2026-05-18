@@ -5,46 +5,46 @@ const SyllabusSection = ({ header, topics = [] }) => {
   if (!topics.length && !header?.heading && !header?.description) return null;
 
   return (
-    <div className="py-16 px-4 bg-white">
-      <div className="max-w-6xl mx-auto">
+    <div className="dcet-section">
+      <div className="dcet-container">
         {header?.heading ? (
-          <h2 className="text-3xl font-bold text-center mb-4 text-gray-800">
+          <h2 className="dcet-section-title">
             {header.heading}
           </h2>
         ) : null}
 
         {header?.description ? (
           <div
-            className="text-center text-gray-600 mb-12 max-w-3xl mx-auto"
+            className="dcet-section-desc"
             dangerouslySetInnerHTML={{ __html: header.description }}
           />
         ) : null}
 
         {topics.length ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="dcet-grid-3">
             {topics.map((topic, index) => (
               <div
                 key={`${topic.subject}-${index}`}
-                className="bg-white border-2 border-gray-100 rounded-xl p-6 hover:border-[#F04E30] transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+                className="dcet-syllabus-card"
               >
-                <div className="flex items-center gap-3 mb-4">
+                <div className="dcet-syllabus-row">
                   {topic.icon ? (
-                    <div className="bg-orange-100 text-[#F04E30] rounded-lg p-2">
+                    <div className="dcet-syllabus-icon-wrap">
                       {renderIcon(topic.icon, 24, "w-6 h-6")}
                     </div>
                   ) : null}
-                  <h3 className="text-xl font-semibold text-gray-800">
+                  <h3 className="dcet-syllabus-title">
                     {topic.subject}
                   </h3>
                 </div>
-                <div className="space-y-2">
+                <div className="dcet-syllabus-list">
                   {(topic.topics || []).map((subtopic, idx) => (
                     <div
                       key={`${subtopic}-${idx}`}
-                      className="flex items-center gap-2"
+                      className="dcet-syllabus-item"
                     >
-                      <div className="w-2 h-2 bg-[#F04E30] rounded-full"></div>
-                      <span className="text-gray-600">{subtopic}</span>
+                      <div className="dcet-syllabus-bullet"></div>
+                      <span className="dcet-syllabus-text">{subtopic}</span>
                     </div>
                   ))}
                 </div>

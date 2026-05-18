@@ -47,7 +47,7 @@ export default function DropdownButton({
     <div ref={ref} className={`relative inline-block w-full max-w-md ${className}`}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-left shadow-sm hover:shadow-md transition-shadow duration-200 flex items-center justify-between"
+        className="dd-btn"
       >
         <span className="font-medium text-gray-800">
           {current?.label || placeholder}

@@ -6,17 +6,9 @@ export default function IQACSection({ data }) {
   const { title, buttons, annual_reports, annual_reports_items,ciqa_items } = data || {};
 
   const renderButton = (btn, idx) => {
-    if (!btn.link || btn.link === "#") {
-      return (
-        <button key={idx} className="iqac-btn disabled" disabled>
-          {btn.label}
-        </button>
-      );
-    }
-
     if (btn.type === "Route") {
       return (
-        <Link key={idx} to={btn.link} className="iqac-btn">
+        <Link key={idx} to={btn.link || "#"} className="iqac-btn">
           {btn.label}
         </Link>
       );
@@ -25,7 +17,7 @@ export default function IQACSection({ data }) {
     return (
       <a
         key={idx}
-        href={btn.link}
+        href={btn.link || "#"}
         target="_blank"
         rel="noopener noreferrer"
         className="iqac-btn"
@@ -91,15 +83,15 @@ export default function IQACSection({ data }) {
         </div>
 
  
-         <div className="pt-15">
+         <div className="ciqa-section">
         <h2 className="heading">
           <hr className="iqac-line" />{data.ciqa.title}</h2>
-   
+
         {ciqa_items.map((item, idx) => (
          <Link
           to={item.link}
           rel="noopener noreferrer"
-          className="px-12 py-3 w-[300px] mt-5 flex rounded-md font-oswald-medium text-blue-900 bg-blue-100 shadow-md hover:bg-[#F04E30] hover:text-white transition hover:scale-105 justify-center duration-200 transform"
+          className="ciqa-link"
         >
           <FileText /> {item.label}
           </Link>

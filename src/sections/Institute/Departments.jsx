@@ -151,7 +151,7 @@ const AboutGrid = ({ grid, parent }) => {
 
       {/* Pill button row */}
       {buttons.length > 0 && (
-        <div className="flex flex-wrap justify-center gap-x-6 gap-y-5 mt-6 max-w-6xl mx-auto">
+        <div className="inst-dept-row">
           {buttons.map((btn, idx) => {
             const micro = getMicroPageCta(btn);
             const href = resolveHref(btn, parent);

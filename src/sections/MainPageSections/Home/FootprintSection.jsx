@@ -113,7 +113,7 @@ const FootprintSection = ({ data }) => {
                       autoplay={{ delay: 3000 }}
                       slidesPerView={1}
                       loop
-                      className="w-full mb-4"
+                      className="footprint-mobile-swiper"
                     >
                       {currentTab.points.map((point, index) => (
                         <SwiperSlide key={index}>

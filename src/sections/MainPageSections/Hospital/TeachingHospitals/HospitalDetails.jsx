@@ -18,7 +18,7 @@ function HospitalDetails({ campus }) {
   if (!images.length && !about?.heading && !about?.description) return null;
 
   return (
-    <div className="container grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+    <div className="hd-section">
       <style>
         {`
           .custom-swiper-nav .swiper-button-next,
@@ -38,22 +38,22 @@ function HospitalDetails({ campus }) {
       </style>
 
       {images.length > 0 && (
-        <div className="relative h-full">
+        <div className="hd-swiper-wrap">
           <Swiper
             modules={[Autoplay, Navigation]}
             autoplay={{ delay: 4000, disableOnInteraction: false }}
             navigation={true}
             loop={images.length > 1}
-            className="rounded-lg overflow-hidden custom-swiper-nav"
+            className="hd-swiper custom-swiper-nav"
             style={{ height: "100%" }}
           >
             {images.map((img, idx) => (
               <SwiperSlide key={idx}>
-                <div className="w-full h-[500px] rounded-xl overflow-hidden">
+                <div className="hd-slide">
                   <SafeImage
                     src={img}
                     alt={`Hospital ${idx + 1}`}
-                    className="w-full h-full object-cover"
+                    className="hd-slide-img"
                   />
                 </div>
               </SwiperSlide>
@@ -62,14 +62,14 @@ function HospitalDetails({ campus }) {
         </div>
       )}
 
-      <div className="text-white space-y-6">
+      <div className="hd-text-col">
         {about?.heading && (
-          <h2 className="text-2xl max-w-[500px] font-bold text-[#122E5E] mb-6">
+          <h2 className="hd-heading">
             {about.heading}
           </h2>
         )}
         {about?.description && (
-          <div className="text-sm leading-relaxed text-[#58595B]">
+          <div className="hd-desc">
             <RichTextRenderer html={about.description} />
           </div>
         )}

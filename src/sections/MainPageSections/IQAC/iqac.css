@@ -105,9 +105,6 @@
     @apply py-3 px-6 text-white text-sm sm:text-base rounded shadow-md transition-all duration-200 transform hover:scale-105 hover:bg-[#f04e30] bg-[#0f2c5c];
 }
 
-.iqac-btn.disabled {
-    @apply cursor-not-allowed;
-}
 
 .iqac-annual {
     @apply mt-16 text-left;

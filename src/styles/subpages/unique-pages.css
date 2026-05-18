@@ -1,0 +1,1524 @@
+@reference "tailwindcss";
+
+/* ================= UNIQUE PAGES SHARED ================= */
+/* Common patterns across PostDoc, PHD-DAL, DMIHER-CET, AboutHospital, NAAC */
+
+.up-page {
+    @apply min-h-screen bg-gray-50;
+}
+
+.up-page-gradient {
+    @apply min-h-screen bg-gradient-to-br from-slate-50 to-blue-50;
+}
+
+.up-page-gray {
+    @apply min-h-screen bg-gradient-to-br from-gray-50 to-gray-100;
+}
+
+.up-header {
+    @apply bg-[#122E5E] text-white py-8;
+}
+
+.up-header-px {
+    @apply bg-[#122E5E] text-white py-8 px-4;
+}
+
+.up-header-container {
+    @apply container mx-auto px-4;
+}
+
+.up-header-container-flex {
+    @apply container mx-auto flex justify-between items-center px-4;
+}
+
+.up-header-row {
+    @apply flex items-center space-x-4;
+}
+
+.up-header-icon-wrap {
+    @apply bg-white/10 p-3 rounded-full;
+}
+
+.up-header-icon {
+    @apply w-8 h-8;
+}
+
+.up-header-title {
+    @apply text-3xl font-bold;
+}
+
+.up-header-title-large {
+    @apply text-3xl md:text-4xl font-bold;
+}
+
+.up-header-subtitle {
+    @apply text-blue-100 mt-1;
+}
+
+.up-header-subtitle-opacity {
+    @apply text-xl opacity-90;
+}
+
+.up-back-link {
+    @apply inline-flex items-center gap-2 text-white/80 hover:text-white mb-4 transition-colors;
+}
+
+.up-back-icon {
+    @apply w-5 h-5;
+}
+
+.up-header-icon-large {
+    @apply flex items-center gap-4 mb-4;
+}
+
+.up-main {
+    @apply max-w-6xl mx-auto px-4 py-12 space-y-12;
+}
+
+.up-main-container {
+    @apply container mx-auto px-4 py-8;
+}
+
+.up-section-card {
+    @apply bg-white rounded-xl shadow-lg p-8;
+}
+
+.up-section-card-mb {
+    @apply bg-white rounded-xl shadow-lg p-8 mb-8;
+}
+
+.up-section-card-light {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6;
+}
+
+.up-section-title {
+    @apply text-2xl font-bold mb-6 text-gray-800;
+}
+
+.up-section-title-row {
+    @apply flex items-center mb-6;
+}
+
+.up-section-title-icon {
+    @apply text-[#F04E30] mr-3;
+}
+
+.up-section-title-h2 {
+    @apply text-2xl font-bold text-gray-800;
+}
+
+.up-section-title-h3 {
+    @apply text-2xl font-bold text-gray-800 mb-6;
+}
+
+.up-grid-2 {
+    @apply grid md:grid-cols-2 gap-8;
+}
+
+.up-grid-3 {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-6;
+}
+
+.up-grid-4 {
+    @apply grid md:grid-cols-2 lg:grid-cols-4 gap-6;
+}
+
+.up-grid-3-doc {
+    @apply grid md:grid-cols-2 lg:grid-cols-3 gap-4;
+}
+
+/* Stats cards (e.g., Phase1 overview) */
+.up-stat-blue {
+    @apply text-center p-4 bg-blue-50 rounded-lg;
+}
+
+.up-stat-green {
+    @apply text-center p-4 bg-green-50 rounded-lg;
+}
+
+.up-stat-purple {
+    @apply text-center p-4 bg-purple-50 rounded-lg;
+}
+
+.up-stat-icon-blue {
+    @apply w-12 h-12 text-blue-600 mx-auto mb-3;
+}
+
+.up-stat-icon-green {
+    @apply w-12 h-12 text-green-600 mx-auto mb-3;
+}
+
+.up-stat-icon-purple {
+    @apply w-12 h-12 text-purple-600 mx-auto mb-3;
+}
+
+.up-stat-label-blue {
+    @apply text-lg font-semibold text-blue-800;
+}
+
+.up-stat-label-green {
+    @apply text-lg font-semibold text-green-800;
+}
+
+.up-stat-label-purple {
+    @apply text-lg font-semibold text-purple-800;
+}
+
+.up-stat-value-blue {
+    @apply text-2xl font-bold text-blue-600;
+}
+
+.up-stat-value-green {
+    @apply text-2xl font-bold text-green-600;
+}
+
+.up-stat-value-purple {
+    @apply text-2xl font-bold text-purple-600;
+}
+
+/* Program category card */
+.up-prog-card {
+    @apply border border-gray-200 rounded-lg p-6 hover:border-[#F04E30] transition-colors;
+}
+
+.up-prog-card-row {
+    @apply flex items-center gap-3 mb-4;
+}
+
+.up-prog-card-icon {
+    @apply text-[#F04E30];
+}
+
+.up-prog-card-title {
+    @apply text-lg font-semibold text-gray-800;
+}
+
+.up-prog-list {
+    @apply space-y-2 mb-4;
+}
+
+.up-prog-item {
+    @apply flex items-center gap-2;
+}
+
+.up-prog-item-icon {
+    @apply w-4 h-4 text-green-500;
+}
+
+.up-prog-item-text {
+    @apply text-gray-600 text-sm;
+}
+
+.up-prog-seats {
+    @apply bg-[#F04E30] text-white px-3 py-1 rounded-full text-sm font-medium inline-block;
+}
+
+/* Schedule row */
+.up-sched-row {
+    @apply flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors;
+}
+
+.up-sched-left {
+    @apply flex items-center gap-4;
+}
+
+.up-sched-icon {
+    @apply w-6 h-6 text-[#F04E30];
+}
+
+.up-sched-time {
+    @apply font-semibold text-gray-800;
+}
+
+.up-sched-prog {
+    @apply text-gray-600;
+}
+
+.up-sched-duration {
+    @apply bg-[#F04E30] text-white px-3 py-1 rounded-full text-sm;
+}
+
+/* Important date row */
+.up-date-row {
+    @apply flex items-center justify-between p-4 border-l-4 border-[#F04E30] bg-gray-50;
+}
+
+.up-date-dot-completed {
+    @apply w-3 h-3 rounded-full bg-green-500;
+}
+
+.up-date-dot-pending {
+    @apply w-3 h-3 rounded-full bg-orange-500;
+}
+
+.up-date-event {
+    @apply font-semibold text-gray-800;
+}
+
+.up-date-text {
+    @apply text-gray-600;
+}
+
+.up-date-status-completed {
+    @apply px-3 py-1 rounded-full text-sm bg-green-100 text-green-800;
+}
+
+.up-date-status-pending {
+    @apply px-3 py-1 rounded-full text-sm bg-orange-100 text-orange-800;
+}
+
+/* Tip card */
+.up-tip-card {
+    @apply p-6 border border-gray-200 rounded-lg hover:border-[#F04E30] transition-colors;
+}
+
+.up-tip-row {
+    @apply flex items-center gap-4 mb-3;
+}
+
+.up-tip-icon {
+    @apply text-[#F04E30];
+}
+
+.up-tip-title {
+    @apply text-lg font-semibold text-gray-800;
+}
+
+.up-tip-desc {
+    @apply text-gray-600;
+}
+
+/* Alert/notice strip */
+.up-alert-strip {
+    @apply bg-[#122E5E] py-8 px-4;
+}
+
+.up-alert-card {
+    @apply bg-white/10 rounded-lg p-6 backdrop-blur-sm;
+}
+
+.up-alert-row {
+    @apply flex items-center gap-4 text-white;
+}
+
+.up-alert-icon {
+    @apply w-8 h-8;
+}
+
+.up-alert-title {
+    @apply text-lg font-semibold mb-2;
+}
+
+.up-alert-text {
+    @apply opacity-90;
+}
+
+/* Notification card (PHD-DAL, PostDoc) */
+.up-notif-row {
+    @apply flex items-center space-x-3 mb-6;
+}
+
+.up-notif-icon-wrap {
+    @apply bg-amber-100 p-2 rounded-lg;
+}
+
+.up-notif-icon {
+    @apply w-6 h-6 text-amber-600;
+}
+
+.up-notif-list {
+    @apply space-y-3;
+}
+
+.up-notif-item {
+    @apply p-4 rounded-lg border cursor-pointer transition-all duration-200 hover:shadow-md;
+}
+
+.up-notif-item-highlighted {
+    @apply border-amber-200 hover:bg-amber-100;
+}
+
+.up-notif-item-default {
+    @apply bg-gray-50 border-gray-200 hover:bg-gray-100;
+}
+
+.up-notif-item-row {
+    @apply flex items-center space-x-3;
+}
+
+.up-notif-cal {
+    @apply w-5 h-5 text-blue-600;
+}
+
+.up-notif-title {
+    @apply font-medium text-gray-800;
+}
+
+.up-notif-empty {
+    @apply text-gray-500 text-center;
+}
+
+/* Sidebar tabs (PHD-DAL) */
+.up-side-grid {
+    @apply grid lg:grid-cols-4 gap-8;
+}
+
+.up-side-col {
+    @apply lg:col-span-1;
+}
+
+.up-side-card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden;
+}
+
+.up-side-divide {
+    @apply divide-y divide-gray-100;
+}
+
+.up-side-item {
+    @apply p-3 hover:bg-blue-50 cursor-pointer transition-colors duration-200 text-sm;
+}
+
+.up-side-item-active {
+    @apply bg-blue-100;
+}
+
+.up-side-main {
+    @apply lg:col-span-3 space-y-8;
+}
+
+/* Tables (PHD-DAL bank/syllabus/contact tables) */
+.up-table-block {
+    @apply mb-8;
+}
+
+.up-table-block-half {
+    @apply mb-8 w-full md:w-3/4 lg:w-1/2;
+}
+
+.up-table-header {
+    @apply bg-[#facc15] text-black p-3 rounded-t-lg;
+}
+
+.up-table-header-h3 {
+    @apply font-semibold flex items-center space-x-3;
+}
+
+.up-table-header-h3-tight {
+    @apply font-semibold flex items-center space-x-2;
+}
+
+.up-table-header-icon {
+    @apply w-5 h-5;
+}
+
+.up-table-wrap {
+    @apply border border-amber-200 rounded-b-lg overflow-hidden;
+}
+
+.up-table {
+    @apply w-full;
+}
+
+.up-table-row {
+    @apply border-b border-amber-200 last:border-b-0;
+}
+
+.up-table-td-num {
+    @apply p-4 border-r border-amber-100 font-medium text-gray-700 bg-white/50 w-1/6;
+}
+
+.up-table-td-mid {
+    @apply p-4 font-medium text-gray-700 bg-white/50;
+}
+
+.up-table-td-val {
+    @apply p-4 text-gray-800 font-semibold;
+}
+
+.up-table-td-pre {
+    @apply p-4 text-gray-800 font-semibold whitespace-pre-line;
+}
+
+.up-table-link {
+    @apply hover:underline;
+}
+
+/* Overview content (PHD-DAL) */
+.up-overview {
+    @apply text-lg text-gray-700 space-y-3 leading-relaxed;
+}
+
+.up-overview-h3 {
+    @apply text-xl font-semibold text-[#707070] tracking-wider mt-4;
+}
+
+.up-overview-list {
+    @apply list-disc list-inside;
+}
+
+.up-syllabus-wrap {
+    @apply text-base md:text-lg text-gray-700 leading-relaxed space-y-4;
+}
+
+.up-syllabus-h3 {
+    @apply font-semibold text-base;
+}
+
+.up-bank-section {
+    @apply text-base md:text-lg text-gray-800;
+}
+
+/* Eligibility points */
+.up-elig-points {
+    @apply space-y-6;
+}
+
+.up-elig-item {
+    @apply flex items-start;
+}
+
+.up-elig-num {
+    @apply bg-[#F04E30] text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4 mt-1;
+}
+
+.up-elig-text {
+    @apply text-gray-700 leading-relaxed;
+}
+
+.up-elig-pub-card {
+    @apply bg-gray-50 p-6 rounded-lg;
+}
+
+.up-elig-pub-h4 {
+    @apply font-bold text-gray-800 mb-4;
+}
+
+.up-elig-pub-grid {
+    @apply grid md:grid-cols-2 gap-6;
+}
+
+.up-elig-pub-h5-orange {
+    @apply font-semibold mb-2 text-[#F04E30];
+}
+
+.up-elig-pub-h5-blue {
+    @apply font-semibold mb-2 text-[#122E5E];
+}
+
+.up-elig-pub-desc {
+    @apply text-gray-700 text-sm leading-relaxed;
+}
+
+/* Application steps */
+.up-step-list {
+    @apply space-y-4;
+}
+
+.up-step {
+    @apply flex items-center hover:bg-gray-50 p-4 rounded-lg transition-colors;
+}
+
+.up-step-num {
+    @apply bg-[#F04E30] text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-4;
+}
+
+.up-step-text {
+    @apply text-gray-700;
+}
+
+/* Document item */
+.up-doc-item {
+    @apply flex items-center p-4 bg-gray-50 rounded-lg hover:bg-[#F04E30]/5 transition-colors;
+}
+
+.up-doc-icon {
+    @apply text-[#F04E30] mr-3;
+}
+
+.up-doc-text {
+    @apply text-gray-700 text-sm;
+}
+
+/* Selection step */
+.up-sel-item {
+    @apply flex items-center p-4 hover:bg-gray-50 rounded-lg transition-colors;
+}
+
+.up-sel-icon {
+    @apply text-green-500 mr-3;
+}
+
+.up-sel-text {
+    @apply text-gray-700;
+}
+
+/* Important date card (PostDoc/PhD style) */
+.up-impdate-card {
+    @apply bg-gradient-to-br from-[#122E5E] to-[#1E3A8A] text-white p-6 rounded-lg;
+}
+
+.up-impdate-row {
+    @apply flex items-center mb-2;
+}
+
+.up-impdate-icon {
+    @apply mr-2;
+}
+
+.up-impdate-label {
+    @apply font-semibold;
+}
+
+.up-impdate-date {
+    @apply text-xl font-bold;
+}
+
+/* Contact section */
+.up-contact-section {
+    @apply bg-gradient-to-r from-[#122E5E] to-[#1E3A8A] text-white rounded-xl shadow-lg p-8;
+}
+
+.up-contact-h3 {
+    @apply text-2xl font-bold mb-6;
+}
+
+.up-contact-name {
+    @apply text-xl font-semibold mb-4;
+}
+
+.up-contact-addr {
+    @apply mb-4 leading-relaxed whitespace-pre-line;
+}
+
+.up-contact-list {
+    @apply space-y-4;
+}
+
+.up-contact-item {
+    @apply flex items-center;
+}
+
+.up-contact-icon {
+    @apply mr-3;
+}
+
+/* Programs row inside grid (PostDoc) */
+.up-prog-cat-row {
+    @apply flex items-center mb-4;
+}
+
+.up-prog-cat-icon {
+    @apply text-[#F04E30] mr-3;
+}
+
+.up-prog-cat-h3 {
+    @apply text-2xl font-bold text-gray-800;
+}
+
+.up-prog-cat-desc {
+    @apply text-gray-600 leading-relaxed;
+}
+
+/* Fee panel green */
+.up-fee-icon-wrap {
+    @apply bg-green-100 p-2 rounded-lg;
+}
+
+.up-fee-icon {
+    @apply w-6 h-6 text-green-600;
+}
+
+/* ================= PHASE 2 SPECIFIC ================= */
+.up-grid-4-stat {
+    @apply grid grid-cols-1 md:grid-cols-4 gap-6;
+}
+
+.up-stat-orange {
+    @apply text-center p-4 bg-orange-50 rounded-lg;
+}
+
+.up-stat-icon-orange {
+    @apply w-12 h-12 text-orange-600 mx-auto mb-3;
+}
+
+.up-stat-label-orange {
+    @apply text-lg font-semibold text-orange-800;
+}
+
+.up-stat-value-orange {
+    @apply text-2xl font-bold text-orange-600;
+}
+
+.up-prog-card-blue {
+    @apply border border-gray-200 rounded-lg p-6 hover:border-[#122E5E] transition-colors;
+}
+
+.up-prog-card-icon-blue {
+    @apply text-[#122E5E];
+}
+
+.up-prog-row {
+    @apply flex justify-between items-center;
+}
+
+.up-prog-seats-blue {
+    @apply bg-[#122E5E] text-white px-3 py-1 rounded-full text-sm font-medium;
+}
+
+.up-prog-cutoff {
+    @apply bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-medium;
+}
+
+.up-elig-row {
+    @apply flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:border-[#122E5E] transition-colors;
+}
+
+.up-elig-row-left {
+    @apply flex items-center gap-4;
+}
+
+.up-elig-icon-mandatory {
+    @apply w-6 h-6 text-red-500;
+}
+
+.up-elig-icon-varies {
+    @apply w-6 h-6 text-orange-500;
+}
+
+.up-elig-icon-optional {
+    @apply w-6 h-6 text-green-500;
+}
+
+.up-elig-status-mandatory {
+    @apply px-3 py-1 rounded-full text-sm bg-red-100 text-red-800;
+}
+
+.up-elig-status-varies {
+    @apply px-3 py-1 rounded-full text-sm bg-orange-100 text-orange-800;
+}
+
+.up-elig-status-optional {
+    @apply px-3 py-1 rounded-full text-sm bg-green-100 text-green-800;
+}
+
+.up-sched-blue-icon {
+    @apply w-6 h-6 text-[#122E5E];
+}
+
+.up-sched-right-stack {
+    @apply text-right space-y-1;
+}
+
+.up-sched-duration-blue {
+    @apply bg-[#122E5E] text-white px-3 py-1 rounded-full text-sm;
+}
+
+.up-sched-difficulty {
+    @apply bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm;
+}
+
+.up-date-row-blue {
+    @apply flex items-center justify-between p-4 border-l-4 border-[#122E5E] bg-gray-50;
+}
+
+.up-strategy-card {
+    @apply p-6 border border-gray-200 rounded-lg hover:border-[#122E5E] transition-colors;
+}
+
+.up-strategy-row {
+    @apply flex items-center gap-4 mb-3;
+}
+
+.up-strategy-icon {
+    @apply text-[#122E5E];
+}
+
+.up-strategy-title {
+    @apply text-lg font-semibold text-gray-800;
+}
+
+.up-strategy-desc {
+    @apply text-gray-600 mb-4;
+}
+
+.up-strategy-tips {
+    @apply space-y-2;
+}
+
+.up-strategy-tip {
+    @apply flex items-center gap-2;
+}
+
+.up-strategy-bullet {
+    @apply w-2 h-2 bg-[#122E5E] rounded-full;
+}
+
+.up-strategy-tip-text {
+    @apply text-gray-600 text-sm;
+}
+
+/* Counselling-specific */
+.up-counsel-progress {
+    @apply space-y-6;
+}
+
+.up-counsel-step {
+    @apply flex items-center gap-6 p-6 bg-white rounded-xl shadow-sm border-l-4 border-blue-500;
+}
+
+.up-counsel-num {
+    @apply bg-blue-500 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl font-bold flex-shrink-0;
+}
+
+/* MeritList-specific */
+.up-merit-table-wrap {
+    @apply overflow-x-auto;
+}
+
+.up-merit-table {
+    @apply w-full bg-white rounded-lg shadow-md;
+}
+
+.up-merit-thead {
+    @apply bg-[#122E5E] text-white;
+}
+
+.up-merit-th {
+    @apply p-4 text-left font-semibold;
+}
+
+.up-merit-td {
+    @apply p-4 text-gray-700;
+}
+
+.up-merit-tbody-row {
+    @apply border-b border-gray-100 hover:bg-gray-50;
+}
+
+/* Counselling page specific */
+.up-section-card-light-pad {
+    @apply bg-white rounded-xl shadow-lg p-6 mb-8;
+}
+
+.up-round-btns {
+    @apply flex gap-4 flex-wrap;
+}
+
+.up-round-btn {
+    @apply px-6 py-3 rounded-lg font-semibold transition-colors;
+}
+
+.up-round-btn-active-orange {
+    @apply bg-[#F04E30] text-white;
+}
+
+.up-round-btn-active-blue {
+    @apply bg-[#122E5E] text-white;
+}
+
+.up-round-btn-active-grad {
+    @apply bg-gradient-to-r from-[#F04E30] to-[#122E5E] text-white;
+}
+
+.up-round-btn-inactive {
+    @apply bg-gray-100 text-gray-700 hover:bg-gray-200;
+}
+
+.up-sched-row-bordered {
+    @apply flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:border-[#F04E30] transition-colors;
+}
+
+.up-sched-right-col {
+    @apply text-right;
+}
+
+.up-sched-seats {
+    @apply bg-[#F04E30] text-white px-3 py-1 rounded-full text-sm mb-1;
+}
+
+.up-sched-venue {
+    @apply flex items-center gap-1 text-gray-600 text-sm;
+}
+
+.up-sched-venue-icon {
+    @apply w-4 h-4;
+}
+
+.up-process-grid {
+    @apply grid grid-cols-1 md:grid-cols-5 gap-6;
+}
+
+.up-process-card {
+    @apply text-center;
+}
+
+.up-process-icon-wrap {
+    @apply bg-[#F04E30] text-white p-4 rounded-full inline-block mb-4 hover:bg-[#122E5E] transition-colors;
+}
+
+.up-process-body {
+    @apply bg-gray-50 rounded-lg p-4;
+}
+
+.up-process-step {
+    @apply text-2xl font-bold text-[#F04E30] mb-2;
+}
+
+.up-process-title {
+    @apply font-semibold text-gray-800 mb-2;
+}
+
+.up-process-desc {
+    @apply text-gray-600 text-sm mb-2;
+}
+
+.up-process-duration {
+    @apply text-xs text-gray-500 bg-white px-2 py-1 rounded;
+}
+
+.up-doc-row-header {
+    @apply flex items-center justify-between mb-6;
+}
+
+.up-doc-download-btn {
+    @apply flex items-center gap-2 bg-[#F04E30] text-white px-4 py-2 rounded-lg hover:bg-[#122E5E] transition-colors;
+}
+
+.up-doc-row {
+    @apply flex items-center justify-between p-4 border border-gray-200 rounded-lg;
+}
+
+.up-doc-left {
+    @apply flex items-center gap-3;
+}
+
+.up-doc-check-mandatory {
+    @apply w-5 h-5 text-red-500;
+}
+
+.up-doc-check-optional {
+    @apply w-5 h-5 text-green-500;
+}
+
+.up-doc-name {
+    @apply font-medium text-gray-800;
+}
+
+.up-doc-status {
+    @apply text-sm text-gray-600;
+}
+
+.up-doc-copies {
+    @apply bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm;
+}
+
+.up-doc-grid-2 {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+}
+
+.up-contact-card {
+    @apply flex items-center gap-4 p-4 bg-gray-50 rounded-lg;
+}
+
+.up-contact-icon-color {
+    @apply text-[#F04E30];
+}
+
+.up-contact-type {
+    @apply font-medium text-gray-800;
+}
+
+.up-contact-value {
+    @apply text-gray-600;
+}
+
+.up-instr-list {
+    @apply space-y-3;
+}
+
+.up-instr-item {
+    @apply flex items-start gap-3 p-3 bg-gray-50 rounded-lg;
+}
+
+.up-instr-num {
+    @apply w-6 h-6 bg-[#F04E30] text-white rounded-full flex items-center justify-center text-sm font-bold mt-0.5;
+}
+
+.up-instr-text {
+    @apply text-gray-700;
+}
+
+/* MeritList specific */
+.up-cutoff-section {
+    @apply mt-8 p-6 bg-gray-50 rounded-lg;
+}
+
+.up-cutoff-h3 {
+    @apply text-lg font-semibold mb-4 text-gray-800;
+}
+
+.up-cutoff-grid {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-4;
+}
+
+.up-cutoff-row {
+    @apply flex justify-between items-center p-3 bg-white rounded-lg;
+}
+
+.up-cutoff-label {
+    @apply font-medium text-gray-700;
+}
+
+.up-cutoff-value {
+    @apply font-bold text-[#F04E30];
+}
+
+.up-search-row {
+    @apply flex flex-col md:flex-row gap-4 items-center justify-between;
+}
+
+.up-search-flex {
+    @apply flex-1 relative;
+}
+
+.up-search-icon {
+    @apply w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400;
+}
+
+.up-search-input {
+    @apply w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F04E30] focus:border-transparent;
+}
+
+.up-filter-row {
+    @apply flex items-center gap-4;
+}
+
+.up-filter-block {
+    @apply flex items-center gap-2;
+}
+
+.up-filter-icon {
+    @apply w-5 h-5 text-gray-400;
+}
+
+.up-filter-select {
+    @apply border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#F04E30] focus:border-transparent;
+}
+
+.up-merit-card {
+    @apply bg-white rounded-xl shadow-lg overflow-hidden;
+}
+
+.up-merit-card-header {
+    @apply p-6 border-b border-gray-200;
+}
+
+.up-merit-card-info {
+    @apply text-gray-600 mt-1;
+}
+
+.up-merit-table-grey {
+    @apply w-full;
+}
+
+.up-merit-thead-grey {
+    @apply bg-gray-50;
+}
+
+.up-merit-th-grey {
+    @apply px-6 py-4 text-left text-sm font-semibold text-gray-700;
+}
+
+.up-merit-tbody-grey {
+    @apply divide-y divide-gray-200;
+}
+
+.up-merit-row-grey {
+    @apply hover:bg-gray-50 transition-colors;
+}
+
+.up-merit-td-grey {
+    @apply px-6 py-4;
+}
+
+.up-merit-rank-row {
+    @apply flex items-center gap-2;
+}
+
+.up-merit-rank-text {
+    @apply font-semibold text-gray-800;
+}
+
+.up-merit-name {
+    @apply font-medium text-gray-800;
+}
+
+.up-merit-roll {
+    @apply text-gray-600 font-mono;
+}
+
+.up-merit-score {
+    @apply font-bold text-[#F04E30];
+}
+
+.up-merit-cat-general {
+    @apply px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800;
+}
+
+.up-merit-cat-obc {
+    @apply px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800;
+}
+
+.up-merit-cat-other {
+    @apply px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800;
+}
+
+.up-merit-prog {
+    @apply text-gray-700;
+}
+
+.up-merit-notice {
+    @apply mt-8 bg-[#122E5E] rounded-xl p-6 text-white;
+}
+
+.up-merit-notice-row {
+    @apply flex items-center gap-4;
+}
+
+/* ================= ABOUT HOSPITAL TAB BODY ================= */
+.ah-rich-section {
+    @apply space-y-8;
+}
+
+.ah-cert-row {
+    @apply flex flex-col md:flex-row gap-6 w-full max-w-4xl mx-auto mb-6;
+}
+
+.ah-cert-img {
+    @apply w-full md:w-1/2 h-auto mb-4 rounded-lg shadow-lg;
+}
+
+.ah-vm-section {
+    @apply w-full px-4 sm:px-8 md:px-15 py-10 sm:py-20;
+}
+
+.ah-vm-grid {
+    @apply mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 max-md:gap-0;
+}
+
+.ah-vm-quality-card {
+    @apply p-6 sm:p-10 text-white shadow-md mt-10;
+}
+
+.ah-vm-row {
+    @apply flex justify-between items-start mb-2;
+}
+
+.ah-vm-title-white {
+    @apply text-2xl uppercase sm:text-3xl md:text-4xl text-white mb-2 font-[500] tracking-tight leading-tight;
+    font-family: "Oswald", sans-serif;
+}
+
+.ah-vm-title-line {
+    @apply block border-t-4 border-[#F04E30] w-20 sm:w-24 mb-2 mr-4;
+}
+
+.ah-vm-icon {
+    @apply w-24 h-24 sm:w-28 sm:h-28 object-contain;
+}
+
+.ah-vm-text {
+    @apply leading-relaxed;
+}
+
+.ah-vm-h3 {
+    @apply text-xl mt-6 mb-2 font-semibold;
+}
+
+.ah-vm-list {
+    @apply list-disc list-inside leading-relaxed;
+}
+
+.ah-vm-list-spaced {
+    @apply list-disc list-inside leading-relaxed space-y-1;
+}
+
+.ah-card {
+    @apply p-5 sm:p-8 md:p-12 shadow-md min-h-[370px] text-white;
+}
+
+.ah-card-pad {
+    @apply pt-5 sm:pt-12;
+}
+
+.ah-card-title {
+    @apply text-2xl uppercase mt-5 md:mt-10 sm:text-3xl md:text-4xl text-white mb-2 font-[500] tracking-tight leading-tight;
+    font-family: "Oswald", sans-serif;
+}
+
+.ah-card-icon {
+    @apply h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 object-contain;
+}
+
+.ah-grey-title {
+    @apply text-2xl uppercase mt-5 md:mt-10 sm:text-3xl md:text-4xl text-[#707070] mb-2 font-[500] tracking-tight leading-tight;
+    font-family: "Oswald", sans-serif;
+}
+
+.ah-grey-title-mb {
+    @apply text-2xl uppercase mt-5 md:mt-10 sm:text-3xl md:text-4xl text-[#707070] mb-4 font-[500] tracking-tight leading-tight;
+    font-family: "Oswald", sans-serif;
+}
+
+.ah-grey-title-empty {
+    @apply text-2xl uppercase mt-5 sm:text-3xl md:text-4xl text-[#707070] mb-4 font-[500] tracking-tight leading-tight;
+    font-family: "Oswald", sans-serif;
+}
+
+.ah-grey-line {
+    @apply block border-t-4 border-[#F04E30] w-20 sm:w-24 mb-2 mr-4;
+}
+
+.ah-grey-line-center {
+    @apply block border-t-4 border-[#F04E30] w-20 sm:w-24 mb-2 mr-4 mx-auto;
+}
+
+.ah-table-wrap {
+    @apply rounded-lg overflow-x-auto;
+}
+
+.ah-table {
+    @apply min-w-full text-left text-gray-700 text-base border border-gray-200 rounded-lg;
+}
+
+.ah-table-thead-row {
+    @apply bg-[#facc15] text-black;
+}
+
+.ah-table-th-tl {
+    @apply px-4 py-3 border border-gray-200 rounded-tl-lg;
+}
+
+.ah-table-th {
+    @apply px-4 py-3 border border-gray-200;
+}
+
+.ah-table-th-tr {
+    @apply px-4 py-3 border border-gray-200 rounded-tr-lg;
+}
+
+.ah-table-row {
+    @apply hover:bg-gray-50;
+}
+
+.ah-table-td {
+    @apply px-4 py-3 border border-gray-200;
+}
+
+.ah-doc-empty {
+    @apply py-10 text-center text-gray-500;
+}
+
+.ah-doc-frame {
+    @apply w-full h-[80vh] border border-gray-200 rounded-lg overflow-hidden bg-gray-50;
+}
+
+.ah-doc-frame-inner {
+    @apply w-full h-full;
+}
+
+.ah-doc-frame-img {
+    @apply w-full h-full object-contain;
+}
+
+.ah-doc-link-row {
+    @apply mt-3 text-sm;
+}
+
+.ah-doc-link {
+    @apply text-[#F04E30] hover:underline;
+}
+
+.ah-gallery-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4;
+}
+
+.ah-gallery-img {
+    @apply w-full h-48 object-cover rounded-lg shadow-md;
+}
+
+/* AboutHospital index */
+.ah-page {
+    @apply px-6 min-h-screen bg-white max-w-7xl mx-auto my-5;
+}
+
+.ah-page-h1 {
+    @apply text-3xl sm:text-4xl font-bold text-center mb-6 text-[#13305c];
+}
+
+.ah-tabs-row {
+    @apply flex flex-wrap justify-center gap-3 mb-6;
+}
+
+.ah-tab-btn {
+    @apply px-4 py-2 rounded-lg transition font-medium;
+}
+
+.ah-tab-btn-active {
+    @apply bg-[#F04E30] text-white;
+}
+
+.ah-tab-btn-inactive {
+    @apply bg-gray-100 text-[#333] hover:bg-[#13305c] hover:text-white;
+}
+
+/* NAAC Tabs */
+.naac-tabs-wrap {
+    @apply max-w-7xl mx-auto py-10 md:px-20;
+}
+
+.naac-tabs-row {
+    @apply flex flex-wrap md:gap-6 gap-2 justify-center text-lg;
+    font-family: "Oswald", sans-serif;
+}
+
+.naac-tab {
+    @apply px-6 py-2 border-1;
+}
+
+.naac-tab-active {
+    @apply bg-[#132f5c] text-white border-[#132f5c] font-light;
+}
+
+.naac-tab-inactive {
+    @apply text-gray-600 hover:bg-[#132f5c] hover:text-white;
+}
+
+/* DMIHER-CET components */
+.dcet-section {
+    @apply py-16 px-4 bg-white;
+}
+
+.dcet-section-grey {
+    @apply py-16 px-4 bg-gray-50;
+}
+
+.dcet-section-plain {
+    @apply py-16 px-4;
+}
+
+.dcet-container {
+    @apply max-w-6xl mx-auto;
+}
+
+.dcet-section-title {
+    @apply text-3xl font-bold text-center mb-4 text-gray-800;
+}
+
+.dcet-section-title-mb12 {
+    @apply text-3xl font-bold text-center mb-12 text-gray-800;
+}
+
+.dcet-section-desc {
+    @apply text-center text-gray-600 mb-12 max-w-3xl mx-auto;
+}
+
+.dcet-grid-3 {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+}
+
+.dcet-grid-3-col {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-6;
+}
+
+.dcet-syllabus-card {
+    @apply bg-white border-2 border-gray-100 rounded-xl p-6 hover:border-[#F04E30] transition-all duration-300 transform hover:scale-105 hover:shadow-lg;
+}
+
+.dcet-syllabus-row {
+    @apply flex items-center gap-3 mb-4;
+}
+
+.dcet-syllabus-icon-wrap {
+    @apply bg-orange-100 text-[#F04E30] rounded-lg p-2;
+}
+
+.dcet-syllabus-title {
+    @apply text-xl font-semibold text-gray-800;
+}
+
+.dcet-syllabus-list {
+    @apply space-y-2;
+}
+
+.dcet-syllabus-item {
+    @apply flex items-center gap-2;
+}
+
+.dcet-syllabus-bullet {
+    @apply w-2 h-2 bg-[#F04E30] rounded-full;
+}
+
+.dcet-syllabus-text {
+    @apply text-gray-600;
+}
+
+.dcet-prog-card {
+    @apply bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 hover:shadow-xl;
+}
+
+.dcet-prog-header {
+    @apply bg-gradient-to-r from-gray-50 to-gray-100 p-6;
+}
+
+.dcet-prog-row {
+    @apply flex items-center gap-3 mb-3;
+}
+
+.dcet-prog-title {
+    @apply text-xl font-semibold text-[#F04E30];
+}
+
+.dcet-prog-body {
+    @apply p-6;
+}
+
+.dcet-prog-list {
+    @apply space-y-2;
+}
+
+.dcet-prog-item {
+    @apply flex items-center gap-2 text-gray-700;
+}
+
+.dcet-prog-check {
+    @apply w-4 h-4 text-green-500;
+}
+
+.dcet-phase-card {
+    @apply bg-white rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition-all duration-300 hover:shadow-xl;
+}
+
+.dcet-phase-icon-wrap {
+    @apply bg-[#F04E30] text-white p-4 rounded-full inline-block mb-4 group-hover:bg-[#122E5E] transition-colors duration-300;
+}
+
+.dcet-phase-icon {
+    @apply w-5 h-5;
+}
+
+.dcet-phase-title {
+    @apply text-xl font-semibold mb-2 text-gray-800;
+}
+
+.dcet-phase-month {
+    @apply text-gray-600 mb-3;
+}
+
+.dcet-phase-cta {
+    @apply flex items-center justify-center text-[#F04E30] group-hover:text-[#122E5E] transition-colors duration-300;
+}
+
+.dcet-phase-cta-text {
+    @apply text-sm font-medium mr-1;
+}
+
+.dcet-phase-cta-icon {
+    @apply w-4 h-4;
+}
+
+.dcet-empty-italic {
+    @apply text-center text-gray-500 italic;
+}
+
+/* Institute ProgramsSection helpers */
+.inst-prog-section {
+    @apply w-full flex justify-center;
+}
+
+.inst-prog-mobile {
+    @apply flex flex-col items-center sm:hidden flex-wrap gap-6;
+}
+
+.inst-prog-desktop {
+    @apply hidden sm:block;
+}
+
+.inst-prog-desktop-list {
+    @apply flex justify-center gap-20 mb-10 flex-wrap;
+}
+
+.inst-prog-mobile-text {
+    @apply text-center block w-[160px];
+}
+
+.inst-prog-desktop-text {
+    @apply text-center break-words block w-[180px];
+}
+
+/* PatternStats */
+.dcet-pattern-section {
+    @apply bg-white py-16 px-4;
+}
+
+.dcet-pattern-header {
+    @apply text-center mb-12;
+}
+
+.dcet-pattern-h2 {
+    @apply text-3xl font-bold mb-4 text-gray-800;
+}
+
+.dcet-pattern-desc {
+    @apply text-gray-600 max-w-2xl mx-auto;
+}
+
+.dcet-pattern-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6;
+}
+
+.dcet-pattern-card {
+    @apply relative overflow-hidden bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105;
+}
+
+.dcet-pattern-card-top {
+    @apply bg-[#122E5E] p-6 text-white relative;
+}
+
+.dcet-pattern-card-blob {
+    @apply absolute top-0 right-0 w-20 h-20 bg-white/10 rounded-full -mr-10 -mt-10;
+}
+
+.dcet-pattern-card-content {
+    @apply relative z-10;
+}
+
+.dcet-pattern-card-icon-wrap {
+    @apply mb-4 opacity-90;
+}
+
+.dcet-pattern-card-stat {
+    @apply text-3xl font-bold mb-1;
+}
+
+.dcet-pattern-card-statlabel {
+    @apply text-sm opacity-90;
+}
+
+.dcet-pattern-card-bottom {
+    @apply p-6;
+}
+
+.dcet-pattern-card-title {
+    @apply text-lg font-semibold mb-2 text-gray-800;
+}
+
+.dcet-pattern-card-desc {
+    @apply text-gray-600 text-sm;
+}
+
+/* Merit list phase btn row */
+.up-phase-btn-row {
+    @apply flex gap-4;
+}

@@ -13,8 +13,6 @@ import {
   Star,
   Users,
   TrendingUp,
-  Calendar,
-  FileText,
 } from "lucide-react";
 
 function MeritListPage() {
@@ -24,208 +22,33 @@ function MeritListPage() {
 
   const meritListData = {
     phase1: [
-      {
-        rank: 1,
-        name: "Arjun Sharma",
-        rollNo: "DMI2025001",
-        score: 198,
-        category: "General",
-        program: "MBBS",
-      },
-      {
-        rank: 2,
-        name: "Priya Patel",
-        rollNo: "DMI2025002",
-        score: 196,
-        category: "General",
-        program: "Computer Science",
-      },
-      {
-        rank: 3,
-        name: "Rahul Kumar",
-        rollNo: "DMI2025003",
-        score: 194,
-        category: "OBC",
-        program: "MBBS",
-      },
-      {
-        rank: 4,
-        name: "Sneha Reddy",
-        rollNo: "DMI2025004",
-        score: 192,
-        category: "General",
-        program: "Electronics",
-      },
-      {
-        rank: 5,
-        name: "Vikram Singh",
-        rollNo: "DMI2025005",
-        score: 190,
-        category: "SC",
-        program: "BDS",
-      },
-      {
-        rank: 6,
-        name: "Ananya Gupta",
-        rollNo: "DMI2025006",
-        score: 188,
-        category: "General",
-        program: "B.Pharm",
-      },
-      {
-        rank: 7,
-        name: "Karthik Nair",
-        rollNo: "DMI2025007",
-        score: 186,
-        category: "OBC",
-        program: "Mechanical",
-      },
-      {
-        rank: 8,
-        name: "Divya Joshi",
-        rollNo: "DMI2025008",
-        score: 184,
-        category: "General",
-        program: "BAMS",
-      },
-      {
-        rank: 9,
-        name: "Rohit Agarwal",
-        rollNo: "DMI2025009",
-        score: 182,
-        category: "General",
-        program: "Civil",
-      },
-      {
-        rank: 10,
-        name: "Kavya Menon",
-        rollNo: "DMI2025010",
-        score: 180,
-        category: "OBC",
-        program: "B.Sc Nursing",
-      },
-      {
-        rank: 11,
-        name: "Aditya Verma",
-        rollNo: "DMI2025011",
-        score: 178,
-        category: "General",
-        program: "Electrical",
-      },
-      {
-        rank: 12,
-        name: "Riya Shah",
-        rollNo: "DMI2025012",
-        score: 176,
-        category: "General",
-        program: "BHMS",
-      },
-      {
-        rank: 13,
-        name: "Manish Yadav",
-        rollNo: "DMI2025013",
-        score: 174,
-        category: "OBC",
-        program: "Biotechnology",
-      },
-      {
-        rank: 14,
-        name: "Pooja Kumari",
-        rollNo: "DMI2025014",
-        score: 172,
-        category: "SC",
-        program: "Physiotherapy",
-      },
-      {
-        rank: 15,
-        name: "Siddharth Jain",
-        rollNo: "DMI2025015",
-        score: 170,
-        category: "General",
-        program: "Pharm.D",
-      },
+      { rank: 1, name: "Arjun Sharma", rollNo: "DMI2025001", score: 198, category: "General", program: "MBBS" },
+      { rank: 2, name: "Priya Patel", rollNo: "DMI2025002", score: 196, category: "General", program: "Computer Science" },
+      { rank: 3, name: "Rahul Kumar", rollNo: "DMI2025003", score: 194, category: "OBC", program: "MBBS" },
+      { rank: 4, name: "Sneha Reddy", rollNo: "DMI2025004", score: 192, category: "General", program: "Electronics" },
+      { rank: 5, name: "Vikram Singh", rollNo: "DMI2025005", score: 190, category: "SC", program: "BDS" },
+      { rank: 6, name: "Ananya Gupta", rollNo: "DMI2025006", score: 188, category: "General", program: "B.Pharm" },
+      { rank: 7, name: "Karthik Nair", rollNo: "DMI2025007", score: 186, category: "OBC", program: "Mechanical" },
+      { rank: 8, name: "Divya Joshi", rollNo: "DMI2025008", score: 184, category: "General", program: "BAMS" },
+      { rank: 9, name: "Rohit Agarwal", rollNo: "DMI2025009", score: 182, category: "General", program: "Civil" },
+      { rank: 10, name: "Kavya Menon", rollNo: "DMI2025010", score: 180, category: "OBC", program: "B.Sc Nursing" },
+      { rank: 11, name: "Aditya Verma", rollNo: "DMI2025011", score: 178, category: "General", program: "Electrical" },
+      { rank: 12, name: "Riya Shah", rollNo: "DMI2025012", score: 176, category: "General", program: "BHMS" },
+      { rank: 13, name: "Manish Yadav", rollNo: "DMI2025013", score: 174, category: "OBC", program: "Biotechnology" },
+      { rank: 14, name: "Pooja Kumari", rollNo: "DMI2025014", score: 172, category: "SC", program: "Physiotherapy" },
+      { rank: 15, name: "Siddharth Jain", rollNo: "DMI2025015", score: 170, category: "General", program: "Pharm.D" },
     ],
     phase2: [
-      {
-        rank: 1,
-        name: "Arjun Sharma",
-        rollNo: "DMI2025001",
-        score: 195,
-        category: "General",
-        program: "MD Internal Medicine",
-      },
-      {
-        rank: 2,
-        name: "Priya Patel",
-        rollNo: "DMI2025002",
-        score: 193,
-        category: "General",
-        program: "AI & ML",
-      },
-      {
-        rank: 3,
-        name: "Rahul Kumar",
-        rollNo: "DMI2025003",
-        score: 191,
-        category: "OBC",
-        program: "MS Surgery",
-      },
-      {
-        rank: 4,
-        name: "Sneha Reddy",
-        rollNo: "DMI2025004",
-        score: 189,
-        category: "General",
-        program: "Robotics Engineering",
-      },
-      {
-        rank: 5,
-        name: "Vikram Singh",
-        rollNo: "DMI2025005",
-        score: 187,
-        category: "SC",
-        program: "MDS",
-      },
-      {
-        rank: 6,
-        name: "Ananya Gupta",
-        rollNo: "DMI2025006",
-        score: 185,
-        category: "General",
-        program: "M.Pharm",
-      },
-      {
-        rank: 7,
-        name: "Karthik Nair",
-        rollNo: "DMI2025007",
-        score: 183,
-        category: "OBC",
-        program: "Cyber Security",
-      },
-      {
-        rank: 8,
-        name: "Divya Joshi",
-        rollNo: "DMI2025008",
-        score: 181,
-        category: "General",
-        program: "PhD Biotechnology",
-      },
-      {
-        rank: 9,
-        name: "Rohit Agarwal",
-        rollNo: "DMI2025009",
-        score: 179,
-        category: "General",
-        program: "Data Science",
-      },
-      {
-        rank: 10,
-        name: "Kavya Menon",
-        rollNo: "DMI2025010",
-        score: 177,
-        category: "OBC",
-        program: "Research Fellowship",
-      },
+      { rank: 1, name: "Arjun Sharma", rollNo: "DMI2025001", score: 195, category: "General", program: "MD Internal Medicine" },
+      { rank: 2, name: "Priya Patel", rollNo: "DMI2025002", score: 193, category: "General", program: "AI & ML" },
+      { rank: 3, name: "Rahul Kumar", rollNo: "DMI2025003", score: 191, category: "OBC", program: "MS Surgery" },
+      { rank: 4, name: "Sneha Reddy", rollNo: "DMI2025004", score: 189, category: "General", program: "Robotics Engineering" },
+      { rank: 5, name: "Vikram Singh", rollNo: "DMI2025005", score: 187, category: "SC", program: "MDS" },
+      { rank: 6, name: "Ananya Gupta", rollNo: "DMI2025006", score: 185, category: "General", program: "M.Pharm" },
+      { rank: 7, name: "Karthik Nair", rollNo: "DMI2025007", score: 183, category: "OBC", program: "Cyber Security" },
+      { rank: 8, name: "Divya Joshi", rollNo: "DMI2025008", score: 181, category: "General", program: "PhD Biotechnology" },
+      { rank: 9, name: "Rohit Agarwal", rollNo: "DMI2025009", score: 179, category: "General", program: "Data Science" },
+      { rank: 10, name: "Kavya Menon", rollNo: "DMI2025010", score: 177, category: "OBC", program: "Research Fellowship" },
     ],
   };
 
@@ -271,55 +94,52 @@ function MeritListPage() {
   const currentStats = statistics[selectedPhase];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="up-page-gray">
       {/* Header */}
-      <div className="bg-[#122E5E] text-white py-8 px-4">
-        <div className="max-w-6xl mx-auto">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-4 transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
+      <div className="up-header-px">
+        <div className="up-header-container">
+          <Link to="/" className="up-back-link">
+            <ArrowLeft className="up-back-icon" />
             Back to Home
           </Link>
-          <div className="flex items-center gap-4 mb-4">
-            <div className="bg-white/10 p-3 rounded-full">
-              <Award className="w-8 h-8" />
+          <div className="up-header-icon-large">
+            <div className="up-header-icon-wrap">
+              <Award className="up-header-icon" />
             </div>
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold">
+              <h1 className="up-header-title-large">
                 Merit List 2025
               </h1>
-              <p className="text-xl opacity-90">Official Rankings & Results</p>
+              <p className="up-header-subtitle-opacity">Official Rankings & Results</p>
             </div>
           </div>
         </div>
       </div>
 
       <div className="py-12 px-4">
-        <div className="max-w-6xl mx-auto">
+        <div className="up-header-container">
           {/* Phase Selection */}
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">
+          <div className="up-section-card-light-pad">
+            <h2 className="up-section-title">
               Select Phase
             </h2>
-            <div className="flex gap-4">
+            <div className="up-phase-btn-row">
               <button
                 onClick={() => setSelectedPhase("phase1")}
-                className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                className={`up-round-btn ${
                   selectedPhase === "phase1"
-                    ? "bg-[#F04E30] text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    ? "up-round-btn-active-orange"
+                    : "up-round-btn-inactive"
                 }`}
               >
                 Phase 1 Results
               </button>
               <button
                 onClick={() => setSelectedPhase("phase2")}
-                className={`px-6 py-3 rounded-lg font-semibold transition-colors ${
+                className={`up-round-btn ${
                   selectedPhase === "phase2"
-                    ? "bg-[#122E5E] text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    ? "up-round-btn-active-blue"
+                    : "up-round-btn-inactive"
                 }`}
               >
                 Phase 2 Results
@@ -328,97 +148,75 @@ function MeritListPage() {
           </div>
 
           {/* Statistics */}
-          <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h2 className="text-2xl font-bold mb-6 text-gray-800">
+          <div className="up-section-card-mb">
+            <h2 className="up-section-title">
               {selectedPhase === "phase1" ? "Phase 1" : "Phase 2"} Statistics
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <div className="text-center p-4 bg-blue-50 rounded-lg">
-                <Users className="w-12 h-12 text-blue-600 mx-auto mb-3" />
-                <h3 className="text-lg font-semibold text-blue-800">
-                  Total Candidates
-                </h3>
-                <p className="text-2xl font-bold text-blue-600">
-                  {currentStats.totalCandidates}
-                </p>
+            <div className="up-grid-4-stat">
+              <div className="up-stat-blue">
+                <Users className="up-stat-icon-blue" />
+                <h3 className="up-stat-label-blue">Total Candidates</h3>
+                <p className="up-stat-value-blue">{currentStats.totalCandidates}</p>
               </div>
-              <div className="text-center p-4 bg-green-50 rounded-lg">
-                <CheckCircle className="w-12 h-12 text-green-600 mx-auto mb-3" />
-                <h3 className="text-lg font-semibold text-green-800">
-                  Qualified
-                </h3>
-                <p className="text-2xl font-bold text-green-600">
-                  {currentStats.qualified}
-                </p>
+              <div className="up-stat-green">
+                <CheckCircle className="up-stat-icon-green" />
+                <h3 className="up-stat-label-green">Qualified</h3>
+                <p className="up-stat-value-green">{currentStats.qualified}</p>
               </div>
-              <div className="text-center p-4 bg-purple-50 rounded-lg">
-                <TrendingUp className="w-12 h-12 text-purple-600 mx-auto mb-3" />
-                <h3 className="text-lg font-semibold text-purple-800">
-                  Success Rate
-                </h3>
-                <p className="text-2xl font-bold text-purple-600">
-                  {currentStats.qualificationRate}
-                </p>
+              <div className="up-stat-purple">
+                <TrendingUp className="up-stat-icon-purple" />
+                <h3 className="up-stat-label-purple">Success Rate</h3>
+                <p className="up-stat-value-purple">{currentStats.qualificationRate}</p>
               </div>
-              <div className="text-center p-4 bg-orange-50 rounded-lg">
-                <Trophy className="w-12 h-12 text-orange-600 mx-auto mb-3" />
-                <h3 className="text-lg font-semibold text-orange-800">
-                  Highest Score
-                </h3>
-                <p className="text-2xl font-bold text-orange-600">
-                  {currentStats.highestScore}
-                </p>
+              <div className="up-stat-orange">
+                <Trophy className="up-stat-icon-orange" />
+                <h3 className="up-stat-label-orange">Highest Score</h3>
+                <p className="up-stat-value-orange">{currentStats.highestScore}</p>
               </div>
             </div>
 
             {/* Cutoff Information */}
-            <div className="mt-8 p-6 bg-gray-50 rounded-lg">
-              <h3 className="text-lg font-semibold mb-4 text-gray-800">
+            <div className="up-cutoff-section">
+              <h3 className="up-cutoff-h3">
                 Category-wise Cutoff Marks
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="flex justify-between items-center p-3 bg-white rounded-lg">
-                  <span className="font-medium text-gray-700">General</span>
-                  <span className="font-bold text-[#F04E30]">
-                    {currentStats.cutoffGeneral}
-                  </span>
+              <div className="up-cutoff-grid">
+                <div className="up-cutoff-row">
+                  <span className="up-cutoff-label">General</span>
+                  <span className="up-cutoff-value">{currentStats.cutoffGeneral}</span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-white rounded-lg">
-                  <span className="font-medium text-gray-700">OBC</span>
-                  <span className="font-bold text-[#F04E30]">
-                    {currentStats.cutoffOBC}
-                  </span>
+                <div className="up-cutoff-row">
+                  <span className="up-cutoff-label">OBC</span>
+                  <span className="up-cutoff-value">{currentStats.cutoffOBC}</span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-white rounded-lg">
-                  <span className="font-medium text-gray-700">SC/ST</span>
-                  <span className="font-bold text-[#F04E30]">
-                    {currentStats.cutoffSC}
-                  </span>
+                <div className="up-cutoff-row">
+                  <span className="up-cutoff-label">SC/ST</span>
+                  <span className="up-cutoff-value">{currentStats.cutoffSC}</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Search and Filter */}
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-            <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-              <div className="flex-1 relative">
-                <Search className="w-5 h-5 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+          <div className="up-section-card-light-pad">
+            <div className="up-search-row">
+              <div className="up-search-flex">
+                <Search className="up-search-icon" />
                 <input
                   type="text"
                   placeholder="Search by name or roll number..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#F04E30] focus:border-transparent"
+                  className="up-search-input"
                 />
               </div>
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <Filter className="w-5 h-5 text-gray-400" />
+              <div className="up-filter-row">
+                <div className="up-filter-block">
+                  <Filter className="up-filter-icon" />
                   <select
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
-                    className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-[#F04E30] focus:border-transparent"
+                    className="up-filter-select"
                   >
                     {categories.map((category) => (
                       <option key={category} value={category}>
@@ -427,7 +225,7 @@ function MeritListPage() {
                     ))}
                   </select>
                 </div>
-                <button className="flex items-center gap-2 bg-[#F04E30] text-white px-4 py-2 rounded-lg hover:bg-[#122E5E] transition-colors">
+                <button className="up-doc-download-btn">
                   <Download className="w-5 h-5" />
                   Download PDF
                 </button>
@@ -436,85 +234,70 @@ function MeritListPage() {
           </div>
 
           {/* Merit List Table */}
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div className="p-6 border-b border-gray-200">
-              <h2 className="text-2xl font-bold text-gray-800">
+          <div className="up-merit-card">
+            <div className="up-merit-card-header">
+              <h2 className="up-section-title-h2">
                 {selectedPhase === "phase1" ? "Phase 1" : "Phase 2"} Merit List
               </h2>
-              <p className="text-gray-600 mt-1">
+              <p className="up-merit-card-info">
                 Showing {filteredData.length} of{" "}
                 {meritListData[selectedPhase].length} candidates
               </p>
             </div>
 
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gray-50">
+            <div className="up-merit-table-wrap">
+              <table className="up-merit-table-grey">
+                <thead className="up-merit-thead-grey">
                   <tr>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
-                      Rank
-                    </th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
-                      Name
-                    </th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
-                      Roll Number
-                    </th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
-                      Score
-                    </th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
-                      Category
-                    </th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">
-                      Program
-                    </th>
+                    <th className="up-merit-th-grey">Rank</th>
+                    <th className="up-merit-th-grey">Name</th>
+                    <th className="up-merit-th-grey">Roll Number</th>
+                    <th className="up-merit-th-grey">Score</th>
+                    <th className="up-merit-th-grey">Category</th>
+                    <th className="up-merit-th-grey">Program</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {filteredData.map((student, index) => (
-                    <tr
-                      key={student.rollNo}
-                      className="hover:bg-gray-50 transition-colors"
-                    >
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-2">
+                <tbody className="up-merit-tbody-grey">
+                  {filteredData.map((student) => (
+                    <tr key={student.rollNo} className="up-merit-row-grey">
+                      <td className="up-merit-td-grey">
+                        <div className="up-merit-rank-row">
                           {getRankIcon(student.rank)}
-                          <span className="font-semibold text-gray-800">
+                          <span className="up-merit-rank-text">
                             {student.rank}
                           </span>
                         </div>
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="font-medium text-gray-800">
+                      <td className="up-merit-td-grey">
+                        <div className="up-merit-name">
                           {student.name}
                         </div>
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="text-gray-600 font-mono">
+                      <td className="up-merit-td-grey">
+                        <div className="up-merit-roll">
                           {student.rollNo}
                         </div>
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="font-bold text-[#F04E30]">
+                      <td className="up-merit-td-grey">
+                        <div className="up-merit-score">
                           {student.score}/200
                         </div>
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="up-merit-td-grey">
                         <span
-                          className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          className={
                             student.category === "General"
-                              ? "bg-blue-100 text-blue-800"
+                              ? "up-merit-cat-general"
                               : student.category === "OBC"
-                              ? "bg-green-100 text-green-800"
-                              : "bg-purple-100 text-purple-800"
-                          }`}
+                              ? "up-merit-cat-obc"
+                              : "up-merit-cat-other"
+                          }
                         >
                           {student.category}
                         </span>
                       </td>
-                      <td className="px-6 py-4">
-                        <div className="text-gray-700">{student.program}</div>
+                      <td className="up-merit-td-grey">
+                        <div className="up-merit-prog">{student.program}</div>
                       </td>
                     </tr>
                   ))}
@@ -524,12 +307,12 @@ function MeritListPage() {
           </div>
 
           {/* Important Notice */}
-          <div className="mt-8 bg-[#122E5E] rounded-xl p-6 text-white">
-            <div className="flex items-center gap-4">
-              <AlertCircle className="w-8 h-8" />
+          <div className="up-merit-notice">
+            <div className="up-merit-notice-row">
+              <AlertCircle className="up-alert-icon" />
               <div>
-                <h3 className="text-lg font-semibold mb-2">Important Notice</h3>
-                <p className="opacity-90">
+                <h3 className="up-alert-title">Important Notice</h3>
+                <p className="up-alert-text">
                   This merit list is provisional and subject to verification of
                   documents. Candidates are advised to report for counselling as
                   per the schedule with all required documents.
@@ -539,11 +322,6 @@ function MeritListPage() {
           </div>
         </div>
       </div>
-
-      {/* Footer */}
-      {/* <div className="bg-gray-800 text-center py-8 px-4">
-        <p className="text-gray-400">© 2025 DMIHER CET Information Portal. All rights reserved.</p>
-      </div> */}
     </div>
   );
 }

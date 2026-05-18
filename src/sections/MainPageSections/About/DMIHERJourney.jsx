@@ -9,8 +9,6 @@ const DMHRSTimeline = ({ data }) => {
   const bgImage = heading?.image;
   const bgColor = heading?.color;
 
-  /* ================= RESPONSIVE ================= */
-
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 968px)");
     setIsMobile(mediaQuery.matches);
@@ -23,8 +21,6 @@ const DMHRSTimeline = ({ data }) => {
   }, []);
 
   if (!journeyData.length) return null;
-
-  /* ================= POSITION MAP (Same As Old Design) ================= */
 
   const leftPositions = [
     "48%", "66%", "85%", "95%", "93%",
@@ -70,9 +66,9 @@ const DMHRSTimeline = ({ data }) => {
             </h2>
           </div>
 
-          {/* SVG Path (Same Curve) */}
+          {/* SVG Path */}
           <svg
-            className="absolute top-0 left-0 w-full h-full z-0"
+            className="djourney-svg"
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
           >
@@ -81,7 +77,7 @@ const DMHRSTimeline = ({ data }) => {
               stroke="white"
               strokeWidth="0.9"
               fill="none"
-              className="drop-shadow-[0_0_5px_rgba(255,255,255,0.3)]"
+              className="djourney-svg-path"
             />
           </svg>
 
@@ -93,18 +89,18 @@ const DMHRSTimeline = ({ data }) => {
             return (
               <div
                 key={index}
-                className="absolute z-10 transform -translate-x-1/2 -translate-y-1/2 group"
+                className="djourney-item group"
                 style={{ left, top }}
               >
                 {/* Dot */}
                 <div
-                  className="w-6 h-6 rounded-full shadow-md cursor-pointer transition-all duration-300 group-hover:scale-125 group-hover:shadow-lg"
+                  className="djourney-dot"
                   style={{ backgroundColor: item.color }}
                 ></div>
 
                 {/* Year */}
                 <div
-                  className="absolute font-bold text-lg whitespace-nowrap drop-shadow-md"
+                  className="djourney-year"
                   style={{
                     top: "24px",
                     left: "50%",
@@ -117,13 +113,13 @@ const DMHRSTimeline = ({ data }) => {
 
                 {/* Description */}
                 <div
-                  className="absolute w-[150px] -translate-x-1/2 text-white"
+                  className="djourney-desc-wrap"
                   style={{
                     top: "3rem",
                     left: "50%",
                   }}
                 >
-                  <p className="text-xs leading-snug">
+                  <p className="djourney-desc">
                     {item.desc}
                   </p>
                 </div>
@@ -156,12 +152,12 @@ const DMHRSTimeline = ({ data }) => {
         className="text-3xl font-bold mb-10 relative z-10"
         style={{ color: heading?.color }}
       >
-        <hr className="w-16 sm:w-20 border-[#F04E30] mb-4 border-t-8" />
+        <hr className="djourney-mobile-heading-line" />
         {heading?.title}
       </h2>
 
       <div className="relative">
-        <div className="absolute left-1/2 top-0 transform -translate-x-1/2 h-full w-1 bg-white"></div>
+        <div className="djourney-mobile-track"></div>
 
         {[...journeyData].reverse().map((item, index) => {
           const isEven = index % 2 === 0;
@@ -169,42 +165,42 @@ const DMHRSTimeline = ({ data }) => {
           return (
             <div
               key={index}
-              className="mb-10 flex items-center justify-between relative w-full"
+              className="djourney-mobile-row"
             >
               {isEven ? (
                 <>
-                  <div className="w-1/2 pr-6 text-right">
+                  <div className="djourney-mobile-text-right">
                     <h3
-                      className="text-2xl font-bold"
+                      className="djourney-mobile-year"
                       style={{ color: item.color }}
                     >
                       {item.number}
                     </h3>
-                    <p className="mt-2 text-white text-sm">
+                    <p className="djourney-mobile-desc">
                       {item.desc}
                     </p>
                   </div>
                   <div
-                    className="w-8 h-8 rounded-full z-10"
+                    className="djourney-mobile-dot"
                     style={{ backgroundColor: item.color }}
                   ></div>
-                  <div className="w-1/2"></div>
+                  <div className="djourney-mobile-half"></div>
                 </>
               ) : (
                 <>
-                  <div className="w-1/2"></div>
+                  <div className="djourney-mobile-half"></div>
                   <div
-                    className="w-8 h-8 rounded-full z-10"
+                    className="djourney-mobile-dot"
                     style={{ backgroundColor: item.color }}
                   ></div>
-                  <div className="w-1/2 pl-6 text-left">
+                  <div className="djourney-mobile-text-left">
                     <h3
-                      className="text-2xl font-bold"
+                      className="djourney-mobile-year"
                       style={{ color: item.color }}
                     >
                       {item.number}
                     </h3>
-                    <p className="mt-2 text-white text-sm">
+                    <p className="djourney-mobile-desc">
                       {item.desc}
                     </p>
                   </div>
