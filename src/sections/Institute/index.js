@@ -21,6 +21,7 @@ import MandatoryDisclosure from "./MandatoryDisclosure"
 import Logos from "./Logos"
 import TabMenu from "../Micropages/Tabwise-micropage"
 import Departments from "./Departments"
+import InstituteCampusTabsNav from "./InstituteCampusTabsNav"
 import {
     MandatoryDisclosureSection,
     mandatoryDisclosureConfig,
@@ -53,6 +54,11 @@ export const SECTION_COMPONENTS = {
     holistic_learning_Section: HolisticInfrastructureSection,
     institute_logos: Logos,
     institute_departments: Departments,
+
+    // Campus-switch tabs for multi-campus institutes (SAHS Wardha/Nagpur,
+    // Nursing SRMMCON/SMCON-W/SMCON-N) — unique key, no collision with
+    // tab_group_section which is used elsewhere.
+    institute_campus_tabs_nav: InstituteCampusTabsNav,
 
     // Mandatory Disclosure subpage — driven dynamically from API (no hardcoding)
     [mandatoryDisclosureConfig.sectionId]: MandatoryDisclosureSection,

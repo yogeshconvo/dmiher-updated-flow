@@ -59,7 +59,7 @@
 }
 
 .inst-cta-btn {
-    @apply w-[18rem] bg-[#F05423] hover:bg-[#0B2A6D] text-white text-2xl px-8 py-3 rounded-md drop-shadow-[4px_6px_6px_rgba(0,0,0,0.5)] hover:scale-105 transition;
+    @apply w-[18rem] bg-[#F04E30] hover:bg-[#122E5E] text-white text-2xl px-8 py-3 rounded-md drop-shadow-[4px_6px_6px_rgba(0,0,0,0.5)] hover:scale-105 transition;
     font-family: "Oswald", sans-serif;
 }
 
@@ -119,11 +119,11 @@
 /* Common Components */
 
 .heading {
-    @apply text-3xl text-4xl font-[500] text-[#707070] mb-2 uppercase tracking-wider;
+    @apply text-3xl md:text-4xl font-oswald-medium font-[500] text-[#707070] mb-2 uppercase tracking-wider;
 }
 
 .heading-line {
-    @apply w-16 w-20 border-[#F04E30] mb-2 border-t-4;
+    @apply w-20 border-[#F04E30] mb-2 border-t-4;
 }
 
 .sub-heading {
@@ -177,11 +177,11 @@
 }
 
 .hero-apply-btn {
-    @apply flex items-center rounded-[10px] text-xl bg-[#F04E30] hover:bg-[#102B64] text-white px-3 py-2 space-x-3 font-semibold;
+    @apply flex items-center rounded-[10px] text-xl bg-[#F04E30] hover:bg-[#122E5E] text-white px-3 py-2 space-x-3 font-semibold;
 }
 
 .hero-phone-btn {
-    @apply flex items-center uppercase rounded-[10px] font-[500] text-base hover:bg-[#F04E30] bg-[#102B64] text-white px-3 py-2 space-x-3;
+    @apply flex items-center uppercase rounded-[10px] font-[500] text-base hover:bg-[#F04E30] bg-[#122E5E] text-white px-3 py-2 space-x-3;
 }
 
 .hero-phone-text {
@@ -201,11 +201,11 @@
 }
 
 .hero-mobile-apply {
-    @apply w-full flex justify-center items-center rounded-[10px] text-sm bg-[#F04E30] hover:bg-[#102B64] text-white px-1 py-2 font-semibold;
+    @apply w-full flex justify-center items-center rounded-[10px] text-sm bg-[#F04E30] hover:bg-[#122E5E] text-white px-1 py-2 font-semibold;
 }
 
 .hero-mobile-phone {
-    @apply w-full flex justify-center items-center uppercase rounded-[10px] font-[500] text-sm hover:bg-[#F04E30] bg-[#102B64] text-white px-2 py-2;
+    @apply w-full flex justify-center items-center uppercase rounded-[10px] font-[500] text-sm hover:bg-[#F04E30] bg-[#122E5E] text-white px-2 py-2;
 }
 
 .btn-primary {
@@ -354,11 +354,11 @@
 }
 
 .deans-heading {
-    @apply text-3xl mb-10;
+    @apply text-3xl md:text-4xl font-oswald-medium font-[500] mb-10;
 }
 
 .deans-layout {
-    @apply flex flex-col gap-10 items-center;
+    @apply flex flex-col lg:flex-row gap-10 items-center lg:items-start;
 }
 
 .deans-image-wrapper {
@@ -366,7 +366,7 @@
 }
 
 .deans-image {
-    @apply rounded-lg w-[300px] h-[300px] object-cover mb-4 mx-auto;
+    @apply rounded-lg w-[300px] md:w-[370px] h-[300px] object-cover mb-4 mx-auto lg:mx-0;
 }
 
 .deans-name {
@@ -711,7 +711,7 @@
 }
 
 .global-desktop {
-    @apply hidden w-full gap-4 items-center;
+    @apply hidden sm:flex w-full gap-4 items-center;
 }
 
 .global-image-wrapper {
@@ -743,7 +743,7 @@
 }
 
 .global-mobile {
-    @apply block px-4;
+    @apply block sm:hidden px-4;
 }
 
 .global-mobile-image {
@@ -776,7 +776,7 @@
 }
 
 .button-item:hover {
-    background-color: #102B64;
+    background-color: #122E5E;
     transform: scale(1.05);
 }
 
@@ -790,7 +790,7 @@
 
 
 .button-center:hover {
-    background-color: #102B64;
+    background-color: #122E5E;
     transform: scale(1.05);
 }
 
@@ -801,7 +801,7 @@
 
 /* ================= LAYOUT ================= */
 .collab-layout {
-    @apply grid gap-6;
+    @apply grid lg:grid-cols-[36%_60%] gap-6;
 }
 
 .collab-text {
@@ -813,7 +813,7 @@
 }
 
 .collab-stats-grid {
-    @apply hidden mt-15 py-8 gap-4;
+    @apply hidden md:grid grid-cols-3 mt-15 py-8 gap-4;
 }
 
 
@@ -925,7 +925,7 @@
 }
 
 .hospital-layout {
-    @apply flex flex-col gap-10 items-center;
+    @apply flex flex-col lg:flex-row gap-10 items-center lg:items-start;
 }
 
 .hospital-content {
@@ -984,11 +984,11 @@
 }
 
 .innovative-heading {
-    @apply text-3xl text-[#707070] font-semibold mb-2 text-start;
+    @apply text-3xl text-[#707070] font-oswald-medium font-semibold mb-2 text-start;
 }
 
 .innovative-subheading {
-    @apply text-2xl text-[#58595B] font-light mb-8;
+    @apply text-2xl text-[#58595B] font-oswald-medium font-light mb-8;
 }
 
 .innovative-nav-btn {
@@ -1029,7 +1029,7 @@
 }
 
 .innovative-card-overlay {
-    @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/70 to-transparent text-white p-4 h-48 flex flex-col justify-end;
+    @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent text-white p-4 h-28 flex flex-col;
 }
 
 .innovative-card-title {
@@ -1106,7 +1106,7 @@
 }
 
 .announce-doc {
-    @apply flex items-center justify-center gap-2 w-full h-[60px] text-base font-medium text-white bg-[#102B64] rounded transition-colors;
+    @apply flex items-center justify-center gap-2 w-full h-[60px] text-base font-medium text-white bg-[#122E5E] rounded transition-colors;
 }
 
 .announce-doc:hover {
