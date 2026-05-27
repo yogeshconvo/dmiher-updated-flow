@@ -82,7 +82,7 @@
 }
 
 .iqac-container {
-    @apply container mx-auto;
+    @apply max-w-7xl mx-auto px-5;
 }
 
 .iqac-heading {

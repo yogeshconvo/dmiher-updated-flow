@@ -1,0 +1,248 @@
+/* =========================================================================
+   Campus Life — dedicated sections (slug: campus-life)
+   Class prefix: .clh / .cli / .clr / .cla / .clinf / .clw / .clho
+   ========================================================================= */
+
+/* ---------- Shared heading rule ---------- */
+.clr-heading,
+.clw-heading,
+.clho-heading,
+.cla-heading,
+.cli-immersive .heading {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #707070;
+    font-size: 1.875rem;
+    line-height: 1.2;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+@media (min-width: 768px) {
+    .clr-heading, .clw-heading, .clho-heading,
+    .cla-heading, .cli-immersive .heading {
+        font-size: 2.25rem;
+    }
+}
+
+/* ================= 1. HERO ================= */
+.clh-section { position: relative; width: 100%; height: 90vh; overflow: hidden; }
+.clh-swiper, .clh-slide { width: 100%; height: 100%; position: relative; }
+.clh-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.clh-text {
+    position: absolute; z-index: 20; padding: 1rem; color: #fff;
+    width: 100%; max-width: 42rem;
+    bottom: 7.5rem;
+}
+@media (min-width: 640px) {
+    .clh-text {
+        width: 50%; left: 0; margin-left: 2.5rem;
+        top: 50%; bottom: auto; transform: translateY(-50%);
+        padding: 0 1.5rem;
+    }
+}
+.clh-title {
+    font-family: 'Oswald', sans-serif; font-weight: 500;
+    font-size: 1.5rem; line-height: 1.3; white-space: pre-line;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+}
+@media (min-width: 640px) { .clh-title { font-size: 2.25rem; } }
+@media (min-width: 768px) { .clh-title { font-size: 3rem; } }
+.clh-subtitle {
+    font-size: 1rem; margin-top: 0.75rem; white-space: pre-line;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+@media (min-width: 640px) { .clh-subtitle { font-size: 1.25rem; } }
+.clh-color { font-weight: 600; }
+
+/* ================= 2. INFO ================= */
+.cli-section {
+    width: 100%; padding: 4rem 1rem; text-align: center; color: #707070;
+}
+@media (min-width: 768px) { .cli-section { padding: 5rem 1rem; } }
+.cli-title {
+    font-family: 'Oswald', sans-serif; font-weight: 700;
+    font-size: 1.75rem; letter-spacing: 0.05em; margin-bottom: 1.5rem;
+}
+@media (min-width: 768px) { .cli-title { font-size: 2.5rem; } }
+.cli-para {
+    max-width: 64rem; margin: 0 auto 1.5rem; font-size: 1rem; line-height: 1.625;
+}
+@media (min-width: 768px) { .cli-para { font-size: 1.125rem; } }
+
+/* ================= 3. REASONS ================= */
+.clr-section { padding: 4rem 1rem; background-color: #FAFAF6; display: flex; justify-content: center; }
+.clr-container { width: 100%; }
+.clr-heading-line { border-top: 4px solid #F04E30; width: 5rem; margin-bottom: 0.5rem; }
+.clr-sub { font-size: 1.25rem; color: #122E5E; max-width: 24rem; }
+@media (min-width: 768px) { .clr-sub { font-size: 1.5rem; } }
+.clr-desc { font-size: 0.875rem; color: #707070; max-width: 48rem; margin-bottom: 2.5rem; }
+@media (min-width: 768px) { .clr-desc { font-size: 1rem; } }
+.clr-swiper-wrap { position: relative; margin-left: auto; margin-right: auto; }
+.clr-slide { display: flex !important; justify-content: center; align-items: center; }
+.clr-card {
+    width: 290px; height: 360px; padding: 1rem;
+    border-radius: 0.75rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    font-family: 'Oswald', sans-serif; font-weight: 300;
+    display: flex; flex-direction: column; justify-content: center;
+}
+@media (min-width: 640px) {
+    .clr-card { width: 260px; height: 330px; }
+}
+.clr-card-title { font-family: 'Oswald', sans-serif; font-weight: 700; font-size: 2rem; line-height: 1.1; }
+.clr-card-desc { font-family: 'Oswald', sans-serif; font-size: 1rem; margin-top: 1.25rem; }
+.clr-pagination { margin-top: 1.5rem; display: flex; justify-content: center; }
+
+/* ================= 4. IMMERSIVE ================= */
+.cli-immersive { padding: 3rem 1rem; background-color: #fff; color: #4b5563; }
+@media (min-width: 768px) { .cli-immersive { padding: 5rem 1rem; } }
+.cli-immersive-row { display: flex; flex-direction: column; gap: 1.25rem; }
+@media (min-width: 1024px) { .cli-immersive-row { flex-direction: row; } }
+.cli-immersive-left { flex-basis: 40%; }
+.cli-immersive-right {
+    flex-basis: 60%; width: 100%; height: 500px; max-height: 500px;
+    border-radius: 0.75rem; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border: 1px solid #e5e7eb;
+}
+@media (min-width: 768px) { .cli-immersive-right { margin-top: 5rem; } }
+.cli-immersive-head { margin-bottom: 1.5rem; }
+.cli-immersive .heading-line { width: 5rem; border-top: 4px solid #F04E30; margin-bottom: 1rem; }
+.cli-immersive-desc { font-size: 1rem; margin-top: 0.5rem; }
+.cli-immersive-tab { border-top: 1px solid #d1d5db; margin-top: 1.25rem; }
+.cli-immersive-tab:first-of-type { margin-top: 1.5rem; }
+.cli-immersive-btn {
+    width: 100%; text-align: left; padding: 0.75rem 0; font-weight: 600;
+    display: flex; justify-content: space-between; align-items: center;
+    color: #4b5563; background: none; border: none; cursor: pointer; font-size: 1rem;
+}
+.cli-immersive-btn.active { color: #1e40af; }
+.cli-immersive-items {
+    font-size: 0.875rem; color: #4b5563; padding: 1rem 0 0.5rem;
+}
+.cli-immersive-items > div { padding: 0.125rem 0; }
+.cli-immersive-cta {
+    display: inline-block; margin: 0.5rem 0 1rem; padding: 0.5rem 1.5rem;
+    background-color: #F04E30; color: #fff; border-radius: 0.25rem;
+    font-size: 0.875rem; font-weight: 600; transition: all 0.2s;
+}
+.cli-immersive-cta:hover { background-color: #122E5E; transform: scale(1.05); }
+.cli-immersive-swiper, .cli-immersive-img { width: 100%; height: 100%; object-fit: cover; }
+.cli-immersive-empty { width: 100%; height: 100%; background-color: #e5e7eb; display: flex; align-items: center; justify-content: center; color: #6b7280; }
+
+/* ================= 5. ACADEMIC ================= */
+.cla-section { padding: 3rem 0; font-family: sans-serif; color: #fff; }
+.cla-row { display: flex; flex-direction: column; gap: 2.5rem; }
+@media (min-width: 1024px) { .cla-row { flex-direction: row; } }
+.cla-left { flex-basis: 40%; }
+.cla-right {
+    flex-basis: 60%; width: 100%; height: 520px; max-height: 520px;
+    border-radius: 0.75rem; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border: 1px solid #e5e7eb;
+}
+@media (min-width: 768px) { .cla-right { margin-top: 6.25rem; } }
+.cla-head { margin-bottom: 1.5rem; }
+.cla-heading {
+    font-family: 'Oswald', sans-serif; font-weight: 500; text-transform: uppercase;
+    font-size: 1.875rem; display: inline-block; color: #fff;
+}
+@media (min-width: 768px) { .cla-heading { font-size: 2.25rem; } }
+.cla-heading-line { width: 5rem; border-top: 4px solid #F04E30; margin-bottom: 1rem; }
+.cla-desc { font-size: 1rem; margin-top: 0.5rem; }
+.cla-tab { border-top: 1px solid #d1d5db; }
+.cla-tab-btn {
+    width: 100%; text-align: left; padding: 0.75rem 0; font-weight: 600;
+    display: flex; justify-content: space-between; align-items: center;
+    color: #fff; background: none; border: none; cursor: pointer; font-size: 1rem;
+}
+.cla-tab-btn:hover { color: #e5e7eb; }
+.cla-items { padding: 1rem 0 1rem 1rem; font-size: 0.875rem; color: #fff; }
+.cla-item { display: flex; align-items: flex-start; margin-bottom: 0.5rem; }
+.cla-bullet { margin-right: 0.5rem; color: #F04E30; }
+.cla-img { width: 100%; height: 100%; object-fit: cover; transition: all 0.3s; }
+.cla-empty {
+    width: 100%; height: 100%; background: linear-gradient(135deg, #122E5E, #1a3a70);
+    display: flex; align-items: center; justify-content: center; flex-direction: column;
+}
+.cla-empty-icon { width: 4rem; height: 4rem; margin-bottom: 1rem; color: #F04E30; }
+
+/* ================= 6. INFRASTRUCTURE ================= */
+.clinf-section { padding: 2rem 0.5rem; background-color: #fff; font-family: 'Oswald', sans-serif; }
+@media (min-width: 768px) { .clinf-section { padding: 4rem 2.5rem; } }
+.clinf-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 640px) { .clinf-grid { gap: 1.5rem; } }
+@media (min-width: 768px) { .clinf-grid { gap: 2rem; } }
+@media (min-width: 1024px) { .clinf-grid { grid-template-columns: repeat(2, 1fr); } }
+.clinf-card { display: flex; flex-direction: column; width: 100%; }
+.clinf-title {
+    color: #223971; font-size: 1.125rem; margin-bottom: 0.5rem; padding: 0 0.5rem;
+}
+@media (min-width: 640px) { .clinf-title { font-size: 1.25rem; margin-bottom: 0.75rem; } }
+@media (min-width: 768px) { .clinf-title { font-size: 1.5rem; } }
+.clinf-swiper-wrap { position: relative; width: 100%; background: transparent; }
+.clinf-swiper {
+    width: 100%; height: 250px; overflow: hidden; border-radius: 0.75rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+@media (min-width: 640px) { .clinf-swiper { height: 300px; } }
+@media (min-width: 768px) { .clinf-swiper { height: 350px; } }
+@media (min-width: 1024px) { .clinf-swiper { height: 300px; } }
+@media (min-width: 1280px) { .clinf-swiper { height: 400px; } }
+.clinf-slide { position: relative; width: 100%; height: 100%; }
+.clinf-img { width: 100%; height: 100%; object-fit: cover; }
+.clinf-caption {
+    position: absolute; bottom: 1.25rem; left: 0; right: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.85), transparent);
+    color: #fff; padding: 0.5rem 1rem; font-family: 'Oswald', sans-serif; font-weight: 300;
+}
+
+/* ================= 7. WELLBEING ================= */
+.clw-section { background-color: #eaf4ff; padding: 2.5rem 0; }
+.clw-head { margin-bottom: 2.5rem; }
+.clw-heading-line { width: 5rem; border-top: 4px solid #F04E30; margin-bottom: 1rem; }
+.clw-desc { font-size: 1rem; color: #707070; margin-top: 0.5rem; max-width: 48rem; }
+.clw-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 640px) { .clw-grid { gap: 1.5rem; } }
+@media (min-width: 768px) { .clw-grid { gap: 2rem; } }
+@media (min-width: 1024px) { .clw-grid { grid-template-columns: repeat(2, 1fr); } }
+.clw-card { display: flex; flex-direction: column; width: 100%; }
+.clw-title { color: #223971; font-family: 'Oswald', sans-serif; font-size: 1.125rem; margin-bottom: 0.5rem; padding: 0 0.5rem; }
+@media (min-width: 768px) { .clw-title { font-size: 1.5rem; } }
+.clw-swiper-wrap { position: relative; width: 100%; }
+.clw-swiper {
+    width: 100%; height: 250px; overflow: hidden;
+    border-radius: 0.75rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+@media (min-width: 640px) { .clw-swiper { height: 300px; } }
+@media (min-width: 768px) { .clw-swiper { height: 350px; } }
+@media (min-width: 1024px) { .clw-swiper { height: 300px; } }
+@media (min-width: 1280px) { .clw-swiper { height: 400px; } }
+.clw-slide { position: relative; width: 100%; height: 100%; }
+.clw-img { width: 100%; height: 100%; object-fit: cover; }
+.clw-caption {
+    position: absolute; bottom: 1.25rem; left: 0; right: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.85), transparent);
+    color: #fff; padding: 0.5rem 1rem; font-family: 'Oswald', sans-serif; font-weight: 300;
+}
+
+/* ================= 8. HOSTEL ================= */
+.clho-section { padding: 4rem 1rem; }
+.clho-head { margin-bottom: 2.5rem; }
+.clho-heading-line { width: 5rem; border-top: 4px solid #F04E30; margin-bottom: 1rem; }
+.clho-desc { font-size: 1rem; color: #707070; margin-top: 0.5rem; max-width: 48rem; }
+.clho-grid {
+    display: grid; grid-template-columns: 1fr; gap: 1.25rem;
+    max-width: 72rem; margin: 0 auto;
+}
+@media (min-width: 640px) { .clho-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .clho-grid { grid-template-columns: repeat(4, 1fr); } }
+.clho-card {
+    border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex; flex-direction: column; justify-content: space-between; height: 100%;
+}
+.clho-card-title {
+    font-family: 'Oswald', sans-serif; font-size: 1.5rem; font-weight: 700;
+    margin: 1rem 0;
+}
+@media (min-width: 768px) { .clho-card-title { font-size: 1.5rem; } }
+.clho-card-desc { font-size: 0.875rem; line-height: 1.625; }
+.clho-card-icon { margin-top: 1.5rem; text-align: right; }
+.clho-icon-img { width: 6rem; margin-left: auto; }

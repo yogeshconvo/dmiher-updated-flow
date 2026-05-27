@@ -26,6 +26,9 @@ import InstituteCampusTabsNav from "./InstituteCampusTabsNav"
 import NursingTestimonial from "./NursingTestimonial"
 import NursingAdvantage from "./NursingAdvantage"
 import NursingCollegeBrief from "./NursingCollegeBrief"
+import SAHSCollaborations from "./SAHSCollaborations"
+import SAHSPlacements from "./SAHSPlacements"
+import SAHSAdmissions from "./SAHSAdmissions"
 import {
     MandatoryDisclosureSection,
     mandatoryDisclosureConfig,
@@ -72,6 +75,14 @@ export const SECTION_COMPONENTS = {
     nursing_testimonials: NursingTestimonial,
     nursing_advantage: NursingAdvantage,
     nursing_college_brief: NursingCollegeBrief,
+
+    // SAHS-dedicated sections (Wardha + Nagpur). Built to mirror the
+    // live-site SAHS JSX 1:1 — partner-logo carousels, NHS + national
+    // placement carousels, and the International Admissions block — none
+    // of which the generic Institute components could reproduce faithfully.
+    sahs_collaborations: SAHSCollaborations,
+    sahs_placements: SAHSPlacements,
+    sahs_admissions: SAHSAdmissions,
 
     // Mandatory Disclosure subpage — driven dynamically from API (no hardcoding)
     [mandatoryDisclosureConfig.sectionId]: MandatoryDisclosureSection,

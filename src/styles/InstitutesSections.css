@@ -1226,3 +1226,73 @@
 .announce-doc-single {
     @apply col-span-2 max-w-xs mx-auto;
 }
+/* =====================================================================
+   SAHS dedicated sections (Wardha + Nagpur)
+   Live-site visual parity for the partner-logos panel, NHS + national
+   placement carousels, and International Admissions block. Most layout
+   is already covered by inline Tailwind utility classes on the JSX;
+   these rules add the tweaks Tailwind can't express inline (typography
+   stack, scoped overrides, swiper pagination color).
+   ===================================================================== */
+
+/* --- Collaborations -------------------------------------------------- */
+.sahs-collab-section .swiper-pagination-bullet-active {
+    background: #F04E30;
+}
+.sahs-collab-title,
+.sahs-collab-heading {
+    font-family: 'Oswald', sans-serif;
+}
+.sahs-collab-description {
+    font-family: Arial, sans-serif;
+}
+.sahs-collab-partner-logo {
+    transition: transform .25s ease;
+}
+.sahs-collab-partner-logo:hover {
+    transform: scale(1.05);
+}
+.sahs-collab-intl-card {
+    min-width: 160px;
+    min-height: 110px;
+}
+.sahs-collab-max {
+    margin-top: 2rem;
+}
+.sahs-collab-feature {
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+.sahs-collab-feature:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Placements ------------------------------------------------------ */
+.sahs-plc-section .swiper {
+    padding-bottom: 1rem;
+}
+.sahs-plc-heading {
+    font-family: 'Oswald', sans-serif;
+}
+.sahs-plc-intl-frame {
+    background: transparent;
+}
+.sahs-plc-nat-frame img {
+    padding: .5rem;
+}
+
+/* --- Admissions ------------------------------------------------------ */
+.sahs-adm-heading,
+.sahs-adm-subheading {
+    font-family: 'Oswald', sans-serif;
+}
+.sahs-adm-description {
+    font-family: Arial, sans-serif;
+}
+.sahs-adm-pill {
+    min-width: 110px;
+    text-align: center;
+}
+.sahs-adm-cta {
+    box-shadow: 0 6px 14px -8px rgba(38, 155, 255, 0.6);
+}

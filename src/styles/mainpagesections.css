@@ -1584,7 +1584,7 @@
 }
 
 .iqac-container {
-    @apply container mx-auto;
+    @apply max-w-7xl mx-auto px-5;
 }
 
 .iqac-heading {
@@ -1620,7 +1620,7 @@
 }
 
 .iqac-reports {
-    @apply mt-5 flex flex-col gap-4 flex-wrap;
+    @apply mt-5 pb-10 flex flex-col gap-4 flex-wrap;
 }
 
 .iqac-report-btn {
@@ -2304,7 +2304,7 @@
 }
 
 .contact-tabs-wrapper {
-    @apply w-full container mx-auto px-5 bg-white py-16;
+    @apply w-full max-w-7xl mx-auto px-5 bg-white py-16;
 }
 
 .contact-tabs-row {
@@ -2364,7 +2364,7 @@
 }
 
 .contact-admission-inner {
-    @apply container mx-auto px-5 pb-10;
+    @apply max-w-7xl mx-auto px-5 pb-10;
 }
 
 .contact-admission-heading-wrap {
@@ -2400,7 +2400,7 @@
 }
 
 .contact-important-section {
-    @apply container mx-auto px-5 pb-16;
+    @apply max-w-7xl mx-auto px-5 pb-16;
 }
 
 .contact-important-grid-desktop {
@@ -2428,7 +2428,7 @@
 }
 
 .contact-hospital-section {
-    @apply container mx-auto px-5 pb-20;
+    @apply max-w-7xl mx-auto px-5 pb-20;
 }
 
 .contact-hospital-text {
@@ -2882,7 +2882,7 @@
 
 /* ================= OUR HOSPITALS (MainPageSections/Hospital/TeachingHospitals/OurHospitals.jsx) ================= */
 .our-hospitals-section {
-    @apply container mx-auto px-5 py-16;
+    @apply max-w-7xl mx-auto px-5 py-16;
 }
 
 .our-hospitals-heading {
@@ -3209,7 +3209,15 @@
 
 /* ================= IQAC CIQA BUTTONS ================= */
 .ciqa-section {
-    @apply pt-15;
+    @apply bg-white pt-15 pb-10;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    margin-bottom: -4rem;
+    padding-left: max(1.25rem, calc((100vw - 1280px) / 2 + 1.25rem));
+    padding-right: max(1.25rem, calc((100vw - 1280px) / 2 + 1.25rem));
+    padding-bottom: calc(2.5rem + 4rem);
+    box-sizing: border-box;
 }
 
 .ciqa-link {
@@ -3219,7 +3227,7 @@
 
 /* ================= DIFFERENCE HOSPITALS (Hospital/TeachingHospitals/DifferenceHospitals.jsx) ================= */
 .diff-hospitals-section {
-    @apply container mx-auto px-5 py-10 flex flex-col md:flex-row gap-8;
+    @apply max-w-7xl mx-auto px-5 py-10 flex flex-col md:flex-row gap-8;
 }
 
 .diff-hospitals-left {
@@ -3265,7 +3273,7 @@
 
 /* ================= HOSPITAL DETAILS (Hospital/TeachingHospitals/HospitalDetails.jsx) ================= */
 .hd-section {
-    @apply container mx-auto px-5 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start;
+    @apply max-w-7xl mx-auto px-5 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start;
 }
 
 .hd-swiper-wrap {
