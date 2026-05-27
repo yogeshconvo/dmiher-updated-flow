@@ -119,6 +119,51 @@ const SliderBlock = ({ sliders }) => {
   );
 };
 
+/* ================= BUTTONS BLOCK (new shape: block.buttons[]) =================
+   Renders a responsive grid of download cards (icon + label) — used by
+   E-Tender, Digilocker NAD, and any other page that lists downloadable docs. */
+const ButtonsBlock = ({ items }) => {
+  if (!Array.isArray(items) || !items.length) return null;
+  return (
+    <div className="micropage-buttons-grid">
+      {items.map((b, i) => {
+        const linkType = b?.link_type || (b?.pdf ? "pdf" : "url");
+        const href =
+          linkType === "pdf"
+            ? resolveImage(b?.pdf) || "#"
+            : (b?.url || "#");
+        const label = b?.label || "Download";
+        return (
+          <a
+            key={i}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="micropage-button-card"
+            title={label}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="micropage-button-icon"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+              />
+            </svg>
+            <span className="micropage-button-label">{label}</span>
+          </a>
+        );
+      })}
+    </div>
+  );
+};
+
 /* ================= TABLE BLOCK (new shape: block.excel[]) ================= */
 const TableBlock = ({ block }) => {
   const tables = Array.isArray(block?.excel) ? block.excel : [];
@@ -212,6 +257,9 @@ const MainMicropage = ({ data }) => {
 
               case "slider":
                 return <SliderBlock key={key} sliders={item.slider || []} />;
+
+              case "buttons":
+                return <ButtonsBlock key={key} items={item.buttons || []} />;
 
               default:
                 return null;

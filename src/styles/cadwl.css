@@ -1,0 +1,147 @@
+@reference "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════
+   Cadaveric & Wet Lab — reusable lab section
+   ═══════════════════════════════════════════════════════════════ */
+
+.cadwl-lab {
+    @apply w-full;
+}
+
+/* Tab pills (Main Campus / Off Campus) */
+.cadwl-lab-tabs {
+    @apply max-w-[560px] m-auto container flex items-center font-oswald-medium justify-center gap-[15%] border-b border-gray-200 my-8 max-sm:flex-col;
+}
+.cadwl-lab-tab {
+    @apply cursor-pointer text-center py-4 max-w-[1000px] text-xl md:text-2xl transition;
+}
+.cadwl-lab-tab-active {
+    @apply font-bold text-[#122E5E] border-b-4 border-[#F04E30];
+}
+.cadwl-lab-tab-inactive {
+    @apply text-[#58595B];
+}
+
+/* Body wrapper */
+.cadwl-lab-body {
+    @apply py-10 px-2 sm:px-6;
+}
+
+/* Section heading with red rule above */
+.cadwl-lab-heading {
+    @apply text-2xl sm:text-3xl md:text-4xl text-[#707070] mb-2 font-oswald-medium font-[500] tracking-tight leading-tight;
+}
+.cadwl-lab-heading-line {
+    @apply block border-t-4 border-[#F04E30] w-20 sm:w-24 mb-2;
+}
+.cadwl-lab-heading-text {
+    @apply whitespace-pre-line block;
+}
+
+/* Description + image carousel grid */
+.cadwl-lab-grid {
+    @apply flex flex-col md:flex-row gap-10 py-4 items-start;
+}
+.cadwl-lab-text {
+    @apply flex-1 text-[#58595B] text-base leading-relaxed min-w-[300px];
+}
+.cadwl-lab-location {
+    @apply text-lg sm:text-xl font-bold text-[#122E5E] mb-2;
+}
+.cadwl-lab-desc {
+    @apply mb-4 text-sm leading-relaxed;
+}
+.cadwl-lab-desc p {
+    @apply mb-3;
+}
+.cadwl-lab-desc ul {
+    @apply mt-2 list-none p-0;
+}
+.cadwl-lab-desc ul li {
+    @apply mb-2;
+}
+.cadwl-lab-desc ul li + li {
+    @apply pt-2 border-t border-gray-300;
+}
+.cadwl-lab-desc strong,
+.cadwl-lab-desc b {
+    @apply font-bold;
+}
+
+/* Image carousel */
+.cadwl-lab-imgwrap {
+    @apply flex-1 w-full max-w-xl mx-auto;
+}
+.cadwl-lab-swiper {
+    @apply rounded-lg overflow-hidden;
+}
+.cadwl-lab-slide {
+    @apply aspect-[10/9] w-full mt-2 rounded-lg shadow overflow-hidden;
+}
+.cadwl-lab-img {
+    @apply w-full h-full object-cover;
+}
+.cadwl-lab-swiper .swiper-pagination-bullet-active {
+    background: #F04E30;
+}
+
+/* Key Officials */
+.cadwl-lab-officials-wrap {
+    @apply mt-12;
+}
+.cadwl-lab-officials-heading {
+    @apply text-xl font-bold text-[#122E5E] mb-6;
+}
+.cadwl-lab-officials-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+}
+.cadwl-lab-official-card {
+    @apply bg-white rounded-lg shadow flex gap-4 md:gap-8 flex-col md:flex-row items-center;
+}
+.cadwl-lab-official-img {
+    @apply w-full sm:w-48 h-64 object-cover rounded;
+    object-position: center top;
+}
+.cadwl-lab-official-body {
+    @apply w-full p-4;
+}
+.cadwl-lab-official-role {
+    @apply text-[#F04E30] font-semibold mb-1;
+}
+.cadwl-lab-official-rule {
+    @apply border-t border-black/40 my-2;
+}
+.cadwl-lab-official-name {
+    @apply font-bold;
+}
+.cadwl-lab-official-details {
+    @apply text-sm text-[#58595B];
+}
+.cadwl-lab-official-details p {
+    @apply mb-0;
+}
+
+/* Holistic Learning Infrastructure (always-white outer band) */
+.cadwl-lab-infra-section {
+    @apply bg-white py-10 px-2 sm:px-6;
+}
+
+/* Holistic Learning Infrastructure boxes (4 items in a row with dividers) */
+.cadwl-lab-infra-wrap {
+    @apply mt-0;
+}
+.cadwl-lab-infra-heading {
+    @apply text-2xl sm:text-3xl md:text-4xl text-[#707070] mb-2 font-oswald-medium font-[500] tracking-tight leading-tight;
+}
+.cadwl-lab-infra-grid {
+    @apply mt-12 flex flex-wrap gap-4;
+}
+.cadwl-lab-infra-item {
+    @apply text-lg sm:text-xl text-[#58595B] sm:max-w-[250px] pb-4 sm:pr-4 mr-4 w-full sm:w-auto;
+}
+.cadwl-lab-infra-item-divider {
+    @apply max-sm:border-b sm:border-r border-black/50;
+}
+.cadwl-lab-infra-item b {
+    @apply font-bold;
+}

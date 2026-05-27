@@ -1,0 +1,188 @@
+@reference "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════
+   Museum — dedicated section styles
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ───────── Colleges (Jigyasa / Swadhyay tabs) ───────── */
+.museum-colleges {
+    @apply w-full;
+}
+.museum-colleges-tabs {
+    @apply max-w-[640px] m-auto flex items-center font-oswald-medium justify-center gap-[10%] border-b border-gray-200 my-8 max-sm:flex-col;
+}
+.museum-colleges-tab {
+    @apply cursor-pointer text-center py-4 max-w-[1000px] text-xl md:text-2xl transition;
+}
+.museum-colleges-tab-active {
+    @apply font-bold text-[#122E5E] border-b-4 border-[#F04E30];
+}
+.museum-colleges-tab-inactive {
+    @apply text-[#58595B];
+}
+
+.museum-colleges-body {
+    @apply text-white py-16 px-4 w-full mt-2;
+}
+
+/* Heading with gold rule line next to it (live-site CollegeBox style) */
+.museum-colleges-heading {
+    @apply text-3xl font-bold text-[#E1CD67] mb-6 flex items-center gap-4 flex-col md:flex-row;
+}
+.museum-colleges-heading-text {
+    @apply w-full md:w-auto md:whitespace-nowrap;
+}
+.museum-colleges-heading-line {
+    @apply w-full h-px mt-2 bg-[#E1CD67];
+}
+
+/* 2-column intro grid */
+.museum-colleges-grid {
+    @apply grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start;
+}
+.museum-colleges-text {
+    @apply text-white space-y-6;
+}
+.museum-colleges-desc {
+    @apply text-sm leading-relaxed text-white;
+}
+.museum-colleges-desc p {
+    @apply mb-3;
+}
+.museum-colleges-desc strong,
+.museum-colleges-desc b {
+    @apply font-bold;
+}
+
+/* Image carousel */
+.museum-colleges-imgwrap {
+    @apply relative h-full;
+}
+.museum-colleges-swiper {
+    @apply rounded-lg overflow-hidden;
+}
+.museum-colleges-slide {
+    @apply aspect-video w-full h-full;
+}
+.museum-colleges-img {
+    @apply w-full h-full object-cover;
+}
+.museum-colleges-swiper .swiper-button-prev,
+.museum-colleges-swiper .swiper-button-next {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    color: white;
+    top: 50%;
+    margin-top: 0;
+}
+.museum-colleges-swiper .swiper-button-prev::after,
+.museum-colleges-swiper .swiper-button-next::after {
+    font-size: 14px;
+    font-weight: bold;
+}
+.museum-colleges-swiper .swiper-pagination-bullet {
+    background: #ffffff;
+    opacity: 0.7;
+}
+.museum-colleges-swiper .swiper-pagination-bullet-active {
+    background: #E1CD67;
+    opacity: 1;
+}
+
+/* Highlights — 5-column row with vertical dividers (no cards, no left bars) */
+.museum-colleges-hl-headwrap {
+    @apply mt-16;
+}
+.museum-colleges-hl-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5;
+    row-gap: 2rem; /* vertical breathing room so row-1 & row-2 dividers don't merge */
+}
+.museum-colleges-hl-cell {
+    @apply p-6 text-white text-sm md:text-base leading-relaxed;
+}
+.museum-colleges-hl-cell-divider {
+    @apply max-lg:border-b border-white/20;
+}
+@media (min-width: 1024px) {
+    .museum-colleges-hl-cell-divider {
+        @apply border-b-0 border-r border-white/20;
+    }
+}
+.museum-colleges-hl-cell p {
+    @apply m-0;
+}
+.museum-colleges-hl-cell strong,
+.museum-colleges-hl-cell b {
+    @apply font-bold;
+}
+
+/* When the last row has exactly 3 items, push the first of those 3 to
+   start at grid column 2 so the trio sits centered under columns 2-4. */
+@media (min-width: 1024px) {
+    .museum-colleges-hl-cell-start2 {
+        grid-column-start: 2;
+    }
+}
+
+/* ───────── Key Officials ───────── */
+.museum-key-officials {
+    @apply py-12 bg-white;
+}
+.museum-key-officials-heading {
+    @apply text-3xl md:text-4xl font-[500] text-[#707070] mb-8 tracking-wide uppercase font-oswald-medium;
+}
+.museum-key-officials-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-3 border-t-4;
+}
+.museum-key-officials-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6;
+}
+.museum-key-officials-card {
+    @apply border border-gray-300 rounded-sm shadow-sm pb-2 flex flex-col items-center text-center hover:shadow-md transition-shadow hover:scale-[1.02] duration-200 cursor-pointer;
+}
+.museum-key-officials-img {
+    @apply w-full h-60 object-cover object-top mb-4;
+}
+.museum-key-officials-name {
+    @apply text-blue-800 font-semibold text-lg mb-1;
+}
+.museum-key-officials-meta {
+    @apply text-sm font-medium text-gray-600 px-2 mb-1;
+}
+.museum-key-officials-email {
+    @apply text-xs px-2 text-gray-500;
+}
+.museum-key-officials-email a {
+    @apply hover:underline;
+}
+
+/* ───────── FAQs ───────── */
+.museum-faqs {
+    @apply py-12 bg-white;
+}
+.museum-faqs-heading {
+    @apply text-2xl md:text-4xl text-[#707070] mb-4 font-oswald-medium font-[500] tracking-tight leading-tight;
+}
+.museum-faqs-line {
+    @apply w-20 sm:w-24 border-[#F04E30] mb-2 border-t-4;
+}
+.museum-faqs-list {
+    @apply max-w-4xl;
+}
+.museum-faqs-item {
+    @apply border-b border-gray-300;
+}
+.museum-faqs-question {
+    @apply w-full text-left py-3 px-2 flex justify-between items-center font-semibold text-base sm:text-lg text-[#58595B] transition;
+}
+.museum-faqs-question-open {
+    @apply text-[#222];
+}
+.museum-faqs-toggle {
+    @apply text-xl font-bold;
+}
+.museum-faqs-answer {
+    @apply px-2 pb-3 text-sm text-[#58595B];
+}

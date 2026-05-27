@@ -10,11 +10,81 @@
 }
 
 .micropage-wrapper {
-    @apply bg-white py-10;
+    @apply bg-white py-10 px-4 sm:px-6;
 }
 
 .micropage-container {
-    @apply container max-w-6xl mx-auto;
+    @apply mx-auto w-full;
+    max-width: 72rem;
+}
+
+/* ================= Paragraph block typography =================
+   The `paragraph` tab_type uses RichTextRenderer which wraps content in
+   `.prose max-w-none`. The @tailwindcss/typography plugin is NOT installed,
+   so we style the inner HTML elements explicitly to keep H3/H4/lists/tables
+   readable and matching the live site. */
+.micropage-container .prose {
+    max-width: none !important;
+    width: 100%;
+    text-align: left;
+    color: #707070;
+}
+
+.micropage-container .prose h2 {
+    @apply text-2xl md:text-3xl font-[500] text-[#545454] mt-8 mb-4 font-oswald-medium;
+}
+
+.micropage-container .prose h3 {
+    @apply text-xl md:text-2xl font-[500] text-[#545454] mt-8 mb-4 font-oswald-medium;
+}
+
+.micropage-container .prose h4 {
+    @apply text-lg md:text-xl font-semibold text-[#545454] mt-6 mb-3;
+}
+
+.micropage-container .prose h5,
+.micropage-container .prose h6 {
+    @apply text-base font-semibold text-[#545454] mt-4 mb-2;
+}
+
+.micropage-container .prose p {
+    @apply text-base md:text-[17px] leading-relaxed mb-4 text-[#707070];
+}
+
+.micropage-container .prose ol {
+    @apply list-decimal pl-6 mb-4 space-y-2 text-[#707070];
+}
+
+.micropage-container .prose ul {
+    @apply list-disc pl-6 mb-4 space-y-2 text-[#707070];
+}
+
+.micropage-container .prose ol ol,
+.micropage-container .prose ul ul,
+.micropage-container .prose ol ul,
+.micropage-container .prose ul ol {
+    @apply mt-2 mb-0;
+}
+
+.micropage-container .prose li {
+    @apply leading-relaxed;
+}
+
+.micropage-container .prose a {
+    @apply text-[#F04E30] underline hover:text-[#122E5E];
+}
+
+.micropage-container .prose strong {
+    @apply font-semibold text-[#545454];
+}
+
+.micropage-container .prose table {
+    @apply w-full my-6 border-collapse;
+}
+
+.micropage-container .prose th,
+.micropage-container .prose td {
+    @apply align-top;
 }
 
 .micropage-title {
@@ -113,4 +183,25 @@
 
 .micropage-slide-caption {
     @apply px-3 py-2 text-sm text-gray-700 text-center;
+}
+
+/* ================= Download buttons (tab_type=buttons) =================
+   Grid of file-download cards used by E-Tender, Digilocker NAD etc.
+   Matches the live site card style: white bg, soft shadow, file icon left. */
+.micropage-buttons-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-6;
+}
+
+.micropage-button-card {
+    @apply flex items-center gap-4 p-5 min-h-[100px] rounded-2xl bg-white shadow-md
+           border border-gray-200 transition-all duration-300
+           hover:shadow-xl hover:bg-[#fef7f6] no-underline;
+}
+
+.micropage-button-icon {
+    @apply text-[#F04E30] w-6 h-6 min-w-6;
+}
+
+.micropage-button-label {
+    @apply text-gray-800 font-medium text-lg md:text-xl leading-snug text-left;
 }

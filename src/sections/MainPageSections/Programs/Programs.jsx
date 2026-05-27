@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
 import SafeImage from "../../../components/SafeImage";
+import resolveImage from "../../../utils/resolveImage";
 
 const ProgramsComponent = ({ data }) => {
 
@@ -26,23 +27,40 @@ const ProgramsComponent = ({ data }) => {
 
         {/* Grid */}
         <div className="programs-grid">
-          {programs.map((program, index) => (
-            <div
-              key={index}
-              className="program-card"
-              style={{ background: program.color }}
-            >
-              <SafeImage
-                src={program.image}
-                alt={program.title}
-                className="program-image"
-              />
-
-              <div className="program-content">
-                <h6 className="program-title">{program.title}</h6>
+          {programs.map((program, index) => {
+            const slug = program.page_slug;
+            const to = slug ? (slug.startsWith("/") ? slug : `/${slug}`) : null;
+            const cardInner = (
+              <>
+                <SafeImage
+                  src={resolveImage(program.image)}
+                  alt={program.title}
+                  className="program-image"
+                />
+                <div className="program-content">
+                  <h6 className="program-title">{program.title}</h6>
+                </div>
+              </>
+            );
+            return to ? (
+              <Link
+                key={index}
+                to={to}
+                className="program-card"
+                style={{ background: program.color }}
+              >
+                {cardInner}
+              </Link>
+            ) : (
+              <div
+                key={index}
+                className="program-card"
+                style={{ background: program.color }}
+              >
+                {cardInner}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
       </div>

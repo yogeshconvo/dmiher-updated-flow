@@ -14,6 +14,7 @@ import DeansMicropage from "../Micropages/DeansMicropage";
 import NaacSSR from "./UniquePages/NAAC";
 import DmiherCet from "./UniquePages/DMIHER-CET";
 import AboutHospital from "./UniquePages/AboutHospital";
+import DALFellowship from "./UniquePages/DALFellowship";
 
 export const SECTION_COMPONENTS = {
 
@@ -27,6 +28,7 @@ export const SECTION_COMPONENTS = {
     electives_offered: ElectivesOfferedFEAT,
     post_doctoral_programme: PhDDAL,
     post_doc_subpage: PostDoc,
+    dal_fellowship_subpage: DALFellowship,
 
     // NAAC SSR (section_id from API: "naac_ssr_micropage")
     naac_ssr_micropage: NaacSSR,

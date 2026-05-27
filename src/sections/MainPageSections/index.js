@@ -23,6 +23,9 @@ import FundedResearchProjects from "./Research/FundedResearchProjects"
 import ResearchOpportunities from "./Research/ResearchOpportunities"
 import HomeInfo from "../Institute/InfoSection"
 import AlliancesGlobal from "./Global/AlliancesGlobal"
+import GlobalKeyFactors from "./Global/GlobalKeyFactors"
+import GlobalCentres from "./Global/GlobalCentres"
+import GlobalExchange from "./Global/GlobalExchange"
 import FunctionalUnits from "./IQAC/FunctionalUnits"
 import IQACSection from "./IQAC/IQACButtons"
 import ProgramsComponent from "./Programs/Programs"
@@ -45,6 +48,14 @@ import FeatureCards from "./Admissions/FeatureCards"
 import AdmissionFAQs from "./Admissions/Faqs"
 import InternationalCollaborations from "./Admissions/InternationalCollaboration"
 import StepsPage from "./Admissions/StepsPage"
+import AdvantageIndia from "./Admissions/AdvantageIndia"
+import ImageContentBlocks from "./Admissions/ImageContentBlocks"
+import ArrivalGuidance from "./Admissions/ArrivalGuidance"
+import SocialLinks from "./Admissions/SocialLinks"
+import AlumniTestimonials from "./Admissions/AlumniTestimonials"
+import UsefulLinks from "./Admissions/UsefulLinks"
+import ProgramsGrid from "./Admissions/ProgramsGrid"
+import WhyStudyAdmissions from "./Admissions/WhyStudyAdmissions"
 import ActivitiesAndAnnouncements from "./Alumni/ActivitiesAndAnnouncements"
 import EminentAlumni from "./Alumni/EminentAlumni"
 import ExamCellOfficials from "./ControllerOfExamination/ExamCellOfficials"
@@ -54,6 +65,9 @@ import ContactUS from "./Contact/ContactUS"
 import TeachingHospitals from "./Hospital/TeachingHospitals/TeachingHospitals"
 import TextEditor from "../Common/TextEditor"
 import FloatingButtons from "../../components/FloatingButtons"
+import DALNurturingEcosystem from "./DAL/DALNurturingEcosystem"
+import DALKeyFunctions from "./DAL/DALKeyFunctions"
+import DALVisionMission from "./DAL/DALVisionMission"
 
 export const SECTION_COMPONENTS = {
 
@@ -100,6 +114,9 @@ export const SECTION_COMPONENTS = {
 
     // Global Section
     global_alliances: AlliancesGlobal,
+    global_key_factors: GlobalKeyFactors,
+    global_centres: GlobalCentres,
+    global_exchange: GlobalExchange,
     enquiry_global: EnquiryGlobal,
     universal_section: UniversalSection,
 
@@ -118,6 +135,14 @@ export const SECTION_COMPONENTS = {
     international_collaborations_admission: InternationalCollaborations,
     feature_cards: FeatureCards,
     admission_steps: StepsPage,
+    advantage_india: AdvantageIndia,
+    image_content_blocks: ImageContentBlocks,
+    arrival_guidance: ArrivalGuidance,
+    social_links: SocialLinks,
+    alumni_testimonials: AlumniTestimonials,
+    useful_links: UsefulLinks,
+    programs_grid_section: ProgramsGrid,
+    why_study_admissions: WhyStudyAdmissions,
 
     // Micropages
     micro_page: MainMicropage,
@@ -139,6 +164,11 @@ export const SECTION_COMPONENTS = {
 
     // Hospital
     hospitals_tab_section: TeachingHospitals,
+
+    // DAL (Directorate of Advanced Learning)
+    dal_nurturing_ecosystem: DALNurturingEcosystem,
+    dal_key_functions: DALKeyFunctions,
+    dal_vision_mission: DALVisionMission,
 
     // Generic / cross-page
     text_editor: TextEditor,

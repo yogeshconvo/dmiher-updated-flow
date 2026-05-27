@@ -631,6 +631,93 @@
     @apply text-[#58595B] text-2xl font-[300] px-4;
 }
 
+/* Recruiter logos carousel (DMCP) */
+.placements-logos-wrapper {
+    @apply mt-10;
+}
+
+.placements-logos-label {
+    @apply text-2xl uppercase tracking-wide text-[#707070] font-medium font-oswald-medium mb-6;
+}
+
+.placements-logo-slide {
+    @apply flex items-center justify-center h-[100px];
+}
+
+.placements-logo-img {
+    @apply h-[60px] object-contain;
+}
+
+/* ================= SPDC Placements (separate component) =================
+   Tailored layout for SPDC: 40/60 split bar + 2-column info grid.
+   Renders the live-site "PLACEMENTS" UI shown in the SPDC screenshot. */
+.spdc-placements-section {
+    @apply bg-white py-12 text-[#707070] font-[Arial];
+}
+
+.spdc-placements-desc {
+    @apply text-base font-light max-w-3xl mt-3;
+}
+
+.spdc-placements-bar {
+    @apply mt-10 flex w-full max-w-5xl text-white rounded overflow-hidden text-center text-xl;
+}
+
+.spdc-placements-bar-cell {
+    @apply py-4 px-2 flex flex-col items-center justify-center;
+}
+
+.spdc-placements-bar-percent {
+    @apply font-medium text-2xl;
+}
+
+.spdc-placements-bar-label {
+    @apply text-base;
+}
+
+.spdc-placements-info-grid {
+    @apply mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 text-lg;
+}
+
+.spdc-placements-info-item {
+    @apply text-[#707070] font-light;
+}
+
+.spdc-placements-info-item ul {
+    @apply mt-1;
+}
+
+.spdc-placements-info-item li {
+    @apply leading-relaxed;
+}
+
+/* Partner-university logo row (Birmingham, Adelaide, Toronto, …) */
+.spdc-placements-logos {
+    @apply mt-16 hidden sm:flex flex-wrap items-center justify-center p-4;
+}
+
+.spdc-placements-logo-cell {
+    @apply px-4 flex items-center justify-center;
+}
+
+.spdc-placements-logo-cell-border {
+    @apply border-r border-gray-300;
+}
+
+.spdc-placements-logo {
+    @apply h-16 max-w-full object-contain;
+}
+
+/* Mobile: stack 2-per-row, no dividers */
+@media (max-width: 639px) {
+    .spdc-placements-logos {
+        @apply flex flex-wrap items-center justify-center gap-6 mt-10 p-2;
+    }
+    .spdc-placements-logo-cell-border {
+        @apply border-r-0;
+    }
+}
+
 .placements-highlight {
     @apply font-bold;
 }
@@ -718,12 +805,35 @@
     @apply w-[40%];
 }
 
+/* Edge-to-edge image for the "only_image" Global Opportunities layout.
+   Rendered outside .container so it stretches the full viewport width
+   (RNPC's "ALUMNI – Across The Globe" world map). */
+.global-image-full {
+    @apply w-full mt-8;
+}
+
+.global-image-full-img {
+    @apply w-full h-auto block;
+}
+
 .global-image {
     @apply w-full h-auto object-contain;
 }
 
 .global-logos {
     @apply w-[60%] grid grid-cols-3 grid-rows-2 gap-4;
+}
+
+/* Variant: only_logo layout — take full width and lay logos out in a single
+   row with even spacing. Wraps to a second line only if the count overflows. */
+.global-logos-only {
+    @apply w-full flex flex-wrap justify-center items-center gap-0;
+    grid-template-columns: none;
+    grid-template-rows: none;
+}
+
+.global-logos-only .global-logo-cell {
+    @apply flex-1 min-w-[160px];
 }
 
 .global-logo-cell {
