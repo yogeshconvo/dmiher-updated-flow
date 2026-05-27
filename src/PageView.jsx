@@ -8,6 +8,9 @@ import { SECTION_COMPONENTS as MainPageSections } from "./sections/MainPageSecti
 import { SECTION_COMPONENTS as InstituteSections } from "./sections/Institute";
 import { SECTION_COMPONENTS as SubpagesSections } from "./sections/Subpages";
 import { SECTION_COMPONENTS as MicropageSections } from "./sections/Micropages";
+import { SECTION_COMPONENTS as SELSCSections } from "./sections/SELSC";
+import { SECTION_COMPONENTS as MuseumSections } from "./sections/Museum";
+import { SECTION_COMPONENTS as CadWetLabSections } from "./sections/CadWetLab";
 
 import ErrorBoundary from "./components/ErrorBoundary";
 import PageSkeleton from "./components/Skeletons/PageSkeleton";
@@ -17,6 +20,9 @@ const SECTION_COMPONENTS = {
   ...InstituteSections,
   ...SubpagesSections,
   ...MicropageSections,
+  ...SELSCSections,
+  ...MuseumSections,
+  ...CadWetLabSections,
 };
 
 function PageView() {
@@ -26,9 +32,13 @@ function PageView() {
   const isMicropage = params.college && params.page;
 
   /* ================= SLUG LOGIC ================= */
-  const slug = params.slug || params.page || "home";
-  const microSlug = isMicropage ? params.page : null;
-  const collegeSlug = params.college || null;
+  // Lowercase the URL params so /SHER, /Sher, /sher all resolve to the same
+  // DB row. Backend slugs are stored lowercase, so matching is case-sensitive
+  // without this normalisation.
+  const lc = (v) => (typeof v === "string" ? v.toLowerCase() : v);
+  const slug = lc(params.slug) || lc(params.page) || "home";
+  const microSlug = isMicropage ? lc(params.page) : null;
+  const collegeSlug = lc(params.college) || null;
 
   /* ================= QUERIES ================= */
   const pageQuery = usePages(!isMicropage ? slug : null);

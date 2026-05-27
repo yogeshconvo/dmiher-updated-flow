@@ -4,6 +4,10 @@
 @import "@fontsource/oswald/500.css";
 @import "@fontsource/oswald/700.css";
 
+@theme {
+  --font-oswald-medium: "Oswald", sans-serif;
+}
+
 /* @import "../styles/InstituteSections/Banner.css"; */
 body {
     @apply pt-[100px];
@@ -11,10 +15,6 @@ body {
 
 .container {
     @apply max-w-7xl mx-auto px-5;
-}
-
-.font-oswald-medium {
-    font-family: "Oswald", sans-serif;
 }
 
 .oswald-medium {

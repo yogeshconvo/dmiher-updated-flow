@@ -45,12 +45,13 @@ export default function GlobalOpportunities({ data }) {
 
   // Auto slider logic
   const isOnlyLogo = layout_type === "only_logo";
+  const isOnlyImage = layout_type === "only_image";
   const useSlider = isOnlyLogo && logos.length > 6;
 
   return (
     <section className="global-section">
       <div className="container font-[Arial]">
-        
+
         {/* HEADER */}
         <div className="global-header">
           {heading && (
@@ -65,8 +66,9 @@ export default function GlobalOpportunities({ data }) {
         {/* DESKTOP VIEW */}
         <div className="global-desktop">
 
-          {/* IMAGE */}
-          {showImage && image && (
+          {/* IMAGE — for layouts that keep image inside the container (image_logo).
+              For "only_image" we render full-width below, outside the container. */}
+          {showImage && image && !isOnlyImage && (
             <div className="global-image-wrapper">
               <SafeImage src={image} alt="global" className="global-image" />
             </div>
@@ -77,25 +79,38 @@ export default function GlobalOpportunities({ data }) {
             <>
               {/* GRID */}
               {!useSlider && (
-                <div className="global-logos">
-                  {logos.map((logo, idx) => (
-                    <div
-                      key={idx}
-                      className={`global-logo-cell ${
-                        idx !== 2 && idx !== 5
-                          ? "global-logo-cell-border"
-                          : ""
-                      }`}
-                    >
-                      <div className="global-logo-box">
-                        <SafeImage
-                          src={logo.image || logo.src}
-                          alt={logo.alt || "logo"}
-                          className="global-logo"
-                        />
+                <div
+                  className={
+                    "global-logos" +
+                    (isOnlyLogo ? " global-logos-only" : "")
+                  }
+                >
+                  {logos.map((logo, idx) => {
+                    // Border logic:
+                    //   • only_logo (single row): every cell gets a right
+                    //     border except the last
+                    //   • image_logo (3-col grid): no border on cols 3 & 6
+                    //     (i.e. idx 2 and 5)
+                    const showBorder = isOnlyLogo
+                      ? idx !== logos.length - 1
+                      : idx !== 2 && idx !== 5;
+                    return (
+                      <div
+                        key={idx}
+                        className={`global-logo-cell ${
+                          showBorder ? "global-logo-cell-border" : ""
+                        }`}
+                      >
+                        <div className="global-logo-box">
+                          <SafeImage
+                            src={logo.image || logo.src}
+                            alt={logo.alt || "logo"}
+                            className="global-logo"
+                          />
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
 
@@ -131,8 +146,8 @@ export default function GlobalOpportunities({ data }) {
         {/* MOBILE VIEW */}
         <div className="global-mobile">
 
-          {/* IMAGE */}
-          {showImage && image && (
+          {/* IMAGE — same exclusion as desktop for only_image */}
+          {showImage && image && !isOnlyImage && (
             <div className="global-mobile-image">
               <SafeImage src={image} alt="global" className="global-image" />
             </div>
@@ -162,6 +177,14 @@ export default function GlobalOpportunities({ data }) {
           )}
         </div>
       </div>
+
+      {/* FULL-WIDTH IMAGE (only_image layout) — rendered outside .container so
+          it stretches edge-to-edge under the heading & description. */}
+      {isOnlyImage && showImage && image && (
+        <div className="global-image-full">
+          <SafeImage src={image} alt="global" className="global-image-full-img" />
+        </div>
+      )}
     </section>
   );
 }

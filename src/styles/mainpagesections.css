@@ -1960,7 +1960,7 @@
 }
 
 .ri-container {
-    @apply container mx-auto px-5;
+    @apply max-w-7xl mx-auto px-5;
 }
 
 .ri-heading {
@@ -2026,7 +2026,7 @@
 
 /* ================= HOME TESTIMONIAL ================= */
 .home-testimonial-container {
-    @apply container mx-auto px-4;
+    @apply max-w-7xl mx-auto px-5;
 }
 
 .home-testimonial-tabs {

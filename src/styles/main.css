@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@theme {
+  --font-oswald-medium: "Oswald", sans-serif;
+}
+
 @import "./mainpagesections.css";
 @import "./InstitutesSections.css";
 @import "./Responsive.css";
@@ -13,6 +17,9 @@
 @import "./subpages/unique-pages.css";
 @import "./subpages/CardMandatoryDisclosure.css";
 @import "./micropages.css";
+@import "./selsc.css";
+@import "./museum.css";
+@import "./cadwl.css";
 
 /* ================= LOADER ================= */
 .loader-lottie {

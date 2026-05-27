@@ -35,6 +35,21 @@ export function GalleryWithPopup({ data }) {
 
   if (!images.length) return null;
 
+  /* In grid mode show up to 9 images per slide (3×3). When there are more,
+     paginate via the same arrow controls used elsewhere on the page. */
+  const PAGE_SIZE = 9;
+  const gridPages = isSlider
+    ? []
+    : Array.from(
+        { length: Math.ceil(images.length / PAGE_SIZE) },
+        (_, p) => images.slice(p * PAGE_SIZE, (p + 1) * PAGE_SIZE),
+      );
+
+  // Show arrows when slider mode has > 3 images OR grid mode has > 9 images
+  const needsArrows = isSlider
+    ? images.length > 3
+    : gridPages.length > 1;
+
   return (
     <section className="container">
       <h2 className="heading">
@@ -45,16 +60,17 @@ export function GalleryWithPopup({ data }) {
       <div className="gallery-nav">
         <RichTextRenderer html={data.header?.intro_text} />
 
-        {/* `ml-auto` keeps the arrows pinned to the right corner
-            even when there's no intro_text on the left. */}
-        <div className="button-wrapper ml-auto">
-          <button className={`gallery-nav-btn ${prevCls}`} aria-label="Previous">
-            <ArrowLeft />
-          </button>
-          <button className={`gallery-nav-btn ${nextCls}`} aria-label="Next">
-            <ArrowRight />
-          </button>
-        </div>
+        {/* Arrows only render when pagination is actually needed. */}
+        {needsArrows && (
+          <div className="button-wrapper ml-auto">
+            <button className={`gallery-nav-btn ${prevCls}`} aria-label="Previous">
+              <ArrowLeft />
+            </button>
+            <button className={`gallery-nav-btn ${nextCls}`} aria-label="Next">
+              <ArrowRight />
+            </button>
+          </div>
+        )}
       </div>
 
       {/* ============== SLIDER MODE — 3 visible at a time ============== */}
@@ -92,36 +108,39 @@ export function GalleryWithPopup({ data }) {
           })}
         </Swiper>
       ) : (
-        /* ============== DEFAULT GRID MODE (unchanged behaviour) ============== */
+        /* ============== GRID MODE — 9 per slide (3×3), paginated ============== */
         <Swiper
           modules={[Navigation]}
           spaceBetween={20}
           navigation={{ prevEl: `.${prevCls}`, nextEl: `.${nextCls}` }}
         >
-          <SwiperSlide>
-            <div className="gallery-grid">
-              {images.map((img, idx) => {
-                const imageSrc = getImageSrc(img.image);
-                return (
-                  <div
-                    key={idx}
-                    className="gallery-card"
-                    onClick={() => setPopupIndex(idx)}
-                  >
-                    <SafeImage
-                      src={imageSrc}
-                      alt={img.caption || "gallery"}
-                      className="gallery-image"
-                      loading="lazy"
-                    />
-                    {img.caption && (
-                      <p className="gallery-image-title">{img.caption}</p>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </SwiperSlide>
+          {gridPages.map((pageImages, pageIdx) => (
+            <SwiperSlide key={pageIdx}>
+              <div className="gallery-grid">
+                {pageImages.map((img, localIdx) => {
+                  const absoluteIdx = pageIdx * PAGE_SIZE + localIdx;
+                  const imageSrc = getImageSrc(img.image);
+                  return (
+                    <div
+                      key={absoluteIdx}
+                      className="gallery-card"
+                      onClick={() => setPopupIndex(absoluteIdx)}
+                    >
+                      <SafeImage
+                        src={imageSrc}
+                        alt={img.caption || "gallery"}
+                        className="gallery-image"
+                        loading="lazy"
+                      />
+                      {img.caption && (
+                        <p className="gallery-image-title">{img.caption}</p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
       )}
 

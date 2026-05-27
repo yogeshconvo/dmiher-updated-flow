@@ -1,0 +1,379 @@
+@reference "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════
+   SEL & SC — dedicated section styles
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ───────── 1. DETAILS (title + links + main heading) ───────── */
+.selsc-details {
+    @apply py-16 text-center bg-white;
+}
+.selsc-details-title {
+    @apply flex flex-wrap items-center justify-center sm:justify-between text-[#F04E30] font-oswald-medium tracking-wider uppercase mb-6 text-center;
+}
+.selsc-details-title > span {
+    @apply px-4 whitespace-normal text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl;
+}
+.selsc-details-line {
+    @apply hidden sm:block flex-grow border-t border-[#F04E30];
+}
+.selsc-details-links {
+    @apply mx-auto w-fit my-2;
+}
+.selsc-details-links a {
+    @apply text-blue-500 hover:underline hover:font-semibold px-2;
+}
+.selsc-details-links span {
+    @apply text-gray-500;
+}
+.selsc-details-main {
+    @apply font-oswald-medium text-3xl md:text-4xl font-[500] text-[#707070] mt-5 mb-4;
+}
+.selsc-details-desc {
+    @apply text-[#333] max-w-[1000px] mx-auto;
+}
+
+/* ───────── 2. SIMULATION & CLINICAL SKILLS LABS ───────── */
+.selsc-simulation {
+    @apply bg-no-repeat bg-center bg-cover relative z-0;
+}
+.selsc-simulation-overlay {
+    @apply bg-[#0c2c5b]/90;
+}
+.selsc-simulation-inner {
+    @apply relative z-20 py-12;
+}
+.selsc-simulation-heading {
+    @apply text-3xl md:text-4xl font-medium font-oswald-medium uppercase text-white inline-block pb-1;
+}
+.selsc-simulation-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4 h-2;
+}
+.selsc-simulation-grid {
+    @apply grid lg:grid-cols-2 xl:grid-cols-3 my-12 text-white gap-12;
+}
+.selsc-simulation-col-bordered {
+    @apply border border-white/30 h-fit p-4 rounded;
+}
+.selsc-simulation-col-title {
+    @apply text-[#F04E30] border-b border-white/50 pb-1 text-lg font-semibold;
+}
+.selsc-simulation-col-desc {
+    @apply text-base my-2;
+}
+.selsc-simulation-col-desc ul {
+    @apply flex flex-col gap-1 list-disc list-inside;
+}
+.selsc-simulation-col-desc p + p {
+    @apply mt-2;
+}
+
+/* ───────── 3. VISION & MISSION ───────── */
+.selsc-vm {
+    @apply w-full px-0 sm:px-8 md:px-15 lg:px-35 sm:py-20 py-12;
+}
+.selsc-vm-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4 max-md:gap-0;
+}
+.selsc-vm-card {
+    @apply p-5 sm:p-8 md:p-10 shadow-md min-h-[360px] text-black max-md:mb-4;
+}
+.selsc-vm-card-head {
+    @apply flex justify-between items-start mb-2;
+}
+.selsc-vm-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4;
+}
+.selsc-vm-title {
+    @apply text-2xl sm:text-3xl text-gray-700 font-bold uppercase tracking-wide font-oswald-medium;
+}
+.selsc-vm-icon {
+    @apply w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 object-contain;
+}
+.selsc-vm-desc {
+    @apply space-y-1 text-xl pb-2 text-[#58595B] mt-4;
+    font-family: Arial, sans-serif;
+}
+
+/* ───────── 4. INFRASTRUCTURE ───────── */
+.selsc-infra {
+    @apply bg-[#fef5eb] py-16;
+}
+.selsc-infra-top {
+    @apply flex items-start justify-between gap-4 mb-8;
+}
+.selsc-infra-heading {
+    @apply text-3xl md:text-4xl font-[500] font-oswald-medium uppercase text-[#707070] pb-1 inline-block;
+}
+.selsc-infra-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4 h-2;
+}
+.selsc-infra-nav-wrap {
+    @apply flex gap-2 shrink-0;
+}
+.selsc-infra-nav-btn {
+    @apply border border-gray-300 rounded-full w-10 h-10 flex items-center justify-center hover:bg-white transition;
+}
+
+/* Card — uniform height, image fixed, body grows so CTA always sits at bottom */
+.selsc-infra-card {
+    @apply flex flex-col h-full bg-transparent;
+}
+.selsc-infra-card-media {
+    @apply relative w-full overflow-hidden rounded-lg cursor-pointer;
+    height: 16rem; /* 256px — shorter than before so the body is visible */
+}
+.selsc-infra-card-img {
+    @apply w-full h-full object-cover;
+}
+.selsc-infra-card-caption {
+    @apply absolute left-0 right-0 bottom-0 z-10 text-white text-sm font-medium py-2 px-4
+           bg-gradient-to-r from-black/70 via-black/40 to-transparent pointer-events-none;
+}
+.selsc-infra-card-body {
+    @apply flex flex-col flex-1 pt-4;
+}
+.selsc-infra-card-title {
+    @apply text-xl font-semibold mb-2 text-[#122E5E];
+}
+.selsc-infra-card-desc {
+    @apply text-[#58595B] text-sm flex-grow mb-3 leading-relaxed;
+}
+.selsc-infra-card-cta {
+    @apply mt-auto inline-block self-start px-5 py-2 bg-[#F04E30] hover:bg-[#122E5E]
+           text-white text-sm rounded font-semibold transition;
+}
+
+/* ── Inner image carousel (Manikins / Task Trainers) ──
+   Sits INSIDE .selsc-infra-card-media so the same caption overlay
+   and 16rem height apply. */
+.selsc-infra-inner {
+    @apply relative w-full h-full;
+}
+.selsc-infra-inner-swiper,
+.selsc-infra-inner-swiper .swiper-wrapper,
+.selsc-infra-inner-swiper .swiper-slide {
+    @apply h-full;
+}
+.selsc-infra-inner-slide {
+    @apply relative w-full h-full;
+}
+.selsc-infra-inner-img {
+    @apply w-full h-full object-cover;
+}
+.selsc-infra-inner-btn {
+    @apply absolute z-20 w-8 h-8 rounded-full bg-[#122E5E] hover:bg-[#F04E30]
+           text-white flex items-center justify-center transition;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.selsc-infra-inner-prev { left: 0.5rem; }
+.selsc-infra-inner-next { right: 0.5rem; }
+
+/* Larger variant for the popup */
+.selsc-infra-inner-large {
+    @apply h-96;
+}
+
+/* Popup */
+.selsc-infra-popup {
+    @apply fixed inset-0 backdrop-blur-sm bg-black/50 flex items-center justify-center z-[999];
+}
+.selsc-infra-popup-inner {
+    @apply bg-white rounded-xl p-4 pb-10 max-w-2xl w-full mx-4 relative;
+}
+.selsc-infra-popup-close {
+    @apply absolute top-2 right-2 text-[#707070] hover:text-black;
+}
+.selsc-infra-popup-title {
+    @apply text-lg font-semibold text-[#122E5E] mb-3;
+}
+.selsc-infra-popup-img {
+    @apply w-full h-96 object-cover rounded-lg mb-4;
+}
+.selsc-infra-popup-desc {
+    @apply text-[#58595B] text-sm mt-4;
+}
+
+/* ───────── 5. COLLABORATIONS ───────── */
+.selsc-collab {
+    @apply py-16 bg-white;
+}
+.selsc-collab-heading {
+    @apply text-3xl md:text-4xl font-medium font-oswald-medium uppercase text-[#707070] inline-block pb-1;
+}
+.selsc-collab-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4 h-2;
+}
+.selsc-collab-grid {
+    @apply grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 items-center mt-12 justify-center;
+}
+.selsc-collab-cell {
+    @apply flex justify-center items-center;
+}
+.selsc-collab-logo {
+    @apply object-contain max-h-24;
+}
+
+/* ───────── 6. DIVERSE LEARNERS ───────── */
+.selsc-learners {
+    @apply bg-[#fcfbf2] py-12;
+}
+.selsc-learners-heading {
+    @apply text-3xl md:text-4xl font-medium font-oswald-medium uppercase text-[#707070] inline-block pb-1;
+}
+.selsc-learners-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4 h-2;
+}
+.selsc-learners-subtitle {
+    @apply text-[#122E5E] py-4 text-xl;
+}
+.selsc-learners-grid {
+    @apply flex gap-12 flex-wrap text-[#58595B];
+}
+.selsc-learners-col ul {
+    @apply list-disc pl-5;
+}
+.selsc-learners-col li {
+    @apply leading-relaxed;
+}
+
+/* ───────── 7. TARGETED COURSES & TRAINING ───────── */
+.selsc-training {
+    @apply py-24 bg-white;
+}
+.selsc-training-heading {
+    @apply text-3xl md:text-4xl font-medium font-oswald-medium uppercase text-[#707070] inline-block pb-1;
+}
+.selsc-training-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4 h-2;
+}
+.selsc-training-swiper {
+    @apply mt-4;
+}
+.selsc-training-card {
+    @apply bg-[#ecf6ff] p-4 mb-8 flex flex-col min-h-[380px];
+}
+.selsc-training-card-title {
+    @apply text-[#F04E30] font-bold text-xl border-b pb-2 border-gray-300;
+}
+.selsc-training-card-desc {
+    @apply text-[#58595B] text-sm py-2 flex-grow;
+}
+.selsc-training-card-desc ul {
+    @apply list-disc pl-5 mt-1;
+}
+
+/* ───────── 8. PROGRAMS & COURSES ───────── */
+.selsc-programs {
+    @apply bg-[#122e5e] py-16 text-white;
+}
+.selsc-programs-heading {
+    @apply text-3xl md:text-4xl font-medium font-oswald-medium uppercase text-white inline-block pb-1;
+}
+.selsc-programs-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4 h-2;
+}
+.selsc-programs-subtitle {
+    @apply text-white py-2 pt-3 text-2xl;
+}
+.selsc-programs-desc {
+    @apply text-white text-sm max-w-[900px] mb-8;
+}
+.selsc-programs-swiper {
+    @apply pb-12;
+}
+.selsc-programs-card {
+    @apply bg-white rounded flex flex-col h-full max-w-[370px] mx-auto min-h-[560px] mb-8;
+}
+.selsc-programs-card-img {
+    @apply w-full h-40 object-cover rounded-t mb-2;
+}
+.selsc-programs-card-body {
+    @apply p-4;
+}
+.selsc-programs-card-title {
+    @apply text-[#F04E30] text-xl font-semibold mb-2 leading-tight;
+}
+.selsc-programs-card-desc {
+    @apply text-[#58595B] text-sm mb-4;
+}
+.selsc-programs-card-desc ul {
+    @apply list-disc pl-4 mt-1;
+}
+
+/* ───────── 9. FACULTY & RESEARCH ───────── */
+.selsc-fr {
+    @apply py-16 bg-white;
+}
+.selsc-fr-heading {
+    @apply text-3xl md:text-4xl font-medium font-oswald-medium uppercase text-[#707070] inline-block pb-1;
+}
+.selsc-fr-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4 h-2;
+}
+.selsc-fr-subtitle {
+    @apply text-lg mt-3 mb-2 text-[#58595B];
+}
+.selsc-fr-desc {
+    @apply text-sm text-[#58595B];
+}
+.selsc-fr-grid {
+    @apply text-[#58595B] text-xl mt-8 grid lg:grid-cols-3 gap-4;
+}
+.selsc-fr-item {
+    @apply pr-4 max-lg:mb-2 max-lg:pb-2 max-lg:border-b lg:border-r last:border-r-0;
+}
+.selsc-fr-item-value {
+    @apply font-bold;
+}
+.selsc-fr-cta {
+    @apply text-[#269BFF] text-sm underline mt-8 inline-block hover:text-[#1a87e6];
+}
+
+/* ───────── 10. STUDENT LIFE ───────── */
+.selsc-sl {
+    @apply py-16 bg-white;
+}
+.selsc-sl-heading {
+    @apply text-3xl md:text-4xl font-medium font-oswald-medium uppercase text-[#707070] inline-block pb-1;
+}
+.selsc-sl-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-2 border-t-4 h-2;
+}
+.selsc-sl-nav {
+    @apply flex justify-between items-start gap-2 my-4;
+}
+.selsc-sl-intro {
+    @apply text-[#58595B] max-w-3xl;
+}
+.selsc-sl-btns {
+    @apply flex gap-2 items-center ml-auto;
+}
+.selsc-sl-btn {
+    @apply border p-2 w-10 h-10 rounded-full hover:bg-gray-100 transition flex items-center justify-center;
+}
+.selsc-sl-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-5 pb-4;
+}
+.selsc-sl-card {
+    @apply relative cursor-pointer rounded-lg overflow-hidden shadow-sm;
+}
+.selsc-sl-img {
+    @apply w-full h-56 object-cover;
+}
+.selsc-sl-caption {
+    @apply absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent text-white text-sm py-2 px-3;
+}
+.selsc-sl-popup {
+    @apply fixed inset-0 bg-black/80 flex items-center justify-center z-[999] cursor-zoom-out;
+}
+.selsc-sl-popup-inner {
+    @apply relative max-w-4xl w-full mx-4;
+}
+.selsc-sl-popup img {
+    @apply max-h-[85vh] w-auto mx-auto rounded;
+}
+.selsc-sl-popup-close {
+    @apply absolute top-2 right-2 w-9 h-9 rounded-full bg-white/90 text-black flex items-center justify-center;
+}
