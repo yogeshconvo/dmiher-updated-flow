@@ -36,7 +36,7 @@ function TeachingHospitals({ data }) {
   return (
     <>
       <div className="th-section-wrap">
-        <div className="container mx-auto px-5">
+        <div className="max-w-7xl mx-auto px-5">
           <h2 className="th-heading">
             <span className="th-heading-line"></span>
             TEACHING HOSPITALS

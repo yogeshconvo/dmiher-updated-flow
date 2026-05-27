@@ -1,11 +1,11 @@
-import { useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import RichTextRenderer from "../../components/RichTextRenderer";
 
 export default function KeyFunctionTabs({ data }) {
 
   // Transform API → Tabs
   const tabs = useMemo(() => {
-    if (!data?.dimensions) return [];
+    if (!Array.isArray(data?.dimensions)) return [];
 
     return data.dimensions.map((item, index) => ({
       name: item.title
@@ -16,6 +16,12 @@ export default function KeyFunctionTabs({ data }) {
   }, [data]);
 
   const [activeTab, setActiveTab] = useState(tabs[0]);
+
+  useEffect(() => {
+    if (!activeTab && tabs.length > 0) {
+      setActiveTab(tabs[0]);
+    }
+  }, [activeTab, tabs]);
 
   if (!tabs.length) return null;
 

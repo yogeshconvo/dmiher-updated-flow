@@ -14,6 +14,19 @@ import { resolveImage } from "../../utils/resolveImage";
 import "swiper/css";
 import "swiper/css/pagination";
 
+const getDepartmentCardStyle = (image) => {
+  const resolvedImage = resolveImage(image);
+  if (!resolvedImage) {
+    return { backgroundColor: "#122E5E" };
+  }
+
+  return {
+    backgroundImage: `url(${resolvedImage})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  };
+};
+
 /* ================= CARD (institute slider) ================= */
 const DepartmentCard = ({ title, url, image, external = false }) => {
   const navigate = useNavigate();
@@ -34,11 +47,7 @@ const DepartmentCard = ({ title, url, image, external = false }) => {
     >
       <div
         className="department-card department-card-hover department-card-height"
-        style={{
-          backgroundImage: `url(${resolveImage(image)})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+        style={getDepartmentCardStyle(image)}
       >
         <div className="department-card-overlay">
           <h3 className="department-card-title">{title}</h3>
@@ -127,11 +136,7 @@ const AboutGrid = ({ grid, parent }) => {
             >
               <div
                 className="department-card department-card-hover department-card-height"
-                style={{
-                  backgroundImage: `url(${resolveImage(item.image)})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
+                style={getDepartmentCardStyle(item.image)}
               >
                 <div className="department-card-overlay">
                   <h3 className="department-card-title">{labelFor(item)}</h3>

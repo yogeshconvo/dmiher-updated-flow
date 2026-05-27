@@ -68,14 +68,23 @@ import FloatingButtons from "../../components/FloatingButtons"
 import DALNurturingEcosystem from "./DAL/DALNurturingEcosystem"
 import DALKeyFunctions from "./DAL/DALKeyFunctions"
 import DALVisionMission from "./DAL/DALVisionMission"
+// Campus Life — only the truly unique sections that can't be served by the
+// generic hero_section / institute_info / why_choose_us components.
+import CampusLifeImmersive from "./CampusLife/CampusLifeImmersive"
+import CampusLifeAcademic from "./CampusLife/CampusLifeAcademic"
+import CampusLifeInfrastructure from "./CampusLife/CampusLifeInfrastructure"
+import CampusLifeWellbeing from "./CampusLife/CampusLifeWellbeing"
+import CampusLifeHostel from "./CampusLife/CampusLifeHostel"
 
 export const SECTION_COMPONENTS = {
 
     // Common Sections
     hero_section: HeroSection,
     info_section: HomeInfo,
+    institute_info: HomeInfo,
     gallery: StudentLife,
     why_choose: WhyChoose,
+    why_choose_us: WhyChoose,
 
     // Home
     outcome_section: Outcome,
@@ -169,6 +178,15 @@ export const SECTION_COMPONENTS = {
     dal_nurturing_ecosystem: DALNurturingEcosystem,
     dal_key_functions: DALKeyFunctions,
     dal_vision_mission: DALVisionMission,
+
+    // Campus Life — dedicated sections only (the unique layouts).
+    // Hero / Info / Reasons reuse the generic hero_section / institute_info /
+    // why_choose_us components.
+    campus_life_immersive: CampusLifeImmersive,
+    campus_life_academic: CampusLifeAcademic,
+    campus_life_infrastructure: CampusLifeInfrastructure,
+    campus_life_wellbeing: CampusLifeWellbeing,
+    campus_life_hostel: CampusLifeHostel,
 
     // Generic / cross-page
     text_editor: TextEditor,
