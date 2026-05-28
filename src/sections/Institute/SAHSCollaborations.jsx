@@ -57,11 +57,31 @@ const ICON_MAP = {
   star: Star,
 };
 
+// Tailwind pastel class → hex. The bg_color comes from the DB as a Tailwind
+// class string, but Tailwind's JIT purges classes it can't find in source,
+// so dynamic DB classes never make it into the compiled CSS. Map to hex and
+// apply via inline style so the colors always render.
+const BG_HEX = {
+  "bg-rose-200": "#fecdd3",
+  "bg-green-200": "#bbf7d0",
+  "bg-purple-200": "#e9d5ff",
+  "bg-blue-200": "#bfdbfe",
+  "bg-cyan-200": "#a5f3fc",
+  "bg-indigo-200": "#c7d2fe",
+  "bg-lime-200": "#d9f99d",
+  "bg-pink-200": "#fbcfe8",
+  "bg-amber-200": "#fde68a",
+  "bg-teal-200": "#99f6e4",
+};
+
 const FeatureCard = ({ icon, title, bg_color }) => {
   const Icon = ICON_MAP[(icon || "star").toLowerCase()] || Star;
+  // Accept either a known tailwind class, a raw hex, or fall back to rose.
+  const bg = BG_HEX[bg_color] || (bg_color?.startsWith("#") ? bg_color : "#fecdd3");
   return (
     <div
-      className={`${bg_color || "bg-rose-200"} sahs-collab-feature rounded-lg p-6 flex flex-col items-center text-center h-44 justify-center`}
+      className="sahs-collab-feature rounded-lg p-6 flex flex-col items-center text-center h-44 justify-center"
+      style={{ backgroundColor: bg }}
     >
       <div className="sahs-collab-feature-icon bg-white rounded-lg p-4 mb-4 shadow-md">
         <Icon className="w-8 h-8 text-teal-500" />
