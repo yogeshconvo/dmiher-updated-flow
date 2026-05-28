@@ -35,7 +35,15 @@ function InstituteCampusTabsNav({ data }) {
       className={`container flex items-center font-oswald-medium justify-center ${gapClass} border-b my-8 w-fit m-auto max-sm:flex-col max-sm:gap-0 max-sm:border-b-0`}
     >
       {tabs.map((tab, idx) => {
-        const slug = (tab.page_slug || "").toLowerCase();
+        // Accept both shapes: {label, page_slug} (canonical) and
+        // {name, url, active_for_slug} (some seeds).
+        const label = tab.label || tab.name || "";
+        const rawSlug =
+          tab.page_slug ||
+          tab.active_for_slug ||
+          (tab.url || "").replace(/^\/+/, "");
+        const slug = rawSlug.toLowerCase();
+        const href = tab.url || `/${rawSlug}`;
         const isActive = slug === currentSlug;
         return (
           <li
@@ -46,8 +54,8 @@ function InstituteCampusTabsNav({ data }) {
                 : "text-[#58595B]"
             }`}
           >
-            <Link to={`/${tab.page_slug}`} className="block w-full h-full px-2">
-              {tab.label}
+            <Link to={href} className="block w-full h-full px-2">
+              {label}
             </Link>
           </li>
         );

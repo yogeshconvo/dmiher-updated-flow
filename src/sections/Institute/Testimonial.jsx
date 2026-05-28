@@ -5,16 +5,31 @@ import "swiper/css";
 import "swiper/css/pagination";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import SafeImage from "../../components/SafeImage";
+import resolveImage from "../../utils/resolveImage";
+
+// Tab label can be stored as `tab_name` (canonical) or `name` (some seeds).
+const tabLabel = (tab) => tab?.tab_name || tab?.name || "";
+
+// Testimonial body can be stored as a single `paragraph` HTML field, OR as
+// structured fields (`desc` + `name` + `info` + `batch`). Build consistent
+// HTML for both so the text always renders.
+const testimonialHtml = (t) => {
+  if (t?.paragraph) return t.paragraph;
+  let html = "";
+  if (t?.desc) html += t.desc;
+  if (t?.name) html += `<p style="font-weight:600;margin-top:0.5rem;">${t.name}</p>`;
+  const meta = [t?.info, t?.batch].filter(Boolean).join(" | ");
+  if (meta) html += `<p style="color:#707070;">${meta}</p>`;
+  return html;
+};
 
 const Testimonial = ({ data }) => {
   const { tabs = [], header = {} } = data || {};
 
-  const [activeTab, setActiveTab] = useState(tabs[0]?.tab_name);
+  const [activeTab, setActiveTab] = useState(tabLabel(tabs[0]));
 
   // Find active tab object
-  const activeTabData = tabs.find(
-    (tab) => tab.tab_name === activeTab
-  );
+  const activeTabData = tabs.find((tab) => tabLabel(tab) === activeTab);
 
   const testimonials = activeTabData?.testimonials || [];
 
@@ -32,19 +47,20 @@ const Testimonial = ({ data }) => {
 
         {/* TABS */}
         <div className="testimonial-tabs">
-          {tabs.map((tab, index) => (
-            <button
-              key={tab.tab_name}
-              className={`testimonial-tab ${
-                activeTab === tab.tab_name
-                  ? "testimonial-tab-active"
-                  : ""
-              } ${index < tabs.length - 1 ? "testimonial-tab-divider" : ""}`}
-              onClick={() => setActiveTab(tab.tab_name)}
-            >
-              {tab.tab_name}
-            </button>
-          ))}
+          {tabs.map((tab, index) => {
+            const label = tabLabel(tab);
+            return (
+              <button
+                key={label || index}
+                className={`testimonial-tab ${
+                  activeTab === label ? "testimonial-tab-active" : ""
+                } ${index < tabs.length - 1 ? "testimonial-tab-divider" : ""}`}
+                onClick={() => setActiveTab(label)}
+              >
+                {label}
+              </button>
+            );
+          })}
         </div>
 
         {/* SWIPER */}
@@ -63,12 +79,12 @@ const Testimonial = ({ data }) => {
                     
                     {/* IMAGE */}
                   <div className="testimonial-avatar">
-                      <SafeImage src={t.image} alt="testimonial" />
+                      <SafeImage src={resolveImage(t.image)} alt={t.name || "testimonial"} />
                     </div>
 
                     {/* CONTENT */}
                     <div className="testimonial-content">
-                      <RichTextRenderer html={t.paragraph} />
+                      <RichTextRenderer html={testimonialHtml(t)} />
                     </div>
 
                   </div>
