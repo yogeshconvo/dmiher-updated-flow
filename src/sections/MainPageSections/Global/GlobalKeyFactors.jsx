@@ -36,9 +36,9 @@ const GlobalKeyFactors = ({ data }) => {
           style={{ paddingBottom: "3rem" }}
           breakpoints={{
             640: { slidesPerView: 2 },
-            768: { slidesPerView: 3 },
-            1024: { slidesPerView: 4 },
-            1280: { slidesPerView: 5 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+            1280: { slidesPerView: 4 },
           }}
         >
           {cards.map((card, i) => {

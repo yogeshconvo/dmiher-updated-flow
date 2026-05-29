@@ -1,20 +1,32 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
-import { FileText } from "lucide-react";
+import { FileText, ExternalLink } from "lucide-react";
 import SafeImage from "../../components/SafeImage";
 
 export const CardMandatoryDisclosure = ({
   icon,
   name,
   link,
+  type,
   popopContent,
 }) => {
   const [show, setShow] = useState(false);
 
+  // Fall back to a sensible icon when none is supplied by the mapper:
+  // external links get the ExternalLink glyph, everything else (PDFs,
+  // internal pages, popups) gets the FileText document icon — matching
+  // the live-site mandatory-disclosure cards.
+  const isExternal =
+    type === "external" ||
+    (typeof link === "string" &&
+      link.startsWith("http") &&
+      !/\.(pdf|docx?|xlsx?)$/i.test(link));
+  const resolvedIcon = icon || (isExternal ? <ExternalLink /> : <FileText />);
+
   const content = (
     <>
       <div className="card-icon-wrapper">
-        <div className="card-icon">{icon}</div>
+        <div className="card-icon">{resolvedIcon}</div>
       </div>
       <div className="card-title">
         {name}

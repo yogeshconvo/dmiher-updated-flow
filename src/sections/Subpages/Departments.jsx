@@ -79,20 +79,28 @@ function DepartmentsSubpage() {
           <p className="deptpage-dept-info">{currentDept.info}</p>
         </div>
 
-        {/* HOD */}
-        {currentDept.dean_image && (
+        {/* HOD — render whenever we have either an image or details.
+            Previously gated on dean_image only, which hid the whole card
+            for departments whose HOD photo hasn't been uploaded yet. */}
+        {(currentDept.dean_image || currentDept.dean_details) && (
           <div className="deptpage-hod-card">
             <h3 className="deptpage-hod-title">
               Head of Department
             </h3>
 
             <div className="deptpage-hod-row">
+              {/* Always render the HOD image slot. When dean_image is empty,
+                  SafeImage shows the "No image available" fallback — keeping
+                  the space reserved so an admin-uploaded photo appears here
+                  later without any layout change. */}
               <SafeImage
                 src={currentDept.dean_image}
                 alt="Head of Department"
                 className="deptpage-hod-image"
               />
-              <RichTextRenderer html={currentDept.dean_details} />
+              {currentDept.dean_details && (
+                <RichTextRenderer html={currentDept.dean_details} />
+              )}
             </div>
           </div>
         )}

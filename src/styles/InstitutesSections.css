@@ -362,7 +362,7 @@
 }
 
 .deans-image-wrapper {
-    @apply flex-shrink-0;
+    @apply flex-shrink-0 w-[300px] md:w-[370px] mx-auto lg:mx-0;
 }
 
 .deans-image {
@@ -805,6 +805,12 @@
     @apply w-[40%];
 }
 
+/* only_image layout — single image spans the FULL container width
+   (inside .container, so it keeps page gutters but fills the column). */
+.global-image-only {
+    @apply w-full;
+}
+
 /* Edge-to-edge image for the "only_image" Global Opportunities layout.
    Rendered outside .container so it stretches the full viewport width
    (RNPC's "ALUMNI – Across The Globe" world map). */
@@ -1150,6 +1156,85 @@
     @apply text-sm leading-snug overflow-hidden text-ellipsis line-clamp-4;
     font-family: Arial, sans-serif;
     font-weight: 400;
+}
+
+/* ================= COURSERA CERTIFICATIONS (CDOE) ================= */
+.coursera-section {
+    @apply bg-white pt-20 pb-10;
+}
+
+.coursera-heading {
+    @apply text-3xl md:text-4xl uppercase font-[500] text-[#707070] mb-4 tracking-wider font-oswald-medium;
+}
+
+.coursera-heading-line {
+    @apply w-16 sm:w-20 border-[#F04E30] mb-4 border-t-4;
+}
+
+.coursera-subtitle {
+    @apply text-base md:text-lg text-gray-600 mb-6 max-w-4xl;
+}
+
+.coursera-grid {
+    @apply max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 p-4 relative;
+}
+
+/* decorative connectors — desktop only */
+.coursera-line {
+    @apply hidden md:block absolute bg-gray-700 z-0;
+}
+
+.coursera-line-vert {
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 248px;
+}
+
+.coursera-line-horiz {
+    top: 260px;
+    left: 25%;
+    width: 50%;
+    height: 3px;
+}
+
+.coursera-line-drop-left {
+    top: 260px;
+    left: 25%;
+    width: 3px;
+    height: 30px;
+}
+
+.coursera-line-drop-right {
+    top: 260px;
+    left: 75%;
+    width: 3px;
+    height: 30px;
+}
+
+.coursera-card {
+    @apply bg-white p-6 md:p-8 shadow-md relative z-10 mx-5;
+}
+
+.coursera-card-bar {
+    @apply absolute top-0 left-0 right-0 h-2 bg-[#1e5da6];
+}
+
+.coursera-card-body {
+    @apply flex flex-col md:flex-row items-center md:items-start text-center md:text-left;
+}
+
+.coursera-card-icon {
+    @apply w-[80px] h-[70px] object-contain mb-4 md:mb-0 md:mr-4;
+}
+
+.coursera-card-title {
+    @apply text-xl font-extrabold text-gray-800 leading-snug;
+}
+
+.coursera-card-list {
+    @apply mt-2 text-lg font-medium text-black space-y-1 list-disc mx-5;
 }
 
 /* Education unit */

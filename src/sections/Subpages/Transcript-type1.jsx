@@ -53,6 +53,9 @@ function Transcript({ data: propData, college: propCollege }) {
       course_number: c.course_number,
       roman_number: c.roman_number,
       university: c.university,
+      // Per-institute provider label ("Powered by" default; SPDC PG uses
+      // "Certified by"). Course-level overrides the section-level default.
+      university_label: c.university_label || sectionData.university_label,
       badge: c.badge,
       icon: c.icon,
     });
@@ -191,7 +194,7 @@ function Transcript({ data: propData, college: propCollege }) {
                             </div>
                             <div>
                               <p className="course-card-univ-label">
-                                Powered by
+                                {course.university_label || "Powered by"}
                               </p>
                               <p className="course-card-univ-name">
                                 {course.university}

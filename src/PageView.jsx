@@ -52,13 +52,6 @@ function PageView() {
     isMicropage ? microSlug : null
   );
 
-  /* ================= LOADING ================= */
-  const isLoading = isMicropage
-    ? micropageQuery?.isLoading && subpageQuery?.isLoading
-    : pageQuery?.isLoading;
-
-  if (isLoading) return <PageSkeleton />;
-
   /* ================= RESOLVE ================= */
   let resolvedPage = null;
 
@@ -71,6 +64,17 @@ function PageView() {
   } else {
     resolvedPage = pageQuery?.data;
   }
+
+  /* ================= LOADING ================= */
+  // Keep skeleton until we have data OR both queries have settled.
+  // Using && before meant: if micropageQuery finished with 404 (fast)
+  // while subpageQuery was still loading, isLoading became false too
+  // early and the page flashed "No data available".
+  const isLoading = isMicropage
+    ? !resolvedPage && (micropageQuery?.isLoading || subpageQuery?.isLoading)
+    : pageQuery?.isLoading;
+
+  if (isLoading) return <PageSkeleton />;
 
   /* ================= ERROR / EMPTY ================= */
   const hasError = isMicropage
