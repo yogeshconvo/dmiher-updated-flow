@@ -38,7 +38,21 @@ function Transcript({ data: propData, college: propCollege }) {
     if (Array.isArray(sectionData?.departments)) {
       return {
         title: sectionData.title || "Transcript",
-        departments: sectionData.departments,
+        // FEAT ships raw department courses with no course_number and only a
+        // roman_number. Surface a sequential "Course #N" and render the roman
+        // figure as a "Semester :" header line (live-site layout). The
+        // headerShowsSemester flag scopes this to the departments branch so
+        // the category/normal institutes (SPDC, JNMC, RNPC, DMMC) are
+        // untouched.
+        departments: sectionData.departments.map((dept) => ({
+          ...dept,
+          electives: (dept.electives || []).map((c, i) => ({
+            ...c,
+            course_number: c.course_number ?? i + 1,
+            semester: c.semester ?? c.roman_number,
+            headerShowsSemester: true,
+          })),
+        })),
         top_ui: sectionData.top_ui || { type: "dropdown" },
       };
     }
@@ -161,10 +175,16 @@ function Transcript({ data: propData, college: propCollege }) {
                                 Course #{course.course_number}
                               </div>
                             )}
-                            {course.badge && (
-                              <div className="course-card-mini-badge">
-                                {course.badge}
+                            {course.headerShowsSemester && course.semester ? (
+                              <div className="course-card-semester">
+                                Semester : {course.semester}
                               </div>
+                            ) : (
+                              course.badge && (
+                                <div className="course-card-mini-badge">
+                                  {course.badge}
+                                </div>
+                              )
                             )}
                           </div>
                         </div>
