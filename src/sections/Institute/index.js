@@ -29,6 +29,7 @@ import NursingCollegeBrief from "./NursingCollegeBrief"
 import SAHSCollaborations from "./SAHSCollaborations"
 import SAHSPlacements from "./SAHSPlacements"
 import SAHSAdmissions from "./SAHSAdmissions"
+import CourseraCertifications from "./CourseraCertifications"
 import {
     MandatoryDisclosureSection,
     mandatoryDisclosureConfig,
@@ -83,6 +84,11 @@ export const SECTION_COMPONENTS = {
     sahs_collaborations: SAHSCollaborations,
     sahs_placements: SAHSPlacements,
     sahs_admissions: SAHSAdmissions,
+
+    // CDOE-dedicated: Coursera-enabled certificate courses — a 2×2 stat grid
+    // with decorative connectors that the carousel-based feature_cards can't
+    // reproduce. Mirrors live-site sections/CDOE/Certifications.jsx.
+    coursera_certifications: CourseraCertifications,
 
     // Mandatory Disclosure subpage — driven dynamically from API (no hardcoding)
     [mandatoryDisclosureConfig.sectionId]: MandatoryDisclosureSection,

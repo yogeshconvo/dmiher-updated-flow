@@ -66,10 +66,11 @@ export default function GlobalOpportunities({ data }) {
         {/* DESKTOP VIEW */}
         <div className="global-desktop">
 
-          {/* IMAGE — for layouts that keep image inside the container (image_logo).
-              For "only_image" we render full-width below, outside the container. */}
-          {showImage && image && !isOnlyImage && (
-            <div className="global-image-wrapper">
+          {/* IMAGE — kept inside the container for all image layouts.
+              image_logo  → 40% width (sits beside the logo grid)
+              only_image  → full container width (e.g. RNPC alumni world-map) */}
+          {showImage && image && (
+            <div className={isOnlyImage ? "global-image-only" : "global-image-wrapper"}>
               <SafeImage src={image} alt="global" className="global-image" />
             </div>
           )}
@@ -146,8 +147,8 @@ export default function GlobalOpportunities({ data }) {
         {/* MOBILE VIEW */}
         <div className="global-mobile">
 
-          {/* IMAGE — same exclusion as desktop for only_image */}
-          {showImage && image && !isOnlyImage && (
+          {/* IMAGE — inside the container for all image layouts */}
+          {showImage && image && (
             <div className="global-mobile-image">
               <SafeImage src={image} alt="global" className="global-image" />
             </div>
@@ -177,14 +178,6 @@ export default function GlobalOpportunities({ data }) {
           )}
         </div>
       </div>
-
-      {/* FULL-WIDTH IMAGE (only_image layout) — rendered outside .container so
-          it stretches edge-to-edge under the heading & description. */}
-      {isOnlyImage && showImage && image && (
-        <div className="global-image-full">
-          <SafeImage src={image} alt="global" className="global-image-full-img" />
-        </div>
-      )}
     </section>
   );
 }

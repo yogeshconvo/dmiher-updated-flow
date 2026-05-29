@@ -410,6 +410,39 @@
     @apply max-w-7xl mx-auto px-6 py-16;
 }
 
+/* ===== Unified Transcript hero + sections (TranscriptSubpage) ===== */
+.transcript-hero {
+    @apply bg-[#122E5E] shadow-xl border-b border-gray-100 py-12 text-center;
+}
+
+.transcript-hero-title {
+    @apply text-4xl md:text-5xl font-bold text-white;
+}
+
+.transcript-section {
+    @apply mb-20 last:mb-0;
+}
+
+.transcript-section-head {
+    @apply text-center mb-12;
+}
+
+.transcript-section-title {
+    @apply text-3xl md:text-4xl font-bold text-[#122E5E];
+}
+
+.transcript-section-subtitle {
+    @apply text-gray-600 text-lg md:text-xl font-medium mt-3;
+}
+
+.transcript-categories {
+    @apply flex flex-wrap justify-center gap-4 mb-12;
+}
+
+.transcript-category-pill {
+    @apply bg-white rounded-2xl px-6 py-3 shadow-lg border border-gray-100 text-gray-700 font-semibold transition-all duration-300 hover:shadow-xl hover:scale-105;
+}
+
 .department-dropdown {
     @apply relative mb-10;
 }
@@ -942,8 +975,11 @@
     @apply absolute right-3 top-1/2 -translate-y-1/2 text-gray-400;
 }
 
+/* Was `hidden sm:block`, which hid the program sub-tabs entirely on mobile
+   (there is no separate mobile tab list). Show on all sizes; allow horizontal
+   scroll so many tabs stay tappable on narrow screens without squashing. */
 .subprog-subtab-mobile-wrap {
-    @apply hidden sm:block;
+    @apply block overflow-x-auto;
 }
 
 .subprog-subtab {
@@ -1095,6 +1131,14 @@
 
 .deptpage-hod-image {
     @apply w-44 h-52 rounded-full object-cover;
+}
+
+/* When the HOD photo is missing, SafeImage renders a placeholder that also
+   carries the .deptpage-hod-image class. The two-class selector beats the
+   global .safe-image-fallback (w-full h-full), so the placeholder keeps the
+   SAME width/height as a real HOD photo instead of stretching full-width. */
+.deptpage-hod-image.safe-image-fallback {
+    @apply w-44 h-52 flex-shrink-0 rounded-full;
 }
 
 .deptpage-staff-card {
