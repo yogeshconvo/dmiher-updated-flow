@@ -14,7 +14,11 @@ import RichTextRenderer from "../../components/RichTextRenderer";
  */
 export default function SELSCLearners({ data }) {
   if (!data) return null;
-  const { heading, subtitle, columns = [] } = data;
+  // Support both the legacy flat shape ({heading, subtitle, columns:[html]})
+  // and the normalized shape ({header:{heading,subtitle}, columns:[{content}]}).
+  const heading = data.header?.heading ?? data.heading;
+  const subtitle = data.header?.subtitle ?? data.subtitle;
+  const columns = data.columns ?? [];
 
   return (
     <section className="selsc-learners">
@@ -33,7 +37,7 @@ export default function SELSCLearners({ data }) {
           <div className="selsc-learners-grid">
             {columns.map((col, idx) => (
               <div key={idx} className="selsc-learners-col">
-                <RichTextRenderer html={col} />
+                <RichTextRenderer html={typeof col === "string" ? col : col?.content} />
               </div>
             ))}
           </div>

@@ -2,7 +2,7 @@
 
 /* ================= INSTITUTE LIGHT FILE HELPERS ================= */
 .inst-logos-section {
-    @apply mx-auto py-10 bg-gray-100;
+    @apply mx-auto bg-gray-100;
 }
 
 .inst-logos-heading {
@@ -54,12 +54,12 @@
 }
 
 /* Button section helpers */
-.inst-cta-wrap {
+/* .inst-cta-wrap {
     @apply m-10;
-}
+} */
 
 .inst-cta-btn {
-    @apply w-[18rem] bg-[#F04E30] hover:bg-[#122E5E] text-white text-2xl px-8 py-3 rounded-md drop-shadow-[4px_6px_6px_rgba(0,0,0,0.5)] hover:scale-105 transition;
+    @apply w-[18rem] h-[5rem] flex items-center justify-center text-center bg-[#F04E30] hover:bg-[#122E5E] text-white text-xl px-4 py-2 rounded-md hover:scale-105 transition leading-tight;
     font-family: "Oswald", sans-serif;
 }
 
@@ -68,7 +68,7 @@
 }
 
 .inst-cta-tail {
-    @apply flex flex-wrap justify-center gap-10 mt-10;
+    @apply flex flex-wrap justify-center gap-6 mt-6;
 }
 
 /* ================= GENERIC WRAPPER HELPERS ================= */
@@ -713,6 +713,7 @@
     .spdc-placements-logos {
         @apply flex flex-wrap items-center justify-center gap-6 mt-10 p-2;
     }
+
     .spdc-placements-logo-cell-border {
         @apply border-r-0;
     }
@@ -1311,6 +1312,7 @@
 .announce-doc-single {
     @apply col-span-2 max-w-xs mx-auto;
 }
+
 /* =====================================================================
    SAHS dedicated sections (Wardha + Nagpur)
    Live-site visual parity for the partner-logos panel, NHS + national
@@ -1324,29 +1326,37 @@
 .sahs-collab-section .swiper-pagination-bullet-active {
     background: #F04E30;
 }
+
 .sahs-collab-title,
 .sahs-collab-heading {
     font-family: 'Oswald', sans-serif;
 }
+
 .sahs-collab-description {
     font-family: Arial, sans-serif;
 }
+
 .sahs-collab-partner-logo {
     transition: transform .25s ease;
 }
+
 .sahs-collab-partner-logo:hover {
     transform: scale(1.05);
 }
+
 .sahs-collab-intl-card {
     min-width: 160px;
     min-height: 110px;
 }
+
 .sahs-collab-max {
     margin-top: 2rem;
 }
+
 .sahs-collab-feature {
     transition: transform .2s ease, box-shadow .2s ease;
 }
+
 .sahs-collab-feature:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.15);
@@ -1356,12 +1366,15 @@
 .sahs-plc-section .swiper {
     padding-bottom: 1rem;
 }
+
 .sahs-plc-heading {
     font-family: 'Oswald', sans-serif;
 }
+
 .sahs-plc-intl-frame {
     background: transparent;
 }
+
 .sahs-plc-nat-frame img {
     padding: .5rem;
 }
@@ -1371,13 +1384,16 @@
 .sahs-adm-subheading {
     font-family: 'Oswald', sans-serif;
 }
+
 .sahs-adm-description {
     font-family: Arial, sans-serif;
 }
+
 .sahs-adm-pill {
     min-width: 110px;
     text-align: center;
 }
+
 .sahs-adm-cta {
     box-shadow: 0 6px 14px -8px rgba(38, 155, 255, 0.6);
 }
