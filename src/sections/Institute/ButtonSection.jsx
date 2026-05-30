@@ -65,7 +65,7 @@ export default function CTAButtons({ data }) {
   const layout = data?.layout || {};
 
   const alignment = layout.alignment || "center";
-  const columns = Number(layout.columns) || 0;
+  const columns = Number(layout.columns) || 2;
   const colClass = COL_MAP[columns] || "";
 
   const useGrid = columns > 0;
