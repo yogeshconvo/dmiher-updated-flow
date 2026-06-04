@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ImageOff } from "lucide-react";
 import resolveImage from "../utils/resolveImage";
 
@@ -31,6 +31,8 @@ function SafeImage({
   ...rest
 }) {
   const [errored, setErrored] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef(null);
 
   // Resolve once per src change. resolveImage() returns "" for falsy or
   // non-string inputs so the placeholder branch below handles them.
@@ -39,6 +41,15 @@ function SafeImage({
 
   useEffect(() => {
     setErrored(false);
+    setLoaded(false);
+  }, [resolvedSrc]);
+
+  // Handle cached images that may already be complete before onLoad attaches.
+  useEffect(() => {
+    const node = imgRef.current;
+    if (node && node.complete && node.naturalWidth > 0) {
+      setLoaded(true);
+    }
   }, [resolvedSrc]);
 
   const isMissing = !resolvedSrc || errored;
@@ -60,11 +71,13 @@ function SafeImage({
 
   return (
     <img
+      ref={imgRef}
       src={resolvedSrc}
       alt={alt}
-      className={className}
+      className={`${className} ${loaded ? "" : "safe-image-loading"}`.trim()}
       style={style}
       onClick={onClick}
+      onLoad={() => setLoaded(true)}
       onError={() => setErrored(true)}
       {...rest}
     />

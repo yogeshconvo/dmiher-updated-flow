@@ -164,7 +164,7 @@
 }
 
 .hero-admission-text {
-    @apply text-base lg:text-lg hidden md:block sm:ml-20;
+    @apply text-sm sm:text-base lg:text-lg block text-center w-full md:w-auto sm:ml-20;
 }
 
 
@@ -174,7 +174,7 @@
 
 /* Plain-text item in the strip (helpline / trailing text). Colour is set inline from data. */
 .hero-topbar-text {
-    @apply flex items-center text-sm xl:text-base font-semibold whitespace-nowrap;
+    @apply flex items-center text-xs sm:text-sm xl:text-base font-semibold whitespace-normal sm:whitespace-nowrap text-center;
 }
 
 /* Vertical separator between a text item and the orange CTA button. */
@@ -207,11 +207,11 @@
 }
 
 .hero-mobile-actions {
-    @apply flex justify-center gap-x-3 w-full;
+    @apply flex flex-wrap justify-center items-center gap-x-3 gap-y-1 w-full min-w-0;
 }
 
 .hero-mobile-apply {
-    @apply w-full flex justify-center items-center rounded-[10px] text-sm bg-[#F04E30] hover:bg-[#122E5E] text-white px-1 py-2 font-semibold;
+    @apply flex justify-center items-center rounded-[10px] text-xs sm:text-sm bg-[#F04E30] hover:bg-[#122E5E] text-white px-4 py-1.5 font-semibold whitespace-nowrap;
 }
 
 .hero-mobile-phone {
