@@ -9,7 +9,7 @@ import { Link, useLocation } from "react-router-dom";
  *   - 2 tabs (SAHS Wardha/Nagpur)     → text-lg md:text-2xl, max-w-[800px], gap-[15%], font-bold active
  *   - 3+ tabs (Nursing SRMMCON/W/N)   → text-xl,             max-w-[440px], gap-[8%],  font-[500] active
  *
- * Section key: institute_campus_tabs_nav (unique, no collision with tab_group_section)
+ * Section key: institute_nursing_tabs_nav (unique, no collision with tab_group_section)
  * Data shape:  { tabs: [{ label, page_slug }, ...] }
  *
  * Active tab matched against first path segment of current URL (case-insensitive).

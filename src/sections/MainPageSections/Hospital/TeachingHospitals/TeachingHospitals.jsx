@@ -33,8 +33,12 @@ function TeachingHospitals({ data }) {
 
   const activeCampus = campusTabs[activeIndex] || campusTabs[0];
 
+  // Section background is data-driven from the backend. Falls back to the
+  // light-blue used across the site when not provided.
+  const sectionBg = data?.bg_color || data?.background_color || "#eaf4ff";
+
   return (
-    <>
+    <div className="th-section" style={{ backgroundColor: sectionBg }}>
       <div className="th-section-wrap">
         <div className="max-w-7xl mx-auto px-5">
           <h2 className="th-heading">
@@ -55,7 +59,7 @@ function TeachingHospitals({ data }) {
         <OurHospitals campus={activeCampus} />
         <DifferenceHospitals campus={activeCampus} />
       </section>
-    </>
+    </div>
   );
 }
 

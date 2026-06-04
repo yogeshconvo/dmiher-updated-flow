@@ -59,7 +59,7 @@
 } */
 
 .inst-cta-btn {
-    @apply w-[18rem] h-[5rem] flex items-center justify-center text-center bg-[#F04E30] hover:bg-[#122E5E] text-white text-xl px-4 py-2 rounded-md hover:scale-105 transition leading-tight;
+    @apply min-w-[14rem] h-[5rem] flex items-center justify-center gap-2 text-center bg-[#F04E30] hover:bg-[#122E5E] text-white text-xl px-8 py-2 rounded-md hover:scale-105 transition leading-tight;
     font-family: "Oswald", sans-serif;
 }
 
@@ -160,24 +160,34 @@
 
 /* ================= Hero ================= */
 .hero-topbar {
-    @apply w-full bg-[#E1CD67] text-gray-600 text-[11px] sm:text-sm px-3 py-1 flex flex-col sm:flex-row sm:justify-between sm:items-center z-50 gap-y-2;
+    @apply w-full bg-[#E1CD67] text-gray-600 text-[11px] sm:text-sm px-3 lg:px-6 py-1 flex flex-col sm:flex-row sm:justify-between sm:items-center z-50 gap-y-2;
 }
 
 .hero-admission-text {
-    @apply text-lg hidden md:block sm:ml-20;
+    @apply text-base lg:text-lg hidden md:block sm:ml-20;
 }
 
 
 .hero-desktop-actions {
-    @apply hidden lg:flex items-center gap-x-5;
+    @apply hidden lg:flex flex-wrap items-center justify-end gap-x-3 gap-y-1;
+}
+
+/* Plain-text item in the strip (helpline / trailing text). Colour is set inline from data. */
+.hero-topbar-text {
+    @apply flex items-center text-sm xl:text-base font-semibold whitespace-nowrap;
+}
+
+/* Vertical separator between a text item and the orange CTA button. */
+.hero-topbar-divider {
+    @apply hidden lg:inline-block w-px h-5 bg-gray-500/50;
 }
 
 .hero-primary-btn {
-    @apply flex items-center text-xl text-white px-3 py-2 space-x-3 font-semibold rounded-[10px];
+    @apply flex items-center text-sm xl:text-base text-white px-3 py-1.5 space-x-2 font-semibold rounded-[8px];
 }
 
 .hero-apply-btn {
-    @apply flex items-center rounded-[10px] text-xl bg-[#F04E30] hover:bg-[#122E5E] text-white px-3 py-2 space-x-3 font-semibold;
+    @apply flex items-center rounded-[8px] text-sm xl:text-base bg-[#F04E30] hover:bg-[#122E5E] text-white uppercase px-4 py-1.5 space-x-2 font-semibold whitespace-nowrap;
 }
 
 .hero-phone-btn {
@@ -633,7 +643,7 @@
 
 /* Recruiter logos carousel (DMCP) */
 .placements-logos-wrapper {
-    @apply mt-10;
+    @apply mt-4;
 }
 
 .placements-logos-label {
@@ -1282,7 +1292,7 @@
 }
 
 .announce-btn {
-    @apply flex items-center gap-4 p-5 rounded-2xl bg-white shadow-md border border-gray-200 transition-all duration-300 text-left w-full max-w-sm;
+    @apply flex items-center gap-4 p-5 rounded-2xl bg-white shadow-md border border-gray-200 transition-all duration-300 text-left w-full h-full;
 }
 
 .announce-btn:hover {

@@ -23,8 +23,6 @@ import FundedResearchProjects from "./Research/FundedResearchProjects"
 import ResearchOpportunities from "./Research/ResearchOpportunities"
 import HomeInfo from "../Institute/InfoSection"
 import AlliancesGlobal from "./Global/AlliancesGlobal"
-import GlobalKeyFactors from "./Global/GlobalKeyFactors"
-import GlobalCentres from "./Global/GlobalCentres"
 import GlobalExchange from "./Global/GlobalExchange"
 import FunctionalUnits from "./IQAC/FunctionalUnits"
 import IQACSection from "./IQAC/IQACButtons"
@@ -123,8 +121,6 @@ export const SECTION_COMPONENTS = {
 
     // Global Section
     global_alliances: AlliancesGlobal,
-    global_key_factors: GlobalKeyFactors,
-    global_centres: GlobalCentres,
     global_exchange: GlobalExchange,
     enquiry_global: EnquiryGlobal,
     universal_section: UniversalSection,

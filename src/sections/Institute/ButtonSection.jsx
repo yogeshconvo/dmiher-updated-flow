@@ -38,6 +38,7 @@
 // export default ButtonSection;
 import React from "react";
 import { Link } from "react-router-dom";
+import { Download } from "lucide-react";
 
 const FLEX_ALIGN_MAP = {
   left: "justify-start",
@@ -78,11 +79,20 @@ export default function CTAButtons({ data }) {
   const mainButtons = extras === 0 ? buttons : buttons.slice(0, -extras);
   const tailButtons = extras === 0 ? [] : buttons.slice(-extras);
 
+  // With 2+ buttons in a grid, stretch each button to fill its column so they
+  // render uniform full-width (matches the production/server design). A lone
+  // button stays content-width and centered.
+  const gridFullWidth = useGrid && mainButtons.length > 1;
+
   const gridClass = useGrid
-    ? `grid grid-cols-1 ${colClass} ${GRID_ITEM_ALIGN_MAP[alignment] || "justify-items-center"} gap-10 max-w-fit mx-auto`
+    ? `grid grid-cols-1 ${colClass} gap-6 mx-auto ${
+        gridFullWidth
+          ? "w-full max-w-4xl"
+          : `max-w-fit ${GRID_ITEM_ALIGN_MAP[alignment] || "justify-items-center"}`
+      }`
     : `flex flex-col md:flex-row flex-wrap ${FLEX_ALIGN_MAP[alignment] || "justify-center"} gap-10`;
 
-  const renderButton = (btn, index) => {
+  const renderButton = (btn, index, fullWidth = false) => {
     const isExternal =
       btn.tab_type === "url" ||
       (typeof btn.link === "string" && btn.link.startsWith("http"));
@@ -94,9 +104,19 @@ export default function CTAButtons({ data }) {
           ? `/${btn.page_slug}`
           : "#";
 
+    // Show a download icon for PDF / download / brochure buttons.
+    const isDownload =
+      btn.tab_type === "pdf" ||
+      /\.pdf($|\?)/i.test(btn.link || "") ||
+      /download|brochure/i.test(btn.label || "");
+
+    const wrapClass = `inst-cta-link-wrap${fullWidth ? " w-full" : ""}`;
+    const btnClass = `inst-cta-btn${fullWidth ? " w-full" : ""}`;
+
     const buttonEl = (
-      <button className="inst-cta-btn">
+      <button className={btnClass}>
         {btn.label}
+        {isDownload && <Download className="w-5 h-5 shrink-0" />}
       </button>
     );
 
@@ -107,7 +127,7 @@ export default function CTAButtons({ data }) {
           href={path}
           target="_blank"
           rel="noopener noreferrer"
-          className="inst-cta-link-wrap"
+          className={wrapClass}
         >
           {buttonEl}
         </a>
@@ -115,20 +135,26 @@ export default function CTAButtons({ data }) {
     }
 
     return (
-      <Link key={index} to={path} className="inst-cta-link-wrap">
+      <Link key={index} to={path} className={wrapClass}>
         {buttonEl}
       </Link>
     );
   };
 
   return (
-    <div className="inst-cta-wrap">
-      <div className={gridClass}>{mainButtons.map(renderButton)}</div>
+    <div className="inst-cta-wrap py-20">
+      <div className={gridClass}>
+        {mainButtons.map((btn, i) => renderButton(btn, i, gridFullWidth))}
+      </div>
 
       {tailButtons.length > 0 && (
-        <div className="inst-cta-tail">
+        <div
+          className={`inst-cta-tail${
+            gridFullWidth ? " w-full max-w-md mx-auto" : ""
+          }`}
+        >
           {tailButtons.map((btn, i) =>
-            renderButton(btn, mainButtons.length + i),
+            renderButton(btn, mainButtons.length + i, gridFullWidth),
           )}
         </div>
       )}

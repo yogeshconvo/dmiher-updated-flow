@@ -86,11 +86,23 @@ import { useState } from "react";
 import { FileText } from "lucide-react";
 import { PopupModal } from "../../components/UI/CardMandatoryDisclosure";
 
+// Columns-per-row coming from the backend (layout.columns), mirrors the
+// button section. Cards stretch to fill their column for a uniform grid.
+const COL_MAP = {
+  1: "md:grid-cols-1",
+  2: "md:grid-cols-2",
+  3: "md:grid-cols-3",
+  4: "md:grid-cols-4",
+};
+
 const ProgramsAnnouncements = ({ data }) => {
   if (!data) return null;
 
   const heading = data?.header?.heading;
   const cards = Array.isArray(data?.cards) ? data.cards : [];
+
+  const columns = Number(data?.layout?.columns) || 3;
+  const colClass = COL_MAP[columns] || "md:grid-cols-3";
 
   const [popupDocs, setPopupDocs] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
@@ -121,7 +133,7 @@ const ProgramsAnnouncements = ({ data }) => {
           </h2>
         )}
 
-        <div className="announce-grid">
+        <div className={`grid grid-cols-1 ${colClass} gap-6 w-full`}>
           {cards.map((card, index) => (
             <button
               key={index}
