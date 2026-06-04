@@ -167,8 +167,15 @@ function HolisticInfrastructureSection({ data , college }) {
   const activeItem =
     items.find((section) => section.id === activeId) || items[0] || {};
 
+  // Dynamic section background from the backend (section_style.bg_color).
+  const bgColor = data?.section_style?.bg_color;
+
   return (
-    <div className="holistic-section container">
+    <div
+      className="holistic-section"
+      style={bgColor ? { backgroundColor: bgColor } : undefined}
+    >
+      <div className="container">
       <div
         className={`holistic-layout ${
           titlesOnly ? "holistic-layout--titles-only" : ""
@@ -248,6 +255,7 @@ function HolisticInfrastructureSection({ data , college }) {
   </div>
 }
 </div>
+      </div>
     </div>
   );
 }

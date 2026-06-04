@@ -1,9 +1,18 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { Link, useParams } from "react-router-dom";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import SafeImage from "../../components/SafeImage";
 
-export default function GlobalOpportunities({ data }) {
+export default function GlobalOpportunities({
+  data,
+  college,
+  pageSlug,
+  instituteSlug,
+  institute,
+}) {
+  const params = useParams();
+
   const {
     header = {},
     image_section = {},
@@ -13,6 +22,20 @@ export default function GlobalOpportunities({ data }) {
 
   const { heading, description } = header;
   const { image } = image_section;
+
+  // Base slug for micro-page links (works on institute + generic pages).
+  const base =
+    college ||
+    pageSlug ||
+    instituteSlug ||
+    institute?.slug ||
+    params.college ||
+    params.slug ||
+    "";
+
+  // CTA button(s) — API may send a single object or an array.
+  const ctaRaw = data?.cta;
+  const ctaList = Array.isArray(ctaRaw) ? ctaRaw : ctaRaw ? [ctaRaw] : [];
 
   // Normalize: API sends `logos` as an array of sections
   //   [{ _section_enabled, logos: [{image}], tab_type }]
@@ -61,6 +84,23 @@ export default function GlobalOpportunities({ data }) {
             </h2>
           )}
           {description && <RichTextRenderer html={description} />}
+
+          {/* CTA button(s) — navigates to the micro page /{slug}/{cta_key} */}
+          {ctaList.length > 0 && (
+            <div className="mt-6 flex flex-wrap gap-4">
+              {ctaList.map((cta, i) =>
+                cta?.label ? (
+                  <Link
+                    key={i}
+                    to={`/${base}/${cta.cta_key}`}
+                    className="inline-block bg-[#F04E30] hover:bg-[#122E5E] text-white font-semibold text-base px-6 py-3 rounded-md transition-colors"
+                  >
+                    {cta.label}
+                  </Link>
+                ) : null
+              )}
+            </div>
+          )}
         </div>
 
         {/* DESKTOP VIEW */}

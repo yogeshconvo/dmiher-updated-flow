@@ -10,11 +10,19 @@ import RichTextRenderer from "../../components/RichTextRenderer";
 const WhyChoose = ({ data }) => {
   const cards = data?.cards || [];
   const heading = data?.header?.heading;
+  // API sends `description`; keep `desc` as a legacy fallback.
+  const description = data?.header?.description || data?.header?.desc;
+  // Dynamic section background from the backend (section_style.bg_color).
+  const bgColor = data?.section_style?.bg_color;
 
   if (!cards.length) return null;
 
   return (
-    <div className="feature-section">
+    <div style={bgColor ? { backgroundColor: bgColor } : undefined}>
+      <div
+        className="feature-section"
+        style={bgColor ? { backgroundColor: "transparent" } : undefined}
+      >
       <div className="container">
         {heading && (
           <h2 className="heading">
@@ -23,12 +31,10 @@ const WhyChoose = ({ data }) => {
           </h2>
         )}
 
-        {data?.header?.desc && (
-          <p className="text-base mt-2 max-w-3xl opacity-90">
-            <RichTextRenderer
-                      html={data.header.desc}
-                    />
-          </p>
+        {description && (
+          <div className="text-base mt-2 max-w-3xl opacity-90">
+            <RichTextRenderer html={description} />
+          </div>
         )}
 
         <div className="feature-slider-wrapper">
@@ -87,6 +93,7 @@ const WhyChoose = ({ data }) => {
           {/* Pagination rendered below the slides via Swiper's `el` option */}
           <div className="why-choose-pagination" />
         </div>
+      </div>
       </div>
     </div>
   );

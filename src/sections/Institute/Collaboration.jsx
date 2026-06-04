@@ -73,8 +73,14 @@ const Collabaration = ({ data }) => {
     return [];
   };
 
+  // Dynamic section background from the backend (section_style.bg_color).
+  const bgColor = data?.section_style?.bg_color;
+
   return (
-    <div className="collab-section">
+    <div
+      className="collab-section"
+      style={bgColor ? { backgroundColor: bgColor } : undefined}
+    >
       <div className="container collab-layout">
         {/* ================= LEFT CONTENT ================= */}
         <div>
@@ -85,9 +91,9 @@ const Collabaration = ({ data }) => {
           {left_content?.desc && (
             <div
               className="collab-text"
-              // dangerouslySetInnerHTML={{
-              //   __html: left_content.desc,
-              // }}
+            // dangerouslySetInnerHTML={{
+            //   __html: left_content.desc,
+            // }}
             >
               <RichTextRenderer html={left_content?.desc} />
             </div>
@@ -96,7 +102,20 @@ const Collabaration = ({ data }) => {
           {left_content?.cta_text ? (
             <ViewMoreButton
               label={left_content.cta_text}
-              onClick={() => setShowModal(true)}
+              onClick={() => {
+                const link = left_content?.cta_link;
+                if (link) {
+                  // External URL → open it; internal path → route to it.
+                  if (/^https?:\/\//i.test(link)) {
+                    window.open(link, "_blank", "noopener,noreferrer");
+                  } else {
+                    window.location.href = link.startsWith("/") ? link : `/${link}`;
+                  }
+                } else {
+                  // No link → keep the existing popup behaviour.
+                  setShowModal(true);
+                }
+              }}
             />
           ) : (
             hasPopupItems &&
@@ -130,18 +149,18 @@ const Collabaration = ({ data }) => {
                   {item.description ? (
                     <div
                       className="collab-stat-desc w-full"
-                      style={{ textAlign: "center" }}
+                      
                     >
                       <RichTextRenderer
                         html={item.description}
-                        className="text-center"
+                        
                       />
                     </div>
                   ) : (
                     <>
-                      <p className="collab-stat-value">{item.value}</p>
-                      <span className="collab-stat-label">{item.label}</span>
+                      <RichTextRenderer html={item.desc} />
                     </>
+
                   )}
                 </div>
               );
@@ -236,11 +255,10 @@ const Collabaration = ({ data }) => {
                     return (
                       <div key={itemKey}>
                         <button
-                          className={`w-full text-left py-3 border-gray-300 flex justify-between items-center text-base sm:text-lg ${
-                            isOpen
-                              ? "text-[#58595B]"
-                              : "text-[#58595B] border-b-2 border-[#58595B]"
-                          }`}
+                          className={`w-full text-left py-3 border-gray-300 flex justify-between items-center text-base sm:text-lg ${isOpen
+                            ? "text-[#58595B]"
+                            : "text-[#58595B] border-b-2 border-[#58595B]"
+                            }`}
                           onClick={() => setOpenIdx(isOpen ? -1 : itemKey)}
                         >
                           <span className="font-oswald-light text-2xl text-[#58595B]">

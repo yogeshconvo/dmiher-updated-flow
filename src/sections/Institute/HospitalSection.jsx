@@ -29,8 +29,14 @@ const HospitalHighlight = ({ data }) => {
       ? [cta]
       : [];
 
+  // Dynamic section background from the backend (section_style.bg_color).
+  const bgColor = data?.section_style?.bg_color;
+
   return (
-    <section className="hospital-section">
+    <section
+      className="hospital-section"
+      style={bgColor ? { backgroundColor: bgColor } : undefined}
+    >
       <div className="container hospital-layout">
         {/* LEFT CONTENT */}
         <div className="hospital-content">

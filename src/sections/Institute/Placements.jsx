@@ -21,21 +21,28 @@ import "swiper/css/pagination";
 export default function Placements({ data }) {
   const { header = {} } = data || {};
 
+  // `optinal_content` may arrive as an array (enabled blocks) OR as an object
+  // like `{ _section_disabled: true }` when the admin disables it. Only treat
+  // it as a list when it's actually an array, otherwise `.filter()` would throw.
+  const optionalContent = Array.isArray(data?.optinal_content)
+    ? data.optinal_content
+    : [];
+
   // Highlights (legacy + new shape)
   const highlights = Array.isArray(data?.highlights)
     ? data.highlights
-    : (data?.optinal_content || [])
+    : optionalContent
         .filter((block) => block?._section_enabled !== false)
         .flatMap((block) => block?.highlights || []);
 
   // Logos — accept either top-level `logos[]` or optinal_content blocks with tab_type='logos'
   const logos = Array.isArray(data?.logos)
     ? data.logos
-    : (data?.optinal_content || [])
+    : optionalContent
         .filter((block) => block?._section_enabled !== false && block?.tab_type === "logos")
         .flatMap((block) => block?.logos || []);
 
-  const recruitersLabel = data?.recruiters_label || "Our Prominent Recruiters :";
+  const recruitersLabel = data?.recruiters_label || "";
 
   return (
     <section className="placements-section">
@@ -44,7 +51,9 @@ export default function Placements({ data }) {
           <hr className="heading-line" />
           {header.heading}
         </h2>
-        <p>{header.description}</p>
+        {(header.description || header.paragraph) && (
+          <RichTextRenderer html={header.description || header.paragraph} />
+        )}
       </div>
 
       {/* Highlights grid */}
@@ -61,7 +70,9 @@ export default function Placements({ data }) {
       {/* Recruiter logo carousel */}
       {logos.length > 0 && (
         <div className="container placements-logos-wrapper">
-          <p className="placements-logos-label">{recruitersLabel}</p>
+          {recruitersLabel && (
+            <p className="placements-logos-label">{recruitersLabel}</p>
+          )}
           <Swiper
             modules={[Autoplay, Pagination]}
             loop={true}

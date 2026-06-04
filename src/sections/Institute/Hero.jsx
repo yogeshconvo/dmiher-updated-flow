@@ -24,11 +24,22 @@ function Hero({ data, slug }) {
   const strapPosition =
     topbar.strip_position || topbar.position || "top";
 
-  // New: _section_enabled. Legacy: enabled. Treat _section_disabled as a hard kill switch.
+  // The strip has real content if there's admissions text, buttons, or a CTA.
+  // Used so the strip shows by default whenever data is present (pages don't
+  // all set the _section_enabled flag, e.g. IQAC and other non-institute pages).
+  const hasTopbarContent =
+    Boolean(topbar.admissions_text) ||
+    (Array.isArray(topbar.buttons) && topbar.buttons.length > 0) ||
+    Boolean(topbar.apply_now_url) ||
+    Boolean(topbar.primary_cta_text);
+
+  // _section_disabled is a hard kill switch. Otherwise respect an explicit
+  // enable flag (_section_enabled / enabled), and if neither is set, fall back
+  // to showing the strip whenever it actually has content.
   const isTopbarEnabled =
     topbar._section_disabled === true
       ? false
-      : Boolean(topbar._section_enabled ?? topbar.enabled);
+      : (topbar._section_enabled ?? topbar.enabled ?? hasTopbarContent);
 
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -92,33 +103,68 @@ function Hero({ data, slug }) {
             const isPhone = buttonIsPhone(btn);
             const href = buttonHref(btn);
             const label = buttonText(btn);
-            const commonProps = {
-              key: index,
-              className: "hero-apply-btn",
-              style: buttonStyle(btn, false),
-              onMouseEnter: (e) => {
-                if (btn.hover_bg_color)
-                  e.currentTarget.style.backgroundColor = btn.hover_bg_color;
-              },
-              onMouseLeave: (e) => {
-                e.currentTarget.style.backgroundColor =
-                  btn.bg_color || "";
-              },
-            };
 
-            return isPhone ? (
-              <a {...commonProps} href={href}>
-                {label}
-              </a>
-            ) : (
+            // A real "pill" CTA has a background color and is not a phone link.
+            // Everything else (helpline phone, trailing text) renders as plain
+            // text so the strip reads like: text  |  [APPLY NOW]  text.
+            const isPill = Boolean(btn.bg_color) && !isPhone;
+
+            // Divider before a pill when the previous item was plain text.
+            const prev = allButtons[index - 1];
+            const prevIsPill =
+              prev && Boolean(prev.bg_color) && !buttonIsPhone(prev);
+            const showDivider = isPill && index > 0 && !prevIsPill;
+
+            if (isPill) {
+              return (
+                <React.Fragment key={index}>
+                  {showDivider && <span className="hero-topbar-divider" />}
+                  <a
+                    className="hero-apply-btn"
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={buttonStyle(btn, false)}
+                    onMouseEnter={(e) => {
+                      if (btn.hover_bg_color)
+                        e.currentTarget.style.backgroundColor =
+                          btn.hover_bg_color;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = btn.bg_color || "";
+                    }}
+                  >
+                    {label}
+                  </a>
+                </React.Fragment>
+              );
+            }
+
+            // Plain text item. Phone => clickable tel link, otherwise a link if
+            // a url exists, else static text. Color comes from data (navy default).
+            const textStyle = { color: btn.text_color || "#122E5E" };
+            if (isPhone) {
+              return (
+                <a key={index} href={href} className="hero-topbar-text" style={textStyle}>
+                  {label}
+                </a>
+              );
+            }
+            return href && href !== "#" ? (
               <a
-                {...commonProps}
+                key={index}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="hero-topbar-text"
+                style={textStyle}
               >
                 {label}
               </a>
+            ) : (
+              <span key={index} className="hero-topbar-text" style={textStyle}>
+                {label}
+              </span>
             );
           })
         ) : topbar.apply_now_url ? (
@@ -159,8 +205,25 @@ function Hero({ data, slug }) {
                 const isPhone = buttonIsPhone(btn);
                 const href = buttonHref(btn);
                 const label = buttonText(btn);
+                const isPill = Boolean(btn.bg_color) && !isPhone;
+                const textStyle = { color: btn.text_color || "#122E5E" };
+
+                if (isPill) {
+                  return (
+                    <a
+                      key={index}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hero-mobile-apply"
+                      style={buttonStyle(btn, false)}
+                    >
+                      {label}
+                    </a>
+                  );
+                }
                 return isPhone ? (
-                  <a key={index} href={href}>
+                  <a key={index} href={href} className="hero-topbar-text" style={textStyle}>
                     {label}
                   </a>
                 ) : (
@@ -169,6 +232,8 @@ function Hero({ data, slug }) {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    className="hero-topbar-text"
+                    style={textStyle}
                   >
                     {label}
                   </a>

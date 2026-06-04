@@ -2,6 +2,7 @@ import HeroSection from "./Hero"
 import InfoSection from "./InfoSection"
 import ProgramsSection from "./ProgramsSection"
 import HospitalSection from "./HospitalSection"
+import AffiliatedHospital from "./AffiliatedHospital"
 import DeansMessage from "./DeanMessage"
 import EducationUnit from "./EducationUnit"
 import departments from "./Departments"
@@ -42,8 +43,9 @@ export const SECTION_COMPONENTS = {
     institute_info: InfoSection,
     institute_programs_section: ProgramsSection,
     institute_hospital_section: HospitalSection,
+    affiliated_hospital_section: AffiliatedHospital,
     deans_message_section: DeansMessage,
-    hero_meu_section: EducationUnit,
+    section_banner: EducationUnit,
     departments: departments,
     feature_cards: InnovativeLearning,
     research_collaborations: Collabaration,
@@ -67,7 +69,7 @@ export const SECTION_COMPONENTS = {
     // Campus-switch tabs for multi-campus institutes (SAHS Wardha/Nagpur,
     // Nursing SRMMCON/SMCON-W/SMCON-N) — unique key, no collision with
     // tab_group_section which is used elsewhere.
-    institute_campus_tabs_nav: InstituteCampusTabsNav,
+    institute_nursing_tabs_nav: InstituteCampusTabsNav,
 
     // Unique sections for Nursing campus pages (SRMMCON / SMCON-W / SMCON-N).
     // These mirror the live-site Nursing JSX layout, which has a distinct
