@@ -196,6 +196,9 @@ const Departments = ({ data, college, pageSlug }) => {
   const designType = firstGrid?.design_type;
   const isAboutVariant = designType === "about";
 
+  // Dynamic section background from the backend (section_style.bg_color).
+  const bgColor = data?.section_style?.bg_color;
+
   /* ================= DATA (institute slider) — skip for about variant ===== */
   useEffect(() => {
     if (isAboutVariant) return;
@@ -282,7 +285,10 @@ const Departments = ({ data, college, pageSlug }) => {
   if (isAboutVariant) {
     const parent = college || pageSlug || "about";
     return (
-      <div className="departments-section">
+      <div
+        className="departments-section"
+        style={bgColor ? { backgroundColor: bgColor } : undefined}
+      >
         <div className="container">
           <AboutGrid grid={firstGrid} parent={parent} />
         </div>
@@ -298,7 +304,10 @@ const Departments = ({ data, college, pageSlug }) => {
     designType === "normal" && departments.length <= 5;
 
    return (
-    <div className="departments-section">
+    <div
+      className="departments-section"
+      style={bgColor ? { backgroundColor: bgColor } : undefined}
+    >
       <div className="container">
         {(() => {
           // Header may arrive as an object ({heading}) OR an array ([{heading}]).

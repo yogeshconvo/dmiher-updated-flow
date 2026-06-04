@@ -1,9 +1,20 @@
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/navigation";
 import { Link, useParams } from "react-router-dom";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import SafeImage from "../../components/SafeImage";
 
+/**
+ * GlobalOpportunities — supports 5 layout types, all nested under `layout`:
+ *
+ *   page         → header + description + CTA button (layout.Buttons)
+ *   image_logo   → main image (left) + logos grid (right)   (layout.image_logo)
+ *   only_logo    → logos in a single row                     (layout.Logos)
+ *   only_image   → one full-width image                      (layout.image)
+ *   logo_slider  → a logo (left) + image carousel (right)    (layout.logo_slider)
+ */
 export default function GlobalOpportunities({
   data,
   college,
@@ -13,15 +24,12 @@ export default function GlobalOpportunities({
 }) {
   const params = useParams();
 
-  const {
-    header = {},
-    image_section = {},
-    logos: rawLogos = [],
-    layout = {},
-  } = data || {};
-
+  const header = data?.header || {};
+  const layout = data?.layout || {};
   const { heading, description } = header;
-  const { image } = image_section;
+
+  const layoutType = layout.layout_type || "page";
+  const bgColor = data?.section_style?.bg_color;
 
   // Base slug for micro-page links (works on institute + generic pages).
   const base =
@@ -33,49 +41,52 @@ export default function GlobalOpportunities({
     params.slug ||
     "";
 
-  // CTA button(s) — API may send a single object or an array.
-  const ctaRaw = data?.cta;
-  const ctaList = Array.isArray(ctaRaw) ? ctaRaw : ctaRaw ? [ctaRaw] : [];
+  /* ===== Normalise per layout type into a common shape ===== */
+  let mainImage = null;
+  let logos = []; // [{ src }]
+  let sliderLogo = null;
+  let sliderImages = []; // [src]
 
-  // Normalize: API sends `logos` as an array of sections
-  //   [{ _section_enabled, logos: [{image}], tab_type }]
-  // Legacy form was a flat array [{src, alt}]. Support both.
-  const isNested =
-    Array.isArray(rawLogos) &&
-    rawLogos.length > 0 &&
-    Array.isArray(rawLogos[0]?.logos);
+  if (layoutType === "image_logo") {
+    const il = layout.image_logo || {};
+    mainImage = il.image || null;
+    logos = (il.logos || [])
+      .map((l) => ({ src: l.logo || l.image || l.src }))
+      .filter((l) => l.src);
+  } else if (layoutType === "only_logo") {
+    logos = (layout.Logos || layout.logos || [])
+      .map((l) => ({ src: l.src || l.logo || l.image }))
+      .filter((l) => l.src);
+  } else if (layoutType === "only_image") {
+    mainImage = layout.image?.image || layout.image || null;
+  } else if (layoutType === "logo_slider") {
+    const ls = layout.logo_slider || {};
+    sliderLogo = ls.logo || null;
+    sliderImages = (ls.slider || [])
+      .map((s) => s.imgslider || s.image || s.src)
+      .filter(Boolean);
+  }
 
-  const enabledSections = isNested
-    ? rawLogos.filter((s) => s?._section_enabled !== false)
-    : [];
+  const isOnlyImage = layoutType === "only_image";
+  const isOnlyLogo = layoutType === "only_logo";
+  const isLogoSlider = layoutType === "logo_slider";
 
-  const logos = isNested
-    ? enabledSections.flatMap((s) => s.logos || [])
-    : rawLogos;
-
-  // Layout: prefer explicit layout.layout_type, otherwise first section tab_type
-  const layout_type =
-    layout.layout_type ||
-    enabledSections[0]?.tab_type ||
-    "image_logo";
-
-  // Layout logic
-  const showImage =
-    layout_type === "image_logo" || layout_type === "only_image";
-
-  const showLogos =
-    layout_type === "image_logo" || layout_type === "only_logo";
-
-  // Auto slider logic
-  const isOnlyLogo = layout_type === "only_logo";
-  const isOnlyImage = layout_type === "only_image";
-  const useSlider = isOnlyLogo && logos.length > 6;
+  // CTA button(s) — `page` layout sends layout.Buttons (object or array).
+  const buttonsRaw = layout.Buttons || layout.buttons || data?.cta;
+  const ctaList = Array.isArray(buttonsRaw)
+    ? buttonsRaw
+    : buttonsRaw
+      ? [buttonsRaw]
+      : [];
 
   return (
-    <section className="global-section">
+    <section
+      className="global-section"
+      style={bgColor ? { backgroundColor: bgColor } : undefined}
+    >
       <div className="container font-[Arial]">
 
-        {/* HEADER */}
+        {/* ================= HEADER ================= */}
         <div className="global-header">
           {heading && (
             <h2 className="heading">
@@ -103,120 +114,114 @@ export default function GlobalOpportunities({
           )}
         </div>
 
-        {/* DESKTOP VIEW */}
-        <div className="global-desktop">
-
-          {/* IMAGE — kept inside the container for all image layouts.
-              image_logo  → 40% width (sits beside the logo grid)
-              only_image  → full container width (e.g. RNPC alumni world-map) */}
-          {showImage && image && (
-            <div className={isOnlyImage ? "global-image-only" : "global-image-wrapper"}>
-              <SafeImage src={image} alt="global" className="global-image" />
-            </div>
-          )}
-
-          {/* LOGOS */}
-          {showLogos && logos.length > 0 && (
-            <>
-              {/* GRID */}
-              {!useSlider && (
-                <div
-                  className={
-                    "global-logos" +
-                    (isOnlyLogo ? " global-logos-only" : "")
-                  }
-                >
-                  {logos.map((logo, idx) => {
-                    // Border logic:
-                    //   • only_logo (single row): every cell gets a right
-                    //     border except the last
-                    //   • image_logo (3-col grid): no border on cols 3 & 6
-                    //     (i.e. idx 2 and 5)
-                    const showBorder = isOnlyLogo
-                      ? idx !== logos.length - 1
-                      : idx !== 2 && idx !== 5;
-                    return (
-                      <div
-                        key={idx}
-                        className={`global-logo-cell ${
-                          showBorder ? "global-logo-cell-border" : ""
-                        }`}
-                      >
-                        <div className="global-logo-box">
-                          <SafeImage
-                            src={logo.image || logo.src}
-                            alt={logo.alt || "logo"}
-                            className="global-logo"
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
+        {/* ================= LOGO SLIDER (logo left + carousel right) ===== */}
+        {isLogoSlider ? (
+          <div className="flex flex-col md:flex-row items-center gap-8 mt-8">
+            <div className="w-full md:w-1/2 flex items-center justify-start">
+              {sliderLogo && (
+                <SafeImage
+                  src={sliderLogo}
+                  alt="partner logo"
+                  className="max-h-24 w-auto object-contain"
+                />
               )}
+            </div>
 
-              {/* SLIDER */}
-              {useSlider && (
+            <div className="w-full md:w-1/2">
+              {sliderImages.length > 0 && (
                 <Swiper
+                  modules={[Navigation]}
+                  navigation
+                  loop={sliderImages.length > 1}
                   spaceBetween={20}
-                  slidesPerView={4}
-                  breakpoints={{
-                    1024: { slidesPerView: 4 },
-                    768: { slidesPerView: 3 },
-                    480: { slidesPerView: 2 },
-                  }}
-                  className="global-logos-slider"
+                  slidesPerView={1}
+                  className="global-logo-slider rounded-md overflow-hidden"
                 >
-                  {logos.map((logo, idx) => (
-                    <SwiperSlide key={idx}>
-                      <div className="global-logo-box">
-                        <SafeImage
-                          src={logo.image || logo.src}
-                          alt={logo.alt || "logo"}
-                          className="global-logo"
-                        />
-                      </div>
+                  {sliderImages.map((src, i) => (
+                    <SwiperSlide key={i}>
+                      <SafeImage
+                        src={src}
+                        alt={`slide ${i + 1}`}
+                        className="w-full h-auto object-cover"
+                      />
                     </SwiperSlide>
                   ))}
                 </Swiper>
               )}
-            </>
-          )}
-        </div>
-
-        {/* MOBILE VIEW */}
-        <div className="global-mobile">
-
-          {/* IMAGE — inside the container for all image layouts */}
-          {showImage && image && (
-            <div className="global-mobile-image">
-              <SafeImage src={image} alt="global" className="global-image" />
             </div>
-          )}
+          </div>
+        ) : (
+          <>
+            {/* ================= DESKTOP VIEW ================= */}
+            {(mainImage || logos.length > 0) && (
+              <div className="global-desktop">
 
-          {/* LOGOS */}
-          {showLogos && logos.length > 0 && (
-            <Swiper
-              spaceBetween={15}
-              slidesPerView={2}
-              breakpoints={{
-                480: { slidesPerView: 2 },
-                768: { slidesPerView: 3 },
-              }}
-              className="global-mobile-logos"
-            >
-              {logos.map((logo, idx) => (
-                <SwiperSlide key={idx}>
-                  <SafeImage
-                    src={logo.image || logo.src}
-                    alt={logo.alt || "logo"}
-                    className="global-mobile-logo-img"
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          )}
-        </div>
+                {/* IMAGE — image_logo → beside logos, only_image → full width */}
+                {mainImage && (
+                  <div className={isOnlyImage ? "global-image-only" : "global-image-wrapper"}>
+                    <SafeImage src={mainImage} alt="global" className="global-image" />
+                  </div>
+                )}
+
+                {/* LOGOS */}
+                {logos.length > 0 && (
+                  <div className={"global-logos" + (isOnlyLogo ? " global-logos-only" : "")}>
+                    {logos.map((logo, idx) => {
+                      // only_logo (single row): right border except last.
+                      // image_logo (3-col grid): no border on cols 3 & 6.
+                      const showBorder = isOnlyLogo
+                        ? idx !== logos.length - 1
+                        : idx !== 2 && idx !== 5;
+                      return (
+                        <div
+                          key={idx}
+                          className={`global-logo-cell ${showBorder ? "global-logo-cell-border" : ""}`}
+                        >
+                          <div className="global-logo-box">
+                            <SafeImage src={logo.src} alt="logo" className="global-logo" />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* ================= MOBILE VIEW ================= */}
+            {(mainImage || logos.length > 0) && (
+              <div className="global-mobile">
+                {mainImage && (
+                  <div className="global-mobile-image">
+                    <SafeImage src={mainImage} alt="global" className="global-image" />
+                  </div>
+                )}
+
+                {logos.length > 0 && (
+                  <Swiper
+                    spaceBetween={15}
+                    slidesPerView={2}
+                    breakpoints={{
+                      480: { slidesPerView: 2 },
+                      768: { slidesPerView: 3 },
+                    }}
+                    className="global-mobile-logos"
+                  >
+                    {logos.map((logo, idx) => (
+                      <SwiperSlide key={idx}>
+                        <SafeImage
+                          src={logo.src}
+                          alt="logo"
+                          className="global-mobile-logo-img"
+                        />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                )}
+              </div>
+            )}
+          </>
+        )}
       </div>
     </section>
   );
