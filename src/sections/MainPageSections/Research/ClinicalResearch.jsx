@@ -1,8 +1,9 @@
 import React from "react";
-import MicroPageCTA from "../../../components/MicroPageCTA";
+import { Link } from "react-router-dom";
 import SafeImage from "../../../components/SafeImage";
 
-export default function ClinicalResearch({ data, instituteSlug }) {
+export default function ClinicalResearch({ data, pageSlug, instituteSlug }) {
+  const slug = pageSlug || instituteSlug;
   if (!data) return null;
 
   const basic = data.basic || {};
@@ -31,12 +32,13 @@ export default function ClinicalResearch({ data, instituteSlug }) {
             <h3 className="infograph-subtitle">{subtitle}</h3>
           )}
 
-          {cta?.label && (
-            <MicroPageCTA
-              cta={cta}
-              pageslug={instituteSlug}
-              className="mt-2 mb-4 px-6 py-2 bg-[#F04E30] hover:bg-[#122E5E] hover:scale-105 transition-transform duration-200 text-white rounded font-semibold"
-            />
+          {cta?.label && (cta.cta_key || cta.key) && slug && (
+            <Link
+              to={`/${slug}/${cta.cta_key || cta.key}`}
+              className="mt-2 mb-4 px-6 py-2 inline-block bg-[#F04E30] hover:bg-[#122E5E] hover:scale-105 transition-transform duration-200 text-white rounded font-semibold"
+            >
+              {cta.label}
+            </Link>
           )}
 
         </div>

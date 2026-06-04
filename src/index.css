@@ -9,6 +9,10 @@
 }
 
 /* @import "../styles/InstituteSections/Banner.css"; */
+html, body {
+    @apply overflow-x-hidden;
+}
+
 body {
     @apply pt-[100px];
 }

@@ -5,6 +5,44 @@ import { useProgramsData } from "../../hooks/useProgramsData";
 import { renderIcon } from "../../utils/renderIcon";
 import { CardSkeletonGrid } from "../../components/Skeletons/CardSkeleton";
 
+/* Eligibility may arrive as a string, a flat array of bullet points, or a
+   { national, international } object (e.g. SRMMCON B.Sc. Nursing). Render
+   each shape without dumping the raw object into JSX. */
+const renderEligibility = (elig) => {
+  if (!elig) {
+    return <p className="subprog-card-elig-text">Contact the college for eligibility details.</p>;
+  }
+  if (typeof elig === "string") {
+    return <p className="subprog-card-elig-text">{elig}</p>;
+  }
+  if (Array.isArray(elig)) {
+    return (
+      <ul className="subprog-card-elig-list">
+        {elig.map((line, i) => <li key={i}>{line}</li>)}
+      </ul>
+    );
+  }
+  if (typeof elig === "object") {
+    return (
+      <div className="subprog-card-elig-grouped">
+        {Object.entries(elig).map(([group, lines]) => (
+          <div key={group} className="subprog-card-elig-group">
+            <p className="subprog-card-elig-group-label">{group}</p>
+            {Array.isArray(lines) ? (
+              <ul className="subprog-card-elig-list">
+                {lines.map((line, i) => <li key={i}>{line}</li>)}
+              </ul>
+            ) : (
+              <p className="subprog-card-elig-text">{String(lines)}</p>
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  }
+  return <p className="subprog-card-elig-text">{String(elig)}</p>;
+};
+
 const SubPrograms = () => {
   const { college, category, slug } = useParams();
   const resolvedSlug = college || slug;
@@ -237,9 +275,7 @@ const SubPrograms = () => {
 
                 <div className="subprog-card-elig">
                   <p className="subprog-card-elig-label">Eligibility</p>
-                  <p className="subprog-card-elig-text">
-                    {program.eligibility || "Contact the college for eligibility details."}
-                  </p>
+                  {renderEligibility(program.eligibility)}
                 </div>
 
                 <button className="subprog-card-cta">
