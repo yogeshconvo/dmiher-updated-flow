@@ -9,8 +9,22 @@
 }
 
 /* @import "../styles/InstituteSections/Banner.css"; */
+
+/* Force light-mode rendering everywhere — the site has no dark theme yet,
+   so when the OS is set to dark mode browsers were tinting backgrounds,
+   form controls, scrollbars and any colour-less elements with dark
+   defaults, causing visible spacing/cut-off gaps between sections.
+   `color-scheme: light` opts the document out of UA dark styling, and the
+   explicit white background guarantees there's never a bare-dark sliver
+   showing through between sections. */
+:root {
+    color-scheme: light;
+}
+
 html, body {
     @apply overflow-x-hidden;
+    background-color: #ffffff;
+    color: #58595B;
 }
 
 body {
