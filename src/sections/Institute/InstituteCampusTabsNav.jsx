@@ -1,19 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-/*
- * InstituteCampusTabsNav
- * ----------------------
- * Renders campus-switch tabs for multi-campus institutes.
- * Tab styling auto-adapts based on tab count to match live site:
- *   - 2 tabs (SAHS Wardha/Nagpur)     → text-lg md:text-2xl, max-w-[800px], gap-[15%], font-bold active
- *   - 3+ tabs (Nursing SRMMCON/W/N)   → text-xl,             max-w-[440px], gap-[8%],  font-[500] active
- *
- * Section key: institute_nursing_tabs_nav (unique, no collision with tab_group_section)
- * Data shape:  { tabs: [{ label, page_slug }, ...] }
- *
- * Active tab matched against first path segment of current URL (case-insensitive).
- */
+
 function InstituteCampusTabsNav({ data }) {
   const { pathname } = useLocation();
 
@@ -27,7 +15,7 @@ function InstituteCampusTabsNav({ data }) {
   const maxWidth     = isMulti ? "max-w-[440px]"         : "max-w-[800px]";
   const activeWeight = isMulti ? "font-[500]"            : "font-bold";
 
-  // Extract first path segment (e.g. "/sahs-wardha/foo" → "sahs-wardha")
+
   const currentSlug = pathname.split("/").filter(Boolean)[0]?.toLowerCase() || "";
 
   return (
@@ -54,7 +42,15 @@ function InstituteCampusTabsNav({ data }) {
                 : "text-[#58595B]"
             }`}
           >
-            <Link to={href} className="block w-full h-full px-2">
+            <Link
+              to={href}
+              className="block w-full h-full px-2"
+              onClick={() => {
+                if (!isActive) {
+                  sessionStorage.setItem("manualTabNavigation", "true");
+                }
+              }}
+            >
               {label}
             </Link>
           </li>

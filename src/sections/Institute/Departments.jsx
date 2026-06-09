@@ -73,16 +73,27 @@ const firstCta = (cta) => {
 /* Resolve href for an item or button based on action_type.
    Accepts both shapes the CMS emits:
      - nested:  { action_type:"dependent", cta:[{cta_key:"x"}] }
-     - flat:    { action_type:"dependent", cta_key:"x" }            */
+     - flat:    { action_type:"dependent", cta_key:"x" }
+   Returns { href, external } so callers can decide whether to
+   route via react-router or open in a new tab. */
 const resolveHref = (item, parent) => {
   if (item?.action_type === "link" && item?.page_slug) {
-    return `/${parent}/${item.page_slug}`;
+    return { href: `/${parent}/${item.page_slug}`, external: false };
   }
   if (item?.action_type === "dependent") {
     const nestedKey = firstCta(item.cta)?.cta_key;
     const flatKey = item?.cta_key;
     const key = nestedKey || flatKey;
-    if (key) return `/${parent}/${key}`;
+    if (key) return { href: `/${parent}/${key}`, external: false };
+  }
+  // External URL — either explicit action_type "url" or any item carrying
+  // a `url` field that starts with http(s). PDFs follow the same rule.
+  const rawUrl = item?.url || item?.pdf;
+  if (rawUrl && /^https?:\/\//i.test(rawUrl)) {
+    return { href: rawUrl, external: true };
+  }
+  if (item?.action_type === "url" && rawUrl) {
+    return { href: rawUrl, external: true };
   }
   return null;
 };
@@ -117,8 +128,14 @@ const AboutGrid = ({ grid, parent }) => {
     // For both "link" (page_slug) and "dependent" (cta[0].cta_key),
     // navigate to /{parent}/{slug}. PageView's /:college/:page route
     // fires useSubpage → /api/micropage/{parent}/{slug} and renders.
-    const href = resolveHref(item, parent);
-    if (href) navigate(href);
+    // External URLs (http/https) open in a new tab instead.
+    const resolved = resolveHref(item, parent);
+    if (!resolved) return;
+    if (resolved.external) {
+      window.open(resolved.href, "_blank", "noopener,noreferrer");
+    } else {
+      navigate(resolved.href);
+    }
   };
 
   const isPending = false;
@@ -406,6 +423,7 @@ const Departments = ({ data, college, pageSlug }) => {
                         title={item.title}
                         url={item.url}
                         image={item.image}
+                        external={item.external}
                       />
                     ))}
                   </div>

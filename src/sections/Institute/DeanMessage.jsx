@@ -56,6 +56,31 @@ const DeansMessage = ({ data, pageSlug, college }) => {
                 <RichTextRenderer html={main.desc} />
               </div>
             )}
+
+            {/* BUTTON CTAs (e.g. Key Officials) — only when backend provides them.
+                Wrapped in a flex column so multiple buttons stack with spacing
+                and don't merge with the inline email/description above. */}
+            {buttonContent?.cta?.length > 0 && (
+              <div className="mt-4 flex flex-col items-center lg:items-start gap-3">
+                {buttonContent.cta
+                  .map((btn, i) => {
+                    const btnLink =
+                      btn.cta_key && resolvedSlug
+                        ? `/${resolvedSlug}/${btn.cta_key}`
+                        : null;
+                    if (!btnLink || !btn.label) return null;
+                    return (
+                      <ViewMoreButton
+                        key={i}
+                        href={btnLink}
+                        label={btn.label}
+                        className="!my-0 inline-block w-fit"
+                      />
+                    );
+                  })
+                  .filter(Boolean)}
+              </div>
+            )}
           </div>
 
           {/* ================= MESSAGE ================= */}
@@ -91,23 +116,7 @@ const DeansMessage = ({ data, pageSlug, college }) => {
               </>
             )}
 
-            {/* ================= BUTTON CTAs (new content format) ================= */}
-            {buttonContent?.cta?.length > 0 &&
-              buttonContent.cta.map((btn, i) => {
-                const btnLink =
-                  btn.cta_key && resolvedSlug
-                    ? `/${resolvedSlug}/${btn.cta_key}`
-                    : null;
-                return btnLink ? (
-                  <ViewMoreButton
-                    key={i}
-                    href={btnLink}
-                    label={btn.label || "View More"}
-                  />
-                ) : null;
-              })}
-
-            {/* ================= OLD FORMAT CTA ================= */}
+            {/* ================= OLD FORMAT VIEW MORE ================= */}
             {!viewContent && !buttonContent && (
               <>
                 {ctaLink ? (

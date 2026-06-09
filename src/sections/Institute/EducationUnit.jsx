@@ -32,12 +32,12 @@ function EducationUnit({ data, college }) {
   const align = (slide?.content_align || data?.content_align || "left").toLowerCase();
   const blockClass =
     align === "right"
-      ? "ml-auto text-right max-w-2xl"
+      ? "ml-auto text-left max-w-md"
       : align === "center"
         ? "mx-auto text-center max-w-2xl"
         : "mr-auto text-left";
   const lineClass =
-    align === "right" ? "ml-auto" : align === "center" ? "mx-auto" : "";
+    align === "center" ? "mx-auto" : "";
 
   const buildCtaHref = (item) => {
     if (item?.link || item?.cta_url) return item.link || item.cta_url;
