@@ -1,23 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Library } from "lucide-react";
 import SafeImage from "../../../components/SafeImage";
+import resolveImage from "../../../utils/resolveImage";
+import RichTextRenderer from "../../../components/RichTextRenderer";
 
 /**
- * CampusLifeAcademic — dark blue panel with accordion + swap image.
+ * CampusLifeAcademic — dark-blue panel: left title + description + accordion
+ * tabs; right: image of the currently-open tab.
+ *
+ * Data shape:
+ *   basic: { title, description }
+ *   tabs:  [{ title, description (HTML), image }]
  */
 const CampusLifeAcademic = ({ data }) => {
-  const tabs = data?.tabs || [];
-  const [activeKey, setActiveKey] = useState(tabs[0]?.key || null);
+  const basic = data?.basic || {};
+  const title = basic.title || data?.title;
+  const description = basic.description || data?.description;
+  const tabs = Array.isArray(data?.tabs) ? data.tabs : [];
 
-  useEffect(() => {
-    if (tabs.length && !tabs.find((t) => t.key === activeKey)) {
-      setActiveKey(tabs[0].key);
-    }
-  }, [tabs, activeKey]);
+  // First tab open by default; -1 = all collapsed.
+  const [activeIdx, setActiveIdx] = useState(0);
 
-  const activeTab = tabs.find((t) => t.key === activeKey);
-  const bg = data?.bg_color || "#122E5E";
+  const bg = data?.section_style?.bg_color || data?.bg_color || "#122E5E";
   const accent = data?.accent_color || "#F04E30";
+
+  if (!tabs.length) return null;
+
+  const openTab = activeIdx >= 0 ? tabs[activeIdx] : tabs[0];
+  const activeImage = openTab?.image;
 
   return (
     <section className="cla-section" style={{ backgroundColor: bg, color: "#fff" }}>
@@ -27,39 +37,42 @@ const CampusLifeAcademic = ({ data }) => {
             <div className="cla-head">
               <h2 className="cla-heading">
                 <hr className="cla-heading-line" style={{ borderColor: accent }} />
-                {data?.title}
+                {title}
               </h2>
-              <p className="cla-desc">{data?.description}</p>
+              {description && <p className="cla-desc">{description}</p>}
             </div>
 
             <div className="cla-tabs">
-              {tabs.map((tab) => (
-                <div key={tab.key} className="cla-tab">
-                  <button
-                    onClick={() => setActiveKey((p) => (p === tab.key ? null : tab.key))}
-                    className="cla-tab-btn"
-                  >
-                    {tab.title}
-                    <span>{activeKey === tab.key ? "-" : "+"}</span>
-                  </button>
-                  {activeKey === tab.key && (
-                    <div className="cla-items">
-                      {(tab.items || []).map((it, i) => (
-                        <div key={i} className="cla-item">
-                          <span className="cla-bullet" style={{ color: accent }}>•</span>
-                          <span>{it.text}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
+              {tabs.map((tab, idx) => {
+                const isOpen = activeIdx === idx;
+                return (
+                  <div key={idx} className="cla-tab">
+                    <button
+                      onClick={() => setActiveIdx((p) => (p === idx ? -1 : idx))}
+                      className="cla-tab-btn"
+                    >
+                      {tab.title}
+                      <span>{isOpen ? "−" : "+"}</span>
+                    </button>
+
+                    {isOpen && tab.description && (
+                      <div className="cla-items">
+                        <RichTextRenderer html={tab.description} />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
           <div className="cla-right">
-            {activeTab?.image ? (
-              <SafeImage src={activeTab.image} alt={activeTab.title} className="cla-img" />
+            {activeImage ? (
+              <SafeImage
+                src={resolveImage(activeImage)}
+                alt={openTab?.title || "Academic facility"}
+                className="cla-img"
+              />
             ) : (
               <div className="cla-empty">
                 <Library className="cla-empty-icon" style={{ color: accent }} />

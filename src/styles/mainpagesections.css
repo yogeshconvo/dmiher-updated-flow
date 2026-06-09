@@ -1690,7 +1690,7 @@
 
 /* ================= EMINENT ALUMNI ================= */
 .alumni-section {
-    @apply container my-10;
+    @apply max-w-7xl mx-auto px-4 my-10;
 }
 
 .alumni-header {
@@ -2482,7 +2482,7 @@
 }
 
 .alumni-activities-container {
-    @apply container mx-auto px-4;
+    @apply max-w-7xl mx-auto px-4;
 }
 
 .alumni-activities-heading {

@@ -240,6 +240,16 @@ const Departments = ({ data, college, pageSlug }) => {
         };
       }
 
+      // External URL — open the custom link in a new tab
+      if (action === "url" && item.url) {
+        return {
+          title: item.title,
+          image: item.image,
+          url: item.url,
+          external: true,
+        };
+      }
+
       // Micropage CTA — page_slug is empty; the real key lives in cta[0].cta_key
       // (e.g. national-admissions DMIHER-CET card). Falls back to page_slug if present.
       if (action === "page") {

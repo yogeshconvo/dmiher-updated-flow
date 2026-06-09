@@ -172,13 +172,13 @@
 @media (min-width: 640px) { .clinf-grid { gap: 1.5rem; } }
 @media (min-width: 768px) { .clinf-grid { gap: 2rem; } }
 @media (min-width: 1024px) { .clinf-grid { grid-template-columns: repeat(2, 1fr); } }
-.clinf-card { display: flex; flex-direction: column; width: 100%; }
+.clinf-card { display: flex; flex-direction: column; width: 100%; min-width: 0; }
 .clinf-title {
     color: #223971; font-size: 1.125rem; margin-bottom: 0.5rem; padding: 0 0.5rem;
 }
 @media (min-width: 640px) { .clinf-title { font-size: 1.25rem; margin-bottom: 0.75rem; } }
 @media (min-width: 768px) { .clinf-title { font-size: 1.5rem; } }
-.clinf-swiper-wrap { position: relative; width: 100%; background: transparent; }
+.clinf-swiper-wrap { position: relative; width: 100%; min-width: 0; overflow: hidden; background: transparent; }
 .clinf-swiper {
     width: 100%; height: 250px; overflow: hidden; border-radius: 0.75rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }

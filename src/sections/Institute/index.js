@@ -1,4 +1,5 @@
 import HeroSection from "./Hero"
+import StudentWelfareCell from "./StudentWelfareCell"
 import InfoSection from "./InfoSection"
 import ProgramsSection from "./ProgramsSection"
 import HospitalSection from "./HospitalSection"
@@ -40,6 +41,7 @@ export const SECTION_COMPONENTS = {
 
     // Common Sections
     hero_section: HeroSection,
+    student_welfare_and_8objectives: StudentWelfareCell,
     institute_info: InfoSection,
     institute_programs_section: ProgramsSection,
     institute_hospital_section: HospitalSection,

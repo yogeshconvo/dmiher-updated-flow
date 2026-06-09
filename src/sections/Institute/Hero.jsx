@@ -18,6 +18,17 @@ function Hero({ data, slug }) {
   // Dynamic fallback buttons (legacy address[] field)
   const ctaButtons = Array.isArray(data.address) ? data.address : [];
 
+  // Hero CTA buttons from grids[].header (design_type = "buttons") — e.g. the
+  // alumni Login / Sign Up buttons shown over the banner.
+  const grids = Array.isArray(data.grids) ? data.grids : [];
+  const buttonGrid = grids.find(
+    (g) =>
+      g?._section_enabled !== false &&
+      Array.isArray(g?.header) &&
+      g.header.length > 0
+  );
+  const heroButtons = buttonGrid ? buttonGrid.header : [];
+
   const primarySectionId = topbar.primary_cta_section_id;
 
   // New: strip_position. Legacy: position. Default: top.
@@ -311,6 +322,21 @@ function Hero({ data, slug }) {
                   <div className="hero-buttons inst-hero-btn-row">
                     {slide.cta_buttons.map((btn, btnIndex) => (
                       <SlideCtaButton key={btnIndex} btn={btn} />
+                    ))}
+                  </div>
+                )}
+
+                {/* Section-level CTA buttons from grids[].header (Login / Sign Up) */}
+                {heroButtons.length > 0 && (
+                  <div className="hero-buttons inst-hero-btn-row">
+                    {heroButtons.map((btn, btnIndex) => (
+                      <SlideCtaButton
+                        key={btnIndex}
+                        btn={{
+                          ...btn,
+                          hover_text_color: btn.hover_text_color || btn.text_color,
+                        }}
+                      />
                     ))}
                   </div>
                 )}
