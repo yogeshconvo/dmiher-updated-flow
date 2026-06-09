@@ -28,6 +28,17 @@ function EducationUnit({ data, college }) {
       ? [ctaRaw]
       : [];
 
+  // content_align: position the content block left / center / right.
+  const align = (slide?.content_align || data?.content_align || "left").toLowerCase();
+  const blockClass =
+    align === "right"
+      ? "ml-auto text-right max-w-2xl"
+      : align === "center"
+        ? "mx-auto text-center max-w-2xl"
+        : "mr-auto text-left";
+  const lineClass =
+    align === "right" ? "ml-auto" : align === "center" ? "mx-auto" : "";
+
   const buildCtaHref = (item) => {
     if (item?.link || item?.cta_url) return item.link || item.cta_url;
     if (item?.has_micro_page && item?.cta_key) {
@@ -45,10 +56,10 @@ function EducationUnit({ data, college }) {
       <div className="education-overlay" />
 
       <div className="education-content container">
-        <div className="mb-8">
+        <div className={`mb-8 ${blockClass}`}>
           {heading && (
             <h2 className="education-heading">
-              <hr className="education-heading-line" />
+              <hr className={`education-heading-line ${lineClass}`} />
               {heading}
             </h2>
           )}

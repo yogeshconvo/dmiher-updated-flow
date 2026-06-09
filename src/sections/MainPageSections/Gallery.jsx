@@ -16,9 +16,10 @@ function Gallery({ data }) {
     return <CampusFacilities data={section} />;
   }
 
-  const { tabs_order, tabs_labels, images } = useMemo(() => {
+  const { tabs_order, tabs_labels, tabs_descriptions, images } = useMemo(() => {
     const order = [];
     const labels = {};
+    const descriptions = {};
     const imgs = {};
 
     tabs.forEach((tab) => {
@@ -26,6 +27,7 @@ function Gallery({ data }) {
 
       order.push(tab.tab_key);
       labels[tab.tab_key] = tab.tab_label;
+      descriptions[tab.tab_key] = tab.description;
 
       imgs[tab.tab_key] =
         tab.images?.map((i) => i.image) || [];
@@ -34,6 +36,7 @@ function Gallery({ data }) {
     return {
       tabs_order: order,
       tabs_labels: labels,
+      tabs_descriptions: descriptions,
       images: imgs,
     };
   }, [tabs]);
@@ -107,6 +110,13 @@ function Gallery({ data }) {
             </button>
           ))}
         </div>
+
+        {/* Active tab description */}
+        {activeSection && tabs_descriptions[activeSection] && (
+          <p className="gallery-description text-[#707070] text-sm sm:text-base max-w-3xl mb-6 leading-relaxed">
+            {tabs_descriptions[activeSection]}
+          </p>
+        )}
 
         {/* Image Grid */}
         {visibleImages.length > 0 ? (

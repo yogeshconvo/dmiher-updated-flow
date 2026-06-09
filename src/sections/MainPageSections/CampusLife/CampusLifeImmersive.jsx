@@ -1,27 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination } from "swiper/modules";
-import { Link } from "react-router";
-import "swiper/css";
-import "swiper/css/pagination";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import SafeImage from "../../../components/SafeImage";
+import resolveImage from "../../../utils/resolveImage";
+import RichTextRenderer from "../../../components/RichTextRenderer";
 
 /**
- * CampusLifeImmersive — left text + accordion tabs (Skill Labs / Museums),
- * right side swiper of images that swaps based on active tab.
+ * CampusLifeImmersive — left: title + description + accordion tabs; right: the
+ * image of the currently-open tab.
+ *
+ * Data shape:
+ *   basic: { title, description }
+ *   tabs:  [{ title, image, desc (HTML), cta_label, cta_link }]
  */
 const CampusLifeImmersive = ({ data }) => {
-  const tabs = data?.tabs || [];
-  const [activeKey, setActiveKey] = useState(tabs[0]?.key || null);
+  const basic = data?.basic || {};
+  const title = basic.title || data?.title;
+  const description = basic.description || data?.description;
+  const tabs = Array.isArray(data?.tabs) ? data.tabs : [];
 
-  useEffect(() => {
-    if (tabs.length && !tabs.find((t) => t.key === activeKey)) {
-      setActiveKey(tabs[0].key);
-    }
-  }, [tabs, activeKey]);
+  // First tab open by default; -1 = all collapsed.
+  const [activeIdx, setActiveIdx] = useState(0);
 
-  const activeTab = tabs.find((t) => t.key === activeKey);
-  const images = activeTab?.images || [];
+  if (!tabs.length) return null;
+
+  // Right-side image follows the open tab; falls back to the first tab's image.
+  const openTab = activeIdx >= 0 ? tabs[activeIdx] : tabs[0];
+  const activeImage = openTab?.image;
 
   return (
     <section className="cli-immersive container">
@@ -30,53 +34,52 @@ const CampusLifeImmersive = ({ data }) => {
           <div className="cli-immersive-head">
             <h2 className="heading">
               <hr className="heading-line" />
-              {data?.title}
+              {title}
             </h2>
-            <p className="cli-immersive-desc">{data?.description}</p>
+            {description && <p className="cli-immersive-desc">{description}</p>}
           </div>
 
-          {tabs.map((tab) => (
-            <div key={tab.key} className="cli-immersive-tab">
-              <button
-                onClick={() => setActiveKey((p) => (p === tab.key ? null : tab.key))}
-                className={`cli-immersive-btn ${activeKey === tab.key ? "active" : ""}`}
-              >
-                {tab.title}
-                <span>{activeKey === tab.key ? "-" : "+"}</span>
-              </button>
-              {activeKey === tab.key && (
-                <>
-                  <div className="cli-immersive-items">
-                    {(tab.items || []).map((it, i) => (
-                      <div key={i}>• {it.text}</div>
-                    ))}
-                  </div>
-                  {tab.cta_link && tab.cta_label && (
-                    <Link to={tab.cta_link} className="cli-immersive-cta">
-                      {tab.cta_label}
-                    </Link>
-                  )}
-                </>
-              )}
-            </div>
-          ))}
+          {tabs.map((tab, idx) => {
+            const isOpen = activeIdx === idx;
+            return (
+              <div key={idx} className="cli-immersive-tab">
+                <button
+                  onClick={() => setActiveIdx((p) => (p === idx ? -1 : idx))}
+                  className={`cli-immersive-btn ${isOpen ? "active" : ""}`}
+                >
+                  {tab.title}
+                  <span>{isOpen ? "−" : "+"}</span>
+                </button>
+
+                {isOpen && (
+                  <>
+                    {tab.desc && (
+                      <div className="cli-immersive-items">
+                        <RichTextRenderer html={tab.desc} />
+                      </div>
+                    )}
+                    {tab.cta_link && tab.cta_label && (
+                      <Link
+                        to={`/${String(tab.cta_link).replace(/^\/+/, "")}`}
+                        className="cli-immersive-cta"
+                      >
+                        {tab.cta_label}
+                      </Link>
+                    )}
+                  </>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         <div className="cli-immersive-right">
-          {images.length ? (
-            <Swiper
-              modules={[Autoplay, Pagination]}
-              autoplay={{ delay: 3000 }}
-              pagination={{ clickable: true }}
-              loop
-              className="cli-immersive-swiper"
-            >
-              {images.map((img, idx) => (
-                <SwiperSlide key={idx}>
-                  <SafeImage src={img.image} alt={img.alt || `Slide ${idx + 1}`} className="cli-immersive-img" />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+          {activeImage ? (
+            <SafeImage
+              src={resolveImage(activeImage)}
+              alt={openTab?.title || "Immersive learning"}
+              className="cli-immersive-img"
+            />
           ) : (
             <div className="cli-immersive-empty">No image available</div>
           )}

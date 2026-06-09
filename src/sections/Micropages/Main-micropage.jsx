@@ -1,4 +1,10 @@
 import React from "react";
+import { Link, useParams } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Grid, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/grid";
+import "swiper/css/pagination";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import SafeImage from "../../components/SafeImage";
 // Centralised resolver — handles both new "assets/..." paths and
@@ -164,6 +170,82 @@ const ButtonsBlock = ({ items }) => {
   );
 };
 
+/* ================= NORMAL CARDS BLOCK (block.cards[]) =================
+   Grid of navy cards (carousel: 4 cols × 2 rows per page + dots). Each card
+   links by action_type: page → micro page (cta_key), url → external, pdf. */
+const NormalCardsBlock = ({ cards }) => {
+  const params = useParams();
+  const base = params.college || params.slug || "";
+  const list = Array.isArray(cards) ? cards : [];
+  if (!list.length) return null;
+
+  const resolveCard = (card) => {
+    if (card?.action_type === "url" && card?.url) {
+      return { href: card.url, external: true };
+    }
+    if (card?.action_type === "pdf" && card?.pdf) {
+      return { href: resolveImage(card.pdf), external: true };
+    }
+    const ctaKey = card?.cta?.[0]?.cta_key || card?.cta_key;
+    if (ctaKey) {
+      return {
+        href: base ? `/${base}/${ctaKey}` : `/${ctaKey}`,
+        external: false,
+      };
+    }
+    return { href: null };
+  };
+
+  const Card = ({ title }) => (
+    <div className="flex items-center justify-center text-center bg-[#122E5E] hover:bg-[#0d2147] text-white rounded-lg h-40 px-5 font-semibold leading-snug transition-colors cursor-pointer">
+      {title}
+    </div>
+  );
+
+  return (
+    <Swiper
+      modules={[Grid, Pagination]}
+      slidesPerView={4}
+      grid={{ rows: 2, fill: "row" }}
+      spaceBetween={20}
+      pagination={{ clickable: true }}
+      breakpoints={{
+        0: { slidesPerView: 1, grid: { rows: 2 } },
+        640: { slidesPerView: 2, grid: { rows: 2 } },
+        1024: { slidesPerView: 4, grid: { rows: 2 } },
+      }}
+      className="micropage-normal-swiper mb-6"
+      style={{ paddingBottom: 40 }}
+    >
+      {list.map((card, i) => {
+        const { href, external } = resolveCard(card);
+        return (
+          <SwiperSlide key={i}>
+            {href ? (
+              external ? (
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block h-full"
+                >
+                  <Card title={card.title} />
+                </a>
+              ) : (
+                <Link to={href} className="block h-full">
+                  <Card title={card.title} />
+                </Link>
+              )
+            ) : (
+              <Card title={card.title} />
+            )}
+          </SwiperSlide>
+        );
+      })}
+    </Swiper>
+  );
+};
+
 /* ================= TABLE BLOCK (new shape: block.excel[]) ================= */
 const TableBlock = ({ block }) => {
   const tables = Array.isArray(block?.excel) ? block.excel : [];
@@ -260,6 +342,9 @@ const MainMicropage = ({ data }) => {
 
               case "buttons":
                 return <ButtonsBlock key={key} items={item.buttons || []} />;
+
+              case "normal":
+                return <NormalCardsBlock key={key} cards={item.cards || []} />;
 
               default:
                 return null;

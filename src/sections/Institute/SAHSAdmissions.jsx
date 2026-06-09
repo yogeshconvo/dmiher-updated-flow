@@ -24,16 +24,26 @@ import RichTextRenderer from "../../components/RichTextRenderer";
 export default function SAHSAdmissions({ data }) {
   if (!data) return null;
 
-  const heading = data.heading || "International Admissions";
+  // Header + CTA fields are nested (data.header.*, data.cta.*); keep flat fallbacks.
+  const header = data.header || {};
+  const cta = data.cta || {};
+
+  const heading = header.heading || data.heading || "International Admissions";
   const subHeading =
-    data.sub_heading || "Your Gateway to a Global Healthcare Career";
-  const description = data.description || "";
+    header.sub_heading ||
+    data.sub_heading ||
+    "Your Gateway to a Global Healthcare Career";
+  const description = header.description || data.description || "";
   const programs = Array.isArray(data.programs) ? data.programs : [];
   const ctaLabel =
-    data.cta_label || "Admission Process for International Students (Click here)";
+    cta.cta_label ||
+    data.cta_label ||
+    "Admission Process for International Students (Click here)";
   const ctaLink =
-    data.cta_link || "https://www.dmiher.edu.in/international-admissions";
-  const email = data.email || "international@dmiher.edu.in";
+    cta.cta_link ||
+    data.cta_link ||
+    "https://www.dmiher.edu.in/international-admissions";
+  const email = cta.email || data.email || "international@dmiher.edu.in";
 
   return (
     <section className="sahs-adm-section py-10 px-4 md:px-0 bg-white">

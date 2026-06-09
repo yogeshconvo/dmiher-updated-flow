@@ -3,64 +3,49 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import {
-  Users,
-  Box,
-  Play,
-  Smartphone,
-  UserCheck,
-  BarChart3,
-  UserRound,
-  MapPin,
-  Star,
-} from "lucide-react";
+import * as LucideIcons from "lucide-react";
 
 import resolveImage from "../../utils/resolveImage";
-import ViewMoreButton from "../../components/UI/Buttons";
 
 /**
  * SAHS Collaborations
  * ----------------------------------------------------------------------
  * Dedicated section for SAHS (Allied Health Sciences) — Wardha & Nagpur.
- * Mirrors the live-site `sections/SAHS/Collaborations.jsx` exactly:
  *   - "Your Gateway to a Global Healthcare Career" title
- *   - "COLLABORATIONS" sub-heading + intro paragraph
+ *   - "COLLABORATIONS" sub-heading + intro paragraph (header.description)
  *   - National Developmental Partners (autoplay swiper, 5/view)
  *   - International Developmental Partners (flex-wrap grid w/ name labels)
- *   - "Max Healthcare Education Advantage" panel (Wardha-only via
- *     data.show_max_healthcare = true) — 8 feature cards + right-side blurb
+ *   - "Max Healthcare Education Advantage" panel — shown only when
+ *     data.max_section.show_max_healthcare === true. 8 feature cards +
+ *     right-side blurb + CTA.
  *
- * Data shape (camel/snake_case both accepted):
+ * API data shape:
  * {
- *   heading, sub_heading, description,
- *   national_partners: [{ name, logo }],
- *   international_partners: [{ name, logo }],
- *   show_max_healthcare: bool,
+ *   header: { heading, sub_heading, description },
+ *   national_partners: [{ logo }],
+ *   international_partners: [{ logo, name }],
+ *   max_section: { show_max_healthcare: bool },
  *   max_healthcare: {
- *     title, subtitle,
- *     features: [{ icon, title, bg_color }],
- *     partner_label, description, cta_label, cta_link
+ *     title, subtitle, partner_label, description, cta_label, cta_link,
+ *     features: [{ icon, title, bg_color }]
  *   }
  * }
  */
 
-// Lucide icon-name → component map (icon stored as string in CMS).
-const ICON_MAP = {
-  users: Users,
-  box: Box,
-  play: Play,
-  smartphone: Smartphone,
-  "user-check": UserCheck,
-  "bar-chart-3": BarChart3,
-  "user-round": UserRound,
-  "map-pin": MapPin,
-  star: Star,
+// Resolve a CMS icon string (e.g. "users", "user-check", "bar-chart-3")
+// to a Lucide component by PascalCasing it. Falls back to Star.
+const resolveIcon = (name) => {
+  const fallback = LucideIcons.Star;
+  if (!name) return fallback;
+  const pascal = String(name)
+    .split(/[-_\s]+/)
+    .filter(Boolean)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join("");
+  return LucideIcons[pascal] || fallback;
 };
 
-// Tailwind pastel class → hex. The bg_color comes from the DB as a Tailwind
-// class string, but Tailwind's JIT purges classes it can't find in source,
-// so dynamic DB classes never make it into the compiled CSS. Map to hex and
-// apply via inline style so the colors always render.
+// Tailwind pastel class → hex (JIT purges dynamic DB classes; map to hex).
 const BG_HEX = {
   "bg-rose-200": "#fecdd3",
   "bg-green-200": "#bbf7d0",
@@ -75,8 +60,8 @@ const BG_HEX = {
 };
 
 const FeatureCard = ({ icon, title, bg_color }) => {
-  const Icon = ICON_MAP[(icon || "star").toLowerCase()] || Star;
-  // Accept either a known tailwind class, a raw hex, or fall back to rose.
+  const Icon = resolveIcon(icon);
+  // Accept a known tailwind class, a raw hex, or fall back to rose.
   const bg = BG_HEX[bg_color] || (bg_color?.startsWith("#") ? bg_color : "#fecdd3");
   return (
     <div
@@ -96,16 +81,28 @@ const FeatureCard = ({ icon, title, bg_color }) => {
 export default function SAHSCollaborations({ data }) {
   if (!data) return null;
 
-  const heading = data.heading || "Your Gateway to a Global Healthcare Career";
-  const subHeading = data.sub_heading || "Collaborations";
-  const description = data.description || "";
+  // Header fields are nested under `header`; keep flat fallbacks for safety.
+  const header = data.header || {};
+  const heading =
+    header.heading || data.heading ;
+  const subHeading = header.sub_heading || data.sub_heading ;
+  const description = header.description || data.description || "";
+
   const nationalPartners = Array.isArray(data.national_partners)
     ? data.national_partners
     : [];
   const internationalPartners = Array.isArray(data.international_partners)
     ? data.international_partners
     : [];
-  const showMax = !!data.show_max_healthcare;
+
+  // Optional Max Healthcare panel. Toggle now lives at
+  // max_healthcare._section_enabled; older shapes kept as fallbacks.
+  const showMax = !!(
+    data.max_healthcare?._section_enabled ??
+    data.max_section?.show_max_healthcare ??
+    data.show_max_healthcare ??
+    false
+  );
   const max = data.max_healthcare || {};
   const features = Array.isArray(max.features) ? max.features : [];
 
@@ -116,17 +113,20 @@ export default function SAHSCollaborations({ data }) {
       </h1>
 
       <div className="container">
-        {/* Sub-heading + intro */}
+        {/* Sub-heading + intro. Prefer the rich `description` (it already
+            contains the "Collaborations" heading + paragraph); fall back to a
+            plain sub-heading when no description is set. */}
         <div className="mb-12">
-          <h2 className="sahs-collab-heading text-3xl md:text-4xl font-[500] text-[#707070] uppercase font-oswald-medium leading-tight">
-            <hr className="w-16 sm:w-20 border-[#F04E30] mb-4 border-t-4" />
-            {subHeading}
-          </h2>
-          {description && (
-            <p
-              className="sahs-collab-description mt-3 text-base text-[#707070] font-[Arial] max-w-2xl"
+          <hr className="w-16 sm:w-20 border-[#F04E30] mb-4 border-t-4" />
+          {description ? (
+            <div
+              className="sahs-collab-description text-[#707070] font-[Arial]"
               dangerouslySetInnerHTML={{ __html: description }}
             />
+          ) : (
+            <h2 className="sahs-collab-heading text-3xl md:text-4xl font-[500] text-[#707070] uppercase font-oswald-medium leading-tight">
+              {subHeading}
+            </h2>
           )}
         </div>
 
@@ -195,7 +195,7 @@ export default function SAHSCollaborations({ data }) {
           </div>
         )}
 
-        {/* Max Healthcare Advantage (Wardha-only) */}
+        {/* Max Healthcare Advantage — optional (max_section.show_max_healthcare) */}
         {showMax && (
           <div className="sahs-collab-max bg-white rounded-xl shadow-lg px-4 md:px-8 py-10">
             <div className="text-center mb-10">
@@ -234,10 +234,14 @@ export default function SAHSCollaborations({ data }) {
                 )}
                 {(max.cta_label || max.cta_link) && (
                   <div className="pt-2 flex justify-center">
-                    <ViewMoreButton
-                      label={max.cta_label || "Explore Programs"}
-                      href={max.cta_link || "/programs"}
-                    />
+                    <a
+                      href={(max.cta_link || "/programs").trim()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block bg-[#F04E30] hover:bg-[#122E5E] text-white font-semibold px-6 py-3 rounded-md transition-colors"
+                    >
+                      {(max.cta_label || "Explore Programs").trim()}
+                    </a>
                   </div>
                 )}
               </div>

@@ -44,8 +44,32 @@ export default function Placements({ data }) {
 
   const recruitersLabel = data?.recruiters_label || "";
 
+  // Dynamic section background (e.g. SAHS #fef5ea).
+  const bgColor = data?.section_style?.bg_color;
+
+  // International / National placements block (tab_type = international_national).
+  const intlNational =
+    optionalContent
+      .filter(
+        (b) =>
+          b?._section_enabled !== false &&
+          b?.tab_type === "international_national"
+      )
+      .map((b) => b.international_national)
+      .find(Boolean) || null;
+
+  const internationalPlacements = Array.isArray(intlNational?.international_placements)
+    ? intlNational.international_placements
+    : [];
+  const nationalPlacements = Array.isArray(intlNational?.national_placements)
+    ? intlNational.national_placements
+    : [];
+
   return (
-    <section className="placements-section">
+    <section
+      className="placements-section"
+      style={bgColor ? { backgroundColor: bgColor } : undefined}
+    >
       <div className="container">
         <h2 className="heading">
           <hr className="heading-line" />
@@ -98,6 +122,54 @@ export default function Placements({ data }) {
               </SwiperSlide>
             ))}
           </Swiper>
+        </div>
+      )}
+
+      {/* International & National placements (SAHS) */}
+      {(internationalPlacements.length > 0 || nationalPlacements.length > 0) && (
+        <div className="container" style={{ marginTop: "1.5rem" }}>
+
+          {/* International — large logos in a row (no card background) */}
+          {internationalPlacements.length > 0 && (
+            <div className="mb-14">
+              <h3 className="text-xl sm:text-2xl font-bold text-[#269BFF] mb-8">
+                International Placements
+              </h3>
+              <div className="flex flex-wrap items-center justify-around gap-8">
+                {internationalPlacements.map((logo, idx) => (
+                  <SafeImage
+                    key={idx}
+                    src={resolveImage(logo.image || logo.src)}
+                    alt={`International placement ${idx + 1}`}
+                    className="h-24 sm:h-28 w-auto object-contain"
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* National — white logo cards in a grid */}
+          {nationalPlacements.length > 0 && (
+            <div>
+              <h3 className="text-xl sm:text-2xl font-bold text-[#122E5E] mb-6">
+                National Placements
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
+                {nationalPlacements.map((logo, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center p-5 h-32"
+                  >
+                    <SafeImage
+                      src={resolveImage(logo.image || logo.src)}
+                      alt={`National placement ${idx + 1}`}
+                      className="max-h-20 w-auto object-contain"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </section>

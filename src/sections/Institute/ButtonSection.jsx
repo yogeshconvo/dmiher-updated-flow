@@ -93,13 +93,16 @@ export default function CTAButtons({ data }) {
     : `flex flex-col md:flex-row flex-wrap ${FLEX_ALIGN_MAP[alignment] || "justify-center"} gap-10`;
 
   const renderButton = (btn, index, fullWidth = false) => {
+    // Link can arrive as `link` or `url` (CMS uses both depending on schema).
+    const rawLink = btn.link || btn.url || "";
+
     const isExternal =
       btn.tab_type === "url" ||
-      (typeof btn.link === "string" && btn.link.startsWith("http"));
+      (typeof rawLink === "string" && rawLink.startsWith("http"));
 
     const path =
-      btn.link && btn.link !== "#"
-        ? btn.link
+      rawLink && rawLink !== "#"
+        ? rawLink
         : btn.page_slug
           ? `/${btn.page_slug}`
           : "#";
@@ -107,7 +110,7 @@ export default function CTAButtons({ data }) {
     // Show a download icon for PDF / download / brochure buttons.
     const isDownload =
       btn.tab_type === "pdf" ||
-      /\.pdf($|\?)/i.test(btn.link || "") ||
+      /\.pdf($|\?)/i.test(rawLink) ||
       /download|brochure/i.test(btn.label || "");
 
     const wrapClass = `inst-cta-link-wrap${fullWidth ? " w-full" : ""}`;
