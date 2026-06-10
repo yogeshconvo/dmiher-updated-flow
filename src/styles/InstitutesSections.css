@@ -158,23 +158,54 @@
     @apply w-full;
 }
 
-/* ================= Hero ================= */
+/* ================= Hero — Yellow Strap =================
+   Visual styling follows the YellowStrap reference snippet: bigger text,
+   square (non-rounded) buttons, generous padding, and a soft "wave-glow"
+   pulse on hover. Button colours stay driven by inline `style` from the
+   backend payload (bg_color / hover_bg_color / text_color) — we only
+   style geometry, typography, and the glow animation here. */
+
+@keyframes waveGlow {
+    0%   { box-shadow: 0 0 0px #122E5E; }
+    50%  { box-shadow: 0 0 20px #122E5E; }
+    100% { box-shadow: 0 0 0px #122E5E; }
+}
+
+/* Apply the soft glow + smooth colour transition to every button/link in
+   the strap. Grouped here so we don't have to wedge a non-Tailwind class
+   into the @apply rules above (which would break Tailwind's compiler). */
+.hero-apply-btn,
+.hero-primary-btn,
+.hero-phone-btn,
+.hero-mobile-primary,
+.hero-mobile-apply,
+.hero-mobile-phone {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.hero-apply-btn:hover,
+.hero-primary-btn:hover,
+.hero-phone-btn:hover,
+.hero-mobile-primary:hover,
+.hero-mobile-apply:hover,
+.hero-mobile-phone:hover {
+    animation: waveGlow 1.2s infinite;
+}
+
 .hero-topbar {
-    @apply w-full bg-[#E1CD67] text-gray-600 text-[11px] sm:text-sm px-3 lg:px-6 py-1 flex flex-col sm:flex-row sm:justify-between sm:items-center z-50 gap-y-2;
+    @apply w-full bg-[#E1CD67] text-gray-600 text-[11px] sm:text-sm px-3 py-1 flex flex-col sm:flex-row sm:justify-between sm:items-center z-50 gap-y-2;
 }
 
 .hero-admission-text {
-    @apply text-sm sm:text-base lg:text-lg block text-center w-full md:w-auto sm:ml-20;
+    @apply text-sm sm:ml-20 block text-center w-full md:w-auto;
 }
 
-
 .hero-desktop-actions {
-    @apply hidden lg:flex flex-wrap items-center justify-end gap-x-3 gap-y-1;
+    @apply hidden lg:flex flex-wrap items-center justify-end gap-x-5 gap-y-1;
 }
 
 /* Plain-text item in the strip (helpline / trailing text). Colour is set inline from data. */
 .hero-topbar-text {
-    @apply flex items-center text-xs sm:text-sm xl:text-base font-semibold whitespace-normal sm:whitespace-nowrap text-center;
+    @apply flex items-center text-lg md:text-xl font-semibold whitespace-normal sm:whitespace-nowrap text-center;
 }
 
 /* Vertical separator between a text item and the orange CTA button. */
@@ -183,15 +214,15 @@
 }
 
 .hero-primary-btn {
-    @apply flex items-center text-sm xl:text-base text-white px-3 py-1.5 space-x-2 font-semibold rounded-[8px];
+    @apply flex items-center font-semibold text-lg md:text-xl text-white px-3 py-2 sm:px-5 sm:py-2 space-x-3 cursor-pointer;
 }
 
 .hero-apply-btn {
-    @apply flex items-center rounded-[8px] text-sm xl:text-base bg-[#F04E30] hover:bg-[#122E5E] text-white uppercase px-4 py-1.5 space-x-2 font-semibold whitespace-nowrap;
+    @apply flex items-center font-semibold text-lg md:text-xl bg-[#F04E30] hover:bg-[#122E5E] text-white uppercase px-3 py-2 sm:px-5 sm:py-2 space-x-3 cursor-pointer whitespace-nowrap;
 }
 
 .hero-phone-btn {
-    @apply flex items-center uppercase rounded-[10px] font-[500] text-base hover:bg-[#F04E30] bg-[#122E5E] text-white px-3 py-2 space-x-3;
+    @apply flex items-center uppercase font-[500] text-xl hover:bg-[#F04E30] bg-[#122E5E] text-white px-3 py-2 sm:px-5 sm:py-2 space-x-3;
 }
 
 .hero-phone-text {
@@ -203,19 +234,19 @@
 }
 
 .hero-mobile-primary {
-    @apply w-full text-center flex justify-center items-center text-base text-white px-3 py-2 font-semibold rounded-[10px];
+    @apply w-full text-center flex justify-center items-center text-lg text-white px-6 py-2 font-semibold;
 }
 
 .hero-mobile-actions {
-    @apply flex flex-wrap justify-center items-center gap-x-3 gap-y-1 w-full min-w-0;
+    @apply flex flex-wrap justify-center items-center gap-x-5 gap-y-1 w-full min-w-0;
 }
 
 .hero-mobile-apply {
-    @apply flex justify-center items-center rounded-[10px] text-xs sm:text-sm bg-[#F04E30] hover:bg-[#122E5E] text-white px-4 py-1.5 font-semibold whitespace-nowrap;
+    @apply flex justify-center items-center text-lg bg-[#F04E30] hover:bg-[#122E5E] text-white px-6 py-2 font-semibold whitespace-nowrap uppercase font-sans;
 }
 
 .hero-mobile-phone {
-    @apply w-full flex justify-center items-center uppercase rounded-[10px] font-[500] text-sm hover:bg-[#F04E30] bg-[#122E5E] text-white px-2 py-2;
+    @apply w-full flex justify-center items-center uppercase font-semibold text-lg font-sans hover:bg-[#F04E30] bg-[#122E5E] text-white px-6 py-2 whitespace-nowrap;
 }
 
 .btn-primary {
