@@ -1,0 +1,39 @@
+stages: [build, deploy]
+
+build:
+  stage: build
+  image: node:20-alpine
+  cache:
+    key:
+      files: [package-lock.json]
+    paths: [node_modules/]
+  script:
+    - npm ci
+    - npm run build
+  artifacts:
+    paths: [dist/]
+    expire_in: 1 day
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+deploy:
+  stage: deploy
+  image: alpine:latest
+  needs: [build]
+  before_script:
+    - apk add --no-cache lftp
+  script:
+    - |
+      lftp -c "
+        set ftp:ssl-allow no;
+        set ssl:verify-certificate no;
+        open -u $FTP_USER,$FTP_PASS $FTP_HOST;
+        mirror -R --only-newer --parallel=4 \
+          --exclude-glob=.ftp-deploy-sync-state.json \
+          --exclude-glob=*.zip \
+          --exclude-glob=*OLDFILE* \
+          --exclude-glob=asOLDFILE \
+          dist/ $FTP_PATH
+      "
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
