@@ -8,7 +8,7 @@ build:
       files: [package-lock.json]
     paths: [node_modules/]
   script:
-    - npm ci
+    - npm ci --legacy-peer-deps
     - npm run build
   artifacts:
     paths: [dist/]
