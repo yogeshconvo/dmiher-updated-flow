@@ -1,6 +1,25 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
+import crypto from "node:crypto";
+
+// Dev-only: stamp a fresh per-request nonce into every __CSP_NONCE__ placeholder
+// in index.html, so view-source mirrors the production behavior where Laravel's
+// FrontendController does the same stamping. In production this plugin is a no-op —
+// Vite build inlines the placeholder verbatim and Laravel replaces it at request time.
+const cspNonceDevPlugin = () => ({
+  name: "csp-nonce-dev",
+  apply: "serve",
+  transformIndexHtml: {
+    order: "pre",
+    handler(html) {
+      const nonce = crypto.createHash("sha256")
+        .update(crypto.randomBytes(32))
+        .digest("hex");
+      return html.replaceAll("__CSP_NONCE__", nonce);
+    },
+  },
+});
 
 export default defineConfig(({ mode }) => ({
   // Site is hosted at https://dmiher.edu.in/dmiher-web/ — assets must be
@@ -9,6 +28,7 @@ export default defineConfig(({ mode }) => ({
   base: mode === "production" ? "/dmiher-web/" : "/",
   // base: mode === "production" ? "/" : "/",
   plugins: [
+    cspNonceDevPlugin(),
     react({
       babel: {
         plugins: [["babel-plugin-react-compiler"]],
