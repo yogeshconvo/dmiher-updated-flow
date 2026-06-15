@@ -1,26 +1,34 @@
 # SPA fallback for the /dmiher-web/ Apache subdirectory deployment.
-# Any URL that doesn't map to a real file or directory under /dmiher-web/
-# is rewritten to /dmiher-web/index.html so React Router can take over.
+# HTML requests go through spa.php so each response carries a fresh CSP nonce.
+# Static assets (JS/CSS/fonts/images) are served directly with long-cache headers.
+
+# Root of /dmiher-web/ resolves to spa.php, never the raw index.html.
+DirectoryIndex spa.php
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /dmiher-web/
 
-  # Don't rewrite real files or directories (assets, images, fonts, etc.)
-  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  # Direct hits to index.html must also go through the nonce-stamping wrapper.
+  RewriteRule ^index\.html$ spa.php [L]
+
+  # Real static files (assets, fonts, images, spa.php itself): serve directly.
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^ - [L]
+
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # Everything else falls through to the SPA shell
-  RewriteRule . index.html [L]
+  # SPA client-side routes (/about, /home, /something/foo): PHP shell.
+  RewriteRule . spa.php [L]
 </IfModule>
 
-# Long-cache hashed assets, never cache the HTML shell.
+# Long-cache hashed assets; never cache the SPA shell.
 <IfModule mod_headers.c>
   <FilesMatch "\.(js|css|woff2?|ttf|otf|eot|png|jpg|jpeg|gif|webp|svg|ico)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
-  <FilesMatch "index\.html$">
+  <FilesMatch "(index\.html|spa\.php)$">
     Header set Cache-Control "no-cache, no-store, must-revalidate"
   </FilesMatch>
 </IfModule>
