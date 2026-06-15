@@ -14,6 +14,7 @@ const Medicine = ({ slug: slugProp }) => {
   const [activeInstIndex, setActiveInstIndex] = useState(0);
   const [activeSubTabIndex, setActiveSubTabIndex] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     setActiveInstIndex(0);
@@ -175,46 +176,59 @@ const Medicine = ({ slug: slugProp }) => {
         )}
 
         {/* ================= PROGRAMS GRID ================= */}
-        <div className="subprog-grid">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {filteredPrograms.map((program, index) => (
             <div
               key={`${program.title}-${index}`}
-              className="subprog-card group"
+              className="group bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 p-4 sm:p-5 lg:p-6 hover:shadow-xl hover:shadow-blue-100/50 hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="subprog-card-inner">
-                <div className="subprog-card-header">
-                  <div className="subprog-card-title-row">
-                    <h3 className="subprog-card-title">
+              <div className="h-full flex flex-col">
+                {/* Title & Duration */}
+                <div className="mb-3 sm:mb-4">
+                  <div className="flex items-start justify-between mb-2 gap-2">
+                    <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors leading-tight flex-1">
                       {program.title}
                     </h3>
-                    <span className="subprog-card-badge">
+                    <span className="text-xs sm:text-sm font-medium bg-blue-100 text-blue-700 px-2.5 sm:px-3 py-1 rounded-full whitespace-nowrap flex-shrink-0">
                       {program.duration || "N/A"}
                     </span>
                   </div>
-                  <p className="subprog-card-desc">
+                  <p className="text-xs sm:text-sm text-gray-500 leading-relaxed font-[Arial]">
                     {program.description || "Program details not available."}
                   </p>
                 </div>
 
-                <div className="subprog-card-college">
-                  <p className="subprog-card-college-text">
-                    {program.college_name}
-                  </p>
+                {/* College Name */}
+                <div className="flex-1 mb-1 sm:mb-2">
+                  <div className="bg-blue-50 rounded-lg p-2.5 sm:p-3">
+                    <p className="text-xs sm:text-sm font-medium text-blue-800 leading-snug">
+                      {program.college_name}
+                    </p>
+                  </div>
                 </div>
 
-                <div className="subprog-card-elig">
-                  <p className="subprog-card-elig-label">
-                    Eligibility
-                  </p>
-                  <p className="subprog-card-elig-text">
-                    {program.eligibility ||
-                      "Contact the college for eligibility details."}
-                  </p>
+                {/* Eligibility */}
+                <div className="mb-4 sm:mb-5">
+                  <div className="bg-gray-50 rounded-lg p-2.5 sm:p-3">
+                    <h4 className="text-xs font-medium text-gray-700 mb-1.5 sm:mb-2">
+                      Eligibility
+                    </h4>
+                    <p className="text-xs sm:text-sm text-gray-600 leading-snug font-[Arial]">
+                      {program.eligibility ||
+                        "Contact the college for eligibility details."}
+                    </p>
+                  </div>
                 </div>
 
-                <button className="subprog-card-cta">
-                  {settings.apply_label || "Apply Now"}
-                </button>
+                {/* Apply Now Button */}
+                <div className="mt-auto">
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className="w-full bg-[#F04E30] text-white font-medium py-2.5 sm:py-3 px-4 sm:px-5 rounded-lg hover:bg-[#122E5E] transform hover:scale-[1.02] transition-all duration-300 shadow-md hover:shadow-lg text-sm sm:text-base"
+                  >
+                    {settings.apply_label || "Apply Now"}
+                  </button>
+                </div>
               </div>
             </div>
           ))}
