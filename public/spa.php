@@ -1,8 +1,10 @@
 <?php
 declare(strict_types=1);
 
-// Per-request CSP nonce (16 cryptographic random bytes, base64-encoded).
-$nonce = rtrim(strtr(base64_encode(random_bytes(16)), '+/', '-_'), '=');
+// Per-request CSP nonce: 32 cryptographic random bytes (256-bit entropy,
+// matching the SHA-256 strength used by the integrity attribute), hex-encoded
+// to match the 64-char nonce format Laravel's ContentSecurityPolicy middleware emits.
+$nonce = bin2hex(random_bytes(32));
 
 // Same connect-src / img-src origins the SPA actually talks to.
 $apiOrigin = 'https://admin.dmiher.edu.in';
