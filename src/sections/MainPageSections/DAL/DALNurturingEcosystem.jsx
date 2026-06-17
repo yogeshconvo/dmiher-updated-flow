@@ -31,13 +31,14 @@ const DALNurturingEcosystem = ({ data }) => {
         )}
 
         {buttons.length > 0 && (
-          <div className="flex flex-wrap justify-center gap-4 mt-10">
+          <div className="flex flex-wrap justify-center gap-6 mt-10">
             {buttons.map((btn, i) => {
               const label = btn.label || "";
               const url = btn.url || "#";
               const isExternal = /^https?:\/\//i.test(url);
-              const cls =
-                "bg-[#F7941D] hover:bg-[#e07f0f] text-white font-semibold px-8 py-3 rounded shadow transition";
+              const buttonEl = (
+                <button className="inst-cta-btn">{label}</button>
+              );
               if (isExternal) {
                 return (
                   <a
@@ -45,15 +46,15 @@ const DALNurturingEcosystem = ({ data }) => {
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={cls}
+                    className="inst-cta-link-wrap"
                   >
-                    {label}
+                    {buttonEl}
                   </a>
                 );
               }
               return (
-                <Link key={i} to={url} className={cls}>
-                  {label}
+                <Link key={i} to={url} className="inst-cta-link-wrap">
+                  {buttonEl}
                 </Link>
               );
             })}

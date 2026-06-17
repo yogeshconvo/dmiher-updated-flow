@@ -1,14 +1,16 @@
-import React from 'react'
-import MainMicropage from './Main-micropage';
-import TabMenu from './Tabwise-micropage';
-import HospitalTabsSection from './HospitalTabsSection';
-import MicroPageTabLink from './MicroPageTabLink';
+import { lazy } from "react";
+
+const TabMenu = lazy(() => import("./Tabwise-micropage"));
+const HospitalTabsSection = lazy(() => import("./HospitalTabsSection"));
+const MicroPageTabLink = lazy(() => import("./MicroPageTabLink"));
+const DMIHERConferences = lazy(() => import("./DMIHERConferences"));
+
 export const SECTION_COMPONENTS = {
 
     // Common Sections
-    // 59: MainMicropage,
     tab_group_section: TabMenu,
     hospital_tabs_section: HospitalTabsSection,
     micro_page_tab_link: MicroPageTabLink,
+    dmiher_conferences: DMIHERConferences,
 
 };

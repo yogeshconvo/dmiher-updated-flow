@@ -1,13 +1,15 @@
-import SELSCDetails from "./SELSCDetails"
-import SELSCSimulation from "./SELSCSimulation"
-import SELSCVisionMission from "./SELSCVisionMission"
-import SELSCInfrastructure from "./SELSCInfrastructure"
-import SELSCCollaborations from "./SELSCCollaborations"
-import SELSCLearners from "./SELSCLearners"
-import SELSCTraining from "./SELSCTraining"
-import SELSCPrograms from "./SELSCPrograms"
-import SELSCFacultyResearch from "./SELSCFacultyResearch"
-import SELSCStudentLife from "./SELSCStudentLife"
+import { lazy } from "react";
+
+const SELSCDetails = lazy(() => import("./SELSCDetails"));
+const SELSCSimulation = lazy(() => import("./SELSCSimulation"));
+const SELSCVisionMission = lazy(() => import("./SELSCVisionMission"));
+const SELSCInfrastructure = lazy(() => import("./SELSCInfrastructure"));
+const SELSCCollaborations = lazy(() => import("./SELSCCollaborations"));
+const SELSCLearners = lazy(() => import("./SELSCLearners"));
+const SELSCTraining = lazy(() => import("./SELSCTraining"));
+const SELSCPrograms = lazy(() => import("./SELSCPrograms"));
+const SELSCFacultyResearch = lazy(() => import("./SELSCFacultyResearch"));
+const SELSCStudentLife = lazy(() => import("./SELSCStudentLife"));
 
 export const SECTION_COMPONENTS = {
     selsc_details:           SELSCDetails,

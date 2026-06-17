@@ -51,12 +51,15 @@ function buildCsp(nonce, scriptHashes = []) {
       // same source list — which would block Vite's React-refresh preamble.
       // In dev we rely on 'unsafe-inline' for everything; the hash matters in
       // production where 'unsafe-inline' is absent.
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+      // Third-party script hosts mirrored from the production CSP so dev
+      // doesn't silently block them (NoPaperForms enquiry widget, GA, GTM,
+      // GetAAI chatbot).
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://widgets.in6.nopaperforms.com https://www.googletagmanager.com https://www.google-analytics.com https://static.getaai.com",
       "style-src 'self' 'unsafe-inline'",
       `img-src 'self' https: http: data:`,
       "font-src 'self' https: data:",
       `connect-src 'self' https: http: ws://localhost:* wss://localhost:* ${apiBase}`,
-      "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://maps.google.com https://docs.google.com https://drive.google.com https://www.googletagmanager.com",
+      "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://maps.google.com https://docs.google.com https://drive.google.com https://www.googletagmanager.com https://widgets.in6.nopaperforms.com",
       "frame-ancestors 'self'",
       "form-action 'self' https://api.web3forms.com",
       "object-src 'none'",

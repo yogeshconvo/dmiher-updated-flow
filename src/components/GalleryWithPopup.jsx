@@ -36,7 +36,12 @@ export function GalleryWithPopup({ data }) {
   if (!images.length) return null;
 
   /* In grid mode show up to 9 images per slide (3×3). When there are more,
-     paginate via the same arrow controls used elsewhere on the page. */
+     paginate via the same arrow controls used elsewhere on the page.
+     Pagination uses local state instead of Swiper because the SwiperSlide
+     containers don't clamp to viewport width before client hydration —
+     during SSR both 9-image grids render side-by-side, producing a 6-col
+     row that flashes until Swiper takes over. State-driven pagination
+     renders a single slide every time. */
   const PAGE_SIZE = 9;
   const gridPages = isSlider
     ? []
@@ -44,11 +49,17 @@ export function GalleryWithPopup({ data }) {
         { length: Math.ceil(images.length / PAGE_SIZE) },
         (_, p) => images.slice(p * PAGE_SIZE, (p + 1) * PAGE_SIZE),
       );
+  const [gridPageIndex, setGridPageIndex] = useState(0);
 
   // Show arrows when slider mode has > 3 images OR grid mode has > 9 images
   const needsArrows = isSlider
     ? images.length > 3
     : gridPages.length > 1;
+
+  const goPrev = () =>
+    setGridPageIndex((i) => (i - 1 + gridPages.length) % gridPages.length);
+  const goNext = () =>
+    setGridPageIndex((i) => (i + 1) % gridPages.length);
 
   return (
     <section className="container">
@@ -60,13 +71,23 @@ export function GalleryWithPopup({ data }) {
       <div className="gallery-nav">
         <RichTextRenderer html={data.header?.intro_text} />
 
-        {/* Arrows only render when pagination is actually needed. */}
+        {/* Arrows only render when pagination is actually needed.
+            Slider mode wires them into Swiper via prevCls/nextCls; grid
+            mode uses local state. */}
         {needsArrows && (
           <div className="button-wrapper ml-auto">
-            <button className={`gallery-nav-btn ${prevCls}`} aria-label="Previous">
+            <button
+              className={`gallery-nav-btn ${isSlider ? prevCls : ""}`}
+              aria-label="Previous"
+              onClick={isSlider ? undefined : goPrev}
+            >
               <ArrowLeft />
             </button>
-            <button className={`gallery-nav-btn ${nextCls}`} aria-label="Next">
+            <button
+              className={`gallery-nav-btn ${isSlider ? nextCls : ""}`}
+              aria-label="Next"
+              onClick={isSlider ? undefined : goNext}
+            >
               <ArrowRight />
             </button>
           </div>
@@ -109,39 +130,29 @@ export function GalleryWithPopup({ data }) {
         </Swiper>
       ) : (
         /* ============== GRID MODE — 9 per slide (3×3), paginated ============== */
-        <Swiper
-          modules={[Navigation]}
-          spaceBetween={20}
-          navigation={{ prevEl: `.${prevCls}`, nextEl: `.${nextCls}` }}
-        >
-          {gridPages.map((pageImages, pageIdx) => (
-            <SwiperSlide key={pageIdx}>
-              <div className="gallery-grid">
-                {pageImages.map((img, localIdx) => {
-                  const absoluteIdx = pageIdx * PAGE_SIZE + localIdx;
-                  const imageSrc = getImageSrc(img.image);
-                  return (
-                    <div
-                      key={absoluteIdx}
-                      className="gallery-card"
-                      onClick={() => setPopupIndex(absoluteIdx)}
-                    >
-                      <SafeImage
-                        src={imageSrc}
-                        alt={img.caption || "gallery"}
-                        className="gallery-image"
-                        loading="lazy"
-                      />
-                      {img.caption && (
-                        <p className="gallery-image-title">{img.caption}</p>
-                      )}
-                    </div>
-                  );
-                })}
+        <div className="gallery-grid">
+          {(gridPages[gridPageIndex] || []).map((img, localIdx) => {
+            const absoluteIdx = gridPageIndex * PAGE_SIZE + localIdx;
+            const imageSrc = getImageSrc(img.image);
+            return (
+              <div
+                key={absoluteIdx}
+                className="gallery-card"
+                onClick={() => setPopupIndex(absoluteIdx)}
+              >
+                <SafeImage
+                  src={imageSrc}
+                  alt={img.caption || "gallery"}
+                  className="gallery-image"
+                  loading="lazy"
+                />
+                {img.caption && (
+                  <p className="gallery-image-title">{img.caption}</p>
+                )}
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+            );
+          })}
+        </div>
       )}
 
       {/* Popup */}

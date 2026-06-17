@@ -1,78 +1,81 @@
+import { lazy } from "react";
 
-import HomePrograms from "../MainPageSections/Programs"
+// Hero is the above-the-fold LCP element — keep it eager (in the main bundle)
+// so it paints the moment page data arrives, with no extra chunk round-trip.
 import HeroSection from "../Institute/Hero"
-import HomeBulletin from "../MainPageSections/Home/BULLETIN"
-import HomeANNOUNCEMENTS from "../MainPageSections/Home/ANNOUNCEMENTS"
-import HomeTestimonial from "../MainPageSections/Home/testimonial"
-import ExcellenceSection from "../MainPageSections/About/ExcellenceSection"
-import VisionMissionSection from "./About/VisionMissionSection"
-import CoreValues from "./About/CoreValues"
-import AboutGrid from "./About/AboutGrid"
-import CommitteesSection from "./About/CommitteesSection"
-import DMIHERJourney from "./About/DMIHERJourney"
-import OneHealth from "../MainPageSections/OneHealth"
-import HolisticLearningPage from "../MainPageSections/HolisticLearningPage"
-import SDGSection from "./About/SDGSection"
-import Gallery from "../MainPageSections/Gallery"
-import ResearchHighlights from "./Research/ResearchHighlights"
-import Grid from "./Grid"
-import ResearchEcosystem from "./Research/ResearchEcosystem"
-import TheEdge from "./Research/TheEdge"
-import SDGResearchContributions from "./Research/SDGResearchContributions"
-import FundedResearchProjects from "./Research/FundedResearchProjects"
-import ResearchOpportunities from "./Research/ResearchOpportunities"
-import HomeInfo from "../Institute/InfoSection"
-import AlliancesGlobal from "./Global/AlliancesGlobal"
-import GlobalExchange from "./Global/GlobalExchange"
-import FunctionalUnits from "./IQAC/FunctionalUnits"
-import IQACSection from "./IQAC/IQACButtons"
-import ProgramsComponent from "./Programs/Programs"
-import ImportantContacts from "./Programs/ImportantContacts"
-import EnquiryGlobal from "./Global/EnquiryGlobal"
-import StudentLife from "../Institute/StudentLife"
-import WhyChoose from "../Institute/WhyChoseSlider"
-import HomeSteps from "./Home/HomeSteps"
-import UniversalSection from "./Global/HeadwithPara"
-import AdmissionInfoPage from "./Admissions/AdmissionInfoPage"
-import Outcome from "./Home/Outcome"
-import FootprintSection from "./Home/FootprintSection"
-import ResearchInnovation from "./Home/ResearchInnovation"
-import RecognitionsSection from "./Home/RecognitionsSection"
-import SubPrograms from "../Subpages/Programs"
-import MainMicropage from "../Micropages/Main-micropage"
-import ClinicalResearch from "./Research/ClinicalResearch"
-import TabMenu from "../Micropages/Tabwise-micropage"
-import FeatureCards from "./Admissions/FeatureCards"
-import AdmissionFAQs from "./Admissions/Faqs"
-import InternationalCollaborations from "./Admissions/InternationalCollaboration"
-import StepsPage from "./Admissions/StepsPage"
-import AdvantageIndia from "./Admissions/AdvantageIndia"
-import ImageContentBlocks from "./Admissions/ImageContentBlocks"
-import ArrivalGuidance from "./Admissions/ArrivalGuidance"
-import SocialLinks from "./Admissions/SocialLinks"
-import AlumniTestimonials from "./Admissions/AlumniTestimonials"
-import UsefulLinks from "./Admissions/UsefulLinks"
-import ProgramsGrid from "./Admissions/ProgramsGrid"
-import WhyStudyAdmissions from "./Admissions/WhyStudyAdmissions"
-import ActivitiesAndAnnouncements from "./Alumni/ActivitiesAndAnnouncements"
-import EminentAlumni from "./Alumni/EminentAlumni"
-import ExamCellOfficials from "./ControllerOfExamination/ExamCellOfficials"
-import AcademicFC from "./CampusFacilities/AcademicFC"
-import WellbeingComfortFC from "./CampusFacilities/WellbeingComfortFC"
-import ContactUS from "./Contact/ContactUS"
-import TeachingHospitals from "./Hospital/TeachingHospitals/TeachingHospitals"
-import TextEditor from "../Common/TextEditor"
-import FloatingButtons from "../../components/FloatingButtons"
-import DALNurturingEcosystem from "./DAL/DALNurturingEcosystem"
-import DALKeyFunctions from "./DAL/DALKeyFunctions"
-import DALVisionMission from "./DAL/DALVisionMission"
+
+const HomePrograms = lazy(() => import("../MainPageSections/Programs"))
+const HomeBulletin = lazy(() => import("../MainPageSections/Home/BULLETIN"))
+const HomeANNOUNCEMENTS = lazy(() => import("../MainPageSections/Home/ANNOUNCEMENTS"))
+const HomeTestimonial = lazy(() => import("../MainPageSections/Home/testimonial"))
+const ExcellenceSection = lazy(() => import("../MainPageSections/About/ExcellenceSection"))
+const VisionMissionSection = lazy(() => import("./About/VisionMissionSection"))
+const CoreValues = lazy(() => import("./About/CoreValues"))
+const AboutGrid = lazy(() => import("./About/AboutGrid"))
+const CommitteesSection = lazy(() => import("./About/CommitteesSection"))
+const DMIHERJourney = lazy(() => import("./About/DMIHERJourney"))
+const OneHealth = lazy(() => import("../MainPageSections/OneHealth"))
+const HolisticLearningPage = lazy(() => import("../MainPageSections/HolisticLearningPage"))
+const SDGSection = lazy(() => import("./About/SDGSection"))
+const Gallery = lazy(() => import("../MainPageSections/Gallery"))
+const ResearchHighlights = lazy(() => import("./Research/ResearchHighlights"))
+const Grid = lazy(() => import("./Grid"))
+const ResearchEcosystem = lazy(() => import("./Research/ResearchEcosystem"))
+const TheEdge = lazy(() => import("./Research/TheEdge"))
+const SDGResearchContributions = lazy(() => import("./Research/SDGResearchContributions"))
+const FundedResearchProjects = lazy(() => import("./Research/FundedResearchProjects"))
+const ResearchOpportunities = lazy(() => import("./Research/ResearchOpportunities"))
+const HomeInfo = lazy(() => import("../Institute/InfoSection"))
+const AlliancesGlobal = lazy(() => import("./Global/AlliancesGlobal"))
+const GlobalExchange = lazy(() => import("./Global/GlobalExchange"))
+const FunctionalUnits = lazy(() => import("./IQAC/FunctionalUnits"))
+const IQACSection = lazy(() => import("./IQAC/IQACButtons"))
+const ImportantContacts = lazy(() => import("./Programs/ImportantContacts"))
+const EnquiryGlobal = lazy(() => import("./Global/EnquiryGlobal"))
+const StudentLife = lazy(() => import("../Institute/StudentLife"))
+const WhyChoose = lazy(() => import("../Institute/WhyChoseSlider"))
+const HomeSteps = lazy(() => import("./Home/HomeSteps"))
+const UniversalSection = lazy(() => import("./Global/HeadwithPara"))
+const AdmissionInfoPage = lazy(() => import("./Admissions/AdmissionInfoPage"))
+const Outcome = lazy(() => import("./Home/Outcome"))
+const FootprintSection = lazy(() => import("./Home/FootprintSection"))
+const ResearchInnovation = lazy(() => import("./Home/ResearchInnovation"))
+const RecognitionsSection = lazy(() => import("./Home/RecognitionsSection"))
+const SubPrograms = lazy(() => import("../Subpages/Programs"))
+const MainMicropage = lazy(() => import("../Micropages/Main-micropage"))
+const ClinicalResearch = lazy(() => import("./Research/ClinicalResearch"))
+const TabMenu = lazy(() => import("../Micropages/Tabwise-micropage"))
+const FeatureCards = lazy(() => import("./Admissions/FeatureCards"))
+const AdmissionFAQs = lazy(() => import("./Admissions/Faqs"))
+const InternationalCollaborations = lazy(() => import("./Admissions/InternationalCollaboration"))
+const StepsPage = lazy(() => import("./Admissions/StepsPage"))
+const AdvantageIndia = lazy(() => import("./Admissions/AdvantageIndia"))
+const ImageContentBlocks = lazy(() => import("./Admissions/ImageContentBlocks"))
+const ArrivalGuidance = lazy(() => import("./Admissions/ArrivalGuidance"))
+const SocialLinks = lazy(() => import("./Admissions/SocialLinks"))
+const AlumniTestimonials = lazy(() => import("./Admissions/AlumniTestimonials"))
+const UsefulLinks = lazy(() => import("./Admissions/UsefulLinks"))
+const ProgramsGrid = lazy(() => import("./Admissions/ProgramsGrid"))
+const WhyStudyAdmissions = lazy(() => import("./Admissions/WhyStudyAdmissions"))
+const ActivitiesAndAnnouncements = lazy(() => import("./Alumni/ActivitiesAndAnnouncements"))
+const EminentAlumni = lazy(() => import("./Alumni/EminentAlumni"))
+const ExamCellOfficials = lazy(() => import("./ControllerOfExamination/ExamCellOfficials"))
+const AcademicFC = lazy(() => import("./CampusFacilities/AcademicFC"))
+const WellbeingComfortFC = lazy(() => import("./CampusFacilities/WellbeingComfortFC"))
+const ContactUS = lazy(() => import("./Contact/ContactUS"))
+const TeachingHospitals = lazy(() => import("./Hospital/TeachingHospitals/TeachingHospitals"))
+const TextEditor = lazy(() => import("../Common/TextEditor"))
+const FloatingButtons = lazy(() => import("../../components/FloatingButtons"))
+const DALNurturingEcosystem = lazy(() => import("./DAL/DALNurturingEcosystem"))
+const DALKeyFunctions = lazy(() => import("./DAL/DALKeyFunctions"))
+const DALVisionMission = lazy(() => import("./DAL/DALVisionMission"))
 // Campus Life — only the truly unique sections that can't be served by the
 // generic hero_section / institute_info / why_choose_us components.
-import CampusLifeImmersive from "./CampusLife/CampusLifeImmersive"
-import CampusLifeAcademic from "./CampusLife/CampusLifeAcademic"
-import CampusLifeInfrastructure from "./CampusLife/CampusLifeInfrastructure"
-import CampusLifeWellbeing from "./CampusLife/CampusLifeWellbeing"
-import CampusLifeHostel from "./CampusLife/CampusLifeHostel"
+const CampusLifeImmersive = lazy(() => import("./CampusLife/CampusLifeImmersive"))
+const CampusLifeAcademic = lazy(() => import("./CampusLife/CampusLifeAcademic"))
+const CampusLifeInfrastructure = lazy(() => import("./CampusLife/CampusLifeInfrastructure"))
+const CampusLifeWellbeing = lazy(() => import("./CampusLife/CampusLifeWellbeing"))
+const CampusLifeHostel = lazy(() => import("./CampusLife/CampusLifeHostel"))
 
 export const SECTION_COMPONENTS = {
 

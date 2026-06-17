@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { usePages } from "./hooks/usePages";
@@ -127,11 +128,15 @@ function PageView() {
         return (
           <ErrorBoundary key={`${sec.section_id}-${index}`}>
             <section>
-              <SectionComponent
-                data={sec.data}
-                college={params.college || params.slug}
-                pageSlug={params.college || params.slug}
-              />
+              {/* Sections are code-split (React.lazy) — Suspense lets each one
+                  stream in as its chunk arrives without blocking the rest. */}
+              <Suspense fallback={null}>
+                <SectionComponent
+                  data={sec.data}
+                  college={params.college || params.slug}
+                  pageSlug={params.college || params.slug}
+                />
+              </Suspense>
             </section>
           </ErrorBoundary>
         );

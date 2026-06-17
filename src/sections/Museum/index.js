@@ -1,6 +1,8 @@
-import MuseumColleges from "./MuseumColleges"
-import MuseumKeyOfficials from "./MuseumKeyOfficials"
-import MuseumFAQs from "./MuseumFAQs"
+import { lazy } from "react";
+
+const MuseumColleges = lazy(() => import("./MuseumColleges"));
+const MuseumKeyOfficials = lazy(() => import("./MuseumKeyOfficials"));
+const MuseumFAQs = lazy(() => import("./MuseumFAQs"));
 
 export const SECTION_COMPONENTS = {
     museum_colleges:       MuseumColleges,

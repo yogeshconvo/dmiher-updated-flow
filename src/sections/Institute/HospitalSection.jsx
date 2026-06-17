@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 
@@ -12,6 +13,7 @@ import SafeImage from "../../components/SafeImage";
 // import "../../styles/hospital-highlight.css";
 
 const HospitalHighlight = ({ data }) => {
+  const params = useParams();
   if (!data) return null;
 
   const {
@@ -28,6 +30,11 @@ const HospitalHighlight = ({ data }) => {
     : cta
       ? [cta]
       : [];
+
+  // The institute slug from the route — used to build /<college>/<cta_key>
+  // URLs when a CTA uses the section-dependent micropage pattern instead
+  // of a hard-coded link.
+  const collegeSlug = params.college || params.slug || "";
 
   // Dynamic section background from the backend (section_style.bg_color).
   const bgColor = data?.section_style?.bg_color;
@@ -56,23 +63,38 @@ const HospitalHighlight = ({ data }) => {
           {ctaList.length > 0 && (
             <div className="cta">
               {ctaList.map((item, idx) => {
-                const href = item.link || item.cta_url;
                 const label = item.label || item.cta_label;
-                if (!href || !label) return null;
+                if (!label) return null;
+
+                // Section-dependent micropage CTA — admin marked the button
+                // as having a micropage and provided a cta_key. Build the
+                // SPA route off the current institute slug.
+                let to = item.link || item.cta_url || "";
+                if (!to && item.has_micro_page && item.cta_key) {
+                  to = collegeSlug ? `/${collegeSlug}/${item.cta_key}` : `/${item.cta_key}`;
+                }
+                if (!to) return null;
+
                 const isExternal =
                   item.tab_type === "url" ||
-                  (typeof href === "string" && href.startsWith("http"));
-                return isExternal ? (
-                  <a
-                    key={idx}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  (typeof to === "string" && /^https?:\/\//i.test(to));
+
+                if (isExternal) {
+                  return (
+                    <a
+                      key={idx}
+                      href={to}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {label}
+                    </a>
+                  );
+                }
+                return (
+                  <Link key={idx} to={to}>
                     {label}
-                  </a>
-                ) : (
-                  <p key={idx}>{label}</p>
+                  </Link>
                 );
               })}
             </div>

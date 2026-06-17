@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PlayCircle } from "lucide-react";
+import { PlayCircle } from "../../../components/icons";
 import RichTextRenderer from "../../../components/RichTextRenderer";
 import SafeImage from "../../../components/SafeImage";
 

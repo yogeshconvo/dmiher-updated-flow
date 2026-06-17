@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ImageOff } from "lucide-react";
+import { ImageOff } from "./icons";
 import resolveImage from "../utils/resolveImage";
 
 /**

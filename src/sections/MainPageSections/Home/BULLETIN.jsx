@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "../../../components/icons";
 import api from "../../../config/api";
 
 function HomeBulletin() {

@@ -209,10 +209,10 @@ function Hero({ data, slug = "Home" }) {
       <div className="mph-swiper-wrapper">
         <Swiper
           modules={[Autoplay, Pagination]}
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          autoplay={slides.length > 1 ? { delay: 5000, disableOnInteraction: false } : false}
           className="mph-swiper banner-swiper"
-          loop={true}
-          pagination={{ clickable: true }}
+          loop={slides.length > 1}
+          pagination={slides.length > 1 ? { clickable: true } : false}
         >
           {slides.map((slide, idx) => (
             <SwiperSlide key={idx} className="mph-slide">
