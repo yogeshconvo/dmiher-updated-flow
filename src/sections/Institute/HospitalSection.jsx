@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 
@@ -11,7 +12,15 @@ import SafeImage from "../../components/SafeImage";
 // import ViewMoreButton from "../../components/UI/ViewMore";
 // import "../../styles/hospital-highlight.css";
 
-const HospitalHighlight = ({ data }) => {
+const HospitalHighlight = ({
+  data,
+  college,
+  pageSlug,
+  instituteSlug,
+  institute,
+}) => {
+  const params = useParams();
+
   if (!data) return null;
 
   const {
@@ -28,6 +37,18 @@ const HospitalHighlight = ({ data }) => {
     : cta
       ? [cta]
       : [];
+
+  // Base slug for micro-page links — mirrors StudentWelfareCell /
+  // Global-opportunities so the CTA resolves regardless of which page
+  // (PageView vs InstitutePage) rendered this section.
+  const base =
+    college ||
+    pageSlug ||
+    instituteSlug ||
+    institute?.slug ||
+    params.college ||
+    params.slug ||
+    "";
 
   // Dynamic section background from the backend (section_style.bg_color).
   const bgColor = data?.section_style?.bg_color;
@@ -56,9 +77,22 @@ const HospitalHighlight = ({ data }) => {
           {ctaList.length > 0 && (
             <div className="cta">
               {ctaList.map((item, idx) => {
-                const href = item.link || item.cta_url;
                 const label = item.label || item.cta_label;
-                if (!href || !label) return null;
+                if (!label) return null;
+
+                // Micro-page CTA: no direct link, navigate to /{base}/{cta_key}
+                const ctaKey = item.cta_key || item.key;
+                if (item.has_micro_page && ctaKey && base) {
+                  return (
+                    <Link key={idx} to={`/${base}/${ctaKey}`}>
+                      {label}
+                    </Link>
+                  );
+                }
+
+                // Direct-link CTA (legacy): external URL or internal route
+                const href = item.link || item.cta_url;
+                if (!href) return null;
                 const isExternal =
                   item.tab_type === "url" ||
                   (typeof href === "string" && href.startsWith("http"));
@@ -72,7 +106,9 @@ const HospitalHighlight = ({ data }) => {
                     {label}
                   </a>
                 ) : (
-                  <p key={idx}>{label}</p>
+                  <Link key={idx} to={href}>
+                    {label}
+                  </Link>
                 );
               })}
             </div>
