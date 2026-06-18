@@ -289,16 +289,23 @@
     @apply absolute inset-0 w-full h-full;
 }
 
+/* The banner is a real <img>, so it needs object-fit (object-cover) — NOT the
+   background-* utilities, which only affect CSS background-image and left the
+   <img> stretching to fill. object-center keeps the focal point centered as
+   the frame narrows on mobile / tablet. */
 .hero-bg-img {
-    @apply absolute inset-0 w-full h-full bg-cover bg-center;
+    @apply absolute inset-0 w-full h-full object-cover object-center;
 }
 
-.hero-bg-fallback {
-    @apply absolute inset-0 bg-black;
-}
-
-.hero-bg-img {
-    @apply inset-0 w-full h-full bg-cover bg-center bg-no-repeat;
+/* Responsive (≤1024px): a slide carrying a dedicated mobile banner is stretched
+   to fill the whole hero area (object-fill) — no empty letterbox space. A
+   correctly-sized mobile image (≈3:4) fills cleanly; a slightly off-ratio image
+   stretches to fit rather than leaving gaps. Placed after the base rule so it
+   wins at this breakpoint; above 1024px the base object-cover applies. */
+@media (max-width: 1024px) {
+    .hero-bg-img--mobile-fill {
+        object-fit: fill;
+    }
 }
 
 .hero-bg-fallback {

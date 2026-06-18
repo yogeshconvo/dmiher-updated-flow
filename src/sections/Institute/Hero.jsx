@@ -17,6 +17,19 @@ function Hero({ data, slug }) {
 
   const slides = Array.isArray(data.slides) ? data.slides : [];
 
+  // Banner auto-slide speed — set from the dashboard hero "Banner Settings"
+  // (stored in SECONDS). The slider runs in milliseconds; fall back to 5s when
+  // the value is unset or invalid. Handles the object shape ({ speed }) and a
+  // defensive array shape, mirroring how `topbar` is normalized above.
+  const bannerSettings = Array.isArray(data.banner_settings)
+    ? data.banner_settings[0] || {}
+    : data.banner_settings || {};
+  const speedSeconds = Number(bannerSettings.speed);
+  const slideDelayMs =
+    Number.isFinite(speedSeconds) && speedSeconds > 0
+      ? speedSeconds * 1000
+      : 5000;
+
   // Dynamic fallback buttons (legacy address[] field)
   const ctaButtons = Array.isArray(data.address) ? data.address : [];
 
@@ -69,21 +82,58 @@ function Hero({ data, slug }) {
       : (topbar._section_enabled ?? topbar.enabled ?? hasTopbarContent);
 
   const [activeIndex, setActiveIndex] = useState(0);
-  // Clamp against the current slide count so a stale index (carried over
-  // from a page with more slides) can't push the only slide off-screen
-  // for the brief window before the reset effect runs.
-  const safeActiveIndex = slides.length
-    ? Math.min(activeIndex, slides.length - 1)
-    : 0;
+  // `animate` lets us switch the slide transition OFF for a single frame so the
+  // loop reset (clone → real first slide) is instant and invisible.
+  const [animate, setAnimate] = useState(true);
 
+  // One-directional infinite loop: append a clone of the first slide. The
+  // carousel advances 0,1,…,n-1,n(=clone) always sliding the SAME way; once it
+  // lands on the clone we snap back to the real slide 0 with the animation off
+  // — no backward rewind. A single slide needs no loop / clone.
+  const hasLoop = slides.length > 1;
+  const renderSlides = hasLoop ? [...slides, slides[0]] : slides;
+  const safeActiveIndex = renderSlides.length
+    ? Math.min(activeIndex, renderSlides.length - 1)
+    : 0;
+  // Which real slide the active dot should highlight (clone maps back to 0).
+  const activeDot = slides.length ? activeIndex % slides.length : 0;
+
+  // Auto-advance one step each tick (no modulo — we ride onto the clone).
+  // Reset to the first slide whenever the slide set changes.
   useEffect(() => {
     setActiveIndex(0);
-    if (slides.length <= 1) return;
+    setAnimate(true);
+    if (!hasLoop) return;
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % slides.length);
-    }, 5000);
+      setAnimate(true);
+      setActiveIndex((prev) => prev + 1);
+    }, slideDelayMs);
     return () => clearInterval(interval);
-  }, [slides.length]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slides.length, slideDelayMs]);
+
+  // Landed on the appended clone → let the slide-in finish, then jump back to
+  // the real first slide with the animation off (invisible, since the clone is
+  // identical to slide 0). The 700ms matches the CSS `duration-700` transition.
+  useEffect(() => {
+    if (!hasLoop || activeIndex !== slides.length) return;
+    const t = setTimeout(() => {
+      setAnimate(false);
+      setActiveIndex(0);
+    }, 700);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeIndex, slides.length]);
+
+  // After an instant (no-animation) snap, re-enable the transition on the next
+  // frame so the following advance slides normally again.
+  useEffect(() => {
+    if (animate) return;
+    const raf = requestAnimationFrame(() =>
+      requestAnimationFrame(() => setAnimate(true))
+    );
+    return () => cancelAnimationFrame(raf);
+  }, [animate]);
 
   const handleScrollToSection = () => {
     if (!primarySectionId) return;
@@ -368,28 +418,44 @@ function Hero({ data, slug }) {
             : "h-[90dvh] md:h-[calc(96dvh-10px)]"
         } overflow-hidden relative`}
       >
-        {slides.map((slide, idx) => {
+        {renderSlides.map((slide, idx) => {
           const imageSrc = resolveImage(slide.img);
+          // Optional per-slide mobile/tablet banner. When the CMS provides one
+          // (`img_mobile`), the browser swaps to it at ≤1024px via <picture>;
+          // otherwise the desktop image is used everywhere. No JS / no layout
+          // shift — the source is chosen before the image even loads.
+          const mobileSrc = resolveImage(slide.img_mobile);
           return (
             <div
               key={idx}
               className="hero-slide absolute inset-0 transition-transform duration-700 ease-in-out"
               style={{
                 transform: `translateX(${(idx - safeActiveIndex) * 100}%)`,
+                // Off only for the invisible loop-reset frame (clone → slide 0).
+                transition: animate ? undefined : "none",
               }}
             >
               {imageSrc ? (
-                <img
-                  src={imageSrc}
-                  alt="Hero Banner"
-                  className="hero-bg-img"
-                  // First slide is the LCP element — load it eagerly and tell
-                  // the browser to prioritise it. Remaining slides are deferred
-                  // so they don't compete for bandwidth on initial paint.
-                  fetchPriority={idx === 0 ? "high" : "low"}
-                  loading={idx === 0 ? "eager" : "lazy"}
-                  decoding="async"
-                />
+                <picture>
+                  {mobileSrc && (
+                    <source media="(max-width: 1024px)" srcSet={mobileSrc} />
+                  )}
+                  <img
+                    src={imageSrc}
+                    alt="Hero Banner"
+                    // When this slide ships a dedicated mobile image, stretch it
+                    // to fill the hero at ≤1024px (object-fill) so there's no
+                    // empty letterbox space. Without a mobile image we keep
+                    // object-cover so the desktop image fills (cropped) instead.
+                    className={`hero-bg-img${mobileSrc ? " hero-bg-img--mobile-fill" : ""}`}
+                    // First slide is the LCP element — load it eagerly and tell
+                    // the browser to prioritise it. Remaining slides are deferred
+                    // so they don't compete for bandwidth on initial paint.
+                    fetchPriority={idx === 0 ? "high" : "low"}
+                    loading={idx === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                  />
+                </picture>
               ) : (
                 <div className="hero-bg-fallback" />
               )}
@@ -441,14 +507,17 @@ function Hero({ data, slug }) {
         })}
 
         {/* DOTS */}
-        {slides.length > 1 && (
+        {hasLoop && (
           <div className="inst-hero-dots">
             {slides.map((_, idx) => (
               <button
                 key={idx}
-                onClick={() => setActiveIndex(idx)}
+                onClick={() => {
+                  setAnimate(true);
+                  setActiveIndex(idx);
+                }}
                 className={`w-3 h-3 rounded-full transition ${
-                  idx === safeActiveIndex ? "bg-white" : "bg-white/40"
+                  idx === activeDot ? "bg-white" : "bg-white/40"
                 }`}
               />
             ))}

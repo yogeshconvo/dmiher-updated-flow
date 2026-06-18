@@ -5,6 +5,15 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Establish the connection to the CMS/asset origin as early as possible so
+       the cross-origin LCP hero image (and all CMS media) starts its DNS+TLS
+       handshake before the JS bundle has even computed the image URL.
+       NOTE: this host must match the production VITE_API_BASE — update it if the
+       backend/asset origin changes. -->
+  <link rel="preconnect" href="https://admin.dmiher.edu.in" crossorigin />
+  <link rel="dns-prefetch" href="https://admin.dmiher.edu.in" />
+
   <!-- Force light-mode rendering — see :root { color-scheme: light } in src/index.css.
        Browsers honour this meta before the CSS loads, preventing a brief
        dark flash for users on OS-level dark mode. -->

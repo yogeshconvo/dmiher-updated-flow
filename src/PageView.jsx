@@ -44,23 +44,34 @@ function PageView() {
   /* ================= QUERIES ================= */
   const pageQuery = usePages(!isMicropage ? slug : null);
 
-  const micropageQuery = useIndependentPages(
-    isMicropage ? microSlug : null
-  );
-
+  // Section-dependent subpages load from /micropage/{college}/{page}.
   const subpageQuery = useSubpage(
     isMicropage ? collegeSlug : null,
     isMicropage ? microSlug : null
+  );
+
+  // Independent-pages is ONLY a fallback for genuine independent pages on this
+  // route. It is enabled solely after the micropage query has settled with no
+  // data — so section-dependent subpages resolve from /micropage/ and never
+  // trigger an /independent-pages/ request.
+  const subpageHasNoData =
+    isMicropage &&
+    !subpageQuery?.isLoading &&
+    !(subpageQuery?.data?.sections?.length > 0);
+
+  const micropageQuery = useIndependentPages(
+    subpageHasNoData ? microSlug : null
   );
 
   /* ================= RESOLVE ================= */
   let resolvedPage = null;
 
   if (isMicropage) {
-    if (micropageQuery?.data?.sections?.length > 0) {
-      resolvedPage = micropageQuery.data;
-    } else if (subpageQuery?.data?.sections?.length > 0) {
+    // College-scoped micropage wins; independent-pages is fallback only.
+    if (subpageQuery?.data?.sections?.length > 0) {
       resolvedPage = subpageQuery.data;
+    } else if (micropageQuery?.data?.sections?.length > 0) {
+      resolvedPage = micropageQuery.data;
     }
   } else {
     resolvedPage = pageQuery?.data;

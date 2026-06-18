@@ -15,9 +15,9 @@ const SubPrograms = lazy(() => import("./Programs"));
 const DeansMicropage = lazy(() => import("../Micropages/DeansMicropage"));
 const NaacSSR = lazy(() => import("./UniquePages/NAAC"));
 const DmiherCet = lazy(() => import("./UniquePages/DMIHER-CET"));
-const AboutHospital = lazy(() => import("./UniquePages/AboutHospital"));
 const DALFellowship = lazy(() => import("./UniquePages/DALFellowship"));
 const ClinicalResearch = lazy(() => import("./UniquePages/ClinicalResearch"));
+const AboutHospital = lazy(() => import("./AboutHospital"));
 
 export const SECTION_COMPONENTS = {
 
@@ -33,15 +33,13 @@ export const SECTION_COMPONENTS = {
     post_doc_subpage: PostDoc,
     dal_fellowship_subpage: DALFellowship,
     clinical_research_subpage: ClinicalResearch,
+    about_hospital_subpage: AboutHospital,
 
     // NAAC SSR (section_id from API: "naac_ssr_micropage")
     naac_ssr_micropage: NaacSSR,
 
     // DMIHER CET (section_id from API: "dmiher_cet_subpage")
     dmiher_cet_subpage: DmiherCet,
-
-    // About Hospital — single section, tabs + content inline
-    about_hospital_subpage: AboutHospital,
 
     // Micropages
     micro_page: MainMicropage,

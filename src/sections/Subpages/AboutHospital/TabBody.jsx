@@ -1,8 +1,20 @@
 import React from "react";
-import RichTextRenderer from "../../../../components/RichTextRenderer";
-import { resolveImage } from "../../../../utils/resolveImage";
+import RichTextRenderer from "../../../components/RichTextRenderer";
+import { resolveImage } from "../../../utils/resolveImage";
 import { flattenNumericKeys } from "./utils";
 import MicropageView from "./MicropageView";
+import { FaEye, FaBullseye, FaStar, FaHeart, FaShieldAlt, FaLeaf, FaHandshake, FaGlobe } from "react-icons/fa";
+
+const ICON_MAP = {
+  eye: FaEye,
+  target: FaBullseye,
+  star: FaStar,
+  heart: FaHeart,
+  shield: FaShieldAlt,
+  leaf: FaLeaf,
+  handshake: FaHandshake,
+  globe: FaGlobe,
+};
 
 export default function AboutHospitalTabBody({ tab }) {
   if (!tab) return null;
@@ -44,11 +56,13 @@ function RichView({ tab }) {
 
 function VisionMissionView({ tab }) {
   const legacy = flattenNumericKeys(tab?.vision_mission) || {};
+  // API shape: card[] where card[0]=Vision, card[1]=Mission
+  const cards = Array.isArray(tab?.card) ? tab.card : [];
 
-  const vision = flattenNumericKeys(tab?.vision_card) || {
+  const vision = flattenNumericKeys(tab?.vision_card) || cards[0] || {
     text: legacy.vision,
   };
-  const mission = flattenNumericKeys(tab?.mission_card) || {
+  const mission = flattenNumericKeys(tab?.mission_card) || cards[1] || {
     text: legacy.mission,
   };
   const quality = flattenNumericKeys(tab?.quality_card) || {
@@ -66,15 +80,15 @@ function VisionMissionView({ tab }) {
     <div className="ah-vm-section">
       <div className="ah-vm-grid">
         <Card
-          title="Vision"
+          title={vision.title}
           bgColor={vision.bg_color || "#F7941D"}
-          iconUrl={vision.icon ? resolveImage(vision.icon) : null}
+          icon={vision.icon}
           textHtml={vision.text}
         />
         <Card
-          title="Mission"
+          title={mission.title}
           bgColor={mission.bg_color || "#707070"}
-          iconUrl={mission.icon ? resolveImage(mission.icon) : null}
+          icon={mission.icon}
           textHtml={mission.text}
         />
       </div>
@@ -87,7 +101,7 @@ function VisionMissionView({ tab }) {
           <div className="ah-vm-row">
             <h2 className="ah-vm-title-white">
               <span className="ah-vm-title-line"></span>
-              Quality Value Statement
+              {quality.title}
             </h2>
             {quality.icon && (
               <img
@@ -139,7 +153,8 @@ function VisionMissionView({ tab }) {
   );
 }
 
-function Card({ title, bgColor, iconUrl, textHtml }) {
+function Card({ title, bgColor, icon, textHtml }) {
+  const IconComponent = icon ? ICON_MAP[icon] : null;
   return (
     <div
       className="ah-card"
@@ -152,12 +167,8 @@ function Card({ title, bgColor, iconUrl, textHtml }) {
             {title}
           </h2>
         </div>
-        {iconUrl && (
-          <img
-            src={iconUrl}
-            alt={title}
-            className="ah-card-icon"
-          />
+        {IconComponent && (
+          <IconComponent className="ah-card-icon" />
         )}
       </div>
       {textHtml && (

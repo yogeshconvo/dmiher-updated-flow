@@ -79,6 +79,11 @@ function SafeImage({
       onClick={onClick}
       onLoad={() => setLoaded(true)}
       onError={() => setErrored(true)}
+      // SafeImage is for content images, never hero banners (see doc above), so
+      // deferring offscreen ones is safe and trims the initial load. decoding
+      // keeps image decode off the main thread. Both overridable via ...rest.
+      loading="lazy"
+      decoding="async"
       {...rest}
     />
   );

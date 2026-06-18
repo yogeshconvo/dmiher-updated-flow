@@ -12,8 +12,15 @@ import SafeImage from "../../components/SafeImage";
 // import ViewMoreButton from "../../components/UI/ViewMore";
 // import "../../styles/hospital-highlight.css";
 
-const HospitalHighlight = ({ data }) => {
+const HospitalHighlight = ({
+  data,
+  college,
+  pageSlug,
+  instituteSlug,
+  institute,
+}) => {
   const params = useParams();
+
   if (!data) return null;
 
   const {
@@ -31,10 +38,17 @@ const HospitalHighlight = ({ data }) => {
       ? [cta]
       : [];
 
-  // The institute slug from the route — used to build /<college>/<cta_key>
-  // URLs when a CTA uses the section-dependent micropage pattern instead
-  // of a hard-coded link.
-  const collegeSlug = params.college || params.slug || "";
+  // Base slug for micro-page links — mirrors StudentWelfareCell /
+  // Global-opportunities so the CTA resolves regardless of which page
+  // (PageView vs InstitutePage) rendered this section.
+  const base =
+    college ||
+    pageSlug ||
+    instituteSlug ||
+    institute?.slug ||
+    params.college ||
+    params.slug ||
+    "";
 
   // Dynamic section background from the backend (section_style.bg_color).
   const bgColor = data?.section_style?.bg_color;
@@ -66,24 +80,28 @@ const HospitalHighlight = ({ data }) => {
                 const label = item.label || item.cta_label;
                 if (!label) return null;
 
-                // Section-dependent micropage CTA — admin marked the button
-                // as having a micropage and provided a cta_key. Build the
-                // SPA route off the current institute slug.
-                let to = item.link || item.cta_url || "";
-                if (!to && item.has_micro_page && item.cta_key) {
-                  to = collegeSlug ? `/${collegeSlug}/${item.cta_key}` : `/${item.cta_key}`;
+                // Micro-page CTA: no direct link, navigate to /{base}/{cta_key}
+                const ctaKey = item.cta_key || item.key;
+                if (item.has_micro_page && ctaKey && base) {
+                  return (
+                    <Link key={idx} to={`/${base}/${ctaKey}`}>
+                      {label}
+                    </Link>
+                  );
                 }
-                if (!to) return null;
 
+                // Direct-link CTA (legacy): external URL or internal route
+                const href = item.link || item.cta_url;
+                if (!href) return null;
                 const isExternal =
                   item.tab_type === "url" ||
-                  (typeof to === "string" && /^https?:\/\//i.test(to));
+                  (typeof href === "string" && /^https?:\/\//i.test(href));
 
                 if (isExternal) {
                   return (
                     <a
                       key={idx}
-                      href={to}
+                      href={href}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -92,7 +110,7 @@ const HospitalHighlight = ({ data }) => {
                   );
                 }
                 return (
-                  <Link key={idx} to={to}>
+                  <Link key={idx} to={href}>
                     {label}
                   </Link>
                 );
