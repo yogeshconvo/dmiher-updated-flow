@@ -402,7 +402,7 @@
 }
 
 .courses-grid {
-    @apply grid gap-8;
+    @apply grid grid-cols-1 lg:grid-cols-2 gap-8;
 }
 
 .course-card {
@@ -430,7 +430,7 @@
 }
 
 .course-card-body {
-    @apply p-6;
+    @apply p-6 flex flex-col h-full;
 }
 
 .course-title {
@@ -438,7 +438,19 @@
 }
 
 .course-university {
-    @apply flex items-start gap-3 mb-4;
+    @apply text-sm text-gray-600 mb-3;
+}
+
+.course-badge-text {
+    @apply text-sm text-gray-700 font-medium mb-4;
+}
+
+.course-category-badge {
+    @apply inline-flex items-center gap-2 px-4 py-2 bg-gray-100 rounded-full text-sm font-medium text-gray-700 mt-auto;
+}
+
+.course-category-badge::before {
+    @apply content-['★'] text-[#F04E30];
 }
 
 .university-icon {
@@ -763,4 +775,64 @@
 
 .phd-iframe {
     @apply w-full h-[600px] border border-gray-300 rounded-lg;
+}
+
+/* ================= TRANSCRIPT TITLE BAR ================= */
+
+.transcript-title-bar {
+    @apply bg-[#102B64] text-white py-4 px-6 text-center;
+}
+
+.transcript-title-bar h1 {
+    @apply text-2xl font-bold;
+}
+
+/* ================= TRANSCRIPT CATEGORIES HEADER ================= */
+
+.transcript-categories-header {
+    @apply bg-white py-12 px-4;
+}
+
+.transcript-categories-main-heading {
+    @apply text-4xl font-bold text-center text-[#9B5364] mb-4;
+}
+
+.transcript-categories-subtitle {
+    @apply text-center text-gray-600 text-lg mb-10;
+}
+
+.transcript-categories-pills {
+    @apply flex flex-wrap justify-center gap-3 max-w-6xl mx-auto;
+}
+
+.transcript-category-pill {
+    @apply px-6 py-3 rounded-3xl bg-white border border-gray-300 text-gray-700 font-medium shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer;
+    @apply hover:border-gray-400 hover:bg-gray-50;
+}
+
+.transcript-category-pill:hover {
+    @apply transform scale-105;
+}
+
+/* ================= AVAILABLE COURSES SECTION ================= */
+
+.transcript-available-courses {
+    @apply bg-white py-10 px-4 border-t border-gray-200;
+}
+
+.transcript-courses-heading {
+    @apply flex items-center justify-center gap-4 mb-3;
+}
+
+.transcript-courses-icon {
+    @apply bg-[#9B5364] text-white p-3 rounded-full flex items-center justify-center;
+    @apply w-12 h-12;
+}
+
+.transcript-courses-title {
+    @apply text-4xl font-bold text-[#9B5364];
+}
+
+.transcript-courses-description {
+    @apply text-center text-gray-700 text-lg font-medium;
 }

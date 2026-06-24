@@ -1,5 +1,6 @@
 import Departments from "./Departments";
 import Transcript from "./Transcript-type1";
+import TranscriptSubpage from "./TranscriptSubpage";
 import MandatoryDisclosures from "./MD";
 import DeanKnowMore from "./DeanKnowMore";
 import AccreditationsRecognitions from "./UniquePages/AccreditationsRecognitions";
@@ -22,7 +23,7 @@ export const SECTION_COMPONENTS = {
     // Subpages
     programs_subpage: SubPrograms,
     departments_section: Departments,
-    transcript_subpage: Transcript,
+    transcript_subpage: TranscriptSubpage,
     mandatoryDisclore_subpage: MandatoryDisclosures,
     dean_know_more: DeanKnowMore,
     accreditations_recognitions: AccreditationsRecognitions,
