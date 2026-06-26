@@ -15,6 +15,10 @@
     @apply min-h-screen bg-gradient-to-br from-gray-50 to-gray-100;
 }
 
+.up-page-container {
+    @apply container mx-auto px-4;
+}
+
 .up-header {
     @apply bg-[#122E5E] text-white py-8;
 }
@@ -24,11 +28,11 @@
 }
 
 .up-header-container {
-    @apply container mx-auto px-4;
+    @apply max-w-7xl mx-auto px-4;
 }
 
 .up-header-container-flex {
-    @apply container mx-auto flex justify-between items-center px-4;
+    @apply max-w-7xl mx-auto flex justify-between items-center px-4;
 }
 
 .up-header-row {

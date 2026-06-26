@@ -35,7 +35,9 @@ const TopUI = ({
   if (topUI.type === "category") {
     return (
       <section className="topui-category">
-        <h2 className="topui-category-title">{topUI.title}</h2>
+        {topUI.title && (
+          <h2 className="topui-category-title">{topUI.title}</h2>
+        )}
 
         {topUI.subtitle && (
           <p className="topui-category-subtitle">{topUI.subtitle}</p>

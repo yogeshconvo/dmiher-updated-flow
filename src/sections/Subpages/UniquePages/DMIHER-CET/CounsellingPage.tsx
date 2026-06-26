@@ -1,189 +1,109 @@
-import React, { useState } from "react";
-import { Link } from "react-router";
+import React, { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import {
   ArrowLeft,
   Users,
   Calendar,
   MapPin,
-  FileText,
   CheckCircle,
   AlertCircle,
   Download,
-  Phone,
-  Mail,
-  Globe,
-  CreditCard,
-  BookOpen,
-  Award,
-  GraduationCap,
 } from "lucide-react";
+import { resolveIcon } from "./iconMap";
+import resolveImage from "../../../../utils/resolveImage";
 
-function CounsellingPage() {
-  const [selectedRound, setSelectedRound] = useState("round1");
+/**
+ * DMIHER-CET — Counselling subpage (section_id `dmiher_cet_counselling_subpage`).
+ *
+ * data: { header:{heading,subheading,icon},
+ *   rounds_header:{heading,tab_label_round1,tab_label_round2,tab_label_round3},
+ *   round1_schedule/round2_schedule/round3_schedule:[{date,category,seats,venue}],
+ *   process_header, process_steps:[{icon,step,title,description,duration}],
+ *   documents_header:{heading,checklist_pdf}, required_documents:[{document,mandatory,copies}],
+ *   contact_header, contact_info:[{icon,type,value}],
+ *   instructions_header, instructions:[{text}], alert?:{heading,description} }
+ */
 
-  const counsellingSchedule = {
-    round1: [
-      {
-        date: "August 5-7, 2025",
-        category: "General & OBC",
-        seats: "70% of total seats",
-        venue: "DMIHER Campus, Wardha",
-      },
-      {
-        date: "August 8-9, 2025",
-        category: "SC/ST",
-        seats: "Reserved seats",
-        venue: "DMIHER Campus, Wardha",
-      },
-      {
-        date: "August 10, 2025",
-        category: "PWD",
-        seats: "Reserved seats",
-        venue: "DMIHER Campus, Wardha",
-      },
-    ],
-    round2: [
-      {
-        date: "August 15-16, 2025",
-        category: "All Categories",
-        seats: "Remaining seats",
-        venue: "DMIHER Campus, Wardha",
-      },
-      {
-        date: "August 17, 2025",
-        category: "Spot Round",
-        seats: "Vacant seats",
-        venue: "DMIHER Campus, Wardha",
-      },
-    ],
-    round3: [
-      {
-        date: "August 22-23, 2025",
-        category: "Final Round",
-        seats: "All vacant seats",
-        venue: "DMIHER Campus, Wardha",
-      },
-      {
-        date: "August 24, 2025",
-        category: "Mop-up Round",
-        seats: "Last chance",
-        venue: "DMIHER Campus, Wardha",
-      },
-    ],
-  };
+const arr = (v) => (Array.isArray(v) ? v : []);
+const isTrue = (v) => v === true || v === 1 || v === "1" || v === "true";
 
-  const requiredDocuments = [
-    { document: "Merit List Rank Card", mandatory: true, copies: 2 },
-    { document: "10th Mark Sheet & Certificate", mandatory: true, copies: 2 },
-    { document: "12th Mark Sheet & Certificate", mandatory: true, copies: 2 },
-    { document: "Transfer Certificate", mandatory: true, copies: 1 },
-    { document: "Migration Certificate", mandatory: true, copies: 1 },
-    {
-      document: "Category Certificate (if applicable)",
-      mandatory: false,
-      copies: 2,
-    },
-    {
-      document: "PWD Certificate (if applicable)",
-      mandatory: false,
-      copies: 2,
-    },
-    { document: "Domicile Certificate", mandatory: true, copies: 2 },
-    { document: "Passport Size Photographs", mandatory: true, copies: 6 },
-    { document: "Aadhar Card", mandatory: true, copies: 2 },
-    { document: "Income Certificate", mandatory: false, copies: 2 },
-  ];
+function CounsellingPage({ data = {}, college }) {
+  const {
+    header = {},
+    rounds_header = {},
+    round1_schedule,
+    round2_schedule,
+    round3_schedule,
+    process_header = {},
+    process_steps,
+    documents_header = {},
+    required_documents,
+    contact_header = {},
+    contact_info,
+    instructions_header = {},
+    instructions,
+    alert = {},
+  } = data || {};
 
-  const counsellingProcess = [
-    {
-      step: 1,
-      title: "Document Verification",
-      description: "Submit all required documents for verification",
-      duration: "30-45 minutes",
-      icon: <FileText className="w-8 h-8" />,
-    },
-    {
-      step: 2,
-      title: "Choice Filling",
-      description: "Select your preferred programs and colleges",
-      duration: "15-20 minutes",
-      icon: <BookOpen className="w-8 h-8" />,
-    },
-    {
-      step: 3,
-      title: "Seat Allotment",
-      description: "Seats allocated based on merit and preferences",
-      duration: "Real-time",
-      icon: <Award className="w-8 h-8" />,
-    },
-    {
-      step: 4,
-      title: "Fee Payment",
-      description: "Pay admission fees to confirm your seat",
-      duration: "10-15 minutes",
-      icon: <CreditCard className="w-8 h-8" />,
-    },
-    {
-      step: 5,
-      title: "Admission Confirmation",
-      description: "Receive admission confirmation and college details",
-      duration: "5 minutes",
-      icon: <GraduationCap className="w-8 h-8" />,
-    },
-  ];
+  const backTo = college ? `/${college}/dmiher-cet` : "/";
+  const HeaderIcon = resolveIcon(header.icon, Users);
 
-  const contactInfo = [
-    {
-      type: "Phone",
-      value: "+91-7152-287701",
-      icon: <Phone className="w-5 h-5" />,
-    },
-    {
-      type: "Email",
-      value: "admissions@dmiher.edu.in",
-      icon: <Mail className="w-5 h-5" />,
-    },
-    {
-      type: "Website",
-      value: "www.dmiher.edu.in",
-      icon: <Globe className="w-5 h-5" />,
-    },
-    {
-      type: "Address",
-      value: "DMIHER, Sawangi (Meghe), Wardha - 442001",
-      icon: <MapPin className="w-5 h-5" />,
-    },
-  ];
+  // Build the round tabs from whichever rounds actually have schedule data.
+  const rounds = useMemo(
+    () =>
+      [
+        {
+          key: "round1",
+          label: rounds_header.tab_label_round1 || "Round 1",
+          schedule: arr(round1_schedule),
+          activeClass: "up-round-btn-active-orange",
+        },
+        {
+          key: "round2",
+          label: rounds_header.tab_label_round2 || "Round 2",
+          schedule: arr(round2_schedule),
+          activeClass: "up-round-btn-active-blue",
+        },
+        {
+          key: "round3",
+          label: rounds_header.tab_label_round3 || "Round 3 (Final)",
+          schedule: arr(round3_schedule),
+          activeClass: "up-round-btn-active-grad",
+        },
+      ].filter((r) => r.schedule.length > 0),
+    [rounds_header, round1_schedule, round2_schedule, round3_schedule]
+  );
 
-  const importantInstructions = [
-    "Candidates must report at the counselling venue 30 minutes before their scheduled time",
-    "Original documents along with photocopies are mandatory for verification",
-    "Seat allotment is final and no changes will be entertained after confirmation",
-    "Fee payment must be completed on the same day to secure the allotted seat",
-    "Candidates who fail to report for counselling will forfeit their eligibility",
-    "Mobile phones are not allowed inside the counselling hall",
-  ];
+  const [selectedRound, setSelectedRound] = useState(null);
+  const activeKey = selectedRound || rounds[0]?.key || null;
+  const activeRound = rounds.find((r) => r.key === activeKey) || null;
+
+  const steps = arr(process_steps);
+  const documents = arr(required_documents);
+  const contacts = arr(contact_info);
+  const instructionList = arr(instructions);
+  const checklistUrl = documents_header.checklist_pdf
+    ? resolveImage(documents_header.checklist_pdf)
+    : null;
 
   return (
     <div className="up-page-gray">
       {/* Header */}
       <div className="up-header-px">
         <div className="up-header-container">
-          <Link to="/" className="up-back-link">
+          <Link to={backTo} className="up-back-link">
             <ArrowLeft className="up-back-icon" />
-            Back to Home
+            Back to DMIHER-CET
           </Link>
           <div className="up-header-icon-large">
             <div className="up-header-icon-wrap">
-              <Users className="up-header-icon" />
+              <HeaderIcon className="up-header-icon" />
             </div>
             <div>
-              <h1 className="up-header-title-large">
-                Counselling Process
-              </h1>
-              <p className="up-header-subtitle-opacity">
-                August 2025 • Seat Allotment & Admission
-              </p>
+              <h1 className="up-header-title-large">{header.heading}</h1>
+              {header.subheading && (
+                <p className="up-header-subtitle-opacity">{header.subheading}</p>
+              )}
             </div>
           </div>
         </div>
@@ -191,209 +111,225 @@ function CounsellingPage() {
 
       <div className="py-12 px-4">
         <div className="up-header-container">
-          {/* Round Selection */}
-          <div className="up-section-card-light-pad">
-            <h2 className="up-section-title">
-              Counselling Rounds
-            </h2>
-            <div className="up-round-btns">
-              <button
-                onClick={() => setSelectedRound("round1")}
-                className={`up-round-btn ${
-                  selectedRound === "round1"
-                    ? "up-round-btn-active-orange"
-                    : "up-round-btn-inactive"
-                }`}
-              >
-                Round 1
-              </button>
-              <button
-                onClick={() => setSelectedRound("round2")}
-                className={`up-round-btn ${
-                  selectedRound === "round2"
-                    ? "up-round-btn-active-blue"
-                    : "up-round-btn-inactive"
-                }`}
-              >
-                Round 2
-              </button>
-              <button
-                onClick={() => setSelectedRound("round3")}
-                className={`up-round-btn ${
-                  selectedRound === "round3"
-                    ? "up-round-btn-active-grad"
-                    : "up-round-btn-inactive"
-                }`}
-              >
-                Round 3 (Final)
-              </button>
-            </div>
-          </div>
+          {/* Round Selection (tabs) */}
+          {rounds.length > 0 && (
+            <>
+              <div className="up-section-card-light-pad">
+                {rounds_header.heading && (
+                  <h2 className="up-section-title">{rounds_header.heading}</h2>
+                )}
+                <div className="up-round-btns">
+                  {rounds.map((r) => (
+                    <button
+                      key={r.key}
+                      onClick={() => setSelectedRound(r.key)}
+                      className={`up-round-btn ${
+                        activeKey === r.key ? r.activeClass : "up-round-btn-inactive"
+                      }`}
+                    >
+                      {r.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-          {/* Counselling Schedule */}
-          <div className="up-section-card-mb">
-            <h2 className="up-section-title">
-              {selectedRound === "round1"
-                ? "Round 1"
-                : selectedRound === "round2"
-                ? "Round 2"
-                : "Round 3"}{" "}
-              Schedule
-            </h2>
-            <div className="up-step-list">
-              {counsellingSchedule[selectedRound].map((schedule, index) => (
-                <div key={index} className="up-sched-row-bordered">
-                  <div className="up-sched-left">
-                    <Calendar className="up-sched-icon" />
-                    <div>
-                      <h3 className="up-sched-time">
-                        {schedule.date}
-                      </h3>
-                      <p className="up-sched-prog">{schedule.category}</p>
-                    </div>
-                  </div>
-                  <div className="up-sched-right-col">
-                    <div className="up-sched-seats">
-                      {schedule.seats}
-                    </div>
-                    <div className="up-sched-venue">
-                      <MapPin className="up-sched-venue-icon" />
-                      <span>Wardha Campus</span>
-                    </div>
+              {/* Active round schedule */}
+              {activeRound && (
+                <div className="up-section-card-mb">
+                  <h2 className="up-section-title">{activeRound.label} Schedule</h2>
+                  <div className="up-step-list">
+                    {activeRound.schedule.map((schedule, index) => (
+                      <div key={index} className="up-sched-row-bordered">
+                        <div className="up-sched-left">
+                          <Calendar className="up-sched-icon" />
+                          <div>
+                            <h3 className="up-sched-time">{schedule.date}</h3>
+                            <p className="up-sched-prog">{schedule.category}</p>
+                          </div>
+                        </div>
+                        <div className="up-sched-right-col">
+                          {schedule.seats && (
+                            <div className="up-sched-seats">{schedule.seats}</div>
+                          )}
+                          {schedule.venue && (
+                            <div className="up-sched-venue">
+                              <MapPin className="up-sched-venue-icon" />
+                              <span>{schedule.venue}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
+              )}
+            </>
+          )}
 
           {/* Counselling Process */}
-          <div className="up-section-card-mb">
-            <h2 className="up-section-title">
-              Counselling Process
-            </h2>
-            <div className="up-process-grid">
-              {counsellingProcess.map((process, index) => (
-                <div key={index} className="up-process-card">
-                  <div className="up-process-icon-wrap">
-                    {process.icon}
-                  </div>
-                  <div className="up-process-body">
-                    <div className="up-process-step">
-                      Step {process.step}
+          {steps.length > 0 && (
+            <div className="up-section-card-mb">
+              {process_header.heading && (
+                <h2 className="up-section-title">{process_header.heading}</h2>
+              )}
+              <div className="up-process-grid">
+                {steps.map((process, index) => {
+                  const Icon = resolveIcon(process.icon);
+                  return (
+                    <div key={index} className="up-process-card">
+                      <div className="up-process-icon-wrap">
+                        <Icon className="w-8 h-8" />
+                      </div>
+                      <div className="up-process-body">
+                        {process.step && (
+                          <div className="up-process-step">Step {process.step}</div>
+                        )}
+                        <h3 className="up-process-title">{process.title}</h3>
+                        {process.description && (
+                          <div
+                            className="up-process-desc"
+                            dangerouslySetInnerHTML={{ __html: process.description }}
+                          />
+                        )}
+                        {process.duration && (
+                          <div className="up-process-duration">
+                            {process.duration}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <h3 className="up-process-title">
-                      {process.title}
-                    </h3>
-                    <p className="up-process-desc">
-                      {process.description}
-                    </p>
-                    <div className="up-process-duration">
-                      {process.duration}
-                    </div>
-                  </div>
-                </div>
-              ))}
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Required Documents */}
-          <div className="up-section-card-mb">
-            <div className="up-doc-row-header">
-              <h2 className="up-section-title-h2">
-                Required Documents
-              </h2>
-              <button className="up-doc-download-btn">
-                <Download className="w-5 h-5" />
-                Download Checklist
-              </button>
-            </div>
-            <div className="up-doc-grid-2">
-              {requiredDocuments.map((doc, index) => (
-                <div key={index} className="up-doc-row">
-                  <div className="up-doc-left">
-                    <CheckCircle
-                      className={
-                        doc.mandatory ? "up-doc-check-mandatory" : "up-doc-check-optional"
-                      }
-                    />
-                    <div>
-                      <h3 className="up-doc-name">
-                        {doc.document}
-                      </h3>
-                      <p className="up-doc-status">
-                        {doc.mandatory ? "Mandatory" : "If Applicable"}
-                      </p>
+          {documents.length > 0 && (
+            <div className="up-section-card-mb">
+              <div className="up-doc-row-header">
+                <h2 className="up-section-title-h2">
+                  {documents_header.heading || "Required Documents"}
+                </h2>
+                {checklistUrl && (
+                  <a
+                    href={checklistUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="up-doc-download-btn"
+                  >
+                    <Download className="w-5 h-5" />
+                    Download Checklist
+                  </a>
+                )}
+              </div>
+              <div className="up-doc-grid-2">
+                {documents.map((doc, index) => {
+                  const mandatory = isTrue(doc.mandatory);
+                  const copies = Number(doc.copies) || 0;
+                  return (
+                    <div key={index} className="up-doc-row">
+                      <div className="up-doc-left">
+                        <CheckCircle
+                          className={
+                            mandatory
+                              ? "up-doc-check-mandatory"
+                              : "up-doc-check-optional"
+                          }
+                        />
+                        <div>
+                          <h3 className="up-doc-name">{doc.document}</h3>
+                          <p className="up-doc-status">
+                            {mandatory ? "Mandatory" : "If Applicable"}
+                          </p>
+                        </div>
+                      </div>
+                      {copies > 0 && (
+                        <div className="up-sched-right-col">
+                          <span className="up-doc-copies">
+                            {copies} {copies === 1 ? "copy" : "copies"}
+                          </span>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                  <div className="up-sched-right-col">
-                    <span className="up-doc-copies">
-                      {doc.copies} {doc.copies === 1 ? "copy" : "copies"}
-                    </span>
-                  </div>
-                </div>
-              ))}
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Contact Information */}
-          <div className="up-section-card-mb">
-            <h2 className="up-section-title">
-              Contact Information
-            </h2>
-            <div className="up-grid-2">
-              {contactInfo.map((contact, index) => (
-                <div key={index} className="up-contact-card">
-                  <div className="up-contact-icon-color">{contact.icon}</div>
-                  <div>
-                    <h3 className="up-contact-type">
-                      {contact.type}
-                    </h3>
-                    <p className="up-contact-value">{contact.value}</p>
-                  </div>
-                </div>
-              ))}
+          {contacts.length > 0 && (
+            <div className="up-section-card-mb">
+              {contact_header.heading && (
+                <h2 className="up-section-title">{contact_header.heading}</h2>
+              )}
+              <div className="up-grid-2">
+                {contacts.map((contact, index) => {
+                  const Icon = resolveIcon(contact.icon, MapPin);
+                  return (
+                    <div key={index} className="up-contact-card">
+                      <div className="up-contact-icon-color">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <h3 className="up-contact-type">{contact.type}</h3>
+                        <p className="up-contact-value">{contact.value}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Important Instructions */}
-          <div className="up-section-card">
-            <h2 className="up-section-title">
-              Important Instructions
-            </h2>
-            <div className="up-instr-list">
-              {importantInstructions.map((instruction, index) => (
-                <div key={index} className="up-instr-item">
-                  <div className="up-instr-num">
-                    {index + 1}
+          {instructionList.length > 0 && (
+            <div className="up-section-card">
+              {instructions_header.heading && (
+                <h2 className="up-section-title">{instructions_header.heading}</h2>
+              )}
+              <div className="up-instr-list">
+                {instructionList.map((instruction, index) => (
+                  <div key={index} className="up-instr-item">
+                    <div className="up-instr-num">{index + 1}</div>
+                    <div
+                      className="up-instr-text"
+                      dangerouslySetInnerHTML={{
+                        __html: instruction?.text || instruction || "",
+                      }}
+                    />
                   </div>
-                  <p className="up-instr-text">{instruction}</p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
-      {/* Alert Section */}
-      <div className="up-alert-strip">
-        <div className="up-header-container">
-          <div className="up-alert-card">
-            <div className="up-alert-row">
-              <AlertCircle className="up-alert-icon" />
-              <div>
-                <h3 className="up-alert-title">
-                  Counselling Notice
-                </h3>
-                <p className="up-alert-text">
-                  Candidates are advised to stay updated with the official
-                  website for any changes in counselling schedule. Ensure all
-                  documents are ready before attending counselling.
-                </p>
+      {/* Alert */}
+      {(alert.heading || alert.description) && (
+        <div className="up-alert-strip">
+          <div className="up-header-container">
+            <div className="up-alert-card">
+              <div className="up-alert-row">
+                <AlertCircle className="up-alert-icon" />
+                <div>
+                  {alert.heading && (
+                    <h3 className="up-alert-title">{alert.heading}</h3>
+                  )}
+                  {alert.description && (
+                    <div
+                      className="up-alert-text"
+                      dangerouslySetInnerHTML={{ __html: alert.description }}
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

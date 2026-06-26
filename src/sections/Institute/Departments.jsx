@@ -58,17 +58,27 @@ const DepartmentCard = ({ title, url, image, external = false }) => {
 };
 
 /* ================= ABOUT-VARIANT HELPERS ================= */
-/* Read first cta entry — supports both array form [{...}]
-   and keyed-object form { "1": {...} } */
+/* Read first cta entry — supports three shapes the CMS emits:
+   - array form          [{...}]
+   - flat single object  { cta_key, label, has_micro_page }
+   - keyed-object form    { "1": {...} }
+   The flat object must be returned as-is; treating it as a keyed collection
+   would return the cta_key STRING (not the cta), so cta_key/has_micro_page
+   would read as undefined and the card link would never build. */
 const firstCta = (cta) => {
   if (!cta) return null;
   if (Array.isArray(cta)) return cta[0] || null;
   if (typeof cta === "object") {
+    if ("cta_key" in cta || "label" in cta || "has_micro_page" in cta) return cta;
     const keys = Object.keys(cta);
     return keys.length ? cta[keys[0]] : null;
   }
   return null;
 };
+
+/* CMS-entered keys sometimes carry stray leading/trailing spaces (e.g.
+   " dmiher-cet") which break the route/URL — trim before building a path. */
+const cleanKey = (v) => (typeof v === "string" ? v.trim() : "");
 
 /* Resolve href for an item or button based on action_type.
    Accepts both shapes the CMS emits:
@@ -78,12 +88,10 @@ const firstCta = (cta) => {
    route via react-router or open in a new tab. */
 const resolveHref = (item, parent) => {
   if (item?.action_type === "link" && item?.page_slug) {
-    return { href: `/${parent}/${item.page_slug}`, external: false };
+    return { href: `/${parent}/${cleanKey(item.page_slug)}`, external: false };
   }
   if (item?.action_type === "dependent") {
-    const nestedKey = firstCta(item.cta)?.cta_key;
-    const flatKey = item?.cta_key;
-    const key = nestedKey || flatKey;
+    const key = cleanKey(firstCta(item.cta)?.cta_key || item?.cta_key);
     if (key) return { href: `/${parent}/${key}`, external: false };
   }
   // External URL — either explicit action_type "url" or any item carrying
@@ -270,7 +278,7 @@ const Departments = ({ data, college, pageSlug }) => {
       // Micropage CTA — page_slug is empty; the real key lives in cta[0].cta_key
       // (e.g. national-admissions DMIHER-CET card). Falls back to page_slug if present.
       if (action === "page") {
-        const ctaKey = firstCta(item.cta)?.cta_key || item.page_slug || "";
+        const ctaKey = cleanKey(firstCta(item.cta)?.cta_key || item.page_slug);
         return {
           title: item.title,
           image: item.image,
@@ -281,10 +289,11 @@ const Departments = ({ data, college, pageSlug }) => {
 
       // Default ("link" or unspecified) — page_slug is treated as a top-level
       // route, so navigate directly to /{page_slug} without the parent prefix.
+      const linkSlug = cleanKey(item.page_slug);
       return {
         title: item.title,
         image: item.image,
-        url: item.page_slug ? `/${item.page_slug}` : null,
+        url: linkSlug ? `/${linkSlug}` : null,
         external: false,
       };
     });

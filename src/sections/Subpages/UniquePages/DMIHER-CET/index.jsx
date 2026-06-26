@@ -6,6 +6,7 @@ import TimelineSection from "./components/TimelineSection";
 import PatternStatsSection from "./components/PatternStatsSection";
 import ProgramSectionsList from "./components/ProgramSectionsList";
 import SyllabusSection from "./components/SyllabusSection";
+import FeaturesSection from "./components/FeaturesSection";
 import { mapDmiherCetSectionData } from "./mappers/dmiherCetMapper";
 import { useSubpage } from "../../../../hooks/useSubpages";
 
@@ -67,7 +68,7 @@ const DmiherCet = ({ data: rawData, college: collegeProp, pageSlug: pageProp }) 
     );
   }
 
-  const { hero, timeline, pattern, programs, syllabus } = mapped;
+  const { hero, timeline, pattern, programs, syllabus, features } = mapped;
 
   const isEmpty =
     !hero.heading &&
@@ -76,7 +77,8 @@ const DmiherCet = ({ data: rawData, college: collegeProp, pageSlug: pageProp }) 
     !timeline.phases.length &&
     !pattern.stats.length &&
     !programs.sections.length &&
-    !syllabus.topics.length;
+    !syllabus.topics.length &&
+    !features.items.length;
 
   if (!sourceData || isEmpty) {
     return (
@@ -102,6 +104,8 @@ const DmiherCet = ({ data: rawData, college: collegeProp, pageSlug: pageProp }) 
         />
 
         <PatternStatsSection header={pattern.header} stats={pattern.stats} />
+
+        <FeaturesSection header={features.header} items={features.items} />
 
         <ProgramSectionsList
           header={programs.header}

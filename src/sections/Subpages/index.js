@@ -15,9 +15,13 @@ const SubPrograms = lazy(() => import("./Programs"));
 const DeansMicropage = lazy(() => import("../Micropages/DeansMicropage"));
 const NaacSSR = lazy(() => import("./UniquePages/NAAC"));
 const DmiherCet = lazy(() => import("./UniquePages/DMIHER-CET"));
+const DmiherCetPhase1 = lazy(() => import("./UniquePages/DMIHER-CET/Phase1Page"));
+const DmiherCetPhase2 = lazy(() => import("./UniquePages/DMIHER-CET/Phase2Page"));
+const DmiherCetCounselling = lazy(() => import("./UniquePages/DMIHER-CET/CounsellingPage"));
 const DALFellowship = lazy(() => import("./UniquePages/DALFellowship"));
 const ClinicalResearch = lazy(() => import("./UniquePages/ClinicalResearch"));
 const AboutHospital = lazy(() => import("./AboutHospital"));
+const HigherEducationPlacement = lazy(() => import("./HigherEducationPlacement"));
 
 export const SECTION_COMPONENTS = {
 
@@ -34,12 +38,16 @@ export const SECTION_COMPONENTS = {
     dal_fellowship_subpage: DALFellowship,
     clinical_research_subpage: ClinicalResearch,
     about_hospital_subpage: AboutHospital,
+    higher_education_placement_subpage: HigherEducationPlacement,
 
     // NAAC SSR (section_id from API: "naac_ssr_micropage")
     naac_ssr_micropage: NaacSSR,
 
     // DMIHER CET (section_id from API: "dmiher_cet_subpage")
     dmiher_cet_subpage: DmiherCet,
+    dmiher_cet_phase1_subpage: DmiherCetPhase1,
+    dmiher_cet_phase2_subpage: DmiherCetPhase2,
+    dmiher_cet_counselling_subpage: DmiherCetCounselling,
 
     // Micropages
     micro_page: MainMicropage,

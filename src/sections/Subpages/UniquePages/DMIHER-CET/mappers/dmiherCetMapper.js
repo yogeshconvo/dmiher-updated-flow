@@ -10,12 +10,22 @@ const safeString = (value) => (typeof value === "string" ? value : "");
 const safeArray = (value) => (Array.isArray(value) ? value : []);
 
 /**
- * The API ships `cta` as either an array OR an object keyed by index strings
- * (e.g. {"1": {...}}). Normalize both shapes into a flat array.
+ * The API ships `cta` as one of:
+ *   • a single flat CTA object  → { label, cta_key, has_micro_page }
+ *   • an array of CTA objects    → [ {...}, {...} ]
+ *   • an object keyed by indices → { "0": {...}, "1": {...} }
+ * Normalize all three into a flat array of CTA objects. The flat-object case
+ * must NOT go through Object.values (that returns the field values, not a CTA),
+ * which would drop cta_key/has_micro_page and break the "Learn More" link.
  */
 const normalizeCtaList = (cta) => {
   if (Array.isArray(cta)) return cta;
-  if (cta && typeof cta === "object") return Object.values(cta);
+  if (cta && typeof cta === "object") {
+    if ("cta_key" in cta || "label" in cta || "has_micro_page" in cta) {
+      return [cta];
+    }
+    return Object.values(cta);
+  }
   return [];
 };
 
@@ -93,6 +103,13 @@ const mapHero = (hero = {}) => ({
   bannerText: safeString(hero.banner_text),
 });
 
+const mapFeature = (feature = {}) => ({
+  icon: safeString(feature.icon),
+  title: safeString(feature.title),
+  // Rich-text (editor) field — kept as raw HTML for the view to render.
+  description: safeString(feature.description),
+});
+
 export const mapDmiherCetSectionData = (data = {}) => ({
   hero: mapHero(data.hero),
   timeline: {
@@ -110,5 +127,9 @@ export const mapDmiherCetSectionData = (data = {}) => ({
   syllabus: {
     header: mapHeader(data.syllabus_header),
     topics: mapSyllabusTopics(data.syllabus_topics),
+  },
+  features: {
+    header: mapHeader(data.features_header),
+    items: safeArray(data.key_features).map(mapFeature),
   },
 });

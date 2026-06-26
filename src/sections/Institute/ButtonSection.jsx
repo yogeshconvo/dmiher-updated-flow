@@ -24,9 +24,12 @@ const COL_MAP = {
   4: "md:grid-cols-4",
 };
 
-export default function CTAButtons({ data }) {
+export default function CTAButtons({ data, pageSlug, college }) {
   const buttons = data?.buttons || [];
   const layout = data?.layout || {};
+
+  // Institute main pages reach micro-page CTAs at `/{slug}/{cta_key}`.
+  const baseSlug = pageSlug || college || "";
 
   const alignment = layout.alignment || "center";
   const columns = Number(layout.columns) || 2;
@@ -56,6 +59,16 @@ export default function CTAButtons({ data }) {
     : `flex flex-col md:flex-row flex-wrap ${FLEX_ALIGN_MAP[alignment] || "justify-center"} gap-10`;
 
   const renderButton = (btn, index, fullWidth = false) => {
+    // Micro-page CTA shape: the target lives in btn.cta[0] = { cta_key,
+    // has_micro_page }. When it's a micro page, link to `/{slug}/{cta_key}`.
+    const cta = Array.isArray(btn.cta) ? btn.cta[0] : btn.cta || null;
+    const microPath =
+      cta?.has_micro_page && cta?.cta_key
+        ? baseSlug
+          ? `/${baseSlug}/${cta.cta_key}`
+          : `/${cta.cta_key}`
+        : null;
+
     // Link can arrive as `link` or `url` (CMS uses both depending on schema).
     const rawLink = btn.link || btn.url || "";
 
@@ -63,12 +76,15 @@ export default function CTAButtons({ data }) {
       btn.tab_type === "url" ||
       (typeof rawLink === "string" && rawLink.startsWith("http"));
 
+    // Existing link/url/page_slug behavior is preserved exactly; the micro-page
+    // cta is only a FALLBACK for buttons that carry no explicit link (e.g. the
+    // SRMMCON "Higher Education and Placement" button) — never an override.
     const path =
       rawLink && rawLink !== "#"
         ? rawLink
         : btn.page_slug
           ? `/${btn.page_slug}`
-          : "#";
+          : microPath || "#";
 
     // Show a download icon for PDF / download / brochure buttons.
     const isDownload =

@@ -59,8 +59,13 @@ function PageView() {
     !subpageQuery?.isLoading &&
     !(subpageQuery?.data?.sections?.length > 0);
 
+  // Independent-page slugs preserve their original case (e.g.
+  // "Chancellor-message", "Autonomous-Cells") and the API lookup is
+  // case-sensitive — so fall back with the un-lowercased param, otherwise the
+  // lowercased form 404s and the page shows "Page not found". Regular pages /
+  // micropages stay lowercase (handled by their own queries above).
   const micropageQuery = useIndependentPages(
-    subpageHasNoData ? microSlug : null
+    subpageHasNoData ? params.page : null
   );
 
   /* ================= RESOLVE ================= */

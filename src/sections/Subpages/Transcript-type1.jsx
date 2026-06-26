@@ -1,18 +1,375 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { BookOpen, Building2, Star, GraduationCap, Award } from "lucide-react";
+import React, { useState, useMemo } from "react";
+import {
+  BookOpen,
+  Building2,
+  Star,
+  GraduationCap,
+  Award,
+  Globe,
+  Heart,
+  Brain,
+  Stethoscope,
+  Trophy,
+  FileText,
+  Target,
+  CheckCircle,
+  Users,
+  Calendar,
+} from "lucide-react";
 import TopUI from "../../components/TranscriptTopUI";
 import { useParams, useLocation } from "react-router-dom";
 import { useMicropageData } from "../../hooks/useMicropageData";
 
+/**
+ * Transcript subpage — backend-driven renderer for every institute transcript
+ * pattern found on the live site:
+ *
+ *   • JNMC / DMMC — a "Course Categories" overview + a flat card grid.
+ *   • SPDC / RNPC — multiple titled sections (e.g. UG + PG), each a card grid.
+ *   • FEAT        — a department dropdown that swaps the visible grid.
+ *   •  …          — an interactive "Category Filter" variant.
+ *
+ * Which pattern shows is decided entirely by the data the backend sends
+ * (the `transcript_subpage` schema: an optional `header` with category pills
+ * plus a repeatable `section[]`, each `normal` or `categories`). The API may
+ * return that section as a single object OR — when there is more than one —
+ * a plain array, which is why multi-section is handled explicitly here.
+ */
+
 const ICON_MAP = {
   "graduation-cap": GraduationCap,
   "book-open": BookOpen,
-  "book": BookOpen,
-  "award": Award,
-  "star": Star,
+  book: BookOpen,
+  award: Award,
+  star: Star,
+  globe: Globe,
+  heart: Heart,
+  brain: Brain,
+  stethoscope: Stethoscope,
+  trophy: Trophy,
+  "file-text": FileText,
+  file: FileText,
+  target: Target,
+  "check-circle": CheckCircle,
+  users: Users,
+  calendar: Calendar,
+  building: Building2,
 };
 
 const resolveIcon = (name) => ICON_MAP[name] || BookOpen;
+
+/* ------------------------------------------------------------------ *
+ *  Data normalisation
+ * ------------------------------------------------------------------ */
+
+// Course shape used by the card. Real data carries `badge` (the category /
+// level pill); `star` is the schema's alias, so fall back to it.
+const mapCourse = (c, i, sec = {}) => ({
+  srNo: i + 1,
+  name: c.title,
+  semester: c.semester ?? c.roman_number,
+  course_number: c.course_number,
+  roman_number: c.roman_number,
+  university: c.university,
+  // Per-section provider label ("Powered by" default; SPDC PG uses
+  // "Certified by"). Course-level overrides the section-level default.
+  university_label: c.university_label || sec.university_label,
+  badge: c.badge ?? c.star,
+  icon: c.icon,
+});
+
+const pick = (obj, ...keys) => {
+  for (const k of keys) {
+    if (obj && obj[k] != null && obj[k] !== "") return obj[k];
+  }
+  return undefined;
+};
+
+// One section → one renderable block: { title, subtitle, top_ui, departments }.
+function normalizeSection(sec) {
+  if (!sec || typeof sec !== "object") return null;
+
+  const title = sec.title || sec.main_heading || sec.heading || "";
+  const subtitle = sec.subtitle || sec.description || "";
+
+  // --- FEAT: department dropdown ---------------------------------
+  if (Array.isArray(sec.departments)) {
+    return {
+      title,
+      subtitle,
+      top_ui: sec.top_ui?.type ? sec.top_ui : { type: "dropdown" },
+      departments: sec.departments.map((dept, di) => ({
+        id: dept.id ?? dept.name ?? di,
+        name: dept.name,
+        category: dept.name,
+        // FEAT ships raw department courses with only a roman_number; surface
+        // a sequential "Course #N" and render the roman figure as a
+        // "Semester :" line (live-site layout), scoped via headerShowsSemester.
+        electives: (dept.electives || dept.courses || []).map((c, i) => ({
+          ...mapCourse(c, i, sec),
+          course_number: c.course_number ?? i + 1,
+          semester: c.semester ?? c.roman_number,
+          headerShowsSemester: true,
+        })),
+      })),
+    };
+  }
+
+  // --- Interactive category filter ------------------------------
+  if (sec.tab_type === "categories") {
+    const categories = Array.isArray(sec.categories) ? sec.categories : [];
+    const coursesCategory = Array.isArray(sec.courses_category)
+      ? sec.courses_category
+      : [];
+
+    return {
+      title,
+      subtitle,
+      top_ui: {
+        type: "category",
+        categories: categories.map((c) => c.name || c.title || c.id),
+      },
+      departments: categories.map((cat) => ({
+        id: cat.id,
+        name: cat.name || cat.title,
+        category: cat.name || cat.title,
+        electives: coursesCategory
+          .filter((c) => c.category_id === cat.id)
+          .map((c, i) => mapCourse(c, i, sec)),
+      })),
+    };
+  }
+
+  // --- Normal flat grid -----------------------------------------
+  const normal = Array.isArray(sec.courses_normal)
+    ? sec.courses_normal.flat()
+    : [];
+
+  return {
+    title,
+    subtitle,
+    top_ui: { type: "none" },
+    departments: [
+      {
+        id: "general",
+        name: "General",
+        category: "All",
+        electives: normal.map((c, i) => mapCourse(c, i, sec)),
+      },
+    ],
+  };
+}
+
+// Header → the "Course Categories" overview (display-only pills).
+function buildOverview(header) {
+  const h = Array.isArray(header) ? header[0] : header;
+  if (!h || typeof h !== "object") return null;
+
+  const categories = (h.categories || [])
+    .map((c) => c.title || c.name || c.id)
+    .filter(Boolean);
+
+  if (!categories.length) return null;
+
+  return {
+    // Fixed label like the live JNMC/DMMC pages; a dedicated field can
+    // override it but it must not reuse the hero title (main_heading).
+    heading: pick(h, "categories_heading", "categories_title") || "Course Categories",
+    subtitle: pick(h, "categories_subtitle", "subtitle", "description") || "",
+    categories,
+  };
+}
+
+// Top-level data (single object | array | { header, section[] }) → model.
+function buildModel(data) {
+  const empty = { pageTitle: "Transcript", overview: null, blocks: [] };
+  if (!data || typeof data !== "object") return empty;
+
+  let rawSections;
+  let header = null;
+  let bareSingle = false;
+
+  if (Array.isArray(data)) {
+    rawSections = data;
+  } else if (Array.isArray(data.section)) {
+    rawSections = data.section;
+    header = data.header ?? null;
+  } else {
+    rawSections = [data];
+    header = data.header ?? null;
+    bareSingle = !header; // a lone section object with no header wrapper
+  }
+
+  const blocks = rawSections.map(normalizeSection).filter(Boolean);
+  const overview = buildOverview(header);
+
+  const headerObj = Array.isArray(header) ? header[0] : header;
+  let pageTitle =
+    pick(headerObj || {}, "main_heading", "heading") ||
+    pick(bareSingle ? data : {}, "page_title", "main_heading");
+
+  // A bare single section carries its own title as the page title; promote it
+  // to the hero and suppress the otherwise-duplicate section heading.
+  if (!pageTitle && bareSingle && blocks[0]?.title) {
+    pageTitle = blocks[0].title;
+    blocks[0].suppressHead = true;
+  }
+
+  pageTitle = pageTitle || "Transcript";
+
+  return { pageTitle, overview, blocks };
+}
+
+/* ------------------------------------------------------------------ *
+ *  Presentational pieces
+ * ------------------------------------------------------------------ */
+
+function CourseGrid({ courses = [] }) {
+  if (!courses.length) {
+    return <p className="course-empty">No courses available</p>;
+  }
+
+  return (
+    <section className="courses-section">
+      <div className="courses-wrapper">
+        <div className="course-grid">
+          {courses.map((course, i) => {
+            const IconComponent = resolveIcon(course.icon);
+            return (
+              <div key={course.srNo ?? i} className="course-card group">
+                {/* Header */}
+                <div className="course-card-header">
+                  <div className="course-card-header-row">
+                    <div className="course-card-header-left">
+                      <div className="course-card-icon-wrap">
+                        <IconComponent className="course-card-icon" />
+                      </div>
+                      <div>
+                        {course.course_number && (
+                          <div className="course-card-num">
+                            Course #{course.course_number}
+                          </div>
+                        )}
+                        {course.headerShowsSemester && course.semester ? (
+                          <div className="course-card-semester">
+                            Semester : {course.semester}
+                          </div>
+                        ) : (
+                          course.badge && (
+                            <div className="course-card-mini-badge">
+                              {course.badge}
+                            </div>
+                          )
+                        )}
+                      </div>
+                    </div>
+                    {course.roman_number && (
+                      <div className="course-card-roman">
+                        <span className="course-card-roman-text">
+                          {course.roman_number}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="course-card-body">
+                  {course.name && (
+                    <h3 className="course-card-name group-hover:text-[#F04E30]">
+                      {course.name}
+                    </h3>
+                  )}
+
+                  {course.university && (
+                    <div className="course-card-univ-row">
+                      <div className="course-card-univ-inner">
+                        <div className="course-card-univ-icon-wrap">
+                          <Building2 className="course-card-univ-icon" />
+                        </div>
+                        <div>
+                          <p className="course-card-univ-label">
+                            {course.university_label || "Powered by"}
+                          </p>
+                          <p className="course-card-univ-name">
+                            {course.university}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {course.badge && (
+                    <div className="course-card-badge-row">
+                      <div className="course-card-badge group-hover:from-[#F04E30]/10 group-hover:to-[#122E5E]/10">
+                        <Star className="course-card-badge-icon" />
+                        {course.badge}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// A single section: heading + (dropdown / category controls) + grid(s).
+// Owns its own selection state so multiple blocks don't clash.
+function TranscriptBlock({ block }) {
+  const { title, subtitle, top_ui, departments } = block;
+
+  const [selectedDept, setSelectedDept] = useState(
+    departments[0]?.name || ""
+  );
+  const [selectedCategory, setSelectedCategory] = useState(
+    top_ui?.categories?.[0] || null
+  );
+
+  const visibleDepartments =
+    top_ui?.type === "dropdown"
+      ? departments.filter((d) => d.name === selectedDept)
+      : top_ui?.type === "category"
+      ? departments.filter((d) => d.category === selectedCategory)
+      : departments;
+
+  return (
+    <section className="transcript-section">
+      {!block.suppressHead && (title || subtitle) && (
+        <div className="transcript-section-head">
+          {title && <h2 className="transcript-section-title">{title}</h2>}
+          {subtitle && (
+            <p className="transcript-section-subtitle">{subtitle}</p>
+          )}
+        </div>
+      )}
+
+      <TopUI
+        topUI={top_ui}
+        departments={departments}
+        selectedDept={selectedDept}
+        setSelectedDept={setSelectedDept}
+        selectedCategory={selectedCategory}
+        setSelectedCategory={setSelectedCategory}
+      />
+
+      {visibleDepartments.length > 0 ? (
+        visibleDepartments.map((dept) => (
+          <CourseGrid key={dept.id} courses={dept.electives} />
+        ))
+      ) : (
+        <p className="course-empty-text">No courses available</p>
+      )}
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ *
+ *  Page
+ * ------------------------------------------------------------------ */
 
 function Transcript({ data: propData, college: propCollege }) {
   const params = useParams();
@@ -28,221 +385,15 @@ function Transcript({ data: propData, college: propCollege }) {
     propData
   );
 
-  const [selectedDept, setSelectedDept] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [hoveredCourse, setHoveredCourse] = useState(null);
-
-  const transformedData = React.useMemo(() => {
-    const sectionData = propData ? propData : sections?.[0]?.data || {};
-
-    if (Array.isArray(sectionData?.departments)) {
-      return {
-        title: sectionData.title || "Transcript",
-        // FEAT ships raw department courses with no course_number and only a
-        // roman_number. Surface a sequential "Course #N" and render the roman
-        // figure as a "Semester :" header line (live-site layout). The
-        // headerShowsSemester flag scopes this to the departments branch so
-        // the category/normal institutes (SPDC, JNMC, RNPC, DMMC) are
-        // untouched.
-        departments: sectionData.departments.map((dept) => ({
-          ...dept,
-          electives: (dept.electives || []).map((c, i) => ({
-            ...c,
-            course_number: c.course_number ?? i + 1,
-            semester: c.semester ?? c.roman_number,
-            headerShowsSemester: true,
-          })),
-        })),
-        top_ui: sectionData.top_ui || { type: "dropdown" },
-      };
-    }
-
-    const tabType = sectionData?.tab_type;
-    const title = sectionData?.title || "Transcript";
-
-    const mapCourse = (c, i) => ({
-      srNo: i + 1,
-      name: c.title,
-      semester: c.roman_number,
-      course_number: c.course_number,
-      roman_number: c.roman_number,
-      university: c.university,
-      // Per-institute provider label ("Powered by" default; SPDC PG uses
-      // "Certified by"). Course-level overrides the section-level default.
-      university_label: c.university_label || sectionData.university_label,
-      badge: c.badge,
-      icon: c.icon,
-    });
-
-    if (tabType === "categories") {
-      const categories = Array.isArray(sectionData.categories)
-        ? sectionData.categories
-        : [];
-      const coursesCategory = Array.isArray(sectionData.courses_category)
-        ? sectionData.courses_category
-        : [];
-
-      const departments = categories.map((cat) => ({
-        id: cat.id,
-        name: cat.name,
-        category: cat.name,
-        electives: coursesCategory
-          .filter((c) => c.category_id === cat.id)
-          .map(mapCourse),
-      }));
-
-      return {
-        title,
-        departments,
-        top_ui: {
-          type: "category",
-          title: sectionData?.top_ui_title || "",
-          subtitle: sectionData?.top_ui_subtitle || "",
-          categories: categories.map((c) => c.name),
-        },
-      };
-    }
-
-    const coursesNormalRaw = Array.isArray(sectionData.courses_normal)
-      ? sectionData.courses_normal
-      : [];
-    const coursesNormal = coursesNormalRaw.flat();
-
-    return {
-      title,
-      departments: [
-        {
-          id: "general",
-          name: "General",
-          category: "All",
-          electives: coursesNormal.map(mapCourse),
-        },
-      ],
-      top_ui: {
-        type: "heading",
-        title: sectionData?.top_ui_title || "",
-        subtitle: sectionData?.top_ui_subtitle || "",
-      },
-    };
+  const model = useMemo(() => {
+    if (propData) return buildModel(propData);
+    // The transcript content may be preceded by tab-link menus, so prefer the
+    // transcript section by id and fall back to the first section.
+    const sec =
+      sections?.find((s) => s.section_id === "transcript_subpage") ||
+      sections?.[0];
+    return buildModel(sec?.data);
   }, [propData, sections]);
-
-  useEffect(() => {
-    if (loading) return;
-
-    if (transformedData.departments.length > 0) {
-      setSelectedDept(transformedData.departments[0].name);
-    }
-    if (transformedData.top_ui?.categories?.length > 0) {
-      setSelectedCategory(transformedData.top_ui.categories[0]);
-    }
-  }, [transformedData, loading]);
-
-  const renderCourses = useCallback(
-    (courses = []) => {
-      if (courses.length === 0) {
-        return (
-          <p className="course-empty">
-            No courses available
-          </p>
-        );
-      }
-
-      return (
-        <section className="courses-section">
-          <div className="courses-wrapper">
-            <div className="course-grid">
-              {courses.map((course, i) => {
-                const IconComponent = resolveIcon(course.icon);
-                const cardKey = course.srNo ?? i;
-
-                return (
-                  <div
-                    key={cardKey}
-                    className="course-card group"
-                    onMouseEnter={() => setHoveredCourse(cardKey)}
-                    onMouseLeave={() => setHoveredCourse(null)}
-                  >
-                    {/* Header */}
-                    <div className="course-card-header">
-                      <div className="course-card-header-row">
-                        <div className="course-card-header-left">
-                          <div className="course-card-icon-wrap">
-                            <IconComponent className="course-card-icon" />
-                          </div>
-                          <div>
-                            {course.course_number && (
-                              <div className="course-card-num">
-                                Course #{course.course_number}
-                              </div>
-                            )}
-                            {course.headerShowsSemester && course.semester ? (
-                              <div className="course-card-semester">
-                                Semester : {course.semester}
-                              </div>
-                            ) : (
-                              course.badge && (
-                                <div className="course-card-mini-badge">
-                                  {course.badge}
-                                </div>
-                              )
-                            )}
-                          </div>
-                        </div>
-                        {course.roman_number && (
-                          <div className="course-card-roman">
-                            <span className="course-card-roman-text">
-                              {course.roman_number}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="course-card-body">
-                      {course.name && (
-                        <h3 className="course-card-name group-hover:text-[#F04E30]">
-                          {course.name}
-                        </h3>
-                      )}
-
-                      {course.university && (
-                        <div className="course-card-univ-row">
-                          <div className="course-card-univ-inner">
-                            <div className="course-card-univ-icon-wrap">
-                              <Building2 className="course-card-univ-icon" />
-                            </div>
-                            <div>
-                              <p className="course-card-univ-label">
-                                {course.university_label || "Powered by"}
-                              </p>
-                              <p className="course-card-univ-name">
-                                {course.university}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      {course.badge && (
-                        <div className="course-card-badge-row">
-                          <div className="course-card-badge group-hover:from-[#F04E30]/10 group-hover:to-[#122E5E]/10">
-                            <Star className="course-card-badge-icon" />
-                            {course.badge}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      );
-    },
-    [hoveredCourse]
-  );
 
   if (loading) {
     return (
@@ -253,43 +404,43 @@ function Transcript({ data: propData, college: propCollege }) {
   }
 
   if (error) {
-    return (
-      <div className="sub-error">{error}</div>
-    );
+    return <div className="sub-error">{error}</div>;
   }
-
-  const { title, departments = [], top_ui } = transformedData;
-
-  const visibleDepartments =
-    top_ui?.type === "dropdown"
-      ? departments.filter((d) => d.name === selectedDept)
-      : top_ui?.type === "category"
-      ? departments.filter((d) => d.category === selectedCategory)
-      : departments;
 
   return (
     <div className="transcript-page">
-      {/* Header */}
       <header className="transcript-header">
-        <h1 className="transcript-title">{title}</h1>
+        <h1 className="transcript-title">{model.pageTitle}</h1>
       </header>
 
       <div className="transcript-content">
-        <TopUI
-          topUI={top_ui}
-          departments={departments}
-          selectedDept={selectedDept}
-          setSelectedDept={setSelectedDept}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-        />
+        {/* Course Categories overview (JNMC / DMMC) — display only */}
+        {model.overview && (
+          <section className="transcript-section">
+            <div className="transcript-section-head">
+              <h2 className="topui-category-title">{model.overview.heading}</h2>
+              {model.overview.subtitle && (
+                <p className="topui-category-subtitle">
+                  {model.overview.subtitle}
+                </p>
+              )}
+            </div>
+            <div className="transcript-categories">
+              {model.overview.categories.map((cat, i) => (
+                <span key={i} className="transcript-category-pill">
+                  {cat}
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
 
-        {visibleDepartments.length > 0 ? (
-          visibleDepartments.map((dept) => (
-            <div key={dept.id}>{renderCourses(dept.electives)}</div>
+        {model.blocks.length > 0 ? (
+          model.blocks.map((block, i) => (
+            <TranscriptBlock key={i} block={block} />
           ))
         ) : (
-          <p className="course-empty-text">No courses available</p>
+          <p className="course-empty-text">No transcript data available.</p>
         )}
       </div>
     </div>
