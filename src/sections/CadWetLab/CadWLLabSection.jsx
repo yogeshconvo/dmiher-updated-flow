@@ -18,33 +18,40 @@ import "swiper/css/pagination";
  *
  * Data shape (section_key: cadwl_lab_section)
  *   {
- *     heading:    "CADAVERIC SURGICAL SKILL LAB",
- *     bg_color:   "#fef6ec",
+ *     header: { bg_color: "#fef6ec" },
  *     tabs: [
  *       {
  *         tab_label:   "MAIN CAMPUS – WARDHA",
- *         location:    "Wardha",
- *         description: "<p>...</p>",
- *         images:      ["assets/.../wardha.jpg", ...],
+ *         heading:     "CADAVERIC SURGICAL SKILL LAB",
+ *         // location ("Wardha") + Highlights are baked into the description HTML
+ *         description: "<h3>Wardha</h3>...<span>Highlights</span><ul>...</ul>",
+ *         images:      [{ src: "assets/.../wardha.jpg" }, ...],
+ *         // officials is either an array OR a disabled marker { _section_disabled: ["on"] }
  *         officials: [
- *           { role: "Cadaveric Lab Incharge", image, name, details (HTML) }
- *         ],
- *         infra_heading: "HOLISTIC LEARNING\nINFRASTRUCTURE",
- *         infra: [
- *           { title: "Dedicated well-ventilated space", description: "for cadaveric skill lab" },
- *           ...
+ *           { role: "Cadaveric Lab Incharge", image, details (HTML w/ name) }
  *         ]
  *       }, ...
+ *     ],
+ *     holistic: [
+ *       {
+ *         infra_heading: "HOLISTIC LEARNING INFRASTRUCTURE",
+ *         infra: [
+ *           { description: "<p><strong>Dedicated well-ventilated space</strong> for...</p>" },
+ *           ...
+ *         ]
+ *       }
  *     ]
  *   }
  */
 export default function CadWLLabSection({ data }) {
   if (!data) return null;
-  const { heading, bg_color, tabs = [] } = data;
+  const { header = {}, tabs = [], holistic = [] } = data;
+  const bg_color = header.bg_color;
   const [active, setActive] = useState(0);
 
   if (!tabs.length) return null;
   const current = tabs[active] || tabs[0];
+  const heading = current.heading;
 
   return (
     <section className="cadwl-lab">
@@ -81,9 +88,6 @@ export default function CadWLLabSection({ data }) {
           {/* Description + image carousel */}
           <div className="cadwl-lab-grid">
             <div className="cadwl-lab-text">
-              {current.location && (
-                <h3 className="cadwl-lab-location">{current.location}</h3>
-              )}
               {current.description && (
                 <div className="cadwl-lab-desc">
                   <RichTextRenderer html={current.description} />
@@ -105,8 +109,8 @@ export default function CadWLLabSection({ data }) {
                     <SwiperSlide key={i}>
                       <div className="cadwl-lab-slide">
                         <SafeImage
-                          src={resolveImage(img)}
-                          alt={`${current.location || "Lab"} ${i + 1}`}
+                          src={resolveImage(img?.src || img)}
+                          alt={`${current.tab_label || "Lab"} ${i + 1}`}
                           className="cadwl-lab-img"
                         />
                       </div>
@@ -156,40 +160,43 @@ export default function CadWLLabSection({ data }) {
 
       {/* Holistic Learning Infrastructure boxes — sits OUTSIDE the colored
          body so its background is always white regardless of bg_color. */}
-      {Array.isArray(current.infra) && current.infra.length > 0 && (
-        <div className="cadwl-lab-infra-section">
-          <div className="container">
-            <div className="cadwl-lab-infra-wrap">
-              {current.infra_heading && (
-                <h3 className="cadwl-lab-infra-heading">
-                  <span className="cadwl-lab-heading-line" />
-                  <span style={{ whiteSpace: "pre-line" }}>
-                    {current.infra_heading}
-                  </span>
-                </h3>
-              )}
-              <ul className="cadwl-lab-infra-grid">
-                {current.infra.map((item, idx) => (
-                  <li
-                    key={idx}
-                    className={
-                      "cadwl-lab-infra-item" +
-                      (idx < current.infra.length - 1
-                        ? " cadwl-lab-infra-item-divider"
-                        : "")
-                    }
-                  >
-                    {item.title && <b>{item.title}</b>}
-                    {item.description && (
-                      <span> {item.description}</span>
-                    )}
-                  </li>
-                ))}
-              </ul>
+      {holistic.map((group, gIdx) => {
+        const infra = Array.isArray(group.infra) ? group.infra : [];
+        if (!infra.length) return null;
+        return (
+          <div key={gIdx} className="cadwl-lab-infra-section">
+            <div className="container">
+              <div className="cadwl-lab-infra-wrap">
+                {group.infra_heading && (
+                  <h3 className="cadwl-lab-infra-heading">
+                    <span className="cadwl-lab-heading-line" />
+                    <span style={{ whiteSpace: "pre-line" }}>
+                      {group.infra_heading}
+                    </span>
+                  </h3>
+                )}
+                <ul className="cadwl-lab-infra-grid">
+                  {infra.map((item, idx) => (
+                    <li
+                      key={idx}
+                      className={
+                        "cadwl-lab-infra-item" +
+                        (idx < infra.length - 1
+                          ? " cadwl-lab-infra-item-divider"
+                          : "")
+                      }
+                    >
+                      {item.description && (
+                        <RichTextRenderer html={item.description} />
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        );
+      })}
     </section>
   );
 }

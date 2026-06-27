@@ -1,5 +1,5 @@
 import React from "react";
-import { BookOpen } from "lucide-react";
+import { BookOpen, Bookmark } from "lucide-react";
 import SafeImage from "../../components/SafeImage";
 
 /**
@@ -7,6 +7,15 @@ import SafeImage from "../../components/SafeImage";
  *
  * Expected data shape (from /api/micropage/{slug}/transcript):
  * {
+ *   header: [
+ *     {
+ *       main_heading: string,
+ *       subtitle: string,
+ *       heading: string,
+ *       description: string,
+ *       categories: [{ id, title }]
+ *     }
+ *   ],
  *   section: [
  *     {
  *       title: string,
@@ -21,9 +30,10 @@ import SafeImage from "../../components/SafeImage";
  * The existing Transcript-type1.jsx (departments/electives structure) is unchanged.
  */
 function TranscriptSubpage({ data }) {
+  const headerData = data?.header?.[0];
   const sections = data?.section || [];
 
-  if (!sections.length) {
+  if (!headerData && !sections.length) {
     return (
       <div className="p-10 text-center text-gray-500">
         No transcript data available.
@@ -33,6 +43,68 @@ function TranscriptSubpage({ data }) {
 
   return (
     <div className="transcript-page">
+      {/* ── PAGE TITLE BAR ── */}
+      <div className="transcript-title-bar">
+        <h1>Transcript Courses</h1>
+      </div>
+
+      {/* ── COURSE CATEGORIES HEADER ── */}
+      {headerData && (
+        <div className="transcript-categories-header">
+          <div className="container">
+            {/* Main Heading */}
+            {headerData.main_heading && (
+              <h1 className="transcript-categories-main-heading">
+                {headerData.main_heading}
+              </h1>
+            )}
+
+            {/* Subtitle */}
+            {headerData.subtitle && (
+              <p className="transcript-categories-subtitle">
+                {headerData.subtitle}
+              </p>
+            )}
+
+            {/* Categories Pills */}
+            {headerData.categories && headerData.categories.length > 0 && (
+              <div className="transcript-categories-pills">
+                {headerData.categories.map((cat) => (
+                  <button
+                    key={cat.id}
+                    className="transcript-category-pill"
+                  >
+                    {cat.title}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ── AVAILABLE COURSES SECTION ── */}
+      {headerData && (
+        <div className="transcript-available-courses">
+          <div className="container">
+            <div className="transcript-courses-heading">
+              <div className="transcript-courses-icon">
+                <Bookmark size={24} />
+              </div>
+              <h2 className="transcript-courses-title">
+                {headerData.heading || "Available Courses"}
+              </h2>
+            </div>
+            {headerData.description && (
+              <p className="transcript-courses-description">
+                {headerData.description}
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ── COURSE SECTIONS ── */}
       {sections.map((sectionItem, sIdx) => (
         <div key={sIdx} className="transcript-section">
 
@@ -87,11 +159,6 @@ function TranscriptSubpage({ data }) {
                             )}
                           </div>
                         </div>
-
-                        {/* Badge */}
-                        {course.badge && (
-                          <span className="course-badge">{course.badge}</span>
-                        )}
                       </div>
 
                       {/* Card Body */}
@@ -103,6 +170,12 @@ function TranscriptSubpage({ data }) {
                           <p className="course-university">
                             {course.university}
                           </p>
+                        )}
+                        {course.badge && (
+                          <p className="course-badge-text">{course.badge}</p>
+                        )}
+                        {course.roman_number && (
+                          <span className="course-category-badge">{course.roman_number}</span>
                         )}
                       </div>
 

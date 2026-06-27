@@ -7,24 +7,22 @@ import RichTextRenderer from "../../components/RichTextRenderer";
  *
  * Data shape (section_key: selsc_faculty_research)
  *   {
- *     heading:  "FACULTY & RESEARCH",
- *     subtitle: "Powered by Experience. Shaped by Global Standards.",
- *     description: "<p>...</p>",
+ *     header: {
+ *       heading:     "FACULTY & RESEARCH",
+ *       description: "<p class=\"selsc-fr-subtitle\">Powered by Experience...</p>
+ *                     <div class=\"selsc-fr-desc\">...</div>"   // subtitle + desc as HTML
+ *     },
  *     highlights: [
- *       { value: "15+ Experts", value_color: "#F04E30", description: "across healthcare..." }
+ *       // value is inline <strong> inside the HTML, color set via inline style
+ *       { description: "<p><span style=\"color:#ef5539\"><strong>15+ Experts</strong></span> across...</p>" }
  *     ],
  *     cta: { label: "Meet Our Team", url: "#" }
  *   }
  */
 export default function SELSCFacultyResearch({ data }) {
   if (!data) return null;
-  const {
-    heading,
-    subtitle,
-    description,
-    highlights = [],
-    cta,
-  } = data;
+  const { header = {}, highlights = [], cta } = data;
+  const { heading, description } = header;
 
   return (
     <section className="selsc-fr">
@@ -35,28 +33,13 @@ export default function SELSCFacultyResearch({ data }) {
             {heading}
           </h2>
         )}
-        {subtitle && (
-          <p className="selsc-fr-subtitle">{subtitle}</p>
-        )}
-        {description && (
-          <div className="selsc-fr-desc">
-            <RichTextRenderer html={description} />
-          </div>
-        )}
+        {description && <RichTextRenderer html={description} />}
 
         {highlights.length > 0 && (
           <div className="selsc-fr-grid">
             {highlights.map((h, idx) => (
               <div key={idx} className="selsc-fr-item">
-                {h.value && (
-                  <b
-                    className="selsc-fr-item-value"
-                    style={h.value_color ? { color: h.value_color } : undefined}
-                  >
-                    {h.value}
-                  </b>
-                )}{" "}
-                {h.description}
+                <RichTextRenderer html={h.description} />
               </div>
             ))}
           </div>
