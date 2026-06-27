@@ -1,22 +1,24 @@
-import Departments from "./Departments";
-import Transcript from "./Transcript-type1";
-import TranscriptSubpage from "./TranscriptSubpage";
-import MandatoryDisclosures from "./MD";
-import DeanKnowMore from "./DeanKnowMore";
-import AccreditationsRecognitions from "./UniquePages/AccreditationsRecognitions";
-import MainMicropage from "../Micropages/Main-micropage";
-import ElectivesOfferedFEAT from "./ElectiveOffered";
-import PhDDAL from "./UniquePages/PHD-DAL";
-import PostDoc from "./UniquePages/PostDoc";
-import CampusFacilities from "../MainPageSections/Home/CampusFacilities";
-import TabwiseMainMicropage from "../Micropages/Tabwise-micropage";
-import SubPrograms from "./Programs";
-import DeansMicropage from "../Micropages/DeansMicropage";
-import NaacSSR from "./UniquePages/NAAC";
-import DmiherCet from "./UniquePages/DMIHER-CET";
-import AboutHospital from "./UniquePages/AboutHospital";
-import DALFellowship from "./UniquePages/DALFellowship";
-import ClinicalResearch from "./UniquePages/ClinicalResearch";
+import { lazy } from "react";
+
+const Departments = lazy(() => import("./Departments"));
+const Transcript = lazy(() => import("./Transcript-type1"));
+const MandatoryDisclosures = lazy(() => import("./MD"));
+const DeanKnowMore = lazy(() => import("./DeanKnowMore"));
+const AccreditationsRecognitions = lazy(() => import("./UniquePages/AccreditationsRecognitions"));
+const MainMicropage = lazy(() => import("../Micropages/Main-micropage"));
+const ElectivesOfferedFEAT = lazy(() => import("./ElectiveOffered"));
+const PhDDAL = lazy(() => import("./UniquePages/PHD-DAL"));
+const PostDoc = lazy(() => import("./UniquePages/PostDoc"));
+const CampusFacilities = lazy(() => import("../MainPageSections/Home/CampusFacilities"));
+const TabwiseMainMicropage = lazy(() => import("../Micropages/Tabwise-micropage"));
+const SubPrograms = lazy(() => import("./Programs"));
+const DeansMicropage = lazy(() => import("../Micropages/DeansMicropage"));
+const NaacSSR = lazy(() => import("./UniquePages/NAAC"));
+const DmiherCet = lazy(() => import("./UniquePages/DMIHER-CET"));
+const DALFellowship = lazy(() => import("./UniquePages/DALFellowship"));
+const ClinicalResearch = lazy(() => import("./UniquePages/ClinicalResearch"));
+const AboutHospital = lazy(() => import("./AboutHospital"));
+const TranscriptSubpage = lazy(() => import("../Subpages/TranscriptSubpage"));
 
 export const SECTION_COMPONENTS = {
 
@@ -32,15 +34,13 @@ export const SECTION_COMPONENTS = {
     post_doc_subpage: PostDoc,
     dal_fellowship_subpage: DALFellowship,
     clinical_research_subpage: ClinicalResearch,
+    about_hospital_subpage: AboutHospital,
 
     // NAAC SSR (section_id from API: "naac_ssr_micropage")
     naac_ssr_micropage: NaacSSR,
 
     // DMIHER CET (section_id from API: "dmiher_cet_subpage")
     dmiher_cet_subpage: DmiherCet,
-
-    // About Hospital — single section, tabs + content inline
-    about_hospital_subpage: AboutHospital,
 
     // Micropages
     micro_page: MainMicropage,

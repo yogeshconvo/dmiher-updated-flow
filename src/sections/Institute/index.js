@@ -1,41 +1,49 @@
+import { lazy } from "react";
+
+// Hero is the above-the-fold LCP element on every institute page — keep it in
+// the main bundle (eager) so it renders the instant page data arrives, without
+// waiting for an extra chunk round-trip.
 import HeroSection from "./Hero"
-import StudentWelfareCell from "./StudentWelfareCell"
-import InfoSection from "./InfoSection"
-import ProgramsSection from "./ProgramsSection"
-import HospitalSection from "./HospitalSection"
-import AffiliatedHospital from "./AffiliatedHospital"
-import DeansMessage from "./DeanMessage"
-import EducationUnit from "./EducationUnit"
-import departments from "./Departments"
-import InnovativeLearning from "./Innovative-learning"
-import Collabaration from "./Collaboration"
-import GlobalOpportunities from "./Global-opportunities"
-import Testimonial from "./Testimonial"
-import StudentLife from "./StudentLife"
-import ButtonSection from "./ButtonSection"
-import Placements from "./Placements"
-import SPDCPlacements from "./SPDCPlacements"
-import ProgramsAnnouncements from "./ProgramsAnnouncements"
-import WhyChoose from "./WhyChoseSlider"
-import HolisticInfrastructureSection from "./HoliisticLearning"
-import Outcome from "../MainPageSections/Home/Outcome"
-import KeyFunctionTabs from "./KeyFunctionTabs"
-import MandatoryDisclosure from "./MandatoryDisclosure"
-import Logos from "./Logos"
-import TabMenu from "../Micropages/Tabwise-micropage"
-import Departments from "./Departments"
-import InstituteCampusTabsNav from "./InstituteCampusTabsNav"
-import NursingTestimonial from "./NursingTestimonial"
-import NursingAdvantage from "./NursingAdvantage"
-import NursingCollegeBrief from "./NursingCollegeBrief"
-import SAHSCollaborations from "./SAHSCollaborations"
-import SAHSPlacements from "./SAHSPlacements"
-import SAHSAdmissions from "./SAHSAdmissions"
-import CourseraCertifications from "./CourseraCertifications"
-import {
-    MandatoryDisclosureSection,
-    mandatoryDisclosureConfig,
-} from "../../instituteSections/mandatoryDisclosure"
+
+const StudentWelfareCell = lazy(() => import("./StudentWelfareCell"))
+const InfoSection = lazy(() => import("./InfoSection"))
+const ProgramsSection = lazy(() => import("./ProgramsSection"))
+const HospitalSection = lazy(() => import("./HospitalSection"))
+const AffiliatedHospital = lazy(() => import("./AffiliatedHospital"))
+const DeansMessage = lazy(() => import("./DeanMessage"))
+const EducationUnit = lazy(() => import("./EducationUnit"))
+const departments = lazy(() => import("./Departments"))
+const InnovativeLearning = lazy(() => import("./Innovative-learning"))
+const Collabaration = lazy(() => import("./Collaboration"))
+const GlobalOpportunities = lazy(() => import("./Global-opportunities"))
+const Testimonial = lazy(() => import("./Testimonial"))
+const StudentLife = lazy(() => import("./StudentLife"))
+const ButtonSection = lazy(() => import("./ButtonSection"))
+const Placements = lazy(() => import("./Placements"))
+const SPDCPlacements = lazy(() => import("./SPDCPlacements"))
+const ProgramsAnnouncements = lazy(() => import("./ProgramsAnnouncements"))
+const WhyChoose = lazy(() => import("./WhyChoseSlider"))
+const HolisticInfrastructureSection = lazy(() => import("./HoliisticLearning"))
+const Outcome = lazy(() => import("../MainPageSections/Home/Outcome"))
+const KeyFunctionTabs = lazy(() => import("./KeyFunctionTabs"))
+const MandatoryDisclosure = lazy(() => import("./MandatoryDisclosure"))
+const Logos = lazy(() => import("./Logos"))
+const Departments = lazy(() => import("./Departments"))
+const InstituteCampusTabsNav = lazy(() => import("./InstituteCampusTabsNav"))
+const NursingTestimonial = lazy(() => import("./NursingTestimonial"))
+const NursingAdvantage = lazy(() => import("./NursingAdvantage"))
+const NursingCollegeBrief = lazy(() => import("./NursingCollegeBrief"))
+const SAHSCollaborations = lazy(() => import("./SAHSCollaborations"))
+const SAHSPlacements = lazy(() => import("./SAHSPlacements"))
+const SAHSAdmissions = lazy(() => import("./SAHSAdmissions"))
+const CourseraCertifications = lazy(() => import("./CourseraCertifications"))
+
+// mandatoryDisclosureConfig is plain route/section-id constants consumed
+// synchronously here (computed key) and by App.jsx — imported from the
+// component-free config module so it doesn't pull the section (and its icon
+// deps) onto the eager bundle. The component itself is code-split like the rest.
+import { mandatoryDisclosureConfig } from "../../instituteSections/mandatoryDisclosure/config"
+const MandatoryDisclosureSection = lazy(() => import("../../instituteSections/mandatoryDisclosure/component"))
 
 export const SECTION_COMPONENTS = {
 

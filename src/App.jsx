@@ -1,21 +1,31 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import PageView from "./PageView";
-import SubPrograms from "./sections/Subpages/Programs";
-import HeadPrograms from "./sections/Subpages/HeadPrograms";
-import DepartmentsSubpage from "./sections/Subpages/Departments";
-import TranscriptFEAT from "./sections/Subpages/Transcript-type1";
-import MandatoryDisclosurePage from "./Pages/MandatoryDisclosurePage";
-import { mandatoryDisclosureConfig } from "./instituteSections/mandatoryDisclosure";
+import PageSkeleton from "./components/Skeletons/PageSkeleton";
+import { mandatoryDisclosureConfig } from "./instituteSections/mandatoryDisclosure/config";
+import useSiteSettings from "./hooks/useSiteSettings";
+
+// Route-level code splitting: these page types are only needed when the user
+// navigates to them, so they're loaded on demand instead of bloating the
+// initial home-page bundle. PageView (the home/slug route) stays eager.
+const SubPrograms = lazy(() => import("./sections/Subpages/Programs"));
+const HeadPrograms = lazy(() => import("./sections/Subpages/HeadPrograms"));
+const DepartmentsSubpage = lazy(() => import("./sections/Subpages/Departments"));
+const MandatoryDisclosurePage = lazy(() => import("./Pages/MandatoryDisclosurePage"));
 
 function App() {
+  // Apply the dashboard-managed favicon once it's fetched.
+  useSiteSettings();
+
   return (
     <>
       <Navbar />
       <ScrollToTop />
 
+      <Suspense fallback={<PageSkeleton />}>
       <Routes>
         {/* =================== STATIC =================== */}
         <Route path="/" element={<PageView />} />
@@ -60,6 +70,7 @@ function App() {
         {/* =================== NORMAL SLUG =================== */}
         <Route path="/:slug" element={<PageView />} />
       </Routes>
+      </Suspense>
 
       <Footer />
     </>

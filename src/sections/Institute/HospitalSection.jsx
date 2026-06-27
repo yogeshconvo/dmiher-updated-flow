@@ -95,17 +95,21 @@ const HospitalHighlight = ({
                 if (!href) return null;
                 const isExternal =
                   item.tab_type === "url" ||
-                  (typeof href === "string" && href.startsWith("http"));
-                return isExternal ? (
-                  <a
-                    key={idx}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {label}
-                  </a>
-                ) : (
+                  (typeof href === "string" && /^https?:\/\//i.test(href));
+
+                if (isExternal) {
+                  return (
+                    <a
+                      key={idx}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {label}
+                    </a>
+                  );
+                }
+                return (
                   <Link key={idx} to={href}>
                     {label}
                   </Link>

@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import RichTextRenderer from "../../components/RichTextRenderer";
+import NpfWidgetButton from "../../components/NpfWidgetButton";
 // import "../../styles/education-unit.css";
 
 function EducationUnit({ data, college }) {
@@ -71,9 +72,33 @@ function EducationUnit({ data, college }) {
           ))}
 
           {ctaList.map((item, idx) => {
-            const href = buildCtaHref(item);
             const label = item?.label || item?.cta_label;
-            if (!href || !label) return null;
+            if (!label) return null;
+
+            // NPF widget — same `.cta` visual, click opens the modal.
+            if (item?.type === "npf_widget") {
+              return (
+                <NpfWidgetButton
+                  key={idx}
+                  widgetId={item.widget_id}
+                  modalTitle={item.modal_title || "Admission Enquiry"}
+                  width={item.data_width || 500}
+                  height={item.data_height || 600}
+                  renderTrigger={({ onClick }) => (
+                    <button
+                      type="button"
+                      onClick={onClick}
+                      className="cta"
+                    >
+                      {label}
+                    </button>
+                  )}
+                />
+              );
+            }
+
+            const href = buildCtaHref(item);
+            if (!href) return null;
             const isExternal =
               item?.tab_type === "url" ||
               (typeof href === "string" && href.startsWith("http"));

@@ -1,5 +1,5 @@
 import React from "react";
-import MainMicropage from "../../../Micropages/Main-micropage";
+import MainMicropage from "../../Micropages/Main-micropage";
 
 /**
  * MICROPAGE TAB — independent content blocks.
@@ -33,5 +33,17 @@ export default function MicropageView({ tab }) {
     );
   }
 
-  return <MainMicropage data={{ block: blocks }} />;
+  // API image shape: { tab_type:"image", image:[{ image:[{ image:"path" },...] }] }
+  // Flatten to individual { tab_type:"image", image:"path" } items MainMicropage can render.
+  const normalizedBlocks = blocks.flatMap((item) => {
+    if (item.tab_type === "image" && Array.isArray(item.image)) {
+      const imgs = item.image.flatMap((group) =>
+        Array.isArray(group.image) ? group.image : [group]
+      );
+      return imgs.map((img) => ({ ...item, image: img.image }));
+    }
+    return [item];
+  });
+
+  return <MainMicropage data={{ block: normalizedBlocks }} />;
 }

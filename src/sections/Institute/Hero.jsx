@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import { resolveImage } from "../../utils/resolveImage";
+import NpfWidgetButton from "../../components/NpfWidgetButton";
+import NpfInlineCard from "../../components/NpfInlineCard";
 
 function Hero({ data, slug }) {
   if (!data) return null;
@@ -14,6 +16,19 @@ function Hero({ data, slug }) {
     : data.topbar || {};
 
   const slides = Array.isArray(data.slides) ? data.slides : [];
+
+  // Banner auto-slide speed — set from the dashboard hero "Banner Settings"
+  // (stored in SECONDS). The slider runs in milliseconds; fall back to 5s when
+  // the value is unset or invalid. Handles the object shape ({ speed }) and a
+  // defensive array shape, mirroring how `topbar` is normalized above.
+  const bannerSettings = Array.isArray(data.banner_settings)
+    ? data.banner_settings[0] || {}
+    : data.banner_settings || {};
+  const speedSeconds = Number(bannerSettings.speed);
+  const slideDelayMs =
+    Number.isFinite(speedSeconds) && speedSeconds > 0
+      ? speedSeconds * 1000
+      : 5000;
 
   // Dynamic fallback buttons (legacy address[] field)
   const ctaButtons = Array.isArray(data.address) ? data.address : [];
@@ -28,6 +43,20 @@ function Hero({ data, slug }) {
       g.header.length > 0
   );
   const heroButtons = buttonGrid ? buttonGrid.header : [];
+
+  /* ================= INLINE ENQUIRY FORM (NPF) =================
+     Optional overlay card on the hero (right side desktop / below banner
+     on mobile). Driven by `data.enquiry_form` (first item if repeatable).
+     Renders nothing when disabled or widget_id missing — purely additive. */
+  const enquiryFormRaw = Array.isArray(data.enquiry_form)
+    ? data.enquiry_form[0]
+    : data.enquiry_form;
+  const enquiryForm = enquiryFormRaw && typeof enquiryFormRaw === "object" ? enquiryFormRaw : null;
+  const enquiryFormEnabled =
+    !!enquiryForm &&
+    enquiryForm._section_enabled !== false &&
+    Boolean(enquiryForm.widget_id);
+  const enquiryPosition = (enquiryForm?.position || "right").toLowerCase();
 
   const primarySectionId = topbar.primary_cta_section_id;
 
@@ -53,14 +82,58 @@ function Hero({ data, slug }) {
       : (topbar._section_enabled ?? topbar.enabled ?? hasTopbarContent);
 
   const [activeIndex, setActiveIndex] = useState(0);
+  // `animate` lets us switch the slide transition OFF for a single frame so the
+  // loop reset (clone → real first slide) is instant and invisible.
+  const [animate, setAnimate] = useState(true);
 
+  // One-directional infinite loop: append a clone of the first slide. The
+  // carousel advances 0,1,…,n-1,n(=clone) always sliding the SAME way; once it
+  // lands on the clone we snap back to the real slide 0 with the animation off
+  // — no backward rewind. A single slide needs no loop / clone.
+  const hasLoop = slides.length > 1;
+  const renderSlides = hasLoop ? [...slides, slides[0]] : slides;
+  const safeActiveIndex = renderSlides.length
+    ? Math.min(activeIndex, renderSlides.length - 1)
+    : 0;
+  // Which real slide the active dot should highlight (clone maps back to 0).
+  const activeDot = slides.length ? activeIndex % slides.length : 0;
+
+  // Auto-advance one step each tick (no modulo — we ride onto the clone).
+  // Reset to the first slide whenever the slide set changes.
   useEffect(() => {
-    if (!slides.length) return;
+    setActiveIndex(0);
+    setAnimate(true);
+    if (!hasLoop) return;
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % slides.length);
-    }, 5000);
+      setAnimate(true);
+      setActiveIndex((prev) => prev + 1);
+    }, slideDelayMs);
     return () => clearInterval(interval);
-  }, [slides.length]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slides.length, slideDelayMs]);
+
+  // Landed on the appended clone → let the slide-in finish, then jump back to
+  // the real first slide with the animation off (invisible, since the clone is
+  // identical to slide 0). The 700ms matches the CSS `duration-700` transition.
+  useEffect(() => {
+    if (!hasLoop || activeIndex !== slides.length) return;
+    const t = setTimeout(() => {
+      setAnimate(false);
+      setActiveIndex(0);
+    }, 700);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeIndex, slides.length]);
+
+  // After an instant (no-animation) snap, re-enable the transition on the next
+  // frame so the following advance slides normally again.
+  useEffect(() => {
+    if (animate) return;
+    const raf = requestAnimationFrame(() =>
+      requestAnimationFrame(() => setAnimate(true))
+    );
+    return () => cancelAnimationFrame(raf);
+  }, [animate]);
 
   const handleScrollToSection = () => {
     if (!primarySectionId) return;
@@ -112,19 +185,57 @@ function Hero({ data, slug }) {
         {allButtons.length > 0 ? (
           allButtons.map((btn, index) => {
             const isPhone = buttonIsPhone(btn);
+            const isNpf = btn.type === "npf_widget";
             const href = buttonHref(btn);
             const label = buttonText(btn);
 
             // A real "pill" CTA has a background color and is not a phone link.
+            // NPF widget buttons also pill out (they have bg_color set in CMS).
             // Everything else (helpline phone, trailing text) renders as plain
             // text so the strip reads like: text  |  [APPLY NOW]  text.
-            const isPill = Boolean(btn.bg_color) && !isPhone;
+            const isPill = (Boolean(btn.bg_color) && !isPhone) || isNpf;
 
             // Divider before a pill when the previous item was plain text.
             const prev = allButtons[index - 1];
             const prevIsPill =
-              prev && Boolean(prev.bg_color) && !buttonIsPhone(prev);
+              prev &&
+              ((Boolean(prev.bg_color) && !buttonIsPhone(prev)) ||
+                prev.type === "npf_widget");
             const showDivider = isPill && index > 0 && !prevIsPill;
+
+            // NPF widget pill — same .hero-apply-btn visuals, click opens modal.
+            if (isNpf) {
+              return (
+                <React.Fragment key={index}>
+                  {showDivider && <span className="hero-topbar-divider" />}
+                  <NpfWidgetButton
+                    widgetId={btn.widget_id}
+                    modalTitle={btn.modal_title || "Admission Enquiry"}
+                    width={btn.data_width || 500}
+                    height={btn.data_height || 600}
+                    renderTrigger={({ onClick }) => (
+                      <button
+                        type="button"
+                        className="hero-apply-btn"
+                        onClick={onClick}
+                        style={buttonStyle(btn, false)}
+                        onMouseEnter={(e) => {
+                          if (btn.hover_bg_color)
+                            e.currentTarget.style.backgroundColor =
+                              btn.hover_bg_color;
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor =
+                            btn.bg_color || "";
+                        }}
+                      >
+                        {label}
+                      </button>
+                    )}
+                  />
+                </React.Fragment>
+              );
+            }
 
             if (isPill) {
               return (
@@ -214,10 +325,33 @@ function Hero({ data, slug }) {
           {allButtons.length > 0
             ? allButtons.map((btn, index) => {
                 const isPhone = buttonIsPhone(btn);
+                const isNpf = btn.type === "npf_widget";
                 const href = buttonHref(btn);
                 const label = buttonText(btn);
-                const isPill = Boolean(btn.bg_color) && !isPhone;
+                const isPill = (Boolean(btn.bg_color) && !isPhone) || isNpf;
                 const textStyle = { color: btn.text_color || "#122E5E" };
+
+                if (isNpf) {
+                  return (
+                    <NpfWidgetButton
+                      key={index}
+                      widgetId={btn.widget_id}
+                      modalTitle={btn.modal_title || "Admission Enquiry"}
+                      width={btn.data_width || 500}
+                      height={btn.data_height || 600}
+                      renderTrigger={({ onClick }) => (
+                        <button
+                          type="button"
+                          className="hero-mobile-apply"
+                          onClick={onClick}
+                          style={buttonStyle(btn, false)}
+                        >
+                          {label}
+                        </button>
+                      )}
+                    />
+                  );
+                }
 
                 if (isPill) {
                   return (
@@ -269,7 +403,12 @@ function Hero({ data, slug }) {
       {/* TOP STRIP */}
       {strapPosition === "top" && TopBarComponent}
 
-      {/* SLIDER */}
+      {/* SLIDER + (optional) INLINE ENQUIRY FORM
+         Wrapping div is `relative` so the form card can lg:absolute itself
+         to the right side of the hero on desktop and stack below it on
+         mobile. When `enquiryFormEnabled` is false the wrapper is purely
+         a no-op around the existing swiper. */}
+      <div className="relative">
       <div
         className={`hero-swiper-wrapper ${
           isTopbarEnabled && strapPosition === "top"
@@ -279,22 +418,44 @@ function Hero({ data, slug }) {
             : "h-[90dvh] md:h-[calc(96dvh-10px)]"
         } overflow-hidden relative`}
       >
-        {slides.map((slide, idx) => {
+        {renderSlides.map((slide, idx) => {
           const imageSrc = resolveImage(slide.img);
+          // Optional per-slide mobile/tablet banner. When the CMS provides one
+          // (`img_mobile`), the browser swaps to it at ≤1024px via <picture>;
+          // otherwise the desktop image is used everywhere. No JS / no layout
+          // shift — the source is chosen before the image even loads.
+          const mobileSrc = resolveImage(slide.img_mobile);
           return (
             <div
               key={idx}
               className="hero-slide absolute inset-0 transition-transform duration-700 ease-in-out"
               style={{
-                transform: `translateX(${(idx - activeIndex) * 100}%)`,
+                transform: `translateX(${(idx - safeActiveIndex) * 100}%)`,
+                // Off only for the invisible loop-reset frame (clone → slide 0).
+                transition: animate ? undefined : "none",
               }}
             >
               {imageSrc ? (
-                <img
-                  src={imageSrc}
-                  alt="Hero Banner"
-                  className="hero-bg-img"
-                />
+                <picture>
+                  {mobileSrc && (
+                    <source media="(max-width: 1024px)" srcSet={mobileSrc} />
+                  )}
+                  <img
+                    src={imageSrc}
+                    alt="Hero Banner"
+                    // When this slide ships a dedicated mobile image, stretch it
+                    // to fill the hero at ≤1024px (object-fill) so there's no
+                    // empty letterbox space. Without a mobile image we keep
+                    // object-cover so the desktop image fills (cropped) instead.
+                    className={`hero-bg-img${mobileSrc ? " hero-bg-img--mobile-fill" : ""}`}
+                    // First slide is the LCP element — load it eagerly and tell
+                    // the browser to prioritise it. Remaining slides are deferred
+                    // so they don't compete for bandwidth on initial paint.
+                    fetchPriority={idx === 0 ? "high" : "low"}
+                    loading={idx === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                  />
+                </picture>
               ) : (
                 <div className="hero-bg-fallback" />
               )}
@@ -346,19 +507,52 @@ function Hero({ data, slug }) {
         })}
 
         {/* DOTS */}
-        {slides.length > 1 && (
+        {hasLoop && (
           <div className="inst-hero-dots">
             {slides.map((_, idx) => (
               <button
                 key={idx}
-                onClick={() => setActiveIndex(idx)}
+                onClick={() => {
+                  setAnimate(true);
+                  setActiveIndex(idx);
+                }}
                 className={`w-3 h-3 rounded-full transition ${
-                  idx === activeIndex ? "bg-white" : "bg-white/40"
+                  idx === activeDot ? "bg-white" : "bg-white/40"
                 }`}
               />
             ))}
           </div>
         )}
+      </div>
+
+      {/* INLINE ENQUIRY FORM CARD
+         Desktop:
+           - center → centered horizontally over the hero (lg:left-1/2 + -translate-x-1/2)
+           - left   → lg:left-[5%]
+           - right  → lg:right-[5%] (default)
+         Mobile: stacks below the hero, centered, full width up to 400px. */}
+      {enquiryFormEnabled && (() => {
+        const lgPos =
+          enquiryPosition === "center"
+            ? "lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2"
+            : enquiryPosition === "left"
+            ? "lg:left-[5%] lg:-translate-y-1/2"
+            : "lg:right-[5%] lg:-translate-y-1/2";
+        return (
+          <div
+            className={`w-full px-4 mx-auto max-w-[400px] mt-6 lg:mt-0 lg:w-[400px] lg:max-w-none lg:absolute lg:top-1/2 lg:z-30 ${lgPos}`}
+          >
+            <NpfInlineCard
+              widgetId={enquiryForm.widget_id}
+              title={enquiryForm.title || "ENQUIRE NOW"}
+              titleBg={enquiryForm.title_bg_color || "#F04E30"}
+              titleColor={enquiryForm.title_text_color || "#FFFFFF"}
+              width={enquiryForm.data_width || 400}
+              height={enquiryForm.data_height || 540}
+            />
+          </div>
+        );
+      })()}
       </div>
 
       {/* BOTTOM STRIP */}
@@ -370,19 +564,50 @@ function Hero({ data, slug }) {
 /* Per-slide CTA button extracted so we can use a stable hook (no nested useState in .map). */
 function SlideCtaButton({ btn }) {
   const [isHover, setIsHover] = useState(false);
+
+  const className =
+    "mt-2 mb-4 px-6 py-2 transition-all duration-200 rounded cursor-pointer font-semibold inline-block text-center min-w-[200px]";
+  const style = {
+    backgroundColor: isHover ? btn.hover_bg_color : btn.bg_color,
+    color: isHover ? btn.hover_text_color : btn.text_color,
+    transform: isHover ? "scale(1.05)" : "scale(1)",
+  };
+  const label = btn.text || btn.primary_cta_text;
+
+  // Same visuals — only the click target changes. Used by per-slide CTAs and
+  // by hero grids[].header buttons.
+  if (btn.type === "npf_widget") {
+    return (
+      <NpfWidgetButton
+        widgetId={btn.widget_id}
+        modalTitle={btn.modal_title || "Admission Enquiry"}
+        width={btn.data_width || 500}
+        height={btn.data_height || 600}
+        renderTrigger={({ onClick }) => (
+          <button
+            type="button"
+            onMouseEnter={() => setIsHover(true)}
+            onMouseLeave={() => setIsHover(false)}
+            onClick={onClick}
+            className={className}
+            style={style}
+          >
+            {label}
+          </button>
+        )}
+      />
+    );
+  }
+
   return (
     <a
       href={btn.url}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
-      className="mt-2 mb-4 px-6 py-2 transition-all duration-200 rounded cursor-pointer font-semibold inline-block text-center min-w-[200px]"
-      style={{
-        backgroundColor: isHover ? btn.hover_bg_color : btn.bg_color,
-        color: isHover ? btn.hover_text_color : btn.text_color,
-        transform: isHover ? "scale(1.05)" : "scale(1)",
-      }}
+      className={className}
+      style={style}
     >
-      {btn.text || btn.primary_cta_text}
+      {label}
     </a>
   );
 }
