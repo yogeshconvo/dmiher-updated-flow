@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { usePages } from "./hooks/usePages";
@@ -82,6 +82,36 @@ function PageView() {
     resolvedPage = pageQuery?.data;
   }
 
+  /* ================= SECTION DEEP-LINK SCROLL =================
+     Honours a "#<section-id>" hash in the URL or a pending cross-page
+     scroll set by a menu/topbar Section link (see Navbar). Sections are
+     lazy-loaded, so we poll briefly until the target element mounts. */
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const pending = sessionStorage.getItem("dm_pending_scroll");
+    const hashId = window.location.hash
+      ? decodeURIComponent(window.location.hash.slice(1))
+      : null;
+    const targetId = pending || hashId;
+    if (!targetId) return;
+
+    let tries = 0;
+    let timer;
+    const tick = () => {
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        sessionStorage.removeItem("dm_pending_scroll");
+        return;
+      }
+      if (tries++ < 40) timer = setTimeout(tick, 100); // wait up to ~4s for lazy sections
+    };
+    tick();
+
+    return () => clearTimeout(timer);
+  }, [resolvedPage]);
+
   /* ================= LOADING ================= */
   // Keep skeleton until we have data OR both queries have settled.
   // Using && before meant: if micropageQuery finished with 404 (fast)
@@ -143,7 +173,9 @@ function PageView() {
 
         return (
           <ErrorBoundary key={`${sec.section_id}-${index}`}>
-            <section>
+            {/* page_section_id is the section's unique anchor id — lets menu /
+                topbar "Section" links scroll directly here. */}
+            <section id={sec.page_section_id || undefined}>
               {/* Sections are code-split (React.lazy) — Suspense lets each one
                   stream in as its chunk arrives without blocking the rest. */}
               <Suspense fallback={null}>

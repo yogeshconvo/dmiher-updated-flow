@@ -1,5 +1,5 @@
 import { StrictMode } from "react";
-import { renderToString } from "react-dom/server";
+import { prerenderToNodeStream } from "react-dom/static";
 import { StaticRouter } from "react-router-dom";
 import {
   QueryClient,
@@ -69,7 +69,7 @@ export async function render(url) {
 
   await prefetchForUrl(queryClient, url);
 
-  const html = renderToString(
+  const tree = (
     <StrictMode>
       <NonceProvider>
         <HelmetProvider context={helmetContext}>
@@ -82,6 +82,28 @@ export async function render(url) {
       </NonceProvider>
     </StrictMode>
   );
+
+  // The page sections are all React.lazy() + <Suspense>. renderToString would
+  // emit each Suspense fallback (null) the instant a lazy chunk suspended,
+  // shipping an empty shell. prerenderToNodeStream (react-dom/static) waits for
+  // every lazy chunk to load and every Suspense boundary to resolve, then
+  // resolves with a fully-rendered prelude stream — so the complete page HTML
+  // is server-rendered and visible in "view source". We buffer that stream
+  // into a string to keep server.js's existing template-injection flow.
+  let prerenderError = null;
+  const { prelude } = await prerenderToNodeStream(tree, {
+    onError(err) {
+      prerenderError = err;
+    },
+  });
+  if (prerenderError) throw prerenderError;
+
+  const html = await new Promise((resolve, reject) => {
+    const chunks = [];
+    prelude.on("data", (chunk) => chunks.push(Buffer.from(chunk)));
+    prelude.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
+    prelude.on("error", reject);
+  });
 
   const { helmet } = helmetContext;
   const head = helmet
