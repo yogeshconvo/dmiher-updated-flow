@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Menu, X } from "./icons";
 import { useQuery } from "@tanstack/react-query";
 import MegaMenu from "./NavbarMegaMenu";
@@ -16,6 +16,27 @@ const Navbar = () => {
   const [openSection, setOpenSection] = useState(null);
   const [activeMega, setActiveMega] = useState(null);
   const [closeTimeout, setCloseTimeout] = useState(null);
+  const navigate = useNavigate();
+
+  /* ================= SECTION LINK HANDLING =================
+     A "#<section-id>" slug (Link Type = Section in admin) should scroll to
+     that section, not route. Scroll if it's on the current page; otherwise
+     go to the home page and let PageView pick up the pending scroll. */
+  const isSectionLink = (slug) =>
+    typeof slug === "string" && slug.startsWith("#") && slug.length > 1;
+
+  const handleSectionClick = (e, slug) => {
+    e.preventDefault();
+    const id = slug.slice(1);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      sessionStorage.setItem("dm_pending_scroll", id);
+      navigate("/");
+    }
+    setMobileMenuOpen(false);
+  };
 
   const { data: menuData } = useQuery({
     queryKey: ["menu", "header"],
@@ -95,16 +116,32 @@ const Navbar = () => {
                 );
               }
 
+              const inner = item.image ? (
+                <div className="navbar-icon-row">
+                  <img src={item.image} alt="icon" />
+                  <span>{item.title}</span>
+                </div>
+              ) : (
+                item.title
+              );
+
+              // Section link → scroll instead of route.
+              if (isSectionLink(item.slug)) {
+                return (
+                  <a
+                    key={item.id}
+                    href={item.slug}
+                    className="top-links"
+                    onClick={(e) => handleSectionClick(e, item.slug)}
+                  >
+                    {inner}
+                  </a>
+                );
+              }
+
               return (
                 <Link key={item.id} to={item.slug} className="top-links">
-                  {item.image ? (
-                    <div className="navbar-icon-row">
-                      <img src={item.image} alt="icon" />
-                      <span>{item.title}</span>
-                    </div>
-                  ) : (
-                    item.title
-                  )}
+                  {inner}
                 </Link>
               );
             })}
@@ -227,16 +264,27 @@ const Navbar = () => {
             </div>
 
             <div className="mobile-bottom-links">
-              {topLinks.map((item) => (
-                <Link
-                  key={item.id}
-                  to={item.slug}
-                  className="mobile-link"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.title}
-                </Link>
-              ))}
+              {topLinks.map((item) =>
+                isSectionLink(item.slug) ? (
+                  <a
+                    key={item.id}
+                    href={item.slug}
+                    className="mobile-link"
+                    onClick={(e) => handleSectionClick(e, item.slug)}
+                  >
+                    {item.title}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.id}
+                    to={item.slug}
+                    className="mobile-link"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.title}
+                  </Link>
+                )
+              )}
             </div>
           </div>
         )}

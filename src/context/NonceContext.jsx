@@ -1,12 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import api from "../config/api";
+import { createContext, useContext } from "react";
 
 const NonceContext = createContext("");
 const PLACEHOLDER = "__CSP_NONCE__";
 
 // Module-level cache so synchronous getNonce() calls from useScript /
-// FloatingButtons / EnquiryGlobal can see the backend-fetched nonce
-// after NonceProvider has resolved it.
+// FloatingButtons / NpfInlineCard / EnquiryGlobal resolve without a hook.
 let cachedNonce = "";
 
 function readMetaNonce() {
@@ -16,60 +14,30 @@ function readMetaNonce() {
   return v && v !== PLACEHOLDER ? v : "";
 }
 
-function stampMetaNonce(n) {
-  if (typeof document === "undefined" || !n) return;
-  let meta = document.querySelector('meta[name="csp-nonce"]');
-  if (!meta) {
-    meta = document.createElement("meta");
-    meta.setAttribute("name", "csp-nonce");
-    document.head.appendChild(meta);
-  }
-  meta.setAttribute("content", n);
-}
-
 /**
- * Reads the CSP nonce. Priority:
- *   1. Module cache (set by NonceProvider after backend fetch)
- *   2. <meta name="csp-nonce"> stamped by Laravel's FrontendController
- *   3. Empty string (dev fallback — Vite leaves the placeholder unresolved)
+ * Reads the per-request CSP nonce.
+ *
+ * The nonce is generated and applied entirely by the frontend SSR server
+ * (server.js): it stamps the value into <meta name="csp-nonce"> and the entry
+ * <script> tag, and sets the matching Content-Security-Policy header. There is
+ * NO backend round-trip — the React runtime only reads what the frontend
+ * already put on the page.
+ *
+ * Priority:
+ *   1. Module cache
+ *   2. <meta name="csp-nonce"> stamped by server.js
+ *   3. "" — plain Vite dev (`npm run dev`), where the dev CSP uses
+ *      'unsafe-inline' so runtime-injected scripts need no nonce attribute.
  */
 export function getNonce() {
   if (cachedNonce) return cachedNonce;
   const fromMeta = readMetaNonce();
-  if (fromMeta) {
-    cachedNonce = fromMeta;
-    return fromMeta;
-  }
-  return "";
+  if (fromMeta) cachedNonce = fromMeta;
+  return cachedNonce;
 }
 
 export function NonceProvider({ children }) {
-  const [nonce, setNonce] = useState(() => getNonce());
-
-  useEffect(() => {
-    if (nonce) return;
-
-    // Meta tag had no real nonce (Vite dev, or HTML wasn't stamped).
-    // Pull a fresh per-request nonce from the backend so runtime-injected
-    // scripts (NoPaperForms widget, etc.) carry a valid nonce attribute.
-    let cancelled = false;
-    api
-      .get("/csp-nonce")
-      .then((res) => {
-        const n = res?.data?.nonce;
-        if (!cancelled && n) {
-          cachedNonce = n;
-          stampMetaNonce(n);
-          setNonce(n);
-        }
-      })
-      .catch(() => {});
-
-    return () => {
-      cancelled = true;
-    };
-  }, [nonce]);
-
+  const nonce = getNonce();
   return (
     <NonceContext.Provider value={nonce}>{children}</NonceContext.Provider>
   );
