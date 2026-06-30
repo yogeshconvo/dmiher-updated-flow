@@ -18,6 +18,60 @@ const getRenderItems = (data) => {
   return data?.sections?.[0]?.content_flow || [];
 };
 
+/* Collect image path strings from every shape the CMS emits for image blocks:
+     - legacy single string            item.value / item.image  ("assets/..")
+     - single_img tab_type             item.image (string)
+     - repeatable gallery (1 level)    item.image: [ { image: "..." } ]
+     - repeatable gallery (2 levels)   item.image: [ { image: [ { image: "..." } ] } ]
+   Returns a flat list of strings so callers can render one image or a grid. */
+const collectImageSrcs = (item) => {
+  const out = [];
+  const push = (v) => {
+    if (typeof v === "string" && v.trim()) out.push(v.trim());
+  };
+
+  push(item?.value);
+  if (typeof item?.image === "string") push(item.image);
+
+  if (Array.isArray(item?.image)) {
+    item.image.forEach((entry) => {
+      if (typeof entry === "string") return push(entry);
+      const inner = entry?.image;
+      if (typeof inner === "string") return push(inner);
+      if (Array.isArray(inner)) {
+        inner.forEach((x) => push(typeof x === "string" ? x : x?.image));
+      }
+    });
+  }
+
+  return out;
+};
+
+/* ================= IMAGE BLOCK (new shape: tab_type image / single_img) =====
+   One image renders full-width (legacy behaviour); multiple images render as a
+   responsive gallery grid, mirroring the live-site Global subpages. */
+const ImageBlock = ({ item }) => {
+  const srcs = collectImageSrcs(item);
+  if (!srcs.length) return null;
+
+  if (srcs.length === 1) {
+    return <SafeImage src={srcs[0]} alt="" className="mb-4 rounded max-w-full" />;
+  }
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+      {srcs.map((s, i) => (
+        <SafeImage
+          key={i}
+          src={s}
+          alt=""
+          className="w-full h-64 object-cover rounded-xl"
+        />
+      ))}
+    </div>
+  );
+};
+
 /* ================= DEAN BLOCK (new shape) ================= */
 const DeanBlock = ({ entries }) => {
   if (!Array.isArray(entries) || !entries.length) return null;
@@ -318,14 +372,8 @@ const MainMicropage = ({ data }) => {
                 );
 
               case "image":
-                return (
-                  <SafeImage
-                    key={key}
-                    src={resolveImage(item.value || item.image)}
-                    alt=""
-                    className="mb-4 rounded"
-                  />
-                );
+              case "single_img":
+                return <ImageBlock key={key} item={item} />;
 
               case "table":
                 return <TableBlock key={key} block={item} />;
