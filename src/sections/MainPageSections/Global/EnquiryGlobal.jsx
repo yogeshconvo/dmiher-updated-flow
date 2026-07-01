@@ -6,9 +6,10 @@ import { getNonce } from "../../../context/NonceContext";
 // import "../../styles/enquiry-global-main.css";
 // import "../../styles/enquiry-global-responsive.css";
 
-/* ================= NoPaperForm ================= */
-const NoPaperFormWidget = () => {
+/* ================= NoPaperForm (external admission enquiry) ================= */
+const NoPaperFormWidget = ({ widgetId, height = "360px" }) => {
   useEffect(() => {
+    if (!widgetId) return;
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.async = true;
@@ -19,21 +20,26 @@ const NoPaperFormWidget = () => {
     if (nonce) script.setAttribute("nonce", nonce);
 
     document.body.appendChild(script);
-    return () => document.body.removeChild(script);
-  }, []);
+    return () => {
+      if (script.parentNode) script.parentNode.removeChild(script);
+    };
+  }, [widgetId]);
+
+  if (!widgetId) return null;
 
   return (
     <div
       className="npf_wgts npf-container"
-      data-height="360px"
+      data-height={height}
       data-width="full"
-      data-w="e07589d3e4cb30c4c23ee47924975ec8"
+      data-w={widgetId}
     />
   );
 };
 
-const EnquiryGlobal = ({ data }) => {
-  const [showModal, setShowModal] = useState(false);
+const EnquiryGlobal = ({ data, pageSlug }) => {
+  // Holds the enquiry_form object of the NPF card that's currently open.
+  const [modal, setModal] = useState(null);
   const links = data?.links ?? [];
 
   return (
@@ -46,27 +52,66 @@ const EnquiryGlobal = ({ data }) => {
 
         <div className="enquiry-grid">
           {links.map((link, idx) => {
-            const target = link.page_slug ?? link.path;
-            const isExternal =
-              target?.startsWith?.("http") || target?.endsWith?.(".pdf");
+            const card = (
+              <>
+                <div className="enquiry-icon-wrap">
+                  <FileText className="enquiry-icon" />
+                </div>
+                <div className="enquiry-text">{link.title}</div>
+              </>
+            );
 
+            // 1) Dynamic form → rendered via the section-dependent micropage
+            //    flow. Links to /{pageSlug}/{cta_key}; MicroPageApiController
+            //    returns the `dynamic_application_form` section which renders
+            //    the referenced dashboard form. (No /forms URL.)
+            const cta = link.cta;
+            if (cta?.has_micro_page && cta?.cta_key && pageSlug) {
+              return (
+                <Link
+                  key={idx}
+                  to={`/${pageSlug}/${cta.cta_key}`}
+                  className="enquiry-card"
+                >
+                  {card}
+                </Link>
+              );
+            }
+
+            // 2) NoPaperForms popup (external admission enquiry) — opens a modal.
+            if (link.enquiry_form?.widget_id || link.design_type === "form") {
+              return (
+                <div
+                  key={idx}
+                  className="enquiry-card"
+                  onClick={() => setModal(link.enquiry_form || {})}
+                >
+                  {card}
+                </div>
+              );
+            }
+
+            // 3) Backward-compat: legacy page_slug / path / popup links.
+            const target = link.page_slug ?? link.path;
             if (target === "popup") {
               return (
                 <div
                   key={idx}
                   className="enquiry-card"
-                  onClick={() => setShowModal(true)}
+                  onClick={() =>
+                    setModal({
+                      widget_id: "e07589d3e4cb30c4c23ee47924975ec8",
+                      title: "Admission Enquiry Form",
+                    })
+                  }
                 >
-                  <div className="enquiry-icon-wrap">
-                    <FileText className="enquiry-icon" />
-                  </div>
-                  <div className="enquiry-text">{link.title}</div>
+                  {card}
                 </div>
               );
             }
-
+            const isExternal =
+              target?.startsWith?.("http") || target?.endsWith?.(".pdf");
             const to = target?.startsWith?.("/") ? target : `/${target || ""}`;
-
             return isExternal ? (
               <a
                 key={idx}
@@ -75,44 +120,35 @@ const EnquiryGlobal = ({ data }) => {
                 rel="noopener noreferrer"
                 className="enquiry-card"
               >
-                <div className="enquiry-icon-wrap">
-                  <FileText className="enquiry-icon" />
-                </div>
-                <div className="enquiry-text">{link.title}</div>
+                {card}
               </a>
             ) : (
               <Link key={idx} to={to} className="enquiry-card">
-                <div className="enquiry-icon-wrap">
-                  <FileText className="enquiry-icon" />
-                </div>
-                <div className="enquiry-text">{link.title}</div>
+                {card}
               </Link>
             );
           })}
         </div>
       </div>
 
-      {showModal && (
-        <div
-          className="enquiry-modal-overlay"
-          onClick={() => setShowModal(false)}
-        >
-          <div
-            className="enquiry-modal"
-            onClick={(e) => e.stopPropagation()}
-          >
+      {modal && (
+        <div className="enquiry-modal-overlay" onClick={() => setModal(null)}>
+          <div className="enquiry-modal" onClick={(e) => e.stopPropagation()}>
             <button
               className="enquiry-modal-close"
-              onClick={() => setShowModal(false)}
+              onClick={() => setModal(null)}
             >
               &times;
             </button>
 
             <h3 className="enquiry-modal-title">
-              Admission Enquiry Form
+              {modal.title || "Admission Enquiry Form"}
             </h3>
 
-            <NoPaperFormWidget />
+            <NoPaperFormWidget
+              widgetId={modal.widget_id}
+              height={modal.data_height ? `${modal.data_height}px` : "360px"}
+            />
           </div>
         </div>
       )}

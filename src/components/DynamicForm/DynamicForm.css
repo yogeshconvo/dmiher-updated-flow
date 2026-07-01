@@ -1,0 +1,34 @@
+/* Dynamic form grid — per-field width (12 = full, 6 = half, 4 = third) drives
+   how many fields sit in one row. Collapses to a single column on mobile. */
+.dyn-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.1rem 1.25rem;
+  align-items: start;
+}
+
+@media (max-width: 767px) {
+  .dyn-grid > * {
+    grid-column: span 12 !important;
+  }
+}
+
+/* Options (radio / checkbox) — N per row, packed left with content-width
+   columns (so choices sit close together, not stretched across the row).
+   Collapses to a single column on mobile. */
+.opt-grid {
+  display: grid;
+  gap: 0.4rem 2.5rem;
+  align-items: start;
+  justify-content: start;
+}
+.opt-cols-1 { grid-template-columns: max-content; }
+.opt-cols-2 { grid-template-columns: repeat(2, max-content); }
+.opt-cols-3 { grid-template-columns: repeat(3, max-content); }
+
+@media (max-width: 767px) {
+  .opt-cols-2,
+  .opt-cols-3 {
+    grid-template-columns: max-content;
+  }
+}
