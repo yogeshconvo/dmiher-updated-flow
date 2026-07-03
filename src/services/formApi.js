@@ -15,6 +15,28 @@ export const getForm = async (slug) => {
 };
 
 export const submitForm = async (slug, values, _hp = "") => {
+  // If any field holds a File, send multipart/form-data (files[key]); otherwise
+  // a plain JSON body. axios sets the multipart boundary automatically.
+  const hasFile = Object.values(values || {}).some(
+    (v) => typeof File !== "undefined" && v instanceof File
+  );
+
+  if (hasFile) {
+    const fd = new FormData();
+    fd.append("_hp", _hp ?? "");
+    Object.entries(values).forEach(([k, v]) => {
+      if (v instanceof File) {
+        fd.append(`files[${k}]`, v);
+      } else if (Array.isArray(v)) {
+        v.forEach((item) => fd.append(`values[${k}][]`, item));
+      } else if (v !== undefined && v !== null) {
+        fd.append(`values[${k}]`, v);
+      }
+    });
+    const { data } = await api.post(`/forms/${slug}/submit`, fd);
+    return data;
+  }
+
   const { data } = await api.post(`/forms/${slug}/submit`, { values, _hp });
   return data;
 };

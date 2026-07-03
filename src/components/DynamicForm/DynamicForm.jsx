@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useFormDefinition, useSubmitForm } from "../../hooks/useForm";
+import RichTextEditor from "./RichTextEditor";
 import "./DynamicForm.css";
 
 /**
@@ -62,6 +63,11 @@ export default function DynamicForm({ slug }) {
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
   };
 
+  // Human-readable label for messages, even when a field has no label.
+  const labelOf = (f) =>
+    f.label ||
+    (f.key || "field").replace(/[_-]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+
   const validate = () => {
     const next = {};
     const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -71,14 +77,19 @@ export default function DynamicForm({ slug }) {
       const empty =
         val === undefined ||
         val === "" ||
+        val === null ||
         (Array.isArray(val) && val.length === 0);
 
       if (f.required && empty) {
-        next[f.key] = `${f.label} is required.`;
+        next[f.key] = `${labelOf(f)} is required.`;
         continue;
       }
-      if (f.type === "email" && val && !emailRe.test(val)) {
+      if (empty) continue;
+
+      if (f.type === "email" && !emailRe.test(String(val))) {
         next[f.key] = "Please enter a valid email address.";
+      } else if (f.type === "number" && isNaN(Number(val))) {
+        next[f.key] = "Please enter a valid number.";
       }
     }
     setErrors(next);
@@ -197,14 +208,10 @@ export default function DynamicForm({ slug }) {
                   switch (f.type) {
                     case "textarea":
                       return (
-                        <textarea
-                          name={f.key}
-                          id={f.key}
-                          rows={5}
-                          className={inputClass}
-                          placeholder={f.placeholder || ""}
+                        <RichTextEditor
                           value={values[f.key] || ""}
-                          onChange={(e) => setValue(f.key, e.target.value)}
+                          placeholder={f.placeholder || ""}
+                          onChange={(html) => setValue(f.key, html)}
                         />
                       );
                     case "select":
@@ -273,7 +280,7 @@ export default function DynamicForm({ slug }) {
                           type="file"
                           className={inputClass}
                           onChange={(e) =>
-                            setValue(f.key, e.target.files?.[0]?.name || "")
+                            setValue(f.key, e.target.files?.[0] || null)
                           }
                         />
                       );
