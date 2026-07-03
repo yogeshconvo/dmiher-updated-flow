@@ -22,6 +22,8 @@ const DALFellowship = lazy(() => import("./UniquePages/DALFellowship"));
 const ClinicalResearch = lazy(() => import("./UniquePages/ClinicalResearch"));
 const AboutHospital = lazy(() => import("./AboutHospital"));
 const HigherEducationPlacement = lazy(() => import("./HigherEducationPlacement"));
+const GlobalCollaborations = lazy(() => import("./UniquePages/GlobalCollaborations"));
+const ProminentConsortia = lazy(() => import("./UniquePages/ProminentConsortia"));
 
 export const SECTION_COMPONENTS = {
 
@@ -39,6 +41,13 @@ export const SECTION_COMPONENTS = {
     clinical_research_subpage: ClinicalResearch,
     about_hospital_subpage: AboutHospital,
     higher_education_placement_subpage: HigherEducationPlacement,
+
+    // Global Connect subpages (section-dependent micropages on /global-connect).
+    // Unique layouts mirroring the live-site Global-Subpages JSX:
+    //   global_collaborations → Collaborations & Partnerships
+    //   prominent_consortia   → Global Research Programs
+    global_collaborations: GlobalCollaborations,
+    prominent_consortia: ProminentConsortia,
 
     // NAAC SSR (section_id from API: "naac_ssr_micropage")
     naac_ssr_micropage: NaacSSR,
