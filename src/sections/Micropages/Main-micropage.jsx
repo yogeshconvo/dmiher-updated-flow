@@ -86,17 +86,31 @@ const DeanBlock = ({ entries }) => {
                 alt={d?.name || "Dean"}
                 className="knowmore-dean-image"
               />
-              {(d?.name || d?.designation || d?.qualifications || d?.email) && (
+              {(d?.name ||
+                d?.designation ||
+                d?.qualifications ||
+                d?.qualification ||
+                d?.email) && (
                 <div className="knowmore-dean-info">
-                  {d?.name && <p className="knowmore-dean-name">{d.name}</p>}
-                  {(d?.designation || d?.qualifications) && (
-                    <p>
-                      {d?.designation}
-                      {d?.designation && d?.qualifications && <br />}
-                      {d?.qualifications}
-                    </p>
+                  {/* Key-Officials / Dean-message pages store the name +
+                      designation + qualifications + email together as an HTML
+                      `qualification` block; render it as-is. Older pages that
+                      supply the discrete plain-text fields keep working. */}
+                  {d?.qualification ? (
+                    <RichTextRenderer html={d.qualification} />
+                  ) : (
+                    <>
+                      {d?.name && <p className="knowmore-dean-name">{d.name}</p>}
+                      {(d?.designation || d?.qualifications) && (
+                        <p>
+                          {d?.designation}
+                          {d?.designation && d?.qualifications && <br />}
+                          {d?.qualifications}
+                        </p>
+                      )}
+                      {d?.email && <p>{d.email}</p>}
+                    </>
                   )}
-                  {d?.email && <p>{d.email}</p>}
                 </div>
               )}
             </div>
@@ -109,6 +123,34 @@ const DeanBlock = ({ entries }) => {
         </div>
       ))}
     </>
+  );
+};
+
+/* ================= DEAN CARDS GRID (new shape) =================
+   When the dean block carries a `per_row` count (or has more than one entry),
+   the deans render as a responsive card grid — image on top, details below —
+   instead of the single profile + message layout. `--dean-cols` drives how many
+   cards sit in a row on desktop (from the CMS, default 3). Mirrors the live-site
+   Key Functionaries card grid. */
+const DeanCardsGrid = ({ entries, cols = 3 }) => {
+  if (!Array.isArray(entries) || !entries.length) return null;
+  return (
+    <div className="dean-cards-grid" style={{ "--dean-cols": cols }}>
+      {entries.map((d, i) => (
+        <div key={i} className="dean-card">
+          <SafeImage
+            src={resolveImage(d?.img)}
+            alt={d?.name || ""}
+            className="dean-card-image"
+          />
+          <div className="dean-card-body">
+            {(d?.desc || d?.qualification) && (
+              <RichTextRenderer html={d.desc || d.qualification} />
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 
@@ -379,8 +421,50 @@ const MainMicropage = ({ data }) => {
                 return <TableBlock key={key} block={item} />;
 
               case "dean":
-              case "dean_section":
-                return <DeanBlock key={key} entries={item.dean || []} />;
+              case "dean_section": {
+                const deanEntries = Array.isArray(item.dean) ? item.dean : [];
+                // The heading is managed by the heading type — not the dean
+                // profile. Some pages carry it on the block (item.heading), some
+                // on the first dean entry (e.g. About "Key Functionaries" stores
+                // "Key Functionaries" on dean[0].heading). Render it once with
+                // the shared heading style. Pages that instead supply a separate
+                // `title` block leave the dean entries heading-less, so there's
+                // no duplication.
+                const deanHeading =
+                  item.heading ||
+                  deanEntries.find((e) => e && e.heading)?.heading ||
+                  "";
+                // Cards-per-row comes from the CMS (per_row / aliases). When set
+                // — or when the block holds more than one person — the deans
+                // render as a card grid N-per-row (default 3); otherwise a single
+                // dean keeps the profile + message layout (e.g. Key Officials).
+                const perRowRaw = Number(
+                  item.per_row ?? item.deans_per_row ?? item.cards_per_row
+                );
+                const perRow =
+                  Number.isFinite(perRowRaw) && perRowRaw > 0
+                    ? Math.min(Math.round(perRowRaw), 6)
+                    : 0;
+                const useGrid = perRow > 0 || deanEntries.length > 1;
+                return (
+                  <React.Fragment key={key}>
+                    {deanHeading && (
+                      <h2 className="heading">
+                        <hr className="heading-line" />
+                        {deanHeading}
+                      </h2>
+                    )}
+                    {useGrid ? (
+                      <DeanCardsGrid
+                        entries={deanEntries}
+                        cols={perRow || 3}
+                      />
+                    ) : (
+                      <DeanBlock entries={deanEntries} />
+                    )}
+                  </React.Fragment>
+                );
+              }
 
               case "team":
                 return <TeamBlock key={key} members={item.management_team || []} />;
