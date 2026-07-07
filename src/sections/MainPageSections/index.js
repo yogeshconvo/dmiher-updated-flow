@@ -11,6 +11,10 @@ const HomeTestimonial = lazy(() => import("../MainPageSections/Home/testimonial"
 const ExcellenceSection = lazy(() => import("../MainPageSections/About/ExcellenceSection"))
 const VisionMissionSection = lazy(() => import("./About/VisionMissionSection"))
 const CoreValues = lazy(() => import("./About/CoreValues"))
+const CoreObjectives = lazy(() => import("./About/CoreObjectives"))
+const JourneyOfExcellence = lazy(() => import("./About/JourneyOfExcellence"))
+const ThrustAreas = lazy(() => import("./About/ThrustAreas"))
+const FDPActivities = lazy(() => import("./About/FDPActivities"))
 const AboutGrid = lazy(() => import("./About/AboutGrid"))
 const CommitteesSection = lazy(() => import("./About/CommitteesSection"))
 const DMIHERJourney = lazy(() => import("./About/DMIHERJourney"))
@@ -101,6 +105,10 @@ export const SECTION_COMPONENTS = {
     About_Excellence_Section: ExcellenceSection,
     about_VisionMission_Section: VisionMissionSection,
     about_CoreValues_section: CoreValues,
+    core_objectives: CoreObjectives,
+    journey_of_excellence: JourneyOfExcellence,
+    thrust_areas: ThrustAreas,
+    fdp_activities: FDPActivities,
     AboutGrid_section: AboutGrid,
     institute_departments: AboutGrid,
     committees_facilities_section: CommitteesSection,

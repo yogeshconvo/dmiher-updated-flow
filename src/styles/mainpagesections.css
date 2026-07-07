@@ -919,6 +919,269 @@
     @apply text-xs leading-relaxed;
 }
 
+/* ================= CORE OBJECTIVES ================= */
+.core-objectives-section {
+    @apply py-14 px-4 sm:px-8 md:px-12 lg:px-20;
+}
+
+.core-objectives-container {
+    @apply max-w-7xl mx-auto;
+}
+
+.core-objectives-title {
+    @apply text-2xl sm:text-3xl md:text-4xl font-[500] font-oswald-medium uppercase text-[#707070] tracking-wide mb-6 max-w-3xl;
+}
+
+.core-objectives-underline {
+    @apply w-16 border-[#F04E30] mb-3 border-t-4;
+}
+
+.core-objectives-subtitle {
+    @apply text-lg sm:text-xl font-bold text-[#122E5E] mb-8;
+}
+
+.core-objectives-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8;
+}
+
+.core-objective-item {
+    @apply flex flex-col items-start;
+}
+
+.core-objective-number {
+    @apply w-10 h-10 rounded-full bg-[#0a2c61] flex items-center justify-center text-lg font-bold mb-5;
+}
+
+.core-objective-desc {
+    @apply text-sm text-[#3f3f3f] leading-relaxed font-light;
+}
+
+.core-objective-desc p {
+    @apply m-0;
+}
+
+/* ================= JOURNEY OF EXCELLENCE ================= */
+.joe-section {
+    @apply py-14 px-4 sm:px-8 md:px-12 lg:px-20;
+}
+
+.joe-container {
+    @apply max-w-7xl mx-auto;
+}
+
+.joe-title {
+    @apply text-2xl sm:text-3xl md:text-[32px] font-[500] font-oswald-medium uppercase text-[#707070] tracking-wide mb-4 max-w-3xl leading-tight;
+}
+
+.joe-underline {
+    @apply w-16 border-[#F04E30] mb-3 border-t-4;
+}
+
+.joe-description {
+    @apply text-[15px] leading-7 text-[#6c6d70] max-w-[900px] mb-10;
+}
+
+.joe-timeline-wrapper {
+    @apply mb-14;
+}
+
+.joe-timeline-header {
+    @apply flex items-center gap-4 mb-10;
+}
+
+.joe-timeline-title {
+    @apply text-[17px] sm:text-lg font-bold text-[#122E5E] whitespace-nowrap;
+}
+
+.joe-timeline-line {
+    @apply flex-1 h-px bg-gray-300;
+}
+
+.joe-timeline-staircase {
+    @apply flex items-end justify-start flex-wrap gap-2 pt-8 min-h-[280px];
+}
+
+.joe-timeline-step {
+    @apply w-[170px] p-4 shadow-md flex flex-col justify-end;
+    min-height: 170px;
+}
+
+.joe-timeline-step:nth-child(1) {
+    @apply mb-0;
+    min-height: 155px;
+}
+
+.joe-timeline-step:nth-child(2) {
+    min-height: 175px;
+    margin-bottom: 20px;
+}
+
+.joe-timeline-step:nth-child(3) {
+    min-height: 195px;
+    margin-bottom: 40px;
+}
+
+.joe-timeline-step:nth-child(4) {
+    min-height: 215px;
+    margin-bottom: 60px;
+}
+
+.joe-timeline-step:nth-child(5) {
+    min-height: 235px;
+    margin-bottom: 80px;
+}
+
+.joe-timeline-step:nth-child(6) {
+    min-height: 255px;
+    margin-bottom: 100px;
+}
+
+@media (max-width: 767px) {
+    .joe-timeline-staircase {
+        @apply flex-col items-stretch;
+        min-height: 0;
+    }
+    .joe-timeline-step,
+    .joe-timeline-step:nth-child(n) {
+        @apply w-full mb-0;
+        min-height: auto;
+    }
+}
+
+.joe-dispensation {
+    @apply mb-12;
+}
+
+.joe-dispensation-title {
+    @apply flex items-center gap-4 text-[17px] sm:text-lg font-bold text-[#122E5E] mb-3;
+}
+
+.joe-dispensation-line {
+    @apply flex-1 h-px bg-gray-300;
+}
+
+.joe-dispensation-body {
+    @apply text-[15px] text-[#6c6d70];
+}
+
+.joe-dispensation-body ul {
+    @apply list-disc ml-6 mt-2 space-y-1;
+}
+
+.joe-flow-chart {
+    @apply grid grid-cols-1 md:grid-cols-3 gap-6 mt-8;
+}
+
+.joe-flow-col {
+    @apply p-5 border border-gray-200 flex flex-col;
+    min-height: 240px;
+}
+
+.joe-flow-heading {
+    @apply text-center text-[15px] text-[#3f3f3f] font-medium mb-4;
+}
+
+.joe-flow-items {
+    @apply flex flex-col gap-4 justify-center flex-1;
+}
+
+.joe-flow-item {
+    @apply px-4 py-3 text-sm font-medium text-center shadow;
+}
+
+/* ================= FDP ACTIVITIES ================= */
+.fdp-activities-section {
+    @apply py-14 px-4 sm:px-8 md:px-12 lg:px-20;
+}
+
+.fdp-activities-container {
+    @apply max-w-7xl mx-auto;
+}
+
+.fdp-activities-title {
+    @apply text-2xl sm:text-3xl md:text-4xl font-[500] font-oswald-medium uppercase text-[#707070] tracking-wide mb-4;
+}
+
+.fdp-activities-underline {
+    @apply w-16 border-[#F04E30] mb-3 border-t-4;
+}
+
+.fdp-activities-description {
+    @apply text-[15px] leading-7 text-[#122E5E] max-w-5xl mb-8;
+}
+
+.fdp-activities-list {
+    @apply border-t border-gray-300;
+}
+
+.fdp-activity-item {
+    @apply border-b border-gray-300;
+}
+
+.fdp-activity-toggle {
+    @apply w-full flex items-start justify-between gap-6 text-left py-5 text-[#122E5E] hover:opacity-90 transition-opacity cursor-pointer bg-transparent;
+}
+
+.fdp-activity-title {
+    @apply text-lg sm:text-xl font-medium leading-snug flex-1;
+}
+
+.fdp-activity-icon {
+    @apply text-2xl font-light text-[#122E5E] shrink-0 leading-none pt-1;
+}
+
+.fdp-activity-content {
+    @apply pb-6 pt-1 text-[#333];
+}
+
+.fdp-activity-content table {
+    @apply my-2;
+}
+
+.fdp-activity-content p {
+    @apply text-[15px] text-[#3f3f3f] mt-3;
+}
+
+/* ================= THRUST AREAS ================= */
+.thrust-areas-section {
+    @apply py-14 px-4 sm:px-8 md:px-12 lg:px-20;
+}
+
+.thrust-areas-container {
+    @apply max-w-7xl mx-auto;
+}
+
+.thrust-areas-title {
+    @apply text-2xl sm:text-3xl md:text-4xl font-[500] font-oswald-medium uppercase text-[#707070] tracking-wider mb-8;
+}
+
+.thrust-areas-underline {
+    @apply w-16 border-[#F04E30] mb-3 border-t-4;
+}
+
+.thrust-areas-grid {
+    @apply grid gap-1;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-auto-rows: 130px;
+}
+
+.thrust-areas-box {
+    @apply flex items-center justify-center p-4 text-center;
+}
+
+@media (max-width: 767px) {
+    .thrust-areas-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: 110px;
+    }
+
+    /* On mobile, collapse the row/col spans so every card is a simple tile. */
+    .thrust-areas-box {
+        grid-column: span 1 !important;
+        grid-row: span 1 !important;
+    }
+}
+
 /* ================= EXCELLENCE ================= */
 .excellence-wrapper {
     @apply max-w-6xl px-5 mx-auto text-center bg-white text-[#707070];
