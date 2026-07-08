@@ -1,5 +1,12 @@
 stages: [build, deploy]
 
+# Runs the SSR pipeline (client + server bundles). The static site at
+# dmiher.edu.in/dmiher-web/ is currently served from dist/client/ (Apache +
+# spa.php nonce stamping), so only that half is FTP-deployed below. Building
+# the server bundle here as well exercises the SSR entry (src/entry-server.jsx)
+# on every push so we catch SSR-only regressions early — even before the Node
+# host is provisioned. dist/server/ is kept as a build artifact for a future
+# Node runtime deployment.
 build:
   stage: build
   image: node:20-alpine
@@ -9,13 +16,18 @@ build:
     paths: [node_modules/]
   script:
     - npm ci --legacy-peer-deps
-    - npm run build
+    - npm run build:ssr
   artifacts:
     paths: [dist/]
     expire_in: 1 day
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
 
+# Mirrors dist/client/ (index.html, spa.php, .htaccess, assets/, etc.) into
+# the FTP webroot at $FTP_PATH — deliberately NOT dist/ itself, or the
+# client/ and server/ subdirs would land under the webroot and break the
+# current URL layout. dist/server/ stays in the artifact for follow-on Node
+# deployment work but is not shipped to the FTP host that runs Apache+PHP.
 deploy:
   stage: deploy
   image: alpine:latest
@@ -33,7 +45,7 @@ deploy:
           --exclude-glob=*.zip \
           --exclude-glob=*OLDFILE* \
           --exclude-glob=asOLDFILE \
-          dist/ $FTP_PATH
+          dist/client/ $FTP_PATH
       "
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
