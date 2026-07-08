@@ -171,11 +171,20 @@ function PageView() {
         const SectionComponent = SECTION_COMPONENTS[sec.section_id];
         if (!SectionComponent) return null;
 
+        // Sections beyond the first are almost always off-screen at first
+        // paint. `content-visibility: auto` (applied via .page-section-defer)
+        // tells the browser to skip layout/paint for them until they scroll
+        // near — biggest single perf win for long pages that isn't a rewrite.
+        // First section (hero) stays fully rendered so LCP isn't deferred.
+        const deferPaint = index > 0;
         return (
           <ErrorBoundary key={`${sec.section_id}-${index}`}>
             {/* page_section_id is the section's unique anchor id — lets menu /
                 topbar "Section" links scroll directly here. */}
-            <section id={sec.page_section_id || undefined}>
+            <section
+              id={sec.page_section_id || undefined}
+              className={deferPaint ? "page-section-defer" : undefined}
+            >
               {/* Sections are code-split (React.lazy) — Suspense lets each one
                   stream in as its chunk arrives without blocking the rest. */}
               <Suspense fallback={null}>

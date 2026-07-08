@@ -25,10 +25,40 @@ html, body {
     @apply overflow-x-hidden;
     background-color: #ffffff;
     color: #58595B;
+    /* Belt-and-braces guard: some CMS-driven content sets fixed pixel widths
+       that push the viewport wider than the screen on mobile. Clamping the
+       body to 100vw kills the horizontal scroll bar even if a child leaks. */
+    max-width: 100vw;
 }
 
 body {
     @apply pt-[100px];
+}
+
+#root {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+/* Media defaults — stop any oversized CMS asset or embedded iframe from
+   forcing horizontal scroll on narrow viewports. Individual components can
+   still opt out with an explicit width. */
+img, video, iframe, table {
+    max-width: 100%;
+}
+img, video {
+    height: auto;
+}
+
+/* Below-the-fold sections opt in via PageView.jsx (index > 0). The browser
+   skips layout+paint for these until they scroll into view, cutting the
+   time-to-interactive on long pages. contain-intrinsic-size gives the browser
+   a size hint so the scrollbar and CLS aren't affected while sections are
+   still "collapsed". Value is a coarse average per section; individual
+   components can override with their own contain-intrinsic-size. */
+.page-section-defer {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 600px;
 }
 
 .container {

@@ -5,6 +5,26 @@
 
 /* ================= Home Page Sections ================= */
 
+/* Hero top-bar primary CTA — extracted from inline <style> in Hero.jsx so it
+   ships as one cacheable rule instead of being emitted into every SSR response. */
+.btn-primary {
+  background: linear-gradient(90deg, #005bbb, #0099ff);
+  animation: slideIn 1s ease-out, pulseBlue 1.8s infinite;
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.4);
+}
+
+@keyframes pulseBlue {
+  0%   { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.6); }
+  70%  { box-shadow: 0 0 0 18px rgba(0, 123, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-25px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
 /* ================= Outcome ================= */
 
 .outcome-wrapper {

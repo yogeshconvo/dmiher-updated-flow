@@ -1,6 +1,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
+import { Helmet } from "react-helmet-async";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Link } from "react-router";
@@ -11,6 +12,7 @@ function Hero({ data, slug = "Home" }) {
 
   const topbar = data.topbar || {};
   const slides = data.slides || [];
+  const lcpImg = slides[0]?.img;
 
   const primarySectionId =
     topbar.primary_cta_section_id || "jnmc-announcements";
@@ -26,6 +28,16 @@ function Hero({ data, slug = "Home" }) {
 
   return (
     <>
+      {lcpImg && (
+        <Helmet>
+          <link
+            rel="preload"
+            as="image"
+            href={lcpImg}
+            fetchpriority="high"
+          />
+        </Helmet>
+      )}
       {/* Top Bar */}
       <div className="mph-topbar">
         <span className="mph-admission-text">
@@ -182,27 +194,6 @@ function Hero({ data, slug = "Home" }) {
           }
         </div>
 
-        {/* Button Animation CSS */}
-        <style>
-          {`
-            .btn-primary {
-              background: linear-gradient(90deg, #005bbb, #0099ff);
-              animation: slideIn 1s ease-out, pulseBlue 1.8s infinite;
-              box-shadow: 0 0 15px rgba(0, 123, 255, 0.4);
-            }
-
-            @keyframes pulseBlue {
-              0% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.6); }
-              70% { box-shadow: 0 0 0 18px rgba(0, 123, 255, 0); }
-              100% { box-shadow: 0 0 0 0 rgba(0, 123, 255, 0); }
-            }
-
-            @keyframes slideIn {
-              from { opacity: 0; transform: translateY(-25px); }
-              to { opacity: 1; transform: translateY(0); }
-            }
-          `}
-        </style>
       </div>
 
       {/* Swiper section */}
@@ -221,6 +212,11 @@ function Hero({ data, slug = "Home" }) {
                   src={slide.img}
                   alt="Campus"
                   className="mph-slide-img"
+                  width="1920"
+                  height="800"
+                  decoding={idx === 0 ? "sync" : "async"}
+                  loading={idx === 0 ? "eager" : "lazy"}
+                  fetchpriority={idx === 0 ? "high" : "low"}
                 />
               ) : (
                 <div className="mph-slide-fallback" />
