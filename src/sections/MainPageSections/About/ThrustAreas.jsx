@@ -1,6 +1,6 @@
 import RichTextRenderer from "../../../components/RichTextRenderer";
 
-// grid_size comes in as "colsXrows" (e.g. "1x2", "2x1"). Return safe integers.
+// "colsXrows" (e.g. "1x2", "2x1") → safe integers.
 const parseGridSize = (size) => {
   if (typeof size !== "string") return { cols: 1, rows: 1 };
   const [c, r] = size.toLowerCase().split("x").map((n) => parseInt(n, 10));
@@ -21,41 +21,61 @@ function ThrustAreas({ data }) {
       )
     : [];
 
+  // Live-site pattern: the 5-col irregular grid holds the "1x1" and "1x2"
+  // thrust cells; the wide "2x1" cells sit below as a separate two-column
+  // banner row (National Benchmarks / International Standards). Splitting here
+  // lets each part use its own optimal grid without a single-grid balancing
+  // hack.
+  const gridBoxes = [];
+  const bannerBoxes = [];
+  for (const box of boxes) {
+    const { cols } = parseGridSize(box?.grid_size);
+    if (cols >= 2) bannerBoxes.push(box);
+    else gridBoxes.push(box);
+  }
+
   return (
     <section
       className="thrust-areas-section"
       style={{ backgroundColor: bgColor }}
     >
       <div className="thrust-areas-container">
-        {heading && (
-          <h2 className="thrust-areas-title">
-            <hr className="thrust-areas-underline" />
-            {heading}
-          </h2>
-        )}
+        <hr className="thrust-areas-underline" />
+        {heading && <h2 className="thrust-areas-title">{heading}</h2>}
 
-        {boxes.length > 0 && (
+        {gridBoxes.length > 0 && (
           <div className="thrust-areas-grid">
-            {boxes.map((box, i) => {
+            {gridBoxes.map((box, i) => {
               const { cols, rows } = parseGridSize(box?.grid_size);
-              // The two banner cells at the bottom (2x1 each) share row 3 of a
-              // 5-column grid — let the final box stretch to the row end so it
-              // matches the wider "International Standards" band in the design.
-              const isLastRowLastCell =
-                i === boxes.length - 1 && cols === 2 && rows === 1;
               const style = {
                 gridColumn: `span ${cols}`,
                 gridRow: `span ${rows}`,
                 backgroundColor: box?.background_color || "#1A2F4D",
                 color: box?.text_color || "#ffffff",
-                ...(isLastRowLastCell && { gridColumnEnd: -1 }),
               };
               return (
-                <div key={i} className="thrust-areas-box" style={style}>
+                <div key={`g-${i}`} className="thrust-areas-box" style={style}>
                   <RichTextRenderer html={box?.description || ""} />
                 </div>
               );
             })}
+          </div>
+        )}
+
+        {bannerBoxes.length > 0 && (
+          <div className="thrust-areas-banner">
+            {bannerBoxes.map((box, i) => (
+              <div
+                key={`b-${i}`}
+                className="thrust-areas-banner-box"
+                style={{
+                  backgroundColor: box?.background_color || "#E1CD67",
+                  color: box?.text_color || "#1a2f4d",
+                }}
+              >
+                <RichTextRenderer html={box?.description || ""} />
+              </div>
+            ))}
           </div>
         )}
       </div>

@@ -1,4 +1,7 @@
-@reference "tailwindcss";
+/* Reference index.css (not just "tailwindcss") so @apply can see the custom
+   @theme entries defined there — `font-oswald-medium` in particular is a
+   project-level utility, not a stock Tailwind class. */
+@reference "../index.css";
 
 /* ================= Home Page Sections ================= */
 
@@ -920,28 +923,31 @@
 }
 
 /* ================= CORE OBJECTIVES ================= */
+/* Mirrors live-site sections/NodalJNMC/FacultyDevSection.jsx — orange-tint bg,
+   red accent bar, oswald uppercase title, "Core Objectives:" navy subhead,
+   4-col grid of navy circular badges with gold (1-3) / orange (4) numerals. */
 .core-objectives-section {
-    @apply py-14 px-4 sm:px-8 md:px-12 lg:px-20;
+    @apply py-16 px-4 sm:px-8 md:px-12 lg:px-20;
 }
 
 .core-objectives-container {
     @apply max-w-7xl mx-auto;
 }
 
-.core-objectives-title {
-    @apply text-2xl sm:text-3xl md:text-4xl font-[500] font-oswald-medium uppercase text-[#707070] tracking-wide mb-6 max-w-3xl;
+.core-objectives-underline {
+    @apply w-16 border-[#E34A2A] mb-6 border-t-[3px];
 }
 
-.core-objectives-underline {
-    @apply w-16 border-[#F04E30] mb-3 border-t-4;
+.core-objectives-title {
+    @apply text-3xl md:text-4xl font-[500] font-oswald-medium uppercase text-[#707070] tracking-wider mb-2 max-w-4xl leading-tight;
 }
 
 .core-objectives-subtitle {
-    @apply text-lg sm:text-xl font-bold text-[#122E5E] mb-8;
+    @apply text-2xl font-oswald-medium font-bold text-[#1B2E4B] mt-8 mb-0;
 }
 
 .core-objectives-grid {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8;
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mt-8;
 }
 
 .core-objective-item {
@@ -949,11 +955,11 @@
 }
 
 .core-objective-number {
-    @apply w-10 h-10 rounded-full bg-[#0a2c61] flex items-center justify-center text-lg font-bold mb-5;
+    @apply w-14 h-14 rounded-full bg-[#142D4C] flex items-center justify-center text-3xl font-oswald-medium mb-4;
 }
 
 .core-objective-desc {
-    @apply text-sm text-[#3f3f3f] leading-relaxed font-light;
+    @apply text-xl text-[#3B3F45] font-oswald-medium font-[300] leading-7 mt-4;
 }
 
 .core-objective-desc p {
@@ -961,6 +967,10 @@
 }
 
 /* ================= JOURNEY OF EXCELLENCE ================= */
+/* Mirrors live-site sections/NodalJNMC/Journy.jsx — staggered "Our Evolution
+   at a Glance" staircase of year cards, then a "Mandatory Dispensations"
+   description block, then a three-column NMC recognised flow chart with
+   connector SVG lines. */
 .joe-section {
     @apply py-14 px-4 sm:px-8 md:px-12 lg:px-20;
 }
@@ -969,99 +979,110 @@
     @apply max-w-7xl mx-auto;
 }
 
-.joe-title {
-    @apply text-2xl sm:text-3xl md:text-[32px] font-[500] font-oswald-medium uppercase text-[#707070] tracking-wide mb-4 max-w-3xl leading-tight;
+.joe-underline {
+    @apply w-16 border-[#F04E30] mb-6 border-t-[3px];
 }
 
-.joe-underline {
-    @apply w-16 border-[#F04E30] mb-3 border-t-4;
+.joe-title {
+    @apply text-3xl md:text-4xl font-[500] font-oswald-medium uppercase text-[#707070] tracking-wider mb-4 max-w-4xl leading-tight;
 }
 
 .joe-description {
-    @apply text-[15px] leading-7 text-[#6c6d70] max-w-[900px] mb-10;
+    @apply text-[15px] sm:text-base leading-7 text-[#6c6d70] max-w-[900px] mb-10;
 }
 
 .joe-timeline-wrapper {
-    @apply mb-14;
+    @apply mb-16;
 }
 
 .joe-timeline-header {
-    @apply flex items-center gap-4 mb-10;
+    @apply flex items-center gap-4 mb-8;
 }
 
 .joe-timeline-title {
-    @apply text-[17px] sm:text-lg font-bold text-[#122E5E] whitespace-nowrap;
+    @apply text-2xl sm:text-[26px] font-oswald-medium font-bold text-[#0E2D5B] whitespace-nowrap;
 }
 
 .joe-timeline-line {
-    @apply flex-1 h-px bg-gray-300;
+    @apply hidden lg:block flex-1 h-px bg-[#D6D6D6];
 }
 
 .joe-timeline-staircase {
-    @apply flex items-end justify-start flex-wrap gap-2 pt-8 min-h-[280px];
+    @apply flex items-end justify-start flex-nowrap pt-4;
+    gap: 0;
 }
 
 .joe-timeline-step {
-    @apply w-[170px] p-4 shadow-md flex flex-col justify-end;
-    min-height: 170px;
+    @apply p-4 shadow-md flex flex-col justify-start;
+    /* live-site uses w-[210px]; allow shrinking so 6 cards fit inside the
+       page container without triggering horizontal overflow. */
+    flex: 1 1 210px;
+    width: 210px;
+    min-width: 0;
+    min-height: 200px;
 }
 
-.joe-timeline-step:nth-child(1) {
-    @apply mb-0;
-    min-height: 155px;
+/* Progressive height staircase — bottoms align (items-end), each card taller
+   than the previous so the tops climb from oldest (left) to newest (right).
+   Delta kept small so the effect is a gentle staircase, matching live-site. */
+.joe-timeline-step:nth-child(1) { min-height: 200px; }
+.joe-timeline-step:nth-child(2) { min-height: 220px; }
+.joe-timeline-step:nth-child(3) { min-height: 240px; }
+.joe-timeline-step:nth-child(4) { min-height: 260px; }
+.joe-timeline-step:nth-child(5) { min-height: 280px; }
+.joe-timeline-step:nth-child(6) { min-height: 300px; }
+
+/* The API delivers each step's HTML as
+     <div class="…text-2xl">2022</div>
+     <div class="…text-[28px] font-[100]">…caption…</div>
+   Admin-authored Tailwind classes aren't scanned at build so we style by
+   structural selectors instead of trusting the inline utility classes. */
+.joe-timeline-step > div > div:nth-child(1) {
+    font-family: "Oswald", sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 6px;
 }
 
-.joe-timeline-step:nth-child(2) {
-    min-height: 175px;
-    margin-bottom: 20px;
+.joe-timeline-step > div > div:nth-child(2) {
+    font-family: "Oswald", sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
 }
 
-.joe-timeline-step:nth-child(3) {
-    min-height: 195px;
-    margin-bottom: 40px;
-}
-
-.joe-timeline-step:nth-child(4) {
-    min-height: 215px;
-    margin-bottom: 60px;
-}
-
-.joe-timeline-step:nth-child(5) {
-    min-height: 235px;
-    margin-bottom: 80px;
-}
-
-.joe-timeline-step:nth-child(6) {
-    min-height: 255px;
-    margin-bottom: 100px;
-}
-
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
     .joe-timeline-staircase {
         @apply flex-col items-stretch;
-        min-height: 0;
     }
     .joe-timeline-step,
     .joe-timeline-step:nth-child(n) {
-        @apply w-full mb-0;
+        @apply w-full;
+        flex: 0 0 auto;
         min-height: auto;
     }
 }
 
 .joe-dispensation {
-    @apply mb-12;
+    @apply mb-6;
 }
 
 .joe-dispensation-title {
-    @apply flex items-center gap-4 text-[17px] sm:text-lg font-bold text-[#122E5E] mb-3;
+    @apply flex items-center gap-4 text-2xl sm:text-[26px] font-oswald-medium font-bold text-[#0E2D5B] mb-4;
 }
 
 .joe-dispensation-line {
-    @apply flex-1 h-px bg-gray-300;
+    @apply hidden lg:block flex-1 h-px bg-[#D6D6D6];
 }
 
 .joe-dispensation-body {
-    @apply text-[15px] text-[#6c6d70];
+    @apply text-[15px] sm:text-base leading-7 text-[#6c6d70] max-w-[900px];
+}
+
+.joe-dispensation-body p {
+    @apply mt-4;
 }
 
 .joe-dispensation-body ul {
@@ -1069,116 +1090,156 @@
 }
 
 .joe-flow-chart {
-    @apply grid grid-cols-1 md:grid-cols-3 gap-6 mt-8;
+    @apply grid grid-cols-1 md:grid-cols-3 gap-8 mt-10 max-w-5xl mx-auto;
 }
 
 .joe-flow-col {
-    @apply p-5 border border-gray-200 flex flex-col;
-    min-height: 240px;
+    @apply border border-gray-200 flex flex-col;
+    min-height: 400px;
 }
 
 .joe-flow-heading {
-    @apply text-center text-[15px] text-[#3f3f3f] font-medium mb-4;
+    @apply text-center py-4 text-[15px] font-semibold text-slate-700;
+    background-color: inherit;
 }
 
 .joe-flow-items {
-    @apply flex flex-col gap-4 justify-center flex-1;
+    @apply flex flex-col gap-6 justify-center flex-1 px-0 mb-8;
 }
 
 .joe-flow-item {
-    @apply px-4 py-3 text-sm font-medium text-center shadow;
+    @apply py-4 px-4 text-left text-white;
+    font-size: 15px;
 }
 
 /* ================= FDP ACTIVITIES ================= */
+/* Mirrors live-site sections/NodalJNMC/FDPActivities.jsx — cream #F7F5ED bg,
+   narrow ~750px content column, gray-divider list of expandable accordion
+   items whose bodies host inline-styled HTML tables from the CMS. */
 .fdp-activities-section {
-    @apply py-14 px-4 sm:px-8 md:px-12 lg:px-20;
+    @apply py-10 px-4 sm:px-8 md:px-12 lg:px-20;
+    background-color: #F7F5ED;
 }
 
 .fdp-activities-container {
     @apply max-w-7xl mx-auto;
 }
 
-.fdp-activities-title {
-    @apply text-2xl sm:text-3xl md:text-4xl font-[500] font-oswald-medium uppercase text-[#707070] tracking-wide mb-4;
+.fdp-activities-underline {
+    @apply w-16 border-[#F04E30] mb-4 border-t-[3px];
 }
 
-.fdp-activities-underline {
-    @apply w-16 border-[#F04E30] mb-3 border-t-4;
+.fdp-activities-title {
+    @apply text-3xl sm:text-4xl font-[500] font-oswald-medium uppercase text-[#707070] mb-4 relative;
 }
 
 .fdp-activities-description {
-    @apply text-[15px] leading-7 text-[#122E5E] max-w-5xl mb-8;
+    @apply text-sm leading-6 text-gray-600 max-w-4xl mt-3;
 }
 
 .fdp-activities-list {
-    @apply border-t border-gray-300;
+    @apply border-t border-gray-300 mt-6;
+    max-width: 100%;
 }
 
 .fdp-activity-item {
-    @apply border-b border-gray-300;
+    @apply border-b border-gray-300 py-4;
 }
 
 .fdp-activity-toggle {
-    @apply w-full flex items-start justify-between gap-6 text-left py-5 text-[#122E5E] hover:opacity-90 transition-opacity cursor-pointer bg-transparent;
+    @apply w-full flex items-start justify-between gap-4 text-left text-gray-700 font-[300] font-oswald-medium hover:opacity-90 transition-opacity cursor-pointer bg-transparent;
 }
 
 .fdp-activity-title {
-    @apply text-lg sm:text-xl font-medium leading-snug flex-1;
+    @apply text-2xl leading-snug flex-1 font-oswald-medium font-[300];
 }
 
 .fdp-activity-icon {
-    @apply text-2xl font-light text-[#122E5E] shrink-0 leading-none pt-1;
+    @apply text-2xl font-light text-gray-500 shrink-0 leading-none select-none;
 }
 
 .fdp-activity-content {
-    @apply pb-6 pt-1 text-[#333];
+    @apply pt-4 pb-2 text-[#333];
 }
 
 .fdp-activity-content table {
-    @apply my-2;
+    @apply my-2 w-full;
 }
 
 .fdp-activity-content p {
-    @apply text-[15px] text-[#3f3f3f] mt-3;
+    @apply text-sm text-gray-700 mt-3;
 }
 
 /* ================= THRUST AREAS ================= */
+/* Mirrors live-site sections/NodalJNMC/ThrustArea.jsx — light-blue tinted bg,
+   red rule, oswald uppercase title, 5-col irregular grid where alternating
+   cells span two rows, followed by a two-column yellow banner. */
 .thrust-areas-section {
-    @apply py-14 px-4 sm:px-8 md:px-12 lg:px-20;
+    @apply py-20 px-4 sm:px-8 md:px-12 lg:px-20;
 }
 
 .thrust-areas-container {
     @apply max-w-7xl mx-auto;
 }
 
-.thrust-areas-title {
-    @apply text-2xl sm:text-3xl md:text-4xl font-[500] font-oswald-medium uppercase text-[#707070] tracking-wider mb-8;
+.thrust-areas-underline {
+    @apply w-16 border-[#F04E30] mb-6 border-t-[3px];
 }
 
-.thrust-areas-underline {
-    @apply w-16 border-[#F04E30] mb-3 border-t-4;
+.thrust-areas-title {
+    @apply text-3xl md:text-4xl font-[500] font-oswald-medium uppercase text-[#707070] tracking-wider mb-12;
 }
 
 .thrust-areas-grid {
-    @apply grid gap-1;
+    @apply grid gap-0;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    grid-auto-rows: 130px;
+    grid-auto-rows: minmax(200px, auto);
 }
 
 .thrust-areas-box {
-    @apply flex items-center justify-center p-4 text-center;
+    @apply flex items-center justify-center p-8 md:p-12 text-center;
+    min-height: 200px;
+}
+
+.thrust-areas-box > div {
+    @apply w-full;
+}
+
+.thrust-areas-box h3 {
+    @apply text-xl md:text-2xl font-[300] font-oswald-medium leading-relaxed text-center;
+}
+
+.thrust-areas-banner {
+    @apply grid gap-0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.thrust-areas-banner-box {
+    @apply flex items-center justify-center p-8 md:p-12 text-center;
+    min-height: 120px;
+}
+
+.thrust-areas-banner-box h3 {
+    @apply text-2xl md:text-3xl font-[300] font-oswald-medium text-center;
+    color: #1a2f4d;
 }
 
 @media (max-width: 767px) {
     .thrust-areas-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-auto-rows: 110px;
+        grid-auto-rows: minmax(140px, auto);
     }
-
-    /* On mobile, collapse the row/col spans so every card is a simple tile. */
     .thrust-areas-box {
         grid-column: span 1 !important;
         grid-row: span 1 !important;
+        min-height: 140px;
+        @apply p-6;
+    }
+    .thrust-areas-banner {
+        grid-template-columns: 1fr;
+    }
+    .thrust-areas-banner-box {
+        @apply p-6;
     }
 }
 

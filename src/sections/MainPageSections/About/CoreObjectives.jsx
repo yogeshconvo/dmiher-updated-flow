@@ -1,6 +1,8 @@
 import RichTextRenderer from "../../../components/RichTextRenderer";
 
-const NUMBER_COLORS = ["#F04E30", "#F7941D", "#F5C518", "#F04E30"];
+// Live-site badge colors: yellow first three, orange for the fourth. Falls back
+// to the array for any additional objectives so the pattern keeps repeating.
+const NUMBER_COLORS = ["#F6C14D", "#F6C14D", "#F6C14D", "#E34A2A"];
 
 function CoreObjectives({ data }) {
   const heading = data?.header?.heading || "";
@@ -16,12 +18,9 @@ function CoreObjectives({ data }) {
       style={{ backgroundColor: bgColor }}
     >
       <div className="core-objectives-container">
-        {heading && (
-          <h2 className="core-objectives-title">
-            <hr className="core-objectives-underline" />
-            {heading}
-          </h2>
-        )}
+        <hr className="core-objectives-underline" />
+
+        {heading && <h2 className="core-objectives-title">{heading}</h2>}
 
         {subHeading && (
           <h3 className="core-objectives-subtitle">{subHeading}</h3>
@@ -32,7 +31,11 @@ function CoreObjectives({ data }) {
             {objectives.map((item, i) => (
               <div key={i} className="core-objective-item">
                 <div className="core-objective-number">
-                  <span style={{ color: NUMBER_COLORS[i % NUMBER_COLORS.length] }}>
+                  <span
+                    style={{
+                      color: NUMBER_COLORS[i % NUMBER_COLORS.length],
+                    }}
+                  >
                     {item?.number ?? i + 1}
                   </span>
                 </div>
