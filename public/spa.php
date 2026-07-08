@@ -25,9 +25,14 @@ $csp = implode('; ', [
     "upgrade-insecure-requests",
 ]);
 
-// REPORT-ONLY for now. Once violations look clean in DevTools console,
-// rename this header to "Content-Security-Policy" to enforce.
-header("Content-Security-Policy-Report-Only: {$csp}");
+// Enforce mode. spa.php stamps the same nonce into <meta name="csp-nonce">,
+// the entry <script src="/dmiher-web/assets/...js"> and the entry <link
+// href="/dmiher-web/assets/...css">, and 'strict-dynamic' lets those trusted
+// scripts load their dependents (chunk splits, useScript-injected 3rd party)
+// so nothing legitimate is blocked. Kept report-only historically while
+// violations were being cleaned up; now enforcing so the securityheaders.com
+// scan stops flagging Content-Security-Policy as missing.
+header("Content-Security-Policy: {$csp}");
 header('Content-Type: text/html; charset=UTF-8');
 header('Cache-Control: no-cache, no-store, must-revalidate');
 header('X-Content-Type-Options: nosniff');
