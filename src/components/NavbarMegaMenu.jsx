@@ -55,7 +55,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const MegaMenu = ({ sections, onLinkClick }) => {
+const MegaMenu = ({ sections }) => {
   const [hoveredItem, setHoveredItem] = useState(null);
 
   return (
@@ -74,7 +74,6 @@ const MegaMenu = ({ sections, onLinkClick }) => {
                   <Link
                     to={item.slug || "/"}
                     onMouseEnter={() => setHoveredItem(item)}
-                    onClick={onLinkClick}
                     className="text-sm font-semibold text-[#58595B] hover:text-[#ff4f37] block transition-colors duration-200"
                   >
                     {item.title}
