@@ -12,7 +12,13 @@ $apiOrigin = 'https://admin.dmiher.edu.in';
 $csp = implode('; ', [
     "default-src 'self'",
     "script-src 'self' 'nonce-{$nonce}' 'strict-dynamic'",
-    "style-src 'self' 'nonce-{$nonce}' 'unsafe-inline'",
+    // Per CSP spec, 'unsafe-inline' is ignored whenever a nonce or hash is
+    // ALSO present in the same source list — so mixing them in style-src blocked
+    // every React style={{...}} attribute in prod. React renders inline styles
+    // heavily and can't nonce them individually, so we keep 'unsafe-inline'
+    // here and drop the nonce (script-src still has the nonce; that's where
+    // the strong protection matters).
+    "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: blob: {$apiOrigin} https:",
     "font-src 'self' data:",
     "connect-src 'self' {$apiOrigin}",
