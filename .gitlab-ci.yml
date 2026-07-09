@@ -1,58 +1,24 @@
 stages: [build, deploy]
 
-# SSG pipeline: `vite build --outDir dist/client` produces the SPA bundle,
-# then scripts/prerender.mjs starts vite preview and drives a headless
-# Chromium against every route in src/prerender-routes.js, writing fully
-# rendered HTML back to dist/client/<route>/index.html so crawlers see real
-# content on the first byte.
-#
-# The prerender.mjs script has a "no <main>" safety guard — if any route
-# comes back without real content (auth failure, upstream 5xx, etc.), it
-# leaves the Vite-built shell in place instead of overwriting it, so a
-# partial upstream failure can't take the site down. Currently
-# prerender-routes.js only contains "/" — expand it once the pipeline runs
-# green end to end.
+# Rolled back to the plain SSR client build. The earlier SSG (Puppeteer
+# prerender) path was writing the fully-rendered home content into
+# dist/client/index.html, but Apache/spa.php serves that same file for EVERY
+# route (React Router picks the component client-side). So visiting /jnmc,
+# /spdc, etc. was booting the SPA on top of a DOM that had home-page markup
+# baked in — React hit hydration mismatch (#418) and page-loads timed out.
+# Fix: ship the empty Vite shell for every route again, let the SPA render
+# fresh on the client. Revisit SSG later by keeping a separate shell.html
+# for non-prerendered routes and making spa.php pick the right file per URL.
 build:
   stage: build
-  # node:20-slim (not alpine) — apt-get install for the chromium runtime deps
-  # is far more reliable on Debian than fighting alpine's musl/glibc mismatch
-  # with Puppeteer's bundled Chromium.
-  image: node:20-slim
-  variables:
-    # Skip Puppeteer's ~150 MB bundled Chromium download; we install a system
-    # chromium below and point Puppeteer at it via PUPPETEER_EXECUTABLE_PATH.
-    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
-    PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium
+  image: node:20-alpine
   cache:
     key:
       files: [package-lock.json]
     paths: [node_modules/]
-  before_script:
-    # Chromium + the shared libs headless Chrome needs at runtime. Dropping
-    # any of these produces a "libnss3.so: cannot open shared object" style
-    # failure at browser launch.
-    - apt-get update
-    - apt-get install -y --no-install-recommends
-        chromium
-        fonts-liberation
-        libnss3
-        libatk-bridge2.0-0
-        libcups2
-        libdrm2
-        libgbm1
-        libxkbcommon0
-        libxcomposite1
-        libxrandr2
-        libxfixes3
-        libxdamage1
-        libasound2
-        libpango-1.0-0
-        libcairo2
-        ca-certificates
-    - rm -rf /var/lib/apt/lists/*
   script:
     - npm ci --legacy-peer-deps
-    - npm run build:ssg
+    - npm run build:ssr
   artifacts:
     paths: [dist/]
     expire_in: 1 day
