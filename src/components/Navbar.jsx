@@ -64,6 +64,15 @@ const Navbar = () => {
     setCloseTimeout(timeout);
   };
 
+  // Close the mega menu immediately when a link inside it is clicked.
+  const closeMega = () => {
+    if (closeTimeout) {
+      clearTimeout(closeTimeout);
+      setCloseTimeout(null);
+    }
+    setActiveMega(null);
+  };
+
   return (
     <div className="navbar">
       <div className="navbar-inner">
@@ -104,6 +113,7 @@ const Navbar = () => {
                             <Link
                               key={subItem.id}
                               to={subItem.slug}
+                              onClick={closeMega}
                               className="block py-1 text-sm hover:text-[#F04E30]"
                             >
                               {subItem.title}
@@ -180,7 +190,7 @@ const Navbar = () => {
 
                   {isMega && activeMega === item.id && (
                     <div className="absolute left-0 top-full bg-white shadow-lg z-50 transition-all duration-200">
-                      <MegaMenu sections={item.children} />
+                      <MegaMenu sections={item.children} onLinkClick={closeMega} />
                     </div>
                   )}
                 </div>
