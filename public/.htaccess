@@ -1,34 +1,45 @@
-# SPA fallback for the /dmiher-web/ Apache subdirectory deployment.
-# HTML requests go through spa.php so each response carries a fresh CSP nonce.
-# Static assets (JS/CSS/fonts/images) are served directly with long-cache headers.
+# SPA + SSG routing for /dmiher-web/.
+#
+# Every HTML-shaped request (root, prerendered subroutes like /jnmc/, or
+# arbitrary client-side routes like /college/page) must go through spa.php so:
+#   - a fresh per-request CSP nonce is stamped into the served HTML
+#   - spa.php picks the RIGHT file (prerendered home, prerendered subroute,
+#     or the empty shell for SPA-only routes) based on REQUEST_URI
+#
+# Real static assets (JS, CSS, fonts, images, JSON, etc.) bypass spa.php and
+# stream directly so the long-cache header below applies and PHP overhead
+# stays off the hot path.
+#
+# Directory bypass note: `DirectoryIndex disabled` prevents Apache from
+# auto-serving <subdir>/index.html for URLs like /dmiher-web/jnmc/. Without
+# this, once a jnmc/index.html file exists on disk (from prerender), Apache
+# would serve it raw — skipping spa.php's nonce stamping. The rewrite rule
+# below sends every directory / non-asset request to spa.php, and spa.php
+# reads REQUEST_URI to figure out which file to actually deliver.
 
-# Root of /dmiher-web/ resolves to spa.php, never the raw index.html.
-DirectoryIndex spa.php
+DirectoryIndex disabled
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /dmiher-web/
 
-  # Direct hits to index.html must also go through the nonce-stamping wrapper.
-  RewriteRule ^index\.html$ spa.php [L]
-
-  # Real static files (assets, fonts, images, spa.php itself): serve directly.
+  # Real static assets served directly. Restricting the pass-through to a
+  # known extension list means prerendered subdirs (which have no extension
+  # in the URL) always fall through to the spa.php rule below.
   RewriteCond %{REQUEST_FILENAME} -f
-  RewriteRule ^ - [L]
+  RewriteRule \.(?:js|mjs|css|map|json|xml|txt|woff2?|ttf|otf|eot|png|jpg|jpeg|gif|webp|svg|ico|php)$ - [L]
 
-  RewriteCond %{REQUEST_FILENAME} -d
-  RewriteRule ^ - [L]
-
-  # SPA client-side routes (/about, /home, /something/foo): PHP shell.
-  RewriteRule . spa.php [L]
+  # Everything else — root URL, prerendered subroutes, SPA client-side
+  # routes, arbitrary paths — goes through the root spa.php wrapper.
+  RewriteRule ^ spa.php [L]
 </IfModule>
 
-# Long-cache hashed assets; never cache the SPA shell.
+# Long-cache hashed assets; never cache HTML or the PHP wrapper.
 <IfModule mod_headers.c>
-  <FilesMatch "\.(js|css|woff2?|ttf|otf|eot|png|jpg|jpeg|gif|webp|svg|ico)$">
+  <FilesMatch "\.(js|mjs|css|woff2?|ttf|otf|eot|png|jpg|jpeg|gif|webp|svg|ico)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
-  <FilesMatch "(index\.html|spa\.php)$">
+  <FilesMatch "(index\.html|index\.shell\.html|spa\.php)$">
     Header set Cache-Control "no-cache, no-store, must-revalidate"
   </FilesMatch>
 </IfModule>

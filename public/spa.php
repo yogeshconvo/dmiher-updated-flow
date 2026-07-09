@@ -44,11 +44,62 @@ header('Cache-Control: no-cache, no-store, must-revalidate');
 header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: strict-origin-when-cross-origin');
 
-$indexPath = __DIR__ . '/index.html';
+// Route-aware file selection.
+//
+// The SSG pass (scripts/prerender.mjs) writes:
+//   - dist/client/index.html         → home page, fully rendered content
+//   - dist/client/index.shell.html   → the empty Vite SPA shell (snapshot
+//                                       taken BEFORE prerender overwrote
+//                                       index.html)
+//   - dist/client/<slug>/index.html  → each prerendered subroute (added
+//                                       when prerender-routes.js is expanded)
+//
+// Priority:
+//   1. Root URL  →  index.html (prerendered home content, SEO win)
+//   2. Prerendered subroute (a matching /<slug>/index.html exists on disk)
+//        →  that file (also SEO win)
+//   3. Everything else (micropages, department pages, arbitrary client-side
+//      routes)  →  index.shell.html (empty root, React renders fresh — no
+//      hydration mismatch, no home content bleeding into wrong URL)
+//
+// The shell fallback is what fixed the "view-source shows home page on every
+// URL and micropages timed out" outage from the earlier SSG attempt.
+$requestPath = strtok($_SERVER['REQUEST_URI'] ?? '/', '?');
+$requestPath = preg_replace('#^/dmiher-web/?#', '', $requestPath) ?? '';
+$requestPath = trim($requestPath, '/');
+
+// Path-safe whitelist. Anything outside [A-Za-z0-9._/-] falls back to shell
+// so a crafted URI can't traverse into arbitrary files on disk.
+$safePath = preg_match('#^[A-Za-z0-9._/-]*$#', $requestPath) === 1
+    ? $requestPath
+    : '';
+
+$shellPath = __DIR__ . '/index.shell.html';
+$homePath  = __DIR__ . '/index.html';
+
+if ($safePath === '') {
+    // Root URL — serve prerendered home content.
+    $indexPath = $homePath;
+} elseif (is_file(__DIR__ . '/' . $safePath . '/index.html')) {
+    // Prerendered subroute — serve its captured HTML.
+    $indexPath = __DIR__ . '/' . $safePath . '/index.html';
+} else {
+    // Anything else — serve the empty shell so the SPA renders fresh.
+    $indexPath = $shellPath;
+}
+
+// Defensive fallback: if the chosen file doesn't exist for any reason,
+// fall back through shell → home so we never 500 with "SPA shell missing".
 if (!is_file($indexPath)) {
-    http_response_code(500);
-    echo 'SPA shell missing.';
-    exit;
+    if (is_file($shellPath)) {
+        $indexPath = $shellPath;
+    } elseif (is_file($homePath)) {
+        $indexPath = $homePath;
+    } else {
+        http_response_code(500);
+        echo 'SPA shell missing.';
+        exit;
+    }
 }
 
 $html = file_get_contents($indexPath);
