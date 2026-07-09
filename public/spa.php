@@ -38,7 +38,30 @@ header('Cache-Control: no-cache, no-store, must-revalidate');
 header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: strict-origin-when-cross-origin');
 
-$indexPath = __DIR__ . '/index.html';
+// Resolve which prerendered file to serve for this URL.
+// The SSG pass (scripts/prerender.mjs) writes fully-rendered HTML to
+// dist/client/<route>/index.html for every entry in prerender-routes.js.
+// For those routes we serve the prerendered file so crawlers get real content
+// on first byte. For everything else (dynamic micropages, department subpages,
+// mandatory-disclosure trees, etc.) we fall back to the SPA shell and let
+// react-router handle the URL on the client.
+$requestPath = strtok($_SERVER['REQUEST_URI'] ?? '/', '?');
+$requestPath = preg_replace('#^/dmiher-web/?#', '', $requestPath) ?? '';
+$requestPath = trim($requestPath, '/');
+
+// Whitelist path characters to defeat traversal. A slug is [A-Za-z0-9._-]
+// separated by slashes; anything else falls back to the shell.
+$safePath = preg_match('#^[A-Za-z0-9._/-]*$#', $requestPath) === 1
+    ? $requestPath
+    : '';
+
+$shellPath = __DIR__ . '/index.html';
+$prerenderedPath = $safePath === ''
+    ? $shellPath
+    : __DIR__ . '/' . $safePath . '/index.html';
+
+$indexPath = is_file($prerenderedPath) ? $prerenderedPath : $shellPath;
+
 if (!is_file($indexPath)) {
     http_response_code(500);
     echo 'SPA shell missing.';

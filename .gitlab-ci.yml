@@ -1,33 +1,64 @@
 stages: [build, deploy]
 
-# Runs the SSR pipeline (client + server bundles). The static site at
-# dmiher.edu.in/dmiher-web/ is currently served from dist/client/ (Apache +
-# spa.php nonce stamping), so only that half is FTP-deployed below. Building
-# the server bundle here as well exercises the SSR entry (src/entry-server.jsx)
-# on every push so we catch SSR-only regressions early — even before the Node
-# host is provisioned. dist/server/ is kept as a build artifact for a future
-# Node runtime deployment.
+# SSG pipeline. build:ssg runs `vite build --outDir dist/client` and then
+# scripts/prerender.mjs, which drives a headless Chromium against each entry
+# in src/prerender-routes.js and writes fully-rendered HTML to
+# dist/client/<route>/index.html. Apache + spa.php serves those files with
+# a fresh per-request CSP nonce, so search crawlers see full content on the
+# first byte without needing a Node runtime on the host.
+#
+# node:20-slim (not alpine) is used because puppeteer's default download
+# path is glibc-based, and shipping alpine chromium + puppeteer-core takes
+# more moving parts than swapping the base image once.
 build:
   stage: build
-  image: node:20-alpine
+  image: node:20-slim
+  variables:
+    # Reuse the system chromium apt installs below instead of pulling
+    # puppeteer's bundled ~150 MB build every CI run.
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
+    PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium
   cache:
     key:
       files: [package-lock.json]
     paths: [node_modules/]
+  before_script:
+    # Chromium + the shared libs headless Chrome needs at runtime. Kept in
+    # sync with Puppeteer's Debian install guide — dropping any of these will
+    # produce a "libnss3.so: cannot open shared object" style failure at
+    # browser launch.
+    - apt-get update
+    - apt-get install -y --no-install-recommends
+        chromium
+        fonts-liberation
+        libnss3
+        libatk-bridge2.0-0
+        libcups2
+        libdrm2
+        libgbm1
+        libxkbcommon0
+        libxcomposite1
+        libxrandr2
+        libxfixes3
+        libxdamage1
+        libasound2
+        libpango-1.0-0
+        libcairo2
+        ca-certificates
+    - rm -rf /var/lib/apt/lists/*
   script:
     - npm ci --legacy-peer-deps
-    - npm run build:ssr
+    - npm run build:ssg
   artifacts:
     paths: [dist/]
     expire_in: 1 day
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
 
-# Mirrors dist/client/ (index.html, spa.php, .htaccess, assets/, etc.) into
-# the FTP webroot at $FTP_PATH — deliberately NOT dist/ itself, or the
-# client/ and server/ subdirs would land under the webroot and break the
-# current URL layout. dist/server/ stays in the artifact for follow-on Node
-# deployment work but is not shipped to the FTP host that runs Apache+PHP.
+# Mirrors dist/client/ (index.html, spa.php, .htaccess, assets/, and the
+# per-route <slug>/index.html files the prerender pass generated) into the
+# FTP webroot. Deliberately NOT dist/ itself, or the client/ subdir would
+# land under the webroot and break the current URL layout.
 deploy:
   stage: deploy
   image: alpine:latest

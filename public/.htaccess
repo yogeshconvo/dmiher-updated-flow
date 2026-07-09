@@ -1,31 +1,49 @@
-# SPA fallback for the /dmiher-web/ Apache subdirectory deployment.
-# HTML requests go through spa.php so each response carries a fresh CSP nonce.
-# Static assets (JS/CSS/fonts/images) are served directly with long-cache headers.
+# SPA + SSG fallback for the /dmiher-web/ Apache subdirectory deployment.
+#
+# Layout after `npm run build:ssg`:
+#   dist/client/index.html                     ← home (prerendered)
+#   dist/client/jnmc/index.html                ← prerendered institute
+#   dist/client/spdc/index.html
+#   ... (one dir per entry in src/prerender-routes.js)
+#   dist/client/assets/*.js|css|woff2|...      ← hashed static assets
+#   dist/client/spa.php                        ← nonce-stamping wrapper
+#   dist/client/.htaccess                      ← this file
+#
+# Every HTML-shaped request (root URL, /jnmc/, /some-slug, /:college/:page)
+# must go through spa.php so the response carries a fresh per-request CSP
+# nonce and — for prerendered routes — the correct pre-rendered body. Static
+# assets (assets/*, favicon, robots.txt, etc.) bypass spa.php and stream
+# directly so long-cache headers apply and PHP overhead stays off the hot path.
 
-# Root of /dmiher-web/ resolves to spa.php, never the raw index.html.
+# Directory-index requests resolve to spa.php, not raw index.html — even for
+# prerendered subdirectories like /dmiher-web/jnmc/. The wrapper reads the
+# correct <route>/index.html internally and stamps the nonce before echoing.
 DirectoryIndex spa.php
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /dmiher-web/
 
-  # Direct hits to index.html must also go through the nonce-stamping wrapper.
-  RewriteRule ^index\.html$ spa.php [L]
+  # Direct hits to any prerendered index.html must go through the wrapper too,
+  # otherwise the nonce placeholder ships literally.
+  RewriteRule (^|/)index\.html$ spa.php [L]
 
-  # Real static files (assets, fonts, images, spa.php itself): serve directly.
+  # Real static assets (hashed JS/CSS/fonts/images, favicon, robots.txt, JSON
+  # data files, spa.php itself) — serve as-is. Restricting the pass-through to
+  # a known extension list means directories that Apache would otherwise
+  # DirectoryIndex-resolve (e.g. /dmiher-web/jnmc/) still fall through to the
+  # spa.php rule below and get nonce-stamped.
   RewriteCond %{REQUEST_FILENAME} -f
-  RewriteRule ^ - [L]
+  RewriteRule \.(?:js|mjs|css|map|json|xml|txt|woff2?|ttf|otf|eot|png|jpg|jpeg|gif|webp|svg|ico|php)$ - [L]
 
-  RewriteCond %{REQUEST_FILENAME} -d
-  RewriteRule ^ - [L]
-
-  # SPA client-side routes (/about, /home, /something/foo): PHP shell.
+  # Everything else — prerendered subroutes AND client-side SPA routes —
+  # goes through spa.php.
   RewriteRule . spa.php [L]
 </IfModule>
 
-# Long-cache hashed assets; never cache the SPA shell.
+# Long-cache hashed assets; never cache HTML or the PHP wrapper.
 <IfModule mod_headers.c>
-  <FilesMatch "\.(js|css|woff2?|ttf|otf|eot|png|jpg|jpeg|gif|webp|svg|ico)$">
+  <FilesMatch "\.(js|mjs|css|woff2?|ttf|otf|eot|png|jpg|jpeg|gif|webp|svg|ico)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
   <FilesMatch "(index\.html|spa\.php)$">
