@@ -2,6 +2,7 @@ import { lazy } from "react";
 
 const Departments = lazy(() => import("./Departments"));
 const Transcript = lazy(() => import("./Transcript-type1"));
+const TranscriptSubpage = lazy(() => import("./TranscriptSubpage"));
 const MandatoryDisclosures = lazy(() => import("./MD"));
 const DeanKnowMore = lazy(() => import("./DeanKnowMore"));
 const AccreditationsRecognitions = lazy(() => import("./UniquePages/AccreditationsRecognitions"));
@@ -35,7 +36,7 @@ export const SECTION_COMPONENTS = {
     // Subpages
     programs_subpage: SubPrograms,
     departments_section: Departments,
-    // transcript_subpage: TranscriptSubpage,
+    transcript_subpage: TranscriptSubpage,
     mandatoryDisclore_subpage: MandatoryDisclosures,
     dean_know_more: DeanKnowMore,
     accreditations_recognitions: AccreditationsRecognitions,
