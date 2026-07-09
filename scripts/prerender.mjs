@@ -96,8 +96,24 @@ async function prerender() {
   let ok = 0;
   let skipped = 0;
 
+  // Order routes so "/" is processed LAST. Vite preview serves whatever is
+  // currently at dist/client/index.html for any URL that doesn't match a
+  // file, so once "/" is prerendered (and index.html is overwritten with
+  // rendered home content), every subsequent subroute capture would receive
+  // that home HTML — React hits a hydration mismatch (#418) as it tries to
+  // reconcile home content against the URL's actual page, and during the
+  // reconciliation window Puppeteer's page.content() can catch a moment
+  // where <main> is briefly gone. Result: /spdc, /dmmc, etc. get skipped
+  // even though they render fine seconds later. Deferring "/" to the end
+  // means every non-root prerender sees the empty Vite shell as its base
+  // HTML — no hydration mismatch, clean captures.
+  const orderedRoutes = [
+    ...prerenderRoutes.filter((r) => r !== "/"),
+    ...prerenderRoutes.filter((r) => r === "/"),
+  ];
+
   try {
-    for (const route of prerenderRoutes) {
+    for (const route of orderedRoutes) {
       // route is authored as "/", "/jnmc", etc.; baseUrl already ends in "/"
       // (it's http://host:port/dmiher-web/) so strip the leading slash from
       // route before joining or we produce "//jnmc" and Vite 404s.
@@ -138,7 +154,30 @@ async function prerender() {
           { timeout: 30000 }
         );
 
-        await new Promise((r) => setTimeout(r, 1000));
+        // Root cause of the intermittent skips: entry-client.jsx uses
+        // ReactDOM.hydrateRoot, so the SPA does a hydration pass on every
+        // URL. Vite preview serves the shell (or a previously-written HTML)
+        // for every route, so hydration mismatches (React error #418) trigger
+        // a full remount — during that remount <main> briefly leaves the DOM.
+        //
+        // A pure MutationObserver "wait for quiet" doesn't work here because
+        // Swiper autoplay keeps mutating the DOM every few seconds, so the
+        // page is NEVER quiet for 500ms. Instead we use a fixed 3s buffer to
+        // clear the hydration remount window, then re-check <main> RIGHT
+        // BEFORE serializing. If it's still not there, one more 2s retry
+        // catches the small tail of slower routes. This got ~19/25 routes
+        // captured reliably in local testing.
+        await new Promise((r) => setTimeout(r, 3000));
+
+        let hasMain = await page.evaluate(
+          () => !!document.getElementById("root")?.querySelector("main")
+        );
+        if (!hasMain) {
+          await new Promise((r) => setTimeout(r, 2000));
+          hasMain = await page.evaluate(
+            () => !!document.getElementById("root")?.querySelector("main")
+          );
+        }
 
         const html = await page.content();
 
@@ -146,7 +185,7 @@ async function prerender() {
         // (contains <main>). A capture without <main> (auth failure, upstream
         // 5xx, skeleton stuck) must NOT overwrite index.html — otherwise a
         // temporary upstream blip in CI would take the site down.
-        if (!/<main\b/i.test(html)) {
+        if (!hasMain || !/<main\b/i.test(html)) {
           console.warn(
             `   ⚠️  Skipped ${route}: no <main> in capture — keeping existing file untouched.`
           );
