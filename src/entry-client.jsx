@@ -20,8 +20,25 @@ const queryClient = new QueryClient({
     queries: {
       staleTime: 5 * 60 * 1000,
       gcTime: 30 * 60 * 1000,
-      retry: 1,
       refetchOnWindowFocus: false,
+      // Custom retry policy: retry ONLY on 5xx (or a genuine network
+      // failure with no response). Retrying a 4xx is almost always
+      // counterproductive:
+      //   - 429 Too Many Requests → retrying immediately just piles onto
+      //     the rate-limit window and makes the throttle fire again. Live
+      //     users were seeing every failed request re-fired ~1 second
+      //     later, doubling the 429 spam in the console.
+      //   - 404 Not Found (e.g. the still-unimplemented /api/site/settings)
+      //     → retrying wastes an API call and console line.
+      //   - 401 Unauthorized → the axios interceptor in config/api.js
+      //     already handles the token refresh + one-shot replay. React
+      //     Query re-running the same query on top of that would race
+      //     with the interceptor.
+      retry: (failureCount, error) => {
+        const status = error?.response?.status;
+        if (status && status >= 400 && status < 500) return false;
+        return failureCount < 1;
+      },
     },
   },
 });
