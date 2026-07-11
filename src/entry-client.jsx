@@ -30,19 +30,23 @@ const dehydratedState = window.__REACT_QUERY_STATE__;
 
 const rootEl = document.getElementById("root");
 
-// Only hydrate when the server sent pre-rendered content that matches the
-// current URL — i.e. #root has real children the client can reuse. When the
-// server sent the empty SPA shell (spa.php serves index.shell.html for any
-// URL that wasn't prerendered), rootEl has no element children (just an HTML
-// comment placeholder) and hydration would guarantee a mismatch (#418) on
-// every non-prerendered URL, remounting the whole tree and briefly wiping
-// <main> — which is exactly what was making our SSG prerender pass flaky
-// AND what was throwing hydration errors on live micropages/department
-// routes. createRoot() on the shell renders fresh with no attempted DOM
-// reuse, so both cases work cleanly.
-const hasPrerenderedContent = rootEl && rootEl.children.length > 0;
-
-const tree = (
+// Always createRoot() — never hydrateRoot(). We ship prerendered HTML for
+// SEO (crawlers see the full page on first byte), but hydration on that
+// prerendered HTML kept throwing React error #418: the captured DOM includes
+// Swiper autoplay state, Helmet-inserted head tags in a specific order,
+// image-load layout offsets, and other time-dependent details that the
+// client's fresh render never reproduces byte-for-byte. Each mismatch
+// triggered a full remount, which:
+//   - blanked the DOM briefly (bad UX)
+//   - re-ran every React Query fetch (which was hammering
+//     admin.dmiher.edu.in until it returned 429 Too Many Requests on
+//     /api/pages/*, /api/menus/Header, /api/menus/Footer, etc.)
+//
+// Using createRoot everywhere means React replaces the prerendered DOM with
+// its own render on mount — one clean fetch pass, no error #418, no 429
+// cascade. The prerendered HTML still delivers the SEO win because Google
+// and other crawlers read the initial HTML before executing JS.
+ReactDOM.createRoot(rootEl).render(
   <React.StrictMode>
     <NonceProvider>
       <HelmetProvider>
@@ -57,9 +61,3 @@ const tree = (
     </NonceProvider>
   </React.StrictMode>
 );
-
-if (hasPrerenderedContent) {
-  ReactDOM.hydrateRoot(rootEl, tree);
-} else {
-  ReactDOM.createRoot(rootEl).render(tree);
-}
