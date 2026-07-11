@@ -28,8 +28,21 @@ const queryClient = new QueryClient({
 
 const dehydratedState = window.__REACT_QUERY_STATE__;
 
-ReactDOM.hydrateRoot(
-  document.getElementById("root"),
+const rootEl = document.getElementById("root");
+
+// Only hydrate when the server sent pre-rendered content that matches the
+// current URL — i.e. #root has real children the client can reuse. When the
+// server sent the empty SPA shell (spa.php serves index.shell.html for any
+// URL that wasn't prerendered), rootEl has no element children (just an HTML
+// comment placeholder) and hydration would guarantee a mismatch (#418) on
+// every non-prerendered URL, remounting the whole tree and briefly wiping
+// <main> — which is exactly what was making our SSG prerender pass flaky
+// AND what was throwing hydration errors on live micropages/department
+// routes. createRoot() on the shell renders fresh with no attempted DOM
+// reuse, so both cases work cleanly.
+const hasPrerenderedContent = rootEl && rootEl.children.length > 0;
+
+const tree = (
   <React.StrictMode>
     <NonceProvider>
       <HelmetProvider>
@@ -44,3 +57,9 @@ ReactDOM.hydrateRoot(
     </NonceProvider>
   </React.StrictMode>
 );
+
+if (hasPrerenderedContent) {
+  ReactDOM.hydrateRoot(rootEl, tree);
+} else {
+  ReactDOM.createRoot(rootEl).render(tree);
+}
