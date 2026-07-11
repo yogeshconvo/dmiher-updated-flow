@@ -1,27 +1,42 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight } from "../../../components/icons";
 import api from "../../../config/api";
 
+// Cached fetch — react-query re-uses the response across every mount during
+// its staleTime window (5 min in entry-client.jsx). The old useEffect +
+// api.get pattern re-hit /api/bulletins every time the user navigated back
+// to home, flashed the null → data skeleton, and helped push the API into
+// its 429 rate limit under normal browsing.
+const fetchBulletins = async () => {
+  const { data } = await api.get("/bulletins");
+  return data;
+};
+
 function HomeBulletin() {
-  const [data, setData] = useState(null);
   const [activeTab, setActiveTab] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    api.get("/bulletins")
-      .then((res) => res.data)
-      .then((res) => {
-  const section = Array.isArray(res)
-    ? res.find((item) => item.section_id === "home_BULLETIN_section")
-    : res;
+  const { data: responseData } = useQuery({
+    queryKey: ["bulletins"],
+    queryFn: fetchBulletins,
+  });
 
-  if (section) {
-    setData(section.data);
-    setActiveTab(section.data.tabs?.[0]);
+  // Response can be a bare section object or an array of sections; the
+  // section_id filter picks the right one out of the array shape without
+  // breaking the direct-object shape.
+  const section = Array.isArray(responseData)
+    ? responseData.find((item) => item.section_id === "home_BULLETIN_section")
+    : responseData;
+
+  const data = section?.data;
+
+  // Once the query resolves and we know the tabs list, sync activeTab to
+  // the first entry — but only if the user hasn't already picked one, so
+  // their tab choice sticks across re-renders.
+  if (data && !activeTab && data.tabs?.[0]) {
+    setActiveTab(data.tabs[0]);
   }
-})
-      .catch((err) => console.error(err));
-  }, []);
 
   if (!data) return null;
 
