@@ -112,104 +112,133 @@ async function prerender() {
     ...prerenderRoutes.filter((r) => r === "/"),
   ];
 
+  // Attempt a single capture. Returns the rendered HTML on success or null
+  // if the capture didn't land on real content (no <main>). Errors bubble
+  // up as thrown exceptions.
+  async function attemptCapture(route, url, attempt) {
+    const page = await browser.newPage();
+    // Surface page-side errors so a silent skeleton-only render is diagnosable.
+    page.on("pageerror", (e) => console.warn(`   [pageerror] ${e.message}`));
+    page.on("console", (msg) => {
+      if (msg.type() === "error" || msg.type() === "warning") {
+        console.warn(`   [${msg.type()}] ${msg.text()}`);
+      }
+    });
+    page.on("requestfailed", (req) =>
+      console.warn(`   [requestfailed] ${req.url()} - ${req.failure()?.errorText}`)
+    );
+
+    try {
+      await page.goto(url, { waitUntil: "networkidle0", timeout: 30000 });
+
+      // Wait for the app to leave its <PageSkeleton /> loading state. That
+      // only happens when the /pages/{slug} query resolves — either with
+      // data (renders <main>) or with an error (renders
+      // .error-boundary-fallback).
+      await page.waitForFunction(
+        () => {
+          const root = document.getElementById("root");
+          if (!root) return false;
+          if (root.querySelector(".page-skeleton")) return false;
+          return !!(
+            root.querySelector("main") ||
+            root.querySelector(".error-boundary-fallback")
+          );
+        },
+        { timeout: 30000 }
+      );
+
+      // Buffer so React's post-load work (Helmet head sync, lazy chunk
+      // resolutions, initial swiper mount) settles before we serialize.
+      // Combined with entry-client.jsx's conditional createRoot() (which
+      // eliminated the hydration-remount cliff for shell-served routes),
+      // 3s is enough to reach a stable DOM in >95% of captures.
+      await new Promise((r) => setTimeout(r, 3000));
+
+      let hasMain = await page.evaluate(
+        () => !!document.getElementById("root")?.querySelector("main")
+      );
+      if (!hasMain) {
+        await new Promise((r) => setTimeout(r, 2000));
+        hasMain = await page.evaluate(
+          () => !!document.getElementById("root")?.querySelector("main")
+        );
+      }
+
+      const html = await page.content();
+
+      // Safety guard: only accept a capture that clearly has real content
+      // (contains <main>). A capture without <main> (auth failure, upstream
+      // 5xx, skeleton stuck) is a candidate for retry — the caller decides.
+      if (!hasMain || !/<main\b/i.test(html)) {
+        return null;
+      }
+
+      return html;
+    } finally {
+      await page.close();
+    }
+  }
+
+  // Retry each route up to 3 times before giving up. Local runs and the last
+  // CI pipeline showed the "no <main>" skips concentrated in a small tail of
+  // 4-6 routes per run — and different routes each run, i.e. real flakiness
+  // (React remount timing, Swiper autoplay mutations, image-load races), not
+  // a genuine backend failure. Retrying almost always catches these. If all
+  // 3 attempts fail we skip cleanly (existing file untouched, safety guard
+  // preserved).
+  const MAX_ATTEMPTS = 3;
+
   try {
     for (const route of orderedRoutes) {
       // route is authored as "/", "/jnmc", etc.; baseUrl already ends in "/"
-      // (it's http://host:port/dmiher-web/) so strip the leading slash from
-      // route before joining or we produce "//jnmc" and Vite 404s.
+      // so strip the leading slash from route before joining or we produce
+      // "//jnmc" and Vite 404s.
       const url = `${baseUrl}${route.replace(/^\/+/, "")}`;
       console.log(`\n🌐 Prerendering: ${route}  →  ${url}`);
 
-      const page = await browser.newPage();
+      let capturedHtml = null;
+      let lastError = null;
 
-      // Surface page-side errors so a silent skeleton-only render is diagnosable.
-      page.on("pageerror", (e) => console.warn(`   [pageerror] ${e.message}`));
-      page.on("console", (msg) => {
-        if (msg.type() === "error" || msg.type() === "warning") {
-          console.warn(`   [${msg.type()}] ${msg.text()}`);
-        }
-      });
-      page.on("requestfailed", (req) =>
-        console.warn(`   [requestfailed] ${req.url()} - ${req.failure()?.errorText}`)
-      );
-
-      try {
-        await page.goto(url, { waitUntil: "networkidle0", timeout: 30000 });
-
-        // Wait for the app to leave its <PageSkeleton /> loading state. That
-        // only happens when the /pages/{slug} query resolves — either with
-        // data (renders <main>) or with an error (renders
-        // .error-boundary-fallback). Waiting on "#root.innerHTML.length > 100"
-        // alone triggered on the skeleton itself.
-        await page.waitForFunction(
-          () => {
-            const root = document.getElementById("root");
-            if (!root) return false;
-            if (root.querySelector(".page-skeleton")) return false;
-            return !!(
-              root.querySelector("main") ||
-              root.querySelector(".error-boundary-fallback")
+      for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+        try {
+          capturedHtml = await attemptCapture(route, url, attempt);
+          if (capturedHtml) break;
+          if (attempt < MAX_ATTEMPTS) {
+            console.log(
+              `   ↻ attempt ${attempt}: no <main>, retrying (${MAX_ATTEMPTS - attempt} left)…`
             );
-          },
-          { timeout: 30000 }
-        );
-
-        // Root cause of the intermittent skips: entry-client.jsx uses
-        // ReactDOM.hydrateRoot, so the SPA does a hydration pass on every
-        // URL. Vite preview serves the shell (or a previously-written HTML)
-        // for every route, so hydration mismatches (React error #418) trigger
-        // a full remount — during that remount <main> briefly leaves the DOM.
-        //
-        // A pure MutationObserver "wait for quiet" doesn't work here because
-        // Swiper autoplay keeps mutating the DOM every few seconds, so the
-        // page is NEVER quiet for 500ms. Instead we use a fixed 3s buffer to
-        // clear the hydration remount window, then re-check <main> RIGHT
-        // BEFORE serializing. If it's still not there, one more 2s retry
-        // catches the small tail of slower routes. This got ~19/25 routes
-        // captured reliably in local testing.
-        await new Promise((r) => setTimeout(r, 3000));
-
-        let hasMain = await page.evaluate(
-          () => !!document.getElementById("root")?.querySelector("main")
-        );
-        if (!hasMain) {
-          await new Promise((r) => setTimeout(r, 2000));
-          hasMain = await page.evaluate(
-            () => !!document.getElementById("root")?.querySelector("main")
-          );
+          }
+        } catch (err) {
+          lastError = err;
+          if (attempt < MAX_ATTEMPTS) {
+            console.log(
+              `   ↻ attempt ${attempt} failed (${err.message}), retrying (${MAX_ATTEMPTS - attempt} left)…`
+            );
+          }
         }
-
-        const html = await page.content();
-
-        // Safety guard: only accept a capture that clearly has real content
-        // (contains <main>). A capture without <main> (auth failure, upstream
-        // 5xx, skeleton stuck) must NOT overwrite index.html — otherwise a
-        // temporary upstream blip in CI would take the site down.
-        if (!hasMain || !/<main\b/i.test(html)) {
-          console.warn(
-            `   ⚠️  Skipped ${route}: no <main> in capture — keeping existing file untouched.`
-          );
-          skipped++;
-          continue;
-        }
-
-        const filePath =
-          route === "/"
-            ? HOME_PATH
-            : path.join(DIST_DIR, route, "index.html");
-
-        const dir = path.dirname(filePath);
-        if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-
-        fs.writeFileSync(filePath, html, "utf-8");
-        console.log(`   ✅ Written: ${path.relative(DIST_DIR, filePath)}`);
-        ok++;
-      } catch (routeErr) {
-        console.warn(`   ⚠️  Skipped ${route}: ${routeErr.message}`);
-        skipped++;
-      } finally {
-        await page.close();
       }
+
+      if (!capturedHtml) {
+        const reason = lastError
+          ? lastError.message
+          : `no <main> after ${MAX_ATTEMPTS} attempts`;
+        console.warn(`   ⚠️  Skipped ${route}: ${reason} — keeping existing file untouched.`);
+        skipped++;
+        continue;
+      }
+
+      const filePath =
+        route === "/"
+          ? HOME_PATH
+          : path.join(DIST_DIR, route, "index.html");
+
+      const dir = path.dirname(filePath);
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+
+      fs.writeFileSync(filePath, capturedHtml, "utf-8");
+      console.log(`   ✅ Written: ${path.relative(DIST_DIR, filePath)}`);
+      ok++;
     }
   } finally {
     await browser.close();
