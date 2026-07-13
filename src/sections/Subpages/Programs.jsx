@@ -294,15 +294,38 @@ const SubPrograms = () => {
                   </div>
                 </div>
 
-                {/* Apply Now Button */}
-                <div className="mt-auto">
-                  <button
-                    onClick={() => setShowModal(true)}
-                    className="w-full bg-[#F04E30] text-white font-medium py-2.5 sm:py-3 px-4 sm:px-5 rounded-lg hover:bg-[#122E5E] transform hover:scale-[1.02] transition-all duration-300 shadow-md hover:shadow-lg text-sm sm:text-base"
-                  >
-                    {settings.apply_label || "Apply Now"}
-                  </button>
-                </div>
+                {/* Apply Now — links to the per-program URL from the API. */}
+                {(() => {
+                  const applyUrl =
+                    program.url ||
+                    program.apply_url ||
+                    program.link ||
+                    program.apply_link ||
+                    "";
+                  return (
+                    <div className="mt-auto">
+                      <a
+                        href={applyUrl || "#"}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => {
+                          if (!applyUrl) {
+                            e.preventDefault();
+                            return;
+                          }
+                          // Explicit window.open guarantees the navigation
+                          // even if the anchor's default click is somehow
+                          // intercepted upstream.
+                          e.preventDefault();
+                          window.open(applyUrl, "_blank", "noopener,noreferrer");
+                        }}
+                        className="block w-full text-center bg-[#F04E30] text-white font-medium py-2.5 sm:py-3 px-4 sm:px-5 rounded-lg hover:bg-[#122E5E] transform hover:scale-[1.02] transition-all duration-300 shadow-md hover:shadow-lg text-sm sm:text-base cursor-pointer"
+                      >
+                        {settings.apply_label || "Apply Now"}
+                      </a>
+                    </div>
+                  );
+                })()}
               </div>
             </div>
           ))}

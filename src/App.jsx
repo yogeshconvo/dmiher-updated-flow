@@ -7,6 +7,7 @@ import PageView from "./PageView";
 import PageSkeleton from "./components/Skeletons/PageSkeleton";
 import { mandatoryDisclosureConfig } from "./instituteSections/mandatoryDisclosure/config";
 import useSiteSettings from "./hooks/useSiteSettings";
+import NiaaChatbot from "./components/NiaaChatbot";
 
 // Route-level code splitting: these page types are only needed when the user
 // navigates to them, so they're loaded on demand instead of bloating the
@@ -73,6 +74,7 @@ function App() {
       </Suspense>
 
       <Footer />
+      <NiaaChatbot />
     </>
   );
 }
