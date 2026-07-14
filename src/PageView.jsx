@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { usePages } from "./hooks/usePages";
 import { useIndependentPages } from "./hooks/useIndependentPages";
-import { useSubpage } from "./hooks/useSubpages";
+import { useSubpage, useNestedPage } from "./hooks/useSubpages";
 
 import { SECTION_COMPONENTS as MainPageSections } from "./sections/MainPageSections";
 import { SECTION_COMPONENTS as InstituteSections } from "./sections/Institute";
@@ -30,7 +30,10 @@ function PageView() {
   const params = useParams();
 
   /* ================= ROUTE FLAGS ================= */
-  const isMicropage = params.college && params.page;
+  // A nested page carries all three params; a micro page has college + page but
+  // NOT nested (so the two flags stay mutually exclusive).
+  const isNested = !!(params.college && params.page && params.nested);
+  const isMicropage = !!(params.college && params.page) && !isNested;
 
   /* ================= SLUG LOGIC ================= */
   // Lowercase the URL params so /SHER, /Sher, /sher all resolve to the same
@@ -38,16 +41,25 @@ function PageView() {
   // without this normalisation.
   const lc = (v) => (typeof v === "string" ? v.toLowerCase() : v);
   const slug = lc(params.slug) || lc(params.page) || "home";
-  const microSlug = isMicropage ? lc(params.page) : null;
+  const microSlug = params.page ? lc(params.page) : null;
   const collegeSlug = lc(params.college) || null;
+  const nestedSlug = isNested ? lc(params.nested) : null;
 
   /* ================= QUERIES ================= */
-  const pageQuery = usePages(!isMicropage ? slug : null);
+  const pageQuery = usePages(!isMicropage && !isNested ? slug : null);
 
   // Section-dependent subpages load from /micropage/{college}/{page}.
   const subpageQuery = useSubpage(
     isMicropage ? collegeSlug : null,
     isMicropage ? microSlug : null
+  );
+
+  // Nested pages load from /micropage/{college}/{micro-page}/{nested-page} —
+  // resolved only through their parent micro page.
+  const nestedQuery = useNestedPage(
+    isNested ? collegeSlug : null,
+    isNested ? microSlug : null,
+    isNested ? nestedSlug : null
   );
 
   // Independent-pages is ONLY a fallback for genuine independent pages on this
@@ -71,7 +83,11 @@ function PageView() {
   /* ================= RESOLVE ================= */
   let resolvedPage = null;
 
-  if (isMicropage) {
+  if (isNested) {
+    if (nestedQuery?.data?.sections?.length > 0) {
+      resolvedPage = nestedQuery.data;
+    }
+  } else if (isMicropage) {
     // College-scoped micropage wins; independent-pages is fallback only.
     if (subpageQuery?.data?.sections?.length > 0) {
       resolvedPage = subpageQuery.data;
@@ -117,14 +133,18 @@ function PageView() {
   // Using && before meant: if micropageQuery finished with 404 (fast)
   // while subpageQuery was still loading, isLoading became false too
   // early and the page flashed "No data available".
-  const isLoading = isMicropage
+  const isLoading = isNested
+    ? !resolvedPage && nestedQuery?.isLoading
+    : isMicropage
     ? !resolvedPage && (micropageQuery?.isLoading || subpageQuery?.isLoading)
     : pageQuery?.isLoading;
 
   if (isLoading) return <PageSkeleton />;
 
   /* ================= ERROR / EMPTY ================= */
-  const hasError = isMicropage
+  const hasError = isNested
+    ? nestedQuery?.error
+    : isMicropage
     ? micropageQuery?.error && subpageQuery?.error
     : pageQuery?.error;
 

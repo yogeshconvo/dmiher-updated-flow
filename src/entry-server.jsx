@@ -51,6 +51,25 @@ async function prefetchForUrl(queryClient, url) {
         async () => (await api.get(`/micropage/${college}/${page}`)).data
       ),
     ]);
+    return;
+  }
+
+  // Nested page under a micro page — /{college}/{micro-page}/{nested-page}.
+  // The static 3-segment routes (programs / departments / mandatory-disclosure)
+  // are excluded so only genuine nested pages hit this branch.
+  if (
+    segments.length === 3 &&
+    segments[1] !== "programs" &&
+    segments[1] !== "departments" &&
+    segments[1] !== "mandatory-disclosure"
+  ) {
+    const college = lc(segments[0]);
+    const page = lc(segments[1]);
+    const nested = lc(segments[2]);
+    await tryFetch(
+      ["nested", college, page, nested],
+      async () => (await api.get(`/micropage/${college}/${page}/${nested}`)).data
+    );
   }
 }
 

@@ -65,6 +65,13 @@ function App() {
           element={<MandatoryDisclosurePage />}
         />
 
+        {/* =================== NESTED PAGE (under a micro page) ===================
+            Nested pages are dependent on their parent micro page, so they live
+            at the full /{college}/{micro-page}/{nested-page} depth. Fully
+            dynamic, so the static 3-segment routes above (programs / departments
+            / mandatory-disclosure) still win by specificity. */}
+        <Route path="/:college/:page/:nested" element={<PageView />} />
+
         {/* =================== MICROPAGE / CTA =================== */}
         <Route path="/:college/:page" element={<PageView />} />
 

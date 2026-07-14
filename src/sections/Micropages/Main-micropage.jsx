@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Grid, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -270,8 +270,12 @@ const ButtonsBlock = ({ items }) => {
    Grid of navy cards (carousel: 4 cols × 2 rows per page + dots). Each card
    links by action_type: page → micro page (cta_key), url → external, pdf. */
 const NormalCardsBlock = ({ cards }) => {
-  const params = useParams();
-  const base = params.college || params.slug || "";
+  // Build page links RELATIVE to the current path so depth grows correctly:
+  //   on a micro page  /{college}/{page}  -> card -> /{college}/{page}/{cta}
+  // i.e. a nested page stays dependent on its parent micro page rather than
+  // collapsing to a flat /{college}/{cta}.
+  const { pathname } = useLocation();
+  const base = pathname.replace(/\/+$/, "");
   const list = Array.isArray(cards) ? cards : [];
   if (!list.length) return null;
 
@@ -285,7 +289,7 @@ const NormalCardsBlock = ({ cards }) => {
     const ctaKey = card?.cta?.[0]?.cta_key || card?.cta_key;
     if (ctaKey) {
       return {
-        href: base ? `/${base}/${ctaKey}` : `/${ctaKey}`,
+        href: base ? `${base}/${ctaKey}` : `/${ctaKey}`,
         external: false,
       };
     }
