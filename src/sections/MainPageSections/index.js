@@ -34,6 +34,8 @@ const AlliancesGlobal = lazy(() => import("./Global/AlliancesGlobal"))
 const GlobalExchange = lazy(() => import("./Global/GlobalExchange"))
 const FunctionalUnits = lazy(() => import("./IQAC/FunctionalUnits"))
 const IQACSection = lazy(() => import("./IQAC/IQACButtons"))
+const CertificateGallery = lazy(() => import("./IQAC/CertificateGallery"))
+const IQACMinutesTable = lazy(() => import("./IQAC/IQACMinutesTable"))
 const ImportantContacts = lazy(() => import("./Programs/ImportantContacts"))
 const EnquiryGlobal = lazy(() => import("./Global/EnquiryGlobal"))
 const StudentLife = lazy(() => import("../Institute/StudentLife"))
@@ -139,6 +141,8 @@ export const SECTION_COMPONENTS = {
     // IQAC Section
     iqac_button: IQACSection,
     functional_units: FunctionalUnits,
+    certificate_gallery: CertificateGallery,
+    iqac_minutes_table: IQACMinutesTable,
 
     // Programs Section
     programs_section: HomePrograms,
