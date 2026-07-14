@@ -5,6 +5,7 @@ const HospitalTabsSection = lazy(() => import("./HospitalTabsSection"));
 const MicroPageTabLink = lazy(() => import("./MicroPageTabLink"));
 const DMIHERConferences = lazy(() => import("./DMIHERConferences"));
 const DynamicFormSection = lazy(() => import("./DynamicFormSection"));
+const CertificateGallery = lazy(() => import("./CertificateGallery"));
 
 export const SECTION_COMPONENTS = {
 
@@ -13,6 +14,7 @@ export const SECTION_COMPONENTS = {
     hospital_tabs_section: HospitalTabsSection,
     micro_page_tab_link: MicroPageTabLink,
     dmiher_conferences: DMIHERConferences,
+    certificate_gallery: CertificateGallery,
 
     // Dynamic Forms — rendered via the section-dependent micropage API,
     // submitted via the Form API (see DynamicFormSection).
