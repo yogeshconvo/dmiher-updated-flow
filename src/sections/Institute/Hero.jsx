@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import { resolveImage } from "../../utils/resolveImage";
 import NpfWidgetButton from "../../components/NpfWidgetButton";
@@ -16,6 +17,12 @@ function Hero({ data, slug }) {
     : data.topbar || {};
 
   const slides = Array.isArray(data.slides) ? data.slides : [];
+
+  // First slide is the LCP element. Emit a <head> preload so the browser starts
+  // fetching it during initial HTML parse (before it reaches the <body> <img>),
+  // shaving Largest Contentful Paint. Desktop image only — the mobile <picture>
+  // source swaps in below 1024px and GTmetrix/Lighthouse tests at desktop width.
+  const lcpImg = slides.length ? resolveImage(slides[0]?.img) : null;
 
   // Banner auto-slide speed — set from the dashboard hero "Banner Settings"
   // (stored in SECONDS). The slider runs in milliseconds; fall back to 5s when
@@ -400,6 +407,12 @@ function Hero({ data, slug }) {
 
   return (
     <>
+      {lcpImg && (
+        <Helmet>
+          <link rel="preload" as="image" href={lcpImg} fetchpriority="high" />
+        </Helmet>
+      )}
+
       {/* TOP STRIP */}
       {strapPosition === "top" && TopBarComponent}
 
