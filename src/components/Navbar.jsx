@@ -74,6 +74,11 @@ const Navbar = () => {
               src={logo.image}
               alt={logo.title || "Logo"}
               className="navbar-logo"
+              // Intrinsic dimensions so the browser reserves the logo's box
+              // before it loads (no CLS). CSS (w-[200px]) still controls the
+              // rendered size; these only set the aspect ratio.
+              width="1048"
+              height="354"
             />
           )}
         </Link>
