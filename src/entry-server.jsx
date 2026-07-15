@@ -10,7 +10,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { NonceProvider } from "./context/NonceContext";
 import App from "./App";
 import api from "./config/api";
-import "@fontsource/oswald";
+import "@fontsource/oswald/latin-400.css";
 import "./styles/main.css";
 
 const lc = (v) => (typeof v === "string" ? v.toLowerCase() : v);

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import * as FaIcons from "react-icons/fa";
-import * as Fa6Icons from "react-icons/fa6";
+// Curated FA icon maps (only the icons the contact page can render) — importing
+// the full `react-icons/fa` + `fa6` namespaces shipped the entire ~1.3 MB icon
+// set into this chunk. See utils/contactFaIcons.js.
+import { fa6Map, faMap } from "../../../utils/contactFaIcons";
 
 /* =========================================================
    FA ICON RESOLVER
@@ -20,7 +22,7 @@ const toFaName = (name) => {
 const resolveFaIcon = (name) => {
   const key = toFaName(name);
   if (!key) return null;
-  return Fa6Icons[key] || FaIcons[key] || null;
+  return fa6Map[key] || faMap[key] || null;
 };
 
 const DynamicIcon = ({ name, fallback: Fallback, className }) => {
@@ -187,7 +189,7 @@ export default function CombinedSection({ data }) {
                   <div className="contact-info-item">
                     <DynamicIcon
                       name={contact_tabs[tab].address_icon}
-                      fallback={Fa6Icons.FaMapPin}
+                      fallback={fa6Map.FaMapPin}
                       className="contact-info-icon"
                     />
 
@@ -208,7 +210,7 @@ export default function CombinedSection({ data }) {
                   <div className="contact-info-item-bordered">
                     <DynamicIcon
                       name={contact_tabs[tab].email_icon}
-                      fallback={Fa6Icons.FaEnvelope}
+                      fallback={fa6Map.FaEnvelope}
                       className="contact-info-icon"
                     />
 
@@ -220,7 +222,7 @@ export default function CombinedSection({ data }) {
                   <div className="contact-info-item">
                     <DynamicIcon
                       name={contact_tabs[tab].phone_icon}
-                      fallback={Fa6Icons.FaPhone}
+                      fallback={fa6Map.FaPhone}
                       className="contact-info-icon"
                     />
 
@@ -265,7 +267,7 @@ export default function CombinedSection({ data }) {
             <div className="contact-admission-item-first">
               <DynamicIcon
                 name={admission_section.address_icon}
-                fallback={Fa6Icons.FaMapPin}
+                fallback={fa6Map.FaMapPin}
                 className="contact-admission-icon"
               />
 
@@ -286,7 +288,7 @@ export default function CombinedSection({ data }) {
             <div className="contact-admission-item-mid">
               <DynamicIcon
                 name={admission_section.email_icon}
-                fallback={Fa6Icons.FaEnvelope}
+                fallback={fa6Map.FaEnvelope}
                 className="contact-admission-icon"
               />
 
@@ -301,7 +303,7 @@ export default function CombinedSection({ data }) {
             <div className="contact-admission-item-last">
               <DynamicIcon
                 name={admission_section.phone_icon}
-                fallback={Fa6Icons.FaPhone}
+                fallback={fa6Map.FaPhone}
                 className="contact-admission-icon"
               />
 

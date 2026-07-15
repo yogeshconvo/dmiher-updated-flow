@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useParams, useLocation } from "react-router-dom";
-import * as Icons from "lucide-react";
+import Icons from "../../../utils/lucideIcons";
 
 /* Convert API icon name → Lucide component (e.g. "graduation-cap" → GraduationCap) */
 const getLucideIcon = (name) => {

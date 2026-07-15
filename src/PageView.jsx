@@ -187,24 +187,44 @@ function PageView() {
         )}
       </Helmet>
 
-      <Suspense fallback={<PageLoader />}>
-        {resolvedPage.sections?.map((sec, index) => {
-          const SectionComponent = SECTION_COMPONENTS[sec.section_id];
-          if (!SectionComponent) return null;
+      {resolvedPage.sections?.map((sec, index) => {
+        const SectionComponent = SECTION_COMPONENTS[sec.section_id];
+        if (!SectionComponent) return null;
 
-          return (
-            <ErrorBoundary key={`${sec.section_id}-${index}`}>
-              <section id={sec.page_section_id || undefined}>
+        // Each section gets its OWN Suspense boundary. A single shared boundary
+        // meant one still-loading lazy section blanked the whole page (hero
+        // included) behind one big loader on the client re-render — a large
+        // layout shift (CLS). Isolated boundaries let already-loaded sections
+        // stay put while others stream in.
+        //
+        // Below-the-fold sections (index > 0) reserve their height via
+        // content-visibility (.page-section-defer, contain-intrinsic-size), so a
+        // section mounting doesn't push the page around — keeping CLS ~0. The
+        // fallback reserves the same space so there's no flash on suspend.
+        const deferred = index > 0;
+        return (
+          <ErrorBoundary key={`${sec.section_id}-${index}`}>
+            <Suspense
+              fallback={
+                deferred ? (
+                  <div className="page-section-defer" aria-hidden="true" />
+                ) : null
+              }
+            >
+              <section
+                id={sec.page_section_id || undefined}
+                className={deferred ? "page-section-defer" : undefined}
+              >
                 <SectionComponent
                   data={sec.data}
                   college={params.college || params.slug}
                   pageSlug={params.college || params.slug}
                 />
               </section>
-            </ErrorBoundary>
-          );
-        })}
-      </Suspense>
+            </Suspense>
+          </ErrorBoundary>
+        );
+      })}
     </main>
   );
 }

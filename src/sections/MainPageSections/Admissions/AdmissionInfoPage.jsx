@@ -1,5 +1,5 @@
 import React from "react";
-import * as Icons from "lucide-react";
+import Icons from "../../../utils/lucideIcons";
 
 const AdmissionInfoPage = ({ data }) => {
   const { basic, cards } = data;
