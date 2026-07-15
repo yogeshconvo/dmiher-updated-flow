@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import PageView from "./PageView";
-import PageSkeleton from "./components/Skeletons/PageSkeleton";
+import PageLoader from "./components/PageLoader";
 import { mandatoryDisclosureConfig } from "./instituteSections/mandatoryDisclosure/config";
 import useSiteSettings from "./hooks/useSiteSettings";
 import NiaaChatbot from "./components/NiaaChatbot";
@@ -26,7 +26,7 @@ function App() {
       <Navbar />
       <ScrollToTop />
 
-      <Suspense fallback={<PageSkeleton />}>
+      <Suspense fallback={<PageLoader />}>
       <Routes>
         {/* =================== STATIC =================== */}
         <Route path="/" element={<PageView />} />

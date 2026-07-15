@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import RichTextRenderer from "../../../components/RichTextRenderer";
 import { resolveImage } from "../../../utils/resolveImage";
 import { flattenNumericKeys } from "./utils";
 import MicropageView from "./MicropageView";
 import { FaEye, FaBullseye, FaStar, FaHeart, FaShieldAlt, FaLeaf, FaHandshake, FaGlobe } from "react-icons/fa";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const ICON_MAP = {
   eye: FaEye,
@@ -28,6 +29,55 @@ export default function AboutHospitalTabBody({ tab }) {
   return <RichView tab={tab} />;
 }
 
+function CertSlider({ certificates }) {
+  const [current, setCurrent] = useState(0);
+  const total = certificates.length;
+
+  const next = useCallback(() => setCurrent((p) => (p + 1) % total), [total]);
+  const prev = useCallback(() => setCurrent((p) => (p - 1 + total) % total), [total]);
+
+  useEffect(() => {
+    const id = setInterval(next, 4000);
+    return () => clearInterval(id);
+  }, [next]);
+
+  return (
+    <div className="ah-cert-slider">
+      <button type="button" onClick={prev} className="ah-cert-slider-btn ah-cert-slider-btn-left" aria-label="Previous">
+        <ChevronLeft size={26} />
+      </button>
+
+      <div className="ah-cert-slider-track">
+        {certificates.map((c, i) => (
+          <div key={i} className={`ah-cert-frame ah-cert-slide ${i === current ? "ah-cert-slide-active" : ""}`}>
+            <img
+              src={resolveImage(c.image)}
+              alt={c.alt || "Certificate"}
+              className="ah-cert-frame-img"
+            />
+          </div>
+        ))}
+      </div>
+
+      <button type="button" onClick={next} className="ah-cert-slider-btn ah-cert-slider-btn-right" aria-label="Next">
+        <ChevronRight size={26} />
+      </button>
+
+      <div className="ah-cert-slider-dots">
+        {certificates.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => setCurrent(i)}
+            className={`ah-cert-slider-dot ${i === current ? "ah-cert-slider-dot-active" : ""}`}
+            aria-label={`Go to certificate ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function RichView({ tab }) {
   const certificates = Array.isArray(tab?.rich_certificates)
     ? tab.rich_certificates
@@ -36,8 +86,21 @@ function RichView({ tab }) {
 
   return (
     <div className="ah-rich-section">
-      {certificates.length > 0 && (
-        <div className="ah-cert-stack">
+      {/* 1 image → centered; 2 → side by side; 3+ → slider */}
+      {certificates.length === 1 && (
+        <div className="ah-cert-single">
+          <div className="ah-cert-frame">
+            <img
+              src={resolveImage(certificates[0].image)}
+              alt={certificates[0].alt || "Certificate"}
+              className="ah-cert-frame-img"
+            />
+          </div>
+        </div>
+      )}
+
+      {certificates.length === 2 && (
+        <div className="ah-cert-pair">
           {certificates.map((c, i) => (
             <div key={i} className="ah-cert-frame">
               <img
@@ -49,6 +112,8 @@ function RichView({ tab }) {
           ))}
         </div>
       )}
+
+      {certificates.length >= 3 && <CertSlider certificates={certificates} />}
 
       {body && <RichTextRenderer html={body} />}
     </div>

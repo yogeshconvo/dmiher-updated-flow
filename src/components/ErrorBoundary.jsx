@@ -16,6 +16,9 @@ class ErrorBoundary extends Component {
 
   render() {
     if (this.state.hasError) {
+      // Allow callers to supply a silent fallback (e.g. a spinner) instead of
+      // the default "something went wrong" message.
+      if (this.props.fallback !== undefined) return this.props.fallback;
       return (
         <div className="error-boundary-fallback">
           <p className="error-boundary-text">Something went wrong loading this section.</p>

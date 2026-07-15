@@ -1,12 +1,8 @@
-import Lottie from "lottie-react";
-import loading from "../../public/loading.json";
-
+// Unified app loader: a lightweight CSS ring spinner used everywhere.
 function Loader() {
   return (
     <div className="flex-center-py">
-      <div className="loader-lottie">
-        <Lottie animationData={loading} loop={true} />
-      </div>
+      <span className="app-spinner" />
     </div>
   );
 }

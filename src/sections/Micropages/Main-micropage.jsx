@@ -54,20 +54,42 @@ const ImageBlock = ({ item }) => {
   const srcs = collectImageSrcs(item);
   if (!srcs.length) return null;
 
+  // 1 image → centered
   if (srcs.length === 1) {
-    return <SafeImage src={srcs[0]} alt="" className="mb-4 rounded max-w-full" />;
+    return (
+      <div className="flex justify-center mb-4">
+        <SafeImage src={srcs[0]} alt="" className="rounded max-w-full h-auto" />
+      </div>
+    );
   }
 
+  // 2 images → side by side
+  if (srcs.length === 2) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 items-start">
+        {srcs.map((s, i) => (
+          <SafeImage key={i} src={s} alt="" className="w-full h-auto rounded max-w-full" />
+        ))}
+      </div>
+    );
+  }
+
+  // 3+ images → slider
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-      {srcs.map((s, i) => (
-        <SafeImage
-          key={i}
-          src={s}
-          alt=""
-          className="w-full h-64 object-cover rounded-xl"
-        />
-      ))}
+    <div className="mb-6">
+      <Swiper
+        modules={[Pagination]}
+        pagination={{ clickable: true }}
+        spaceBetween={16}
+        slidesPerView={1}
+        breakpoints={{ 640: { slidesPerView: 2 } }}
+      >
+        {srcs.map((s, i) => (
+          <SwiperSlide key={i}>
+            <SafeImage src={s} alt="" className="w-full h-auto rounded max-w-full" />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };

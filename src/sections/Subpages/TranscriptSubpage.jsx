@@ -1,34 +1,6 @@
 import React from "react";
-import { BookOpen, Bookmark } from "lucide-react";
-import SafeImage from "../../components/SafeImage";
+import { BookOpen, Building2, Star } from "lucide-react";
 
-/**
- * TranscriptSubpage — renders the NEW micro-page data structure.
- *
- * Expected data shape (from /api/micropage/{slug}/transcript):
- * {
- *   header: [
- *     {
- *       main_heading: string,
- *       subtitle: string,
- *       heading: string,
- *       description: string,
- *       categories: [{ id, title }]
- *     }
- *   ],
- *   section: [
- *     {
- *       title: string,
- *       subtitle: string,
- *       courses_normal: [
- *         { course_number, roman_number, title, university, badge, icon }
- *       ]
- *     }
- *   ]
- * }
- *
- * The existing Transcript-type1.jsx (departments/electives structure) is unchanged.
- */
 function TranscriptSubpage({ data }) {
   const headerData = data?.header?.[0];
   const sections = data?.section || [];
@@ -41,157 +13,145 @@ function TranscriptSubpage({ data }) {
     );
   }
 
+  const categories = headerData?.categories || [];
+
   return (
     <div className="transcript-page">
-      {/* ── PAGE TITLE BAR ── */}
-      <div className="transcript-title-bar">
-        <h1>Transcript Courses</h1>
-      </div>
+      {/* ── HERO ── */}
+      <header className="transcript-header">
+        <h1 className="transcript-title">Transcript Courses</h1>
+      </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* ── COURSE CATEGORIES HEADER ── */}
-        {headerData && (
-          <div className="transcript-categories-header">
-            <div className="container">
-              {/* Main Heading */}
-              {headerData.main_heading && (
-                <h1 className="transcript-categories-main-heading">
-                  {headerData.main_heading}
-                </h1>
-              )}
-
-              {/* Subtitle */}
+      <div className="transcript-content">
+        {/* ── COURSE CATEGORIES OVERVIEW ── */}
+        {headerData && categories.length > 0 && (
+          <section className="transcript-section">
+            <div className="transcript-section-head">
+              <h2 className="topui-category-title">
+                {headerData.main_heading || "Course Categories"}
+              </h2>
               {headerData.subtitle && (
-                <p className="transcript-categories-subtitle">
-                  {headerData.subtitle}
-                </p>
-              )}
-
-              {/* Categories Pills */}
-              {headerData.categories && headerData.categories.length > 0 && (
-                <div className="transcript-categories-pills">
-                  {headerData.categories.map((cat) => (
-                    <button
-                      key={cat.id}
-                      className="transcript-category-pill"
-                    >
-                      {cat.title}
-                    </button>
-                  ))}
-                </div>
+                <p className="topui-category-subtitle">{headerData.subtitle}</p>
               )}
             </div>
-          </div>
+            <div className="transcript-categories">
+              {categories.map((cat) => (
+                <span key={cat.id} className="transcript-category-pill">
+                  {cat.title}
+                </span>
+              ))}
+            </div>
+          </section>
         )}
 
-        {/* ── AVAILABLE COURSES SECTION ── */}
-        {headerData && (
-          <div className="transcript-available-courses">
-            <div className="container">
-              <div className="transcript-courses-heading">
-                <div className="transcript-courses-icon">
-                  <Bookmark size={24} />
-                </div>
-                <h2 className="transcript-courses-title">
-                  {headerData.heading || "Available Courses"}
-                </h2>
-              </div>
+        {/* ── AVAILABLE COURSES HEADING ── */}
+        {headerData && (headerData.heading || headerData.description) && (
+          <section className="transcript-section">
+            <div className="topui-heading">
+              <h2 className="topui-heading-title">
+                {headerData.heading || "Available Courses"}
+              </h2>
               {headerData.description && (
-                <p className="transcript-courses-description">
+                <p className="topui-heading-subtitle">
                   {headerData.description}
                 </p>
               )}
             </div>
-          </div>
+          </section>
         )}
 
         {/* ── COURSE SECTIONS ── */}
         {sections.map((sectionItem, sIdx) => (
-          <div key={sIdx} className="transcript-section">
-
-            {/* ── Section Header ── */}
+          <section key={sIdx} className="transcript-section">
             {(sectionItem.title || sectionItem.subtitle) && (
-              <header className="transcript-header">
-                {sectionItem.title && (
-                  <h1 className="transcript-title">{sectionItem.title}</h1>
-                )}
+              <div className="transcript-section-head">
+                <h2 className="transcript-section-title">{sectionItem.title}</h2>
                 {sectionItem.subtitle && (
-                  <p className="transcript-subtitle">{sectionItem.subtitle}</p>
+                  <p className="transcript-section-subtitle">
+                    {sectionItem.subtitle}
+                  </p>
                 )}
-              </header>
+              </div>
             )}
 
-            {/* ── Courses Grid ── */}
             <section className="courses-section">
               <div className="courses-wrapper">
-                <div className="courses-grid">
+                <div className="course-grid">
                   {(sectionItem.courses_normal || []).length > 0 ? (
                     sectionItem.courses_normal.map((course, cIdx) => (
-                      <div key={cIdx} className="course-card">
-
-                        {/* Card Header */}
+                      <div key={cIdx} className="course-card group">
+                        {/* Header */}
                         <div className="course-card-header">
-                          <div className="course-header-left">
-
-                            {/* Icon */}
-                            <div className="course-header-icon">
-                              {course.icon ? (
-                                <img
-                                  src={course.icon}
-                                  alt={course.title || "course icon"}
-                                  className="w-8 h-8 object-contain"
-                                />
-                              ) : (
-                                <BookOpen size={20} />
-                              )}
+                          <div className="course-card-header-row">
+                            <div className="course-card-header-left">
+                              <div className="course-card-icon-wrap">
+                                <BookOpen className="course-card-icon" />
+                              </div>
+                              <div>
+                                {course.course_number && (
+                                  <div className="course-card-num">
+                                     #{course.course_number}
+                                  </div>
+                                )}
+                                {course.badge && (
+                                  <div className="course-card-mini-badge">
+                                    {course.badge}
+                                  </div>
+                                )}
+                              </div>
                             </div>
-
-                            {/* Course Number / Roman Number */}
-                            <div>
-                              {course.course_number && (
-                                <div className="course-number">
-                                  {course.course_number}
-                                </div>
-                              )}
-                              {course.roman_number && (
-                                <div className="course-roman">
+                            {course.roman_number && (
+                              <div className="course-card-roman">
+                                <span className="course-card-roman-text">
                                   {course.roman_number}
-                                </div>
-                              )}
-                            </div>
+                                </span>
+                              </div>
+                            )}
                           </div>
                         </div>
 
-                        {/* Card Body */}
+                        {/* Body */}
                         <div className="course-card-body">
                           {course.title && (
-                            <h3 className="course-title">{course.title}</h3>
+                            <h3 className="course-card-name group-hover:text-[#F04E30]">
+                              {course.title}
+                            </h3>
                           )}
+
                           {course.university && (
-                            <p className="course-university">
-                              {course.university}
-                            </p>
+                            <div className="course-card-univ-row">
+                              <div className="course-card-univ-inner">
+                                <div className="course-card-univ-icon-wrap">
+                                  <Building2 className="course-card-univ-icon" />
+                                </div>
+                                <div>
+                                  <p className="course-card-univ-label">Powered by</p>
+                                  <p className="course-card-univ-name">
+                                    {course.university}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
                           )}
+
                           {course.badge && (
-                            <p className="course-badge-text">{course.badge}</p>
-                          )}
-                          {course.roman_number && (
-                            <span className="course-category-badge">{course.roman_number}</span>
+                            <div className="course-card-badge-row">
+                              <div className="course-card-badge group-hover:from-[#F04E30]/10 group-hover:to-[#122E5E]/10">
+                                <Star className="course-card-badge-icon" />
+                                {course.badge}
+                              </div>
+                            </div>
                           )}
                         </div>
-
                       </div>
                     ))
                   ) : (
-                    <p className="text-center text-gray-500 col-span-full">
-                      No courses available.
-                    </p>
+                    <p className="course-empty-text">No courses available.</p>
                   )}
                 </div>
               </div>
             </section>
-
-          </div>
+          </section>
         ))}
       </div>
     </div>
