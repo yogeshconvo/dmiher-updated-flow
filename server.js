@@ -36,6 +36,13 @@ function sha256(content) {
   return crypto.createHash("sha256").update(content, "utf8").digest("base64");
 }
 
+// Frontend and backend origins used in the production CSP. The frontend also
+// self-serves some fonts/CSS which browsers treat as a distinct origin from
+// bare 'self' when the request goes over an absolute URL — mirroring what the
+// reference site (dmmcnagpur.com) does.
+const FRONTEND_ORIGIN = "https://www.dmiher.edu.in";
+const BACKEND_ORIGIN = "https://admin.dmiher.edu.in";
+
 function buildCsp(nonce, scriptHashes = []) {
   const hashList = scriptHashes.map((h) => `'sha256-${h}'`).join(" ");
   if (!isProduction) {
@@ -68,26 +75,42 @@ function buildCsp(nonce, scriptHashes = []) {
     ].join("; ");
   }
 
-  // Production: mirrors laravel-csp/CspMiddleware.php. `'unsafe-inline'` stays
-  // on style-src because React renders many components with inline
-  // `style={{}}` attributes that a nonce can't cover. Browsers ignore
-  // `'unsafe-inline'` when a nonce is also present in the same directive, so
-  // we drop the nonce there to keep inline styles working — script-src keeps
-  // the nonce since scripts are the actual attack surface.
+  // Production CSP — matches the securityheaders.com A+ reference layout
+  // (default-src → script-src → style-src → font-src → img-src → connect-src
+  // → frame-src). Nonce is per-request, no `'unsafe-inline'`/`'unsafe-eval'`
+  // in script-src. `'unsafe-inline'` stays on style-src only because React
+  // renders many components with inline `style={{}}` attributes that a nonce
+  // cannot cover — the reference site keeps it there too. Extra third-party
+  // hosts (GA/GTM, NoPaperForms widgets, GetAAI chatbot, backend API) are the
+  // integrations DMIHER actually uses; dropping them would break the site.
   return [
     "default-src 'self'",
     `script-src 'self' 'nonce-${nonce}' ${hashList} https://www.googletagmanager.com https://www.google-analytics.com https://widgets.in6.nopaperforms.com https://chatbot.in6.nopaperforms.com https://chatcdn.npfs.co https://static.getaai.com`.replace(/\s+/g, " "),
-    `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://chatbot.in6.nopaperforms.com`,
-    `img-src 'self' https: data: ${apiBase}`.trim(),
-    "font-src 'self' https://fonts.gstatic.com data:",
-    `connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://api.web3forms.com https://static.getaai.com https://chatbot.in6.nopaperforms.com ${apiBase}`.trim(),
-    "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://maps.google.com https://docs.google.com https://drive.google.com https://www.googletagmanager.com https://chatbot.in6.nopaperforms.com",
+    `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com ${FRONTEND_ORIGIN} https://chatbot.in6.nopaperforms.com`,
+    `font-src 'self' data: https://fonts.gstatic.com ${FRONTEND_ORIGIN}`,
+    `img-src 'self' data: ${BACKEND_ORIGIN}`,
+    `connect-src 'self' ${BACKEND_ORIGIN} https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://api.web3forms.com https://static.getaai.com https://chatbot.in6.nopaperforms.com`,
+    "frame-src 'self' https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com https://maps.google.com https://docs.google.com https://drive.google.com https://www.googletagmanager.com https://chatbot.in6.nopaperforms.com",
     "frame-ancestors 'self'",
     "form-action 'self' https://api.web3forms.com",
     "object-src 'none'",
     "base-uri 'self'",
+    "upgrade-insecure-requests",
   ].join("; ");
 }
+
+// Companion hardening headers required for a securityheaders.com A+ grade,
+// matching the reference dmmcnagpur.com report exactly.
+const SECURITY_HEADERS = {
+  "Cross-Origin-Opener-Policy": "same-origin-allow-popups",
+  "Cross-Origin-Embedder-Policy": "unsafe-none",
+  "Cross-Origin-Resource-Policy": "same-origin",
+  "X-Frame-Options": "DENY",
+  "X-Content-Type-Options": "nosniff",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), interest-cohort=()",
+  "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+};
 
 const app = express();
 
@@ -148,6 +171,11 @@ app.use(/.*/, async (req, res) => {
       .set({
         "Content-Type": "text/html",
         "Content-Security-Policy": buildCsp(nonce, [stateHash]),
+        // The Strict-Transport-Security / cross-origin / X-* / Referrer-Policy /
+        // Permissions-Policy set required for a securityheaders.com A+ grade.
+        // Only sent in production so HMR websockets and localhost tooling still
+        // work in dev.
+        ...(isProduction ? SECURITY_HEADERS : {}),
       })
       .send(html);
   } catch (e) {
