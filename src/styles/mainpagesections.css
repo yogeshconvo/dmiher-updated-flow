@@ -3097,7 +3097,7 @@
 
 /* ================= ONE HEALTH (MainPageSections/OneHealth.jsx) ================= */
 .onehealth-section {
-    @apply my-10 flex flex-col items-start gap-16 sm:gap-32 container mx-auto;
+    @apply my-10 flex flex-col items-start gap-10 sm:gap-14 container mx-auto;
 }
 
 .onehealth-heading {
@@ -3113,19 +3113,21 @@
 }
 
 .onehealth-legend {
-    @apply space-y-4 mx-auto;
+    @apply space-y-5 mx-auto self-center;
 }
 
 .onehealth-legend-item {
-    @apply flex items-center gap-3 font-[600];
+    @apply flex items-center gap-4 font-[600];
 }
 
 .onehealth-legend-swatch {
-    @apply w-5 h-5 rotate-45;
+    @apply w-5 h-5 rotate-45 shrink-0;
 }
 
+/* Cap the label width so long entries wrap to two lines beside the diamond,
+   matching the live-site legend column (instead of one long full-width line). */
 .onehealth-legend-text {
-    @apply text-[#58595B] text-sm md:text-lg;
+    @apply text-[#58595B] text-sm md:text-lg max-w-[300px];
 }
 
 .onehealth-grid-wrap {

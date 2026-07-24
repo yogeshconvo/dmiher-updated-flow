@@ -17,6 +17,15 @@ const GRID_ITEM_ALIGN_MAP = {
   right: "justify-items-end",
 };
 
+// A `max-w-fit` grid track is only as wide as its buttons, so the CMS
+// alignment must place the container itself: left keeps it flush, right
+// pushes it over, center splits the margins.
+const GRID_CONTAINER_ALIGN_MAP = {
+  left: "mr-auto",
+  center: "mx-auto",
+  right: "ml-auto",
+};
+
 const COL_MAP = {
   1: "md:grid-cols-1",
   2: "md:grid-cols-2",
@@ -51,10 +60,12 @@ export default function CTAButtons({ data, pageSlug, college }) {
   const gridFullWidth = useGrid && mainButtons.length > 1;
 
   const gridClass = useGrid
-    ? `grid grid-cols-1 ${colClass} gap-6 mx-auto ${
+    ? `grid grid-cols-1 ${colClass} gap-6 ${
         gridFullWidth
-          ? "w-full max-w-4xl"
-          : `max-w-fit ${GRID_ITEM_ALIGN_MAP[alignment] || "justify-items-center"}`
+          ? "w-full max-w-4xl mx-auto"
+          : `max-w-fit ${GRID_CONTAINER_ALIGN_MAP[alignment] || "mx-auto"} ${
+              GRID_ITEM_ALIGN_MAP[alignment] || "justify-items-center"
+            }`
       }`
     : `flex flex-col md:flex-row flex-wrap ${FLEX_ALIGN_MAP[alignment] || "justify-center"} gap-10`;
 
@@ -124,22 +135,27 @@ export default function CTAButtons({ data, pageSlug, college }) {
   };
 
   return (
-    <div className="inst-cta-wrap py-20">
-      <div className={gridClass}>
-        {mainButtons.map((btn, i) => renderButton(btn, i, gridFullWidth))}
-      </div>
-
-      {tailButtons.length > 0 && (
-        <div
-          className={`inst-cta-tail${
-            gridFullWidth ? " w-full max-w-md mx-auto" : ""
-          }`}
-        >
-          {tailButtons.map((btn, i) =>
-            renderButton(btn, mainButtons.length + i, gridFullWidth),
-          )}
+    <div className="inst-cta-wrap py-6 px-4 sm:px-6">
+      {/* Same container as the surrounding micro-page sections so a
+          left/right-aligned button lines up with the text column instead of
+          the viewport edge. */}
+      <div className="micropage-container">
+        <div className={gridClass}>
+          {mainButtons.map((btn, i) => renderButton(btn, i, gridFullWidth))}
         </div>
-      )}
+
+        {tailButtons.length > 0 && (
+          <div
+            className={`inst-cta-tail${
+              gridFullWidth ? " w-full max-w-md mx-auto" : ""
+            }`}
+          >
+            {tailButtons.map((btn, i) =>
+              renderButton(btn, mainButtons.length + i, gridFullWidth),
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Grid, Pagination } from "swiper/modules";
@@ -7,6 +7,7 @@ import "swiper/css/grid";
 import "swiper/css/pagination";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import SafeImage from "../../components/SafeImage";
+import ViewMoreButton from "../../components/UI/Buttons";
 // Centralised resolver — handles both new "assets/..." paths and
 // legacy "storage/..." records so old data keeps rendering during
 // the rollout.
@@ -73,54 +74,74 @@ const ImageBlock = ({ item }) => {
 };
 
 /* ================= DEAN BLOCK (new shape) ================= */
+const DeanEntry = ({ d }) => {
+  // `view_more` holds the collapsed-away tail of the message (e.g. the About
+  // "Key Functionaries" Chancellor bio). It stays hidden behind a Read More /
+  // Read Less toggle; entries without it render exactly as before.
+  const [expanded, setExpanded] = useState(false);
+  const hasViewMore =
+    typeof d?.view_more === "string" && d.view_more.trim().length > 0;
+
+  return (
+    <div className="knowmore-dean-layout">
+      {d?.img && (
+        <div className="knowmore-dean-profile">
+          <SafeImage
+            src={resolveImage(d.img)}
+            alt={d?.name || "Dean"}
+            className="knowmore-dean-image"
+          />
+          {(d?.name ||
+            d?.designation ||
+            d?.qualifications ||
+            d?.qualification ||
+            d?.email) && (
+            <div className="knowmore-dean-info">
+              {/* Key-Officials / Dean-message pages store the name +
+                  designation + qualifications + email together as an HTML
+                  `qualification` block; render it as-is. Older pages that
+                  supply the discrete plain-text fields keep working. */}
+              {d?.qualification ? (
+                <RichTextRenderer html={d.qualification} />
+              ) : (
+                <>
+                  {d?.name && <p className="knowmore-dean-name">{d.name}</p>}
+                  {(d?.designation || d?.qualifications) && (
+                    <p>
+                      {d?.designation}
+                      {d?.designation && d?.qualifications && <br />}
+                      {d?.qualifications}
+                    </p>
+                  )}
+                  {d?.email && <p>{d.email}</p>}
+                </>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+      {(d?.desc || hasViewMore) && (
+        <div className="knowmore-dean-message">
+          {d?.desc && <RichTextRenderer html={d.desc} />}
+          {hasViewMore && expanded && <RichTextRenderer html={d.view_more} />}
+          {hasViewMore && (
+            <ViewMoreButton
+              onClick={() => setExpanded((v) => !v)}
+              label={expanded ? "Read Less" : "Read More"}
+            />
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
 const DeanBlock = ({ entries }) => {
   if (!Array.isArray(entries) || !entries.length) return null;
   return (
     <>
       {entries.map((d, i) => (
-        <div key={i} className="knowmore-dean-layout">
-          {d?.img && (
-            <div className="knowmore-dean-profile">
-              <SafeImage
-                src={resolveImage(d.img)}
-                alt={d?.name || "Dean"}
-                className="knowmore-dean-image"
-              />
-              {(d?.name ||
-                d?.designation ||
-                d?.qualifications ||
-                d?.qualification ||
-                d?.email) && (
-                <div className="knowmore-dean-info">
-                  {/* Key-Officials / Dean-message pages store the name +
-                      designation + qualifications + email together as an HTML
-                      `qualification` block; render it as-is. Older pages that
-                      supply the discrete plain-text fields keep working. */}
-                  {d?.qualification ? (
-                    <RichTextRenderer html={d.qualification} />
-                  ) : (
-                    <>
-                      {d?.name && <p className="knowmore-dean-name">{d.name}</p>}
-                      {(d?.designation || d?.qualifications) && (
-                        <p>
-                          {d?.designation}
-                          {d?.designation && d?.qualifications && <br />}
-                          {d?.qualifications}
-                        </p>
-                      )}
-                      {d?.email && <p>{d.email}</p>}
-                    </>
-                  )}
-                </div>
-              )}
-            </div>
-          )}
-          {d?.desc && (
-            <div className="knowmore-dean-message">
-              <RichTextRenderer html={d.desc} />
-            </div>
-          )}
-        </div>
+        <DeanEntry key={i} d={d} />
       ))}
     </>
   );
@@ -155,11 +176,21 @@ const DeanCardsGrid = ({ entries, cols = 3 }) => {
 };
 
 /* ================= TEAM BLOCK (new shape: block.management_team[]) ================= */
-const TeamBlock = ({ members }) => {
+const TeamBlock = ({ members, cols = 3 }) => {
   if (!Array.isArray(members) || !members.length) return null;
+  // CMS sends a per-member display "order" (string, e.g. "1"). Sort by it;
+  // members without one keep their API position, after the ordered ones.
+  const sorted = [...members].sort((a, b) => {
+    const oa = Number(a?.order);
+    const ob = Number(b?.order);
+    return (
+      (Number.isFinite(oa) ? oa : Infinity) -
+      (Number.isFinite(ob) ? ob : Infinity)
+    );
+  });
   return (
-    <div className="management-team-wrapper">
-      {members.map((m, i) => (
+    <div className="management-team-wrapper" style={{ "--team-cols": cols }}>
+      {sorted.map((m, i) => (
         <div key={i} className="management-team-card">
           {m?.img && (
             <SafeImage
@@ -470,8 +501,22 @@ const MainMicropage = ({ data }) => {
                 );
               }
 
-              case "team":
-                return <TeamBlock key={key} members={item.management_team || []} />;
+              case "team": {
+                // Desktop cards-per-row from the CMS ("columns" arrives as a
+                // string, e.g. "4"); fall back to the historical 3-per-row.
+                const teamColsRaw = Number(item.columns ?? item.per_row);
+                const teamCols =
+                  Number.isFinite(teamColsRaw) && teamColsRaw > 0
+                    ? Math.min(Math.round(teamColsRaw), 6)
+                    : 3;
+                return (
+                  <TeamBlock
+                    key={key}
+                    members={item.management_team || []}
+                    cols={teamCols}
+                  />
+                );
+              }
 
               case "slider":
                 return <SliderBlock key={key} sliders={item.slider || []} />;
