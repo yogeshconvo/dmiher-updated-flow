@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import * as LucideIcons from "lucide-react";
+import LucideIcons from "../../utils/lucideIcons";
 
 import resolveImage from "../../utils/resolveImage";
 

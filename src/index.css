@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
-@import "@fontsource/oswald/300.css";
-@import "@fontsource/oswald/500.css";
-@import "@fontsource/oswald/700.css";
+/* Latin subset only — English-language site never renders the latin-ext /
+   cyrillic / vietnamese subsets that the full weight files also pull in. */
+@import "@fontsource/oswald/latin-300.css";
+@import "@fontsource/oswald/latin-500.css";
+@import "@fontsource/oswald/latin-700.css";
 
 @theme {
   --font-oswald-medium: "Oswald", sans-serif;

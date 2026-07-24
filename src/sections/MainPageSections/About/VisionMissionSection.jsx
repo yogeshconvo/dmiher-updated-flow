@@ -1,5 +1,5 @@
 import React from "react";
-import * as Icons from "lucide-react";
+import Icons from "../../../utils/lucideIcons";
 
 function VisionMissionSection({ data }) {
   const sectionData = data?.vision || [];

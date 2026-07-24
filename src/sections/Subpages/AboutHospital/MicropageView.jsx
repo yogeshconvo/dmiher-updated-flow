@@ -33,17 +33,8 @@ export default function MicropageView({ tab }) {
     );
   }
 
-  // API image shape: { tab_type:"image", image:[{ image:[{ image:"path" },...] }] }
-  // Flatten to individual { tab_type:"image", image:"path" } items MainMicropage can render.
-  const normalizedBlocks = blocks.flatMap((item) => {
-    if (item.tab_type === "image" && Array.isArray(item.image)) {
-      const imgs = item.image.flatMap((group) =>
-        Array.isArray(group.image) ? group.image : [group]
-      );
-      return imgs.map((img) => ({ ...item, image: img.image }));
-    }
-    return [item];
-  });
-
-  return <MainMicropage data={{ block: normalizedBlocks }} />;
+  // Pass image blocks through as-is: MainMicropage's ImageBlock already flattens
+  // the nested image shape and lays multiple images out (1 centered / 2 side by
+  // side / 3+ slider). Flattening here split them into full-width stacked images.
+  return <MainMicropage data={{ block: blocks }} />;
 }

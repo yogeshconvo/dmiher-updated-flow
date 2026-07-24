@@ -24,10 +24,32 @@
 @import "./cadwl.css";
 @import "./CampusLife.css";
 
-/* ================= LOADER ================= */
-.loader-lottie {
-    width: 120px;
-    height: 120px;
+/* ================= LOADER (canonical app spinner) ================= */
+/* Grey ring with a maroon arc — used everywhere (PageLoader, Loader,
+   section loading states). Lives in the globally-imported main.css so it
+   applies on every page, not just where a skeleton is mounted. */
+.app-spinner {
+    width: 44px;
+    height: 44px;
+    border: 4px solid #e5e7eb;
+    border-top-color: #9B1C31;
+    border-radius: 9999px;
+    animation: app-spin 0.8s linear infinite;
+    display: inline-block;
+}
+
+@keyframes app-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.page-loader-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    width: 100%;
 }
 
 /* ================= DROPDOWN BUTTON ================= */
@@ -85,7 +107,7 @@
    no wrapper element required in the JSX. */
 .safe-image-loading {
     background-color: #f3f4f6;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44' fill='none' stroke='%23005bbb'><circle cx='22' cy='22' r='18' stroke-opacity='0.15' stroke-width='4'/><path d='M40 22a18 18 0 0 0-18-18' stroke-width='4' stroke-linecap='round'><animateTransform attributeName='transform' type='rotate' from='0 22 22' to='360 22 22' dur='0.75s' repeatCount='indefinite'/></path></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44' fill='none' stroke='%239B1C31'><circle cx='22' cy='22' r='18' stroke='%23e5e7eb' stroke-width='4'/><path d='M40 22a18 18 0 0 0-18-18' stroke-width='4' stroke-linecap='round'><animateTransform attributeName='transform' type='rotate' from='0 22 22' to='360 22 22' dur='0.75s' repeatCount='indefinite'/></path></svg>");
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 44px 44px;

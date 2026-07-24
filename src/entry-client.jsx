@@ -10,7 +10,10 @@ import { HelmetProvider } from "react-helmet-async";
 import { NonceProvider } from "./context/NonceContext";
 import App from "./App";
 import { startTokenAutoRefresh } from "./utils/auth";
-import "@fontsource/oswald";
+// Latin subset only — the bare "@fontsource/oswald" import also pulls
+// latin-ext / cyrillic / vietnamese subset files that this English-language
+// site never renders. Same visible weight (400), fewer font requests.
+import "@fontsource/oswald/latin-400.css";
 import "./styles/main.css";
 
 startTokenAutoRefresh();

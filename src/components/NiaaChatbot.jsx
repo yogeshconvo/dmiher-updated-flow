@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import api from "../config/api";
 import { getNonce } from "../context/NonceContext";
@@ -162,12 +162,30 @@ const NIAA_STYLES = `
 `;
 
 const NiaaChatbot = () => {
+  // Defer the settings fetch + chatbot script injection until the browser is
+  // idle. The floating chat widget is not part of the initial view, so loading
+  // it during first paint only steals main-thread time and bandwidth from the
+  // content that matters (LCP/TBT). requestIdleCallback (falling back to a
+  // timeout) lets the home page settle first.
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const ric = window.requestIdleCallback;
+    if (ric) {
+      const id = ric(() => setReady(true), { timeout: 4000 });
+      return () => window.cancelIdleCallback?.(id);
+    }
+    const t = setTimeout(() => setReady(true), 2500);
+    return () => clearTimeout(t);
+  }, []);
+
   const { data: settings } = useQuery({
     queryKey: ["site-settings"],
     queryFn: fetchWidgetSettings,
     staleTime: 5 * 60 * 1000,
     retry: 1,
     refetchOnWindowFocus: false,
+    enabled: ready,
   });
 
   const niaa = settings?.niaa;

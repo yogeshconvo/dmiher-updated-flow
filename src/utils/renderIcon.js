@@ -1,4 +1,4 @@
-import * as LucideIcons from "lucide-react";
+import LucideIcons from "./lucideIcons";
 import { createElement } from "react";
 
 /**

@@ -14,7 +14,7 @@ import { SECTION_COMPONENTS as MuseumSections } from "./sections/Museum";
 import { SECTION_COMPONENTS as CadWetLabSections } from "./sections/CadWetLab";
 
 import ErrorBoundary from "./components/ErrorBoundary";
-import PageSkeleton from "./components/Skeletons/PageSkeleton";
+import PageLoader from "./components/PageLoader";
 
 const SECTION_COMPONENTS = {
   ...MainPageSections,
@@ -139,7 +139,7 @@ function PageView() {
     ? !resolvedPage && (micropageQuery?.isLoading || subpageQuery?.isLoading)
     : pageQuery?.isLoading;
 
-  if (isLoading) return <PageSkeleton />;
+  if (isLoading) return <PageLoader />;
 
   /* ================= ERROR / EMPTY ================= */
   const hasError = isNested
@@ -191,30 +191,37 @@ function PageView() {
         const SectionComponent = SECTION_COMPONENTS[sec.section_id];
         if (!SectionComponent) return null;
 
-        // Sections beyond the first are almost always off-screen at first
-        // paint. `content-visibility: auto` (applied via .page-section-defer)
-        // tells the browser to skip layout/paint for them until they scroll
-        // near — biggest single perf win for long pages that isn't a rewrite.
-        // First section (hero) stays fully rendered so LCP isn't deferred.
-        const deferPaint = index > 0;
+        // Each section gets its OWN Suspense boundary. A single shared boundary
+        // meant one still-loading lazy section blanked the whole page (hero
+        // included) behind one big loader on the client re-render — a large
+        // layout shift (CLS). Isolated boundaries let already-loaded sections
+        // stay put while others stream in.
+        //
+        // Below-the-fold sections (index > 0) reserve their height via
+        // content-visibility (.page-section-defer, contain-intrinsic-size), so a
+        // section mounting doesn't push the page around — keeping CLS ~0. The
+        // fallback reserves the same space so there's no flash on suspend.
+        const deferred = index > 0;
         return (
           <ErrorBoundary key={`${sec.section_id}-${index}`}>
-            {/* page_section_id is the section's unique anchor id — lets menu /
-                topbar "Section" links scroll directly here. */}
-            <section
-              id={sec.page_section_id || undefined}
-              className={deferPaint ? "page-section-defer" : undefined}
+            <Suspense
+              fallback={
+                deferred ? (
+                  <div className="page-section-defer" aria-hidden="true" />
+                ) : null
+              }
             >
-              {/* Sections are code-split (React.lazy) — Suspense lets each one
-                  stream in as its chunk arrives without blocking the rest. */}
-              <Suspense fallback={null}>
+              <section
+                id={sec.page_section_id || undefined}
+                className={deferred ? "page-section-defer" : undefined}
+              >
                 <SectionComponent
                   data={sec.data}
                   college={params.college || params.slug}
                   pageSlug={params.college || params.slug}
                 />
-              </Suspense>
-            </section>
+              </section>
+            </Suspense>
           </ErrorBoundary>
         );
       })}

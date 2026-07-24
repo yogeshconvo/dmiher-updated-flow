@@ -53,7 +53,6 @@ export default defineConfig(({ mode }) => ({
             return "react-vendor";
           if (id.includes("@tanstack")) return "query-vendor";
           if (id.includes("swiper")) return "swiper";
-          if (id.includes("lottie")) return "lottie";
           // NOTE: lucide-react and react-icons are deliberately NOT pinned to
           // manual chunks. They depend on React, and forcing them into their
           // own chunk makes rolldown turn that chunk into a shared re-export
