@@ -37,6 +37,8 @@ const SAHSCollaborations = lazy(() => import("./SAHSCollaborations"))
 const SAHSPlacements = lazy(() => import("./SAHSPlacements"))
 const SAHSAdmissions = lazy(() => import("./SAHSAdmissions"))
 const CourseraCertifications = lazy(() => import("./CourseraCertifications"))
+const PdfLinkList = lazy(() => import("./PdfLinkList"))
+const SdgTilesGrid = lazy(() => import("./SdgTilesGrid"))
 
 // mandatoryDisclosureConfig is plain route/section-id constants consumed
 // synchronously here (computed key) and by App.jsx — imported from the
@@ -64,6 +66,8 @@ export const SECTION_COMPONENTS = {
     Institute_testimonial_section: Testimonial, // capital-I alias from JNMC API
     student_gallery: StudentLife,
     button_section: ButtonSection,
+    pf_blogd: PdfLinkList,
+    "sustainable-development-goals": SdgTilesGrid,
     placements: Placements,
     spdc_placements: SPDCPlacements,
     institute_announcements: ProgramsAnnouncements,
