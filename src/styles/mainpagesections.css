@@ -1382,8 +1382,10 @@
     margin: 0 0 14px 0;
 }
 
+/* Matches the live-site About VisionMission headings: Oswald, uppercase,
+   white on the navy Vision card. */
 .section-title-vm {
-    @apply font-bold uppercase text-white;
+    @apply font-bold uppercase text-white font-oswald-medium;
     font-size: 26px;
     letter-spacing: 0.06em;
     line-height: 1.2;
@@ -1396,8 +1398,9 @@
 }
 
 /* Mission card title sits on light bg → dark text */
+/* Live site uses gray-700 on the yellow Mission card — not black. */
 .mission-title {
-    color: #2a2a2a;
+    @apply text-gray-700;
 }
 
 /* Body text */
