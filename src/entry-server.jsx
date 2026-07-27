@@ -1,5 +1,5 @@
 import { StrictMode } from "react";
-import { renderToString } from "react-dom/server";
+import { prerenderToNodeStream } from "react-dom/static";
 import { StaticRouter } from "react-router-dom";
 import {
   QueryClient,
@@ -10,7 +10,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { NonceProvider } from "./context/NonceContext";
 import App from "./App";
 import api from "./config/api";
-import "@fontsource/oswald";
+import "@fontsource/oswald/latin-400.css";
 import "./styles/main.css";
 
 const lc = (v) => (typeof v === "string" ? v.toLowerCase() : v);
@@ -51,6 +51,25 @@ async function prefetchForUrl(queryClient, url) {
         async () => (await api.get(`/micropage/${college}/${page}`)).data
       ),
     ]);
+    return;
+  }
+
+  // Nested page under a micro page — /{college}/{micro-page}/{nested-page}.
+  // The static 3-segment routes (programs / departments / mandatory-disclosure)
+  // are excluded so only genuine nested pages hit this branch.
+  if (
+    segments.length === 3 &&
+    segments[1] !== "programs" &&
+    segments[1] !== "departments" &&
+    segments[1] !== "mandatory-disclosure"
+  ) {
+    const college = lc(segments[0]);
+    const page = lc(segments[1]);
+    const nested = lc(segments[2]);
+    await tryFetch(
+      ["nested", college, page, nested],
+      async () => (await api.get(`/micropage/${college}/${page}/${nested}`)).data
+    );
   }
 }
 
@@ -69,7 +88,7 @@ export async function render(url) {
 
   await prefetchForUrl(queryClient, url);
 
-  const html = renderToString(
+  const tree = (
     <StrictMode>
       <NonceProvider>
         <HelmetProvider context={helmetContext}>
@@ -82,6 +101,28 @@ export async function render(url) {
       </NonceProvider>
     </StrictMode>
   );
+
+  // The page sections are all React.lazy() + <Suspense>. renderToString would
+  // emit each Suspense fallback (null) the instant a lazy chunk suspended,
+  // shipping an empty shell. prerenderToNodeStream (react-dom/static) waits for
+  // every lazy chunk to load and every Suspense boundary to resolve, then
+  // resolves with a fully-rendered prelude stream — so the complete page HTML
+  // is server-rendered and visible in "view source". We buffer that stream
+  // into a string to keep server.js's existing template-injection flow.
+  let prerenderError = null;
+  const { prelude } = await prerenderToNodeStream(tree, {
+    onError(err) {
+      prerenderError = err;
+    },
+  });
+  if (prerenderError) throw prerenderError;
+
+  const html = await new Promise((resolve, reject) => {
+    const chunks = [];
+    prelude.on("data", (chunk) => chunks.push(Buffer.from(chunk)));
+    prelude.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
+    prelude.on("error", reject);
+  });
 
   const { helmet } = helmetContext;
   const head = helmet

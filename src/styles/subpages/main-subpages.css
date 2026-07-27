@@ -899,7 +899,8 @@
 }
 
 .sub-loading-spinner {
-    @apply animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900;
+    @apply animate-spin rounded-full h-11 w-11 border-4 border-gray-200;
+    border-top-color: #9B1C31;
 }
 
 .sub-error {

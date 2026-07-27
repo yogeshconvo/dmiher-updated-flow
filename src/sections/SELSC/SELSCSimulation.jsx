@@ -22,7 +22,12 @@ import { resolveImage } from "../../utils/resolveImage";
  */
 export default function SELSCSimulation({ data }) {
   if (!data) return null;
-  const { heading, background, columns = [] } = data;
+  // The CMS nests heading/background under `header`; older data carried them
+  // at the top level. Support both.
+  const header = data.header || {};
+  const heading = data.heading || header.heading;
+  const background = data.background || header.background;
+  const columns = data.columns || [];
 
   const style = background
     ? { backgroundImage: `url(${resolveImage(background)})` }

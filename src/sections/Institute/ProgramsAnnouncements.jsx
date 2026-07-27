@@ -103,6 +103,9 @@ const ProgramsAnnouncements = ({ data }) => {
   const columns = Number(data?.layout?.columns) || 3;
   const colClass = COL_MAP[columns] || "md:grid-cols-3";
 
+  // Dynamic section background from the backend (section_style.bg_color).
+  const bgColor = data?.section_style?.bg_color;
+
   const [popupDocs, setPopupDocs] = useState([]);
   const [popupTitle, setPopupTitle] = useState("");
   const [showPopup, setShowPopup] = useState(false);
@@ -144,27 +147,32 @@ const ProgramsAnnouncements = ({ data }) => {
 
   return (
     <>
-      <section className="announce-section container">
-        {heading && (
-          <h2 className="heading">
-            <hr className="heading-line" />
-            {heading}
-          </h2>
-        )}
+      <div
+        className="announce-section-wrapper"
+        style={bgColor ? { backgroundColor: bgColor } : undefined}
+      >
+        <section className="announce-section container">
+          {heading && (
+            <h2 className="heading">
+              <hr className="heading-line" />
+              {heading}
+            </h2>
+          )}
 
-        <div className={`grid grid-cols-1 ${colClass} gap-6 w-full`}>
-          {cards.map((card, index) => (
-            <button
-              key={index}
-              onClick={() => handleClick(card)}
-              className="announce-btn"
-            >
-              <FileText className="text-[#F04E30] w-6 h-6 min-w-6" />
-              <div className="announce-btn-text">{card.title}</div>
-            </button>
-          ))}
-        </div>
-      </section>
+          <div className={`grid grid-cols-1 ${colClass} gap-6 w-full`}>
+            {cards.map((card, index) => (
+              <button
+                key={index}
+                onClick={() => handleClick(card)}
+                className="announce-btn"
+              >
+                <FileText className="text-[#F04E30] w-6 h-6 min-w-6" />
+                <div className="announce-btn-text">{card.title}</div>
+              </button>
+            ))}
+          </div>
+        </section>
+      </div>
 
       {/* POPUP */}
       {showPopup && (

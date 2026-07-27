@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Grid, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -7,6 +7,7 @@ import "swiper/css/grid";
 import "swiper/css/pagination";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import SafeImage from "../../components/SafeImage";
+import ViewMoreButton from "../../components/UI/Buttons";
 // Centralised resolver — handles both new "assets/..." paths and
 // legacy "storage/..." records so old data keeps rendering during
 // the rollout.
@@ -18,22 +19,114 @@ const getRenderItems = (data) => {
   return data?.sections?.[0]?.content_flow || [];
 };
 
-/* ================= DEAN BLOCK (new shape) ================= */
-const DeanBlock = ({ entries }) => {
-  if (!Array.isArray(entries) || !entries.length) return null;
+/* Collect image path strings from every shape the CMS emits for image blocks:
+     - legacy single string            item.value / item.image  ("assets/..")
+     - single_img tab_type             item.image (string)
+     - repeatable gallery (1 level)    item.image: [ { image: "..." } ]
+     - repeatable gallery (2 levels)   item.image: [ { image: [ { image: "..." } ] } ]
+   Returns a flat list of strings so callers can render one image or a grid. */
+const collectImageSrcs = (item) => {
+  const out = [];
+  const push = (v) => {
+    if (typeof v === "string" && v.trim()) out.push(v.trim());
+  };
+
+  push(item?.value);
+  if (typeof item?.image === "string") push(item.image);
+
+  if (Array.isArray(item?.image)) {
+    item.image.forEach((entry) => {
+      if (typeof entry === "string") return push(entry);
+      const inner = entry?.image;
+      if (typeof inner === "string") return push(inner);
+      if (Array.isArray(inner)) {
+        inner.forEach((x) => push(typeof x === "string" ? x : x?.image));
+      }
+    });
+  }
+
+  return out;
+};
+
+/* ================= IMAGE BLOCK (new shape: tab_type image / single_img) =====
+   One image renders full-width (legacy behaviour); multiple images render as a
+   responsive gallery grid, mirroring the live-site Global subpages. */
+const ImageBlock = ({ item }) => {
+  const srcs = collectImageSrcs(item);
+  if (!srcs.length) return null;
+
+  // 1 image → centered
+  if (srcs.length === 1) {
+    return (
+      <div className="flex justify-center mb-4">
+        <SafeImage src={srcs[0]} alt="" className="rounded max-w-full h-auto" />
+      </div>
+    );
+  }
+
+  // 2 images → side by side
+  if (srcs.length === 2) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 items-start">
+        {srcs.map((s, i) => (
+          <SafeImage key={i} src={s} alt="" className="w-full h-auto rounded max-w-full" />
+        ))}
+      </div>
+    );
+  }
+
+  // 3+ images → slider
   return (
-    <>
-      {entries.map((d, i) => (
-        <div key={i} className="knowmore-dean-layout">
-          {d?.img && (
-            <div className="knowmore-dean-profile">
-              <SafeImage
-                src={resolveImage(d.img)}
-                alt={d?.name || "Dean"}
-                className="knowmore-dean-image"
-              />
-              {(d?.name || d?.designation || d?.qualifications || d?.email) && (
-                <div className="knowmore-dean-info">
+    <div className="mb-6">
+      <Swiper
+        modules={[Pagination]}
+        pagination={{ clickable: true }}
+        spaceBetween={16}
+        slidesPerView={1}
+        breakpoints={{ 640: { slidesPerView: 2 } }}
+      >
+        {srcs.map((s, i) => (
+          <SwiperSlide key={i}>
+            <SafeImage src={s} alt="" className="w-full h-auto rounded max-w-full" />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+};
+
+/* ================= DEAN BLOCK (new shape) ================= */
+const DeanEntry = ({ d }) => {
+  // `view_more` holds the collapsed-away tail of the message (e.g. the About
+  // "Key Functionaries" Chancellor bio). It stays hidden behind a Read More /
+  // Read Less toggle; entries without it render exactly as before.
+  const [expanded, setExpanded] = useState(false);
+  const hasViewMore =
+    typeof d?.view_more === "string" && d.view_more.trim().length > 0;
+
+  return (
+    <div className="knowmore-dean-layout">
+      {d?.img && (
+        <div className="knowmore-dean-profile">
+          <SafeImage
+            src={resolveImage(d.img)}
+            alt={d?.name || "Dean"}
+            className="knowmore-dean-image"
+          />
+          {(d?.name ||
+            d?.designation ||
+            d?.qualifications ||
+            d?.qualification ||
+            d?.email) && (
+            <div className="knowmore-dean-info">
+              {/* Key-Officials / Dean-message pages store the name +
+                  designation + qualifications + email together as an HTML
+                  `qualification` block; render it as-is. Older pages that
+                  supply the discrete plain-text fields keep working. */}
+              {d?.qualification ? (
+                <RichTextRenderer html={d.qualification} />
+              ) : (
+                <>
                   {d?.name && <p className="knowmore-dean-name">{d.name}</p>}
                   {(d?.designation || d?.qualifications) && (
                     <p>
@@ -43,27 +136,83 @@ const DeanBlock = ({ entries }) => {
                     </p>
                   )}
                   {d?.email && <p>{d.email}</p>}
-                </div>
+                </>
               )}
             </div>
           )}
-          {d?.desc && (
-            <div className="knowmore-dean-message">
-              <RichTextRenderer html={d.desc} />
-            </div>
+        </div>
+      )}
+      {(d?.desc || hasViewMore) && (
+        <div className="knowmore-dean-message">
+          {d?.desc && <RichTextRenderer html={d.desc} />}
+          {hasViewMore && expanded && <RichTextRenderer html={d.view_more} />}
+          {hasViewMore && (
+            <ViewMoreButton
+              onClick={() => setExpanded((v) => !v)}
+              label={expanded ? "Read Less" : "Read More"}
+            />
           )}
         </div>
+      )}
+    </div>
+  );
+};
+
+const DeanBlock = ({ entries }) => {
+  if (!Array.isArray(entries) || !entries.length) return null;
+  return (
+    <>
+      {entries.map((d, i) => (
+        <DeanEntry key={i} d={d} />
       ))}
     </>
   );
 };
 
-/* ================= TEAM BLOCK (new shape: block.management_team[]) ================= */
-const TeamBlock = ({ members }) => {
-  if (!Array.isArray(members) || !members.length) return null;
+/* ================= DEAN CARDS GRID (new shape) =================
+   When the dean block carries a `per_row` count (or has more than one entry),
+   the deans render as a responsive card grid — image on top, details below —
+   instead of the single profile + message layout. `--dean-cols` drives how many
+   cards sit in a row on desktop (from the CMS, default 3). Mirrors the live-site
+   Key Functionaries card grid. */
+const DeanCardsGrid = ({ entries, cols = 3 }) => {
+  if (!Array.isArray(entries) || !entries.length) return null;
   return (
-    <div className="management-team-wrapper">
-      {members.map((m, i) => (
+    <div className="dean-cards-grid" style={{ "--dean-cols": cols }}>
+      {entries.map((d, i) => (
+        <div key={i} className="dean-card">
+          <SafeImage
+            src={resolveImage(d?.img)}
+            alt={d?.name || ""}
+            className="dean-card-image"
+          />
+          <div className="dean-card-body">
+            {(d?.desc || d?.qualification) && (
+              <RichTextRenderer html={d.desc || d.qualification} />
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+/* ================= TEAM BLOCK (new shape: block.management_team[]) ================= */
+const TeamBlock = ({ members, cols = 3 }) => {
+  if (!Array.isArray(members) || !members.length) return null;
+  // CMS sends a per-member display "order" (string, e.g. "1"). Sort by it;
+  // members without one keep their API position, after the ordered ones.
+  const sorted = [...members].sort((a, b) => {
+    const oa = Number(a?.order);
+    const ob = Number(b?.order);
+    return (
+      (Number.isFinite(oa) ? oa : Infinity) -
+      (Number.isFinite(ob) ? ob : Infinity)
+    );
+  });
+  return (
+    <div className="management-team-wrapper" style={{ "--team-cols": cols }}>
+      {sorted.map((m, i) => (
         <div key={i} className="management-team-card">
           {m?.img && (
             <SafeImage
@@ -174,8 +323,12 @@ const ButtonsBlock = ({ items }) => {
    Grid of navy cards (carousel: 4 cols × 2 rows per page + dots). Each card
    links by action_type: page → micro page (cta_key), url → external, pdf. */
 const NormalCardsBlock = ({ cards }) => {
-  const params = useParams();
-  const base = params.college || params.slug || "";
+  // Build page links RELATIVE to the current path so depth grows correctly:
+  //   on a micro page  /{college}/{page}  -> card -> /{college}/{page}/{cta}
+  // i.e. a nested page stays dependent on its parent micro page rather than
+  // collapsing to a flat /{college}/{cta}.
+  const { pathname } = useLocation();
+  const base = pathname.replace(/\/+$/, "");
   const list = Array.isArray(cards) ? cards : [];
   if (!list.length) return null;
 
@@ -189,7 +342,7 @@ const NormalCardsBlock = ({ cards }) => {
     const ctaKey = card?.cta?.[0]?.cta_key || card?.cta_key;
     if (ctaKey) {
       return {
-        href: base ? `/${base}/${ctaKey}` : `/${ctaKey}`,
+        href: base ? `${base}/${ctaKey}` : `/${ctaKey}`,
         external: false,
       };
     }
@@ -318,24 +471,74 @@ const MainMicropage = ({ data }) => {
                 );
 
               case "image":
-                return (
-                  <SafeImage
-                    key={key}
-                    src={resolveImage(item.value || item.image)}
-                    alt=""
-                    className="mb-4 rounded"
-                  />
-                );
+              case "single_img":
+                return <ImageBlock key={key} item={item} />;
 
               case "table":
                 return <TableBlock key={key} block={item} />;
 
               case "dean":
-              case "dean_section":
-                return <DeanBlock key={key} entries={item.dean || []} />;
+              case "dean_section": {
+                const deanEntries = Array.isArray(item.dean) ? item.dean : [];
+                // The heading is managed by the heading type — not the dean
+                // profile. Some pages carry it on the block (item.heading), some
+                // on the first dean entry (e.g. About "Key Functionaries" stores
+                // "Key Functionaries" on dean[0].heading). Render it once with
+                // the shared heading style. Pages that instead supply a separate
+                // `title` block leave the dean entries heading-less, so there's
+                // no duplication.
+                const deanHeading =
+                  item.heading ||
+                  deanEntries.find((e) => e && e.heading)?.heading ||
+                  "";
+                // Cards-per-row comes from the CMS (per_row / aliases). When set
+                // — or when the block holds more than one person — the deans
+                // render as a card grid N-per-row (default 3); otherwise a single
+                // dean keeps the profile + message layout (e.g. Key Officials).
+                const perRowRaw = Number(
+                  item.per_row ?? item.deans_per_row ?? item.cards_per_row
+                );
+                const perRow =
+                  Number.isFinite(perRowRaw) && perRowRaw > 0
+                    ? Math.min(Math.round(perRowRaw), 6)
+                    : 0;
+                const useGrid = perRow > 0 || deanEntries.length > 1;
+                return (
+                  <React.Fragment key={key}>
+                    {deanHeading && (
+                      <h2 className="heading">
+                        <hr className="heading-line" />
+                        {deanHeading}
+                      </h2>
+                    )}
+                    {useGrid ? (
+                      <DeanCardsGrid
+                        entries={deanEntries}
+                        cols={perRow || 3}
+                      />
+                    ) : (
+                      <DeanBlock entries={deanEntries} />
+                    )}
+                  </React.Fragment>
+                );
+              }
 
-              case "team":
-                return <TeamBlock key={key} members={item.management_team || []} />;
+              case "team": {
+                // Desktop cards-per-row from the CMS ("columns" arrives as a
+                // string, e.g. "4"); fall back to the historical 3-per-row.
+                const teamColsRaw = Number(item.columns ?? item.per_row);
+                const teamCols =
+                  Number.isFinite(teamColsRaw) && teamColsRaw > 0
+                    ? Math.min(Math.round(teamColsRaw), 6)
+                    : 3;
+                return (
+                  <TeamBlock
+                    key={key}
+                    members={item.management_team || []}
+                    cols={teamCols}
+                  />
+                );
+              }
 
               case "slider":
                 return <SliderBlock key={key} sliders={item.slider || []} />;

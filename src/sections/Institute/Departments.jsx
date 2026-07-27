@@ -88,7 +88,12 @@ const cleanKey = (v) => (typeof v === "string" ? v.trim() : "");
    route via react-router or open in a new tab. */
 const resolveHref = (item, parent) => {
   if (item?.action_type === "link" && item?.page_slug) {
-    return { href: `/${parent}/${cleanKey(item.page_slug)}`, external: false };
+    // Depth by TARGET page_type (backend-injected): independent → section-scoped,
+    // main page → top-level. Falls back to flat when page_type is unknown.
+    const isIndep =
+      item.page_type === "independent_pages" || item.page_type === "subpages";
+    const s = cleanKey(item.page_slug);
+    return { href: isIndep ? `/${parent}/${s}` : `/${s}`, external: false };
   }
   if (item?.action_type === "dependent") {
     const key = cleanKey(firstCta(item.cta)?.cta_key || item?.cta_key);
@@ -287,13 +292,22 @@ const Departments = ({ data, college, pageSlug }) => {
         };
       }
 
-      // Default ("link" or unspecified) — page_slug is treated as a top-level
-      // route, so navigate directly to /{page_slug} without the parent prefix.
+      // Default ("link" or unspecified) — a reference to another page. Route
+      // DEPTH is decided by the TARGET's page_type (injected by the backend),
+      // NOT the CMS action_type (which the panel writes as "link" for both):
+      //   independent_pages / subpages → /{parent}/{slug}  (section-scoped)
+      //   main pages (institute / non_institute) → /{slug} (top-level)
       const linkSlug = cleanKey(item.page_slug);
+      const isIndependent =
+        item.page_type === "independent_pages" || item.page_type === "subpages";
       return {
         title: item.title,
         image: item.image,
-        url: linkSlug ? `/${linkSlug}` : null,
+        url: linkSlug
+          ? isIndependent
+            ? `/${parent}/${linkSlug}`
+            : `/${linkSlug}`
+          : null,
         external: false,
       };
     });

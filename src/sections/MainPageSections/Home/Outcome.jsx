@@ -11,14 +11,19 @@ const Outcome = ({ data }) => {
 
   if (!data?.slider || data.slider.length === 0) return null;
 
-  const slides = data.slider;
+  // The video arrives either as a legacy `data.video` object or (current CMS
+  // shape) as a slider entry with tab_type "video". It renders as the
+  // standalone section below the carousel, never as a slide.
+  const videoData =
+    data.video || data.slider.find((s) => s?.tab_type === "video") || null;
+  const slides = data.slider.filter((s) => s?.tab_type !== "video");
   const hasMultipleSlides = slides.length > 1;
   const enableLoop = slides.length >= 3;
 
   // ✅ Thumbnail Fix (handle string / array / fallback)
-  const thumbnail = Array.isArray(data?.video?.thumbnail)
-    ? data.video.thumbnail[0]
-    : data?.video?.thumbnail || "";
+  const thumbnail = Array.isArray(videoData?.thumbnail)
+    ? videoData.thumbnail[0]
+    : videoData?.thumbnail || "";
 
   // ✅ Extract YouTube ID (supports full URL or ID)
   const getYoutubeId = (url) => {
@@ -31,7 +36,8 @@ const Outcome = ({ data }) => {
     return match ? match[2] : "";
   };
 
-  const youtubeId = getYoutubeId(data?.video?.youtube_id);
+  const youtubeId = getYoutubeId(videoData?.youtube_id);
+  const videoHeading = videoData?.heading || "";
 
   return (
     <div className="container">
@@ -82,13 +88,15 @@ const Outcome = ({ data }) => {
                         className="icon-img"
                       />
                     ))}
+                    {/* CMS spells the field "lable"; the text fills the grid
+                        cells after the last logo (col-span-2), matching the
+                        live "LEARN FROM THE GLOBAL LEADERS" design. */}
+                    {(slide.lable || slide.label || slide.title) && (
+                      <div className="icons-text">
+                        <p>{slide.lable || slide.label || slide.title}</p>
+                      </div>
+                    )}
                   </div>
-
-                  {slide.title && (
-                    <div className="icons-text">
-                      <p>{slide.title}</p>
-                    </div>
-                  )}
                 </div>
               )}
 
@@ -99,6 +107,12 @@ const Outcome = ({ data }) => {
         {/* ✅ VIDEO SECTION */}
         {youtubeId && (
           <div className="video-section">
+            {videoHeading && (
+              <h2 className="video-heading font-oswald-medium uppercase">
+                <hr className="w-16 border-[#F04E30] mb-2 border-t-4" />
+                {videoHeading}
+              </h2>
+            )}
             {!playVideo ? (
               <div
                 className="video-thumbnail-wrapper"

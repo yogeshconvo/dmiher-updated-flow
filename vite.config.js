@@ -53,7 +53,6 @@ export default defineConfig(({ mode }) => ({
             return "react-vendor";
           if (id.includes("@tanstack")) return "query-vendor";
           if (id.includes("swiper")) return "swiper";
-          if (id.includes("lottie")) return "lottie";
           // NOTE: lucide-react and react-icons are deliberately NOT pinned to
           // manual chunks. They depend on React, and forcing them into their
           // own chunk makes rolldown turn that chunk into a shared re-export
@@ -77,12 +76,15 @@ export default defineConfig(({ mode }) => ({
         // Third-party hosts mirrored from server.js dev CSP so plain `vite dev`
         // (no SSR) and `dev:ssr` agree. NoPaperForms enquiry widget needs its
         // script + frame allowed; GA/GTM/GetAAI follow the prod whitelist.
-        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://widgets.in6.nopaperforms.com https://www.googletagmanager.com https://www.google-analytics.com https://static.getaai.com",
-        "style-src 'self' 'unsafe-inline'",
+        // Niaa chatbot: the widget script loads from chatbot.in6.nopaperforms.com
+        // and pulls jQuery + its icon PNG from chatcdn.npfs.co — both are
+        // required or the floating chat icon never renders (script/style/frame).
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://widgets.in6.nopaperforms.com https://chatbot.in6.nopaperforms.com https://chatcdn.npfs.co https://www.googletagmanager.com https://www.google-analytics.com https://static.getaai.com",
+        "style-src 'self' 'unsafe-inline' https://chatbot.in6.nopaperforms.com",
         "img-src 'self' https: data: http://127.0.0.1:8000",
         "font-src 'self' https: data:",
         "connect-src 'self' https: http://127.0.0.1:8000 ws://localhost:*",
-        "frame-src 'self' https://widgets.in6.nopaperforms.com",
+        "frame-src 'self' https://widgets.in6.nopaperforms.com https://chatbot.in6.nopaperforms.com",
       ].join("; "),
     } : {},
   },

@@ -33,8 +33,9 @@ const FootprintSection = ({ data }) => {
   // ✅ current tab
   const currentTab = tabs[activeTab];
 
-  // ✅ dynamic logo chunking
-  const chunkSize = 12;
+  // ✅ dynamic logo chunking — 20 per slide = 4 full rows of the 5-column
+  // desktop grid, matching the live-site slider (2 dots instead of 4).
+  const chunkSize = 20;
   const logoChunks = [];
 
   if (currentTab?.logos?.length) {

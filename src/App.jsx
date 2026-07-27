@@ -4,9 +4,10 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import PageView from "./PageView";
-import PageSkeleton from "./components/Skeletons/PageSkeleton";
+import PageLoader from "./components/PageLoader";
 import { mandatoryDisclosureConfig } from "./instituteSections/mandatoryDisclosure/config";
 import useSiteSettings from "./hooks/useSiteSettings";
+import NiaaChatbot from "./components/NiaaChatbot";
 
 // Route-level code splitting: these page types are only needed when the user
 // navigates to them, so they're loaded on demand instead of bloating the
@@ -25,7 +26,7 @@ function App() {
       <Navbar />
       <ScrollToTop />
 
-      <Suspense fallback={<PageSkeleton />}>
+      <Suspense fallback={<PageLoader />}>
       <Routes>
         {/* =================== STATIC =================== */}
         <Route path="/" element={<PageView />} />
@@ -64,6 +65,13 @@ function App() {
           element={<MandatoryDisclosurePage />}
         />
 
+        {/* =================== NESTED PAGE (under a micro page) ===================
+            Nested pages are dependent on their parent micro page, so they live
+            at the full /{college}/{micro-page}/{nested-page} depth. Fully
+            dynamic, so the static 3-segment routes above (programs / departments
+            / mandatory-disclosure) still win by specificity. */}
+        <Route path="/:college/:page/:nested" element={<PageView />} />
+
         {/* =================== MICROPAGE / CTA =================== */}
         <Route path="/:college/:page" element={<PageView />} />
 
@@ -73,6 +81,7 @@ function App() {
       </Suspense>
 
       <Footer />
+      <NiaaChatbot />
     </>
   );
 }

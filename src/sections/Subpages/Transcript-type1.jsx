@@ -247,12 +247,12 @@ function CourseGrid({ courses = [] }) {
                       <div>
                         {course.course_number && (
                           <div className="course-card-num">
-                            Course #{course.course_number}
+                            #{course.course_number}
                           </div>
                         )}
                         {course.headerShowsSemester && course.semester ? (
                           <div className="course-card-semester">
-                            Semester : {course.semester}
+                          {course.semester}
                           </div>
                         ) : (
                           course.badge && (

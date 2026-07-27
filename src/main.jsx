@@ -6,7 +6,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { NonceProvider } from "./context/NonceContext";
 import App from "./App";
 import { startTokenAutoRefresh } from "./utils/auth";
-import "@fontsource/oswald";
+import "@fontsource/oswald/latin-400.css";
 import "./styles/main.css";
 
 startTokenAutoRefresh();

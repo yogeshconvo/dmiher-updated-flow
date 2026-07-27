@@ -11,18 +11,43 @@ function OneHealth({ data }) {
 
   const [cellSize, setCellSize] = useState(70);
 
-  const safeGrid = useMemo(() => {
-    if (!Array.isArray(grid)) return [];
-
-    if (!Array.isArray(grid[0])) {
-      const size = Math.min(rows.length, columns.length);
-      return Array.from({ length: size }, () =>
-        Array.from({ length: size }, () => grid[0]?.bg2_color || null)
-      );
+  // The CMS sends grid cells as {row_index, col_index, bg2_color} entries
+  // (1-based coordinates). Depending on how the repeater serialises, `grid`
+  // can be an array of those entries, an object with numeric keys, or (legacy)
+  // an array-of-arrays of colors. Normalise everything into "r-c" -> color.
+  const cellMap = useMemo(() => {
+    const entries = [];
+    if (Array.isArray(grid)) {
+      if (Array.isArray(grid[0])) {
+        // legacy nested-array shape: grid[r][c] = color
+        const map = {};
+        grid.forEach((row, r) =>
+          row.forEach((color, c) => {
+            if (color) map[`${r}-${c}`] = color;
+          })
+        );
+        return map;
+      }
+      entries.push(...grid);
+    } else if (grid && typeof grid === "object") {
+      Object.keys(grid).forEach((k) => {
+        if (/^\d+$/.test(k) && grid[k] && typeof grid[k] === "object") {
+          entries.push(grid[k]);
+        }
+      });
+      // single flattened entry (no numeric keys)
+      if (!entries.length && grid.row_index) entries.push(grid);
     }
 
-    return grid;
-  }, [grid, rows.length, columns.length]);
+    const map = {};
+    entries.forEach((e) => {
+      const r = Number(e?.row_index);
+      const c = Number(e?.col_index);
+      const color = e?.bg2_color || e?.color;
+      if (r >= 1 && c >= 1 && color) map[`${r - 1}-${c - 1}`] = color;
+    });
+    return map;
+  }, [grid]);
 
   useEffect(() => {
     const updateCellSize = () => {
@@ -101,10 +126,11 @@ function OneHealth({ data }) {
             />
           ))}
 
-          {/* Diamonds */}
-          {safeGrid.map((row, rIdx) =>
-            row.map((color, cIdx) =>
-              color ? (
+          {/* Diamonds — one per CMS grid entry, centred on its intersection */}
+          {rows.map((_, rIdx) =>
+            columns.map((_, cIdx) => {
+              const color = cellMap[`${rIdx}-${cIdx}`];
+              return color ? (
                 <div
                   key={`${rIdx}-${cIdx}`}
                   className="onehealth-diamond"
@@ -114,8 +140,8 @@ function OneHealth({ data }) {
                     left: `${cIdx * cellSize - 9}px`,
                   }}
                 />
-              ) : null
-            )
+              ) : null;
+            })
           )}
 
           {/* Column labels */}

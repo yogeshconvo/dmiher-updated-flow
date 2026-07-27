@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
@@ -110,7 +111,7 @@ export default function SELSCInfrastructure({ data }) {
         </Swiper>
       </div>
 
-      {popup && (
+      {popup && createPortal(
         <div className="selsc-infra-popup" onClick={() => setPopup(null)}>
           <div className="selsc-infra-popup-inner" onClick={(e) => e.stopPropagation()}>
             <button
@@ -136,7 +137,8 @@ export default function SELSCInfrastructure({ data }) {
               <p className="selsc-infra-popup-desc">{popup.description}</p>
             )}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );

@@ -1,0 +1,38 @@
+/* =============================================================================
+   COE (Controller of Examination) subpage styles
+   -----------------------------------------------------------------------------
+   Used by the dedicated Examination subpages:
+     - sections/Subpages/UniquePages/COESubpages/FormSubmissionProcess.jsx
+     - sections/Subpages/UniquePages/COESubpages/CodeOfConduct.jsx
+   Only the pieces that can't live as plain Tailwind utility classes are here:
+     - a data-driven grid (auto-fit timeline)
+     - two data-driven colour boxes whose colour arrives from the API at runtime
+       (passed in as the `--bell-bg` / `--note-bg` CSS variables; the rule lives
+       here so no colour is written inline in the JSX).
+   Everything else stays as Tailwind utility classes in the components.
+   ========================================================================== */
+
+/* ---- Form Submission: process timeline --------------------------------------
+   Auto-fit so 3 or 4 timeline items each fill the row equally. */
+.coe-timeline-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+/* ---- Code of Conduct: bell-schedule item ------------------------------------
+   Background + left accent come from the CMS `bell_color`, supplied as the
+   `--bell-bg` variable. Falls back to transparent when unset. */
+.coe-bell-item {
+    @apply p-3 rounded-lg;
+    background-color: var(--bell-bg, transparent);
+    border-left: 4px solid var(--bell-bg, transparent);
+}
+
+/* ---- Code of Conduct: dress-code note ---------------------------------------
+   Background + left accent come from the CMS `bg_color` (`--note-bg`). */
+.coe-dress-note {
+    @apply rounded-lg p-6 border-l-4;
+    background-color: var(--note-bg, transparent);
+    border-left-color: var(--note-bg, transparent);
+}

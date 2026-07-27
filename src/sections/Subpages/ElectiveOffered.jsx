@@ -162,7 +162,7 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
                           <div>
                             {course.course_number && (
                               <div className="course-card-num">
-                                Course #{course.course_number}
+                                 #{course.course_number}
                               </div>
                             )}
                             {course.badge && (

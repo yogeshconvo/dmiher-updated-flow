@@ -1,9 +1,9 @@
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { usePages } from "./hooks/usePages";
 import { useIndependentPages } from "./hooks/useIndependentPages";
-import { useSubpage } from "./hooks/useSubpages";
+import { useSubpage, useNestedPage } from "./hooks/useSubpages";
 
 import { SECTION_COMPONENTS as MainPageSections } from "./sections/MainPageSections";
 import { SECTION_COMPONENTS as InstituteSections } from "./sections/Institute";
@@ -14,7 +14,7 @@ import { SECTION_COMPONENTS as MuseumSections } from "./sections/Museum";
 import { SECTION_COMPONENTS as CadWetLabSections } from "./sections/CadWetLab";
 
 import ErrorBoundary from "./components/ErrorBoundary";
-import PageSkeleton from "./components/Skeletons/PageSkeleton";
+import PageLoader from "./components/PageLoader";
 
 const SECTION_COMPONENTS = {
   ...MainPageSections,
@@ -30,7 +30,10 @@ function PageView() {
   const params = useParams();
 
   /* ================= ROUTE FLAGS ================= */
-  const isMicropage = params.college && params.page;
+  // A nested page carries all three params; a micro page has college + page but
+  // NOT nested (so the two flags stay mutually exclusive).
+  const isNested = !!(params.college && params.page && params.nested);
+  const isMicropage = !!(params.college && params.page) && !isNested;
 
   /* ================= SLUG LOGIC ================= */
   // Lowercase the URL params so /SHER, /Sher, /sher all resolve to the same
@@ -38,16 +41,25 @@ function PageView() {
   // without this normalisation.
   const lc = (v) => (typeof v === "string" ? v.toLowerCase() : v);
   const slug = lc(params.slug) || lc(params.page) || "home";
-  const microSlug = isMicropage ? lc(params.page) : null;
+  const microSlug = params.page ? lc(params.page) : null;
   const collegeSlug = lc(params.college) || null;
+  const nestedSlug = isNested ? lc(params.nested) : null;
 
   /* ================= QUERIES ================= */
-  const pageQuery = usePages(!isMicropage ? slug : null);
+  const pageQuery = usePages(!isMicropage && !isNested ? slug : null);
 
   // Section-dependent subpages load from /micropage/{college}/{page}.
   const subpageQuery = useSubpage(
     isMicropage ? collegeSlug : null,
     isMicropage ? microSlug : null
+  );
+
+  // Nested pages load from /micropage/{college}/{micro-page}/{nested-page} —
+  // resolved only through their parent micro page.
+  const nestedQuery = useNestedPage(
+    isNested ? collegeSlug : null,
+    isNested ? microSlug : null,
+    isNested ? nestedSlug : null
   );
 
   // Independent-pages is ONLY a fallback for genuine independent pages on this
@@ -71,7 +83,11 @@ function PageView() {
   /* ================= RESOLVE ================= */
   let resolvedPage = null;
 
-  if (isMicropage) {
+  if (isNested) {
+    if (nestedQuery?.data?.sections?.length > 0) {
+      resolvedPage = nestedQuery.data;
+    }
+  } else if (isMicropage) {
     // College-scoped micropage wins; independent-pages is fallback only.
     if (subpageQuery?.data?.sections?.length > 0) {
       resolvedPage = subpageQuery.data;
@@ -82,19 +98,53 @@ function PageView() {
     resolvedPage = pageQuery?.data;
   }
 
+  /* ================= SECTION DEEP-LINK SCROLL =================
+     Honours a "#<section-id>" hash in the URL or a pending cross-page
+     scroll set by a menu/topbar Section link (see Navbar). Sections are
+     lazy-loaded, so we poll briefly until the target element mounts. */
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const pending = sessionStorage.getItem("dm_pending_scroll");
+    const hashId = window.location.hash
+      ? decodeURIComponent(window.location.hash.slice(1))
+      : null;
+    const targetId = pending || hashId;
+    if (!targetId) return;
+
+    let tries = 0;
+    let timer;
+    const tick = () => {
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        sessionStorage.removeItem("dm_pending_scroll");
+        return;
+      }
+      if (tries++ < 40) timer = setTimeout(tick, 100); // wait up to ~4s for lazy sections
+    };
+    tick();
+
+    return () => clearTimeout(timer);
+  }, [resolvedPage]);
+
   /* ================= LOADING ================= */
   // Keep skeleton until we have data OR both queries have settled.
   // Using && before meant: if micropageQuery finished with 404 (fast)
   // while subpageQuery was still loading, isLoading became false too
   // early and the page flashed "No data available".
-  const isLoading = isMicropage
+  const isLoading = isNested
+    ? !resolvedPage && nestedQuery?.isLoading
+    : isMicropage
     ? !resolvedPage && (micropageQuery?.isLoading || subpageQuery?.isLoading)
     : pageQuery?.isLoading;
 
-  if (isLoading) return <PageSkeleton />;
+  if (isLoading) return <PageLoader />;
 
   /* ================= ERROR / EMPTY ================= */
-  const hasError = isMicropage
+  const hasError = isNested
+    ? nestedQuery?.error
+    : isMicropage
     ? micropageQuery?.error && subpageQuery?.error
     : pageQuery?.error;
 
@@ -141,19 +191,37 @@ function PageView() {
         const SectionComponent = SECTION_COMPONENTS[sec.section_id];
         if (!SectionComponent) return null;
 
+        // Each section gets its OWN Suspense boundary. A single shared boundary
+        // meant one still-loading lazy section blanked the whole page (hero
+        // included) behind one big loader on the client re-render — a large
+        // layout shift (CLS). Isolated boundaries let already-loaded sections
+        // stay put while others stream in.
+        //
+        // Below-the-fold sections (index > 0) reserve their height via
+        // content-visibility (.page-section-defer, contain-intrinsic-size), so a
+        // section mounting doesn't push the page around — keeping CLS ~0. The
+        // fallback reserves the same space so there's no flash on suspend.
+        const deferred = index > 0;
         return (
           <ErrorBoundary key={`${sec.section_id}-${index}`}>
-            <section>
-              {/* Sections are code-split (React.lazy) — Suspense lets each one
-                  stream in as its chunk arrives without blocking the rest. */}
-              <Suspense fallback={null}>
+            <Suspense
+              fallback={
+                deferred ? (
+                  <div className="page-section-defer" aria-hidden="true" />
+                ) : null
+              }
+            >
+              <section
+                id={sec.page_section_id || undefined}
+                className={deferred ? "page-section-defer" : undefined}
+              >
                 <SectionComponent
                   data={sec.data}
                   college={params.college || params.slug}
                   pageSlug={params.college || params.slug}
                 />
-              </Suspense>
-            </section>
+              </section>
+            </Suspense>
           </ErrorBoundary>
         );
       })}

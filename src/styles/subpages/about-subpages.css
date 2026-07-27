@@ -1,0 +1,37 @@
+/* =============================================================================
+   About-page subpage styles
+   -----------------------------------------------------------------------------
+   Used by the dedicated About subpages:
+     - sections/Subpages/UniquePages/AboutSubpages/SportsFacilities.jsx
+   Holds the brand-colour accents that were previously written as inline styles,
+   so colours are tracked in one place. Layout stays as Tailwind utilities in the
+   components. Brand palette: navy #122E5E · orange #F04E30 · gold #E1CD67 ·
+   grey #707070.
+   ========================================================================== */
+
+/* ---- Sports Facilities ------------------------------------------------------ */
+.sports-commitment-icon {
+    background-color: #f04e30;
+}
+
+.sports-heading-navy {
+    color: #122e5e;
+}
+
+.sports-text-muted {
+    color: #707070;
+}
+
+.sports-partner-icon {
+    background-color: #122e5e;
+}
+
+.sports-badge {
+    background-color: #f04e30;
+    color: #ffffff;
+}
+
+.sports-view-link {
+    background-color: #e1cd67;
+    color: #122e5e;
+}

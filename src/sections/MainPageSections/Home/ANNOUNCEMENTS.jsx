@@ -1,27 +1,46 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, ArrowRight } from "../../../components/icons";
 import api from "../../../config/api";
 
+// Cached fetch — react-query re-uses the response across every mount of
+// HomeANNOUNCEMENTS during its staleTime window (5 min by default in
+// entry-client.jsx's QueryClient config). Before this we called
+// api.get("/announcements") inside a useEffect on every mount, so
+// navigating away from home and back re-fetched every time, flashed the
+// null → data skeleton, and contributed to the /api/announcements 429s
+// live users were hitting.
+const fetchAnnouncements = async () => {
+  const { data } = await api.get("/announcements");
+  return data;
+};
+
 function HomeANNOUNCEMENTS() {
-  const [data, setData] = useState(null);
   const [activeCategory, setActiveCategory] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  useEffect(() => {
-    api.get("/announcements")
-      .then((res) => res.data)
-      .then((res) => {
-        const section = Array.isArray(res)
-          ? res.find((item) => item.section_id === "home_ANNOUNCEMENTS_section")
-          : res;
+  const { data: responseData } = useQuery({
+    queryKey: ["announcements"],
+    queryFn: fetchAnnouncements,
+  });
 
-        if (section) {
-          setData(section.data);
-          setActiveCategory(section.data.categories?.[0]);
-        }
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  // Response is either the section object directly or an array of section
+  // objects — the section_id filter picks the right one out of the array
+  // shape without breaking the direct-object shape.
+  const section = Array.isArray(responseData)
+    ? responseData.find(
+        (item) => item.section_id === "home_ANNOUNCEMENTS_section"
+      )
+    : responseData;
+
+  const data = section?.data;
+
+  // Once the query resolves and we know the categories list, sync
+  // activeCategory to the first entry (only if the user hasn't already
+  // picked one, so their tab choice sticks across re-renders).
+  if (data && !activeCategory && data.categories?.[0]) {
+    setActiveCategory(data.categories[0]);
+  }
 
   if (!data) return null;
 

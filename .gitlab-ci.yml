@@ -1,21 +1,72 @@
 stages: [build, deploy]
 
+# SSG pipeline: `vite build --outDir dist/client` produces the SPA bundle,
+# then scripts/prerender.mjs:
+#   1. Snapshots the empty Vite shell as dist/client/index.shell.html
+#   2. Starts vite preview and drives headless Chromium against every route
+#      in src/prerender-routes.js (currently just "/")
+#   3. Overwrites dist/client/index.html with the fully-rendered home content
+#
+# spa.php then serves:
+#   - index.html          for the root URL          (prerendered home, SEO win)
+#   - <slug>/index.html   for prerendered subroutes (once we add more routes)
+#   - index.shell.html    for everything else       (SPA renders fresh)
+#
+# The "no <main>" safety guard in prerender.mjs means a CI-side API failure
+# never overwrites a working file — the site keeps serving the shell for
+# that route, and micropages / other routes are untouched.
 build:
   stage: build
-  image: node:20-alpine
+  # node:20-slim (not alpine) — apt-get chromium install is far more reliable
+  # on Debian than fighting alpine's musl/glibc mismatch with Puppeteer's
+  # bundled Chromium.
+  image: node:20-slim
+  variables:
+    # Skip Puppeteer's bundled ~150 MB Chromium download; we install system
+    # chromium below and point Puppeteer at it via PUPPETEER_EXECUTABLE_PATH.
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
+    PUPPETEER_EXECUTABLE_PATH: /usr/bin/chromium
   cache:
     key:
       files: [package-lock.json]
     paths: [node_modules/]
+  before_script:
+    # Chromium + shared libs headless Chrome needs at runtime. Dropping any
+    # of these produces a "libnss3.so: cannot open shared object" style
+    # failure at browser launch.
+    - apt-get update
+    - apt-get install -y --no-install-recommends
+        chromium
+        fonts-liberation
+        libnss3
+        libatk-bridge2.0-0
+        libcups2
+        libdrm2
+        libgbm1
+        libxkbcommon0
+        libxcomposite1
+        libxrandr2
+        libxfixes3
+        libxdamage1
+        libasound2
+        libpango-1.0-0
+        libcairo2
+        ca-certificates
+    - rm -rf /var/lib/apt/lists/*
   script:
     - npm ci --legacy-peer-deps
-    - npm run build
+    - npm run build:ssg
   artifacts:
     paths: [dist/]
     expire_in: 1 day
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
 
+# Mirrors dist/client/ (index.html, index.shell.html, spa.php, .htaccess,
+# assets/, etc.) into the FTP webroot at $FTP_PATH. Deliberately NOT dist/
+# itself, or the client/ and server/ subdirs would land under the webroot
+# and break the URL layout. dist/server/ stays in the artifact for follow-on
+# Node deployment work but is not shipped to the PHP host.
 deploy:
   stage: deploy
   image: alpine:latest
@@ -33,7 +84,7 @@ deploy:
           --exclude-glob=*.zip \
           --exclude-glob=*OLDFILE* \
           --exclude-glob=asOLDFILE \
-          dist/ $FTP_PATH
+          dist/client/ $FTP_PATH
       "
   rules:
     - if: $CI_COMMIT_BRANCH == "main"

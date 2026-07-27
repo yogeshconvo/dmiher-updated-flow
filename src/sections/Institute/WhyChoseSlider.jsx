@@ -14,6 +14,11 @@ const WhyChoose = ({ data }) => {
   const description = data?.header?.description || data?.header?.desc;
   // Dynamic section background from the backend (section_style.bg_color).
   const bgColor = data?.section_style?.bg_color;
+  // Card layout variant. `feature` (default) — tall benefit cards.
+  // `statistics` — shorter, wider cards for numeric outcomes.
+  const cardRatio = data?.header?.card_ratio === "statistics"
+    ? "statistics"
+    : "feature";
 
   if (!cards.length) return null;
 
@@ -68,7 +73,7 @@ const WhyChoose = ({ data }) => {
                 virtualIndex={index}
               >
                 <div
-                  className="feature-card"
+                  className={`feature-card feature-card--${cardRatio}`}
                   style={{ backgroundColor: card.bg_color }}
                 >
                   <h3
