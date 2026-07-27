@@ -28,7 +28,7 @@ export const SECTION_COMPONENTS = {
     // Subpages
     programs_subpage: SubPrograms,
     departments_section: Departments,
-    transcript_subpage: TranscriptSubpage,
+    // transcript_subpage: TranscriptSubpage,
     mandatoryDisclore_subpage: MandatoryDisclosures,
     dean_know_more: DeanKnowMore,
     accreditations_recognitions: AccreditationsRecognitions,
