@@ -30,6 +30,7 @@ const SportsFacilities = lazy(() => import("./UniquePages/AboutSubpages/SportsFa
 const CodeOfConduct = lazy(() => import("./UniquePages/COESubpages/CodeOfConduct"));
 const FormSubmissionProcess = lazy(() => import("./UniquePages/COESubpages/FormSubmissionProcess"));
 const StudentEnrollProcess = lazy(() => import("./UniquePages/COESubpages/StudentEnrollProcess"));
+const VisualPageBuilder = lazy(() => import("./VisualPageBuilder"));
 
 export const SECTION_COMPONENTS = {
 
@@ -85,4 +86,7 @@ export const SECTION_COMPONENTS = {
 
     // Dean CTA micropage  (section_id from API: "dean_message")
     dean_message: DeansMicropage,
+
+    // Visual Page Builder (drag-and-drop block-based pages)
+    visual_page_builder: VisualPageBuilder,
 };

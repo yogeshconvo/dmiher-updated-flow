@@ -80,16 +80,14 @@ export default function CTAButtons({ data, pageSlug, college }) {
           : `/${cta.cta_key}`
         : null;
 
-    // Link can arrive as `link` or `url` (CMS uses both depending on schema).
-    const rawLink = btn.link || btn.url || "";
+    // Link can arrive as `link`, `url`, or `pdf` (CMS uses all three).
+    const rawLink = btn.link || btn.url || btn.pdf || "";
 
     const isExternal =
       btn.tab_type === "url" ||
+      btn.tab_type === "downloaded" ||
       (typeof rawLink === "string" && rawLink.startsWith("http"));
 
-    // Existing link/url/page_slug behavior is preserved exactly; the micro-page
-    // cta is only a FALLBACK for buttons that carry no explicit link (e.g. the
-    // SRMMCON "Higher Education and Placement" button) — never an override.
     const path =
       rawLink && rawLink !== "#"
         ? rawLink
@@ -97,9 +95,9 @@ export default function CTAButtons({ data, pageSlug, college }) {
           ? `/${btn.page_slug}`
           : microPath || "#";
 
-    // Show a download icon for PDF / download / brochure buttons.
     const isDownload =
       btn.tab_type === "pdf" ||
+      btn.tab_type === "downloaded" ||
       /\.pdf($|\?)/i.test(rawLink) ||
       /download|brochure/i.test(btn.label || "");
 
