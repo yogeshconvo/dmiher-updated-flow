@@ -273,7 +273,7 @@ const SubPrograms = () => {
                 {/* Title & Duration */}
                 <div className="mb-3 sm:mb-4">
                   <div className="flex items-start justify-between mb-2 gap-2">
-                    <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors leading-tight flex-1">
+                    <h3 className="font-sans text-base sm:text-lg lg:text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors leading-tight flex-1">
                       {program.title}
                     </h3>
                     {program.duration && (
