@@ -157,15 +157,17 @@ export default function SportsFacilities({ data = {} }) {
                 return (
                   <figure
                     key={i}
-                    className="rounded-xl overflow-hidden shadow-md group bg-gray-50"
+                    className="relative rounded overflow-hidden shadow-md group"
                   >
                     <SafeImage
                       src={img.image}
                       alt={img.caption || ""}
                       className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                     />
+                    {/* Live-site style: caption sits ON the image as a dark
+                        bottom bar (see SportsFacilitiesAbout.jsx on live). */}
                     {showCaption && (
-                      <figcaption className="px-4 py-3 text-center font-oswald-medium text-[#122E5E]">
+                      <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/60 to-transparent px-4 pt-8 pb-3 text-white text-sm font-semibold">
                         {img.caption}
                       </figcaption>
                     )}

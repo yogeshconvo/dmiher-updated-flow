@@ -17,6 +17,15 @@ const GRID_ITEM_ALIGN_MAP = {
   right: "justify-items-end",
 };
 
+// A `max-w-fit` grid track is only as wide as its buttons, so the CMS
+// alignment must place the container itself: left keeps it flush, right
+// pushes it over, center splits the margins.
+const GRID_CONTAINER_ALIGN_MAP = {
+  left: "mr-auto",
+  center: "mx-auto",
+  right: "ml-auto",
+};
+
 const COL_MAP = {
   1: "md:grid-cols-1",
   2: "md:grid-cols-2",
@@ -51,10 +60,12 @@ export default function CTAButtons({ data, pageSlug, college }) {
   const gridFullWidth = useGrid && mainButtons.length > 1;
 
   const gridClass = useGrid
-    ? `grid grid-cols-1 ${colClass} gap-6 mx-auto ${
+    ? `grid grid-cols-1 ${colClass} gap-6 ${
         gridFullWidth
-          ? "w-full max-w-4xl"
-          : `max-w-fit ${GRID_ITEM_ALIGN_MAP[alignment] || "justify-items-center"}`
+          ? "w-full max-w-4xl mx-auto"
+          : `max-w-fit ${GRID_CONTAINER_ALIGN_MAP[alignment] || "mx-auto"} ${
+              GRID_ITEM_ALIGN_MAP[alignment] || "justify-items-center"
+            }`
       }`
     : `flex flex-col md:flex-row flex-wrap ${FLEX_ALIGN_MAP[alignment] || "justify-center"} gap-10`;
 
@@ -69,16 +80,14 @@ export default function CTAButtons({ data, pageSlug, college }) {
           : `/${cta.cta_key}`
         : null;
 
-    // Link can arrive as `link` or `url` (CMS uses both depending on schema).
-    const rawLink = btn.link || btn.url || "";
+    // Link can arrive as `link`, `url`, or `pdf` (CMS uses all three).
+    const rawLink = btn.link || btn.url || btn.pdf || "";
 
     const isExternal =
       btn.tab_type === "url" ||
+      btn.tab_type === "downloaded" ||
       (typeof rawLink === "string" && rawLink.startsWith("http"));
 
-    // Existing link/url/page_slug behavior is preserved exactly; the micro-page
-    // cta is only a FALLBACK for buttons that carry no explicit link (e.g. the
-    // SRMMCON "Higher Education and Placement" button) — never an override.
     const path =
       rawLink && rawLink !== "#"
         ? rawLink
@@ -86,9 +95,9 @@ export default function CTAButtons({ data, pageSlug, college }) {
           ? `/${btn.page_slug}`
           : microPath || "#";
 
-    // Show a download icon for PDF / download / brochure buttons.
     const isDownload =
       btn.tab_type === "pdf" ||
+      btn.tab_type === "downloaded" ||
       /\.pdf($|\?)/i.test(rawLink) ||
       /download|brochure/i.test(btn.label || "");
 
@@ -124,22 +133,27 @@ export default function CTAButtons({ data, pageSlug, college }) {
   };
 
   return (
-    <div className="inst-cta-wrap py-20">
-      <div className={gridClass}>
-        {mainButtons.map((btn, i) => renderButton(btn, i, gridFullWidth))}
-      </div>
-
-      {tailButtons.length > 0 && (
-        <div
-          className={`inst-cta-tail${
-            gridFullWidth ? " w-full max-w-md mx-auto" : ""
-          }`}
-        >
-          {tailButtons.map((btn, i) =>
-            renderButton(btn, mainButtons.length + i, gridFullWidth),
-          )}
+    <div className="inst-cta-wrap py-6 px-4 sm:px-6">
+      {/* Same container as the surrounding micro-page sections so a
+          left/right-aligned button lines up with the text column instead of
+          the viewport edge. */}
+      <div className="micropage-container">
+        <div className={gridClass}>
+          {mainButtons.map((btn, i) => renderButton(btn, i, gridFullWidth))}
         </div>
-      )}
+
+        {tailButtons.length > 0 && (
+          <div
+            className={`inst-cta-tail${
+              gridFullWidth ? " w-full max-w-md mx-auto" : ""
+            }`}
+          >
+            {tailButtons.map((btn, i) =>
+              renderButton(btn, mainButtons.length + i, gridFullWidth),
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

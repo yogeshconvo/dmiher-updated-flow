@@ -132,7 +132,15 @@
 }
 
 .management-team-wrapper {
-    @apply max-w-7xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
+    @apply max-w-7xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 gap-6;
+}
+
+/* Desktop column count comes from the CMS (block.columns) via --team-cols;
+   pages that don't set it keep the historical 3-per-row layout. */
+@media (min-width: 1024px) {
+    .management-team-wrapper {
+        grid-template-columns: repeat(var(--team-cols, 3), minmax(0, 1fr));
+    }
 }
 
 .management-team-card {
@@ -157,6 +165,19 @@
 
 .management-team-info {
     @apply px-3 pb-3 text-sm text-gray-700;
+}
+
+/* The CMS stores each member's name/designation/qualifications as one <h3>
+   rich-text block, so the generic `.micropage-container .prose h3` styles
+   (32px top margin, Oswald, 2xl size) apply inside the cards and push the
+   text far below the photo with widely spaced lines. Re-scope under
+   .micropage-container so this wins that specificity tie, and hand font
+   control back to the CMS's inline spans — live-site cards are compact. */
+.micropage-container .management-team-info :is(h1, h2, h3, h4, h5, h6, p) {
+    margin: 0;
+    line-height: 1.45;
+    font-family: inherit;
+    font-size: inherit;
 }
 
 /* Dean cards grid (tab_type=dean with per_row / multiple deans) — image on top,

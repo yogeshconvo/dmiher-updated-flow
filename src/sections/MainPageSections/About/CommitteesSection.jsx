@@ -13,31 +13,67 @@ const getLucideIcon = (name) => {
 };
 
 /* ================= CARD ================= */
-const Card = ({ iconName, name, link }) => {
+const Card = ({ iconName, name, target }) => {
   const IconComponent = getLucideIcon(iconName);
-  const isDisabled = !link;
 
-  if (isDisabled) {
-    return (
-      <div className="committee-card cursor-not-allowed">
-        <div className="committee-icon">
-          <IconComponent size={28} />
-        </div>
-        <div className="committee-name">{name}</div>
+  const inner = (
+    <div className={`committee-card${target ? " hover:scale-105 transition" : " cursor-not-allowed"}`}>
+      <div className="committee-icon">
+        <IconComponent size={28} />
       </div>
+      <div className="committee-name">{name}</div>
+    </div>
+  );
+
+  if (!target) return inner;
+
+  if (target.external) {
+    return (
+      <a href={target.href} target="_blank" rel="noopener noreferrer">
+        {inner}
+      </a>
     );
   }
 
-  return (
-    <Link to={link}>
-      <div className="committee-card hover:scale-105 transition">
-        <div className="committee-icon">
-          <IconComponent size={28} />
-        </div>
-        <div className="committee-name">{name}</div>
-      </div>
-    </Link>
-  );
+  return <Link to={target.href}>{inner}</Link>;
+};
+
+/* ================= RESOLVE TARGET ================= */
+const resolveTarget = (item, parentSlug) => {
+  if (!item) return null;
+
+  // action_type: "url" → external link
+  if (item.action_type === "url" && item.url) {
+    if (/^https?:\/\//i.test(item.url)) {
+      return { href: item.url, external: true };
+    }
+    return { href: item.url.startsWith("/") ? item.url : `/${parentSlug}/${item.url}`, external: false };
+  }
+
+  // action_type: "page" with has_micro_page → /{parentSlug}/{cta_key}
+  if (item.action_type === "page") {
+    const cta = item.cta;
+    if (cta?.has_micro_page && cta?.cta_key) {
+      return { href: `/${parentSlug}/${cta.cta_key}`, external: false };
+    }
+  }
+
+  // action_type: "link" → page_slug based routing
+  if (item.action_type === "link" && item.page_slug) {
+    const isScoped =
+      item.page_type === "independent_pages" || item.page_type === "subpages";
+    return {
+      href: isScoped ? `/${parentSlug}/${item.page_slug}` : `/${item.page_slug}`,
+      external: false,
+    };
+  }
+
+  // Fallback: plain page_slug
+  if (item.page_slug) {
+    return { href: `/${parentSlug}/${item.page_slug}`, external: false };
+  }
+
+  return null;
 };
 
 /* ================= MAIN ================= */
@@ -47,9 +83,6 @@ function CommitteesSection({ data, college, pageSlug }) {
   const committees = data?.committees || [];
   const title = data?.heading?.title || "Committees";
 
-  // Resolve which "college/parent" segment we should prefix the link with so
-  // links go to /:college/:page (the route that already handles micropages).
-  // Priority: explicit prop → first segment of current URL → fallback "about".
   const params = useParams();
   const location = useLocation();
   const firstSegment = location.pathname.split("/").filter(Boolean)[0];
@@ -68,7 +101,7 @@ function CommitteesSection({ data, college, pageSlug }) {
             <Card
               key={i}
               name={item.name}
-              link={item.page_slug ? `/${parentSlug}/${item.page_slug}` : null}
+              target={resolveTarget(item, parentSlug)}
               iconName={item.icon}
             />
           ))}
