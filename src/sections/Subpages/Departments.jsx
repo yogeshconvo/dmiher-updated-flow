@@ -156,13 +156,33 @@ function DepartmentsSubpage() {
           </div>
         )}
 
-        {/* Staff Table — columns are derived from the data (see getStaffColumns) */}
-        {currentDept.staff?.length > 0 && (() => {
-          const staffColumns = getStaffColumns(currentDept.staff);
+        {/* Staff Table — the CMS now sends { columns: [{key,label}], rows: [...] }
+            so the admin controls both the columns and their labels (keys can be
+            generated ids like "col_e69676"). The legacy flat-array shape keeps
+            working via getStaffColumns. */}
+        {(() => {
+          const staffRaw = currentDept.staff;
+          const staffRows = Array.isArray(staffRaw)
+            ? staffRaw
+            : Array.isArray(staffRaw?.rows)
+              ? staffRaw.rows
+              : [];
+          if (!staffRows.length) return null;
+
+          const staffColumns =
+            !Array.isArray(staffRaw) && Array.isArray(staffRaw?.columns) && staffRaw.columns.length
+              ? staffRaw.columns
+                  .filter((c) => c?.key)
+                  .map((c) => ({ key: c.key, label: c.label || humanizeKey(c.key) }))
+              : getStaffColumns(staffRows).map((k) => ({
+                  key: k,
+                  label: STAFF_COLUMN_LABELS[k] || humanizeKey(k),
+                }));
+
           return (
             <div className="deptpage-staff-card">
               <h3 className="deptpage-staff-title">
-                Department Staff ({currentDept.staff.length})
+                Department Staff ({staffRows.length})
               </h3>
               <div className="deptpage-staff-table-wrap">
                 <table className="deptpage-staff-table">
@@ -170,14 +190,14 @@ function DepartmentsSubpage() {
                     <tr className="deptpage-staff-thead-row">
                       <th className="deptpage-staff-th">Sr. No.</th>
                       {staffColumns.map((col) => (
-                        <th key={col} className="deptpage-staff-th">
-                          {STAFF_COLUMN_LABELS[col] || humanizeKey(col)}
+                        <th key={col.key} className="deptpage-staff-th">
+                          {col.label}
                         </th>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
-                    {currentDept.staff.map((member, index) => (
+                    {staffRows.map((member, index) => (
                       <tr
                         key={index}
                         className="deptpage-staff-tbody-row"
@@ -185,20 +205,20 @@ function DepartmentsSubpage() {
                         <td className="deptpage-staff-td">{index + 1}</td>
                         {staffColumns.map((col) => (
                           <td
-                            key={col}
+                            key={col.key}
                             className={
-                              col === "name"
+                              col.key === "name"
                                 ? "deptpage-staff-td-name"
                                 : "deptpage-staff-td"
                             }
                           >
-                            {col === "department"
+                            {col.key === "department"
                               ? member.department ||
                                 (currentDept.name || "").replace(
                                   "Department of ",
                                   ""
                                 )
-                              : member[col] ?? ""}
+                              : member[col.key] ?? ""}
                           </td>
                         ))}
                       </tr>
