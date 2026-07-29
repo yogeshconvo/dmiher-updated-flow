@@ -5,6 +5,18 @@ import { useProgramsData } from "../../hooks/useProgramsData";
 import { renderIcon } from "../../utils/renderIcon";
 import { CardSkeletonGrid } from "../../components/Skeletons/CardSkeleton";
 
+/* True only when a field actually carries data. Handles the shapes a program
+   field can take: string, array (bullet list), or object (grouped eligibility).
+   Used to hide fields entirely when the backend has nothing for them, rather
+   than rendering placeholder text. */
+const hasContent = (v) => {
+  if (v === null || v === undefined) return false;
+  if (typeof v === "string") return v.trim() !== "";
+  if (Array.isArray(v)) return v.length > 0;
+  if (typeof v === "object") return Object.keys(v).length > 0;
+  return true;
+};
+
 /* Eligibility may arrive as a string, a flat array of bullet points, or a
    { national, international } object (e.g. SRMMCON B.Sc. Nursing). Render
    each shape without dumping the raw object into JSX. */
@@ -261,16 +273,20 @@ const SubPrograms = () => {
                 {/* Title & Duration */}
                 <div className="mb-3 sm:mb-4">
                   <div className="flex items-start justify-between mb-2 gap-2">
-                    <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors leading-tight flex-1">
+                    <h3 className="font-sans text-base sm:text-lg lg:text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition-colors leading-tight flex-1">
                       {program.title}
                     </h3>
-                    <span className="text-xs sm:text-sm font-medium bg-blue-100 text-blue-700 px-2.5 sm:px-3 py-1 rounded-full whitespace-nowrap flex-shrink-0">
-                      {program.duration || "N/A"}
-                    </span>
+                    {program.duration && (
+                      <span className="text-xs sm:text-sm font-medium bg-blue-100 text-blue-700 px-2.5 sm:px-3 py-1 rounded-full whitespace-nowrap flex-shrink-0">
+                        {program.duration}
+                      </span>
+                    )}
                   </div>
-                  <p className="text-xs sm:text-sm text-gray-500 leading-relaxed font-[Arial]">
-                    {program.description || "Program details not available."}
-                  </p>
+                  {program.description && (
+                    <p className="text-xs sm:text-sm text-gray-500 leading-relaxed font-[Arial]">
+                      {program.description}
+                    </p>
+                  )}
                 </div>
 
                 {/* College Name */}
@@ -282,17 +298,19 @@ const SubPrograms = () => {
                   </div>
                 </div>
 
-                {/* Eligibility */}
-                <div className="mb-4 sm:mb-5">
-                  <div className="bg-gray-50 rounded-lg p-2.5 sm:p-3">
-                    <h4 className="text-xs font-medium text-gray-700 mb-1.5 sm:mb-2">
-                      Eligibility
-                    </h4>
-                    <div className="text-xs sm:text-sm text-gray-600 leading-snug font-[Arial]">
-                      {renderEligibility(program.eligibility)}
+                {/* Eligibility — hidden entirely when the backend has none */}
+                {hasContent(program.eligibility) && (
+                  <div className="mb-4 sm:mb-5">
+                    <div className="bg-gray-50 rounded-lg p-2.5 sm:p-3">
+                      <h4 className="text-xs font-medium text-gray-700 mb-1.5 sm:mb-2">
+                        Eligibility
+                      </h4>
+                      <div className="text-xs sm:text-sm text-gray-600 leading-snug font-[Arial]">
+                        {renderEligibility(program.eligibility)}
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
 
                 {/* Apply Now — links to the per-program URL from the API. */}
                 {(() => {
