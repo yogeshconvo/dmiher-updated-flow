@@ -1131,7 +1131,24 @@
 }
 
 .deptpage-hod-image {
-    @apply w-44 h-52 rounded-full object-cover;
+    @apply w-44 h-52 rounded-full object-cover shadow-lg;
+}
+
+/* Style the HOD details (rendered from the dean_details HTML blob) to match
+   the live-site card: bold dark name, orange designation, gray qualification.
+   dean_details follows a consistent 3-paragraph shape —
+   <p><strong>Name</strong></p><p>Designation</p><p><em>Qualification:</em> …</p> */
+.deptpage-hod-details p:first-child {
+    @apply text-xl font-bold text-gray-800 mb-2;
+}
+.deptpage-hod-details p:nth-child(2) {
+    @apply text-[#F04E30] font-semibold mb-2;
+}
+.deptpage-hod-details p:nth-child(n+3) {
+    @apply text-gray-600 mb-1;
+}
+.deptpage-hod-details em {
+    @apply not-italic font-medium text-gray-700;
 }
 
 /* When the HOD photo is missing, SafeImage renders a placeholder that also
@@ -1163,7 +1180,7 @@
 }
 
 .deptpage-staff-th {
-    @apply text-left py-3 px-4 font-semibold text-gray-800;
+    @apply text-left py-3 px-4 font-semibold text-gray-800 whitespace-nowrap;
 }
 
 .deptpage-staff-tbody-row {

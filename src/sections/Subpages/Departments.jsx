@@ -14,6 +14,55 @@ const fetchDepartments = async (college) => {
   return data.data || [];
 };
 
+/* Staff tables vary by institute — some carry only name + designation, others
+   (e.g. DMCP) add department, qualification, teaching/industry experience.
+   The table renders columns dynamically from whatever fields the data holds,
+   so extra columns appear automatically without any code change. */
+const STAFF_COLUMN_LABELS = {
+  name: "Name",
+  designation: "Designation",
+  department: "Department",
+  qualification: "Qualification",
+  totalTeachingExperience: "Teaching Experience",
+  totalIndustryExperience: "Industry Experience",
+  email: "Email",
+};
+
+// Preferred left-to-right order; any other keys present in the data are
+// appended after these (alphabetically) so new fields still render.
+const STAFF_COLUMN_ORDER = [
+  "name",
+  "designation",
+  "department",
+  "qualification",
+  "totalTeachingExperience",
+  "totalIndustryExperience",
+];
+
+const humanizeKey = (k) =>
+  k
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/[_-]+/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase())
+    .trim();
+
+// Only columns with at least one non-empty value are shown, so a
+// name+designation-only department stays a compact table while a richer one
+// grows extra columns. name + designation are always kept as core columns.
+const getStaffColumns = (staff = []) => {
+  const present = new Set(["name", "designation"]);
+  staff.forEach((m) =>
+    Object.entries(m || {}).forEach(([k, v]) => {
+      if (v !== null && v !== undefined && String(v).trim() !== "") present.add(k);
+    })
+  );
+  const known = STAFF_COLUMN_ORDER.filter((k) => present.has(k));
+  const extras = [...present]
+    .filter((k) => !STAFF_COLUMN_ORDER.includes(k))
+    .sort();
+  return [...known, ...extras];
+};
+
 function DepartmentsSubpage() {
   const { college, deptSlug } = useParams();
 
@@ -99,47 +148,67 @@ function DepartmentsSubpage() {
                 className="deptpage-hod-image"
               />
               {currentDept.dean_details && (
-                <RichTextRenderer html={currentDept.dean_details} />
+                <div className="deptpage-hod-details text-center md:text-left">
+                  <RichTextRenderer html={currentDept.dean_details} />
+                </div>
               )}
             </div>
           </div>
         )}
 
-        {/* Staff Table */}
-        {currentDept.staff?.length > 0 && (
-          <div className="deptpage-staff-card">
-            <h3 className="deptpage-staff-title">
-              Department Staff
-            </h3>
-            <div className="deptpage-staff-table-wrap">
-              <table className="deptpage-staff-table">
-                <thead>
-                  <tr className="deptpage-staff-thead-row">
-                    <th className="deptpage-staff-th">Sr. No.</th>
-                    <th className="deptpage-staff-th">Name</th>
-                    <th className="deptpage-staff-th">Designation</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentDept.staff.map((member, index) => (
-                    <tr
-                      key={index}
-                      className="deptpage-staff-tbody-row"
-                    >
-                      <td className="deptpage-staff-td">{index + 1}</td>
-                      <td className="deptpage-staff-td-name">
-                        {member.name}
-                      </td>
-                      <td className="deptpage-staff-td">
-                        {member.designation}
-                      </td>
+        {/* Staff Table — columns are derived from the data (see getStaffColumns) */}
+        {currentDept.staff?.length > 0 && (() => {
+          const staffColumns = getStaffColumns(currentDept.staff);
+          return (
+            <div className="deptpage-staff-card">
+              <h3 className="deptpage-staff-title">
+                Department Staff ({currentDept.staff.length})
+              </h3>
+              <div className="deptpage-staff-table-wrap">
+                <table className="deptpage-staff-table">
+                  <thead>
+                    <tr className="deptpage-staff-thead-row">
+                      <th className="deptpage-staff-th">Sr. No.</th>
+                      {staffColumns.map((col) => (
+                        <th key={col} className="deptpage-staff-th">
+                          {STAFF_COLUMN_LABELS[col] || humanizeKey(col)}
+                        </th>
+                      ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {currentDept.staff.map((member, index) => (
+                      <tr
+                        key={index}
+                        className="deptpage-staff-tbody-row"
+                      >
+                        <td className="deptpage-staff-td">{index + 1}</td>
+                        {staffColumns.map((col) => (
+                          <td
+                            key={col}
+                            className={
+                              col === "name"
+                                ? "deptpage-staff-td-name"
+                                : "deptpage-staff-td"
+                            }
+                          >
+                            {col === "department"
+                              ? member.department ||
+                                (currentDept.name || "").replace(
+                                  "Department of ",
+                                  ""
+                                )
+                              : member[col] ?? ""}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* USP / Department Info */}
         {currentDept.usp?.length > 0 && (
