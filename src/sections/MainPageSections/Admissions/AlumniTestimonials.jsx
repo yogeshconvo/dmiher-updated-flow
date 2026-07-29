@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -15,9 +15,17 @@ import RichTextRenderer from "../../../components/RichTextRenderer";
  *
  * Tab buttons only show when there are 2+ labelled tabs; otherwise all
  * testimonials are flattened into a single carousel.
+ *
+ * ALTERNATE SHAPE (Museum page): { basic: { title }, testimonial: [{ details }] }
+ * where each `details` is old-site HTML scraped into the CMS — it embeds its
+ * own swiper markup (sometimes with several .swiper-slide copies) plus a
+ * category <button> ("Visitors"). We extract the ACTIVE slide's content per
+ * entry and the unique labels, then drive our own carousel with the cleaned
+ * slides — rendering the raw markup as-is would nest broken sliders.
  */
 const AlumniTestimonials = ({ data }) => {
-  const heading = data?.basic?.heading || data?.heading || "TESTIMONIALS";
+  const heading =
+    data?.basic?.heading || data?.basic?.title || data?.heading || "TESTIMONIALS";
   const tabs = Array.isArray(data?.tabs) ? data.tabs : [];
 
   const labeledTabs = tabs.filter((t) => t?.label);
@@ -30,7 +38,40 @@ const AlumniTestimonials = ({ data }) => {
     ? (tabs.find((t) => t.label === active) || tabs[0])?.testimonials || []
     : tabs.flatMap((t) => (Array.isArray(t?.testimonials) ? t.testimonials : []));
 
-  if (!testimonials.length) return null;
+  // Parse the alternate `testimonial[].details` shape (client-only; DOMParser).
+  const detailEntries = Array.isArray(data?.testimonial) ? data.testimonial : [];
+  const parsedDetails = useMemo(() => {
+    if (!detailEntries.length || typeof window === "undefined") return null;
+    const labels = new Set();
+    const slides = [];
+    detailEntries.forEach((entry) => {
+      const html = entry?.details || "";
+      if (!html.trim()) return;
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      doc.querySelectorAll("button").forEach((b) => {
+        const t = b.textContent.trim();
+        if (t) labels.add(t);
+      });
+      const slide =
+        doc.querySelector(".swiper-slide-active") ||
+        doc.querySelector(".swiper-slide");
+      if (slide) {
+        slides.push(slide.innerHTML);
+      } else {
+        // No embedded swiper markup — drop the label button row, keep the rest.
+        doc
+          .querySelectorAll("button")
+          .forEach((b) => (b.closest("div") || b).remove());
+        const rest = doc.body.innerHTML.trim();
+        if (rest) slides.push(rest);
+      }
+    });
+    return { labels: [...labels], slides };
+  }, [detailEntries]);
+
+  const detailSlides = parsedDetails?.slides || [];
+
+  if (!testimonials.length && !detailSlides.length) return null;
 
   return (
     <div className="pt-16 pb-10 flex justify-center" style={{ backgroundColor: "#f4f4f4" }}>
@@ -58,6 +99,40 @@ const AlumniTestimonials = ({ data }) => {
           </div>
         )}
 
+        {/* Alternate shape: cleaned slides extracted from testimonial[].details */}
+        {!testimonials.length && detailSlides.length > 0 && (
+          <div className="my-6">
+            {parsedDetails.labels.length > 0 && (
+              <div className="flex justify-center flex-wrap gap-4 pb-6 text-center">
+                {parsedDetails.labels.map((label) => (
+                  <span key={label} className="px-3 py-1 text-base underline text-black">
+                    {label}
+                  </span>
+                ))}
+              </div>
+            )}
+            <Swiper
+              style={{ paddingBottom: 60 }}
+              slidesPerView={1}
+              spaceBetween={30}
+              loop={detailSlides.length > 1}
+              autoplay={{ delay: 6000, disableOnInteraction: false }}
+              pagination={{ clickable: true }}
+              modules={[Pagination, Autoplay]}
+              className="mySwiper"
+            >
+              {detailSlides.map((html, idx) => (
+                <SwiperSlide key={idx}>
+                  <div className="max-w-3xl mx-auto text-center text-[16px] text-[#707070] px-4">
+                    <RichTextRenderer html={html} />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        )}
+
+        {testimonials.length > 0 && (
         <div className="my-6">
           <Swiper
             style={{ paddingBottom: 60 }}
@@ -110,6 +185,7 @@ const AlumniTestimonials = ({ data }) => {
             ))}
           </Swiper>
         </div>
+        )}
       </div>
     </div>
   );

@@ -115,7 +115,7 @@ export default function FormSubmissionProcess({ data = {} }) {
               icon={timeline.section_icon}
             />
             <div className="bg-[#122E5E] rounded-lg p-6">
-              <div className="coe-timeline-grid text-center text-white">
+              <div className="coe-timeline-grid text-center text-black">
                 {tlItems.map((t, i) => (
                   <div key={i} className="bg-white bg-opacity-20 rounded-lg p-4">
                     {t.label && (

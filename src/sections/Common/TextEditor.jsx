@@ -27,22 +27,29 @@ function TextEditor({ data }) {
 
   if (!blocks.length) return null;
 
+  // CMS-managed section background (data.section_style.bg_color) — painted on
+  // the full-width section so the color bleeds edge to edge while the text
+  // stays inside the container.
+  const bgColor = data.section_style?.bg_color || data.bg_color || null;
+
   return (
-    <section className="container py-10">
-      {blocks.map((block, i) => {
-        if (!block?.heading && !block?.desc) return null;
-        return (
-          <div key={i} className={i > 0 ? "mt-10" : ""}>
-            {block.heading && (
-              <h2 className="heading">
-                <hr className="heading-line" />
-                {block.heading}
-              </h2>
-            )}
-            {block.desc && <RichTextRenderer html={block.desc} />}
-          </div>
-        );
-      })}
+    <section style={bgColor ? { backgroundColor: bgColor } : undefined}>
+      <div className="container py-10">
+        {blocks.map((block, i) => {
+          if (!block?.heading && !block?.desc) return null;
+          return (
+            <div key={i} className={i > 0 ? "mt-10" : ""}>
+              {block.heading && (
+                <h2 className="heading">
+                  <hr className="heading-line" />
+                  {block.heading}
+                </h2>
+              )}
+              {block.desc && <RichTextRenderer html={block.desc} />}
+            </div>
+          );
+        })}
+      </div>
     </section>
   );
 }

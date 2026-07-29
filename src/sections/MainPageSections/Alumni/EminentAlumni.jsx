@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SafeImage from "../../../components/SafeImage";
 
 const AlumniCard = ({ person, index, expandedIndex, setExpandedIndex }) => {
@@ -80,9 +80,25 @@ const AlumniCard = ({ person, index, expandedIndex, setExpandedIndex }) => {
 const EminentAlumni = ({ data }) => {
   const [expandedIndex, setExpandedIndex] = useState(null);
 
+  // VIEW ALL micro-page CTA — the CMS sends { label, cta_key, has_micro_page }
+  // at the data root (or inside data.cta). The button links to
+  // {current path}/{cta_key} (e.g. /alumni/Eminent-Alumni) and hides entirely
+  // when no micro page is configured, instead of rendering a dead "#" link.
+  const { pathname } = useLocation();
+  const base = pathname.replace(/\/+$/, "");
+  const cta = data?.cta || {};
+  const ctaKey =
+    cta.has_micro_page && cta.cta_key
+      ? cta.cta_key
+      : data?.has_micro_page && data?.cta_key
+        ? data.cta_key
+        : null;
+  const viewAllLink = ctaKey ? (base ? `${base}/${ctaKey}` : `/${ctaKey}`) : null;
+  const viewAllLabel = data?.label || cta.label || "VIEW ALL";
+
   return (
     <div className="alumni-section container">
-      
+
       {/* Header */}
       <div className="alumni-header">
         <h2 className="alumni-title">
@@ -90,9 +106,11 @@ const EminentAlumni = ({ data }) => {
           {data?.basic?.title || "Eminent Alumni"}
         </h2>
 
-        <Link to="/alumni/eminent-alumni" className="alumni-btn">
-          VIEW ALL →
-        </Link>
+        {viewAllLink && (
+          <Link to={viewAllLink} className="alumni-btn">
+            {viewAllLabel} →
+          </Link>
+        )}
       </div>
 
       {/* Grid */}

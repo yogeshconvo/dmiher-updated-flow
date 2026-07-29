@@ -20,12 +20,28 @@ const ImportantContacts = ({data}) => {
     </a>
 
     <div className="important-contacts-grid">
-      {data?.contacts?.map((item, idx) => (
+      {data?.contacts?.map((item, idx) => {
+        // API sends page_slug (e.g. "jnmc", "SRMMCON") — link the title to
+        // that page. Routes are lowercase, so normalise; entries with an
+        // empty slug stay plain text.
+        const slug = (item.page_slug || "").trim();
+        const href = slug ? `/${slug.toLowerCase()}` : null;
+
+        return (
         <div key={idx} className="important-contact-card">
           <div className="important-contact-title">
-            <p className="important-contact-title-text">
-              {item.title}
-            </p>
+            {href ? (
+              <Link
+                to={href}
+                className="important-contact-title-text hover:underline"
+              >
+                {item.title}
+              </Link>
+            ) : (
+              <p className="important-contact-title-text">
+                {item.title}
+              </p>
+            )}
           </div>
 
           <div className="important-contact-body">
@@ -39,7 +55,8 @@ const ImportantContacts = ({data}) => {
             </p>
           </div>
         </div>
-      ))}
+        );
+      })}
     </div>
   </div>
 </section>

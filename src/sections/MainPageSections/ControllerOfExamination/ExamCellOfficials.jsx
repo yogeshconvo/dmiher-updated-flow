@@ -1,9 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
 
 
 const ExamCellOfficials = ({data}) => {
-  
+  // Micro-page CTA: `basic` carries { label, cta_key, has_micro_page } — the
+  // target lives at {current path}/{cta_key} (e.g. /coe/organogram). Legacy
+  // `button_link`/`button_text` keep working when present.
+  const { pathname } = useLocation();
+  const base = pathname.replace(/\/+$/, "");
+  const basic = data.basic || {};
+  const btnLink =
+    basic.button_link ||
+    (basic.has_micro_page && basic.cta_key
+      ? base
+        ? `${base}/${basic.cta_key}`
+        : `/${basic.cta_key}`
+      : null);
+  const btnLabel = basic.button_text || basic.label || "Organogram";
 
   return (
     <div className="exam-section">
@@ -44,13 +57,13 @@ const ExamCellOfficials = ({data}) => {
         </div>
 
         {/* Button */}
-        <div className="exam-btn-wrap">
-          <Link to={data.basic?.button_link || "#"}>
-            <button className="exam-btn">
-              {data.basic?.button_text || "Organogram"}
-            </button>
-          </Link>
-        </div>
+        {btnLink && (
+          <div className="exam-btn-wrap">
+            <Link to={btnLink}>
+              <button className="exam-btn">{btnLabel}</button>
+            </Link>
+          </div>
+        )}
 
       </div>
     </div>

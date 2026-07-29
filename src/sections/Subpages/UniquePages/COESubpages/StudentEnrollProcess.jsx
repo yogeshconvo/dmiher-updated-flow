@@ -54,6 +54,54 @@ function NoticeBox({ tone, icon, title, description }) {
   );
 }
 
+// Save the file to the user's system instead of opening a tab. The files sit
+// on the admin domain (cross-origin), where a plain `download` attribute is
+// ignored — so fetch as a blob and trigger the save with the label as the
+// filename. Falls back to opening in a new tab if the fetch fails.
+const saveFile = async (e, url, label) => {
+  e.preventDefault();
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    let blob = await res.blob();
+
+    // The file endpoint often sends a generic/wrong content-type (text/html,
+    // octet-stream), which makes the browser save the file as .html. Sniff
+    // the actual bytes: a real PDF always starts with "%PDF" — if so, force
+    // the .pdf name and type regardless of what the server claimed.
+    const head = new Uint8Array(await blob.slice(0, 5).arrayBuffer());
+    const isPdf = String.fromCharCode(...head).startsWith("%PDF");
+
+    const extMap = {
+      "application/pdf": ".pdf",
+      "image/jpeg": ".jpg",
+      "image/png": ".png",
+      "image/webp": ".webp",
+    };
+    let ext = extMap[blob.type] || "";
+    if (isPdf) {
+      ext = ".pdf";
+      blob = new Blob([blob], { type: "application/pdf" });
+    } else if (!ext && blob.type === "text/html") {
+      // Not a PDF and the server sent an HTML page (viewer/error) — saving
+      // it would give the user a junk .html file; open it instead.
+      window.open(url, "_blank", "noopener");
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = objectUrl;
+    a.download = `${label || "download"}${ext}`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(objectUrl);
+  } catch {
+    window.open(url, "_blank", "noopener");
+  }
+};
+
 export default function StudentEnrollProcess({ data = {} }) {
   const {
     hero = {},
@@ -209,8 +257,7 @@ export default function StudentEnrollProcess({ data = {} }) {
                     <a
                       key={i}
                       href={resolveImage(d.file)}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      onClick={(e) => saveFile(e, resolveImage(d.file), d.label)}
                       className="bg-transparent border-2 border-gray-800 text-gray-800 px-6 py-2 rounded-lg font-semibold flex items-center justify-center hover:bg-[#F04E30] hover:border-[#F04E30] hover:text-white transition-all duration-300"
                     >
                       <Download className="w-4 h-4 mr-2" />
