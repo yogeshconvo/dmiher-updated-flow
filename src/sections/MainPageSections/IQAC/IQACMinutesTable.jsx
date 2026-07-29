@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FileText } from "lucide-react";
 import PopupModal from "../../../components/UI/PopupModal";
+import resolveImage from "../../../utils/resolveImage";
 
 export default function IQACMinutesTable({ data }) {
   const { header, years } = data || {};
   const location = useLocation();
   const [popup, setPopup] = useState(null);
 
-  const [firstSegment] = location.pathname.split("/").filter(Boolean);
-  const basePath = firstSegment ? `/${firstSegment}` : "";
-
-  const allRows = (years ?? []).flatMap((group) => group.rows ?? []);
+  // Nested pages resolve only via the FULL parent chain
+  // (backend: /micropage/{pageSlug}/{microCtaKey}/{nestedCtaKey}), so links
+  // are built on the whole current path — on /iqac/iqac-minutes a year row
+  // goes to /iqac/iqac-minutes/iqac-minutes-2021.
+  const basePath = location.pathname.replace(/\/+$/, "");
 
   const handleRowClick = (row) => {
     if (row.action_type === "popup" && row.popup) {
@@ -29,19 +31,34 @@ export default function IQACMinutesTable({ data }) {
           </div>
         )}
 
-        <div className="iqac-year-table-wrapper">
-          <table className="iqac-year-table">
+        {/* One table per group ("Minutes" / "Agenda" / "Recommendation" on the
+            nested year pages, a single "Year" group on the index page), laid
+            out two-up on desktop like the live design. */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          {(years ?? []).map((group, gi) => {
+            const groupRows = group.rows ?? [];
+            if (!groupRows.length) return null;
+            const groupLabel = (group.year || "Year").trim() || "Year";
+            return (
+        <div key={gi} className="iqac-year-table-wrapper">
+          <table className="iqac-year-table border border-gray-200">
             <thead>
               <tr>
-                <th className="iqac-year-th">Year</th>
+                <th className="iqac-year-th">{groupLabel}</th>
               </tr>
             </thead>
             <tbody>
-              {allRows.map((row, idx) => {
-                const label = row.year || row.page?.[0]?.label || "";
+              {groupRows.map((row, idx) => {
+                // `page` arrives as an object ({ label, cta_key,
+                // has_micro_page }); older data wrapped it in an array.
+                const pageObj = Array.isArray(row.page)
+                  ? row.page[0]
+                  : row.page;
+                const label = row.year || pageObj?.label || "";
                 const isClickable = row.action_type === "popup" && row.popup;
+                const isPdf = row.action_type === "pdf" && row.pdf;
                 const hasMicro =
-                  row.page?.[0]?.has_micro_page && row.page?.[0]?.label;
+                  pageObj?.has_micro_page && (pageObj?.cta_key || pageObj?.label);
 
                 return (
                   <tr
@@ -55,9 +72,18 @@ export default function IQACMinutesTable({ data }) {
                         <span className="text-blue-600 hover:underline">
                           {label}
                         </span>
+                      ) : isPdf ? (
+                        <a
+                          href={resolveImage(row.pdf)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block hover:underline"
+                        >
+                          {label}
+                        </a>
                       ) : hasMicro ? (
                         <Link
-                          to={`${basePath}/${row.page[0].cta_key || label}`}
+                          to={`${basePath}/${pageObj.cta_key || pageObj.label}`}
                           className="text-blue-600 hover:underline"
                         >
                           {label}
@@ -71,6 +97,9 @@ export default function IQACMinutesTable({ data }) {
               })}
             </tbody>
           </table>
+        </div>
+            );
+          })}
         </div>
 
         <PopupModal
