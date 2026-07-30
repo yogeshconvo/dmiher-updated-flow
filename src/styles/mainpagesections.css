@@ -36,7 +36,14 @@
 }
 
 .outcome-swiper {
-    @apply max-w-5xl mx-auto h-[65vh];
+    @apply max-w-5xl mx-auto;
+    height: 65vh;
+}
+
+@media (max-width: 768px) {
+    .outcome-swiper {
+        height: 85vh;
+    }
 }
 
 .slide-image {
@@ -80,7 +87,7 @@
 }
 
 .video-section {
-    @apply py-[60px];
+    @apply pt-[60px] pb-[80px];
 }
 
 .video-heading {

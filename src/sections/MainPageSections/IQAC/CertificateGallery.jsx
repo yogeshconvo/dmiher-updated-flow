@@ -13,12 +13,13 @@ const ALL_KEY = "__all__";
 const pickThumbnail = (cert) => {
   const thumbnailDisabled = cert?._disabled?.thumbnail === true;
   if (!thumbnailDisabled && cert?.thumbnail) return cert.thumbnail;
-  if (cert?.certificate_images) return cert.certificate_images;
+  if (cert?.image || cert?.certificate_images) return cert.image || cert.certificate_images;
   return "";
 };
 
 function CertificateGallery({ data }) {
-  const tabs = Array.isArray(data?.tabs) ? data.tabs : [];
+  const gallery = data?.certificate_gallery || data;
+  const tabs = Array.isArray(gallery?.tabs) ? gallery.tabs : [];
   const [activeKey, setActiveKey] = useState(ALL_KEY);
 
   const navigate = useNavigate();
@@ -61,13 +62,13 @@ function CertificateGallery({ data }) {
 
     // PDF — open the resolved file URL in a new tab.
     if (linkType === "pdf") {
-      const url = resolveImage(cert?.certificate_pdf);
+      const url = resolveImage(cert?.pdf || cert?.certificate_pdf);
       if (url) window.open(url, "_blank", "noopener,noreferrer");
       return;
     }
 
     // Default (image) — open the certificate image in a new tab.
-    const url = resolveImage(cert?.certificate_images);
+    const url = resolveImage(cert?.image || cert?.certificate_images);
     if (url) window.open(url, "_blank", "noopener,noreferrer");
   };
 

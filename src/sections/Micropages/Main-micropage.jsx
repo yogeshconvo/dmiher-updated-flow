@@ -55,7 +55,6 @@ const ImageBlock = ({ item }) => {
   const srcs = collectImageSrcs(item);
   if (!srcs.length) return null;
 
-  // 1 image → centered
   if (srcs.length === 1) {
     return (
       <div className="flex justify-center mb-4">
@@ -64,33 +63,16 @@ const ImageBlock = ({ item }) => {
     );
   }
 
-  // 2 images → side by side
-  if (srcs.length === 2) {
-    return (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 items-start">
-        {srcs.map((s, i) => (
-          <SafeImage key={i} src={s} alt="" className="w-full h-auto rounded max-w-full" />
-        ))}
-      </div>
-    );
-  }
+  const cols = srcs.length === 2 ? 2 : 3;
 
-  // 3+ images → slider
   return (
-    <div className="mb-6">
-      <Swiper
-        modules={[Pagination]}
-        pagination={{ clickable: true }}
-        spaceBetween={16}
-        slidesPerView={1}
-        breakpoints={{ 640: { slidesPerView: 2 } }}
-      >
-        {srcs.map((s, i) => (
-          <SwiperSlide key={i}>
-            <SafeImage src={s} alt="" className="w-full h-auto rounded max-w-full" />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <div
+      className="micropage-image-grid mb-6"
+      style={{ "--img-cols": cols }}
+    >
+      {srcs.map((s, i) => (
+        <SafeImage key={i} src={s} alt="" className="micropage-grid-img" />
+      ))}
     </div>
   );
 };
@@ -312,6 +294,40 @@ const ButtonsBlock = ({ items }) => {
               />
             </svg>
             <span className="micropage-button-label">{label}</span>
+          </a>
+        );
+      })}
+    </div>
+  );
+};
+
+const PdfButtonBlock = ({ items }) => {
+  if (!Array.isArray(items) || !items.length) return null;
+  return (
+    <div className="pdf-btn-list">
+      {items.map((b, i) => {
+        const href = resolveImage(b?.pdf) || "#";
+        const label = b?.label || "Download";
+        return (
+          <a
+            key={i}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pdf-btn-item"
+            title={label}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="pdf-btn-icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            </svg>
+            <span className="pdf-btn-label">{label}</span>
           </a>
         );
       })}
@@ -548,6 +564,9 @@ const MainMicropage = ({ data }) => {
 
               case "normal":
                 return <NormalCardsBlock key={key} cards={item.cards || []} />;
+
+              case "pdf_button":
+                return <PdfButtonBlock key={key} items={item.pdf_btn || []} />;
 
               default:
                 return null;

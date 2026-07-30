@@ -79,12 +79,41 @@
         @apply px-[15px];
     }
 
-    .slide-content h1 {
-        @apply text-[22px];
+    .slide-icons {
+        @apply p-[20px] rounded-[10px];
+    }
+
+    .icons-grid {
+        @apply grid-cols-2 gap-[8px];
+    }
+
+    .icon-img {
+        @apply h-[60px] object-contain rounded-[6px] p-[6px];
+        background-color: #fff;
+    }
+
+    .icons-text {
+        @apply col-span-2 mt-[10px];
     }
 
     .icons-text p {
-        @apply text-[16px];
+        @apply text-[14px];
+    }
+
+    .video-section {
+        @apply pt-[30px] pb-[40px];
+    }
+
+    .video-heading {
+        @apply text-[22px] mb-[20px];
+    }
+
+    .video-iframe {
+        height: 250px;
+    }
+
+    .slide-content h1 {
+        @apply text-[22px];
     }
 
     /* Footprints */

@@ -1,6 +1,39 @@
 @reference "tailwindcss";
 
 /* ================= MICROPAGE HELPERS ================= */
+
+/* Mobile dropdown — hidden on desktop */
+.tabwise-mobile-select {
+    @apply relative mx-4 mt-2 mb-6;
+    display: none;
+}
+
+.tabwise-mobile-trigger {
+    @apply w-full flex items-center justify-between px-4 py-3 bg-white border-2 border-gray-200 rounded-lg text-sm font-medium text-gray-800;
+}
+
+.tabwise-mobile-list {
+    @apply absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-xl z-50 max-h-[60vh] overflow-y-auto;
+}
+
+.tabwise-mobile-item {
+    @apply block w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors;
+}
+
+.tabwise-mobile-item-active {
+    @apply bg-[#F04E30] text-white font-semibold hover:bg-[#F04E30];
+}
+
+@media (max-width: 768px) {
+    .tabwise-mobile-select {
+        display: block;
+    }
+    .tabwise-tabs {
+        display: none !important;
+    }
+}
+
+/* Desktop tabs — hidden on mobile */
 .tabwise-tabs {
     @apply flex flex-wrap gap-2 shadow-lg pb-2 mb-6 px-4 justify-center mt-2;
 }
@@ -258,4 +291,55 @@
 
 .micropage-button-label {
     @apply text-gray-800 font-medium text-lg md:text-xl leading-snug text-left;
+}
+
+/* ================= IMAGE GRID ================= */
+.micropage-image-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+    .micropage-image-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .micropage-image-grid {
+        grid-template-columns: repeat(var(--img-cols, 3), 1fr);
+    }
+}
+
+.micropage-grid-img {
+    @apply w-full rounded object-cover;
+    aspect-ratio: 4 / 3;
+}
+
+/* ================= PDF BUTTON LIST ================= */
+.pdf-btn-list {
+    @apply flex flex-col gap-3 max-w-md my-4;
+}
+
+.pdf-btn-item {
+    @apply flex items-center gap-3 px-5 py-3 rounded-lg font-semibold text-[#122E5E] no-underline transition-all duration-200;
+    background-color: #dff0fe;
+}
+
+.pdf-btn-item:hover {
+    @apply text-white;
+    background-color: #F04E30;
+}
+
+.pdf-btn-icon {
+    @apply w-5 h-5 shrink-0;
+}
+
+.pdf-btn-item:hover .pdf-btn-icon {
+    @apply text-white;
+}
+
+.pdf-btn-label {
+    @apply text-sm md:text-base;
 }

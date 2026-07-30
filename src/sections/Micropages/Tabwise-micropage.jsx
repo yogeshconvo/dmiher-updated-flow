@@ -1,27 +1,25 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import resolveImage from "../../utils/resolveImage";
 
-/**
- * TabWiseMicroPage / TabMenu — pure navigation strip.
- *
- * URL contract: /:college/:page  (e.g. /about/executive)
- * The second path segment (`params.page`) is the active tab key.
- *
- * Each tab entry defines its key via `page_slug`. Clicking a tab
- * navigates to /{college}/{page_slug}. PageView then fetches that
- * micropage and renders its sections (`micro_page`, etc.) — TabMenu
- * never fetches or renders content itself, so the body never
- * duplicates the page sections rendered by PageView.
- */
 const TabMenu = ({ data }) => {
   const tabs = data?.tabs || [];
   const params = useParams();
   const navigate = useNavigate();
 
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const mobileRef = useRef(null);
 
-  /* ===== ALL SLUGS (top-level + dropdown children) ===== */
+  useEffect(() => {
+    const handler = (e) => {
+      if (mobileRef.current && !mobileRef.current.contains(e.target))
+        setMobileOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
   const allSlugs = useMemo(() => {
     const slugs = [];
     for (const tab of tabs) {
@@ -35,21 +33,29 @@ const TabMenu = ({ data }) => {
     return slugs;
   }, [tabs]);
 
-  /* ===== ACTIVE TAB — from URL, with fallback to first tab ===== */
   const activeTab = useMemo(() => {
     const urlSlug = params.page;
     if (urlSlug && allSlugs.includes(urlSlug)) return urlSlug;
     return allSlugs[0] || null;
   }, [params.page, allSlugs]);
 
-  /* ===== BASE PATH — /{college} ===== */
   const basePath = params.college ? `/${params.college}` : "";
 
-  /* ===== TAB CLICK → NAVIGATE URL ===== */
+  const activeTitle = useMemo(() => {
+    for (const tab of tabs) {
+      if (tab.type === "page" && tab.page_slug === activeTab) return tab.title;
+      if (tab.type === "dropdown") {
+        const match = tab.items?.find((it) => it.page_slug === activeTab);
+        if (match) return match.title;
+      }
+    }
+    return tabs[0]?.title || "";
+  }, [tabs, activeTab]);
+
   const handleTabClick = (tab, index) => {
     if (tab.type === "page" && tab.page_slug) {
       setOpenDropdown(null);
-      // Don't navigate if we're already there — saves a no-op URL change
+      setMobileOpen(false);
       if (tab.page_slug !== params.page) {
         navigate(`${basePath}/${tab.page_slug}`);
       }
@@ -66,9 +72,9 @@ const TabMenu = ({ data }) => {
     }
   };
 
-  /* ===== DROPDOWN ITEM CLICK ===== */
   const handleDropdownItem = (item) => {
     setOpenDropdown(null);
+    setMobileOpen(false);
 
     if (item.type === "pdf" && item.pdf) {
       window.open(resolveImage(item.pdf), "_blank");
@@ -80,7 +86,6 @@ const TabMenu = ({ data }) => {
     }
   };
 
-  /* ===== ACTIVE CHECK ===== */
   const isTabActive = (tab) => {
     if (tab.type === "page") return activeTab === tab.page_slug;
     if (tab.type === "dropdown")
@@ -91,50 +96,112 @@ const TabMenu = ({ data }) => {
   if (!tabs.length) return null;
 
   return (
-    <div className="tabwise-tabs">
-      {tabs.map((tab, i) => {
-        if (!tab.title) return null;
+    <>
+      {/* ===== MOBILE DROPDOWN ===== */}
+      <div className="tabwise-mobile-select" ref={mobileRef}>
+        <button
+          type="button"
+          className="tabwise-mobile-trigger"
+          onClick={() => setMobileOpen(!mobileOpen)}
+        >
+          <span className="truncate">{activeTitle}</span>
+          <svg
+            className={`w-5 h-5 shrink-0 transition-transform ${mobileOpen ? "rotate-180" : ""}`}
+            fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
 
-        return (
-          <div key={i} className="relative">
-            <button
-              type="button"
-              className={`px-4 py-2 text-sm font-medium rounded transition-colors ${
-                isTabActive(tab)
-                  ? "bg-[#F04E30] text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-[#112a62] hover:text-white"
-              }`}
-              onClick={() => handleTabClick(tab, i)}
-            >
-              {tab.title}
-              {tab.type === "dropdown" && (
-                <span className="ml-1 text-xs">▾</span>
-              )}
-            </button>
+        {mobileOpen && (
+          <div className="tabwise-mobile-list">
+            {tabs.map((tab, i) => {
+              if (!tab.title) return null;
 
-            {/* ===== DROPDOWN PANEL ===== */}
-            {tab.type === "dropdown" && openDropdown === i && (
-              <div className="absolute top-full left-0 mt-1 w-52 bg-white border rounded shadow-lg z-50">
-                {tab.items?.map((item, j) => (
-                  <button
-                    key={j}
-                    type="button"
-                    onClick={() => handleDropdownItem(item)}
-                    className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 ${
-                      activeTab === item.page_slug
-                        ? "bg-orange-50 text-[#F04E30] font-semibold"
-                        : ""
-                    }`}
-                  >
-                    {item.title}
-                  </button>
-                ))}
-              </div>
-            )}
+              if (tab.type === "dropdown") {
+                return (
+                  <div key={i}>
+                    <div className="px-4 py-2 text-xs font-semibold text-gray-400 uppercase">
+                      {tab.title}
+                    </div>
+                    {tab.items?.map((item, j) => (
+                      <button
+                        key={j}
+                        type="button"
+                        onClick={() => handleDropdownItem(item)}
+                        className={`tabwise-mobile-item ${
+                          activeTab === item.page_slug ? "tabwise-mobile-item-active" : ""
+                        }`}
+                      >
+                        {item.title}
+                      </button>
+                    ))}
+                  </div>
+                );
+              }
+
+              return (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => handleTabClick(tab, i)}
+                  className={`tabwise-mobile-item ${
+                    isTabActive(tab) ? "tabwise-mobile-item-active" : ""
+                  }`}
+                >
+                  {tab.title}
+                </button>
+              );
+            })}
           </div>
-        );
-      })}
-    </div>
+        )}
+      </div>
+
+      {/* ===== DESKTOP TABS ===== */}
+      <div className="tabwise-tabs">
+        {tabs.map((tab, i) => {
+          if (!tab.title) return null;
+
+          return (
+            <div key={i} className="relative">
+              <button
+                type="button"
+                className={`px-4 py-2 text-sm font-medium rounded transition-colors ${
+                  isTabActive(tab)
+                    ? "bg-[#F04E30] text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-[#112a62] hover:text-white"
+                }`}
+                onClick={() => handleTabClick(tab, i)}
+              >
+                {tab.title}
+                {tab.type === "dropdown" && (
+                  <span className="ml-1 text-xs">▾</span>
+                )}
+              </button>
+
+              {tab.type === "dropdown" && openDropdown === i && (
+                <div className="absolute top-full left-0 mt-1 w-52 bg-white border rounded shadow-lg z-50">
+                  {tab.items?.map((item, j) => (
+                    <button
+                      key={j}
+                      type="button"
+                      onClick={() => handleDropdownItem(item)}
+                      className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 ${
+                        activeTab === item.page_slug
+                          ? "bg-orange-50 text-[#F04E30] font-semibold"
+                          : ""
+                      }`}
+                    >
+                      {item.title}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
 

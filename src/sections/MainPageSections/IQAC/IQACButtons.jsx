@@ -14,9 +14,14 @@ export default function IQACSection({ data }) {
   const resolveTarget = (item) => {
     if (!item) return null;
 
-    // type "external" → dependent page; slug lives in cta[0].cta_key (or flat cta_key)
+    // cta can be an array OR a plain object — normalise to extract cta_key
+    const ctaKey = Array.isArray(item.cta)
+      ? item.cta[0]?.cta_key
+      : item.cta?.cta_key;
+
+    // type "external" → dependent page via cta_key
     if (item.type === "external") {
-      const key = item.cta?.[0]?.cta_key || item.cta_key;
+      const key = ctaKey || item.cta_key;
       if (key) return { kind: "internal", href: `${basePath}/${key}` };
     }
 
@@ -31,7 +36,7 @@ export default function IQACSection({ data }) {
     }
 
     // Fallbacks: dependent cta_key or legacy link field
-    const key = item.cta?.[0]?.cta_key || item.cta_key;
+    const key = ctaKey || item.cta_key;
     if (key) return { kind: "internal", href: `${basePath}/${key}` };
     if (item.link) return { kind: "internal", href: item.link };
 
