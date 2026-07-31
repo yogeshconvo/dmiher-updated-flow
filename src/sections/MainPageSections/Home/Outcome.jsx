@@ -99,7 +99,6 @@ const Outcome = ({ data }) => {
                   </div>
                 </div>
               )}
-
             </SwiperSlide>
           ))}
         </Swiper>
