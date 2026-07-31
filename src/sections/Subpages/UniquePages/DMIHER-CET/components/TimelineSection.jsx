@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Calendar, ArrowRight } from "lucide-react";
+import { renderIcon } from "../../../../../utils/renderIcon";
 
 const buildCtaPath = (collegeSlug, ctaKey) => {
   if (!ctaKey) return null;
@@ -15,7 +16,7 @@ const PhaseCard = ({ phase, collegeSlug }) => {
   const inner = (
     <>
       <div className="dcet-phase-icon-wrap">
-        <Calendar className="dcet-phase-icon" />
+        {phase.icon ? renderIcon(phase.icon, 24, "dcet-phase-icon") : <Calendar className="dcet-phase-icon" />}
       </div>
       <h3 className="dcet-phase-title">{phase.phase}</h3>
       <p className="dcet-phase-month">{phase.month}</p>
@@ -41,12 +42,21 @@ const PhaseCard = ({ phase, collegeSlug }) => {
   return <div className={baseClass}>{inner}</div>;
 };
 
-const TimelineSection = ({ header, phases = [], collegeSlug }) => {
-  if (!phases.length && !header?.heading) return null;
+const TimelineSection = ({ header, bannerText, bannerIcon, phases = [], collegeSlug }) => {
+  if (!phases.length && !header?.heading && !bannerText) return null;
 
   return (
     <div className="dcet-section-plain">
       <div className="dcet-container">
+        {bannerText ? (
+          <div className="bg-white/10 text-[#707070] rounded-lg p-6 max-w-2xl mb-8">
+            <div className="text-3xl font-bold flex items-center gap-2 text-gray-800">
+              {bannerIcon ? renderIcon(bannerIcon, 40, "w-10 h-10 p-1") : <Calendar className="w-10 h-10 p-1" />}
+              <span>{bannerText}</span>
+            </div>
+          </div>
+        ) : null}
+
         {header?.heading ? (
           <h2 className="dcet-section-title-mb12">
             {header.heading}

@@ -2504,11 +2504,11 @@
 }
 
 .mph-mobile-apply {
-    @apply w-full flex justify-center items-center rounded-[10px] text-sm bg-[#F04E30] hover:bg-[#122E5E] text-white px-1 py-2 font-semibold;
+    @apply flex-1 flex justify-center items-center rounded-[10px] text-sm bg-[#F04E30] hover:bg-[#122E5E] text-white px-1 py-2 font-semibold;
 }
 
 .mph-mobile-phone-link {
-    @apply w-full flex justify-center;
+    @apply flex-1 flex justify-center;
 }
 
 .mph-mobile-phone {

@@ -1,23 +1,6 @@
-/**
- * Transforms the raw DMIHER-CET API payload into the shape consumed by the UI layer.
- *
- * Defensive — every field defaults to a safe empty value so partial API responses
- * never crash the UI. The shape below is intentionally close to the original
- * hardcoded structure used by `DMIHER-CET.jsx` to minimize rendering changes.
- */
-
 const safeString = (value) => (typeof value === "string" ? value : "");
 const safeArray = (value) => (Array.isArray(value) ? value : []);
 
-/**
- * The API ships `cta` as one of:
- *   • a single flat CTA object  → { label, cta_key, has_micro_page }
- *   • an array of CTA objects    → [ {...}, {...} ]
- *   • an object keyed by indices → { "0": {...}, "1": {...} }
- * Normalize all three into a flat array of CTA objects. The flat-object case
- * must NOT go through Object.values (that returns the field values, not a CTA),
- * which would drop cta_key/has_micro_page and break the "Learn More" link.
- */
 const normalizeCtaList = (cta) => {
   if (Array.isArray(cta)) return cta;
   if (cta && typeof cta === "object") {
@@ -40,6 +23,7 @@ const mapTimelinePhase = (phase = {}) => {
   return {
     phase: safeString(phase.phase),
     month: safeString(phase.month),
+    icon: safeString(phase.icon),
     ctas,
     primaryCta: ctas[0] || null,
   };
@@ -54,6 +38,7 @@ const mapPatternStat = (stat = {}) => ({
 });
 
 const mapProgramSection = (program = {}) => ({
+  icon: safeString(program.icon),
   title: safeString(program.title),
   subjects: safeArray(program.subjects).map((subject) =>
     typeof subject === "string"
@@ -74,11 +59,6 @@ const mapSyllabusTopic = (topic) => {
   return { subject, topics, icon: safeString(topic.icon) };
 };
 
-/**
- * `syllabus_topics` may arrive as a flat list of topics OR as a list of lists
- * (one list per subject group). Flatten one level deep so we always end up
- * with a flat array of topic objects.
- */
 const mapSyllabusTopics = (raw) => {
   const list = safeArray(raw);
   const flattened = list.flatMap((entry) =>
@@ -87,49 +67,57 @@ const mapSyllabusTopics = (raw) => {
   return flattened.map(mapSyllabusTopic).filter(Boolean);
 };
 
-const mapHeader = (header) => {
-  if (!header) return { heading: "", description: "" };
-  // syllabus_header arrives as an array of one header object
-  const source = Array.isArray(header) ? header[0] || {} : header;
-  return {
-    heading: safeString(source.heading),
-    description: safeString(source.description),
-  };
-};
-
-const mapHero = (hero = {}) => ({
-  heading: safeString(hero.heading),
-  description: safeString(hero.description),
-  bannerText: safeString(hero.banner_text),
-});
-
 const mapFeature = (feature = {}) => ({
   icon: safeString(feature.icon),
   title: safeString(feature.title),
-  // Rich-text (editor) field — kept as raw HTML for the view to render.
   description: safeString(feature.description),
 });
 
-export const mapDmiherCetSectionData = (data = {}) => ({
-  hero: mapHero(data.hero),
-  timeline: {
-    header: mapHeader(data.timeline_header),
-    phases: safeArray(data.timeline_phases).map(mapTimelinePhase),
-  },
-  pattern: {
-    header: mapHeader(data.pattern_header),
-    stats: safeArray(data.pattern_stats).map(mapPatternStat),
-  },
-  programs: {
-    header: mapHeader(data.programs_header),
-    sections: safeArray(data.program_sections).map(mapProgramSection),
-  },
-  syllabus: {
-    header: mapHeader(data.syllabus_header),
-    topics: mapSyllabusTopics(data.syllabus_topics),
-  },
-  features: {
-    header: mapHeader(data.features_header),
-    items: safeArray(data.key_features).map(mapFeature),
-  },
-});
+export const mapDmiherCetSectionData = (data = {}) => {
+  const hero = data.hero || {};
+  const tl = data.timeline || {};
+  const pat = data.pattern_header || {};
+  const prog = data.programs_header || {};
+  const syl = data.syllabus_header || {};
+  const feat = data.features_header || {};
+
+  return {
+    hero: {
+      heading: safeString(hero.heading),
+      description: safeString(hero.description),
+    },
+    timeline: {
+      enabled: tl._section_enabled !== false,
+      header: { heading: safeString(tl.heading) },
+      bannerText: safeString(tl.banner_text),
+      bannerIcon: safeString(tl.banner_icon),
+      phases: safeArray(tl.timeline_phases).map(mapTimelinePhase),
+    },
+    pattern: {
+      enabled: pat._section_enabled !== false,
+      header: {
+        heading: safeString(pat.heading),
+        description: safeString(pat.description),
+      },
+      stats: safeArray(pat.pattern_stats).map(mapPatternStat),
+    },
+    programs: {
+      enabled: prog._section_enabled !== false,
+      header: { heading: safeString(prog.heading) },
+      sections: safeArray(prog.program_sections).map(mapProgramSection),
+    },
+    syllabus: {
+      enabled: syl._section_enabled !== false,
+      header: {
+        heading: safeString(syl.heading),
+        description: safeString(syl.description),
+      },
+      topics: mapSyllabusTopics(syl.syllabus_topics),
+    },
+    features: {
+      enabled: feat._section_enabled !== false,
+      header: { heading: safeString(feat.heading) },
+      items: safeArray(feat.key_features).map(mapFeature),
+    },
+  };
+};

@@ -293,28 +293,77 @@
     @apply text-gray-800 font-medium text-lg md:text-xl leading-snug text-left;
 }
 
-/* ================= IMAGE GRID ================= */
-.micropage-image-grid {
+/* ================= IMAGE GALLERY ================= */
+
+/* Shared image style — fixed aspect ratio, no stretching, no layout shift */
+.mp-gallery-img {
+    @apply w-full rounded-lg;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+}
+
+/* 1 image — full width, no grid */
+.mp-gallery--1 {
+    @apply mb-0;
+}
+
+/* 2 images — two equal columns */
+.mp-gallery--2 {
     display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 1rem;
-    grid-template-columns: 1fr;
 }
 
-@media (min-width: 640px) {
-    .micropage-image-grid {
-        grid-template-columns: repeat(2, 1fr);
+/* 3 images — three equal columns */
+.mp-gallery--3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Responsive: stack on mobile */
+@media (max-width: 639px) {
+    .mp-gallery--2,
+    .mp-gallery--3 {
+        grid-template-columns: 1fr;
     }
 }
 
-@media (min-width: 768px) {
-    .micropage-image-grid {
-        grid-template-columns: repeat(var(--img-cols, 3), 1fr);
+/* Tablet: 3-col falls back to 2 */
+@media (min-width: 640px) and (max-width: 1023px) {
+    .mp-gallery--3 {
+        grid-template-columns: 1fr 1fr;
     }
 }
 
-.micropage-grid-img {
-    @apply w-full rounded object-cover;
-    aspect-ratio: 4 / 3;
+/* ================= IMAGE SLIDER (4+ images) ================= */
+.mp-gallery-slider {
+    position: relative;
+}
+
+.mp-gallery-slider .swiper {
+    padding-bottom: 2.5rem;
+}
+
+.mp-gallery-slider .swiper-button-prev,
+.mp-gallery-slider .swiper-button-next {
+    color: #F04E30;
+    background: rgba(255, 255, 255, 0.9);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.mp-gallery-slider .swiper-button-prev::after,
+.mp-gallery-slider .swiper-button-next::after {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.mp-gallery-slider .swiper-pagination-bullet-active {
+    background: #F04E30;
 }
 
 /* ================= PDF BUTTON LIST ================= */

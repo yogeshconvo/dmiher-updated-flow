@@ -73,7 +73,6 @@ const DmiherCet = ({ data: rawData, college: collegeProp, pageSlug: pageProp }) 
   const isEmpty =
     !hero.heading &&
     !hero.description &&
-    !hero.bannerText &&
     !timeline.phases.length &&
     !pattern.stats.length &&
     !programs.sections.length &&
@@ -91,28 +90,36 @@ const DmiherCet = ({ data: rawData, college: collegeProp, pageSlug: pageProp }) 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="container py-10">
-        <HeroSection
-          heading={hero.heading}
-          description={hero.description}
-          bannerText={hero.bannerText}
-        />
+        <HeroSection heading={hero.heading} description={hero.description} />
 
-        <TimelineSection
-          header={timeline.header}
-          phases={timeline.phases}
-          collegeSlug={collegeSlug}
-        />
+        {timeline.enabled && (
+          <TimelineSection
+            header={timeline.header}
+            bannerText={timeline.bannerText}
+            bannerIcon={timeline.bannerIcon}
+            phases={timeline.phases}
+            collegeSlug={collegeSlug}
+          />
+        )}
 
-        <PatternStatsSection header={pattern.header} stats={pattern.stats} />
+        {pattern.enabled && (
+          <PatternStatsSection header={pattern.header} stats={pattern.stats} />
+        )}
 
-        <FeaturesSection header={features.header} items={features.items} />
+        {features.enabled && (
+          <FeaturesSection header={features.header} items={features.items} />
+        )}
 
-        <ProgramSectionsList
-          header={programs.header}
-          sections={programs.sections}
-        />
+        {programs.enabled && (
+          <ProgramSectionsList
+            header={programs.header}
+            sections={programs.sections}
+          />
+        )}
 
-        <SyllabusSection header={syllabus.header} topics={syllabus.topics} />
+        {syllabus.enabled && (
+          <SyllabusSection header={syllabus.header} topics={syllabus.topics} />
+        )}
       </div>
     </div>
   );

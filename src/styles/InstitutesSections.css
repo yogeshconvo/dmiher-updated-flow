@@ -238,11 +238,11 @@
 }
 
 .hero-mobile-actions {
-    @apply flex flex-wrap justify-center items-center gap-x-5 gap-y-1 w-full min-w-0;
+    @apply flex justify-center items-stretch gap-2 w-full min-w-0;
 }
 
 .hero-mobile-apply {
-    @apply flex justify-center items-center text-lg bg-[#F04E30] hover:bg-[#122E5E] text-white px-6 py-2 font-semibold whitespace-nowrap uppercase font-sans;
+    @apply flex-1 flex justify-center items-center text-sm bg-[#F04E30] hover:bg-[#122E5E] text-white px-2 py-2 font-semibold uppercase font-sans text-center min-w-0;
 }
 
 .hero-mobile-phone {

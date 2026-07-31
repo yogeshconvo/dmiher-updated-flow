@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Grid, Pagination } from "swiper/modules";
+import { Grid, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 import RichTextRenderer from "../../components/RichTextRenderer";
 import SafeImage from "../../components/SafeImage";
 import ViewMoreButton from "../../components/UI/Buttons";
@@ -48,31 +49,50 @@ const collectImageSrcs = (item) => {
   return out;
 };
 
-/* ================= IMAGE BLOCK (new shape: tab_type image / single_img) =====
-   One image renders full-width (legacy behaviour); multiple images render as a
-   responsive gallery grid, mirroring the live-site Global subpages. */
+/* ================= IMAGE BLOCK =================
+   Layout adapts to the number of images:
+     1     → full-width, no slider
+     2     → two equal columns, no slider
+     3     → three equal columns, no slider
+     4+    → Swiper slider (3 desktop / 2 tablet / 1 mobile), loop, arrows, dots */
+const GalleryImage = ({ src }) => (
+  <SafeImage src={src} alt="" className="mp-gallery-img" />
+);
+
 const ImageBlock = ({ item }) => {
   const srcs = collectImageSrcs(item);
   if (!srcs.length) return null;
 
-  if (srcs.length === 1) {
+  if (srcs.length <= 3) {
     return (
-      <div className="flex justify-center mb-4">
-        <SafeImage src={srcs[0]} alt="" className="rounded max-w-full h-auto" />
+      <div className={`mp-gallery mp-gallery--${srcs.length} mb-6`}>
+        {srcs.map((s, i) => (
+          <GalleryImage key={i} src={s} />
+        ))}
       </div>
     );
   }
 
-  const cols = srcs.length === 2 ? 2 : 3;
-
   return (
-    <div
-      className="micropage-image-grid mb-6"
-      style={{ "--img-cols": cols }}
-    >
-      {srcs.map((s, i) => (
-        <SafeImage key={i} src={s} alt="" className="micropage-grid-img" />
-      ))}
+    <div className="mb-6 mp-gallery-slider">
+      <Swiper
+        modules={[Navigation, Pagination]}
+        navigation
+        pagination={{ clickable: true }}
+        loop
+        spaceBetween={16}
+        slidesPerView={1}
+        breakpoints={{
+          640: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+        }}
+      >
+        {srcs.map((s, i) => (
+          <SwiperSlide key={i}>
+            <GalleryImage src={s} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };
