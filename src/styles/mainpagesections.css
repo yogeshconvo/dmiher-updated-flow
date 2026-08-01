@@ -72,14 +72,15 @@
 
 .icons-grid {
     @apply grid grid-cols-4 gap-[5px] max-w-[1200px] w-full items-center;
+    grid-auto-flow: dense;
 }
 
 .icon-img {
-    @apply w-full h-[100px] object-cover;
+    @apply w-full h-[100px] object-contain p-[8px] bg-white;
 }
 
 .icons-text {
-    @apply col-span-2 flex items-center;
+    @apply col-span-2 flex items-center justify-center;
 }
 
 .icons-text p {
@@ -87,7 +88,7 @@
 }
 
 .video-section {
-    @apply pt-[60px] pb-[80px];
+    @apply pt-[60px] pb-[24px];
 }
 
 .video-heading {

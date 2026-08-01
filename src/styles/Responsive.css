@@ -60,11 +60,11 @@
 @media (max-width: 1024px) {
 
     .icons-grid {
-        @apply grid-cols-2;
+        @apply grid-cols-3;
     }
 
     .icon-img {
-        @apply object-contain h-auto;
+        @apply object-contain h-[80px];
     }
 
     .slide-content {
@@ -88,7 +88,7 @@
     }
 
     .icon-img {
-        @apply h-[60px] object-contain rounded-[6px] p-[6px];
+        @apply h-[60px] object-contain p-[6px];
         background-color: #fff;
     }
 

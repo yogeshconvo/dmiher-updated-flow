@@ -282,7 +282,7 @@
 }
 
 .hero-swiper-wrapper {
-    @apply w-full overflow-hidden;
+    @apply w-full overflow-hidden mb-8 sm:mb-12 lg:mb-16;
 }
 
 .hero-slide {
