@@ -293,47 +293,49 @@
     @apply text-gray-800 font-medium text-lg md:text-xl leading-snug text-left;
 }
 
-/* ================= IMAGE GALLERY ================= */
-
-/* Shared image style — fixed aspect ratio, no stretching, no layout shift */
-.mp-gallery-img {
-    @apply w-full rounded-lg;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    display: block;
+/* ================= IMAGE GALLERY =================
+   Every image is the SAME fixed size regardless of how many are in the
+   row (1, 2, or 3). Extra horizontal space is left blank at the end of
+   the row rather than stretching images. Anything past the row cap
+   wraps to the next row.
+     - Mobile  (< 640px):  1 image per row, full width up to 380px.
+     - Tablet  (640–767):  up to 2 images per row (~380 px each).
+     - Desktop (>= 768):   up to 3 images per row (~380 px each). */
+.mp-gallery,
+.mp-gallery--1,
+.mp-gallery--2,
+.mp-gallery--3 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-start;
 }
 
-/* 1 image — full width, no grid */
 .mp-gallery--1 {
     @apply mb-0;
 }
 
-/* 2 images — two equal columns */
-.mp-gallery--2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+.mp-gallery-img {
+    @apply rounded-lg;
+    width: 100%;
+    max-width: 380px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+    flex: 0 0 auto;
 }
 
-/* 3 images — three equal columns */
-.mp-gallery--3 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1rem;
-}
-
-/* Responsive: stack on mobile */
-@media (max-width: 639px) {
-    .mp-gallery--2,
-    .mp-gallery--3 {
-        grid-template-columns: 1fr;
+@media (min-width: 640px) {
+    .mp-gallery-img {
+        width: calc((100% - 1rem) / 2);
+        max-width: 380px;
     }
 }
 
-/* Tablet: 3-col falls back to 2 */
-@media (min-width: 640px) and (max-width: 1023px) {
-    .mp-gallery--3 {
-        grid-template-columns: 1fr 1fr;
+@media (min-width: 768px) {
+    .mp-gallery-img {
+        width: calc((100% - 2rem) / 3);
+        max-width: 380px;
     }
 }
 
