@@ -59,9 +59,9 @@
 /* <= 1024px */
 @media (max-width: 1024px) {
 
-    .icons-grid {
-        @apply grid-cols-3;
-    }
+    /* Icons grid columns are handled by the base auto-fit rule in
+       mainpagesections.css — DON'T override with grid-cols-N here or
+       tiles will stretch to fill the row again. */
 
     .icon-img {
         @apply object-contain h-[80px];
@@ -84,16 +84,12 @@
     }
 
     .icons-grid {
-        @apply grid-cols-2 gap-[8px];
+        @apply gap-[8px];
     }
 
     .icon-img {
         @apply h-[60px] object-contain p-[6px];
         background-color: #fff;
-    }
-
-    .icons-text {
-        @apply col-span-2 mt-[10px];
     }
 
     .icons-text p {

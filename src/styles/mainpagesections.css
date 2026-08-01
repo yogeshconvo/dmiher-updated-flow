@@ -70,9 +70,15 @@
     @apply bg-[#E1CD67] h-full flex items-center justify-center p-[40px] rounded-[16px];
 }
 
+/* Fixed logo tile size — cells DON'T stretch to fill the container.
+   Each logo occupies the same fixed width regardless of viewport,
+   and rows wrap when they can't fit any more cells. Extra horizontal
+   space is left blank on the right rather than blowing up tile widths. */
 .icons-grid {
-    @apply grid grid-cols-4 gap-[5px] max-w-[1200px] w-full items-center;
+    @apply grid gap-[5px] max-w-[1200px] w-full items-center;
+    grid-template-columns: repeat(auto-fit, 220px);
     grid-auto-flow: dense;
+    justify-content: start;
 }
 
 .icon-img {
@@ -80,7 +86,8 @@
 }
 
 .icons-text {
-    @apply col-span-2 flex items-center justify-center;
+    @apply flex items-center justify-center;
+    grid-column: span 2;
 }
 
 .icons-text p {
