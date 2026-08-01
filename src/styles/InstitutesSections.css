@@ -238,11 +238,15 @@
 }
 
 .hero-mobile-actions {
-    @apply flex justify-center items-stretch gap-2 w-full min-w-0;
+    @apply flex flex-col sm:flex-row justify-center items-center sm:items-stretch gap-2 w-full min-w-0;
 }
 
 .hero-mobile-apply {
-    @apply flex-1 flex justify-center items-center text-sm bg-[#F04E30] hover:bg-[#122E5E] text-white px-2 py-2 font-semibold uppercase font-sans text-center min-w-0;
+    @apply w-full sm:w-auto sm:flex-1 flex justify-center items-center text-sm bg-[#F04E30] hover:bg-[#122E5E] text-white px-4 py-2 font-semibold uppercase font-sans text-center whitespace-nowrap;
+}
+
+.hero-mobile-actions .hero-topbar-text {
+    @apply w-full sm:w-auto justify-center;
 }
 
 .hero-mobile-phone {
