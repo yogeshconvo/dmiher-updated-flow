@@ -62,6 +62,21 @@ function PageView() {
     isNested ? nestedSlug : null
   );
 
+  // Fallback for 3-segment URLs where the middle segment is an INDEPENDENT
+  // page (not a micro page under a college), and the last segment is one of
+  // its CTA keys — e.g. /research/publications/central-research-laboratory-2
+  // where "publications" is an independent page and the CTA lives at
+  // /api/micropage/publications/central-research-laboratory-2. Runs only after
+  // the strict nested lookup returns no sections.
+  const nestedHasNoData =
+    isNested &&
+    !nestedQuery?.isLoading &&
+    !(nestedQuery?.data?.sections?.length > 0);
+  const nestedAsCtaQuery = useSubpage(
+    nestedHasNoData ? microSlug : null,
+    nestedHasNoData ? nestedSlug : null
+  );
+
   // Independent-pages is ONLY a fallback for genuine independent pages on this
   // route. It is enabled solely after the micropage query has settled with no
   // data — so section-dependent subpages resolve from /micropage/ and never
@@ -86,6 +101,8 @@ function PageView() {
   if (isNested) {
     if (nestedQuery?.data?.sections?.length > 0) {
       resolvedPage = nestedQuery.data;
+    } else if (nestedAsCtaQuery?.data?.sections?.length > 0) {
+      resolvedPage = nestedAsCtaQuery.data;
     }
   } else if (isMicropage) {
     // College-scoped micropage wins; independent-pages is fallback only.
@@ -134,7 +151,7 @@ function PageView() {
   // while subpageQuery was still loading, isLoading became false too
   // early and the page flashed "No data available".
   const isLoading = isNested
-    ? !resolvedPage && nestedQuery?.isLoading
+    ? !resolvedPage && (nestedQuery?.isLoading || nestedAsCtaQuery?.isLoading)
     : isMicropage
     ? !resolvedPage && (micropageQuery?.isLoading || subpageQuery?.isLoading)
     : pageQuery?.isLoading;
@@ -143,7 +160,7 @@ function PageView() {
 
   /* ================= ERROR / EMPTY ================= */
   const hasError = isNested
-    ? nestedQuery?.error
+    ? nestedQuery?.error && nestedAsCtaQuery?.error
     : isMicropage
     ? micropageQuery?.error && subpageQuery?.error
     : pageQuery?.error;
@@ -218,7 +235,17 @@ function PageView() {
                 <SectionComponent
                   data={sec.data}
                   college={params.college || params.slug}
-                  pageSlug={params.college || params.slug}
+                  pageSlug={
+                    // Preserve the full current path so CTA/button links
+                    // don't drop middle segments. e.g. on
+                    // /research/publications this is "research/publications"
+                    // so button links become
+                    // /research/publications/{cta_key} (3-seg URL, handled by
+                    // the nested → independent-page-CTA fallback below).
+                    [params.college, params.page].filter(Boolean).join("/") ||
+                    params.slug ||
+                    ""
+                  }
                 />
               </section>
             </Suspense>

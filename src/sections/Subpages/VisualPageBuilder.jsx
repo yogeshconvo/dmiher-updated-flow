@@ -1,53 +1,78 @@
 import React, { useState } from "react";
 import SafeImage from "../../components/SafeImage";
+import RichTextRenderer from "../../components/RichTextRenderer";
 
 const BlockRenderer = ({ block }) => {
   const { type, props: p } = block;
 
   switch (type) {
     case "heading": {
-      const Tag = p.level || "h2";
-      const sizes = {
-        h1: "2.25rem",
-        h2: "1.875rem",
-        h3: "1.5rem",
-        h4: "1.25rem",
-        h5: "1.1rem",
-        h6: "1rem",
-      };
-      return (
+      const level = p.level || "h2";
+      const Tag = level;
+      const defaultSizes = { h1: 36, h2: 26, h3: 22, h4: 18, h5: 16, h6: 14 };
+      const size = p.fontSize || defaultSizes[level] || 24;
+      const align = p.alignment || "left";
+      const headingEl = (
         <Tag
           style={{
-            fontSize: sizes[p.level || "h2"],
-            color: p.color || "#1B2A4A",
-            textAlign: p.alignment || "left",
+            fontSize: `${size}px`,
+            color: p.color || "#333333",
+            textAlign: align,
             fontWeight: p.fontWeight || "700",
+            textTransform: p.uppercase ? "uppercase" : "none",
             lineHeight: 1.3,
-            margin: "0.5rem 0",
+            margin: 0,
           }}
         >
           {p.text || ""}
         </Tag>
       );
+      if (p.topBorder) {
+        const marginStyle =
+          align === "center"
+            ? { margin: "0 auto 10px" }
+            : align === "right"
+            ? { marginLeft: "auto", marginBottom: 10 }
+            : { marginBottom: 10 };
+        return (
+          <div style={{ margin: "0.5rem 0" }}>
+            <div
+              style={{
+                width: 60,
+                height: 3,
+                backgroundColor: p.topBorderColor || "#c8102e",
+                ...marginStyle,
+              }}
+            />
+            {headingEl}
+          </div>
+        );
+      }
+      return <div style={{ margin: "0.5rem 0" }}>{headingEl}</div>;
     }
 
-    case "paragraph":
-      return (
-        <p
-          style={{
-            color: p.color || "#333",
-            textAlign: p.alignment || "left",
-            fontSize: `${p.fontSize || 16}px`,
-            fontWeight: p.fontWeight || "400",
-            lineHeight: p.lineHeight || 1.8,
-            fontStyle: p.italic ? "italic" : "normal",
-            textDecoration: p.underline ? "underline" : "none",
-            margin: "0.5rem 0",
-          }}
-        >
-          {p.text || ""}
-        </p>
-      );
+    case "paragraph": {
+      if (!p.text) return null;
+      const style = {
+        color: p.color || "#333",
+        textAlign: p.alignment || "left",
+        fontSize: `${p.fontSize || 16}px`,
+        fontWeight: p.fontWeight || "400",
+        lineHeight: p.lineHeight || 1.8,
+        fontStyle: p.italic ? "italic" : "normal",
+        textDecoration: p.underline ? "underline" : "none",
+        margin: "0.5rem 0",
+      };
+      const looksLikeHtml = /<\/?[a-z][\s\S]*>/i.test(p.text);
+      if (looksLikeHtml) {
+        return (
+          <div style={style}>
+            <RichTextRenderer html={p.text} />
+          </div>
+        );
+      }
+      return <p style={style}>{p.text}</p>;
+    }
 
     case "image":
       return p.src ? (
@@ -270,6 +295,9 @@ const BlockRenderer = ({ block }) => {
     case "gallery": {
       const items = Array.isArray(p.items) ? p.items : [];
       const cols = parseInt(p.columns || "3", 10);
+      if (p.layout === "slider") {
+        return <GallerySlider items={items} perView={cols} />;
+      }
       return (
         <div
           style={{
@@ -296,13 +324,10 @@ const BlockRenderer = ({ block }) => {
               {item.caption && (
                 <figcaption
                   style={{
-                    fontSize: "0.85rem",
-                    color: "#fff",
-                    background: "#1B2A4A",
+                    fontSize: "0.9rem",
+                    color: "#333",
                     textAlign: "center",
-                    padding: "0.6rem 0.75rem",
-                    borderRadius: "0 0 8px 8px",
-                    marginTop: "-8px",
+                    padding: "0.6rem 0.25rem",
                     fontWeight: 500,
                   }}
                 >
@@ -339,7 +364,15 @@ const BlockRenderer = ({ block }) => {
 
     case "tabs": {
       const items = Array.isArray(p.items) ? p.items : [];
-      return <TabsBlock items={items} />;
+      return (
+        <TabsBlock
+          items={items}
+          activeColor={p.activeColor}
+          inactiveColor={p.inactiveColor}
+          underlineColor={p.underlineColor}
+          alignment={p.alignment}
+        />
+      );
     }
 
     case "notice-box": {
@@ -688,33 +721,37 @@ const BlockRenderer = ({ block }) => {
       const headers = Array.isArray(p.headers) ? p.headers : [];
       const rows = Array.isArray(p.rows) ? p.rows : [];
       if (!headers.length) return null;
+      const border = p.borderColor || "#e5e7eb";
+      const pad = `${p.cellPadding ?? 14}px`;
+      const auto = !!p.autoSrNo;
+      const srLabel = p.srNoLabel || "Sr. No.";
+      const cellCss = {
+        padding: pad,
+        border: `1px solid ${border}`,
+        textAlign: "left",
+      };
       return (
         <div style={{ margin: "1.5rem 0", overflowX: "auto" }}>
           <table
             style={{
               width: "100%",
               borderCollapse: "collapse",
-              fontSize: "0.9rem",
-              border: `1px solid ${p.borderColor || "#e5e7eb"}`,
+              fontSize: "0.95rem",
+              border: `1px solid ${border}`,
             }}
           >
             <thead>
               <tr
                 style={{
-                  background: p.headerColor || "#1B2A4A",
-                  color: "#fff",
+                  background: p.headerColor || "#facc15",
+                  color: p.headerTextColor || "#111111",
                 }}
               >
+                {auto && (
+                  <th style={{ ...cellCss, fontWeight: 700, width: 90 }}>{srLabel}</th>
+                )}
                 {headers.map((h, i) => (
-                  <th
-                    key={i}
-                    style={{
-                      padding: "0.75rem 1rem",
-                      textAlign: "left",
-                      fontWeight: 600,
-                      border: `1px solid ${p.borderColor || "#e5e7eb"}`,
-                    }}
-                  >
+                  <th key={i} style={{ ...cellCss, fontWeight: 700 }}>
                     {h}
                   </th>
                 ))}
@@ -727,16 +764,14 @@ const BlockRenderer = ({ block }) => {
                   style={{
                     background:
                       p.striped && ri % 2 === 1 ? "#f9fafb" : "#fff",
+                    color: "#1B2A4A",
                   }}
                 >
+                  {auto && (
+                    <td style={cellCss}>{ri + 1}</td>
+                  )}
                   {headers.map((_, ci) => (
-                    <td
-                      key={ci}
-                      style={{
-                        padding: "0.6rem 1rem",
-                        border: `1px solid ${p.borderColor || "#e5e7eb"}`,
-                      }}
-                    >
+                    <td key={ci} style={cellCss}>
                       {row[ci] ?? ""}
                     </td>
                   ))}
@@ -865,50 +900,187 @@ const AccordionItem = ({ item, defaultOpen }) => {
   );
 };
 
-const TabsBlock = ({ items }) => {
+const GallerySlider = ({ items, perView }) => {
+  const [start, setStart] = useState(0);
+  const [viewCols, setViewCols] = useState(perView || 5);
+
+  React.useEffect(() => {
+    const handle = () => {
+      const w = window.innerWidth;
+      if (w < 640) setViewCols(1);
+      else if (w < 900) setViewCols(2);
+      else if (w < 1200) setViewCols(Math.min(3, perView || 5));
+      else setViewCols(perView || 5);
+    };
+    handle();
+    window.addEventListener("resize", handle);
+    return () => window.removeEventListener("resize", handle);
+  }, [perView]);
+
+  if (!items.length) return null;
+
+  const maxStart = Math.max(0, items.length - viewCols);
+  const clampedStart = Math.min(start, maxStart);
+  const canPrev = clampedStart > 0;
+  const canNext = clampedStart < maxStart;
+  const slideWidth = 100 / viewCols;
+  const translateX = -(clampedStart * slideWidth);
+
+  const arrowStyle = {
+    position: "absolute",
+    top: "40%",
+    transform: "translateY(-50%)",
+    width: 36,
+    height: 36,
+    borderRadius: "50%",
+    background: "#fff",
+    border: "1px solid #e5e7eb",
+    boxShadow: "0 2px 6px rgba(0,0,0,0.12)",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "1.1rem",
+    color: "#333",
+    zIndex: 2,
+    userSelect: "none",
+  };
+
+  return (
+    <div style={{ position: "relative", margin: "1.5rem 0", padding: "0 40px" }}>
+      <button
+        type="button"
+        onClick={() => canPrev && setStart(clampedStart - 1)}
+        disabled={!canPrev}
+        style={{ ...arrowStyle, left: 0, opacity: canPrev ? 1 : 0.4 }}
+        aria-label="Previous"
+      >
+        ‹
+      </button>
+      <div style={{ overflow: "hidden" }}>
+        <div
+          style={{
+            display: "flex",
+            transform: `translateX(${translateX}%)`,
+            transition: "transform 0.35s ease",
+          }}
+        >
+          {items.map((item, i) => (
+            <figure
+              key={i}
+              style={{
+                flex: `0 0 ${slideWidth}%`,
+                margin: 0,
+                padding: "0 8px",
+                boxSizing: "border-box",
+              }}
+            >
+              {item.src && (
+                <SafeImage
+                  src={item.src}
+                  alt={item.caption || ""}
+                  style={{
+                    width: "100%",
+                    height: "180px",
+                    objectFit: "cover",
+                    borderRadius: "10px",
+                    display: "block",
+                  }}
+                />
+              )}
+              {item.caption && (
+                <figcaption
+                  style={{
+                    fontSize: "0.9rem",
+                    color: "#333",
+                    textAlign: "center",
+                    padding: "0.75rem 0.25rem 0",
+                    fontWeight: 500,
+                  }}
+                >
+                  {item.caption}
+                </figcaption>
+              )}
+            </figure>
+          ))}
+        </div>
+      </div>
+      <button
+        type="button"
+        onClick={() => canNext && setStart(clampedStart + 1)}
+        disabled={!canNext}
+        style={{ ...arrowStyle, right: 0, opacity: canNext ? 1 : 0.4 }}
+        aria-label="Next"
+      >
+        ›
+      </button>
+    </div>
+  );
+};
+
+const TabsBlock = ({ items, activeColor, inactiveColor, underlineColor, alignment }) => {
   const [active, setActive] = useState(0);
   if (!items.length) return null;
+
+  const activeCol = activeColor || "#1B2A4A";
+  const inactiveCol = inactiveColor || "#888";
+  const underline = underlineColor || "#c8102e";
+  const justify =
+    alignment === "left" ? "flex-start" : alignment === "right" ? "flex-end" : "center";
+  const activeContent = items[active]?.content || "";
+  const looksLikeHtml = /<\/?[a-z][\s\S]*>/i.test(activeContent);
 
   return (
     <div style={{ margin: "1.5rem 0" }}>
       <div
         style={{
           display: "flex",
-          borderBottom: "2px solid #e5e7eb",
-          gap: "0",
+          justifyContent: justify,
+          gap: "3rem",
           overflowX: "auto",
         }}
       >
-        {items.map((item, i) => (
-          <button
-            key={i}
-            onClick={() => setActive(i)}
-            style={{
-              padding: "0.75rem 1.5rem",
-              border: "none",
-              borderBottom: i === active ? "3px solid #1B2A4A" : "3px solid transparent",
-              background: "transparent",
-              cursor: "pointer",
-              fontWeight: i === active ? 600 : 400,
-              color: i === active ? "#1B2A4A" : "#666",
-              fontSize: "0.9rem",
-              whiteSpace: "nowrap",
-              marginBottom: "-2px",
-            }}
-          >
-            {item.label || `Tab ${i + 1}`}
-          </button>
-        ))}
+        {items.map((item, i) => {
+          const isActive = i === active;
+          return (
+            <button
+              key={i}
+              onClick={() => setActive(i)}
+              style={{
+                padding: "0.6rem 1rem 0.9rem",
+                border: "none",
+                borderBottom: isActive
+                  ? `3px solid ${underline}`
+                  : "1px solid #c9cdd4",
+                background: "transparent",
+                cursor: "pointer",
+                fontWeight: isActive ? 700 : 600,
+                color: isActive ? activeCol : inactiveCol,
+                fontSize: "1.05rem",
+                whiteSpace: "pre-line",
+                lineHeight: 1.25,
+                textAlign: "center",
+                transition: "color 0.15s, border-color 0.15s",
+              }}
+            >
+              {item.label || `Tab ${i + 1}`}
+            </button>
+          );
+        })}
       </div>
       <div
         style={{
-          padding: "1.25rem 0.5rem",
+          padding: "1.5rem 0.5rem",
           fontSize: "0.95rem",
-          color: "#444",
+          color: "#333",
           lineHeight: 1.7,
         }}
       >
-        {items[active]?.content || ""}
+        {looksLikeHtml ? (
+          <RichTextRenderer html={activeContent} />
+        ) : (
+          activeContent
+        )}
       </div>
     </div>
   );
