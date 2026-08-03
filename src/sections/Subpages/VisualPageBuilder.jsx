@@ -75,7 +75,7 @@ const BlockRenderer = ({ block }) => {
     }
 
     case "image":
-      return p.src ? (
+      return (
         <figure style={{ margin: "1rem 0", textAlign: "center" }}>
           <SafeImage
             src={p.src}
@@ -100,7 +100,7 @@ const BlockRenderer = ({ block }) => {
             </figcaption>
           )}
         </figure>
-      ) : null;
+      );
 
     case "image-content": {
       const isRight = p.layout === "right";
@@ -119,17 +119,15 @@ const BlockRenderer = ({ block }) => {
           }}
         >
           <div style={{ flex: `0 0 calc(${imgW}% - 1rem)`, minWidth: "200px" }}>
-            {p.image && (
-              <SafeImage
-                src={p.image}
-                alt=""
-                style={{
-                  width: "100%",
-                  borderRadius: "8px",
-                  objectFit: "cover",
-                }}
-              />
-            )}
+            <SafeImage
+              src={p.image}
+              alt=""
+              style={{
+                width: "100%",
+                borderRadius: "8px",
+                objectFit: "cover",
+              }}
+            />
           </div>
           <div style={{ flex: `0 0 calc(${contentW}% - 1rem)`, minWidth: "200px", textAlign: p.textAlign || "left" }}>
             {p.heading && (
@@ -295,8 +293,59 @@ const BlockRenderer = ({ block }) => {
     case "gallery": {
       const items = Array.isArray(p.items) ? p.items : [];
       const cols = parseInt(p.columns || "3", 10);
+      const imgH = Number(p.imageHeight) || 220;
+      const capBg = p.captionColor || "#1B2A4A";
+      const capFg = p.captionTextColor || "#ffffff";
       if (p.layout === "slider") {
         return <GallerySlider items={items} perView={cols} />;
+      }
+      if (p.layout === "cards") {
+        return (
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: `repeat(${cols}, 1fr)`,
+              gap: "1.25rem",
+              margin: "1.5rem 0",
+            }}
+          >
+            {items.map((item, i) => (
+              <div
+                key={i}
+                style={{
+                  overflow: "hidden",
+                  border: "1px solid #e5e7eb",
+                  background: "#fff",
+                }}
+              >
+                {item.src && (
+                  <SafeImage
+                    src={item.src}
+                    alt={item.caption || ""}
+                    style={{
+                      width: "100%",
+                      height: `${imgH}px`,
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                  />
+                )}
+                <div
+                  style={{
+                    background: capBg,
+                    color: capFg,
+                    textAlign: "center",
+                    padding: "0.85rem 0.75rem",
+                    fontSize: "0.95rem",
+                    fontWeight: 600,
+                  }}
+                >
+                  {item.caption || ""}
+                </div>
+              </div>
+            ))}
+          </div>
+        );
       }
       return (
         <div
@@ -343,7 +392,7 @@ const BlockRenderer = ({ block }) => {
     case "faq": {
       const items = Array.isArray(p.items) ? p.items : [];
       return (
-        <div style={{ margin: "1.5rem 0" }}>
+        <div style={{ margin: "1.5rem 0", borderTop: "1px solid #e5e7eb" }}>
           {items.map((item, i) => (
             <FaqItem key={i} item={item} />
           ))}
@@ -791,14 +840,7 @@ const BlockRenderer = ({ block }) => {
 const FaqItem = ({ item }) => {
   const [open, setOpen] = useState(false);
   return (
-    <div
-      style={{
-        border: "1px solid #e5e7eb",
-        borderRadius: "8px",
-        marginBottom: "0.5rem",
-        overflow: "hidden",
-      }}
-    >
+    <div style={{ borderBottom: "1px solid #e5e7eb" }}>
       <button
         onClick={() => setOpen(!open)}
         style={{
@@ -806,35 +848,39 @@ const FaqItem = ({ item }) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "1rem 1.25rem",
-          background: open ? "#f0f4ff" : "#fff",
+          padding: "1rem 0.25rem",
+          background: "transparent",
           border: "none",
           cursor: "pointer",
           textAlign: "left",
           fontSize: "0.95rem",
-          fontWeight: 600,
-          color: "#1B2A4A",
+          fontWeight: 400,
+          color: "#333",
         }}
       >
         <span>{item.question || "Question?"}</span>
         <span
+          aria-hidden
           style={{
-            transform: open ? "rotate(180deg)" : "rotate(0deg)",
+            fontSize: "1.25rem",
+            lineHeight: 1,
+            color: "#555",
             transition: "transform 0.2s",
-            fontSize: "1.2rem",
+            transform: open ? "rotate(45deg)" : "rotate(0deg)",
+            display: "inline-block",
+            marginLeft: "1rem",
           }}
         >
-          ▾
+          +
         </span>
       </button>
       {open && (
         <div
           style={{
-            padding: "1rem 1.25rem",
+            padding: "0 0.25rem 1rem",
             fontSize: "0.9rem",
             color: "#555",
             lineHeight: 1.7,
-            borderTop: "1px solid #e5e7eb",
           }}
         >
           {item.answer || ""}
