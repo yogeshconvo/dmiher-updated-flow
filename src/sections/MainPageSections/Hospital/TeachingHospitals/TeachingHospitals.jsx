@@ -33,9 +33,15 @@ function TeachingHospitals({ data }) {
 
   const activeCampus = campusTabs[activeIndex] || campusTabs[0];
 
-  // Section background is data-driven from the backend. Falls back to the
-  // light-blue used across the site when not provided.
-  const sectionBg = data?.bg_color || data?.background_color || "#eaf4ff";
+  // Section background is data-driven per TAB. The API attaches a bg_color
+  // to each campus tab so switching tabs also swaps the section colour;
+  // fall back to a section-level colour, then a light-blue default.
+  const sectionBg =
+    activeCampus?.bg_color ||
+    activeCampus?.background_color ||
+    data?.bg_color ||
+    data?.background_color ||
+    "#eaf4ff";
 
   return (
     <div className="th-section" style={{ backgroundColor: sectionBg }}>
