@@ -458,13 +458,39 @@ const TableBlock = ({ block }) => {
                 </tr>
               </thead>
               <tbody>
-                {tbody.map((row, r) => (
-                  <tr key={r} className="micropage-tr">
-                    {row.map((cell, c) => (
-                      <td key={c} className="micropage-td">{cell ?? ""}</td>
-                    ))}
-                  </tr>
-                ))}
+                {tbody.map((row, r) => {
+                  // Category / department separator row: only the first cell
+                  // has content and the rest are empty (e.g. "ANATOMY"). Match
+                  // the live site — render it as a full-width bar spanning all
+                  // columns, centred, in the header colour.
+                  const restEmpty = thead
+                    .slice(1)
+                    .every((_, i) => !String(row[i + 1] ?? "").trim());
+                  const isSeparator =
+                    String(row[0] ?? "").trim() !== "" && restEmpty;
+
+                  if (isSeparator) {
+                    return (
+                      <tr key={r} className="micropage-tr">
+                        <td
+                          className="micropage-th"
+                          colSpan={thead.length}
+                          style={{ textAlign: "center" }}
+                        >
+                          {row[0]}
+                        </td>
+                      </tr>
+                    );
+                  }
+
+                  return (
+                    <tr key={r} className="micropage-tr">
+                      {row.map((cell, c) => (
+                        <td key={c} className="micropage-td">{cell ?? ""}</td>
+                      ))}
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

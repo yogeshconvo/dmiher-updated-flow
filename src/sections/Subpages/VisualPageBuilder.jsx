@@ -293,19 +293,25 @@ const BlockRenderer = ({ block }) => {
     case "gallery": {
       const items = Array.isArray(p.items) ? p.items : [];
       const cols = parseInt(p.columns || "3", 10);
-      const imgH = Number(p.imageHeight) || 220;
       const capBg = p.captionColor || "#1B2A4A";
       const capFg = p.captionTextColor || "#ffffff";
+      // Image sizing / fit are prop-driven so a gallery can match the source
+      // design (the live facility galleries use object-fit: contain, 400px
+      // tall cells, 24px gaps). Defaults preserve the old look for existing
+      // galleries that don't set these.
+      const galGap = p.gap || "1.25rem";
+      const imgFit = p.imageFit || "cover";
       if (p.layout === "slider") {
         return <GallerySlider items={items} perView={cols} />;
       }
       if (p.layout === "cards") {
+        const imgH = Number(p.imageHeight) || 220;
         return (
           <div
             style={{
               display: "grid",
               gridTemplateColumns: `repeat(${cols}, 1fr)`,
-              gap: "1.25rem",
+              gap: galGap,
               margin: "1.5rem 0",
             }}
           >
@@ -325,7 +331,7 @@ const BlockRenderer = ({ block }) => {
                     style={{
                       width: "100%",
                       height: `${imgH}px`,
-                      objectFit: "cover",
+                      objectFit: imgFit,
                       display: "block",
                     }}
                   />
@@ -335,8 +341,8 @@ const BlockRenderer = ({ block }) => {
                     background: capBg,
                     color: capFg,
                     textAlign: "center",
-                    padding: "0.85rem 0.75rem",
-                    fontSize: "0.95rem",
+                    padding: "0.5rem 0.75rem",
+                    fontSize: "1rem",
                     fontWeight: 600,
                   }}
                 >
@@ -347,12 +353,14 @@ const BlockRenderer = ({ block }) => {
           </div>
         );
       }
+      const gridImgH = Number(p.imageHeight) || 200;
+      const gridRadius = p.imageRadius != null ? p.imageRadius : "8px";
       return (
         <div
           style={{
             display: "grid",
             gridTemplateColumns: `repeat(${cols}, 1fr)`,
-            gap: "1rem",
+            gap: galGap === "1.25rem" ? "1rem" : galGap,
             margin: "1.5rem 0",
           }}
         >
@@ -364,9 +372,9 @@ const BlockRenderer = ({ block }) => {
                   alt={item.caption || ""}
                   style={{
                     width: "100%",
-                    height: "200px",
-                    objectFit: "cover",
-                    borderRadius: "8px",
+                    height: `${gridImgH}px`,
+                    objectFit: imgFit,
+                    borderRadius: gridRadius,
                   }}
                 />
               )}
@@ -780,13 +788,20 @@ const BlockRenderer = ({ block }) => {
         textAlign: "left",
       };
       return (
-        <div style={{ margin: "1.5rem 0", overflowX: "auto" }}>
+        <div
+          style={{
+            margin: "1.5rem 0",
+            overflowX: "auto",
+            borderRadius: "12px",
+            boxShadow:
+              "0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1)",
+          }}
+        >
           <table
             style={{
               width: "100%",
               borderCollapse: "collapse",
               fontSize: "0.95rem",
-              border: `1px solid ${border}`,
             }}
           >
             <thead>
@@ -807,25 +822,56 @@ const BlockRenderer = ({ block }) => {
               </tr>
             </thead>
             <tbody>
-              {rows.map((row, ri) => (
-                <tr
-                  key={ri}
-                  style={{
-                    background:
-                      p.striped && ri % 2 === 1 ? "#f9fafb" : "#fff",
-                    color: "#1B2A4A",
-                  }}
-                >
-                  {auto && (
-                    <td style={cellCss}>{ri + 1}</td>
-                  )}
-                  {headers.map((_, ci) => (
-                    <td key={ci} style={cellCss}>
-                      {row[ci] ?? ""}
-                    </td>
-                  ))}
-                </tr>
-              ))}
+              {rows.map((row, ri) => {
+                // Category / department separator row: only the first cell has
+                // content and every other cell is empty (e.g. "ANATOMY",
+                // "PHYSIOLOGY"). The live site renders these as a full-width
+                // bar spanning all columns, centred, in the header colour.
+                const firstCell = row[0];
+                const restEmpty = headers
+                  .slice(1)
+                  .every((_, i) => !String(row[i + 1] ?? "").trim());
+                const isSeparator =
+                  String(firstCell ?? "").trim() !== "" && restEmpty;
+                const totalCols = headers.length + (auto ? 1 : 0);
+
+                if (isSeparator) {
+                  return (
+                    <tr key={ri}>
+                      <td
+                        colSpan={totalCols}
+                        style={{
+                          ...cellCss,
+                          background: p.headerColor || "#facc15",
+                          color: p.headerTextColor || "#111111",
+                          fontWeight: 700,
+                          textAlign: "center",
+                        }}
+                      >
+                        {firstCell}
+                      </td>
+                    </tr>
+                  );
+                }
+
+                return (
+                  <tr
+                    key={ri}
+                    style={{
+                      background:
+                        p.striped && ri % 2 === 1 ? "#f9fafb" : "#fff",
+                      color: "#1B2A4A",
+                    }}
+                  >
+                    {auto && <td style={cellCss}>{ri + 1}</td>}
+                    {headers.map((_, ci) => (
+                      <td key={ci} style={cellCss}>
+                        {row[ci] ?? ""}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

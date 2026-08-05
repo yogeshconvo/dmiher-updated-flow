@@ -145,11 +145,11 @@
 }
 
 .micropage-table-wrapper {
-    @apply my-8 overflow-x-auto rounded-lg;
+    @apply my-8 overflow-x-auto rounded-xl shadow-lg;
 }
 
 .micropage-table {
-    @apply min-w-full text-left text-base text-gray-700 border border-gray-200 rounded-lg;
+    @apply min-w-full text-left text-base text-gray-700;
 }
 
 .micropage-th {
