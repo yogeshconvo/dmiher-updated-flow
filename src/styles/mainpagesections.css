@@ -571,7 +571,7 @@
 }
 
 .infograph-container {
-    @apply flex flex-col md:flex-row justify-center gap-4 container;
+    @apply flex flex-col md:flex-row justify-center gap-4 container px-4;
 }
 
 .infograph-image img {

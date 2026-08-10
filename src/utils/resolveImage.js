@@ -25,7 +25,7 @@ import { API_BASE } from "../config/api";
  * Also tolerates non-string inputs (returns "" for null, undefined,
  * objects, numbers, etc.) so component callers don't have to guard.
  */
-export function resolveImage(src) {
+function resolveAbsolute(src) {
   if (!src || typeof src !== "string") return "";
   const trimmed = src.trim();
   if (!trimmed) return "";
@@ -57,6 +57,21 @@ export function resolveImage(src) {
   // public/storage symlink) will need the migration script to run
   // to keep working.
   return `${API_BASE}/assets/${clean}`;
+}
+
+export function resolveImage(src) {
+  // Dev: the backend runs on 127.0.0.1:8000, cross-origin to the :5173 page,
+  // so the browser ORB-blocks <img> loads from it. Backend images are served
+  // via the `/api/file/<token>` endpoint; normalising any shape of that
+  // reference (absolute URL, bare path, or an over-prefixed one) to a clean
+  // same-origin path routes it through the Vite dev proxy (see
+  // vite.config.js `server.proxy['/api']`) — same-origin, no ORB. Production
+  // (real domain, same-site) is untouched.
+  if (import.meta.env?.DEV && typeof src === "string") {
+    const i = src.indexOf("api/file/");
+    if (i >= 0) return "/" + src.slice(i);
+  }
+  return resolveAbsolute(src);
 }
 
 export default resolveImage;

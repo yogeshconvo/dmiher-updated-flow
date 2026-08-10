@@ -87,6 +87,16 @@ export default defineConfig(({ mode }) => ({
         "frame-src 'self' https://widgets.in6.nopaperforms.com https://chatbot.in6.nopaperforms.com",
       ].join("; "),
     } : {},
+    // Dev-only: proxy /api to the Laravel backend so image (<img>) requests
+    // can be issued same-origin (localhost:5173), avoiding the cross-origin
+    // ORB block that otherwise drops 127.0.0.1:8000 <img> loads. Data (axios)
+    // calls use the absolute API_BASE and bypass this proxy.
+    proxy: {
+      "/api": {
+        target: "http://127.0.0.1:8000",
+        changeOrigin: true,
+      },
+    },
   },
   ssr: {
     // react-helmet-async ships as CommonJS only; Vite SSR's strict ESM module

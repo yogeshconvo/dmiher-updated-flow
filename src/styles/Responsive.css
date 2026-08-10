@@ -106,6 +106,34 @@
         @apply pt-[30px] pb-[40px];
     }
 
+    /* Clinical Research (infograph) → Departments cards: tighten the large
+       vertical gap on mobile. infograph py-12 (48) + departments py-20 (80)
+       + the CTA's mb-4 left ~144px of dead space between the orange CTA bar
+       and the card slider. Trim it ~70% to ~44px. */
+    .infograph-section {
+        @apply pt-8 pb-1;
+    }
+
+    .infograph-content a {
+        @apply mb-1;
+    }
+
+    .departments-section {
+        @apply pt-1;
+    }
+
+    /* The Edge: trim the excess vertical white-space on mobile. The section
+       carries the `container` class whose padding-block (32px) out-cascades a
+       plain `.edge-section` rule, so scope to `.edge-section.container` to win.
+       A baked-in mb-12 wrapper inside the desc HTML added more dead space. */
+    .edge-section.container {
+        @apply py-4;
+    }
+
+    .edge-desc .mb-12 {
+        @apply mb-2;
+    }
+
     .video-heading {
         @apply text-[22px] mb-[20px];
     }
@@ -751,5 +779,30 @@
 @media (min-width: 768px) {
     .announce-btn-text {
         @apply text-xl;
+    }
+}
+
+/* ================= FUNDED RESEARCH PROJECTS — mobile grid lines =================
+   Mobile only (below md, where the swiper layout is shown). The desktop grids
+   use the same cell classes but live outside .frp-mobile-wrap, so they are not
+   affected here — desktop is unchanged.
+
+   Two fixes:
+   1. The Swiper root carries a stray padding-bottom (~36px) that pushes the box
+      border below the cells, so the vertical divider lines stop short of the
+      bottom. Remove it so the box hugs the cells and the lines run top→bottom.
+   2. With 2 cells per view, the rightmost cell's border-r landed against the
+      box's own right border → a doubled/overlapping line. Drop the box right
+      border and let each cell's own right divider form a single clean line. */
+@media (max-width: 767px) {
+    .frp-mobile-amount-swiper,
+    .frp-mobile-desc-swiper {
+        padding-bottom: 0 !important;
+        border-right-width: 0;
+    }
+
+    .frp-mobile-wrap .frp-mobile-amount-cell,
+    .frp-mobile-wrap .frp-mobile-desc-cell {
+        border-right-width: 2px !important;
     }
 }
