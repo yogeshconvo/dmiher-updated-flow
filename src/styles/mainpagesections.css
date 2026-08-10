@@ -671,7 +671,7 @@
 }
 
 .enquiry-card {
-    @apply flex items-start gap-4 p-6 rounded-2xl bg-white shadow-md border border-gray-200 cursor-pointer transition-colors;
+    @apply w-full flex items-start gap-4 p-6 rounded-2xl bg-white shadow-md border border-gray-200 cursor-pointer transition-colors;
 }
 
 .enquiry-card:hover {
