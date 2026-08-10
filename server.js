@@ -114,6 +114,24 @@ const SECURITY_HEADERS = {
 
 const app = express();
 
+// Apply the security headers — including a baseline Content-Security-Policy —
+// to EVERY response (static assets, redirects, and the SSR HTML), not just the
+// SSR route. securityheaders.com scans whatever path it lands on, so a policy
+// set only on the SSR 200 leaves other responses (e.g. a bare "/dmiher_web"
+// redirect or a static file) without CSP and caps the grade. The SSR handler
+// below overrides Content-Security-Policy with a per-request nonce'd policy for
+// its inline dehydration script; this baseline covers everything else.
+if (isProduction) {
+  app.use((req, res, next) => {
+    res.set(SECURITY_HEADERS);
+    res.set(
+      "Content-Security-Policy",
+      buildCsp(crypto.randomBytes(24).toString("base64"))
+    );
+    next();
+  });
+}
+
 let vite;
 if (!isProduction) {
   const { createServer } = await import("vite");
