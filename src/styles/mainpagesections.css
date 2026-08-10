@@ -70,24 +70,21 @@
     @apply bg-[#E1CD67] h-full flex items-center justify-center p-[40px] rounded-[16px];
 }
 
-/* Fixed logo tile size — cells DON'T stretch to fill the container.
-   Each logo occupies the same fixed width regardless of viewport,
-   and rows wrap when they can't fit any more cells. Extra horizontal
-   space is left blank on the right rather than blowing up tile widths. */
+/* Equal-column logo grid. Every cell is the same width (1fr) and every
+   row the same height (items-stretch), so the logo tiles line up in a
+   clean grid that fills the yellow panel exactly — no overflow, no
+   right-edge clipping. 2 cols on mobile, 4 on desktop. The trailing
+   "LEARN FROM..." caption spans two cells and centres in the row. */
 .icons-grid {
-    @apply grid gap-[5px] max-w-[1200px] w-full items-center;
-    grid-template-columns: repeat(auto-fit, 220px);
-    grid-auto-flow: dense;
-    justify-content: start;
+    @apply grid grid-cols-2 md:grid-cols-4 gap-[6px] w-full max-w-[1200px] mx-auto items-stretch;
 }
 
 .icon-img {
-    @apply w-full h-[100px] object-contain p-[8px] bg-white;
+    @apply w-full h-full min-h-[110px] object-contain p-[10px] bg-white;
 }
 
 .icons-text {
-    @apply flex items-center justify-center;
-    grid-column: span 2;
+    @apply col-span-2 flex items-center justify-center;
 }
 
 .icons-text p {

@@ -59,12 +59,11 @@
 /* <= 1024px */
 @media (max-width: 1024px) {
 
-    /* Icons grid columns are handled by the base auto-fit rule in
-       mainpagesections.css — DON'T override with grid-cols-N here or
-       tiles will stretch to fill the row again. */
-
+    /* Icons grid columns are the equal grid-cols-2/md:grid-cols-4 set in
+       mainpagesections.css — no column override needed here. Keep tiles
+       full-cell (h-full) so rows stay aligned; just trim the min height. */
     .icon-img {
-        @apply object-contain h-[80px];
+        @apply object-contain min-h-[90px];
     }
 
     .slide-content {
@@ -88,7 +87,7 @@
     }
 
     .icon-img {
-        @apply h-[60px] object-contain p-[6px];
+        @apply min-h-[70px] object-contain p-[6px];
         background-color: #fff;
     }
 
