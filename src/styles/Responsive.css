@@ -59,11 +59,14 @@
 /* <= 1024px */
 @media (max-width: 1024px) {
 
-    /* Icons grid columns are the equal grid-cols-2/md:grid-cols-4 set in
-       mainpagesections.css — no column override needed here. Keep tiles
-       full-cell (h-full) so rows stay aligned; just trim the min height. */
+    .icons-grid {
+        @apply grid-cols-3;
+    }
+
+    /* Fixed, smaller tile height so logos shrink uniformly on tablet instead
+       of keeping their natural size (h-auto) — that left the rows uneven. */
     .icon-img {
-        @apply object-contain min-h-[90px];
+        @apply object-contain h-[80px];
     }
 
     .slide-content {
@@ -83,12 +86,16 @@
     }
 
     .icons-grid {
-        @apply gap-[8px];
+        @apply grid-cols-2 gap-[8px];
     }
 
     .icon-img {
-        @apply min-h-[70px] object-contain p-[6px];
+        @apply h-[60px] object-contain rounded-[6px] p-[6px];
         background-color: #fff;
+    }
+
+    .icons-text {
+        @apply col-span-2 mt-[10px];
     }
 
     .icons-text p {
