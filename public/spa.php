@@ -11,7 +11,7 @@ $apiOrigin = 'https://admin.dmiher.edu.in';
 
 $csp = implode('; ', [
     "default-src 'self'",
-    "script-src 'self' 'nonce-{$nonce}' 'strict-dynamic'",
+    "script-src 'self' 'nonce-{$nonce}'",
     // Per CSP spec, 'unsafe-inline' is ignored whenever a nonce or hash is
     // ALSO present in the same source list — so mixing them in style-src blocked
     // every React style={{...}} attribute in prod. React renders inline styles
@@ -33,9 +33,9 @@ $csp = implode('; ', [
 
 // Enforce mode. spa.php stamps the same nonce into <meta name="csp-nonce">,
 // the entry <script src="/dmiher-web/assets/...js"> and the entry <link
-// href="/dmiher-web/assets/...css">, and 'strict-dynamic' lets those trusted
-// scripts load their dependents (chunk splits, useScript-injected 3rd party)
-// so nothing legitimate is blocked. Kept report-only historically while
+// href="/dmiher-web/assets/...css">. The bundle's split chunks are all
+// same-origin, so 'self' in script-src covers them (no 'strict-dynamic'
+// needed). Kept report-only historically while
 // violations were being cleaned up; now enforcing so the securityheaders.com
 // scan stops flagging Content-Security-Policy as missing.
 header("Content-Security-Policy: {$csp}");
