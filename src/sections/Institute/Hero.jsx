@@ -328,7 +328,11 @@ function Hero({ data, slug }) {
           </Link>
         )}
 
-        <div className="hero-mobile-actions">
+        <div
+          className={`hero-mobile-actions ${
+            strapPosition === "top" ? "hero-mobile-actions--row" : ""
+          }`}
+        >
           {allButtons.length > 0
             ? allButtons.map((btn, index) => {
                 const isPhone = buttonIsPhone(btn);

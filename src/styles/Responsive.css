@@ -27,6 +27,12 @@
         @apply grid-cols-1;
     }
 
+    /* Single-column announcements were spaced far apart by the fixed 50px
+       item height + gap-4. Tighten to a compact list on mobile. */
+    .announcement-grid {
+        @apply gap-2 mt-4;
+    }
+
     .bulletin-item {
         @apply border-b border-r-0;
     }
@@ -45,7 +51,7 @@
     }
 
     .announcement-item {
-        @apply h-[50px] border-0;
+        @apply h-auto border-0 py-1;
     }
 
     .announcement-item a {
@@ -387,6 +393,22 @@
 }
 
 /* ================= CORE VALUES ================= */
+@media (max-width: 767px) {
+    .core-values-slide-mobile {
+        @apply flex flex-col gap-6;
+    }
+
+    /* Stack + centre each value (number → icon → heading → text) instead of
+       the desktop left-aligned number-beside-text row. */
+    .core-values-slide {
+        @apply flex-col items-center text-center;
+    }
+
+    .core-values-number {
+        @apply mr-0 mb-3;
+    }
+}
+
 @media (min-width: 768px) {
     .core-values-title {
         @apply text-4xl;

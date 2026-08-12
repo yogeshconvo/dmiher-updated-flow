@@ -1629,19 +1629,19 @@
 
 
 .cf-popup-overlay {
-    @apply fixed inset-0 bg-black/70 flex items-center justify-center z-50;
+    @apply fixed inset-0 bg-black/80 flex items-center justify-center z-[9999] p-4;
 }
 
 .cf-popup-content {
-    @apply relative;
+    @apply relative max-w-full;
 }
 
 .cf-popup-img {
-    @apply max-h-[80vh] rounded;
+    @apply max-h-[85vh] max-w-full w-auto rounded-lg;
 }
 
 .cf-popup-close {
-    @apply absolute top-2 right-2 text-white;
+    @apply absolute -top-3 -right-3 text-white bg-black/70 hover:bg-black rounded-full p-1.5 shadow-lg transition-colors;
 }
 
 /* ================= FOOTPRINT ================= */
@@ -3110,7 +3110,7 @@
 
 /* ================= ONE HEALTH (MainPageSections/OneHealth.jsx) ================= */
 .onehealth-section {
-    @apply my-10 flex flex-col items-start gap-10 sm:gap-14 container mx-auto;
+    @apply my-10 flex flex-col items-start gap-10 sm:gap-14 container mx-auto px-4;
 }
 
 .onehealth-heading {
@@ -3161,6 +3161,23 @@
 
 .onehealth-grid-label {
     @apply absolute text-sm text-[#58595B];
+}
+
+/* Mobile/tablet: the matrix has fixed pixel geometry, so let it scroll sideways
+   inside a padded box. The padding reserves room for the rotated column labels
+   (top: -140px) and row labels (left: -160px) so they clear the heading and
+   don't get clipped off-screen. Desktop keeps the original centred layout. */
+.onehealth-grid-scroll {
+    @apply w-full max-w-full overflow-x-auto;
+    padding-top: 150px;
+    padding-left: 170px;
+    padding-bottom: 12px;
+}
+
+@media (min-width: 1024px) {
+    .onehealth-grid-scroll {
+        @apply w-auto max-w-none overflow-visible p-0;
+    }
 }
 
 /* ================= HOLISTIC LEARNING (MainPageSections/HolisticLearningPage.jsx) ================= */
@@ -3292,7 +3309,7 @@
 }
 
 .our-hospitals-content-text {
-    @apply flex-1;
+    @apply lg:flex-1;
 }
 
 .our-hospitals-content-heading {
@@ -3312,7 +3329,7 @@
 }
 
 .our-hospitals-content-img-wrap {
-    @apply flex-1 w-full;
+    @apply lg:flex-1 w-full;
 }
 
 .our-hospitals-content-img {
@@ -3667,7 +3684,7 @@
 
 /* ================= TEACHING HOSPITALS (Hospital/TeachingHospitals/TeachingHospitals.jsx) ================= */
 .th-tabs {
-    @apply w-[590px] m-auto flex items-center justify-center gap-[10%] border-b my-8 max-sm:flex-col;
+    @apply w-full max-w-[590px] m-auto flex items-center justify-center gap-[10%] border-b my-8 max-sm:flex-col max-sm:gap-2;
     font-family: "Oswald", sans-serif;
 }
 
@@ -3684,7 +3701,7 @@
 }
 
 .th-section-wrap {
-    @apply pt-16 mt-16;
+    @apply pt-8 mt-8 sm:pt-16 sm:mt-16;
 }
 
 .th-heading {

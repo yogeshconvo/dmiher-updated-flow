@@ -148,10 +148,10 @@ const DMHRSTimeline = ({ data }) => {
         />
       )}
 
-      <h2
-        className="text-3xl font-bold mb-10 relative z-10"
-        style={{ color: heading?.color }}
-      >
+      {/* Heading text stays white for contrast — heading.color is the section
+          BACKGROUND colour (see bgColor above), so using it here painted the
+          title navy-on-navy and made it disappear. */}
+      <h2 className="text-3xl font-bold mb-10 relative z-10 text-white">
         <hr className="djourney-mobile-heading-line" />
         {heading?.title}
       </h2>

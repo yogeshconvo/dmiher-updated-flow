@@ -248,6 +248,18 @@
     @apply w-full sm:w-auto justify-center;
 }
 
+/* Top-position strip on mobile: keep the two CTA buttons side by side in one
+   row (instead of the default stacked column) so the top strip stays compact.
+   Long labels wrap inside their half instead of overflowing. */
+.hero-mobile-actions--row {
+    @apply flex-row items-stretch;
+}
+
+.hero-mobile-actions--row .hero-mobile-apply,
+.hero-mobile-actions--row .hero-topbar-text {
+    @apply w-auto flex-1 min-w-0 whitespace-normal;
+}
+
 .hero-mobile-phone {
     @apply w-full flex justify-center items-center uppercase font-semibold text-lg font-sans hover:bg-[#F04E30] bg-[#122E5E] text-white px-6 py-2 whitespace-nowrap;
 }
@@ -533,7 +545,7 @@
    ========================= */
 
 .hlh-section {
-    @apply bg-[#E4C957] p-10;
+    @apply bg-[#E4C957] py-10 px-5;
 }
 
 .hlh-container {
@@ -546,7 +558,7 @@
 }
 
 .hlh-title {
-    @apply text-4xl font-medium text-[#58595B] uppercase;
+    @apply text-3xl md:text-4xl font-medium text-[#58595B] uppercase tracking-wider;
 }
 
 .hlh-line {
@@ -660,7 +672,7 @@
 }
 
 .department-card-title {
-    @apply text-white text-xl text-center;
+    @apply text-white text-xl text-center break-words min-w-0 w-full;
 }
 
 .departments-grid {
@@ -1469,4 +1481,36 @@
 
 .sahs-adm-cta {
     box-shadow: 0 6px 14px -8px rgba(38, 155, 255, 0.6);
+}
+
+/* =====================================================================
+   MOBILE SPACING PASS
+   Institute-page section wrappers carry large desktop vertical padding
+   (py-20 / py-16 / py-12) that leaves big empty bands between sections on
+   phones. Halve them at <=640px so sections sit closer together. Kept at
+   the END of the file so it wins source-order over the base rules above.
+   ===================================================================== */
+@media (max-width: 640px) {
+    .holistic-section,
+    .departments-section,
+    .placements-section,
+    .global-section,
+    .collab-section,
+    .hospital-section,
+    .innovative-section,
+    .coursera-section,
+    .spdc-placements-section,
+    .education-content,
+    .flex-center-py {
+        @apply py-10;
+    }
+
+    /* Bottom-only / asymmetric wrappers */
+    .button-section {
+        @apply pb-10;
+    }
+
+    .coursera-section {
+        @apply pt-10 pb-6;
+    }
 }

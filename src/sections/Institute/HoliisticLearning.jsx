@@ -1,10 +1,11 @@
 import React, { useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import SafeImage from "../../components/SafeImage";
 import "swiper/css";
+import "swiper/css/pagination";
 
 /* =========================
    Arrow Button Component
@@ -102,7 +103,8 @@ function HolisticInfrastructureSection({ data , college }) {
           {/* Swiper */}
           <div className="hlh-swiper">
             <Swiper
-              modules={[Navigation]}
+              modules={[Navigation, Pagination]}
+              pagination={{ clickable: true }}
               spaceBetween={20}
               slidesPerView={1}
               loop={true}

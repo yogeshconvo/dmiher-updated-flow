@@ -74,6 +74,7 @@ function HomeTestimonial({ data }) {
             {!isPlaying ? (
               <>
                 <SafeImage
+                  key={current.thumbnail}
                   src={current.thumbnail}
                   alt={current.name}
                   className="home-testimonial-thumbnail"

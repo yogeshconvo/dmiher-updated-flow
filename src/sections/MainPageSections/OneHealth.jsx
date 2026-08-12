@@ -94,7 +94,10 @@ function OneHealth({ data }) {
           ))}
         </div>
 
-        {/* Grid */}
+        {/* Grid — scrollable on mobile/tablet. The wrapper's padding gives the
+            rotated column labels (top) and the row labels (left) room so they
+            no longer overlap the heading or get clipped off-screen. */}
+        <div className="onehealth-grid-scroll">
         <div
           className="onehealth-grid-wrap"
           style={{
@@ -109,7 +112,10 @@ function OneHealth({ data }) {
               className="onehealth-grid-vline"
               style={{
                 left: `${colIdx * cellSize}px`,
-                height: "90%",
+                // Reach from the -40px top overhang down to (just past) the last
+                // row's diamond. The old "90%" was a fixed guess that fell short
+                // of the bottom diamonds once cellSize shrank on mobile.
+                height: `${(rows.length - 1) * cellSize + 48}px`,
               }}
             />
           ))}
@@ -121,7 +127,9 @@ function OneHealth({ data }) {
               className="onehealth-grid-hline"
               style={{
                 top: `${rowIdx * cellSize}px`,
-                width: "90%",
+                // Reach from the -40px left overhang across to (just past) the
+                // last column's diamond — mirrors the vertical-line fix.
+                width: `${(columns.length - 1) * cellSize + 48}px`,
               }}
             />
           ))}
@@ -179,6 +187,7 @@ function OneHealth({ data }) {
               {row.row_label}
             </div>
           ))}
+        </div>
         </div>
       </div>
     </div>

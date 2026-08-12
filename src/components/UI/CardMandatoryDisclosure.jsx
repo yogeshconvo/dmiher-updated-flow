@@ -24,6 +24,9 @@ export const CardMandatoryDisclosure = ({
     link?.endsWith(".pdf") ||
     link?.endsWith(".docx") ||
     link?.endsWith(".xlsx") ||
+    // Backend files are served via the encrypted /api/file/<token> endpoint,
+    // which has no file extension — treat those as documents, not app routes.
+    link?.includes("/api/file/") ||
     link?.startsWith("http");
 
   if (isFile) {

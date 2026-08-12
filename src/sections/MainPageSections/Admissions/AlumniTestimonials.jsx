@@ -153,6 +153,7 @@ const AlumniTestimonials = ({ data }) => {
                 >
                   {t.image && (
                     <SafeImage
+                      key={t.image}
                       src={t.image}
                       alt={t.name || ""}
                       className="w-52 h-52 object-cover rounded-full"

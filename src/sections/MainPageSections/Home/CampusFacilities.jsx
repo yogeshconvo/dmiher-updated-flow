@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
@@ -65,6 +66,21 @@ function CampusFacilities({ data }) {
     setPopupIndex(index);
   };
 
+  // While the lightbox is open, pin the page: lock body scroll so the
+  // background can't move behind the fixed overlay (that scroll-drift was
+  // what made the popup "not look great in scroll"), and close on Escape.
+  useEffect(() => {
+    if (popupIndex === null) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e) => e.key === "Escape" && setPopupIndex(null);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [popupIndex]);
+
   return (
     <section className="cf-main-section">
       <div className="cf-container">
@@ -118,30 +134,36 @@ function CampusFacilities({ data }) {
           </div>
         ))}
 
-        {/* Popup */}
-        {popupIndex !== null && (
-          <div
-            className="cf-popup-overlay"
-            onClick={() => setPopupIndex(null)}
-          >
+        {/* Popup — rendered into <body> via a portal so the fixed overlay is
+            anchored to the viewport (never to a transformed ancestor) and
+            always sits above floating widgets like the WhatsApp button. */}
+        {popupIndex !== null &&
+          typeof document !== "undefined" &&
+          createPortal(
             <div
-              className="cf-popup-content"
-              onClick={(e) => e.stopPropagation()}
+              className="cf-popup-overlay"
+              onClick={() => setPopupIndex(null)}
             >
-              <SafeImage
-                src={popupImages[popupIndex]}
-                className="cf-popup-img"
-                alt="preview"
-              />
-              <button
-                className="cf-popup-close"
-                onClick={() => setPopupIndex(null)}
+              <div
+                className="cf-popup-content"
+                onClick={(e) => e.stopPropagation()}
               >
-                <X />
-              </button>
-            </div>
-          </div>
-        )}
+                <SafeImage
+                  src={popupImages[popupIndex]}
+                  className="cf-popup-img"
+                  alt="preview"
+                />
+                <button
+                  className="cf-popup-close"
+                  onClick={() => setPopupIndex(null)}
+                  aria-label="Close"
+                >
+                  <X />
+                </button>
+              </div>
+            </div>,
+            document.body
+          )}
       </div>
     </section>
   );
