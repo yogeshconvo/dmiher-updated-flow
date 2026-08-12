@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
@@ -173,9 +174,9 @@ function InfoPopup({ title, subtitle, sections, onClose }) {
     };
   }, [onClose]);
 
-  return (
+  const modal = (
     <div
-      className="fixed inset-0 top-[80px] sm:top-[101px] bg-black/40 backdrop-blur-sm flex items-center justify-center z-40 px-4"
+      className="fixed inset-0 top-[80px] sm:top-[101px] bg-black/40 backdrop-blur-sm flex items-center justify-center z-[60] px-4"
       onClick={onClose}
     >
       <div
@@ -314,6 +315,13 @@ function InfoPopup({ title, subtitle, sections, onClose }) {
       </div>
     </div>
   );
+
+  // Portal to <body> so `fixed inset-0` is anchored to the viewport (not a
+  // transformed section ancestor, which was trapping the modal inside the
+  // section) — giving a true full-screen dark-blur overlay like the live site.
+  return typeof document !== "undefined"
+    ? createPortal(modal, document.body)
+    : null;
 }
 
 // Reusable section heading: orange line + uppercase grey title (live-site style)
