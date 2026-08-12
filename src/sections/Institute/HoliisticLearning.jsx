@@ -147,6 +147,28 @@ function HolisticInfrastructureSection({ data , college }) {
               ))}
             </Swiper>
           </div>
+
+          {/* CTA buttons (Electives / Transcript etc.). The vertical layout
+              renders these, but the horizontal branch was missing the block —
+              so horizontal-layout institutes (e.g. SAS) showed no nav button
+              even though the card data exists. */}
+          {cta?.length > 0 && (
+            <div className="holistic-cta">
+              <div className="holistic-cta-wrapper">
+                {cta.map((item, index) =>
+                  item?.label ? (
+                    <Link
+                      key={index}
+                      className="holistic-cta-button"
+                      to={`/${college}/${item.cta_key}`}
+                    >
+                      {item.label}
+                    </Link>
+                  ) : null
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );
