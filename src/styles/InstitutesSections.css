@@ -1072,13 +1072,20 @@
 }
 
 .feature-slider-wrapper {
-    @apply w-full mx-auto max-w-6xl pb-16;
+    @apply w-full mx-auto max-w-6xl pb-4 mt-6;
+}
+
+/* The pagination is a SEPARATE element below the swiper (.why-choose-pagination),
+   so the swiper's default 36px bottom padding is just dead space between the
+   card and the dots — collapse it here. */
+.feature-section .feature-slider-wrapper .swiper {
+    @apply pb-1;
 }
 
 /* External pagination rendered below the slider via Swiper's `el` option.
    Keeps dots clear of card content instead of overlapping them. */
 .why-choose-pagination {
-    @apply flex justify-center items-center gap-1 mt-8;
+    @apply flex justify-center items-center gap-1 mt-3;
 }
 
 .why-choose-pagination .swiper-pagination-bullet {
@@ -1484,33 +1491,39 @@
 }
 
 /* =====================================================================
-   MOBILE SPACING PASS
-   Institute-page section wrappers carry large desktop vertical padding
-   (py-20 / py-16 / py-12) that leaves big empty bands between sections on
-   phones. Halve them at <=640px so sections sit closer together. Kept at
-   the END of the file so it wins source-order over the base rules above.
+   SECTION SPACING SCALE
+   Standard vertical rhythm for institute-page content sections:
+   py-10 from mobile up through laptop, py-12 on large desktops (>=1280px).
+   Replaces the assorted py-12/16/20 values so sections don't leave big
+   empty bands between them. Kept at the END of the file so it wins
+   source-order over the base rules above.
    ===================================================================== */
-@media (max-width: 640px) {
-    .holistic-section,
-    .departments-section,
-    .placements-section,
-    .global-section,
-    .collab-section,
-    .hospital-section,
-    .innovative-section,
-    .coursera-section,
-    .spdc-placements-section,
-    .education-content,
-    .flex-center-py {
-        @apply py-10;
-    }
+.holistic-section,
+.departments-section,
+.placements-section,
+.spdc-placements-section,
+.global-section,
+.collab-section,
+.hospital-section,
+.innovative-section,
+.coursera-section,
+.education-content,
+.flex-center-py,
+.deans-section,
+.testimonial-section,
+.announce-section {
+    @apply py-10 xl:py-12;
+}
 
-    /* Bottom-only / asymmetric wrappers */
-    .button-section {
-        @apply pb-10;
-    }
+/* Bottom-only wrapper */
+.button-section {
+    @apply pb-10 xl:pb-12;
+}
 
-    .coursera-section {
-        @apply pt-10 pb-6;
-    }
+/* Some section roots also carry the shared .container class, whose py-8 (32px)
+   was winning and breaking uniformity vs the scale above. Bump any *-section
+   element that also has .container to the same rhythm. Specificity (0,2,0)
+   beats the bare .container rule regardless of stylesheet load order. */
+[class*="-section"].container {
+    @apply py-10 xl:py-12;
 }

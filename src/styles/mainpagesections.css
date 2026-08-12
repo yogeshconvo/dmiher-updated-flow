@@ -3834,3 +3834,44 @@
 .iqac-year-td {
     @apply px-6 py-3 text-[#122E5E];
 }
+
+/* =====================================================================
+   SECTION SPACING SCALE (mirrors InstitutesSections.css)
+   Uniform vertical rhythm for content sections: py-10 from mobile up
+   through laptop, py-12 on large desktops (>=1280px). Replaces the
+   assorted py-12/14/15/16/20 values so section gaps stay consistent.
+   End-of-file so it wins source-order over the base rules above.
+   ===================================================================== */
+.announcements-section,
+.bulletin-section,
+.testimonial-section,
+.research-section,
+.reco-section,
+.edge-section,
+.research-op-section,
+.sdg-section,
+.funded-section,
+.infograph-section,
+.alliances-section,
+.enquiry-section,
+.functional-section,
+.committees-section,
+.core-values-section,
+.core-objectives-section,
+.joe-section,
+.thrust-areas-section,
+.exam-section,
+.recog-section,
+.ri-section,
+.gallery-section,
+.our-hospitals-section,
+.afc-section,
+.mri-section,
+.wfc-section,
+.diff-hospitals-section,
+.cert-gallery-section,
+.iqac-table-section,
+.fcards-section,
+.th-content {
+    @apply py-10 xl:py-12;
+}
