@@ -35,10 +35,24 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
   const [hoveredCourse, setHoveredCourse] = useState(null);
 
   const transformedData = React.useMemo(() => {
-    const sectionData = propData ? propData : sections?.[0]?.data || {};
+    const raw = propData ? propData : sections?.[0]?.data || {};
+
+    // The admin can wrap the section in a { header, section:[…] } envelope to add
+    // the highlights overview (like the live site). The API only unwraps a lone
+    // { section:[one] }; a header present blocks that unwrap, so handle it here
+    // — otherwise the whole page rendered empty.
+    const header = Array.isArray(raw?.section)
+      ? Array.isArray(raw.header)
+        ? raw.header[0]
+        : raw.header || null
+      : null;
+    const sectionData = Array.isArray(raw?.section)
+      ? raw.section[0] || {}
+      : raw;
 
     if (Array.isArray(sectionData?.departments)) {
       return {
+        header,
         title: sectionData.title || "Electives Offered",
         subtitle: sectionData.subtitle || "",
         departments: sectionData.departments,
@@ -84,6 +98,7 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
       }));
 
       return {
+        header,
         title,
         subtitle,
         departments,
@@ -102,6 +117,7 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
     const coursesNormal = coursesNormalRaw.flat();
 
     return {
+      header,
       title,
       subtitle,
       departments: [
@@ -248,7 +264,7 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
     );
   }
 
-  const { title, subtitle, departments = [], top_ui } = transformedData;
+  const { header, title, subtitle, departments = [], top_ui } = transformedData;
 
   const visibleDepartments =
     top_ui?.type === "dropdown"
@@ -266,6 +282,44 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
       </header>
 
       <div className="transcript-content">
+        {/* Highlights overview (admin "header") — mirrors the live-site
+            highlight grid: a gradient icon circle over the CMS rich-text card. */}
+        {Array.isArray(header?.categories) && header.categories.length > 0 && (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 max-w-7xl mx-auto px-4 mb-12">
+            {header.categories.map((cat, i) => {
+              const HighlightIcon = resolveIcon(cat.icon);
+              return (
+                <div
+                  key={i}
+                  className="bg-white rounded-3xl shadow-xl p-8 text-center border border-gray-100 transition-transform hover:scale-105"
+                >
+                  <div className="bg-gradient-to-r from-[#F04E30] to-[#122E5E] p-4 rounded-full shadow-lg mx-auto w-fit mb-6">
+                    <HighlightIcon className="h-8 w-8 text-white" />
+                  </div>
+                  {cat.content && (
+                    <div dangerouslySetInnerHTML={{ __html: cat.content }} />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {(header?.heading || header?.description) && (
+          <div className="text-center max-w-7xl mx-auto px-4 mb-10">
+            {header.heading && (
+              <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#F04E30] to-[#122E5E] bg-clip-text text-transparent mb-2">
+                {header.heading}
+              </h2>
+            )}
+            {header.description && (
+              <p className="text-gray-600 text-lg font-medium">
+                {header.description}
+              </p>
+            )}
+          </div>
+        )}
+
         <TopUI
           topUI={top_ui}
           departments={departments}
