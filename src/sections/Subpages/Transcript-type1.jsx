@@ -1,21 +1,6 @@
 import React, { useState, useMemo } from "react";
-import {
-  BookOpen,
-  Building2,
-  Star,
-  GraduationCap,
-  Award,
-  Globe,
-  Heart,
-  Brain,
-  Stethoscope,
-  Trophy,
-  FileText,
-  Target,
-  CheckCircle,
-  Users,
-  Calendar,
-} from "lucide-react";
+import { BookOpen, Building2, Star } from "lucide-react";
+import LucideIcons from "../../utils/lucideIcons";
 import TopUI from "../../components/TranscriptTopUI";
 import { useParams, useLocation } from "react-router-dom";
 import { useMicropageData } from "../../hooks/useMicropageData";
@@ -36,27 +21,16 @@ import { useMicropageData } from "../../hooks/useMicropageData";
  * a plain array, which is why multi-section is handled explicitly here.
  */
 
-const ICON_MAP = {
-  "graduation-cap": GraduationCap,
-  "book-open": BookOpen,
-  book: BookOpen,
-  award: Award,
-  star: Star,
-  globe: Globe,
-  heart: Heart,
-  brain: Brain,
-  stethoscope: Stethoscope,
-  trophy: Trophy,
-  "file-text": FileText,
-  file: FileText,
-  target: Target,
-  "check-circle": CheckCircle,
-  users: Users,
-  calendar: Calendar,
-  building: Building2,
-};
-
-const resolveIcon = (name) => ICON_MAP[name] || BookOpen;
+// Resolve a CMS kebab-case icon name (e.g. "notebook-pen") against the shared
+// 168-icon catalog the admin icon picker is generated from, so ANY icon a user
+// picks in the dashboard renders. Falls back to the supplied default.
+const toPascal = (s) =>
+  String(s || "")
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join("");
+const resolveIcon = (name, fallback = BookOpen) =>
+  LucideIcons[toPascal(name)] || fallback;
 
 /* ------------------------------------------------------------------ *
  *  Data normalisation
@@ -76,6 +50,8 @@ const mapCourse = (c, i, sec = {}) => ({
   university_label: c.university_label || sec.university_label,
   badge: c.badge ?? c.star,
   icon: c.icon,
+  powered_icon: c.powered_icon,
+  badge_icon: c.badge_icon,
 });
 
 const pick = (obj, ...keys) => {
@@ -235,6 +211,8 @@ function CourseGrid({ courses = [] }) {
         <div className="course-grid">
           {courses.map((course, i) => {
             const IconComponent = resolveIcon(course.icon);
+            const PoweredIcon = resolveIcon(course.powered_icon, Building2);
+            const BadgeIcon = resolveIcon(course.badge_icon, Star);
             return (
               <div key={course.srNo ?? i} className="course-card group">
                 {/* Header */}
@@ -247,7 +225,7 @@ function CourseGrid({ courses = [] }) {
                       <div>
                         {course.course_number && (
                           <div className="course-card-num">
-                            #{course.course_number}
+                            {course.course_number}
                           </div>
                         )}
                         {course.headerShowsSemester && course.semester ? (
@@ -263,13 +241,13 @@ function CourseGrid({ courses = [] }) {
                         )}
                       </div>
                     </div>
-                    {course.roman_number && (
+                    {/* {course.roman_number && (
                       <div className="course-card-roman">
                         <span className="course-card-roman-text">
                           {course.roman_number}
                         </span>
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </div>
 
@@ -285,7 +263,7 @@ function CourseGrid({ courses = [] }) {
                     <div className="course-card-univ-row">
                       <div className="course-card-univ-inner">
                         <div className="course-card-univ-icon-wrap">
-                          <Building2 className="course-card-univ-icon" />
+                          <PoweredIcon className="course-card-univ-icon" />
                         </div>
                         <div>
                           <p className="course-card-univ-label">
@@ -302,7 +280,7 @@ function CourseGrid({ courses = [] }) {
                   {course.badge && (
                     <div className="course-card-badge-row">
                       <div className="course-card-badge group-hover:from-[#F04E30]/10 group-hover:to-[#122E5E]/10">
-                        <Star className="course-card-badge-icon" />
+                        <BadgeIcon className="course-card-badge-icon" />
                         {course.badge}
                       </div>
                     </div>
