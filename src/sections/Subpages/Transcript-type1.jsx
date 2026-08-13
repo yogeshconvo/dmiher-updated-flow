@@ -49,9 +49,12 @@ const mapCourse = (c, i, sec = {}) => ({
   // "Certified by"). Course-level overrides the section-level default.
   university_label: c.university_label || sec.university_label,
   badge: c.badge ?? c.star,
+  // Star badge (body) text + icon — supports the elective-style `badge_text` /
+  // `star_label` fields as well as the transcript's `badge` / `badge_icon`.
+  badge_text: c.badge_text ?? c.badge ?? c.star,
   icon: c.icon,
   powered_icon: c.powered_icon,
-  badge_icon: c.badge_icon,
+  badge_icon: c.star_label ?? c.badge_icon,
 });
 
 const pick = (obj, ...keys) => {
@@ -277,11 +280,11 @@ function CourseGrid({ courses = [] }) {
                     </div>
                   )}
 
-                  {course.badge && (
+                  {course.badge_text && (
                     <div className="course-card-badge-row">
                       <div className="course-card-badge group-hover:from-[#F04E30]/10 group-hover:to-[#122E5E]/10">
                         <BadgeIcon className="course-card-badge-icon" />
-                        {course.badge}
+                        {course.badge_text}
                       </div>
                     </div>
                   )}

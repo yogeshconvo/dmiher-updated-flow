@@ -75,9 +75,13 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
       // (e.g. SPDC PG) say "Certified by". Falls back to "Powered by".
       university_label: c.university_label || sectionData.university_label,
       badge: c.badge,
+      // Star badge (body): electives store the text in a dedicated `badge_text`
+      // field and the icon in `star_label`; fall back to badge / star /
+      // badge_icon so transcripts and older data don't regress.
+      badge_text: c.badge_text ?? c.badge ?? c.star,
       icon: c.icon,
       powered_icon: c.powered_icon,
-      badge_icon: c.badge_icon,
+      badge_icon: c.star_label ?? c.badge_icon,
     });
 
     if (tabType === "categories") {
@@ -184,7 +188,7 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
                           <div>
                             {course.course_number && (
                               <div className="course-card-num">
-                                 #{course.course_number}
+                                 {course.course_number}
                               </div>
                             )}
                             {course.badge && (
@@ -220,7 +224,7 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
                             </div>
                             <div>
                               <p className="course-card-univ-label">
-                                {course.university_label || "Powered by"}
+                                {course.university_label}
                               </p>
                               <p className="course-card-univ-name">
                                 {course.university}
@@ -230,11 +234,11 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
                         </div>
                       )}
 
-                      {course.badge && (
+                      {course.badge_text && (
                         <div className="course-card-badge-row">
                           <div className="course-card-badge group-hover:from-[#F04E30]/10 group-hover:to-[#122E5E]/10">
                             <BadgeIcon className="course-card-badge-icon" />
-                            {course.badge}
+                            {course.badge_text}
                           </div>
                         </div>
                       )}
