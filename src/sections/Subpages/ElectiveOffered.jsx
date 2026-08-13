@@ -1,15 +1,33 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { BookOpen, Building2, Star, GraduationCap, Award } from "lucide-react";
+import {
+  BookOpen, Building2, Star, GraduationCap, Award,
+  Globe, Heart, Brain, Stethoscope, Trophy, FileText,
+  Target, CheckCircle, Users, Calendar,
+} from "lucide-react";
 import TopUI from "../../components/TranscriptTopUI";
 import { useParams, useLocation } from "react-router-dom";
 import { useMicropageData } from "../../hooks/useMicropageData";
 
+// Full icon vocabulary (mirrors Transcript-type1) so elective cards can use the
+// same live-site icons — e.g. stethoscope for RNPC — instead of falling back.
 const ICON_MAP = {
   "graduation-cap": GraduationCap,
   "book-open": BookOpen,
   "book": BookOpen,
   "award": Award,
   "star": Star,
+  "globe": Globe,
+  "heart": Heart,
+  "brain": Brain,
+  "stethoscope": Stethoscope,
+  "trophy": Trophy,
+  "file-text": FileText,
+  "file": FileText,
+  "target": Target,
+  "check-circle": CheckCircle,
+  "users": Users,
+  "calendar": Calendar,
+  "building": Building2,
 };
 
 const resolveIcon = (name) => ICON_MAP[name] || BookOpen;
