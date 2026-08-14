@@ -36,6 +36,7 @@ const Navbar = () => {
       navigate("/");
     }
     setMobileMenuOpen(false);
+    setActiveMega(null);
   };
 
   const { data: menuData } = useQuery({
@@ -62,6 +63,17 @@ const Navbar = () => {
       setActiveMega(null);
     }, 300);
     setCloseTimeout(timeout);
+  };
+
+  const handleMegaItemClick = (e, slug) => {
+    if (closeTimeout) {
+      clearTimeout(closeTimeout);
+      setCloseTimeout(null);
+    }
+    if (isSectionLink(slug)) {
+      handleSectionClick(e, slug);
+    }
+    setActiveMega(null);
   };
 
   return (
@@ -109,6 +121,7 @@ const Navbar = () => {
                             <Link
                               key={subItem.id}
                               to={subItem.slug}
+                              onClick={(e) => handleMegaItemClick(e, subItem.slug)}
                               className="block py-1 text-sm hover:text-[#F04E30]"
                             >
                               {subItem.title}
@@ -185,7 +198,10 @@ const Navbar = () => {
 
                   {isMega && activeMega === item.id && (
                     <div className="absolute left-0 top-full bg-white shadow-lg z-50 transition-all duration-200">
-                      <MegaMenu sections={item.children} />
+                      <MegaMenu
+                        sections={item.children}
+                        onItemClick={handleMegaItemClick}
+                      />
                     </div>
                   )}
                 </div>
