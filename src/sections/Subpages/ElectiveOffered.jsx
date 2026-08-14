@@ -164,7 +164,9 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
       return (
         <section className="courses-section">
           <div className="courses-wrapper">
-            <div className="course-grid">
+            {/* Electives render 3-up on desktop (live-site layout); the shared
+                .course-grid is 2-up which transcripts keep. */}
+            <div className="course-grid is-electives">
               {courses.map((course, i) => {
                 const IconComponent = resolveIcon(course.icon);
                 const PoweredIcon = resolveIcon(course.powered_icon, Building2);
@@ -223,9 +225,9 @@ function ElectivesOffered({ data: propData, college: propCollege }) {
                               <PoweredIcon className="course-card-univ-icon" />
                             </div>
                             <div>
-                              <p className="course-card-univ-label">
+                              {/* <p className="course-card-univ-label">
                                 {course.university_label}
-                              </p>
+                              </p> */}
                               <p className="course-card-univ-name">
                                 {course.university}
                               </p>

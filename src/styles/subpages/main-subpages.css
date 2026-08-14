@@ -1232,6 +1232,13 @@
     @apply grid grid-cols-1 md:grid-cols-2 gap-6;
 }
 
+/* Electives render 3-up on desktop to match the live site; transcripts keep the
+   2-up .course-grid. Compound selector so it outranks .course-grid's md:grid-cols-2
+   (which, being unlayered, would otherwise beat a plain lg:grid-cols-3 utility). */
+.course-grid.is-electives {
+    @apply lg:grid-cols-3;
+}
+
 .course-card {
     @apply bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 border border-gray-100 overflow-hidden;
 }
