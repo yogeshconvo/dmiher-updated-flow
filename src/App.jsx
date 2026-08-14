@@ -16,6 +16,7 @@ const SubPrograms = lazy(() => import("./sections/Subpages/Programs"));
 const HeadPrograms = lazy(() => import("./sections/Subpages/HeadPrograms"));
 const DepartmentsSubpage = lazy(() => import("./sections/Subpages/Departments"));
 const MandatoryDisclosurePage = lazy(() => import("./Pages/MandatoryDisclosurePage"));
+const NoticeViewAll = lazy(() => import("./Pages/NoticeViewAll"));
 
 function App() {
   // Apply the dashboard-managed favicon once it's fetched.
@@ -30,6 +31,13 @@ function App() {
       <Routes>
         {/* =================== STATIC =================== */}
         <Route path="/" element={<PageView />} />
+
+        {/* VIEW ALL pages for the home BULLETIN / ANNOUNCEMENTS sections */}
+        <Route path="/bulletin" element={<NoticeViewAll type="bulletins" />} />
+        <Route
+          path="/announcements"
+          element={<NoticeViewAll type="announcements" />}
+        />
 
         {/* =================== PROGRAMS =================== */}
         <Route

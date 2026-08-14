@@ -184,7 +184,26 @@
 }
 
 .announcement-categories {
-    @apply flex justify-center gap-3 mt-6;
+    @apply flex justify-center gap-3 flex-1 flex-wrap;
+}
+
+/* Tab bar row shared by the home BULLETIN + ANNOUNCEMENTS sections: tabs
+   centered, slider arrows + VIEW ALL grouped on the right (mirrors live). */
+.notice-tabbar {
+    @apply flex flex-col sm:flex-row sm:items-center gap-4 mt-6;
+}
+
+.notice-controls {
+    @apply flex items-center justify-center gap-3 shrink-0;
+}
+
+.notice-arrow-btn {
+    @apply rounded-full border border-gray-400 p-2 text-gray-500 transition-colors;
+    @apply hover:bg-gray-100 disabled:opacity-40 disabled:cursor-not-allowed;
+}
+
+.view-all-link {
+    @apply text-[#F04E30] font-semibold text-sm hover:underline whitespace-nowrap;
 }
 
 .announcement-grid {
@@ -214,7 +233,7 @@
 }
 
 .bulletin-tabs {
-    @apply flex justify-center gap-3 mt-6;
+    @apply flex justify-center gap-3 flex-1 flex-wrap;
 }
 
 .tab-btn {
