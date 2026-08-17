@@ -181,7 +181,11 @@
 }
 
 .management-team-image {
-    @apply w-full h-60 object-cover object-top mb-4;
+    /* object-center (was object-top): some official photos have the subject
+       standing below a DMIHER sign, so a top-anchored crop cut off the face.
+       Centring the crop keeps faces in frame for both wide shots and tight
+       headshots. Taller box (h-72) shows a bit more of each portrait. */
+    @apply w-full h-72 object-cover object-center mb-4;
 }
 
 .management-team-name {
