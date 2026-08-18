@@ -39,6 +39,7 @@ const SAHSAdmissions = lazy(() => import("./SAHSAdmissions"))
 const CourseraCertifications = lazy(() => import("./CourseraCertifications"))
 const PdfLinkList = lazy(() => import("./PdfLinkList"))
 const SdgTilesGrid = lazy(() => import("./SdgTilesGrid"))
+const TabBaseImageContent = lazy(() => import("./TabBaseImageContent"))
 
 // mandatoryDisclosureConfig is plain route/section-id constants consumed
 // synchronously here (computed key) and by App.jsx — imported from the
@@ -108,5 +109,8 @@ export const SECTION_COMPONENTS = {
 
     // Mandatory Disclosure subpage — driven dynamically from API (no hardcoding)
     [mandatoryDisclosureConfig.sectionId]: MandatoryDisclosureSection,
+
+    // Tab-based section with image + paragraph content per tab (SAS faculties, etc.)
+    tab_base_image_content: TabBaseImageContent,
 
 };
