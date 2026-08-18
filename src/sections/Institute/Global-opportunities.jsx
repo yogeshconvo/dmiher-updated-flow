@@ -1,5 +1,7 @@
+import { useRef, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Link, useParams } from "react-router-dom";
@@ -23,6 +25,23 @@ export default function GlobalOpportunities({
   institute,
 }) {
   const params = useParams();
+
+  // logo_slider: custom circular chevron arrows at the image edges (matches
+  // the live SRMMCON section). Bind the buttons to Swiper's navigation after
+  // mount so the refs are attached first.
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
+  const swiperRef = useRef(null);
+  useEffect(() => {
+    const s = swiperRef.current;
+    if (s && s.params && s.params.navigation) {
+      s.params.navigation.prevEl = prevRef.current;
+      s.params.navigation.nextEl = nextRef.current;
+      s.navigation.destroy();
+      s.navigation.init();
+      s.navigation.update();
+    }
+  }, []);
 
   const header = data?.header || {};
   const layout = data?.layout || {};
@@ -86,67 +105,108 @@ export default function GlobalOpportunities({
     >
       <div className="container font-[Arial]">
 
-        {/* ================= HEADER ================= */}
-        <div className="global-header">
-          {heading && (
-            <h2 className="heading">
-              <hr className="heading-line" />
-              {heading}
-            </h2>
-          )}
-          {description && <RichTextRenderer html={description} />}
+        {/* ================= HEADER =================
+            Skipped for logo_slider — that layout puts the heading/description
+            in the left column beside the carousel (mirrors the live site), so
+            the header must not also render full-width above it. */}
+        {!isLogoSlider && (
+          <div className="global-header">
+            {heading && (
+              <h2 className="heading">
+                <hr className="heading-line" />
+                {heading}
+              </h2>
+            )}
+            {description && <RichTextRenderer html={description} />}
 
-          {/* CTA button(s) — navigates to the micro page /{slug}/{cta_key} */}
-          {ctaList.length > 0 && (
-            <div className="mt-6 flex flex-wrap gap-4">
-              {ctaList.map((cta, i) =>
-                cta?.label ? (
-                  <Link
-                    key={i}
-                    to={`/${base}/${cta.cta_key}`}
-                    className="inline-block bg-[#F04E30] hover:bg-[#122E5E] text-white font-semibold text-base px-6 py-3 rounded-md transition-colors"
-                  >
-                    {cta.label}
-                  </Link>
-                ) : null
-              )}
-            </div>
-          )}
-        </div>
+            {/* CTA button(s) — navigates to the micro page /{slug}/{cta_key} */}
+            {ctaList.length > 0 && (
+              <div className="mt-6 flex flex-wrap gap-4">
+                {ctaList.map((cta, i) =>
+                  cta?.label ? (
+                    <Link
+                      key={i}
+                      to={`/${base}/${cta.cta_key}`}
+                      className="inline-block bg-[#F04E30] hover:bg-[#122E5E] text-white font-semibold text-base px-6 py-3 rounded-md transition-colors"
+                    >
+                      {cta.label}
+                    </Link>
+                  ) : null
+                )}
+              </div>
+            )}
+          </div>
+        )}
 
-        {/* ================= LOGO SLIDER (logo left + carousel right) ===== */}
+        {/* ================= LOGO SLIDER =================
+            Mirrors the live SRMMCON layout: left column holds the heading +
+            description + partner logo (top-aligned, not floating-centred); the
+            right column is the wider image carousel (flex-2, capped at 600px)
+            with custom circular chevron arrows at the image edges. */}
         {isLogoSlider ? (
-          <div className="flex flex-col md:flex-row items-center gap-8 mt-8">
-            <div className="w-full md:w-1/2 flex items-center justify-start">
+          <div className="flex flex-wrap gap-12">
+            {/* Left: heading + description + partner logo */}
+            <div className="flex-1 min-w-[315px]">
+              {heading && (
+                <h2 className="heading">
+                  <hr className="heading-line" />
+                  {heading}
+                </h2>
+              )}
+              {description && <RichTextRenderer html={description} />}
               {sliderLogo && (
-                <SafeImage
-                  src={sliderLogo}
-                  alt="partner logo"
-                  className="max-h-24 w-auto object-contain"
-                />
+                <div className="mt-6">
+                  <SafeImage
+                    src={sliderLogo}
+                    alt="partner logo"
+                    className="max-h-24 w-auto object-contain"
+                  />
+                </div>
               )}
             </div>
 
-            <div className="w-full md:w-1/2">
+            {/* Right: image carousel with custom edge arrows (live source) */}
+            <div className="flex-[2] min-w-[315px] max-w-[600px] relative">
               {sliderImages.length > 0 && (
-                <Swiper
-                  modules={[Navigation]}
-                  navigation
-                  loop={sliderImages.length > 1}
-                  spaceBetween={20}
-                  slidesPerView={1}
-                  className="global-logo-slider rounded-md overflow-hidden"
-                >
-                  {sliderImages.map((src, i) => (
-                    <SwiperSlide key={i}>
-                      <SafeImage
-                        src={src}
-                        alt={`slide ${i + 1}`}
-                        className="w-full h-auto object-cover"
-                      />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
+                <>
+                  <Swiper
+                    modules={[Navigation]}
+                    onSwiper={(s) => (swiperRef.current = s)}
+                    navigation={{
+                      prevEl: prevRef.current,
+                      nextEl: nextRef.current,
+                    }}
+                    loop={sliderImages.length > 1}
+                    spaceBetween={20}
+                    slidesPerView={1}
+                    className="global-logo-slider rounded-md overflow-hidden"
+                  >
+                    {sliderImages.map((src, i) => (
+                      <SwiperSlide key={i}>
+                        <SafeImage
+                          src={src}
+                          alt={`slide ${i + 1}`}
+                          className="w-full h-auto object-cover rounded-md"
+                        />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+
+                  <button
+                    ref={prevRef}
+                    aria-label="Previous"
+                    className="absolute top-1/2 -left-4 z-10 -translate-y-1/2 bg-white border border-gray-300 rounded-full p-1 shadow hover:bg-gray-100"
+                  >
+                    <ChevronLeft size={18} />
+                  </button>
+                  <button
+                    ref={nextRef}
+                    aria-label="Next"
+                    className="absolute top-1/2 -right-4 z-10 -translate-y-1/2 bg-white border border-gray-300 rounded-full p-1 shadow hover:bg-gray-100"
+                  >
+                    <ChevronRight size={18} />
+                  </button>
+                </>
               )}
             </div>
           </div>
