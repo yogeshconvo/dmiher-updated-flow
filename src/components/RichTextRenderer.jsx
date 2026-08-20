@@ -19,7 +19,7 @@ export default function RichTextRenderer({
   if (!html) return null;
 
   const purify = createDOMPurify();
-  const clean = purify.sanitize(html);
+  const clean = purify.sanitize(html, { ADD_ATTR: ["style"] });
   const content = parse(clean);
 
   return (

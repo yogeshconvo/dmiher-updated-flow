@@ -65,6 +65,49 @@ export default function Placements({ data }) {
     ? intlNational.national_placements
     : [];
 
+  const renderLogos = (blockLogos) => (
+    <div className="container placements-logos-wrapper">
+      {recruitersLabel && (
+        <p className="placements-logos-label">{recruitersLabel}</p>
+      )}
+      <Swiper
+        modules={[Autoplay, Pagination]}
+        loop={true}
+        autoplay={{ delay: 2000, disableOnInteraction: false, pauseOnMouseEnter: false }}
+        pagination={{ clickable: true }}
+        breakpoints={{
+          320:  { slidesPerView: 2, slidesPerGroup: 2 },
+          640:  { slidesPerView: 3, slidesPerGroup: 2 },
+          1024: { slidesPerView: 5, slidesPerGroup: 2 },
+          1280: { slidesPerView: 6, slidesPerGroup: 2 },
+        }}
+        spaceBetween={20}
+      >
+        {blockLogos.map((logo, idx) => (
+          <SwiperSlide key={idx}>
+            <div className="placements-logo-slide">
+              <SafeImage
+                src={resolveImage(logo.image || logo.src)}
+                alt={logo.alt || `Recruiter ${idx + 1}`}
+                className="placements-logo-img"
+              />
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+
+  const renderHighlights = (blockHighlights) => (
+    <div className="placements-grid">
+      {blockHighlights.map((item, index) => (
+        <div key={index} className="placements-item">
+          <RichTextRenderer html={item.description} />
+        </div>
+      ))}
+    </div>
+  );
+
   return (
     <section
       className="placements-section"
@@ -80,50 +123,22 @@ export default function Placements({ data }) {
         )}
       </div>
 
-      {/* Highlights grid */}
-      {highlights.length > 0 && (
-        <div className="placements-grid">
-          {highlights.map((item, index) => (
-            <div key={index} className="placements-item">
-              <RichTextRenderer html={item.description} />
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Recruiter logo carousel */}
-      {logos.length > 0 && (
-        <div className="container placements-logos-wrapper">
-          {recruitersLabel && (
-            <p className="placements-logos-label">{recruitersLabel}</p>
-          )}
-          <Swiper
-            modules={[Autoplay, Pagination]}
-            loop={true}
-            autoplay={{ delay: 2000, disableOnInteraction: false, pauseOnMouseEnter: false }}
-            pagination={{ clickable: true }}
-            breakpoints={{
-              320:  { slidesPerView: 2, slidesPerGroup: 2 },
-              640:  { slidesPerView: 3, slidesPerGroup: 2 },
-              1024: { slidesPerView: 5, slidesPerGroup: 2 },
-              1280: { slidesPerView: 6, slidesPerGroup: 2 },
-            }}
-            spaceBetween={20}
-          >
-            {logos.map((logo, idx) => (
-              <SwiperSlide key={idx}>
-                <div className="placements-logo-slide">
-                  <SafeImage
-                    src={resolveImage(logo.image || logo.src)}
-                    alt={logo.alt || `Recruiter ${idx + 1}`}
-                    className="placements-logo-img"
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      )}
+      {optionalContent.length > 0
+        ? optionalContent.map((block, i) => {
+            if (block?._section_enabled === false) return null;
+            if (block?.tab_type === "logos" && block.logos?.length > 0)
+              return <React.Fragment key={i}>{renderLogos(block.logos)}</React.Fragment>;
+            if (block?.highlights?.length > 0)
+              return <React.Fragment key={i}>{renderHighlights(block.highlights)}</React.Fragment>;
+            return null;
+          })
+        : (
+          <>
+            {highlights.length > 0 && renderHighlights(highlights)}
+            {logos.length > 0 && renderLogos(logos)}
+          </>
+        )
+      }
 
       {/* International & National placements (SAHS) */}
       {(internationalPlacements.length > 0 || nationalPlacements.length > 0) && (

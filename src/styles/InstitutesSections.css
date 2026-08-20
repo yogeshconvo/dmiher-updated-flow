@@ -1055,17 +1055,6 @@
     @apply flex flex-col items-center justify-start text-center px-4 border-r border-gray-300;
 }
 
-/* Force-center ALL descendants, including content injected via RichTextRenderer
-   (which adds an extra `.prose` wrapper) and inline HTML classes like `text-left`. */
-.collab-stat,
-.collab-stat *,
-.collab-stat .prose,
-.collab-stat .prose *,
-.collab-stat-desc,
-.collab-stat-desc * {
-    text-align: center !important;
-}
-
 .collab-stat:last-child {
     border-right: 0;
 }
