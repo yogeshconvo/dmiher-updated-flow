@@ -5,6 +5,7 @@ const REFRESH_INTERVAL_MS = 50 * 1000;
 
 const tokenClient = axios.create({
   baseURL: API_BASE,
+  timeout: 10_000,
   headers: { Accept: "application/json" },
 });
 

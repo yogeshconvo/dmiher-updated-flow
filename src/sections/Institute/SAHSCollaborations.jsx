@@ -209,7 +209,7 @@ export default function SAHSCollaborations({ data }) {
 
             <div className="flex flex-col lg:flex-row gap-10 items-start">
               <div className="lg:w-3/5 w-full flex justify-center">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-2 gap-6">
                   {features.map((f, i) => (
                     <FeatureCard
                       key={i}
@@ -221,11 +221,11 @@ export default function SAHSCollaborations({ data }) {
                 </div>
               </div>
 
-              <div className="lg:w-2/5 w-full">
-                <h4 className="font-bold text-[#707070] text-lg mb-2">
+              <div className="lg:w-2/2 w-full">
+                {/* <h4 className="font-bold text-[#707070] text-lg mb-2">
                   {max.partner_label ||
                     "Skills and Knowledge Partner: Max Healthcare Education"}
-                </h4>
+                </h4> */}
                 {max.description && (
                   <p
                     className="text-[#707070] text-sm mb-4"

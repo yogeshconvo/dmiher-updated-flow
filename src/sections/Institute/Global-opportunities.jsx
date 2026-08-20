@@ -44,7 +44,10 @@ export default function GlobalOpportunities({
   }, []);
 
   const header = data?.header || {};
-  const layout = data?.layout || {};
+  const layoutRaw = data?.layout;
+  const layout = Array.isArray(layoutRaw)
+    ? layoutRaw.find((l) => l._section_enabled !== false) || layoutRaw[0] || {}
+    : layoutRaw || {};
   const { heading, description } = header;
 
   const layoutType = layout.layout_type || "page";
