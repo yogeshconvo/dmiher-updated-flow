@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { resolveImage } from "../../../../utils/resolveImage";
 import { pickIndexedBlock } from "./helpers";
 import SafeImage from "../../../../components/SafeImage";
@@ -17,29 +18,26 @@ function DifferenceHospitals({ campus }) {
     .map((i) => resolveImage(i?.image))
     .filter(Boolean);
 
+  // Custom circular chevron arrows (same style as the SRMMCON Global
+  // Opportunity slider). Bind the buttons to Swiper navigation after mount.
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
+  const swiperRef = useRef(null);
+  useEffect(() => {
+    const s = swiperRef.current;
+    if (s && s.params && s.params.navigation) {
+      s.params.navigation.prevEl = prevRef.current;
+      s.params.navigation.nextEl = nextRef.current;
+      s.navigation.destroy();
+      s.navigation.init();
+      s.navigation.update();
+    }
+  }, [images.length]);
+
   if (!title && !subTitle && !points.length && !images.length) return null;
 
   return (
     <div className="diff-hospitals-section">
-      <style>
-        {`
-          .difference-swiper .swiper-button-next,
-          .difference-swiper .swiper-button-prev {
-            width: 35px;
-            height: 35px;
-            margin-top:10px;
-            background-color: rgba(0, 0, 0, 0.3);
-            border-radius: 50%;
-          }
-
-          .difference-swiper .swiper-button-next::after,
-          .difference-swiper .swiper-button-prev::after {
-            font-size: 15px;
-            color: white;
-          }
-        `}
-      </style>
-
       {/* Left side content */}
       <div className="diff-hospitals-left">
         {title && (
@@ -74,24 +72,45 @@ function DifferenceHospitals({ campus }) {
       {/* Right side Swiper */}
       {images.length > 0 && (
         <div className="diff-hospitals-right">
-          <Swiper
-            modules={[Navigation]}
-            navigation
-            spaceBetween={24}
-            loop={images.length > 1}
-            className="difference-swiper"
-            style={{ paddingBottom: "3rem" }}
-          >
-            {images.map((src, idx) => (
-              <SwiperSlide key={idx}>
-                <SafeImage
-                  src={src}
-                  alt=""
-                  className="diff-hospitals-img"
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          <div className="relative">
+            <Swiper
+              modules={[Navigation]}
+              onSwiper={(s) => (swiperRef.current = s)}
+              navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
+              spaceBetween={24}
+              loop={images.length > 1}
+              className="difference-swiper"
+            >
+              {images.map((src, idx) => (
+                <SwiperSlide key={idx}>
+                  <SafeImage
+                    src={src}
+                    alt=""
+                    className="diff-hospitals-img"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            {images.length > 1 && (
+              <>
+                <button
+                  ref={prevRef}
+                  aria-label="Previous"
+                  className="absolute top-1/2 left-2 z-10 -translate-y-1/2 bg-white border border-gray-300 rounded-full p-1 shadow hover:bg-gray-100"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <button
+                  ref={nextRef}
+                  aria-label="Next"
+                  className="absolute top-1/2 right-2 z-10 -translate-y-1/2 bg-white border border-gray-300 rounded-full p-1 shadow hover:bg-gray-100"
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </>
+            )}
+          </div>
         </div>
       )}
     </div>
