@@ -69,6 +69,14 @@ const MegaMenu = ({ sections, onItemClick }) => {
     return target && target !== "/" && (cur === target || cur.startsWith(target + "/"));
   };
 
+  // Default the preview to the active institute (the page you're currently on)
+  // so its image + description show without hovering. Hovering any link still
+  // overrides it via hoveredItem.
+  const activeInstitute = (sections || [])
+    .flatMap((s) => s.items || [])
+    .find((it) => isActive(it.slug));
+  const preview = hoveredItem || activeInstitute;
+
   return (
     <div className="absolute top-[65%] left-1/2 -translate-x-1/2 mt-3 grid grid-cols-3 xl:grid-cols-3 gap-4 bg-white text-[#1f3c88] shadow-lg p-6 z-[9999] w-[850px] xl:w-[1100px] justify-between transition-all duration-300 ease-in-out">
       {/* Left Section */}
@@ -103,20 +111,20 @@ const MegaMenu = ({ sections, onItemClick }) => {
 
       {/* Right Preview Section */}
       <div className="transition-all duration-300 ease-in-out">
-        {hoveredItem ? (
+        {preview ? (
           <>
             <img
-              src={hoveredItem.image}
-              alt={hoveredItem.title}
+              src={preview.image}
+              alt={preview.title}
               className="w-full max-w-[400px] transition-opacity duration-300"
             />
 
             <h5 className="text-[#ff4f37] my-2 text-sm font-bold transition-all duration-300">
-              {hoveredItem.title}
+              {preview.title}
             </h5>
 
             <p className="text-[#58595B] text-base transition-all duration-300">
-              {hoveredItem.description}
+              {preview.description}
             </p>
 
             <div className="mt-2 text-xs text-gray-500 italic">
