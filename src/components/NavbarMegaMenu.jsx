@@ -53,10 +53,21 @@
 
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const MegaMenu = ({ sections, onItemClick }) => {
   const [hoveredItem, setHoveredItem] = useState(null);
+  const { pathname } = useLocation();
+
+  // The institute whose page is currently open stays highlighted in red
+  // (the same colour the links get on hover), so the active institute is
+  // always marked in the mega menu. Match the exact slug or any sub-route.
+  const norm = (s) => (s || "").replace(/\/+$/, "").toLowerCase();
+  const isActive = (slug) => {
+    const cur = norm(pathname);
+    const target = norm(slug);
+    return target && target !== "/" && (cur === target || cur.startsWith(target + "/"));
+  };
 
   return (
     <div className="absolute top-[65%] left-1/2 -translate-x-1/2 mt-3 grid grid-cols-3 xl:grid-cols-3 gap-4 bg-white text-[#1f3c88] shadow-lg p-6 z-[9999] w-[850px] xl:w-[1100px] justify-between transition-all duration-300 ease-in-out">
@@ -75,7 +86,11 @@ const MegaMenu = ({ sections, onItemClick }) => {
                     to={item.slug || "/"}
                     onMouseEnter={() => setHoveredItem(item)}
                     onClick={(e) => onItemClick && onItemClick(e, item.slug)}
-                    className="text-sm font-semibold text-[#58595B] hover:text-[#ff4f37] block transition-colors duration-200"
+                    className={`text-sm font-semibold block transition-colors duration-200 ${
+                      isActive(item.slug)
+                        ? "text-[#ff4f37]"
+                        : "text-[#58595B] hover:text-[#ff4f37]"
+                    }`}
                   >
                     {item.title}
                   </Link>
