@@ -594,7 +594,10 @@
 }
 
 .infograph-image img {
-    @apply w-[500px] h-[500px] object-cover;
+    /* Responsive: full width up to 500px so the wheel diagram never overflows /
+       crops on mobile (was a fixed 500x500 that spilled past small viewports).
+       h-auto + object-contain keeps the whole diagram visible. */
+    @apply w-full max-w-[500px] h-auto object-contain mx-auto;
 }
 
 .infograph-content {

@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -24,6 +25,8 @@ const TheEdge = ({ data }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slidesPerView, setSlidesPerView] = useState(4);
   const swiperRef = useRef(null);
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
 
   useEffect(() => {
     const update = () => {
@@ -35,6 +38,19 @@ const TheEdge = ({ data }) => {
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
+
+  // Bind the custom circular arrows (same style as the SRMMCON Global
+  // Opportunity slider) to Swiper navigation after mount, so the refs exist.
+  useEffect(() => {
+    const s = swiperRef.current;
+    if (s && s.params && s.params.navigation) {
+      s.params.navigation.prevEl = prevRef.current;
+      s.params.navigation.nextEl = nextRef.current;
+      s.navigation.destroy();
+      s.navigation.init();
+      s.navigation.update();
+    }
+  }, [slidesPerView]);
 
   return (
     <section className="edge-section container">
@@ -50,13 +66,14 @@ const TheEdge = ({ data }) => {
       </div>
 
       {/* Slider */}
+      <div className="relative">
       <Swiper
-        ref={swiperRef}
+        onSwiper={(s) => (swiperRef.current = s)}
         modules={[Navigation, Autoplay]}
         slidesPerView={slidesPerView}
         spaceBetween={16}
         loop
-        navigation
+        navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         onSlideChange={(s) => setCurrentSlide(s.realIndex)}
         className="custom-swiper-nav"
@@ -85,6 +102,22 @@ const TheEdge = ({ data }) => {
           </SwiperSlide>
         ))}
       </Swiper>
+
+        <button
+          ref={prevRef}
+          aria-label="Previous"
+          className="absolute top-1/2 left-2 z-10 -translate-y-1/2 bg-white border border-gray-300 rounded-full p-1 shadow hover:bg-gray-100"
+        >
+          <ChevronLeft size={18} />
+        </button>
+        <button
+          ref={nextRef}
+          aria-label="Next"
+          className="absolute top-1/2 right-2 z-10 -translate-y-1/2 bg-white border border-gray-300 rounded-full p-1 shadow hover:bg-gray-100"
+        >
+          <ChevronRight size={18} />
+        </button>
+      </div>
 
       {/* Dots */}
       <div className="edge-dots">

@@ -119,7 +119,7 @@ const MegaMenu = ({ sections, onItemClick }) => {
               className="w-full max-w-[400px] transition-opacity duration-300"
             />
 
-            <h5 className="text-[#ff4f37] my-2 text-sm font-bold transition-all duration-300">
+            <h5 className="text-[#ff4f37] my-2 text-sm font-bold uppercase transition-all duration-300">
               {preview.title}
             </h5>
 

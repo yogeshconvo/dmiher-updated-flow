@@ -14,7 +14,7 @@ const SDGResearchContributions = ({ data }) => {
     <section className="sdg-section">
       <div className="container">
         {/* LEFT */}
-        <div className="flex ">
+        <div className="flex flex-col md:flex-row gap-6 md:items-center">
           <div className="sdg-left">
             {heading && (
               <h2 className="heading">

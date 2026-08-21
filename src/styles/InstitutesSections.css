@@ -362,6 +362,14 @@
     @apply text-3xl md:text-[42px] text-[#E1CD67] font-medium uppercase leading-snug whitespace-pre-line;
 }
 
+/* Hero banner heading font — match the live-site hero <h1> which uses Oswald
+   (font-oswald-medium). The heading is injected via RichTextRenderer, which
+   otherwise inherits the default sans-serif and looked wrong (esp. on mobile). */
+.hero-content .prose,
+.hero-content .prose :is(h1, h2, h3, h4, h5, h6, p, span, strong, b, div) {
+    font-family: "Oswald", sans-serif;
+}
+
 /* ================= INFO SECTION ================= */
 .info-wrapper {
     @apply py-10;
