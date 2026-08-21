@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import SafeImage from "../SafeImage";
+import { createPortal } from "react-dom";
 
 export const CardMandatoryDisclosure = ({
   icon,
@@ -159,8 +160,9 @@ export function PopupModal({ show, onClose, title, children }) {
   }, [show, onClose]);
 
   if (!show) return null;
+  if (typeof document === "undefined") return null;
 
-  return (
+  return createPortal(
     <div
       className="popup-overlay"
       role="dialog"
@@ -187,6 +189,7 @@ export function PopupModal({ show, onClose, title, children }) {
 
         <div>{children}</div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

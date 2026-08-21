@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { FileText } from "lucide-react";
 import { Link } from "react-router";
 import { getNonce } from "../../../context/NonceContext";
@@ -131,7 +132,8 @@ const EnquiryGlobal = ({ data, pageSlug }) => {
         </div>
       </div>
 
-      {modal && (
+      {modal && typeof document !== "undefined" &&
+        createPortal(
         <div className="enquiry-modal-overlay" onClick={() => setModal(null)}>
           <div className="enquiry-modal" onClick={(e) => e.stopPropagation()}>
             <button
@@ -150,7 +152,8 @@ const EnquiryGlobal = ({ data, pageSlug }) => {
               height={modal.data_height ? `${modal.data_height}px` : "360px"}
             />
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );

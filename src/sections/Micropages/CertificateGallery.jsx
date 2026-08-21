@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, useParams, useLocation } from "react-router-dom";
 import { FaEye, FaTimes } from "react-icons/fa";
 import SafeImage from "../../components/SafeImage";
@@ -128,7 +129,9 @@ const CertCard = ({ cert, base, onPreview }) => {
   );
 };
 
-const CertModal = ({ cert, base, onClose }) => (
+const CertModal = ({ cert, base, onClose }) => {
+  if (typeof document === "undefined") return null;
+  return createPortal(
   <div
     className="fixed inset-0 mt-0 md:mt-25 bg-black/50 flex items-center justify-center p-4 z-50"
     onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
@@ -173,8 +176,10 @@ const CertModal = ({ cert, base, onClose }) => (
         </div>
       </div>
     </div>
-  </div>
+  </div>,
+  document.body
 );
+};
 
 const CertificateGallery = ({ data, college }) => {
   const params = useParams();

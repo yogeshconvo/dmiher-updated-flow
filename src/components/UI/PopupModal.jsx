@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 // import "../../styles/popup-modal.css";
 // import "../../styles/popup-modal-responsive.css";
 
@@ -23,8 +24,9 @@ export default function PopupModal({ show, onClose, title, children }) {
   }, [show, onClose]);
 
   if (!show) return null;
+  if (typeof document === "undefined") return null;
 
-  return (
+  return createPortal(
     <div
       className="popup-overlay"
       role="dialog"
@@ -49,6 +51,7 @@ export default function PopupModal({ show, onClose, title, children }) {
 
         <div className="popup-content">{children}</div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
@@ -85,7 +86,8 @@ const ActivitiesAndAnnouncements = ({ data }) => {
         </Swiper>
 
         {/* News Modal */}
-        {isNewsModalOpen && (
+        {isNewsModalOpen && typeof document !== "undefined" &&
+          createPortal(
           <div
             className="alumni-activities-modal-overlay"
             onClick={() => setIsNewsModalOpen(false)}
@@ -112,11 +114,13 @@ const ActivitiesAndAnnouncements = ({ data }) => {
                 </div>
               ))}
             </div>
-          </div>
+          </div>,
+          document.body
         )}
 
         {/* Events Modal */}
-        {isEventsModalOpen && (
+        {isEventsModalOpen && typeof document !== "undefined" &&
+          createPortal(
           <div
             className="alumni-activities-modal-overlay"
             onClick={() => setIsEventsModalOpen(false)}
@@ -143,7 +147,8 @@ const ActivitiesAndAnnouncements = ({ data }) => {
                 </div>
               ))}
             </div>
-          </div>
+          </div>,
+          document.body
         )}
 
       </div>

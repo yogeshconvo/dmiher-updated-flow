@@ -83,6 +83,7 @@
 //   );
 // }
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { FileText } from "lucide-react";
 
 // Columns-per-row coming from the backend (layout.columns), mirrors the
@@ -209,7 +210,9 @@ const Popup = ({ name, docs = [], onClose }) => {
 
   const multi = docs.length > 1;
 
-  return (
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
     <div className="fixed inset-0 backdrop-blur-2xl bg-opacity-50 flex items-center justify-center z-50 px-4">
       <div
         ref={popupRef}
@@ -249,6 +252,7 @@ const Popup = ({ name, docs = [], onClose }) => {
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };

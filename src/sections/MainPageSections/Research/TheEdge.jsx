@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 
@@ -101,7 +102,8 @@ const TheEdge = ({ data }) => {
       </div>
 
       {/* Modal */}
-      {selectedCard && (
+      {selectedCard && typeof document !== "undefined" &&
+        createPortal(
         <div
           className="edge-modal"
           onClick={() => setSelectedCard(null)}
@@ -132,7 +134,8 @@ const TheEdge = ({ data }) => {
               </p>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );

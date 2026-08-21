@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import * as LucideIcons from "lucide-react";
+import { createPortal } from "react-dom";
 import { mandatoryDisclosureConfig } from "../../instituteSections/mandatoryDisclosure";
 
 function toPascalCase(str) {
@@ -17,7 +18,8 @@ function BoxIcon({ name, size = 20 }) {
 }
 
 function PdfPopup({ item, onClose }) {
-  return (
+  if (typeof document === "undefined") return null;
+  return createPortal(
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
       onClick={onClose}
@@ -50,7 +52,8 @@ function PdfPopup({ item, onClose }) {
           ))}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
